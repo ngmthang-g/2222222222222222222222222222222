@@ -74,3 +74,8 @@ On CONTINUE:
 5. Record visible sections, controls, default states, coordinate table/list, account list and bottom all-account controls.
 6. Persist B05 evidence/report to GitHub and update `docs/UI_BASELINE_TLM.md`.
 7. Advance to B06 only after B05 is verified.
+
+## WORKFLOW_CORRECTION
+- Before measuring each remaining Gate B tab, first inspect the corresponding compiled module/static UI evidence from the original TLM binary, then use screenshots to lock pixel geometry/state. Screenshots are for visual parity; the binary is authoritative for recoverable labels, defaults, hidden controls and UI structure.
+- Do not ask for a screenshot merely to learn text/structure that is already recoverable from the original binary.
+- Newly supplied `i`-tab screenshot is staged for B12: `TLMTool_f8iidp8FS8.png`, SHA-256 `e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc`.
