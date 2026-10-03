@@ -472,8 +472,90 @@ Static later-behavior targets are preserved:
 Behavior remains deferred.
 
 
-## B09 — Đồn
-TODO
+## B09 — Đồn — VERIFIED
+
+Binary-first evidence:
+- compiled `donvang_tab.py` and related `don_logic.py`
+- inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`
+
+Primary capture:
+- `TLMTool_m7F9EFdzp5(2).png`
+- SHA-256 `dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a`
+- `452 × 1032`; copy (1) is byte-identical
+
+### Selected tab
+At `y=56`, Đồn selected bridge = `x=278..309`.
+
+### Cấu hình Về thành
+- group: `x=11..438, y=69..178`
+- `Theo chu kỳ (phút)` selected; value **30**
+- `Khi đầy túi` unselected
+- priority values: `Phù 1 | Phù 2 | Phù 3 | Ngựa`
+
+### Cấu hình Train
+- group: `x=11..438, y=192..326`
+- Quay lại train khi chết: unchecked
+- Dừng khi mất kết nối mạng: unchecked
+- Tự gỡ kẹt: checked
+- Nhặt đồ không dùng hồ lô: unchecked
+- Lọc đồ: **Tất cả** selected, `Chỉ vũ khí` unselected
+- Trị liệu sau khi chết: unchecked
+- treatment coordinate: `Trị liệu Tô Châu`
+
+The screenshot clips the dynamic unstuck label at the right edge; no hidden suffix is invented.
+
+### Cấu hình tọa độ lưu sẵn
+- group: `x=11..438, y=340..427`
+- visible row: `Tọa độ 1 | Đại Lý | 0 | 0 | Train | Xóa`
+- Train button fill `#B48608`
+- delete fill `#C62828`
+- `+ Thêm tọa độ`: `#2E8B57`
+- `Ẩn danh sách tọa độ`: `#808080`
+
+### Danh sách tài khoản / receiver setup
+- group: `x=11..438, y=441..983`
+- `Tọa độ dồn:` combobox visible blank
+- `Acc nhận 1`: blank
+- `Acc nhận 2`: blank
+- `+ Thêm acc nhận` visible
+- scrollbar arrows/track visible, no thumb
+
+Static shared dồn-coordinate choices:
+- Dồn Lạc Dương
+- Dồn Đại Lý
+- Dồn Tô Châu
+- Dồn Lâu Lan
+
+Original module explicitly documents that the dồn coordinate is shared across receiver rows. Receiver rows are dynamic; loader creates one row if config has none and removal keeps at least one.
+
+### Điều khiển tất cả
+- Tới nơi nhận
+- Tới chỗ bán
+- Tới nơi train
+- gold fill `#B48608`
+
+### Bottom
+- `Bắt đầu`
+- fill `#388E3C`
+
+### Static populated-row evidence
+Original `donvang_tab.py` contains row controls/state vocabulary for:
+- `▶`
+- `Tọa độ bán:`
+- `Tọa độ train:`
+- `Túi:`
+- `⬤`
+- `Đã dừng`
+- `Đến tọa độ`
+- `Dồn đồ`
+- `Tới nơi dồn`
+- `Bán đồ`
+- receiver tracking: elapsed time / vàng đã dồn / tốc độ vàng/h
+
+No populated-row pixels are inferred from the empty screenshot.
+
+Behavior remains deferred.
+
 
 ## B10 — Rao
 TODO

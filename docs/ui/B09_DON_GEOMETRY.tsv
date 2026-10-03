@@ -1,0 +1,42 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+don_selected_bridge_y56	278	56	309	56	32	1	Đồn selected
+town_group	11	69	438	178	428	110	Cấu hình Về thành
+town_radio_full	22	110	34	122	13	13	unselected
+town_radio_cycle	105	110	117	122	13	13	selected
+town_cycle_spin_outer_approx	232	106	284	126	53	21	30
+nav_combo_1_outer	112	153	176	173	65	21	Phù 1
+nav_combo_2_outer	185	153	249	173	65	21	Phù 2
+nav_combo_3_outer	258	153	322	173	65	21	Phù 3
+nav_combo_4_outer	331	153	395	173	65	21	Ngựa
+train_group	11	192	438	326	428	135	Cấu hình Train
+checkbox_respawn	18	229	30	241	13	13	unchecked
+checkbox_disconnect_stop	168	229	180	241	13	13	unchecked
+checkbox_unstuck	348	229	360	241	13	13	checked
+checkbox_pickup_no_gourd	18	254	30	266	13	13	unchecked
+keep_radio_all	68	279	80	291	13	13	selected
+keep_radio_weapon	134	279	146	291	13	13	unselected
+checkbox_heal_after_death	18	304	30	316	13	13	unchecked
+heal_combo_outer	235	300	389	320	155	21	Trị liệu Tô Châu
+coord_group	11	340	438	427	428	88	Cấu hình tọa độ lưu sẵn
+coord_name_outer_approx	18	376	81	398	64	23	Tọa độ 1
+coord_map_outer_approx	86	376	246	398	161	23	Đại Lý
+coord_x_outer_approx	251	376	282	397	32	22	0
+coord_y_outer_approx	287	376	318	397	32	22	0
+coord_apply_fill	324	378	362	396	39	19	Train / #B48608
+coord_delete_fill	369	378	394	396	26	19	#C62828
+coord_add_fill	19	403	150	422	132	20	+ Thêm tọa độ / #2E8B57
+coord_hide_fill	299	403	430	422	132	20	Ẩn danh sách tọa độ / #808080
+accounts_group	11	441	438	983	428	543	Danh sách tài khoản
+recv_coord_combo_outer_approx	119	455	249	475	131	21	blank
+recv1_combo_outer_approx	119	479	249	499	131	21	blank
+recv1_delete_fill	261	479	286	500	26	22	#C62828
+recv2_combo_outer_approx	119	505	249	525	131	21	blank
+recv2_delete_fill	261	505	286	526	26	22	#C62828
+add_receiver_fill	19	532	125	551	107	20	+ Thêm acc nhận / #2E8B57
+account_scroll_up	429	561	433	566	5	6	visible
+account_scroll_track	426	572	426	939	1	368	visible
+account_scroll_down	429	946	433	951	5	6	visible
+all_to_receiver_fill	134	960	216	978	83	19	Tới nơi nhận / #B48608
+all_to_sell_fill	223	960	300	978	78	19	Tới chỗ bán / #B48608
+all_to_train_fill	307	960	386	978	80	19	Tới nơi train / #B48608
+bottom_start_fill	17	989	432	1016	416	28	Bắt đầu / #388E3C

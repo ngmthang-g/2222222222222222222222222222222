@@ -1,0 +1,80 @@
+{
+  "task": "B09",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "binary": {
+    "path": "TLMTool.dist/TLMTool.exe",
+    "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "compiled_modules": ["donvang_tab.py", "don_logic.py"]
+  },
+  "screenshot": {
+    "files": ["TLMTool_m7F9EFdzp5(1).png", "TLMTool_m7F9EFdzp5(2).png"],
+    "byte_identical": true,
+    "sha256": "dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a",
+    "raster_px": [452, 1032],
+    "client_px": [450, 1000],
+    "selected_tab": "Đồn"
+  },
+  "visible_state": {
+    "town_condition": "Theo chu kỳ (phút)",
+    "town_cycle_minutes": 30,
+    "nav_priority": ["Phù 1", "Phù 2", "Phù 3", "Ngựa"],
+    "respawn_after_death": false,
+    "stop_on_disconnect": false,
+    "unstuck_checked": true,
+    "pickup_without_gourd": false,
+    "keep_mode": "Tất cả",
+    "heal_after_death": false,
+    "heal_coordinate": "Trị liệu Tô Châu",
+    "saved_coordinate_rows_visible": 1,
+    "saved_coordinate_row": {
+      "name": "Tọa độ 1",
+      "map": "Đại Lý",
+      "x": 0,
+      "y": 0,
+      "apply": "Train"
+    },
+    "don_coordinate": "",
+    "receiver_rows": ["", ""],
+    "account_rows_visible": 0,
+    "account_scroll_thumb_visible": false,
+    "all_account_controls": ["Tới nơi nhận", "Tới chỗ bán", "Tới nơi train"],
+    "bottom_action": "Bắt đầu"
+  },
+  "static_original_facts": {
+    "receiver_coordinate_options": ["Dồn Lạc Dương", "Dồn Đại Lý", "Dồn Tô Châu", "Dồn Lâu Lan"],
+    "keep_mode_mapping": {"all": "Tất cả", "weapons": "Chỉ vũ khí"},
+    "receiver_rows_dynamic": true,
+    "receiver_rows_default_when_missing": 1,
+    "receiver_rows_minimum": 1,
+    "don_coordinate_shared_between_receivers": true,
+    "autosave_interval_seconds": 30,
+    "legacy_sell_map_compatibility": "Bán Đại Lý -> Đại Lý",
+    "row_initial_state": "Đã dừng",
+    "state_vocabulary": [
+      "Đã dừng",
+      "Sẵn sàng nhận",
+      "Chuẩn bị nhận",
+      "Đang nhận",
+      "Chờ giao",
+      "Chờ dồn",
+      "Về dồn",
+      "Đang dồn",
+      "Về địa phủ",
+      "Bán đồ",
+      "Tới nơi nhận",
+      "Trị liệu",
+      "Đi train",
+      "Đang train",
+      "Đang lọc đồ",
+      "Gỡ kẹt"
+    ]
+  },
+  "explicit_unknowns": [
+    "Hidden suffix of the unstuck label because it is clipped by the screenshot",
+    "Populated managed-account row pixel geometry",
+    "Whether current coordinate/receiver selections are clean defaults or persisted config",
+    "Runtime transaction/farming behavior"
+  ],
+  "next_action": "B10 — Baseline Rao"
+}
