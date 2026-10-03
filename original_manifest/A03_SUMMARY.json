@@ -1,0 +1,28 @@
+{
+  "task": "A03",
+  "status": "VERIFIED",
+  "total_files": 1002,
+  "primary_categories": {
+    "EXE": {"count": 7, "total_bytes": 61496464},
+    "DLL": {"count": 12, "total_bytes": 14978960},
+    "PYD": {"count": 32, "total_bytes": 161367424},
+    "DATA": {"count": 23, "total_bytes": 17184542},
+    "RESOURCE": {"count": 928, "total_bytes": 5033645}
+  },
+  "robust_pe_files": 58,
+  "robust_pe_by_named_category": {
+    "EXE": 7,
+    "DLL": 12,
+    "PYD": 32,
+    "DATA": 7,
+    "RESOURCE": 0
+  },
+  "data_subtypes": {
+    "MZ_PE_LIKE_STRUCTURALLY_INVALID": 14,
+    "TEXT_DATA_OR_LOG": 2,
+    "PE_DLL_X64_UPX_CONTAINER": 6,
+    "PE_DLL_x64_DATA_NAMED": 1
+  },
+  "architectures": {"x64": 57, "x86": 1},
+  "next_action": "A04 — Xác định Python/Nuitka/compiler/runtime"
+}
