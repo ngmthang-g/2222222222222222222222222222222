@@ -17,8 +17,8 @@ Authoritative continuation state: [STATE.md](STATE.md)
 ## Gate B
 - B01 — VERIFIED
 - B02 — VERIFIED
-- B03 — CURRENT
-- B04 — TODO
+- B03 — VERIFIED
+- B04 — CURRENT
 - B05 — TODO
 - B06 — TODO
 - B07 — TODO
@@ -30,8 +30,8 @@ Authoritative continuation state: [STATE.md](STATE.md)
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B03 — Baseline Login**
+Current task: **B04 — Baseline Party**
 
-B01 locked the 450 × 1000 client baseline. B02 locked the 11-tab order, notebook placement and screenshot-derived shared tab style. Party/i direct selected-state pixels remain UNVERIFIED.
+B03 locked the Login screenshot geometry, visible defaults, account-table layout, scroll region and bottom Start button without inferring runtime behavior.
 
 Preserve Gate A baseline unchanged.

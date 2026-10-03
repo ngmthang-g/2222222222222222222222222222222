@@ -92,8 +92,49 @@ Exact font family/point size, font weight, button palette/borders and deeper ant
 
 ---
 
-## B03 — Login
-TODO
+## B03 — Login — VERIFIED
+
+Primary capture: `TLMTool_4dw2sgi7mQ(2).png`, SHA-256 `a555bce4054a0d32d19c2377a726c7fa2e6b78c03ce80e8291affb6185f04461`.
+
+### Group boxes
+- Cấu hình game: `x=11..438, y=69..133`
+- Cấu hình lịch trình: `x=11..438, y=147..283`
+- Cấu hình tài khoản: `x=11..438, y=297..1013`
+
+### Cấu hình game
+- Chọn thư mục game button: `x=16..150, y=83..106`
+- Mở game button: `x=157..232, y=83..106`
+- checked success indicator visible
+- selected path text is clipped; hidden suffix remains UNKNOWN
+
+### Cấu hình lịch trình
+Visible defaults:
+- Chạy theo lịch: unchecked
+- tắt game: **04:00**
+- Tắt máy sau khi tắt game: unchecked
+- mở game: **04:20**
+- Sau khi login: **Chờ** selected
+- Party / Train / Train LSV / Đồn văn unselected
+
+### Cấu hình tài khoản
+- Hiện mật khẩu: unchecked
+- header columns: selector | Tài khoản | Mật khẩu | Ẩn captcha | Login | Proxy
+- header selector appears checked
+- first row selector appears unchecked
+- first account: `ngmthang1`
+- password: masked; underlying value UNKNOWN
+- first captcha: `Tool`
+- following visible captcha rows: `Không`
+- first proxy cell: blue arrow button
+- following proxy cells: gray/disabled-looking
+- row pitch: **35 px**
+- **17 full rows + partial 18th row** visible in the scroll viewport
+- scrollbar thumb observed at `x=418..432, y=349..472`
+- bottom `Bắt đầu`: `x=20..429, y=978..1007` → **410 × 30**
+
+Behavior/config semantics are not inferred from this baseline.
+
+---
 
 ## B04 — Party
 TODO

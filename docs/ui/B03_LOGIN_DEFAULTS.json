@@ -1,0 +1,97 @@
+{
+  "task": "B03",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "screenshot": {
+    "file": "TLMTool_4dw2sgi7mQ(2).png",
+    "sha256": "a555bce4054a0d32d19c2377a726c7fa2e6b78c03ce80e8291affb6185f04461",
+    "raster_px": [
+      452,
+      1032
+    ],
+    "selected_tab": "Login"
+  },
+  "groups": [
+    {
+      "label": "Cấu hình game",
+      "bounds": [
+        11,
+        69,
+        438,
+        133
+      ]
+    },
+    {
+      "label": "Cấu hình lịch trình",
+      "bounds": [
+        11,
+        147,
+        438,
+        283
+      ]
+    },
+    {
+      "label": "Cấu hình tài khoản",
+      "bounds": [
+        11,
+        297,
+        438,
+        1013
+      ]
+    }
+  ],
+  "visible_defaults": {
+    "game_status": "checked_success",
+    "game_status_visible_prefix": "Đã chọn game thành công: C:\\Users\\thanggg\\Desktop\\ThanLongMobil",
+    "game_status_suffix": "CLIPPED_UNKNOWN",
+    "schedule_enabled": false,
+    "shutdown_time": "04:00",
+    "shutdown_pc_after_game": false,
+    "startup_time": "04:20",
+    "after_login_selected": "Chờ",
+    "after_login_unselected": [
+      "Party",
+      "Train",
+      "Train LSV",
+      "Đồn văn"
+    ],
+    "show_password": false,
+    "header_selector_checked": true,
+    "first_account_selector_checked": false,
+    "first_account": "ngmthang1",
+    "first_password": "MASKED_UNKNOWN",
+    "first_captcha": "Tool",
+    "other_visible_captcha": "Không",
+    "first_proxy_visual_state": "blue_arrow_button",
+    "other_visible_proxy_visual_state": "gray_disabled_looking",
+    "bottom_action": "Bắt đầu"
+  },
+  "account_list": {
+    "row_pitch_px": 35,
+    "fully_visible_rows": 17,
+    "partially_visible_next_row": true,
+    "scrollbar_column_approx_x": [
+      418,
+      432
+    ],
+    "scrollbar_thumb": [
+      418,
+      349,
+      432,
+      472
+    ]
+  },
+  "unknowns": [
+    "Hidden suffix of selected game path",
+    "Scheduler runtime semantics",
+    "Header selector semantics",
+    "Total account capacity",
+    "Account persistence mechanism",
+    "Underlying password",
+    "Captcha/login/proxy behavior",
+    "Whether gray proxy cells are programmatically disabled",
+    "Exact widget classes/theme",
+    "Exact font metrics (B13)"
+  ],
+  "next_action": "B04 — Baseline Party"
+}
