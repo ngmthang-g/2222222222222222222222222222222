@@ -1,0 +1,57 @@
+{
+  "task": "B02",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "tab_order": ["▶", "Login", "Party", "Train", "Train LSV", "Phó Bản", "Daily", "Đồn", "Rao", "Tối ưu", "i"],
+  "tab_count": 11,
+  "notebook_frame_raster": {
+    "left_x": 6,
+    "right_x": 443,
+    "top_tab_y": 36,
+    "inactive_tab_bottom_y": 56,
+    "bottom_y": 1024,
+    "visible_outer_width_px": 438
+  },
+  "client_relative_margins_px": {
+    "left": 5,
+    "right": 7,
+    "top_to_tab_strip": 5,
+    "bottom": 6
+  },
+  "nominal_inactive_separators_x": [6, 29, 67, 102, 136, 192, 244, 278, 308, 336, 377, 401],
+  "nominal_separator_spans_px": {
+    "▶": 23,
+    "Login": 38,
+    "Party": 35,
+    "Train": 34,
+    "Train LSV": 56,
+    "Phó Bản": 52,
+    "Daily": 34,
+    "Đồn": 30,
+    "Rao": 28,
+    "Tối ưu": 41,
+    "i": 24
+  },
+  "raster_colors": {
+    "client_and_inactive_tab": "#F0F0F0",
+    "selected_tab": "#FFFFFF",
+    "tab_and_frame_separator": "#D9D9D9",
+    "tab_text_or_glyph": "#000000"
+  },
+  "selected_capture_directly_observed": ["▶", "Login", "Train", "Train LSV", "Phó Bản", "Daily", "Đồn", "Rao", "Tối ưu"],
+  "selected_capture_not_observed": ["Party", "i"],
+  "selected_capture_pattern": {
+    "expands_into_neighbor_separator_space": true,
+    "bottom_separator_merged_under_selected_tab": true,
+    "dotted_focus_rectangle_visible_in_all_captured_selected_tabs": true
+  },
+  "explicit_unknowns": [
+    "Exact widget class/theme",
+    "Selected-state exact pixel bounds for Party",
+    "Selected-state exact pixel bounds for i",
+    "Whether focus rectangle persists after keyboard focus moves",
+    "Exact font metrics (deferred to B13)",
+    "OS/DPI behavior outside supplied screenshots"
+  ],
+  "next_action": "B03 — Baseline Login"
+}

@@ -16,8 +16,8 @@ Authoritative continuation state: [STATE.md](STATE.md)
 
 ## Gate B
 - B01 — VERIFIED
-- B02 — CURRENT
-- B03 — TODO
+- B02 — VERIFIED
+- B03 — CURRENT
 - B04 — TODO
 - B05 — TODO
 - B06 — TODO
@@ -30,12 +30,8 @@ Authoritative continuation state: [STATE.md](STATE.md)
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B02 — Tab bar + style chung**
+Current task: **B03 — Baseline Login**
 
-B01 locked the screenshot-derived main-window baseline:
-- client: **450 × 1000 px**
-- observed outer raster: **452 × 1032 px**
-
-Exact DPI/scaling and resize constraints remain UNKNOWN.
+B01 locked the 450 × 1000 client baseline. B02 locked the 11-tab order, notebook placement and screenshot-derived shared tab style. Party/i direct selected-state pixels remain UNVERIFIED.
 
 Preserve Gate A baseline unchanged.
