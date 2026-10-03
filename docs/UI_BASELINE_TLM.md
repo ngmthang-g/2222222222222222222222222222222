@@ -80,7 +80,7 @@ These are raster separator spans, not source widget width units.
 Direct selected captures exist for:
 `▶, Login, Train, Train LSV, Phó Bản, Daily, Đồn, Rao, Tối ưu`.
 
-Direct selected Party and i captures remain **UNVERIFIED**.
+Direct selected captures now exist for **all 11 tabs**. Party was added during B04 and `i` during B12.
 
 The selected tab expands/merges through the lower separator into the page.
 
@@ -669,8 +669,91 @@ Static states:
 Behavior remains deferred.
 
 
-## B12 — i
-TODO
+## B12 — i / Thông tin — VERIFIED
+
+Binary-first evidence:
+- compiled `info_tab.py` / `TLMInfoTab`
+- inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`
+
+Direct screenshot:
+- `TLMTool_f8iidp8FS8.png`
+- SHA-256 `e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc`
+- `452 × 1032`
+
+### Selected tab
+At `y=56`, i selected bridge = `x=377..402`.
+
+### Header + version status
+- `TLMTool - Thông tin`
+- separator y=96
+- status panel `x=17..432, y=110..153`
+- current state: `Bạn đang dùng bản phát triển: v2.1.2`
+- background `#E2E3FF`, text/icon `#4A00E0`
+
+Original module contains conditional status variants for too-old, update-available, development, latest and checking states, with their original colors.
+
+### Info rows
+- Phiên bản: `2.1.2`
+- Mã ứng dụng: `d9ab65e4e118663e` + `Copy`
+- Key: blank + `Nhập`
+- Loại bản quyền: `FREE`
+- Cửa sổ: `1/1`
+- Hiệu lực: `Vĩnh viễn`
+
+Application ID is classified runtime/device-derived; original module contains device-hash/MAC/MachineGuid/window-type methods.
+
+### Changelog
+Scrollable region approx `x=17..432, y=354..462`.
+
+Current screenshot content:
+- Bản 2.0 (30-09-2026)
+- Trừng ác nhanh, sử dụng truyền lượt đi lẫn về
+- Đổi cơ chế đồn vàng, có thể đồn ngay tại chân NPC bán
+- Thêm chế độ rao spam tất cả kênh, chạy song song
+- Cải thiện chế độ tối ưu giảm cấu hình thấp hơn
+- Tất cả map di chuyển tại Train đều ưu tiên dùng truyền nếu có thể
+
+These exact lines are server-fed/current content, not hardcoded package strings.
+
+### Price block
+Current visible server-fed text:
+- Báo giá key bản quyền theo máy/tháng
+- 200k/1 cửa sổ
+- 400k/3 cửa sổ
+- 500k/6 cửa sổ
+- 600k/12 cửa sổ
+- 700k/Không giới hạn
+
+### Support
+- `● Facebook`
+- `● Zalo`
+- `Gửi log hỗ trợ`
+- Facebook URL is hardcoded in original module.
+- log button has real trim/sanitize/upload/save workflow in static code.
+
+### Auto trong hệ thống
+Current visible dynamic two-column catalog:
+- Lineage W
+- Lineage L2M
+- Legend of YMIR
+- Thiên Mệnh Lạc Hồng
+- Diệt quỷ Online
+- Thần long Mobile
+
+Original module builds this area dynamically from server `price_tools` items.
+
+### Conditional hidden structures
+Original module also contains:
+- Cập nhật thủ công
+- Cập nhật tự động
+- Tính năng mới:
+- hidden license-entry section
+- log-upload dialog
+
+No pixels are invented for conditional UI not present in this screenshot.
+
+Behavior remains deferred.
+
 
 ## B13 — Màu/font/button metrics
 TODO

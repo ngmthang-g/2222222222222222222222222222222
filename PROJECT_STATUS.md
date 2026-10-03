@@ -17,12 +17,12 @@ A01–A08: **COMPLETE / VERIFIED**
 - B09 — VERIFIED
 - B10 — VERIFIED
 - B11 — VERIFIED
-- B12 — CURRENT
-- B13 — TODO
+- B12 — VERIFIED
+- B13 — CURRENT
 - B14 — TODO
 
-Current task: **B12 — Baseline i**
+Current task: **B13 — Màu/font/button metrics**
 
-B11 was completed using compiled `toiuu_tab.py` / related monitoring evidence first, then direct Tối ưu screenshot measurement.
+B12 completed the direct i/Thông tin baseline and closed B02 selected-tab screenshot coverage at 11/11.
 
 Preserve Gate A baseline unchanged.

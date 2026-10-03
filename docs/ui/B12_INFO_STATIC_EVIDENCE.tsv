@@ -1,0 +1,57 @@
+KEY	OFFSET_DEC	STATUS	DESCRIPTION
+module_filename	43473784	VERIFIED_STATIC	info_tab.py
+module_marker	43474089	VERIFIED_STATIC	<module info_tab>
+module_class	43471552	VERIFIED_STATIC	TLMInfoTab
+current_version	43471456	VERIFIED_STATIC	2.1.2
+title	43458364	VERIFIED_STATIC	TLMTool - Thông tin
+status_too_old	43458546	VERIFIED_STATIC	Phiên bản hiện tại quá cũ...
+status_too_old_bg	43458499	VERIFIED_STATIC	#f8d7da
+status_too_old_fg	43458508	VERIFIED_STATIC	#721c24
+status_update_available	43458696	VERIFIED_STATIC	Đã có phiên bản mới: v
+status_update_bg	43458670	VERIFIED_STATIC	#fff3cd
+status_update_fg	43458679	VERIFIED_STATIC	#856404
+status_development	43458752	VERIFIED_STATIC	Bạn đang dùng bản phát triển: v
+status_development_bg	43458728	VERIFIED_STATIC	#e2e3ff
+status_development_fg	43458737	VERIFIED_STATIC	#4a00e0
+status_latest	43458817	VERIFIED_STATIC	Bạn đang dùng phiên bản mới nhất
+status_latest_bg	43458794	VERIFIED_STATIC	#d4edda
+status_latest_fg	43458803	VERIFIED_STATIC	#155724
+status_checking	43458885	VERIFIED_STATIC	Đang kiểm tra phiên bản...
+status_checking_bg	43458862	VERIFIED_STATIC	#d1ecf1
+status_checking_fg	43458871	VERIFIED_STATIC	#0c5460
+font_family	43458970	VERIFIED_STATIC	Segoe UI
+manual_update	43459181	VERIFIED_STATIC	Cập nhật thủ công
+automatic_update	43459382	VERIFIED_STATIC	Cập nhật tự động
+new_features	43459552	VERIFIED_STATIC	Tính năng mới:
+version_label	43459703	VERIFIED_STATIC	Phiên bản:
+application_id_label	43459744	VERIFIED_STATIC	Mã ứng dụng:
+license_type_label	43459814	VERIFIED_STATIC	Loại bản quyền:
+windows_label	43459851	VERIFIED_STATIC	Cửa sổ:
+expiry_label	43459869	VERIFIED_STATIC	Hiệu lực:
+changelog_label	43459998	VERIFIED_STATIC	Lịch sử cập nhật:
+changelog_loading	43460062	VERIFIED_STATIC	Đang tải changelog...
+contact_label	43460147	VERIFIED_STATIC	Liên hệ hỗ trợ, yêu cầu tính năng:
+facebook_label	43460312	VERIFIED_STATIC	● Facebook
+zalo_label	43460516	VERIFIED_STATIC	● Zalo
+log_support_button	43460567	VERIFIED_STATIC	Gửi log hỗ trợ
+auto_system_header	43460725	VERIFIED_STATIC	Auto trong hệ thống
+facebook_url	43460829	VERIFIED_STATIC	https://www.facebook.com/61591511954461/
+zalo_image_url	43460924	VERIFIED_STATIC	https://i.ibb.co/8g6kknKX/zalo.png
+price_tools_doc	43461346	VERIFIED_STATIC	Dynamic list dict fields: id,intro,title,video_url,product_url
+license_input_label	43462199	VERIFIED_STATIC	Nhập mã:
+license_activate_color	43462257	VERIFIED_STATIC	#28a745
+log_dialog_time_label	43463144	VERIFIED_STATIC	Thời gian gặp lỗi:
+log_upload_action	43463801	VERIFIED_STATIC	Upload
+log_save_action	43463854	VERIFIED_STATIC	Lưu file...
+fallback_free	43456191	VERIFIED_STATIC	FREE
+fallback_forever	43456197	VERIFIED_STATIC	Vĩnh viễn
+fallback_windows	43456265	VERIFIED_STATIC	1/1
+update_fields_method	43472102	VERIFIED_STATIC	TLMInfoTab.update_fields_with_server_response
+generate_device_hash_method	43473129	VERIFIED_STATIC	TLMInfoTab.generate_device_hash
+get_mac_method	43468884	VERIFIED_STATIC	TLMInfoTab.get_mac_address
+get_machine_guid_method	43473055	VERIFIED_STATIC	TLMInfoTab.get_windows_machine_guid
+get_window_type_method	43473092	VERIFIED_STATIC	TLMInfoTab.get_selected_window_type
+startup_server_sync	43471799	VERIFIED_STATIC	TLMInfoTab.call_server_api_at_startup
+heartbeat_method	43471838	VERIFIED_STATIC	TLMInfoTab.start_heartbeat
+server_price_field	43479349	VERIFIED_STATIC	price_val
+server_price_tools_field	43456655	VERIFIED_STATIC	price_tools

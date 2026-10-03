@@ -1,0 +1,28 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+i_selected_bridge_y56	377	56	402	56	26	1	i selected
+header_title_bbox_approx	21	73	172	88	152	16	TLMTool - Thông tin
+header_separator	17	96	432	96	416	1	#A0A0A0
+version_status_outer	17	110	432	153	416	44	black border
+version_status_fill	18	111	431	152	414	42	#E2E3FF
+version_value_surface	121	165	432	183	312	19	2.1.2
+app_id_value_surface	121	190	376	208	256	19	d9ab65e4e118663e
+app_id_copy_button_approx	381	189	432	209	52	21	Copy
+key_value_surface	121	215	376	233	256	19	blank
+key_input_button_approx	381	214	432	234	52	21	Nhập
+license_type_surface	121	240	432	258	312	19	FREE
+windows_surface	121	265	432	283	312	19	1/1
+expiry_surface	121	290	432	308	312	19	Vĩnh viễn
+info_separator	17	318	432	318	416	1	#A0A0A0
+changelog_text_region	17	354	416	462	400	109	white scrollable text
+changelog_scroll_up_approx	417	360	431	365	15	6	up arrow
+changelog_scroll_thumb	417	371	431	391	15	21	#CDCDCD
+changelog_scroll_down_approx	417	452	431	457	15	6	down arrow
+changelog_separator	17	471	432	471	416	1	#A0A0A0
+price_text_bbox_approx	20	486	226	573	207	88	server-fed price text
+price_separator	17	585	432	585	416	1	#A0A0A0
+contact_label_bbox_approx	21	598	192	610	172	13	Liên hệ hỗ trợ...
+contact_links_bbox_approx	41	625	269	633	229	9	Facebook / Zalo
+log_support_button_approx	37	646	134	668	98	23	Gửi log hỗ trợ
+contact_separator	17	675	432	675	416	1	#A0A0A0
+auto_header_bbox_approx	21	689	127	700	107	12	Auto trong hệ thống
+auto_catalog_bbox_approx	44	715	368	772	325	58	6 visible tool titles

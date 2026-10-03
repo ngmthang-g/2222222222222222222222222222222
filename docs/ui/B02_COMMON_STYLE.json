@@ -18,8 +18,8 @@
     "tab_and_frame_separator": "#D9D9D9",
     "tab_text_or_glyph": "#000000"
   },
-  "selected_capture_directly_observed": ["▶", "Login", "Party", "Train", "Train LSV", "Phó Bản", "Daily", "Đồn", "Rao", "Tối ưu"],
-  "selected_capture_not_observed": ["i"],
+  "selected_capture_directly_observed": ["▶", "Login", "Party", "Train", "Train LSV", "Phó Bản", "Daily", "Đồn", "Rao", "Tối ưu", "i"],
+  "selected_capture_not_observed": [],
   "selected_capture_pattern": {
     "expands_into_neighbor_separator_space": true,
     "bottom_separator_merged_under_selected_tab": true,
@@ -32,8 +32,13 @@
     "raw_raster": "451x1035",
     "selected_bridge_y56": [65, 101]
   },
+  "info_selected_resolution": {
+    "file": "TLMTool_f8iidp8FS8.png",
+    "sha256": "e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc",
+    "raster": "452x1032",
+    "selected_bridge_y56": [377, 402]
+  },
   "explicit_unknowns": [
-    "Selected-state exact pixel bounds for i",
     "Exact widget class/theme",
     "Exact font metrics (B13)",
     "OS/DPI behavior outside supplied screenshots"

@@ -29,64 +29,66 @@ IN_PROGRESS
 - B09 VERIFIED
 - B10 VERIFIED
 - B11 VERIFIED
+- B12 VERIFIED
 
-## B11 VERIFIED RESULTS
+## B12 VERIFIED RESULTS
 - Used binary-first workflow.
-- Original compiled markers recovered: `toiuu_tab.py`, related `cpu_monitor.py`.
-- Two Tối ưu screenshots are byte-identical; SHA-256 `653110b20120e26d115f11e64cb61b23af686b77432cf211b28be51a40364933`.
-- Tối ưu selected bridge at y=56: x=336..378.
-- `Giám sát CPU/GPU`: x=13..436, y=69..285.
-  - detached-monitor button measured
-  - visible CPU = 15%
-  - CPU canvas/line measured
-  - visible GPU = N/A because nvidia-smi unavailable
-  - GPU canvas measured
-- Original module documents 1-second sampling and nvidia-smi GPU query.
-- Detached monitor title `CPU / GPU`; detached state persists via `toiuu_monitor_open`.
-- `Danh sách tài khoản`: x=13..436, y=301..983; empty-list state; scrollbar track/arrows visible, no thumb.
-- Static mode mapping recovered:
-  - medium → Thấp vừa
-  - low → Cực thấp
-  - max → Cực đại
-  - config labels also include Không
-- Static state vocabulary/colors recovered: Đã dừng / Đang chạy / Treo tick.
-- All-account mode buttons measured.
-- bottom `Bắt đầu` measured.
-- Original module also contains saved running set, DLL/perf command flow, stale-running reconciliation and hang-watch/recovery hooks; runtime parity remains deferred.
-- Related `cpu_monitor.py` is recorded as a separate high-CPU warning component, not merged into the visible Tối ưu baseline.
+- Original compiled `info_tab.py` / `TLMInfoTab` evidence recovered before screenshot measurement.
+- Direct i-selected screenshot: `TLMTool_f8iidp8FS8.png`, SHA-256 `e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc`, 452 × 1032.
+- i selected bridge at y=56: x=377..402.
+- B02 selected-state coverage is now complete: direct screenshots exist for all 11 tabs.
+- Header/title and separator measured.
+- Current version-status panel measured:
+  - `Bạn đang dùng bản phát triển: v2.1.2`
+  - #E2E3FF / #4A00E0
+- Information rows measured:
+  - version 2.1.2
+  - runtime/device-derived app ID d9ab65e4e118663e
+  - blank key + Nhập
+  - FREE
+  - 1/1
+  - Vĩnh viễn
+- Changelog scroll region/current visible content recorded.
+- Exact screenshot changelog lines are classified server-fed/current because binary contains placeholder/update path rather than those lines.
+- Price block current values recorded and classified server-fed/current via price handling.
+- Contact links and support button measured; static Facebook URL and log-support workflow recorded.
+- Auto-system current six-title catalog recorded; original module dynamically rebuilds it from server `price_tools`.
+- Conditional hidden original UI (manual/auto update, new-features panel, license entry, log popup) recorded without invented pixels.
 
-## B11 FILES
-- `docs/tasks/B11.md`
-- `docs/ui/B11_TOIUU_GEOMETRY.tsv`
-- `docs/ui/B11_TOIUU_VISIBLE_STATE.json`
-- `docs/ui/B11_TOIUU_STATIC_EVIDENCE.tsv`
-- `docs/ui/B11_SCREENSHOT_EVIDENCE.tsv`
+## B12 FILES
+- `docs/tasks/B12.md`
+- `docs/ui/B12_INFO_GEOMETRY.tsv`
+- `docs/ui/B12_INFO_VISIBLE_STATE.json`
+- `docs/ui/B12_INFO_STATIC_EVIDENCE.tsv`
+- `docs/ui/B12_SCREENSHOT_EVIDENCE.tsv`
 - `docs/UI_BASELINE_TLM.md`
+- B02 selected-state evidence updated to 11/11.
 
 ## CURRENT_TASK
-B12 — Baseline i.
+B13 — Màu/font/button metrics.
 
 ## BLOCKERS
-None for B12. A direct i-selected screenshot was supplied and staged earlier.
+None for B13. Gate B now has direct visual coverage for every tab label and per-tab baseline B03–B12.
 
 ## WORKFLOW
-For remaining Gate B tabs:
-1. inspect corresponding compiled module/static original evidence first;
-2. then use screenshot evidence to lock pixels/current visible state;
-3. do not ask screenshots to rediscover recoverable binary structure;
-4. do not invent pixels for controls absent/hidden in screenshots.
+For B13:
+1. consolidate screenshot-measured colors/font/style tokens from B01–B12;
+2. cross-check against original binary style strings where available;
+3. distinguish exact raster colors from toolkit/theme-dependent borders/anti-aliasing;
+4. do not replace screenshot facts with guessed source styling.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Keep B11 runtime/performance/recovery behavior deferred.
-- Keep final shared font/color/button metrics for B13.
+- Keep B12 server/runtime/update/license behavior deferred.
+- Do not hardcode current server-fed changelog/price/tool catalog as permanent package constants.
+- B13 may normalize the style inventory but must not alter per-tab geometry.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Execute **B12 only**.
-4. Inspect compiled `info_tab.py` static evidence first.
-5. Then measure the staged direct i-selected screenshot.
-6. Persist B12 evidence/report to GitHub and update `docs/UI_BASELINE_TLM.md`.
-7. Advance to B13 only after B12 is verified.
+3. Execute **B13 only**.
+4. Consolidate exact screenshot colors, font evidence, button fills/borders, entry/combobox surfaces, scrollbar/theme metrics across B01–B12.
+5. Cross-check original binary style tokens.
+6. Persist B13 metric inventory and update `docs/UI_BASELINE_TLM.md`.
+7. Advance to B14 only after B13 is verified.

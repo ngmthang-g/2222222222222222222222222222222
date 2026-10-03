@@ -1,0 +1,67 @@
+{
+  "task": "B12",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "binary": {
+    "path": "TLMTool.dist/TLMTool.exe",
+    "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "compiled_module": "info_tab.py",
+    "class": "TLMInfoTab",
+    "current_version_constant": "2.1.2"
+  },
+  "screenshot": {
+    "file": "TLMTool_f8iidp8FS8.png",
+    "sha256": "e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc",
+    "raster_px": [452, 1032],
+    "client_px": [450, 1000],
+    "selected_tab": "i"
+  },
+  "visible_state": {
+    "version_status": "Bạn đang dùng bản phát triển: v2.1.2",
+    "version_status_background": "#E2E3FF",
+    "version_status_foreground": "#4A00E0",
+    "version": "2.1.2",
+    "application_id": "d9ab65e4e118663e",
+    "application_id_classification": "runtime/device-derived",
+    "key": "",
+    "license_type": "FREE",
+    "windows": "1/1",
+    "expiry": "Vĩnh viễn",
+    "changelog": [
+      "Bản 2.0 (30-09-2026)",
+      "• Trừng ác nhanh, sử dụng truyền lượt đi lẫn về",
+      "• Đổi cơ chế đồn vàng, có thể đồn ngay tại chân NPC bán",
+      "• Thêm chế độ rao spam tất cả kênh, chạy song song",
+      "• Cải thiện chế độ tối ưu giảm cấu hình thấp hơn",
+      "• Tất cả map di chuyển tại Train đều ưu tiên dùng truyền nếu có thể"
+    ],
+    "price_text": [
+      "Báo giá key bản quyền theo máy/tháng",
+      "200k/1 cửa sổ",
+      "400k/3 cửa sổ",
+      "500k/6 cửa sổ",
+      "600k/12 cửa sổ",
+      "700k/Không giới hạn"
+    ],
+    "contacts": ["● Facebook", "● Zalo"],
+    "support_button": "Gửi log hỗ trợ",
+    "auto_system_catalog": {
+      "left": ["● Lineage W", "● Legend of YMIR", "● Diệt quỷ Online"],
+      "right": ["● Lineage L2M", "● Thiên Mệnh Lạc Hồng", "● Thần long Mobile"]
+    }
+  },
+  "dynamic_classification": {
+    "application_id": "generated from device/window identity inputs",
+    "changelog": "server-fed/current",
+    "price": "server-fed/current",
+    "auto_system_catalog": "server-fed/current via price_tools"
+  },
+  "conditional_static_ui_not_visible": [
+    "Cập nhật thủ công",
+    "Cập nhật tự động",
+    "Tính năng mới:",
+    "license input section / Nhập mã:",
+    "log upload dialog"
+  ],
+  "next_action": "B13 — Màu/font/button metrics"
+}
