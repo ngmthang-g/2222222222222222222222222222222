@@ -1,0 +1,15 @@
+{
+  "task": "A02",
+  "status": "VERIFIED",
+  "archive_name": "TLMTool_2.1.2(2).zip",
+  "archive_size_bytes": 93715901,
+  "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+  "extracted_file_count_expected": 1002,
+  "extracted_file_count_hashed": 1002,
+  "hash_read_errors": 0,
+  "zip_file_count_hashed_directly": 1002,
+  "zip_read_errors": 0,
+  "zip_vs_extracted_hash_mismatches": 0,
+  "manifest_checkpoint": "A02_SHA256_MANIFEST.tsv",
+  "next_action": "A03"
+}
