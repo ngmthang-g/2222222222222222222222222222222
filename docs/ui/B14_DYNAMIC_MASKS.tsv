@@ -1,0 +1,27 @@
+PAGE	REGION_OR_CONTENT	MASK_CLASS	REASON
+START	preview HWND imagery/names/HP	D1	live game/window content
+START	window/account status messages	D1	runtime-dependent
+LOGIN	game folder/path	D1	machine path
+LOGIN	account/password/proxy/captcha live fields	D1	user/runtime state
+PARTY	character names/ready list/status text	D1	runtime state
+PARTY	right/bottom outer framing	N0	different capture shadow/framing
+TRAIN	account and saved-coordinate rows	D1	runtime/config population
+TRAIN_LSV	buff key/time if config differs	D1	persisted config
+TRAIN_LSV	account/saved-coordinate rows	D1	runtime/config population
+PHOBAN	mouse cursor over follow-leader control	C1	capture artifact
+PHOBAN	ready accounts/group values/schedule rows	D1	runtime/config population
+DAILY	mouse cursor pixels	C1	capture artifact
+DAILY	account rows/current persisted values if config differs	D1	runtime/config population
+DON	saved coordinate values/receiver selections/account rows	D1	persisted/runtime content
+DON	unstuck dynamic suffix	D1	dynamic/clipped text
+RAO	Rao row values/account slots if config differs	D1	persisted/runtime content
+TOIUU	CPU percentage and graph path	D1	live monitoring
+TOIUU	GPU live value/N-A	D1	host-dependent
+TOIUU	account rows/status	D1	runtime content
+INFO	application ID	D1	device-derived
+INFO	key/license/window/expiry live fields	D1	server/license state
+INFO	changelog body	D1	server-fed
+INFO	price body	D1	server-fed
+INFO	Auto-system catalog	D1	server-fed
+GLOBAL	titlebar/non-client decoration	N0	Windows theme/DPI dependent
+GLOBAL	ClearType fringe RGB	T1	font-renderer dependent

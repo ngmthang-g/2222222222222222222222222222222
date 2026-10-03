@@ -816,5 +816,56 @@ Raster envelopes:
 ClearType fringe pixels and some ttk details are environment-sensitive. Large fills, structural lines, control bounds and text envelopes are strict; anti-alias/native-theme fringe pixels are comparison-tolerant.
 
 
-## B14 — Pixel comparison checklist
-TODO
+## B14 — Pixel comparison checklist — VERIFIED
+
+Gate-B comparison contract:
+
+### Comparison classes
+- **S0 STRICT_RASTER** — locked structural coordinates and flat fills: 0 px drift, exact RGB.
+- **S1 STRICT_GEOMETRY_NATIVE_RENDER** — native ttk/classic controls: exact outer geometry, native glyph AA may vary within ±1 px envelope.
+- **T1 TEXT_ENVELOPE** — Segoe UI family/weight and text bbox placement; ±1 px envelope, ignore ClearType fringe RGB.
+- **D1 DYNAMIC_CONTENT_MASK** — machine/server/runtime pixels masked, container geometry/style remains strict.
+- **C1 CURSOR_MASK** — capture cursor pixels excluded.
+- **N0 NONCLIENT_EXCLUDED** — titlebar/window-frame pixels excluded from Gate-B pass.
+
+### Reference scope
+Direct screenshot references cover:
+- ▶ Start / Auto-Điều khiển nhanh
+- ▶ Start / Xếp lưới
+- Login
+- Party
+- Train
+- Train LSV
+- Phó Bản
+- Daily
+- Đồn
+- Rao
+- Tối ưu
+- i / Thông tin
+
+### Party exception
+Party's 451 × 1035 raw capture has different right/bottom framing. Use B04 raw measured UI regions; do not compare that outer framing against the common 452 × 1032 reference.
+
+### Dynamic masks
+Explicit masks exist for live HWND previews, account/character state, CPU/GPU data, device ID, server changelog/price/catalog, persisted config differences and cursor artifacts.
+
+### Pass order
+1. client normalization
+2. notebook geometry
+3. selected tab
+4. frame/group bounds
+5. control bounds
+6. semantic flat fills
+7. static text envelopes
+8. cursor masks
+9. dynamic masks
+10. regional mismatch report
+
+A page does not pass merely from a low whole-window mismatch percentage if a locked structural coordinate or semantic color is wrong.
+
+### Gate decision
+B01–B13 provide the required geometry, selected-state evidence, tab/page baselines, palette and common metrics. B14 provides the strict/tolerant comparison contract.
+
+Remaining font point-size/ClearType/non-client uncertainties are explicitly environment-sensitive and are not visual blockers.
+
+**GATE B — COMPLETE / VERIFIED.**

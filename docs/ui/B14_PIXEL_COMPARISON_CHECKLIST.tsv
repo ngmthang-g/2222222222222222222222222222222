@@ -1,0 +1,50 @@
+ID	PAGE	REGION_OR_RULE	REFERENCE	CLASS	PASS_CRITERION	MASK_OR_NOTE
+G01	GLOBAL	client_size	B01	S0	450x1000 exact	outer titlebar excluded
+G02	GLOBAL	notebook_frame	B02	S0	x=6..443; tab strip y=36..56 exact	-
+G03	GLOBAL	tab_order	B02	S0	▶|Login|Party|Train|Train LSV|Phó Bản|Daily|Đồn|Rao|Tối ưu|i	-
+G04	GLOBAL	base_colors	B13	S0	exact locked RGB fills	-
+G05	GLOBAL	fonts	B13	T1	Segoe UI role/weight + bbox envelope ±1px	ignore ClearType fringe RGB
+G06	GLOBAL	checkbox_radio	B13	S1	13x13 outer envelope	glyph AA tolerant ±1px
+G07	GLOBAL	combobox_entry	B13	S1	locked outer bounds; white field; representative border	arrow AA tolerant
+G08	GLOBAL	scrollbar	B13	S1	15px width; locked track/thumb geometry	arrow AA tolerant
+G09	GLOBAL	classic_colored_button	B13	S0	flat fill + 1px raised edges exact on stable raster	text handled T1
+S01	START	selected_tab	B02	S0	▶ selected bridge exact	-
+S02	START	Auto/Điều khiển nhanh full client	TLMTool_rARyQTv9Ta(2).png	S0+D1	static layout/fills strict; live text masked	window/account status masked
+S03	START	Xếp lưới full client	TLMTool_fTpCsm0auQ(2).png	S0+D1	static layout/fills strict; preview live content masked	preview/name/HP masked
+L01	LOGIN	major_groups	B03	S0	3 group rectangles exact	-
+L02	LOGIN	schedule_controls	B03	S0+S1	measured positions/dimensions exact	field glyph AA tolerant
+L03	LOGIN	account_header_row1	B03	S0+S1	measured rectangles exact	account/password/live state D1
+L04	LOGIN	scrollbar_start	B03	S0+S1	measured geometry/fill exact	-
+P01	PARTY	selected_and_sections	B04	S0	selected bridge + 3 main sections exact	raw Party coord space
+P02	PARTY	three_groups	B04	S0+S1	3 frames + 2x3 combos exact	character values D1
+P03	PARTY	actions_bottom	B04	S0	buttons/fills/bottom Start exact	status text D1
+P04	PARTY	outer_frame	B04	N0	not compared	451x1035 special right/bottom framing
+T01	TRAIN	main_groups	B05	S0	town/train/coord/account group bounds exact	-
+T02	TRAIN	visible_state_controls	B05	S0+S1	control placement and captured state geometry exact	persisted content D1 as needed
+T03	TRAIN	bottom_controls	B05	S0	all-account + Start bounds/fills exact	-
+T04	TRAIN	hidden_rows	B05	D1	no strict pixels while absent	coord/account/town hidden population
+V01	TRAIN_LSV	main_groups	B06	S0	main/coord/account bounds exact	-
+V02	TRAIN_LSV	fixed_buff	B06	S0+S1	Dạ Minh Châu row allocation exact	key/time content D1 if config differs
+V03	TRAIN_LSV	purple_bottom	B06	S0	all-account + Start exact	-
+V04	TRAIN_LSV	population	B06	D1	masked when runtime differs	coord/account rows
+F01	PHOBAN	main_frames	B07	S0	team/config/schedule/group1 frames exact	-
+F02	PHOBAN	config_toggles	B07	S0+S1	placement/state envelope exact	follow-leader cursor C1
+F03	PHOBAN	group_slots_toolbar	B07	S0+S1	2x3 combos + toolbar exact	values/rows D1
+F04	PHOBAN	hidden_sale_block	B07	D1	excluded while hidden	static-only pack_forget UI
+D01	DAILY	punish_group	B08	S0+S1	group/control bounds and fills exact	cursor C1
+D02	DAILY	treasure_group	B08	S0+S1	group/control bounds and fills exact	persisted values D1 if different config
+D03	DAILY	accounts_bottom	B08	S0+S1	frame/buttons/Start exact	account rows D1
+O01	DON	town_train_groups	B09	S0+S1	group/control bounds exact	unstuck suffix D1
+O02	DON	coord_group_row	B09	S0+S1	row/control geometry + semantic fills exact	row values D1
+O03	DON	receiver_area	B09	S0+S1	shared coord + receiver rows geometry exact	selections D1
+O04	DON	bottom_actions	B09	S0	gold actions + Start exact	-
+R01	RAO	config_group_row	B10	S0+S1	row/control geometry exact	row values D1 when different config
+R02	RAO	account_group	B10	S0+S1	frame/scrollbar exact	account rows/slot values D1
+R03	RAO	bottom_start	B10	S0	Start exact	-
+U01	TOIUU	monitor_group	B11	S0	group/button/canvas rectangles exact	-
+U02	TOIUU	graph_style	B11	S0+D1	border/grid/line color strict; line path masked	CPU/GPU values D1
+U03	TOIUU	accounts_bottom	B11	S0+S1	frame/mode buttons/Start exact	account rows D1
+I01	INFO	selected_header_status	B12	S0	selected/header/status geometry/colors exact	captured dev state
+I02	INFO	info_rows	B12	S0+S1	field surfaces/button allocation exact	app id/license live values D1
+I03	INFO	changelog_price	B12	S0+D1	containers/separators strict	server-fed body D1
+I04	INFO	support_catalog	B12	S0+D1	region layout/colors strict	server-fed catalog D1

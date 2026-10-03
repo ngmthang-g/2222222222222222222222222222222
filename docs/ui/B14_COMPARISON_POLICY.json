@@ -1,0 +1,65 @@
+{
+  "task": "B14",
+  "status": "VERIFIED",
+  "gate_b": "COMPLETE",
+  "coordinate_space": {
+    "primary_client_px": [450, 1000],
+    "common_outer_reference_px": [452, 1032],
+    "compare_client_not_nonclient": true,
+    "party_exception": "Use B04 raw measured regions; exclude differing right/bottom outer framing."
+  },
+  "classes": {
+    "S0": {
+      "name": "STRICT_RASTER",
+      "geometry_tolerance_px": 0,
+      "flat_fill_rgb": "exact",
+      "structural_lines": "exact coordinate + exact locked RGB"
+    },
+    "S1": {
+      "name": "STRICT_GEOMETRY_NATIVE_RENDER",
+      "outer_geometry": "exact where measured",
+      "native_glyph_envelope_tolerance_px": 1,
+      "notes": "ttk arrows/checkmarks/scrollbar arrow anti-aliasing is environment-sensitive"
+    },
+    "T1": {
+      "name": "TEXT_ENVELOPE",
+      "family": "Segoe UI",
+      "bbox_tolerance_px": 1,
+      "clear_type_fringe_rgb": "ignored",
+      "static_text_content": "must match"
+    },
+    "D1": {
+      "name": "DYNAMIC_CONTENT_MASK",
+      "content_pixels": "masked",
+      "container_geometry_and_style": "strict"
+    },
+    "C1": {
+      "name": "CURSOR_MASK",
+      "cursor_pixels": "masked"
+    },
+    "N0": {
+      "name": "NONCLIENT_EXCLUDED",
+      "titlebar_window_frame": "not a Gate-B pass criterion"
+    }
+  },
+  "pass_order": [
+    "normalize client region",
+    "client/notebook geometry",
+    "selected tab",
+    "group/frame bounds",
+    "control bounds",
+    "semantic flat fills",
+    "static text T1",
+    "cursor masks",
+    "dynamic masks",
+    "regional mismatch report"
+  ],
+  "whole_window_score_is_not_sufficient": true,
+  "nonblocking_unknowns": [
+    "numeric Tk font point sizes",
+    "ClearType subpixel RGB",
+    "Windows non-client decoration",
+    "hidden/conditional controls absent from captured state",
+    "server/live values classified D1"
+  ]
+}

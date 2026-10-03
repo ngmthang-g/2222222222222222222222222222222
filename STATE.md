@@ -7,7 +7,7 @@ IN_PROGRESS
 **COMPLETE / VERIFIED**
 
 ## GATE B
-IN_PROGRESS
+**COMPLETE / VERIFIED**
 
 ## COMPLETED
 - A01 VERIFIED
@@ -31,69 +31,57 @@ IN_PROGRESS
 - B11 VERIFIED
 - B12 VERIFIED
 - B13 VERIFIED_WITH_EXPLICIT_UNKNOWN_FONT_POINT_SIZE
+- B14 VERIFIED
 
-## B13 VERIFIED RESULTS
-- Consolidated screenshot/style evidence across B01–B12.
-- Locked exact base raster colors:
-  - #F0F0F0 client
-  - #FFFFFF selected/input
-  - #D9D9D9 notebook separator
-  - #DCDCDC LabelFrame border
-  - #7A7A7A entry/combobox border
-  - #333333 checkbox/radio stroke
-  - #A0A0A0 Info separators
-  - #CDCDCD scrollbar thumb
-- Consolidated semantic action palette:
-  - #388E3C, #2E8B57, #2E7D32, #4169E1, #1565C0, #0277BD,
-    #C62828, #8E24AA, #795548, #B48608, #808080, #616161,
-    #E65100, #F44336.
-- Verified classic raised button edge behavior:
-  - one-pixel light top/left edge
-  - one-pixel black/dark right/bottom edge
-  - representative highlight shades recorded.
-- Common raster metrics locked:
-  - 13×13 checkbox/radio
-  - ~21 px ttk combobox
-  - ~19–21 px entry/spin
-  - 15 px vertical scrollbar
-  - ~21–23 px small custom buttons
-  - 30 px bottom Start outer / 28 px fill
-- Original binary cross-check:
-  - Segoe UI occurs 226 times
-  - global default_font / *Font
-  - Bold.TLabelframe.Label
-  - White.TCombobox
-  - semantic color tokens corroborated.
-- Font raster envelopes recorded.
-- Exact numeric Tk source font point sizes remain explicit UNKNOWN because neither compiled readable strings nor screenshot DPI prove them.
-- ClearType/native-theme anti-aliasing classified environment-sensitive rather than hardcoded pixel palette.
+## B14 VERIFIED RESULTS
+- Built the Gate-B pixel-comparison contract from B01–B13.
+- Defined six comparison classes:
+  - S0 STRICT_RASTER
+  - S1 STRICT_GEOMETRY_NATIVE_RENDER
+  - T1 TEXT_ENVELOPE
+  - D1 DYNAMIC_CONTENT_MASK
+  - C1 CURSOR_MASK
+  - N0 NONCLIENT_EXCLUDED
+- Strict structural coordinates use 0 px drift.
+- Exact locked flat-fill RGB is required in S0 regions.
+- Native ttk glyph anti-aliasing may vary within ±1 px envelope while outer geometry remains strict.
+- Text uses Segoe UI role/weight + ±1 px bbox envelope; ClearType fringe RGB is not hardcoded.
+- Dynamic/server/device/live regions are masked without relaxing their container geometry/style.
+- Party's 451×1035 raw capture is handled with B04 raw measured regions and an outer-framing exclusion.
+- Start is covered by two direct whole-client references:
+  - Auto / Điều khiển nhanh
+  - Xếp lưới
+- Direct screenshot reference coverage now spans all baseline page families and all 11 selected tab labels.
+- Per-page checklist covers Login, Party, Train, Train LSV, Phó Bản, Daily, Đồn, Rao, Tối ưu, i and Start reference states.
+- No unresolved visual blocker remains in the PLAN-defined Gate-B baseline scope.
+- Gate B closed as COMPLETE / VERIFIED.
 
-## B13 FILES
-- `docs/tasks/B13.md`
-- `docs/ui/B13_STYLE_PALETTE.tsv`
-- `docs/ui/B13_CONTROL_METRICS.tsv`
-- `docs/ui/B13_FONT_METRICS.tsv`
-- `docs/ui/B13_STATIC_STYLE_EVIDENCE.tsv`
+## B14 FILES
+- `docs/tasks/B14.md`
+- `docs/ui/B14_PIXEL_COMPARISON_CHECKLIST.tsv`
+- `docs/ui/B14_COMPARISON_POLICY.json`
+- `docs/ui/B14_SCREENSHOT_BASELINES.tsv`
+- `docs/ui/B14_DYNAMIC_MASKS.tsv`
 - `docs/UI_BASELINE_TLM.md`
 
 ## CURRENT_TASK
-B14 — Pixel comparison checklist.
+C01 — TLM tìm cửa sổ game thế nào.
 
 ## BLOCKERS
-None. B01–B13 provide geometry, direct selected-state evidence for all tabs, per-tab baselines, palette and common control metrics.
+None known for C01. Gate A and Gate B are complete.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Do not convert B13's unknown numeric font point size into a claimed fact.
-- Do not hardcode ClearType fringe colors.
-- B14 is a comparison/checklist task only; do not begin source reconstruction.
+- Preserve Gate B geometry/palette/checklist as the visual contract.
+- Do not begin C02 before C01 is verified.
+- Do not infer HWND discovery mechanism from UI appearance; inspect original binary/static/runtime evidence as required by PLAN.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Execute **B14 only**.
-4. Build the pixel-comparison checklist from B01–B13.
-5. Define strict vs environment-sensitive comparison regions/tolerances.
-6. Persist B14 checklist/report and update `docs/UI_BASELINE_TLM.md`.
-7. Close Gate B only if the checklist covers all baseline tabs/regions without unresolved visual blockers.
+3. Execute **C01 only**.
+4. Inspect original binary/module evidence for how TLM discovers game windows.
+5. Identify APIs, window-class/title/process filters, refresh cadence and exclusion rules only where evidence supports them.
+6. Persist C01 evidence/report and start/update `WINDOW_BEHAVIOR_MATRIX.md`.
+7. Advance to C02 only after C01 is verified.
