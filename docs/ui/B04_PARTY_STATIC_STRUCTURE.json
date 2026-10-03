@@ -1,16 +1,18 @@
 {
   "task": "B04",
-  "status": "BLOCKED_VISUAL_EVIDENCE",
-  "partial_static_baseline": true,
-  "party_selected_screenshot_present": false,
-  "misidentified_screenshot_correction": {
+  "status": "STATIC_EVIDENCE_RETAINED_VISUAL_VERIFIED",
+  "partial_static_baseline": false,
+  "party_selected_screenshot_present": true,
+  "party_selected_screenshot": {
+    "file": "image(5).png",
+    "sha256": "b04e9a73887bb8093bba8bfcd8a77a4dc57c5838ca11370c85def0f8adeb9590",
+    "raw_raster_px": [451, 1035]
+  },
+  "prior_correction": {
     "file": "TLMTool_fTpCsm0auQ(2).png",
     "sha256": "f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a",
     "actual_tab": "▶",
     "actual_mode": "Xếp lưới",
-    "raster_selected_bridge_y56": [6, 30],
-    "party_nominal_span": [67, 101],
-    "party_inactive_lower_separator_present": true,
     "binary_module_match": "start_tab.py"
   },
   "verified_static_party_structure": {
@@ -32,28 +34,12 @@
       "Trưởng nhóm:",
       "+ Thêm nhóm"
     ],
-    "documented_toggles": [
+    "documented_toggles_not_visible_in_party_capture": [
       "Theo sau đội trưởng",
       "Tự nhặt đồ"
-    ],
-    "style_tokens": [
-      "Segoe UI",
-      "Bold.TLabelframe",
-      "White.TCombobox",
-      "TCheckbutton",
-      "BTN_GREEN_PARTY"
     ]
   },
-  "blocked_geometry": [
-    "Party page section coordinates",
-    "ready-list coordinates",
-    "toggle coordinates",
-    "2x3 combobox coordinates",
-    "group-frame dimensions",
-    "scrollbar geometry",
-    "Party bottom Start coordinates",
-    "Party selected-tab pixel geometry"
-  ],
-  "required_to_complete": "Full-window 452x1032 screenshot with Party tab visibly selected",
-  "next_action": "Re-check for Party screenshot; remain B04 until visual baseline can be measured"
+  "visual_geometry_file": "docs/ui/B04_PARTY_GEOMETRY.tsv",
+  "visual_defaults_file": "docs/ui/B04_PARTY_DEFAULTS.json",
+  "next_action": "B05 — Baseline Train"
 }
