@@ -1,0 +1,20 @@
+AREA	STATUS	VALUE	STATIC_EVIDENCE
+Python runtime	VERIFIED	CPython 3.10.11 x64	python310.dll FileVersion/ProductVersion=3.10.11; inner EXE embeds full sys.version: 3.10.11 (tags/v3.10.11:7d4cc5a, Apr 5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]
+Python ABI	VERIFIED	CPython 3.10 / AMD64	python310.dll name; all bundled .pyd are x64 PE; inner TLMTool.exe imports python310.dll
+CPython compiler	VERIFIED	MSVC 19.29 / MSC v.1929	python310.dll embeds [MSC v.1929 64 bit (AMD64)]; PE linker version 14.29
+CPython official build marker	VERIFIED	Release_v3.10.11_20230405.0	UTF-16 version-resource/build string in python310.dll
+Nuitka usage	VERIFIED	Yes	inner TLMTool.exe contains __nuitka__, __compiled__, __nuitka_version__, __nuitka_binary_dir, __nuitka_binary_exe and many NUITKA_PACKAGE_* markers
+Nuitka mode	VERIFIED	standalone inner build	TLMTool.dist layout with separate python310.dll/PYD/DLL resources; Nuitka runtime strings explicitly describe a standalone program
+Nuitka exact version	UNKNOWN	Not recovered statically	__nuitka_version__ key exists, but no corresponding printable version value was found; no guessing from build date
+Native compiler for Nuitka executable	VERIFIED	GCC 15.2.0, MinGW-W64 x86_64-msvcrt-posix-seh, Brecht Sanders r6	Repeated GCC producer strings embedded in TLMTool.dist/TLMTool.exe and forwarder.exe
+PE linker header for inner EXE	VERIFIED	2.46	TLMTool.dist/TLMTool.exe PE optional header: MajorLinkerVersion=2 MinorLinkerVersion=46; recorded as header value only
+Inner EXE architecture	VERIFIED	x86-64 PE32+	PE header/file inspection
+Inner EXE subsystem	VERIFIED	Windows GUI	PE subsystem=2
+Inner EXE PE timestamp	VERIFIED	2026-10-01 13:12:50 UTC-like PE field	PE TimeDateStamp as rendered by objdump; field can be compiler-set and is not treated as trusted wall-clock provenance
+forwarder.exe compiler	VERIFIED	Same GCC 15.2.0 MinGW-W64 family	Embedded GCC producer string
+forwarder.exe PE timestamp	VERIFIED	2026-10-01 13:13:14	PE TimeDateStamp field
+Tcl runtime	VERIFIED	8.6.12	tcl86t.dll printable version 8.6.12; _tkinter.pyd links tcl86t.dll
+Tk runtime	VERIFIED	8.6.12	tk86t.dll printable version 8.6.12; _tkinter.pyd links tk86t.dll
+Python source files in distribution	VERIFIED	0 .py / 0 .pyc / 0 .pyo	Complete extracted tree scan
+Separate AHK wrapper/runtime	VERIFIED	AutoHotkey 1.1.37.02	Outer TLMTool.exe, bootstrap.exe and update.exe embed <COMPILER: v1.1.37.02> / AutoHotkey v1.1.37.02 markers
+AHK launcher behavior	DEFERRED	A05/A06	A04 records runtime identity only; launcher/bootstrap behavior is out of scope here

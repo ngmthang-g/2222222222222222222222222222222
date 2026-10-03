@@ -7,37 +7,32 @@ IN_PROGRESS
 - A01 DONE
 - A02 VERIFIED
 - A03 VERIFIED
+- A04 VERIFIED_WITH_EXPLICIT_UNKNOWN
 
-## A03 KEY RESULTS
-- EXE: 7
-- DLL: 12
-- PYD: 32
-- DATA: 23
-- RESOURCE: 928
-- Robust PE files: 58
-- Robust PE architectures: 57 x64, 1 x86
-- DATA-named robust PE files: 7
-- Six resources*.dat* files are x64 PE DLL-format with UPX0/UPX1/UPX2 sections.
-- version.dat is x64 PE DLL-format.
-- Fourteen other .dat files are MZ/PE-like but fail robust structural PE validation and remain DATA.
-
-## FILES WRITTEN TO GITHUB IN A03
-- docs/tasks/A03.md
-- original_manifest/A03_SUMMARY.json
-- original_manifest/A03_PE_INVENTORY.tsv
-- original_manifest/A03_EXTENSION_COUNTS.tsv
-- original_manifest/A03_SUBTYPE_COUNTS.tsv
+## A04 KEY RESULTS
+- Python runtime: CPython 3.10.11 x64.
+- CPython build compiler: MSC v.1929 / MSVC 19.29.
+- Nuitka use: VERIFIED from direct runtime/compiler markers.
+- Inner `TLMTool.dist/TLMTool.exe`: Nuitka standalone build VERIFIED.
+- Exact Nuitka version: UNKNOWN; no unsupported guess was made.
+- Native compiler for inner TLM/Nuitka binary: GCC 15.2.0, MinGW-W64 x86_64-msvcrt-posix-seh, Brecht Sanders r6.
+- Inner PE linker header value: 2.46.
+- Tcl/Tk runtime: 8.6.12 / 8.6.12.
+- Distribution contains 0 `.py`, 0 `.pyc`, 0 `.pyo` files.
+- Root `TLMTool.exe`, `bootstrap.exe`, `update.exe` carry AutoHotkey 1.1.37.02 compiler/runtime markers; behavior deferred to A05/A06.
 
 ## CURRENT_TASK
-A04 — Xác định Python/Nuitka/compiler/runtime.
+A05 — Xác minh launcher ngoài và EXE trong `.dist`.
 
 ## BLOCKERS
-None for A04.
+None for A05.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute A04 only using static evidence from the baseline package.
-4. Persist the A04 report and evidence to GitHub.
-5. Advance NEXT_ACTION to A05 only after A04 is verified.
+3. Execute A05 only.
+4. Statistically verify the relationship between root `TLMTool.exe` and `TLMTool.dist/TLMTool.exe`, using embedded AHK script/resource/static evidence without executing package binaries.
+5. Record VERIFIED / UNKNOWN separately.
+6. Persist A05 report/evidence to GitHub.
+7. Advance NEXT_ACTION to A06 only after A05 is verified.
