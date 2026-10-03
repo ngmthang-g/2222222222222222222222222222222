@@ -9,8 +9,8 @@ A01–A08: **COMPLETE / VERIFIED**
 - B01 — VERIFIED
 - B02 — VERIFIED
 - B03 — VERIFIED
-- B04 — **BLOCKED_VISUAL_EVIDENCE**
-- B05 — TODO
+- B04 — VERIFIED
+- B05 — CURRENT
 - B06 — TODO
 - B07 — TODO
 - B08 — TODO
@@ -21,10 +21,10 @@ A01–A08: **COMPLETE / VERIFIED**
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B04 — Baseline Party**
+Current task: **B05 — Baseline Train**
 
-The current 12-screen set has no Party-selected screenshot. The black-preview/sync screenshot is now verified as `▶ / Start / Xếp lưới`, not Party.
+The B04 visual blocker is cleared. Party geometry is now measured from a direct Party-selected screenshot rather than inferred from another tab.
 
-Static `party_tab.py` UI structure is recorded, but pixel geometry is not locked. A Party-selected full-window screenshot is required before B05.
+Direct selected-tab evidence now exists for 10/11 labels; only `i` is still not directly captured selected.
 
 Preserve Gate A baseline unchanged.
