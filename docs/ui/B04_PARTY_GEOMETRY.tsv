@@ -1,0 +1,42 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+party_selected_white_bridge_y56	65	56	101	56	37	1	Party selected
+after_party_group	11	69	434	130	424	62	Sau khi party
+radio_cho	20	108	32	120	13	13	selected
+radio_train	77	108	89	120	13	13	unselected
+radio_train_lsv	138	108	150	120	13	13	unselected
+radio_don_vang	221	108	233	120	13	13	unselected
+radio_pho_ban	307	108	319	120	13	13	unselected
+team_config_group	11	144	434	181	424	38	Danh sách acc sẵn sàng
+group_config_outer	11	195	434	611	424	417	Cấu hình nhóm
+group1_frame	16	215	429	326	414	112	Nhóm 1
+group1_leave_button	261	227	330	245	70	19	Rời nhóm
+group1_delete_button	335	227	423	245	89	19	✖ Xóa nhóm
+group1_combo_r1c1	22	249	148	269	127	21	ThápCa
+group1_combo_r1c2	157	249	283	269	127	21	75C.S6
+group1_combo_r1c3	292	249	419	269	128	21	TổngTài.S6
+group1_combo_r2c1	22	272	148	292	127	21	blank
+group1_combo_r2c2	157	272	283	292	127	21	blank
+group1_combo_r2c3	292	272	419	292	128	21	blank
+group1_action	22	297	423	322	402	26	hourglass + Đang vào...
+group2_frame	16	340	429	451	414	112	Nhóm 2
+group2_leave_button	261	352	330	370	70	19	Rời nhóm
+group2_delete_button	335	352	423	370	89	19	✖ Xóa nhóm
+group2_combo_r1c1	22	374	148	394	127	21	blank
+group2_combo_r1c2	157	374	283	394	127	21	blank
+group2_combo_r1c3	292	374	419	394	128	21	blank
+group2_combo_r2c1	22	397	148	417	127	21	blank
+group2_combo_r2c2	157	397	283	417	127	21	blank
+group2_combo_r2c3	292	397	419	417	128	21	blank
+group2_action	22	422	423	447	402	26	Tạo nhóm 2
+group3_frame	16	465	429	576	414	112	Nhóm 3
+group3_leave_button	261	477	330	495	70	19	Rời nhóm
+group3_delete_button	335	477	423	495	89	19	✖ Xóa nhóm
+group3_combo_r1c1	22	499	148	519	127	21	blank
+group3_combo_r1c2	157	499	283	519	127	21	blank
+group3_combo_r1c3	292	499	419	519	128	21	blank
+group3_combo_r2c1	22	522	148	542	127	21	blank
+group3_combo_r2c2	157	522	283	542	127	21	blank
+group3_combo_r2c3	292	522	419	542	128	21	blank
+group3_action	22	547	423	572	402	26	Tạo nhóm 3
+add_group_button	18	586	151	607	134	22	+ Thêm nhóm
+bottom_start_button	16	988	429	1017	414	30	Bắt đầu
