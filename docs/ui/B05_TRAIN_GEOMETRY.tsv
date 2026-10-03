@@ -1,0 +1,39 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+train_selected_bridge_y56	102	56	137	56	36	1	Train selected
+town_group	11	69	438	133	428	65	Cấu hình Về thành
+town_show_button_outer	312	83	431	104	120	22	Hiện cấu hình
+town_radio_never	22	111	34	123	13	13	unselected
+town_radio_full	103	111	115	123	13	13	unselected
+town_radio_cycle	186	111	198	123	13	13	selected
+town_cycle_spin_visible	314	108	364	126	51	19	30
+train_group	11	147	438	329	428	183	Cấu hình Train
+checkbox_respawn	18	184	30	196	13	13	unchecked
+checkbox_reconnect	168	184	180	196	13	13	unchecked
+checkbox_pickup_no_cankhon	18	209	30	221	13	13	unchecked
+checkbox_heal_after_death	18	234	30	246	13	13	unchecked
+heal_combo_visible	235	230	389	250	155	21	Trị liệu Tô Châu
+keep_radio_none	104	259	116	271	13	13	unselected
+keep_radio_weapon	174	259	186	271	13	13	unselected
+keep_radio_all	262	259	274	271	13	13	selected
+add_buff_outer	18	304	151	325	134	22	+ Thêm
+coord_group	11	343	438	406	428	64	Cấu hình tọa độ lưu sẵn
+coord_header_name_text	37	361	58	369	22	9	Tên
+coord_header_map_text	153	361	176	372	24	12	Map
+coord_header_x_text	263	361	272	369	10	9	X
+coord_header_y_text	299	361	307	369	9	9	Y
+coord_header_apply_text	333	358	401	372	69	15	Áp dụng hết
+coord_header_delete_text	413	361	433	369	21	9	Xóa
+add_coord_outer	18	381	151	402	134	22	+ Thêm tọa độ
+hide_coord_outer	298	381	431	402	134	22	Ẩn danh sách tọa độ
+accounts_group	11	420	438	983	428	564	Danh sách tài khoản
+account_header_name_text	66	438	115	448	50	11	Nhân vật
+account_header_sell_text	193	438	254	448	62	11	Tọa độ bán
+account_header_train_text	309	438	378	448	70	11	Tọa độ Train
+account_scroll_track	426	470	426	939	1	470	empty-list track
+account_scroll_up_chevron	429	459	433	464	5	6	visible
+account_scroll_down_chevron	429	946	433	951	5	6	visible
+all_goto_sell_outer	133	959	207	979	75	21	Tới bán đồ
+all_sell_outer	212	959	267	979	56	21	Bán đồ
+all_goto_train_outer	272	959	352	979	81	21	Tới bãi train
+all_fight_outer	357	959	403	979	47	21	Đánh
+bottom_start_outer	16	988	433	1017	418	30	Bắt đầu
