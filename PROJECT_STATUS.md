@@ -10,8 +10,8 @@ A01–A08: **COMPLETE / VERIFIED**
 - B02 — VERIFIED
 - B03 — VERIFIED
 - B04 — VERIFIED
-- B05 — CURRENT
-- B06 — TODO
+- B05 — VERIFIED
+- B06 — CURRENT
 - B07 — TODO
 - B08 — TODO
 - B09 — TODO
@@ -21,10 +21,8 @@ A01–A08: **COMPLETE / VERIFIED**
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B05 — Baseline Train**
+Current task: **B06 — Baseline Train LSV**
 
-The B04 visual blocker is cleared. Party geometry is now measured from a direct Party-selected screenshot rather than inferred from another tab.
-
-Direct selected-tab evidence now exists for 10/11 labels; only `i` is still not directly captured selected.
+B05 was completed with binary-first analysis of compiled `farm_tab.py` followed by direct Train screenshot measurement.
 
 Preserve Gate A baseline unchanged.
