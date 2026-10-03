@@ -612,8 +612,62 @@ Static running vocabulary includes `Đang rao X/4 nhóm...` and `Dừng lại`.
 Behavior remains deferred.
 
 
-## B11 — Tối ưu
-TODO
+## B11 — Tối ưu — VERIFIED
+
+Binary-first evidence:
+- compiled `toiuu_tab.py`; related `cpu_monitor.py`
+- inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`
+
+Tối ưu screenshots:
+- `TLMTool_tormBQu5Vy(1).png` and `(2).png` are byte-identical
+- SHA-256 `653110b20120e26d115f11e64cb61b23af686b77432cf211b28be51a40364933`
+
+### Selected tab
+At `y=56`, selected bridge = `x=336..378`.
+
+### Giám sát CPU/GPU
+- group: `x=13..436, y=69..285`
+- `Tách theo dõi` dark fill: `x=337..428, y=82..100`, `#616161`
+- visible CPU: `CPU: 15%`
+- CPU canvas: `x=18..431, y=125..190`
+- CPU line: `#1565C0`
+- visible GPU: `GPU: N/A (không có nvidia-smi)`
+- GPU canvas: `x=18..431, y=216..281`
+- GPU label: `#E65100`
+- graph border `#BBBBBB`; grid `#E0E0E0`
+
+Original module samples every 1 second and queries GPU through `nvidia-smi`. Detached monitor title: `CPU / GPU`; open state is persisted.
+
+### Danh sách tài khoản
+- group: `x=13..436, y=301..983`
+- headers: `Nhân vật | Giảm cấu hình`
+- screenshot state: empty list
+- scrollbar arrows/track visible, no thumb
+
+Static mode mapping:
+- `medium` → `Thấp vừa`
+- `low` → `Cực thấp`
+- `max` → `Cực đại`
+- config labels also contain `Không`
+
+Static states:
+- `Đã dừng`
+- `Đang chạy`
+- `Treo tick`
+
+### Điều khiển tất cả
+- Thấp vừa fill: `x=136..200, y=958..976`
+- Cực thấp fill: `x=207..269, y=958..976`
+- Cực đại fill: `x=276..330, y=958..976`
+- all use `#616161`
+
+### Bottom
+- `Bắt đầu`
+- fill `x=19..430, y=989..1016`
+- `#388E3C`
+
+Behavior remains deferred.
+
 
 ## B12 — i
 TODO

@@ -1,0 +1,52 @@
+{
+  "task": "B11",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "binary": {
+    "path": "TLMTool.dist/TLMTool.exe",
+    "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "compiled_modules": ["toiuu_tab.py", "cpu_monitor.py"]
+  },
+  "screenshot": {
+    "files": ["TLMTool_tormBQu5Vy(1).png", "TLMTool_tormBQu5Vy(2).png"],
+    "byte_identical": true,
+    "sha256": "653110b20120e26d115f11e64cb61b23af686b77432cf211b28be51a40364933",
+    "raster_px": [452, 1032],
+    "client_px": [450, 1000],
+    "selected_tab": "Tối ưu"
+  },
+  "visible_state": {
+    "cpu_text": "CPU: 15%",
+    "gpu_text": "GPU: N/A (không có nvidia-smi)",
+    "gpu_available": false,
+    "account_rows_visible": 0,
+    "account_scroll_thumb_visible": false,
+    "all_account_modes": ["Thấp vừa", "Cực thấp", "Cực đại"],
+    "bottom_action": "Bắt đầu"
+  },
+  "static_original_facts": {
+    "mode_mapping": {
+      "medium": "Thấp vừa",
+      "low": "Cực thấp",
+      "max": "Cực đại"
+    },
+    "config_labels": ["Không", "Thấp vừa", "Cực thấp", "Cực đại"],
+    "mode_ordinals": {"medium": 1, "low": 2, "max": 3},
+    "state_colors": {
+      "Đã dừng": "#555555",
+      "Đang chạy": "#2E7D32",
+      "Treo tick": "#C62828"
+    },
+    "cpu_color": "#1565C0",
+    "gpu_color": "#E65100",
+    "graph_border": "#BBBBBB",
+    "graph_grid": "#E0E0E0",
+    "sample_period_seconds_documented": 1,
+    "gpu_backend": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+    "account_refresh_seconds": 5,
+    "detached_monitor_title": "CPU / GPU",
+    "detached_monitor_setting": "toiuu_monitor_open",
+    "running_set_setting": "toiuu_running"
+  },
+  "next_action": "B12 — Baseline i"
+}

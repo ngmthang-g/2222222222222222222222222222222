@@ -28,48 +28,46 @@ IN_PROGRESS
 - B08 VERIFIED
 - B09 VERIFIED
 - B10 VERIFIED
+- B11 VERIFIED
 
-## B10 VERIFIED RESULTS
+## B11 VERIFIED RESULTS
 - Used binary-first workflow.
-- Original compiled marker recovered: `rao_tab.py`.
-- Two Rao screenshots are byte-identical; SHA-256 `341f2b4653f31f5a0ee4a3f29d3cf9245edbf43c0ca140ac09a859925d8a2319`.
-- Rao selected bridge at y=56: x=308..337.
-- `Cấu hình rao tự động`: x=13..436, y=69..154.
-  - one visible row: `Rao 1 | blank content | Thế giới | 30 | ✕`
-  - add-Rao and delete controls measured
-- Static channel list recovered:
-  - Thế giới
-  - Bang hội
-  - Môn phái
-  - Tổ đội
-  - Liên minh
-  - Quân đoàn
-  - Lân cận
-- Original default channel: `Thế giới`.
-- Automatic Rao naming and digits-only repeat validation recovered from original module.
-- `Danh sách tài khoản`: x=13..436, y=170..983; empty screenshot state; scrollbar arrows/track visible, no thumb.
-- Static populated account-row structure recovered:
-  - ▶
-  - character name
-  - initial `Đã dừng`
-  - 4 Rao-content combobox slots per account
-- Original module documents maximum four independent Rao loops per account and account-list refresh every five seconds.
-- Static backend evidence preserved for later behavior: memory_items.send_chat / Network.SendPacket CMD_CLIENT_CHAT, background without opening chat panel.
-- bottom `Bắt đầu` measured; static running strings include `Đang rao X/4 nhóm...` and `Dừng lại`.
+- Original compiled markers recovered: `toiuu_tab.py`, related `cpu_monitor.py`.
+- Two Tối ưu screenshots are byte-identical; SHA-256 `653110b20120e26d115f11e64cb61b23af686b77432cf211b28be51a40364933`.
+- Tối ưu selected bridge at y=56: x=336..378.
+- `Giám sát CPU/GPU`: x=13..436, y=69..285.
+  - detached-monitor button measured
+  - visible CPU = 15%
+  - CPU canvas/line measured
+  - visible GPU = N/A because nvidia-smi unavailable
+  - GPU canvas measured
+- Original module documents 1-second sampling and nvidia-smi GPU query.
+- Detached monitor title `CPU / GPU`; detached state persists via `toiuu_monitor_open`.
+- `Danh sách tài khoản`: x=13..436, y=301..983; empty-list state; scrollbar track/arrows visible, no thumb.
+- Static mode mapping recovered:
+  - medium → Thấp vừa
+  - low → Cực thấp
+  - max → Cực đại
+  - config labels also include Không
+- Static state vocabulary/colors recovered: Đã dừng / Đang chạy / Treo tick.
+- All-account mode buttons measured.
+- bottom `Bắt đầu` measured.
+- Original module also contains saved running set, DLL/perf command flow, stale-running reconciliation and hang-watch/recovery hooks; runtime parity remains deferred.
+- Related `cpu_monitor.py` is recorded as a separate high-CPU warning component, not merged into the visible Tối ưu baseline.
 
-## B10 FILES
-- `docs/tasks/B10.md`
-- `docs/ui/B10_RAO_GEOMETRY.tsv`
-- `docs/ui/B10_RAO_VISIBLE_STATE.json`
-- `docs/ui/B10_RAO_STATIC_EVIDENCE.tsv`
-- `docs/ui/B10_SCREENSHOT_EVIDENCE.tsv`
+## B11 FILES
+- `docs/tasks/B11.md`
+- `docs/ui/B11_TOIUU_GEOMETRY.tsv`
+- `docs/ui/B11_TOIUU_VISIBLE_STATE.json`
+- `docs/ui/B11_TOIUU_STATIC_EVIDENCE.tsv`
+- `docs/ui/B11_SCREENSHOT_EVIDENCE.tsv`
 - `docs/UI_BASELINE_TLM.md`
 
 ## CURRENT_TASK
-B11 — Baseline Tối ưu.
+B12 — Baseline i.
 
 ## BLOCKERS
-None for B11. A Tối ưu-selected screenshot is already present.
+None for B12. A direct i-selected screenshot was supplied and staged earlier.
 
 ## WORKFLOW
 For remaining Gate B tabs:
@@ -80,17 +78,15 @@ For remaining Gate B tabs:
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Keep B10 send/loop behavior deferred.
-- Treat screenshot Rao values as visible/current state; only values separately confirmed as defaults may be called defaults.
+- Keep B11 runtime/performance/recovery behavior deferred.
 - Keep final shared font/color/button metrics for B13.
-- The staged `i` screenshot remains reserved for B12.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Execute **B11 only**.
-4. Inspect compiled `toiuu_tab.py` / monitoring static evidence first.
-5. Then measure the supplied Tối ưu-selected screenshot.
-6. Persist B11 evidence/report to GitHub and update `docs/UI_BASELINE_TLM.md`.
-7. Advance to B12 only after B11 is verified.
+3. Execute **B12 only**.
+4. Inspect compiled `info_tab.py` static evidence first.
+5. Then measure the staged direct i-selected screenshot.
+6. Persist B12 evidence/report to GitHub and update `docs/UI_BASELINE_TLM.md`.
+7. Advance to B13 only after B12 is verified.

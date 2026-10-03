@@ -1,0 +1,27 @@
+KEY	OFFSET_DEC	STATUS	DESCRIPTION
+cpu_monitor_filename	42830282	VERIFIED_STATIC	cpu_monitor.py
+cpu_monitor_module	42830316	VERIFIED_STATIC	module marker
+toiuu_group	46146234	VERIFIED_STATIC	Giám sát CPU/GPU
+monitor_subtitle	46146344	VERIFIED_STATIC	Theo dõi hiệu năng.
+detach_monitor	46146439	VERIFIED_STATIC	Tách theo dõi
+cpu_initial	46146694	VERIFIED_STATIC	CPU: --%
+gpu_initial	46146861	VERIFIED_STATIC	GPU: --%
+accounts_group	46146973	VERIFIED_STATIC	Danh sách tài khoản
+header_character	46147060	VERIFIED_STATIC	Nhân vật
+header_reduce	46147077	VERIFIED_STATIC	Giảm cấu hình
+all_controls	46147605	VERIFIED_STATIC	Điều khiển tất cả:
+mode_medium	46149765	VERIFIED_STATIC	Thấp vừa
+mode_low	46149786	VERIFIED_STATIC	Cực thấp
+mode_max	46149807	VERIFIED_STATIC	Cực đại
+gpu_query	46151569	VERIFIED_STATIC	nvidia-smi
+gpu_query_arg	46151581	VERIFIED_STATIC	--query-gpu=utilization.gpu
+gpu_format_arg	46151610	VERIFIED_STATIC	--format=csv,noheader,nounits
+gpu_na	46152011	VERIFIED_STATIC	GPU: N/A (không có nvidia-smi)
+detached_title	46155150	VERIFIED_STATIC	CPU / GPU
+state_stopped	46162461	VERIFIED_STATIC	Đã dừng
+state_running	46162474	VERIFIED_STATIC	Đang chạy
+state_hung	46162488	VERIFIED_STATIC	Treo tick
+monitor_setting	46152406	VERIFIED_STATIC	toiuu_monitor_open
+running_setting	46152835	VERIFIED_STATIC	toiuu_running
+module_filename	46164833	VERIFIED_STATIC	toiuu_tab.py
+module_marker	46165097	VERIFIED_STATIC	module marker

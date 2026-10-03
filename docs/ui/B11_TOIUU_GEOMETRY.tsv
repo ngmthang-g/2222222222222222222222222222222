@@ -1,0 +1,19 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+toiuu_selected_bridge_y56	336	56	378	56	43	1	Tối ưu selected
+monitor_group	13	69	436	285	424	217	Giám sát CPU/GPU
+detach_fill	337	82	428	100	92	19	Tách theo dõi / #616161
+cpu_label_blue	22	110	71	118	50	9	CPU: 15%
+cpu_canvas_border	18	125	431	190	414	66	#BBBBBB
+cpu_history_blue	19	159	430	184	412	26	#1565C0
+gpu_label_orange	22	201	194	212	173	12	GPU: N/A (không có nvidia-smi)
+gpu_canvas_border	18	216	431	281	414	66	#BBBBBB
+accounts_group	13	301	436	983	424	683	Danh sách tài khoản
+header_character_text	82	319	131	329	50	11	Nhân vật
+header_reduce_text	237	318	314	327	78	10	Giảm cấu hình
+scroll_up	427	340	431	345	5	6	visible
+scroll_track	424	351	424	935	1	585	white track
+scroll_down	427	942	431	947	5	6	visible
+all_medium_fill	136	958	200	976	65	19	Thấp vừa / #616161
+all_low_fill	207	958	269	976	63	19	Cực thấp / #616161
+all_max_fill	276	958	330	976	55	19	Cực đại / #616161
+bottom_start_fill	19	989	430	1016	412	28	Bắt đầu / #388E3C

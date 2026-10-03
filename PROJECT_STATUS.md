@@ -16,13 +16,13 @@ A01–A08: **COMPLETE / VERIFIED**
 - B08 — VERIFIED
 - B09 — VERIFIED
 - B10 — VERIFIED
-- B11 — CURRENT
-- B12 — TODO
+- B11 — VERIFIED
+- B12 — CURRENT
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B11 — Baseline Tối ưu**
+Current task: **B12 — Baseline i**
 
-B10 was completed using compiled `rao_tab.py` evidence first, then direct Rao screenshot measurement.
+B11 was completed using compiled `toiuu_tab.py` / related monitoring evidence first, then direct Tối ưu screenshot measurement.
 
 Preserve Gate A baseline unchanged.
