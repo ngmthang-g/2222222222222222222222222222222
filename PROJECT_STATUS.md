@@ -10,10 +10,28 @@ Authoritative continuation state: [STATE.md](STATE.md)
 - A05 — VERIFIED
 - A06 — VERIFIED
 - A07 — VERIFIED
-- A08 — CURRENT
+- A08 — VERIFIED
 
-Current task: **A08 — Tạo bản copy forensic chỉ đọc**
+**GATE A COMPLETE**
 
-A07 created the authoritative per-file ORIGINAL_MANIFEST and reconciled A01–A06 evidence.
+## Gate B
+- B01 — CURRENT
+- B02 — TODO
+- B03 — TODO
+- B04 — TODO
+- B05 — TODO
+- B06 — TODO
+- B07 — TODO
+- B08 — TODO
+- B09 — TODO
+- B10 — TODO
+- B11 — TODO
+- B12 — TODO
+- B13 — TODO
+- B14 — TODO
 
-Do not start reconstruction source before Gate A is complete.
+Current task: **B01 — Chốt kích thước cửa sổ chính**
+
+A08 created and verified a byte-identical read-only forensic archive copy. GitHub stores its SHA-256, inventory, metadata, and verification procedure; the generated 93.7 MB forensic binary is kept as the forensic artifact.
+
+Preserve the Gate A baseline unchanged.

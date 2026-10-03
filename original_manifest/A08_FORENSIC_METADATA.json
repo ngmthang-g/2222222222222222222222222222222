@@ -1,0 +1,21 @@
+{
+  "task": "A08",
+  "status": "VERIFIED",
+  "forensic_artifact": "TLMTool_2.1.2_ORIGINAL_READONLY.zip",
+  "artifact_kind": "byte-for-byte copy of verified original archive",
+  "artifact_size_bytes": 93715901,
+  "artifact_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+  "source_archive": "TLMTool_2.1.2(2).zip",
+  "source_archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+  "second_uploaded_copy_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+  "source_vs_forensic_cmp": "IDENTICAL",
+  "zip_integrity": "PASS",
+  "zip_entries": 1050,
+  "zip_files": 1002,
+  "zip_directories": 48,
+  "zip_uncompressed_file_bytes": 260061035,
+  "artifact_permission_mode": "0444",
+  "forensic_directory_permission_mode": "2555 (setgid inherited; no write bits)",
+  "authoritative_manifest_sha256": "c906b837c1c804984f26a262ebc563300076981e4008ce36b0c768a18513f4ee",
+  "note": "Read-only permissions are an operational guard, not cryptographic immutability. SHA-256 is the integrity anchor."
+}
