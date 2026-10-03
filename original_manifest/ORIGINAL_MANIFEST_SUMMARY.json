@@ -1,0 +1,66 @@
+{
+  "task": "A07",
+  "status": "VERIFIED",
+  "authoritative_manifest": "original_manifest/ORIGINAL_MANIFEST.tsv",
+  "manifest_rows": 1002,
+  "manifest_bytes": 158973,
+  "manifest_sha256": "c906b837c1c804984f26a262ebc563300076981e4008ce36b0c768a18513f4ee",
+  "package": {
+    "logical_name": "TLMTool_2.1.2.zip",
+    "archive_size_bytes": 93715901,
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "uploaded_copies_byte_identical": true,
+    "zip_entries_total": 1050,
+    "file_entries": 1002,
+    "directory_entries": 48,
+    "uncompressed_file_bytes": 260061035,
+    "unsafe_paths": 0,
+    "duplicate_entry_names": 0,
+    "symlink_entries": 0,
+    "a07_rehash_mismatches": 0,
+    "a07_size_mismatches": 0
+  },
+  "classification": {
+    "EXE": {
+      "count": 7,
+      "bytes": 61496464
+    },
+    "DLL": {
+      "count": 12,
+      "bytes": 14978960
+    },
+    "PYD": {
+      "count": 32,
+      "bytes": 161367424
+    },
+    "DATA": {
+      "count": 23,
+      "bytes": 17184542
+    },
+    "RESOURCE": {
+      "count": 928,
+      "bytes": 5033645
+    },
+    "robust_pe_files": 58,
+    "robust_pe_architectures": {
+      "x64": 57,
+      "x86": 1
+    }
+  },
+  "runtime": {
+    "python": "CPython 3.10.11 x64",
+    "cpython_compiler": "MSC v.1929 / MSVC 19.29",
+    "nuitka_inner_mode": "standalone",
+    "exact_nuitka_version": "UNKNOWN",
+    "native_compiler": "GCC 15.2.0 / MinGW-W64 x86_64-msvcrt-posix-seh",
+    "tcl": "8.6.12",
+    "tk": "8.6.12",
+    "ahk_wrappers": "1.1.37.02"
+  },
+  "explicit_unknowns": [
+    "Exact Nuitka version",
+    "Exact original Nuitka command line",
+    "Runtime-only side effects not statically evidenced"
+  ],
+  "next_action": "A08 — Tạo bản copy forensic chỉ đọc"
+}

@@ -9,11 +9,11 @@ Authoritative continuation state: [STATE.md](STATE.md)
 - A04 — VERIFIED_WITH_EXPLICIT_UNKNOWN
 - A05 — VERIFIED
 - A06 — VERIFIED
-- A07 — CURRENT
-- A08 — TODO
+- A07 — VERIFIED
+- A08 — CURRENT
 
-Current task: **A07 — Lập ORIGINAL_MANIFEST**
+Current task: **A08 — Tạo bản copy forensic chỉ đọc**
 
-A06 recovered and persisted the exact embedded AutoHotkey payloads for bootstrap.exe and update.exe and verified their update/self-replacement flow.
+A07 created the authoritative per-file ORIGINAL_MANIFEST and reconciled A01–A06 evidence.
 
 Do not start reconstruction source before Gate A is complete.
