@@ -1,0 +1,7 @@
+SCREENSHOT	SHA256	ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	NOTE
+TLMTool_fTpCsm0auQ(2).png	f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a	preview_item_1_border	16	258	220	394	205	137	#C9C9C9 outer frame
+TLMTool_fTpCsm0auQ(2).png	f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a	preview_item_2_border	225	258	429	394	205	137	#C9C9C9 outer frame
+TLMTool_fTpCsm0auQ(2).png	f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a	preview_item_3_border	16	399	220	535	205	137	#C9C9C9 outer frame
+TLMTool_fTpCsm0auQ(2).png	f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a	preview_item_1_black_surface	20	281	216	390	197	110	Tk preview surface visible in screenshot
+TLMTool_fTpCsm0auQ(2).png	f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a	preview_item_2_black_surface	229	281	425	390	197	110	Tk preview surface visible in screenshot
+TLMTool_fTpCsm0auQ(2).png	f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a	preview_item_3_black_surface	20	422	216	531	197	110	Tk preview surface visible in screenshot

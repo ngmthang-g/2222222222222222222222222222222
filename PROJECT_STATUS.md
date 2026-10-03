@@ -11,8 +11,8 @@ B01–B14: **COMPLETE / VERIFIED**
 ## Gate C
 - C01 — VERIFIED_WITH_EXPLICIT_UNKNOWN_BOOLEAN_FORMULA
 - C02 — VERIFIED_WITH_EXPLICIT_UNKNOWN_FALLBACK_FORMAT
-- C03 — CURRENT
-- C04 — TODO
+- C03 — VERIFIED_WITH_EXPLICIT_UNKNOWN_PROPERTY_BOOLEANS
+- C04 — CURRENT
 - C05 — TODO
 - C06 — TODO
 - C07 — TODO
@@ -30,8 +30,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C03 — cơ chế preview HWND**
+Current task: **C04 — update preview và FPS**
 
-C02 recovered HWND→PID→Reader→RoleName mapping, PID snapshot protection against HWND reuse, stale-row rebind, and character-name persistence.
+C03 verified DWM live-thumbnail architecture, destination overlay HWND lifecycle, click activation and hung-window guard.
 
 Preserve Gate A/B baselines unchanged.

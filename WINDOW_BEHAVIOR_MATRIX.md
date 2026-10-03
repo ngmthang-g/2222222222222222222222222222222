@@ -96,5 +96,65 @@ Explicit unknown:
 
 ---
 
-## C03
-TODO — cơ chế preview HWND.
+## C03 — cơ chế preview HWND
+
+```text
+Xem trước cửa sổ game
+↓
+TLMStartTab.refresh_window_preview_list
+↓
+_is_hung(src_hwnd)
+↓
+_create_dwm_dst_hwnd + DwmRegisterThumbnail
+↓
+source HWND: game src_hwnd
+destination HWND: ThlDwmThumbDst overlay
+↓
+destination positioned from Tk preview winfo_rootx/y/width/height
+↓
+DwmUpdateThumbnailProperties
+↓
+live DWM thumbnail over preview frame
+```
+
+Destination overlay:
+- `WS_EX_LAYERED | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE`
+- `WS_POPUP | WS_VISIBLE`
+- owner derives from Tk toplevel `winfo_id()`
+- click-target map associates destination HWND → source game HWND
+
+DWM properties present:
+- RECTDESTINATION
+- OPACITY (255 static constant)
+- VISIBLE
+- SOURCECLIENTAREAONLY
+
+Click/activation:
+- destination WndProc recognizes WM_LBUTTONDOWN/UP/DBLCLK
+- validates source HWND
+- minimized source has SW_RESTORE path
+- otherwise SW_SHOW path
+- SetForegroundWindow(source)
+
+Hung source:
+- checked with nonblocking `IsHungAppWindow`
+- preview error path shows `Cửa sổ không phản hồi`
+
+Teardown:
+- `DwmUnregisterThumbnail`
+- remove destination click mapping
+- `DestroyWindow(dst_hwnd)`
+- destroy Tk frame
+
+Screenshot reference:
+- 3 visible preview items
+- each outer border 205×137
+- black visible preview surface 197×110
+
+Explicit unknown:
+- exact source-level boolean assignments to `fVisible` and `fSourceClientAreaOnly`.
+
+---
+
+## C04
+TODO — update preview và FPS.

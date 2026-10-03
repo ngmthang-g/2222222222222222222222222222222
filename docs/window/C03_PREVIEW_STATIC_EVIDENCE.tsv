@@ -1,0 +1,56 @@
+KEY	OFFSET_DEC	STATUS	EVIDENCE
+module_filename	46140293	VERIFIED_STATIC	start_tab.py
+module_marker	46140560	VERIFIED_STATIC	<module start_tab>
+dwm_class_name	46109082	VERIFIED_STATIC	ThlDwmThumbDst
+register_class_api	46109113	VERIFIED_STATIC	RegisterClassExW
+register_class_doc	46109131	VERIFIED_STATIC	Register window class for DWM thumbnail destination windows.
+click_message_tuple	46109193	VERIFIED_STATIC	513/514/515 = WM_LBUTTONDOWN/UP/DBLCLK
+click_target_map	46109204	VERIFIED_STATIC	_dwm_dst_click_targets
+click_source_guard	46109228	VERIFIED_STATIC	IsWindow
+click_activate	46109238	VERIFIED_STATIC	_activate_game_window
+overlay_ex_layered	46109302	VERIFIED_STATIC	WS_EX_LAYERED
+overlay_ex_toolwindow	46109317	VERIFIED_STATIC	WS_EX_TOOLWINDOW
+overlay_ex_noactivate	46109335	VERIFIED_STATIC	WS_EX_NOACTIVATE
+overlay_create_api	46109353	VERIFIED_STATIC	CreateWindowExW
+overlay_style_popup	46109370	VERIFIED_STATIC	WS_POPUP
+overlay_style_visible	46109380	VERIFIED_STATIC	WS_VISIBLE
+overlay_create_doc	46109431	VERIFIED_STATIC	Create a transparent overlay window for DWM thumbnail.
+overlay_destroy_api	46109492	VERIFIED_STATIC	DestroyWindow
+overlay_destroy_doc	46109507	VERIFIED_STATIC	Destroy a DWM thumbnail destination window.
+dwm_props_struct	46109552	VERIFIED_STATIC	DWM_THUMBNAIL_PROPERTIES
+dwm_flag_dest_rect	46109578	VERIFIED_STATIC	DWM_TNP_RECTDESTINATION
+dwm_flag_opacity	46109603	VERIFIED_STATIC	DWM_TNP_OPACITY
+dwm_flag_visible	46109620	VERIFIED_STATIC	DWM_TNP_VISIBLE
+dwm_flag_source_client	46109637	VERIFIED_STATIC	DWM_TNP_SOURCECLIENTAREAONLY
+dwm_dest_field	46109687	VERIFIED_STATIC	rcDestination
+dwm_opacity_255	46109702	VERIFIED_STATIC	serialized integer 255 immediately before opacity
+dwm_opacity_field	46109705	VERIFIED_STATIC	opacity
+dwm_visible_field	46109714	VERIFIED_STATIC	fVisible
+dwm_source_client_field	46109724	VERIFIED_STATIC	fSourceClientAreaOnly
+dwm_update_api	46109755	VERIFIED_STATIC	DwmUpdateThumbnailProperties
+activation_is_iconic	46109823	VERIFIED_STATIC	IsIconic
+activation_restore	46109833	VERIFIED_STATIC	SW_RESTORE
+activation_show	46109845	VERIFIED_STATIC	SW_SHOW
+activation_foreground	46109854	VERIFIED_STATIC	SetForegroundWindow
+src_hwnd_field	46129305	VERIFIED_STATIC	src_hwnd
+destroy_item_method	46129576	VERIFIED_STATIC	_destroy_window_preview_item
+dwm_unregister_api	46129695	VERIFIED_STATIC	DwmUnregisterThumbnail
+destroy_dst_helper	46129738	VERIFIED_STATIC	_destroy_dwm_dst_hwnd
+preview_owner_toplevel	46130049	VERIFIED_STATIC	winfo_toplevel / winfo_id owner path
+hung_check	46130688	VERIFIED_STATIC	_is_hung
+hung_text	46130700	VERIFIED_STATIC	Cửa sổ không phản hồi
+preview_root_x	46130730	VERIFIED_STATIC	winfo_rootx
+preview_root_y	46130743	VERIFIED_STATIC	winfo_rooty
+preview_width	46130756	VERIFIED_STATIC	winfo_width
+preview_height	46130769	VERIFIED_STATIC	winfo_height
+create_dst_helper	46130783	VERIFIED_STATIC	_create_dwm_dst_hwnd
+register_thumb_api	46130829	VERIFIED_STATIC	DwmRegisterThumbnail
+apply_props_helper	46130851	VERIFIED_STATIC	_apply_dwm_thumbnail_props
+preview_error	46130923	VERIFIED_STATIC	Preview lỗi
+tk_click_bind	46131138	VERIFIED_STATIC	<Button-1>
+reposition_doc	46131507	VERIFIED_STATIC	Cập nhật vị trí DWM destination windows theo kích thước frame preview.
+update_loop_doc	46131775	VERIFIED_STATIC	preview loop: reposition + refresh list if needed + refresh HP
+hung_api	46128484	VERIFIED_STATIC	IsHungAppWindow
+hung_doc	46128507	VERIFIED_STATIC	Nonblocking hung check via IsHungAppWindow
+fvisible_assignment	-	EXPLICIT_UNKNOWN	Exact source-level boolean assignment not exposed in readable constants
+sourceclient_assignment	-	EXPLICIT_UNKNOWN	Exact source-level boolean assignment not exposed in readable constants
