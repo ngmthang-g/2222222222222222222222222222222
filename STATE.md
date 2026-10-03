@@ -1,7 +1,7 @@
 # STATE — TLMTool 2.1.2
 
 ## STATUS
-BLOCKED_ON_REQUIRED_VISUAL_EVIDENCE
+IN_PROGRESS
 
 ## GATE A
 **COMPLETE / VERIFIED**
@@ -21,67 +21,56 @@ IN_PROGRESS
 - B01 VERIFIED
 - B02 VERIFIED
 - B03 VERIFIED
+- B04 VERIFIED
 
-## CURRENT_TASK
-B04 — Baseline Party — **BLOCKED_VISUAL_EVIDENCE**
+## B04 VERIFIED RESULTS
+- New Party-selected screenshot: `image(5).png`.
+- Screenshot SHA-256: `b04e9a73887bb8093bba8bfcd8a77a4dc57c5838ca11370c85def0f8adeb9590`.
+- Raw raster: **451 × 1035**. It has different right/bottom edge-shadow framing from the original 452 × 1032 set; B01 is not changed.
+- Party selected white bridge at y=56: `x=65..101`.
+- `Sau khi party`: x=11..434, y=69..130; `Chờ` selected.
+- `Cấu hình tổ đội`: x=11..434, y=144..181; no ready-account entry visible in this state.
+- `Cấu hình nhóm`: x=11..434, y=195..611.
+- Three group frames measured:
+  - Nhóm 1: x=16..429, y=215..326
+  - Nhóm 2: x=16..429, y=340..451
+  - Nhóm 3: x=16..429, y=465..576
+- Each group visibly confirms 6 account slots arranged 2 rows × 3 comboboxes.
+- Nhóm 1 leader: `ThápCa`; first row `ThápCa | 75C.S6 | TổngTài.S6`; second row blank; status `Đang vào...`.
+- Nhóm 2/3 leaders: `(chưa chọn)`; six blank slots; action bars `Tạo nhóm 2` / `Tạo nhóm 3`.
+- `+ Thêm nhóm`: x=18..151, y=586..607.
+- bottom `Bắt đầu`: x=16..429, y=988..1017.
+- Static-only `Theo sau đội trưởng` / `Tự nhặt đồ` are not visible in this capture; no pixel coordinates were invented.
+- B02 tab evidence updated: Party is now directly observed selected; only `i` still lacks a direct selected screenshot.
 
-## B04 PARTIAL RESULTS
-- Re-checked the entire supplied 12-screenshot set.
-- There is no Party-selected screenshot.
-- `TLMTool_fTpCsm0auQ(2).png` is VERIFIED as `▶ / Start / Xếp lưới`, not Party:
-  - selected white bridge at y=56 is x=6..30;
-  - Party span remains under the inactive separator;
-  - compiled `start_tab.py` contains the exact visible Xếp-lưới/sync/preview labels.
-- `TLMTool_rARyQTv9Ta(2).png` is the same Start tab in Auto / Điều khiển nhanh mode.
-- Static original `party_tab.py` structure was recovered:
-  - Bắt đầu
-  - Sau khi party: Chờ / Train / Train LSV / Dồn vàng / Phó bản
-  - Cấu hình tổ đội
-  - Danh sách acc sẵn sàng:
-  - Cấu hình nhóm
-  - Nhóm
-  - Trưởng nhóm:
-  - + Thêm nhóm
-  - 6 accounts per cluster, 2 rows × 3 comboboxes
-  - documented toggles Theo sau đội trưởng / Tự nhặt đồ
-- Party pixel geometry remains UNKNOWN and is not copied from Phó Bản.
-
-## CORRECTION
-B02 focus-state evidence was corrected:
-- selected tab does not always show a dotted focus rectangle;
-- dotted rectangle is focus state, not required selection state.
-- B02 screenshot hash for TLMTool_3MXfXQKSHN was also corrected.
-
-## BLOCKERS
-A full-window **Party-selected screenshot** is required to finish B04 pixel baseline and advance to B05.
-
-Preferred evidence:
-- full TLMTool window;
-- Party tab visibly selected;
-- same 452 × 1032 capture size if possible;
-- do not crop the title bar, tab bar, bottom controls, or page edges.
-
-## FILES_CHANGED
+## B04 FILES
 - `docs/tasks/B04.md`
+- `docs/ui/B04_PARTY_GEOMETRY.tsv`
+- `docs/ui/B04_PARTY_DEFAULTS.json`
+- `docs/ui/B04_SCREENSHOT_EVIDENCE.tsv`
 - `docs/ui/B04_PARTY_STATIC_EVIDENCE.tsv`
 - `docs/ui/B04_PARTY_STATIC_STRUCTURE.json`
 - `docs/UI_BASELINE_TLM.md`
-- corrected `docs/tasks/B02.md`
-- corrected `docs/ui/B02_COMMON_STYLE.json`
-- corrected `docs/ui/B02_SCREENSHOT_ACTIVE_TAB.tsv`
-- `STATE.md`
-- `PROJECT_STATUS.md`
+
+## CURRENT_TASK
+B05 — Baseline Train.
+
+## BLOCKERS
+None for B05. A Train-selected screenshot is already present in the supplied baseline set.
 
 ## DO_NOT_TOUCH
-- Do not advance to B05 while B04 visual geometry is unverified.
-- Do not substitute Start/Xếp-lưới screenshot for Party.
-- Do not copy Phó Bản pixel coordinates into Party merely because static text says the UI is similar.
 - Preserve Gate A forensic baseline unchanged.
+- Do not infer Party runtime behavior from screenshot state.
+- Do not force the differently framed Party screenshot into the B01 raster baseline.
+- Do not invent coordinates for static-only Party controls not visible in the screenshot.
+- Continue Gate B as UI measurement only.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Re-check conversation files for a new full-window Party-selected screenshot.
-4. If present, measure Party pixel geometry, finish B04, update `UI_BASELINE_TLM.md`, and advance to B05.
-5. If absent, keep B04 BLOCKED and do not fabricate/skip the visual gate.
+3. Execute **B05 only**.
+4. Measure the Train tab from the supplied Train-selected screenshot.
+5. Record visible sections, controls, default states, coordinate table/list, account list and bottom all-account controls.
+6. Persist B05 evidence/report to GitHub and update `docs/UI_BASELINE_TLM.md`.
+7. Advance to B06 only after B05 is verified.
