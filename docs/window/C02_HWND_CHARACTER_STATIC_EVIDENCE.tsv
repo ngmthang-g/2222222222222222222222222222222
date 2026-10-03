@@ -1,0 +1,33 @@
+KEY	OFFSET_DEC	STATUS	EVIDENCE
+mouse_bind_identity_doc	45581977	VERIFIED_STATIC	Ghi danh tính hwnd→pid khi tạo row; falsy pid ignored
+mouse_unbind_identity_doc	45582061	VERIFIED_STATIC	Unbind identity; pid-scoped removal prevents another tab losing shared protection
+mouse_identity_match_doc	45582346	VERIFIED_STATIC	No binding = compatibility; current pid mismatch means HWND reused
+utils_pid_from_hwnd_doc	46457968	VERIFIED_STATIC	Lấy PID từ HWND window handle dùng ctypes
+utils_get_character_info_doc	46458318	VERIFIED_STATIC	Read character information from game HWND using memory_reader.Reader
+utils_reader_pid_cache_doc	46458400	VERIFIED_STATIC	Each PID OpenProcess + EnumModulesEx once; shared Reader cache
+utils_reader_ttl_doc	46458573	VERIFIED_STATIC	Reader cache refresh every 10s; restart/PID-reuse safety
+utils_format_info_doc	46458905	VERIFIED_STATIC	Calculate HP% + strip HTML tags from RoleName
+utils_invalidate_cache_doc	46458981	VERIFIED_STATIC	Invalidate Reader cache immediately after reconnect
+row_hwnd_pid_guard_doc	43008613	VERIFIED_STATIC	Row key by HWND; pid snapshot protects against HWND reuse
+row_current_pid_doc	43008903	VERIFIED_STATIC	Current PID of HWND, None if unreadable
+daily_pid_rebind_log	43009122	VERIFIED_STATIC	Daily: same HWND changed PID -> old window lost, recreate row
+party_pid_rebind_log	45603579	VERIFIED_STATIC	Party: same HWND changed PID -> remove old member
+phoban_pid_rebind_log	45645955	VERIFIED_STATIC	Phó Bản: same HWND changed PID -> remove old member
+phoban_track_hwnd_doc	45646219	VERIFIED_STATIC	Track by HWND; real name replaces placeholder label
+phoban_stale_remove_doc	43010624	VERIFIED_STATIC	Remove window closed or PID-changed/reused HWND
+rao_pid_rebind_log	45976057	VERIFIED_STATIC	Rao: same HWND changed PID -> recreate row
+toiuu_pid_rebind_log	46148711	VERIFIED_STATIC	Tối ưu: same HWND changed PID -> recreate row
+train_lsv_pid_rebind_log	46171533	VERIFIED_STATIC	TrainLSV: same HWND changed PID -> recreate row
+rao_config_name_key	45979263	VERIFIED_STATIC	Restore four Rao slots by character name
+toiuu_config_name_key	46156087	VERIFIED_STATIC	Config keyed by character name because HWND changes each game open
+start_preview_info_cache	46110759	VERIFIED_STATIC	_preview_info_cache exists beside _preview_windows_cache
+start_worker_char_info	46128863	VERIFIED_STATIC	Background worker enumerates windows + reads character info
+start_preview_name_refresh	46131931	VERIFIED_STATIC	Refresh character name from worker cache
+start_sort_by_character	46121503	VERIFIED_STATIC	Auto tile sorts windows by character name; master first
+utils_get_character_info_symbol	43008496	VERIFIED_STATIC	get_character_info
+utils_get_pid_symbol	43008863	VERIFIED_STATIC	_get_pid_from_hwnd
+mouse_bind_symbol	43009078	VERIFIED_STATIC	bind_window_identity
+mouse_unbind_symbol	43009239	VERIFIED_STATIC	unbind_window_identity
+fallback_window_prefix	-	VERIFIED_STATIC_PARTIAL	Compiled tabs contain 'Window ' fallback prefix
+fallback_window_suffix	-	EXPLICIT_UNKNOWN	Exact suffix formatting after 'Window ' not proven from readable constants
+preview_cache_subscript_syntax	-	EXPLICIT_UNKNOWN	Cache/RoleName/src_hwnd structure proven; exact Python subscript expression not visible

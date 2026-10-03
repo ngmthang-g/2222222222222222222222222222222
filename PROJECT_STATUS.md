@@ -10,8 +10,8 @@ B01–B14: **COMPLETE / VERIFIED**
 
 ## Gate C
 - C01 — VERIFIED_WITH_EXPLICIT_UNKNOWN_BOOLEAN_FORMULA
-- C02 — CURRENT
-- C03 — TODO
+- C02 — VERIFIED_WITH_EXPLICIT_UNKNOWN_FALLBACK_FORMAT
+- C03 — CURRENT
 - C04 — TODO
 - C05 — TODO
 - C06 — TODO
@@ -30,8 +30,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C02 — mapping HWND ↔ nhân vật**
+Current task: **C03 — cơ chế preview HWND**
 
-C01 recovered the original EnumWindows discovery pipeline, 150 ms safe-title path, process/class/title predicates, worker cache and refresh cadences.
+C02 recovered HWND→PID→Reader→RoleName mapping, PID snapshot protection against HWND reuse, stale-row rebind, and character-name persistence.
 
 Preserve Gate A/B baselines unchanged.

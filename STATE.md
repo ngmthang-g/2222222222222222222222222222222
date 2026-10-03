@@ -36,66 +36,73 @@ IN_PROGRESS
 - B13 VERIFIED_WITH_EXPLICIT_UNKNOWN_FONT_POINT_SIZE
 - B14 VERIFIED
 - C01 VERIFIED_WITH_EXPLICIT_UNKNOWN_BOOLEAN_FORMULA
+- C02 VERIFIED_WITH_EXPLICIT_UNKNOWN_FALLBACK_FORMAT
 
-## C01 VERIFIED RESULTS
-- Recovered two original window-discovery paths:
-  - `start_tab.get_windows()`
-  - `coordinate_utils.get_game_windows()`
-- Verified top-level enumeration with `EnumWindows`.
-- Verified `IsWindowVisible` filtering.
-- Verified non-blocking title read with `SendMessageTimeoutW`, timeout **150 ms**.
-- Verified class/process lookup through:
-  - `GetClassName`
-  - `GetWindowThreadProcessId`
-  - `psutil.Process`
-- Verified discovery constants:
-  - normalized process literal `thần long mobile.exe`
-  - class `UnityWndClass`
-  - title-side predicates `WINDOW_NAME` / `_title_matches_game`
-- Shared coordinate helper contains title constants:
-  - `Thần Long  Mobile`
-  - `Thần Long Mobile`
-  - `Lineage W`
-  - `DEFAULT_WINDOW_TITLES`
-- Exact final AND/OR grouping among process/class/title predicates remains explicit UNKNOWN because readable compiled constants do not prove the source expression.
-- Verified refresh clocks:
-  - Start UI window-list poll: **2 s**, stops when leaving Start, restarts on return
-  - background EnumWindows + character info: **~3 s**
-  - heavier memory info: **~8 s**
-  - preview display delay: **800 ms / 2000 ms** depending on account count; threshold remains UNKNOWN
-- Verified worker-cache architecture: UI consumes a background cache instead of blocking main Tk thread.
-- Verified strict explicit-title resolver:
-  - exact `FindWindow` title
-  - no match => `(0, "")`
-  - no first-HWND/default-title fallback
-- Verified Start discovery contains a `FAKE_ACCOUNTS` synthetic/debug path separate from real EnumWindows HWNDs.
-- Initial `WINDOW_BEHAVIOR_MATRIX.md` created.
+## C02 VERIFIED RESULTS
+- Recovered the original three-layer identity model:
+  - HWND = current runtime row/window anchor
+  - PID snapshot = anti-HWND-reuse generation guard
+  - sanitized RoleName = logical character identity/persistent config key
+- `utils._get_pid_from_hwnd` resolves PID from HWND through the original ctypes/WinAPI path.
+- `utils.get_character_info(hwnd)` reads character state through `memory_reader.Reader`.
+- Shared Reader cache is keyed by PID:
+  - each PID opens process/enumerates modules once
+  - subsequent reads reuse handle/pointer chain
+  - Reader cache TTL = 10 seconds
+- `_format_char_info` computes HP% and strips HTML tags from RoleName.
+- `invalidate_character_cache(pid)` is called after reconnect to force fresh pointer-chain resolution.
+- Original row logic explicitly tracks rows by HWND.
+- Each row keeps a PID snapshot and calls `bind_window_identity(hwnd,pid)`.
+- Global identity guard rejects reused HWNDs when current PID differs from the stored snapshot.
+- Multiple tabs contain the same stale-generation behavior:
+  - Daily
+  - Farm/Đồn
+  - Party
+  - Phó Bản
+  - Rao
+  - Tối ưu
+  - Train LSV
+- Same numeric HWND + different PID:
+  - old row/member is removed
+  - old identity binding is released safely
+  - widgets/state are destroyed
+  - fresh row is created from the new process
+- Closed HWND rows are removed by incremental refresh.
+- Before a real RoleName is readable, original tabs have a temporary `Window ...` placeholder; exact suffix formatting remains explicit UNKNOWN.
+- When real character name becomes available, the existing HWND row label is updated.
+- Persistent settings use character name rather than HWND:
+  - original Tối ưu explicitly says HWND changes every game open, so key by name
+  - Rao restores four slots by character name
+  - farm-family tabs use the same pattern
+- Start preview carries `src_hwnd`, has separate window/info caches, and refreshes RoleName from the background worker cache.
+- Start auto-tile sorts game windows by character name with master first.
+- Fake/debug accounts use fake HWNDs and are a separate compatibility namespace.
 
-## C01 FILES
-- `docs/tasks/C01.md`
-- `docs/window/C01_WINDOW_DISCOVERY_STATIC_EVIDENCE.tsv`
-- `docs/window/C01_DISCOVERY_FLOW.md`
+## C02 FILES
+- `docs/tasks/C02.md`
+- `docs/window/C02_HWND_CHARACTER_STATIC_EVIDENCE.tsv`
+- `docs/window/C02_IDENTITY_FLOW.md`
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C02 — mapping HWND ↔ nhân vật.
+C03 — cơ chế preview HWND.
 
 ## BLOCKERS
-None known for C02.
+None known for C03.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve Gate B visual contract unchanged.
-- Do not turn C01's unknown Boolean grouping into a claimed fact.
-- Do not begin C03 before C02 is verified.
-- C02 must determine how character identity is associated with each HWND from original evidence.
+- Preserve C01's unknown exact discovery Boolean grouping.
+- Preserve C02's unknown temporary Window-placeholder suffix.
+- Do not begin C04 before C03 is verified.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Execute **C02 only**.
-4. Inspect original binary/static evidence for HWND → PID/process → memory/character identity mapping.
-5. Identify caches, keys, invalidation/rebind behavior and fallback rules only where evidence supports them.
-6. Update `WINDOW_BEHAVIOR_MATRIX.md` and persist C02 evidence/report.
-7. Advance to C03 only after C02 is verified.
+3. Execute **C03 only**.
+4. Inspect original Start/DWM preview implementation.
+5. Recover source HWND, destination HWND/frame, DwmRegisterThumbnail/Unregister/update properties, activation behavior and hung-window handling only where supported.
+6. Update `WINDOW_BEHAVIOR_MATRIX.md` and persist C03 evidence/report.
+7. Advance to C04 only after C03 is verified.

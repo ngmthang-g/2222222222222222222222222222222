@@ -56,5 +56,45 @@ no match => (0, ""); never take first/default HWND
 
 ---
 
-## C02
-TODO — mapping HWND ↔ nhân vật.
+## C02 — mapping HWND ↔ nhân vật
+
+```text
+HWND game
+↓
+_get_pid_from_hwnd(HWND)
+↓
+GetWindowThreadProcessId / PID snapshot
+↓
+bind_window_identity(HWND, PID)
+↓
+get_character_info(HWND)
+↓
+memory_reader.Reader keyed by PID
+↓
+RoleName + HP + Level + MapID + position
+↓
+row key: HWND; logical label/config key: sanitized RoleName
+↓
+kết quả: đúng nhân vật được gắn với đúng generation của HWND
+```
+
+Identity lifecycle:
+- same HWND + same PID → update existing row/info
+- same numeric HWND + different PID → HWND reused → remove old row and recreate
+- closed HWND → remove stale row
+- reconnect → invalidate Reader(PID) cache and resolve fresh memory pointers
+- persistent settings use character name because HWND changes after reopening the game
+
+Action guard:
+- stored HWND→PID identity prevents a stale row from clicking a new process that inherited the old HWND value.
+
+Start preview:
+- src HWND + worker character-info cache → RoleName/HP/Level/Map labels.
+
+Explicit unknown:
+- exact formatting of temporary `Window ...` placeholder suffix.
+
+---
+
+## C03
+TODO — cơ chế preview HWND.
