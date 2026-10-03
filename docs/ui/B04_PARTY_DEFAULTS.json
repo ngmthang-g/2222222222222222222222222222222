@@ -1,0 +1,58 @@
+{
+  "task": "B04",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "screenshot": {
+    "file": "image(5).png",
+    "sha256": "b04e9a73887bb8093bba8bfcd8a77a4dc57c5838ca11370c85def0f8adeb9590",
+    "raw_raster_px": [451, 1035],
+    "selected_tab": "Party",
+    "coordinate_space": "raw screenshot coordinates",
+    "b01_baseline_changed": false
+  },
+  "after_party": {
+    "selected": "Chờ",
+    "unselected": ["Train", "Train LSV", "Dồn vàng", "Phó bản"]
+  },
+  "team_config": {
+    "label": "Danh sách acc sẵn sàng:",
+    "visible_ready_entries": []
+  },
+  "groups": [
+    {
+      "title": "Nhóm 1",
+      "leader": "ThápCa",
+      "row1": ["ThápCa", "75C.S6", "TổngTài.S6"],
+      "row2": ["", "", ""],
+      "action_text": "Đang vào..."
+    },
+    {
+      "title": "Nhóm 2",
+      "leader": "(chưa chọn)",
+      "row1": ["", "", ""],
+      "row2": ["", "", ""],
+      "action_text": "Tạo nhóm 2"
+    },
+    {
+      "title": "Nhóm 3",
+      "leader": "(chưa chọn)",
+      "row1": ["", "", ""],
+      "row2": ["", "", ""],
+      "action_text": "Tạo nhóm 3"
+    }
+  ],
+  "observed_fill_colors": {
+    "group_action": "#2E7D32",
+    "add_group": "#2E8B57",
+    "bottom_start": "#388E3C",
+    "leave_group": "#1565C0",
+    "delete_group": "#C62828",
+    "group_border": "#DCDCDC",
+    "page_background": "#F0F0F0"
+  },
+  "static_only_not_visible_in_this_capture": [
+    "Theo sau đội trưởng",
+    "Tự nhặt đồ"
+  ],
+  "next_action": "B05 — Baseline Train"
+}
