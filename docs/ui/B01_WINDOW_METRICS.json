@@ -1,0 +1,40 @@
+{
+  "task": "B01",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "evidence_screenshots": 12,
+  "unique_raster_hashes": 11,
+  "outer_window_px": {
+    "width": 452,
+    "height": 1032
+  },
+  "client_area_px": {
+    "width": 450,
+    "height": 1000,
+    "left": 1,
+    "top": 31,
+    "right_inclusive": 450,
+    "bottom_inclusive": 1030
+  },
+  "observed_non_client_px": {
+    "left": 1,
+    "right": 1,
+    "top_total": 31,
+    "bottom": 1,
+    "horizontal_total": 2,
+    "vertical_total": 32
+  },
+  "reconstruction_target": {
+    "client_width_px": 450,
+    "client_height_px": 1000
+  },
+  "unknowns": [
+    "Windows DPI/scaling percentage",
+    "Exact source/API geometry call",
+    "Resizable policy",
+    "Minimum/maximum window size constraints",
+    "Initial screen X/Y position",
+    "Decoration metrics under other OS themes or DPI settings"
+  ],
+  "next_action": "B02 — Tab bar + style chung"
+}

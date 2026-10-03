@@ -15,8 +15,8 @@ Authoritative continuation state: [STATE.md](STATE.md)
 **GATE A COMPLETE**
 
 ## Gate B
-- B01 — CURRENT
-- B02 — TODO
+- B01 — VERIFIED
+- B02 — CURRENT
 - B03 — TODO
 - B04 — TODO
 - B05 — TODO
@@ -30,8 +30,12 @@ Authoritative continuation state: [STATE.md](STATE.md)
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B01 — Chốt kích thước cửa sổ chính**
+Current task: **B02 — Tab bar + style chung**
 
-A08 created and verified a byte-identical read-only forensic archive copy. GitHub stores its SHA-256, inventory, metadata, and verification procedure; the generated 93.7 MB forensic binary is kept as the forensic artifact.
+B01 locked the screenshot-derived main-window baseline:
+- client: **450 × 1000 px**
+- observed outer raster: **452 × 1032 px**
 
-Preserve the Gate A baseline unchanged.
+Exact DPI/scaling and resize constraints remain UNKNOWN.
+
+Preserve Gate A baseline unchanged.

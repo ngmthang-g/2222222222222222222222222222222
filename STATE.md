@@ -6,6 +6,9 @@ IN_PROGRESS
 ## GATE A
 **COMPLETE / VERIFIED**
 
+## GATE B
+IN_PROGRESS
+
 ## COMPLETED
 - A01 VERIFIED
 - A02 VERIFIED
@@ -15,39 +18,44 @@ IN_PROGRESS
 - A06 VERIFIED
 - A07 VERIFIED
 - A08 VERIFIED
+- B01 VERIFIED
 
-## A08 VERIFIED RESULTS
-- Created byte-for-byte forensic archive copy: `TLMTool_2.1.2_ORIGINAL_READONLY.zip`.
-- Source and forensic copy size: 93,715,901 bytes.
-- Source and forensic SHA-256: `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`.
-- `cmp` source vs forensic: IDENTICAL.
-- Forensic copy permission mode: 0444.
-- Forensic directory has no write bits (mode 2555; inherited setgid).
-- ZIP integrity recheck: PASS.
-- ZIP inventory remains 1050 entries = 1002 files + 48 directories; 260,061,035 uncompressed file bytes.
-- Authoritative ORIGINAL_MANIFEST.tsv SHA-256 remains `c906b837c1c804984f26a262ebc563300076981e4008ce36b0c768a18513f4ee`.
+## B01 VERIFIED RESULTS
+- Measured 12 supplied TLM screenshots.
+- 12/12 outer window rasters: **452 × 1032 px**.
+- 12/12 measured client/content regions: **450 × 1000 px**.
+- Observed client bounds: x=1..450, y=31..1030 inclusive.
+- Observed outer frame bounds: x=0..451, y=0..1031.
+- Reconstruction baseline target locked to **450 × 1000 client pixels**.
+- Observed outer screenshot-environment reference locked to **452 × 1032 px**.
+- Confidence: HIGH / VERIFIED from raster evidence.
+- DPI percentage, resize/min/max policy, initial screen position and exact geometry API remain UNKNOWN.
 
-## CURRENT_MILESTONE
-GIAI ĐOẠN B — Khóa giao diện.
+## B01 FILES
+- `docs/tasks/B01.md`
+- `docs/UI_BASELINE_TLM.md`
+- `docs/ui/B01_SCREENSHOT_EVIDENCE.tsv`
+- `docs/ui/B01_WINDOW_METRICS.json`
 
 ## CURRENT_TASK
-B01 — Chốt kích thước cửa sổ chính.
+B02 — Tab bar + style chung.
 
 ## BLOCKERS
-None for B01.
+None for B02.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Do not modify the forensic original archive.
-- Do not replace UNKNOWN values from Gate A with guesses.
-- Do not begin behavior implementation while only UI baseline evidence is being measured.
+- Do not implement behavior while Gate B is measuring UI.
+- Do not convert screenshot observations into unsupported implementation claims.
+- Keep client baseline at 450 × 1000 unless later source/runtime evidence disproves it.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Execute **B01 only**.
-4. Use the supplied TLM screenshots as baseline evidence to determine/record the main-window dimensions and measurement confidence.
-5. Do not infer hidden dimensions that screenshots do not support; mark them UNKNOWN if necessary.
-6. Persist B01 report/evidence to GitHub.
-7. Advance to B02 only after B01 is verified.
+3. Execute **B02 only**.
+4. Measure tab-bar geometry and shared visual style from supplied TLM screenshots.
+5. Record tab labels/order, placement, visible common chrome and state-specific evidence.
+6. Keep font/color/button details that require deeper measurement provisional for B13.
+7. Update `docs/UI_BASELINE_TLM.md` and persist B02 evidence/report to GitHub.
+8. Advance to B03 only after B02 is verified.
