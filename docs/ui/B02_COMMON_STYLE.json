@@ -18,23 +18,23 @@
     "tab_and_frame_separator": "#D9D9D9",
     "tab_text_or_glyph": "#000000"
   },
-  "selected_capture_directly_observed": ["▶", "Login", "Train", "Train LSV", "Phó Bản", "Daily", "Đồn", "Rao", "Tối ưu"],
-  "selected_capture_not_observed": ["Party", "i"],
+  "selected_capture_directly_observed": ["▶", "Login", "Party", "Train", "Train LSV", "Phó Bản", "Daily", "Đồn", "Rao", "Tối ưu"],
+  "selected_capture_not_observed": ["i"],
   "selected_capture_pattern": {
     "expands_into_neighbor_separator_space": true,
     "bottom_separator_merged_under_selected_tab": true,
     "dotted_focus_rectangle_is_required_for_selection": false,
-    "selected_tab_without_focus_rectangle_observed": true,
-    "example": "TLMTool_fTpCsm0auQ(2).png — ▶ selected, Xếp lưới radio focused"
+    "selected_tab_without_focus_rectangle_observed": true
   },
-  "b04_correction": {
-    "TLMTool_fTpCsm0auQ(2).png": "▶ / Start / Xếp lưới",
-    "party_selected_screenshot_present": false
+  "party_selected_resolution": {
+    "file": "image(5).png",
+    "sha256": "b04e9a73887bb8093bba8bfcd8a77a4dc57c5838ca11370c85def0f8adeb9590",
+    "raw_raster": "451x1035",
+    "selected_bridge_y56": [65, 101]
   },
   "explicit_unknowns": [
-    "Exact widget class/theme",
-    "Selected-state exact pixel bounds for Party",
     "Selected-state exact pixel bounds for i",
+    "Exact widget class/theme",
     "Exact font metrics (B13)",
     "OS/DPI behavior outside supplied screenshots"
   ]
