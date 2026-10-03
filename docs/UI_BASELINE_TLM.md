@@ -260,8 +260,76 @@ Static populated-row structure includes `▶`, `⬤`, `Đã dừng`, sell/train 
 Behavior remains deferred.
 
 
-## B06 — Train LSV
-TODO
+## B06 — Train LSV — VERIFIED
+
+Binary-first evidence:
+- compiled `train_lsv_tab.py` / `<module train_lsv_tab>`
+- inner binary SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`
+
+Train-LSV screenshot set:
+- four available files are byte-identical
+- SHA-256 `9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29`
+- `452 × 1032`, client `450 × 1000`
+
+### Selected tab
+At `y=56`, Train LSV selected bridge = `x=136..193`.
+
+### Cấu hình Train LSV
+- group: `x=11..438, y=69..253`
+- Quay lại train khi chết: unchecked
+- Tự kết nối lại khi mất mạng: unchecked
+- Trị liệu sau khi chết tại Lạc Dương LSV: unchecked
+- Nhặt đồ: **Tất cả** selected; Không / Chỉ vũ khí unselected
+
+### Dạ Minh Châu fixed row
+- checked square: `x=20..32, y=203..215`
+- visible label: `Dạ Minh Châu`
+- key combobox: `x=174..220, y=199..219` → `1`
+- minutes: `x=289..310, y=200..218` → `0`
+- seconds: `x=336..357, y=200..218` → `5`
+- `+ Thêm`: `x=18..151, y=228..249`
+
+Original binary documents Dạ Minh Châu as the fixed buff row, with no delete button and always-active state; normal buff rows support F1–F10 + 1/2/3.
+
+### Static LSV map names
+- Tần Hoàng Địa Cung Tầng 1
+- Tần Hoàng Địa Cung Tầng 2
+- Tần Hoàng Địa Cung Tầng 3
+- Tần Hoàng Địa Cung Tầng 4
+- Phàm Liên Trại
+- Thanh Liên Trại
+- Khô Vinh Đạo
+
+### Cấu hình tọa độ lưu sẵn
+- group: `x=11..438, y=267..330`
+- headers: `Tên | Map | X | Y | Áp dụng | Xóa`
+- no saved-coordinate row visible
+- `+ Thêm tọa độ`: `x=18..151, y=305..326`
+- `Ẩn danh sách tọa độ`: `x=298..431, y=305..326`
+
+Original binary also contains `Hiện danh sách tọa độ` and explicitly documents that header+body toggle while toolbar stays visible.
+
+### Danh sách tài khoản
+- group: `x=11..438, y=344..983`
+- headers: `Nhân vật | Tọa độ Train`
+- empty-list screenshot state
+- scrollbar arrows/track visible, no thumb
+
+Static populated-row structure contains play glyph `▶`, state dot `⬤`, initial `Đã dừng`, Train-coordinate combobox, LSV/move/leave/farm row actions, and extra track text such as `0h:00p`, `Túi:`, `Chết: 0`, `exp: 0`, `0 exp/h`. No row pixels are invented.
+
+### Điều khiển tất cả
+- Tới LSV: `x=133..189, y=959..979`
+- Tới chỗ train: `x=194..277, y=959..979`
+- Đánh: `x=282..328, y=959..979`
+- Rời LSV: `x=333..390, y=959..979`
+- purple fill: `#8E24AA`
+
+### Bottom
+- `Bắt đầu`: `x=16..433, y=988..1017`
+- green fill: `#388E3C`
+
+Behavior remains deferred.
+
 
 ## B07 — Phó Bản
 TODO
