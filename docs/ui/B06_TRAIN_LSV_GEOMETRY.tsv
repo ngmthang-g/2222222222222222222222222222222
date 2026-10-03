@@ -1,0 +1,38 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+train_lsv_selected_bridge_y56	136	56	193	56	58	1	Train LSV selected
+train_lsv_group	11	69	438	253	428	185	Cấu hình Train LSV
+checkbox_respawn	18	106	30	118	13	13	unchecked
+checkbox_reconnect	168	106	180	118	13	13	unchecked
+checkbox_heal_lsv	18	131	30	143	13	13	unchecked
+pickup_radio_none	76	156	88	168	13	13	unselected
+pickup_radio_weapon	146	156	158	168	13	13	unselected
+pickup_radio_all	234	156	246	168	13	13	selected
+da_minh_chau_checked_square	20	203	32	215	13	13	checked visual
+buff_key_combo	174	199	220	219	47	21	1
+buff_minutes_entry	289	200	310	218	22	19	0
+buff_seconds_entry	336	200	357	218	22	19	5
+add_buff_outer	18	228	151	249	134	22	+ Thêm
+add_buff_fill	19	229	150	248	132	20	#2E8B57
+coord_group	11	267	438	330	428	64	Cấu hình tọa độ lưu sẵn
+coord_header_name_text	38	285	57	293	20	9	Tên
+coord_header_map_text	172	285	193	296	22	12	Map
+coord_header_x_text	299	285	306	293	8	9	X
+coord_header_y_text	335	285	341	293	7	9	Y
+coord_header_apply_text	362	282	406	296	45	15	Áp dụng
+coord_header_delete_text	413	285	432	296	20	12	Xóa
+add_coord_outer	18	305	151	326	134	22	+ Thêm tọa độ
+add_coord_fill	19	306	150	325	132	20	#2E8B57
+hide_coord_outer	298	305	431	326	134	22	Ẩn danh sách tọa độ
+hide_coord_fill	299	306	430	325	132	20	#808080
+accounts_group	11	344	438	983	428	640	Danh sách tài khoản
+account_header_name_text	81	362	128	372	48	11	Nhân vật
+account_header_train_text	218	362	285	372	68	11	Tọa độ Train
+account_scroll_up_chevron	429	383	433	388	5	6	visible
+account_scroll_track	426	394	426	939	1	546	white track
+account_scroll_down_chevron	429	946	433	951	5	6	visible
+all_to_lsv_outer	133	959	189	979	57	21	Tới LSV
+all_to_train_outer	194	959	277	979	84	21	Tới chỗ train
+all_fight_outer	282	959	328	979	47	21	Đánh
+all_leave_lsv_outer	333	959	390	979	58	21	Rời LSV
+bottom_start_outer	16	988	433	1017	418	30	Bắt đầu
+bottom_start_fill	17	989	432	1016	416	28	#388E3C
