@@ -1,0 +1,46 @@
+KEY	OFFSET_DEC	STATUS	EVIDENCE
+start_win32gui	46107759	VERIFIED_STATIC	win32gui
+start_GetClassName	46107769	VERIFIED_STATIC	GetClassName
+start_win32process	46107791	VERIFIED_STATIC	win32process
+start_GetWindowThreadProcessId	46107805	VERIFIED_STATIC	GetWindowThreadProcessId
+start_psutil_Process	46107831	VERIFIED_STATIC	psutil.Process
+start_SendMessageTimeoutW	46107930	VERIFIED_STATIC	SendMessageTimeoutW
+start_safe_title_doc	46107993	VERIFIED_STATIC	Đọc tiêu đề cửa sổ không block vô hạn.
+start_title_timeout	46108223	VERIFIED_STATIC	timeout 150ms
+start_get_windows_callback	46108254	VERIFIED_STATIC	get_windows.<locals>.callback
+start_EnumWindows	46108285	VERIFIED_STATIC	EnumWindows
+start_IsWindowVisible	46108358	VERIFIED_STATIC	IsWindowVisible
+start_safe_title_helper	46108375	VERIFIED_STATIC	_get_window_title_safe
+start_window_info_helper	46108399	VERIFIED_STATIC	_get_window_info
+start_process_literal	46108426	VERIFIED_STATIC	thần long mobile.exe
+start_unity_class	46108450	VERIFIED_STATIC	UnityWndClass
+start_window_name_symbol	46108465	VERIFIED_STATIC	WINDOW_NAME
+start_ui_poll_2s	46127662	VERIFIED_STATIC	Tự động cập nhật danh sách cửa sổ mỗi 2 giây (dừng khi rời tab).
+start_poll_restart	46127749	VERIFIED_STATIC	Bắt đầu lại poll khi quay về tab Start
+start_poll_stop	46127884	VERIFIED_STATIC	Dừng poll nền khi rời tab Start
+preview_delay	46127964	VERIFIED_STATIC	ít acc 800ms, đông acc 2000ms
+cache_refresh_doc	46125444	VERIFIED_STATIC	Cập nhật cache window list từ worker thread
+preview_worker_start	46128694	VERIFIED_STATIC	Khởi động worker thread đọc cửa sổ + thông tin nhân vật
+background_enum_3s	46128863	VERIFIED_STATIC	enum windows + character info mỗi ~3s
+memory_read_8s	46129003	VERIFIED_STATIC	Đọc memory mỗi ~8s
+cache_get_doc	46129166	VERIFIED_STATIC	Lấy danh sách (hwnd, title) từ cache worker thread
+coord_GetClassName	42826123	VERIFIED_STATIC	GetClassName
+coord_GetWindowThreadProcessId	42826159	VERIFIED_STATIC	GetWindowThreadProcessId
+coord_SendMessageTimeoutW	42826292	VERIFIED_STATIC	SendMessageTimeoutW
+coord_get_windows_callback	42826462	VERIFIED_STATIC	get_game_windows.<locals>.callback
+coord_EnumWindows	42826498	VERIFIED_STATIC	EnumWindows
+coord_enum_doc	42826511	VERIFIED_STATIC	Enumerate visible Thần Long Mobile game windows with Win11-safe matching.
+coord_IsWindowVisible	42826588	VERIFIED_STATIC	IsWindowVisible
+coord_safe_title	42826605	VERIFIED_STATIC	_get_window_title_safe
+coord_window_info	42826629	VERIFIED_STATIC	_get_window_info
+coord_process_literal	42826647	VERIFIED_STATIC	thần long mobile.exe
+coord_unity_class	42826671	VERIFIED_STATIC	UnityWndClass
+coord_title_matcher	42826686	VERIFIED_STATIC	_title_matches_game
+coord_FindWindow	42826721	VERIFIED_STATIC	FindWindow
+coord_strict_resolver_doc	42826778	VERIFIED_STATIC	Strict exact-title resolve — KHÔNG đoán cửa sổ.
+coord_default_title_1	42827964	VERIFIED_STATIC	Thần Long  Mobile
+coord_default_title_2	42827985	VERIFIED_STATIC	Lineage W
+coord_default_title_3	42827996	VERIFIED_STATIC	Thần Long Mobile
+coord_default_titles_symbol	42828016	VERIFIED_STATIC	DEFAULT_WINDOW_TITLES
+predicate_boolean_grouping	-	EXPLICIT_UNKNOWN	Readable static evidence proves predicate components but not exact final AND/OR grouping.
+preview_delay_threshold	-	EXPLICIT_UNKNOWN	800/2000 ms values are documented; account-count threshold is not proven.

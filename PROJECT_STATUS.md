@@ -7,12 +7,10 @@ A01–A08: **COMPLETE / VERIFIED**
 
 ## Gate B
 B01–B14: **COMPLETE / VERIFIED**
-- B13 retains one explicit non-blocking unknown: exact numeric Tk font point size.
-- B14 defines strict vs environment-sensitive pixel comparison and dynamic masks.
 
 ## Gate C
-- C01 — CURRENT
-- C02 — TODO
+- C01 — VERIFIED_WITH_EXPLICIT_UNKNOWN_BOOLEAN_FORMULA
+- C02 — CURRENT
 - C03 — TODO
 - C04 — TODO
 - C05 — TODO
@@ -32,6 +30,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C01 — TLM tìm cửa sổ game thế nào**
+Current task: **C02 — mapping HWND ↔ nhân vật**
 
-Preserve Gate A forensic baseline and Gate B visual contract unchanged.
+C01 recovered the original EnumWindows discovery pipeline, 150 ms safe-title path, process/class/title predicates, worker cache and refresh cadences.
+
+Preserve Gate A/B baselines unchanged.
