@@ -1,0 +1,50 @@
+KEY	OFFSET_DEC	STATUS	TEXT
+module_filename	43269836	VERIFIED_STATIC	farm_tab.py
+module_marker	43270471	VERIFIED_STATIC	<module farm_tab>
+bottom_start	43232466	VERIFIED_STATIC	Bắt đầu
+town_group	43232683	VERIFIED_STATIC	Cấu hình Về thành
+town_condition	43232845	VERIFIED_STATIC	Điều kiện về thành:
+town_toggle_show	43232935	VERIFIED_STATIC	Hiện cấu hình
+town_never	43233185	VERIFIED_STATIC	Không về
+town_full	43233293	VERIFIED_STATIC	Khi đầy túi
+town_cycle	43233348	VERIFIED_STATIC	Theo chu kỳ (phút):
+town_method	43233556	VERIFIED_STATIC	Phương thức về thành:
+town_priority	43233722	VERIFIED_STATIC	Ưu tiên lần lượt:
+nav_1	43233645	VERIFIED_STATIC	Phù 1
+nav_2	43233653	VERIFIED_STATIC	Phù 2
+nav_3	43233661	VERIFIED_STATIC	Phù 3
+nav_horse	43233669	VERIFIED_STATIC	Ngựa
+when_town	43234024	VERIFIED_STATIC	Khi về thành:
+sell_equip	43234144	VERIFIED_STATIC	Bán trang bị
+leave_amount	43234365	VERIFIED_STATIC	Bớt lại:
+buy_hp	43234483	VERIFIED_STATIC	Mua HP
+hp_item_1	43234493	VERIFIED_STATIC	Hành huyết tán
+hp_item_2	43234546	VERIFIED_STATIC	Hoạt huyết tán
+hp_item_3	43234567	VERIFIED_STATIC	Kim sang dược
+quantity	43234660	VERIFIED_STATIC	Số lượng:
+buy_mp	43234838	VERIFIED_STATIC	Mua MP
+mp_item_1	43234848	VERIFIED_STATIC	Hành khí tán
+mp_item_2	43234895	VERIFIED_STATIC	Hoài linh đan
+mp_item_3	43234912	VERIFIED_STATIC	Qui linh hoàn
+medicine_coord	43234942	VERIFIED_STATIC	Tọa độ Dược:
+train_group	43235016	VERIFIED_STATIC	Cấu hình Train
+during_train	43235067	VERIFIED_STATIC	Trong khi train:
+respawn	43235125	VERIFIED_STATIC	Quay lại train khi chết
+reconnect	43235215	VERIFIED_STATIC	Tự kết nối lại khi mất mạng
+pickup_no_cankhon	43235279	VERIFIED_STATIC	Nhặt đồ không dùng hồ lô (càn khôn hồ)
+heal_after_death	43235344	VERIFIED_STATIC	Trị liệu sau khi chết
+heal_coord	43235375	VERIFIED_STATIC	Tọa độ trị liệu:
+heal_default	43235425	VERIFIED_STATIC	Trị liệu Tô Châu
+keep_label	43235600	VERIFIED_STATIC	Lọc đồ giữ lại:
+buff_label	43235736	VERIFIED_STATIC	Dùng thủ công đan dược (2x, 4x...):
+coord_group	43235883	VERIFIED_STATIC	Cấu hình tọa độ lưu sẵn
+account_group	43236301	VERIFIED_STATIC	Danh sách tài khoản
+train_coord	43236452	VERIFIED_STATIC	Tọa độ Train
+all_controls	43236871	VERIFIED_STATIC	Điều khiển tất cả:
+goto_sell	43236948	VERIFIED_STATIC	Tới bán đồ
+sell_all	43237009	VERIFIED_STATIC	Bán đồ
+goto_train	43237035	VERIFIED_STATIC	Tới bãi train
+fight	43237067	VERIFIED_STATIC	Đánh
+doc_coord_toggle	43241914	VERIFIED_STATIC	Ẩn/hiện phần nội dung tọa độ (header + body), toolbar luôn visible.
+doc_town_toggle	43242039	VERIFIED_STATIC	Ẩn/hiện toàn bộ khối dưới dòng điều kiện về thành — mặc định ẩn.
+doc_buff_keys	43243135	VERIFIED_STATIC	Danh sách phím tắt: F1-F10 + 1,2,3.
