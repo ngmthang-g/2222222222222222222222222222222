@@ -1,0 +1,35 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+phoban_selected_bridge_y56	192	56	245	56	54	1	Phó Bản selected
+team_group_border	13	69	436	110	424	42	Cấu hình tổ đội
+phoban_config_group_border	13	124	436	206	424	83	Cấu hình phó bản
+checkbox_recreate_team	21	139	35	153	15	15	unchecked
+checkbox_follow_leader	159	139	173	153	15	15	unchecked; partly cursor-occluded
+checkbox_pickup_no_gourd	297	139	311	153	15	15	unchecked
+checkbox_discard_equip	21	162	35	176	15	15	unchecked
+checkbox_discard_items	159	162	173	176	15	15	unchecked
+checkbox_discard_meds	297	162	311	176	15	15	unchecked
+checkbox_nga_my_buff	21	185	35	199	15	15	unchecked
+schedule_group_border	13	220	436	979	424	760	Cấu hình lịch trình
+group1_frame_border	18	240	423	372	406	133	Nhóm 1
+group1_delete_outer	329	252	418	271	90	20	✕ Xóa nhóm
+group1_delete_fill	330	253	416	269	87	17	#C62828
+group1_combo_r1c1	23	273	131	295	109	23	blank
+group1_combo_r1c2	138	273	246	295	109	23	blank
+group1_combo_r1c3	253	273	361	295	109	23	blank
+group1_combo_r2c1	23	297	131	318	109	22	blank
+group1_combo_r2c2	138	297	246	318	109	22	blank
+group1_combo_r2c3	253	297	361	318	109	22	blank
+schedule_header_checkbox	27	326	41	340	15	15	unchecked
+add_schedule_outer	24	348	137	370	114	23	+ Thêm Lịch trình
+add_schedule_fill	25	349	135	368	111	20	#2E8B57
+auto_pb_off_outer	141	348	219	370	79	23	Tắt auto PB
+auto_pb_off_fill	142	349	217	368	76	20	#0277BD
+start_schedule_outer	223	348	418	370	196	23	Bắt đầu lịch trình
+start_schedule_fill	224	349	416	368	193	20	#388E3C
+schedule_scroll_up	427	238	431	243	5	6	visible
+schedule_scroll_track	424	249	424	930	1	682	visible
+schedule_scroll_down	427	937	431	942	5	6	visible
+add_group_outer	20	954	154	976	135	23	+ Thêm nhóm
+add_group_fill	21	955	152	974	132	20	#2E8B57
+bottom_start_outer_approx	16	988	433	1017	418	30	Bắt đầu
+bottom_start_fill	19	989	430	1016	412	28	#388E3C

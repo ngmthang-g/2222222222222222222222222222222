@@ -1,0 +1,46 @@
+KEY	OFFSET_DEC	STATUS	TEXT
+phoban_dungeons_filename	45640649	VERIFIED_STATIC	phoban_dungeons.py
+phoban_dungeons_module	45640687	VERIFIED_STATIC	<module phoban_dungeons>
+phoban_tab_filename	45687253	VERIFIED_STATIC	phoban_tab.py
+phoban_tab_module	45687630	VERIFIED_STATIC	<module phoban_tab>
+tab_description	45681042	VERIFIED_STATIC	Phó Bản Tab - Cấu hình tổ đội & chuẩn bị cho auto phó bản.
+team_group	45642920	VERIFIED_STATIC	Cấu hình tổ đội
+ready_accounts	45643023	VERIFIED_STATIC	Danh sách acc sẵn sàng:
+phoban_group	45643148	VERIFIED_STATIC	Cấu hình phó bản
+recreate_team	45643311	VERIFIED_STATIC	Tạo lại đội
+follow_leader	45643455	VERIFIED_STATIC	Theo sau đội trưởng
+pickup_no_gourd	45643512	VERIFIED_STATIC	Nhặt không hồ lô
+discard_equipment	45643566	VERIFIED_STATIC	Vứt trang bị
+discard_items	45643656	VERIFIED_STATIC	Vứt vật phẩm
+discard_medicines	45643695	VERIFIED_STATIC	Vứt thuốc
+nga_my_buff	45643730	VERIFIED_STATIC	Nga My buff (Sát Tinh)
+hidden_sell_coord_group	45643807	VERIFIED_STATIC	Cấu hình tọa độ bán đồ
+hidden_sell_coord_add	45644130	VERIFIED_STATIC	+ Thêm tọa độ
+schedule_group	45644272	VERIFIED_STATIC	Cấu hình lịch trình
+add_group	45645507	VERIFIED_STATIC	+ Thêm nhóm
+group_title	45662408	VERIFIED_STATIC	Nhóm / Đội trưởng:
+schedule_header_activity	45662937	VERIFIED_STATIC	Hoạt động
+schedule_header_map	45662999	VERIFIED_STATIC	Tên Map
+schedule_header_times	45663051	VERIFIED_STATIC	Lần
+schedule_header_status	45663075	VERIFIED_STATIC	Status
+add_schedule	45663189	VERIFIED_STATIC	+ Thêm Lịch trình
+auto_pb_off	45663216	VERIFIED_STATIC	Tắt auto PB
+start_schedule	45663343	VERIFIED_STATIC	Bắt đầu lịch trình
+activity_doc	45664700	VERIFIED_STATIC	Hoạt động chọn được: Phó bản/Train.
+progress_initial	45664609	VERIFIED_STATIC	Chưa
+activity_phoban	45665361	VERIFIED_STATIC	Phó bản
+activity_train	45665670	VERIFIED_STATIC	Train
+train_map_value	45665784	VERIFIED_STATIC	Về train theo thiết lập sẵn
+runner_stopping	45667347	VERIFIED_STATIC	Đang dừng lịch trình...
+runner_stop	45667418	VERIFIED_STATIC	Dừng lịch trình
+global_stop	45667459	VERIFIED_STATIC	Dừng lại
+dungeon_1	45681291	VERIFIED_STATIC	Tô Châu  - Thủy Lao
+dungeon_2	45681316	VERIFIED_STATIC	Tô Châu 1 - Tống Liêu
+dungeon_3	45681344	VERIFIED_STATIC	Tô Châu 2 - Trúc Lâm
+dungeon_4	45681370	VERIFIED_STATIC	Tô Châu 3 - Dã Ngoại
+dungeon_5	45681397	VERIFIED_STATIC	Lâu Lan 1 - Hoàng Kim
+dungeon_6	45681422	VERIFIED_STATIC	Lâu Lan 2 - Huyền Phật Châu
+dungeon_7	45681457	VERIFIED_STATIC	Lâu Lan 3 - Dung Nham
+dungeon_8	45681481	VERIFIED_STATIC	Sát Tinh - Thử nghiệm
+legacy_sell_activity	45680368	VERIFIED_STATIC	Bán đồ
+legacy_sell_removed_log	45680483	VERIFIED_STATIC	dòng 'Bán đồ' config cũ (hoạt động này đã bỏ)

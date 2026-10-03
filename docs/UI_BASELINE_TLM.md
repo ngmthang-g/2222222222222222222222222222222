@@ -331,8 +331,82 @@ Static populated-row structure contains play glyph `▶`, state dot `⬤`, initi
 Behavior remains deferred.
 
 
-## B07 — Phó Bản
-TODO
+## B07 — Phó Bản — VERIFIED
+
+Binary-first evidence:
+- compiled `phoban_tab.py` and related `phoban_dungeons.py`
+- inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`
+
+Primary capture:
+- `TLMTool_Ij9dp7pweA(2).png`
+- SHA-256 `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`
+- `452 × 1032`; copy (1) is byte-identical
+
+### Selected tab
+At `y=56`, Phó Bản white bridge = `x=192..245`.
+
+### Cấu hình tổ đội
+- border: `x=13..436, y=69..110`
+- `Danh sách acc sẵn sàng:`
+- no ready-account entry visible
+
+### Cấu hình phó bản
+- border: `x=13..436, y=124..206`
+- all visible options unchecked:
+  - Tạo lại đội
+  - Theo sau đội trưởng
+  - Nhặt không hồ lô
+  - Vứt trang bị
+  - Vứt vật phẩm
+  - Vứt thuốc
+  - Nga My buff (Sát Tinh)
+
+The follow-leader checkbox is partly obscured by the mouse cursor; its text/state are visible, but B07 records the exact border as partially occluded.
+
+### Static hidden sale-coordinate block
+Original `phoban_tab.py` creates `Cấu hình tọa độ bán đồ` with `Tên | Map | X | Y | Xóa` and `+ Thêm tọa độ`, then executes `pack_forget` before the schedule UI. It is therefore excluded from the visible pixel baseline.
+
+### Cấu hình lịch trình
+- outer border: `x=13..436, y=220..979`
+- visible scrollbar arrows/track; no thumb
+- Nhóm 1 frame: `x=18..423, y=240..372`
+- leader: `(chưa chọn)`
+- six blank account comboboxes = **2 rows × 3**
+- `✕ Xóa nhóm`: `x=329..418, y=252..271`
+- schedule header checkbox unchecked
+- headers: `Hoạt động | Tên Map | Lần | Status | Xóa`
+- no schedule row visible
+
+Toolbar:
+- `+ Thêm Lịch trình`: `x=24..137, y=348..370`
+- `Tắt auto PB`: `x=141..219, y=348..370`
+- `Bắt đầu lịch trình`: `x=223..418, y=348..370`
+
+Static original schedule activities: `Phó bản`, `Train`.
+Train map value: `Về train theo thiết lập sẵn`.
+
+Static dungeon names:
+- Tô Châu  - Thủy Lao
+- Tô Châu 1 - Tống Liêu
+- Tô Châu 2 - Trúc Lâm
+- Tô Châu 3 - Dã Ngoại
+- Lâu Lan 1 - Hoàng Kim
+- Lâu Lan 2 - Huyền Phật Châu
+- Lâu Lan 3 - Dung Nham
+- Sát Tinh - Thử nghiệm
+
+Static progress vocabulary: `Chưa / Đang / Xong`.
+Runner-state strings include `Dừng lịch trình`, `Đang dừng lịch trình...`, and global `Dừng lại`.
+
+### Add group
+- `+ Thêm nhóm`: `x=20..154, y=954..976`
+
+### Bottom
+- `Bắt đầu`: approx outer `x=16..433, y=988..1017`
+- exact green fill `x=19..430, y=989..1016`
+
+Behavior remains deferred.
+
 
 ## B08 — Daily
 TODO

@@ -1,0 +1,73 @@
+{
+  "task": "B07",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "binary": {
+    "path": "TLMTool.dist/TLMTool.exe",
+    "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "compiled_modules": ["phoban_tab.py", "phoban_dungeons.py"]
+  },
+  "screenshot": {
+    "files": ["TLMTool_Ij9dp7pweA(1).png", "TLMTool_Ij9dp7pweA(2).png"],
+    "byte_identical": true,
+    "sha256": "8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8",
+    "raster_px": [452, 1032],
+    "client_px": [450, 1000],
+    "selected_tab": "Phó Bản"
+  },
+  "visible_state": {
+    "ready_accounts_visible": [],
+    "recreate_team": false,
+    "follow_leader": false,
+    "pickup_no_gourd": false,
+    "discard_equipment": false,
+    "discard_items": false,
+    "discard_medicines": false,
+    "nga_my_buff_sat_tinh": false,
+    "visible_groups": 1,
+    "group1_leader": "(chưa chọn)",
+    "group1_slots": ["", "", "", "", "", ""],
+    "group1_schedule_header_checked": false,
+    "group1_schedule_rows_visible": 0,
+    "group1_idle_action": "Bắt đầu lịch trình",
+    "auto_pb_button": "Tắt auto PB",
+    "schedule_scroll_thumb_visible": false,
+    "bottom_action": "Bắt đầu"
+  },
+  "static_original_facts": {
+    "activities": ["Phó bản", "Train"],
+    "train_map_value": "Về train theo thiết lập sẵn",
+    "dungeon_names": [
+      "Tô Châu  - Thủy Lao",
+      "Tô Châu 1 - Tống Liêu",
+      "Tô Châu 2 - Trúc Lâm",
+      "Tô Châu 3 - Dã Ngoại",
+      "Lâu Lan 1 - Hoàng Kim",
+      "Lâu Lan 2 - Huyền Phật Châu",
+      "Lâu Lan 3 - Dung Nham",
+      "Sát Tinh - Thử nghiệm"
+    ],
+    "progress_states": ["Chưa", "Đang", "Xong"],
+    "runner_button_states": ["Bắt đầu lịch trình", "Dừng lịch trình", "Đang dừng lịch trình..."],
+    "global_running_state_text": "Dừng lại",
+    "hidden_sale_coordinate_block": {
+      "created": true,
+      "packed_visible": false,
+      "label": "Cấu hình tọa độ bán đồ",
+      "headers": ["Tên", "Map", "X", "Y", "Xóa"],
+      "add_button": "+ Thêm tọa độ"
+    },
+    "legacy_schedule_activity": {
+      "name": "Bán đồ",
+      "current_status": "removed/ignored compatibility config"
+    }
+  },
+  "explicit_unknowns": [
+    "Exact unobscured border pixels for follow-leader checkbox due mouse cursor overlap",
+    "Ready-account populated-row pixels",
+    "Schedule-row pixels/defaults",
+    "Hidden sale-coordinate row pixels/defaults",
+    "Runtime transition semantics"
+  ],
+  "next_action": "B08 — Baseline Daily"
+}

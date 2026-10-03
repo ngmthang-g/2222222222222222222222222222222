@@ -12,8 +12,8 @@ A01–A08: **COMPLETE / VERIFIED**
 - B04 — VERIFIED
 - B05 — VERIFIED
 - B06 — VERIFIED
-- B07 — CURRENT
-- B08 — TODO
+- B07 — VERIFIED
+- B08 — CURRENT
 - B09 — TODO
 - B10 — TODO
 - B11 — TODO
@@ -21,8 +21,8 @@ A01–A08: **COMPLETE / VERIFIED**
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B07 — Baseline Phó Bản**
+Current task: **B08 — Baseline Daily**
 
-B06 was completed with binary-first analysis of compiled `train_lsv_tab.py`, followed by direct Train-LSV screenshot measurement.
+B07 was completed using compiled `phoban_tab.py` / `phoban_dungeons.py` evidence first, then direct Phó Bản screenshot measurement.
 
 Preserve Gate A baseline unchanged.
