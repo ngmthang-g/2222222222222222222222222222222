@@ -27,56 +27,49 @@ IN_PROGRESS
 - B07 VERIFIED
 - B08 VERIFIED
 - B09 VERIFIED
+- B10 VERIFIED
 
-## B09 VERIFIED RESULTS
+## B10 VERIFIED RESULTS
 - Used binary-first workflow.
-- Original compiled markers recovered: `donvang_tab.py`, `don_logic.py`.
-- Two Đồn screenshots are byte-identical; SHA-256 `dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a`.
-- Đồn selected bridge at y=56: x=278..309.
-- `Cấu hình Về thành`: x=11..438, y=69..178.
-  - Theo chu kỳ selected; 30 minutes
-  - priority `Phù 1 / Phù 2 / Phù 3 / Ngựa`
-- `Cấu hình Train`: x=11..438, y=192..326.
-  - respawn unchecked
-  - stop-on-disconnect unchecked
-  - unstuck checked
-  - pickup-no-gourd unchecked
-  - keep mode `Tất cả`
-  - heal-after-death unchecked
-  - heal coordinate `Trị liệu Tô Châu`
-- `Cấu hình tọa độ lưu sẵn`: x=11..438, y=340..427.
-  - visible current row: `Tọa độ 1 | Đại Lý | 0 | 0 | Train`
-  - add/hide/delete controls measured
-- `Danh sách tài khoản`: x=11..438, y=441..983.
-  - shared `Tọa độ dồn` combo blank in capture
-  - Acc nhận 1/2 blank
-  - + Thêm acc nhận measured
-  - scrollbar arrows/track visible, no thumb
-- Static dồn coordinate options recovered:
-  - Dồn Lạc Dương
-  - Dồn Đại Lý
-  - Dồn Tô Châu
-  - Dồn Lâu Lan
-- Binary explicitly documents shared dồn coordinate across receiver rows.
-- Receiver rows are dynamic; missing config defaults to one row; delete keeps at least one.
-- All-account controls measured: `Tới nơi nhận / Tới chỗ bán / Tới nơi train`.
-- bottom `Bắt đầu` measured.
-- Static populated account-row structure/state vocabulary recovered without invented pixels.
-- `don_logic.py` contains concrete donor/receiver transaction and synchronization logic; runtime parity remains deferred.
+- Original compiled marker recovered: `rao_tab.py`.
+- Two Rao screenshots are byte-identical; SHA-256 `341f2b4653f31f5a0ee4a3f29d3cf9245edbf43c0ca140ac09a859925d8a2319`.
+- Rao selected bridge at y=56: x=308..337.
+- `Cấu hình rao tự động`: x=13..436, y=69..154.
+  - one visible row: `Rao 1 | blank content | Thế giới | 30 | ✕`
+  - add-Rao and delete controls measured
+- Static channel list recovered:
+  - Thế giới
+  - Bang hội
+  - Môn phái
+  - Tổ đội
+  - Liên minh
+  - Quân đoàn
+  - Lân cận
+- Original default channel: `Thế giới`.
+- Automatic Rao naming and digits-only repeat validation recovered from original module.
+- `Danh sách tài khoản`: x=13..436, y=170..983; empty screenshot state; scrollbar arrows/track visible, no thumb.
+- Static populated account-row structure recovered:
+  - ▶
+  - character name
+  - initial `Đã dừng`
+  - 4 Rao-content combobox slots per account
+- Original module documents maximum four independent Rao loops per account and account-list refresh every five seconds.
+- Static backend evidence preserved for later behavior: memory_items.send_chat / Network.SendPacket CMD_CLIENT_CHAT, background without opening chat panel.
+- bottom `Bắt đầu` measured; static running strings include `Đang rao X/4 nhóm...` and `Dừng lại`.
 
-## B09 FILES
-- `docs/tasks/B09.md`
-- `docs/ui/B09_DON_GEOMETRY.tsv`
-- `docs/ui/B09_DON_VISIBLE_STATE.json`
-- `docs/ui/B09_DON_STATIC_EVIDENCE.tsv`
-- `docs/ui/B09_SCREENSHOT_EVIDENCE.tsv`
+## B10 FILES
+- `docs/tasks/B10.md`
+- `docs/ui/B10_RAO_GEOMETRY.tsv`
+- `docs/ui/B10_RAO_VISIBLE_STATE.json`
+- `docs/ui/B10_RAO_STATIC_EVIDENCE.tsv`
+- `docs/ui/B10_SCREENSHOT_EVIDENCE.tsv`
 - `docs/UI_BASELINE_TLM.md`
 
 ## CURRENT_TASK
-B10 — Baseline Rao.
+B11 — Baseline Tối ưu.
 
 ## BLOCKERS
-None for B10. A Rao-selected screenshot is already present.
+None for B11. A Tối ưu-selected screenshot is already present.
 
 ## WORKFLOW
 For remaining Gate B tabs:
@@ -87,8 +80,8 @@ For remaining Gate B tabs:
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Keep B09 runtime/dồn behavior deferred.
-- Treat screenshot coordinate/receiver selections as current/persisted state, not automatically clean defaults.
+- Keep B10 send/loop behavior deferred.
+- Treat screenshot Rao values as visible/current state; only values separately confirmed as defaults may be called defaults.
 - Keep final shared font/color/button metrics for B13.
 - The staged `i` screenshot remains reserved for B12.
 
@@ -96,8 +89,8 @@ For remaining Gate B tabs:
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Execute **B10 only**.
-4. Inspect compiled `rao_tab.py` static evidence first.
-5. Then measure the supplied Rao-selected screenshot.
-6. Persist B10 evidence/report to GitHub and update `docs/UI_BASELINE_TLM.md`.
-7. Advance to B11 only after B10 is verified.
+3. Execute **B11 only**.
+4. Inspect compiled `toiuu_tab.py` / monitoring static evidence first.
+5. Then measure the supplied Tối ưu-selected screenshot.
+6. Persist B11 evidence/report to GitHub and update `docs/UI_BASELINE_TLM.md`.
+7. Advance to B12 only after B11 is verified.

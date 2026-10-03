@@ -1,0 +1,36 @@
+KEY	OFFSET_DEC	STATUS	DESCRIPTION
+config_group	45972065	VERIFIED_STATIC	Cấu hình rao tự động
+header_name	45972185	VERIFIED_STATIC	Tên
+header_content	45972264	VERIFIED_STATIC	Nội dung rao
+header_channel	45972349	VERIFIED_STATIC	Kênh
+header_repeat	45972380	VERIFIED_STATIC	Lặp (s)
+header_delete	45972415	VERIFIED_STATIC	Xóa
+add_rao	45972488	VERIFIED_STATIC	+ Thêm rao
+accounts_group	45972649	VERIFIED_STATIC	Danh sách tài khoản
+account_header_name	45972736	VERIFIED_STATIC	Nhân vật
+bottom_start	45973281	VERIFIED_STATIC	Bắt đầu
+auto_name_rao1	45973709	VERIFIED_STATIC	Rao 1
+auto_name_rao2	45973716	VERIFIED_STATIC	Rao 2
+resolve_missing_content	45974582	VERIFIED_STATIC	Chưa chọn nội dung rao
+window_closed	45974951	VERIFIED_STATIC	Cửa sổ đã đóng
+slot_loop_doc	45975272	VERIFIED_STATIC	Independent slot loop; maximum four parallel slots per account
+row_initial_state	45976712	VERIFIED_STATIC	Đã dừng
+refresh_5s_doc	45977962	VERIFIED_STATIC	Automatic account-list refresh every five seconds
+running_state	45978746	VERIFIED_STATIC	Đang rao
+running_4_slots_suffix	45978758	VERIFIED_STATIC	/4 nhóm...
+stop_state	45978773	VERIFIED_STATIC	Dừng lại
+restore_4_slots_doc	45979263	VERIFIED_STATIC	Restore four Rao-content comboboxes by character name
+module_description	45979731	VERIFIED_STATIC	Rao Tab - Rao tự động
+send_backend_doc	45979823	VERIFIED_STATIC	memory_items.send_chat / Network.SendPacket CMD_CLIENT_CHAT
+hidden_chat_doc	45979901	VERIFIED_STATIC	Does not require opening chat panel
+channel_doc	45979933	VERIFIED_STATIC	Channel chosen per Rao row from RAO_CHANNELS
+channel_world	45980212	VERIFIED_STATIC	Thế giới
+channel_guild	45980226	VERIFIED_STATIC	Bang hội
+channel_school	45980238	VERIFIED_STATIC	Môn phái
+channel_party	45980250	VERIFIED_STATIC	Tổ đội
+channel_alliance	45980263	VERIFIED_STATIC	Liên minh
+channel_legion	45980275	VERIFIED_STATIC	Quân đoàn
+channel_nearby	45980289	VERIFIED_STATIC	Lân cận
+default_channel	45980315	VERIFIED_STATIC	Thế giới
+module_filename	45981352	VERIFIED_STATIC	rao_tab.py
+module_marker	45981555	VERIFIED_STATIC	<module rao_tab>

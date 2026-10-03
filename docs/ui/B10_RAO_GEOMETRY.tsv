@@ -1,0 +1,21 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+rao_selected_bridge_y56	308	56	337	56	30	1	Rao selected
+config_group	13	69	436	154	424	86	Cấu hình rao tự động
+name_entry_outer_approx	20	106	71	124	52	19	Rao 1
+name_entry_white	21	107	70	123	50	17	Rao 1
+content_entry_outer_approx	76	106	264	124	189	19	blank
+content_entry_white	77	107	263	123	187	17	blank
+channel_combo_outer_approx	269	105	351	125	83	21	Thế giới
+channel_combo_white	270	106	350	124	81	19	Thế giới
+repeat_entry_outer_approx	356	106	395	124	40	19	30
+repeat_entry_white	357	107	394	123	38	17	30
+delete_button_outer_approx	404	105	431	125	28	21	✕
+delete_button_fill	405	106	430	124	26	19	#C62828
+add_rao_outer_approx	20	129	153	150	134	22	+ Thêm rao
+add_rao_fill	21	130	152	149	132	20	#2E8B57
+accounts_group	13	170	436	983	424	814	Danh sách tài khoản
+account_scroll_up	427	209	431	214	5	6	visible
+account_scroll_track	424	220	424	962	1	743	white track
+account_scroll_down	427	969	431	974	5	6	visible
+bottom_start_outer_approx	16	988	433	1017	418	30	Bắt đầu
+bottom_start_fill	19	989	430	1016	412	28	#388E3C

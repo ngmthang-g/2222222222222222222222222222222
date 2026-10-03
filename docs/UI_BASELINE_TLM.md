@@ -557,8 +557,60 @@ No populated-row pixels are inferred from the empty screenshot.
 Behavior remains deferred.
 
 
-## B10 — Rao
-TODO
+## B10 — Rao — VERIFIED
+
+Binary-first evidence:
+- compiled `rao_tab.py`
+- inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`
+
+Rao screenshots:
+- `TLMTool_kOf9oeNPWm(1).png` and `(2).png` are byte-identical
+- SHA-256 `341f2b4653f31f5a0ee4a3f29d3cf9245edbf43c0ca140ac09a859925d8a2319`
+
+### Selected tab
+At `y=56`, Rao selected bridge = `x=308..337`.
+
+### Cấu hình rao tự động
+- group: `x=13..436, y=69..154`
+- one visible Rao row:
+  - name `Rao 1`
+  - content blank
+  - channel `Thế giới`
+  - repeat `30`
+  - red delete `✕`
+- `+ Thêm rao`: green `#2E8B57`
+
+Static channel list:
+`Thế giới | Bang hội | Môn phái | Tổ đội | Liên minh | Quân đoàn | Lân cận`
+
+Default channel: `Thế giới`.
+
+Original module automatically names rows `Rao 1, Rao 2, ...` using the smallest unused number and applies digits-only validation to the repeat field.
+
+### Danh sách tài khoản
+- group: `x=13..436, y=170..983`
+- headers: `Nhân vật | Nội dung rao`
+- empty-list screenshot state
+- scrollbar arrows/track visible, no thumb
+
+Static populated-row structure:
+- `▶`
+- character name
+- initial state `Đã dừng`
+- four Rao-content combobox slots per account
+- saved slot choices restored by character name
+
+Original module states maximum **4 independent Rao slots per account**, and account list refreshes every **5 seconds**.
+
+### Bottom
+- `Bắt đầu`
+- green fill `x=19..430, y=989..1016`
+- `#388E3C`
+
+Static running vocabulary includes `Đang rao X/4 nhóm...` and `Dừng lại`.
+
+Behavior remains deferred.
+
 
 ## B11 — Tối ưu
 TODO

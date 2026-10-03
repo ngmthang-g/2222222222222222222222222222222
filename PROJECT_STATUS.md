@@ -15,14 +15,14 @@ A01–A08: **COMPLETE / VERIFIED**
 - B07 — VERIFIED
 - B08 — VERIFIED
 - B09 — VERIFIED
-- B10 — CURRENT
-- B11 — TODO
+- B10 — VERIFIED
+- B11 — CURRENT
 - B12 — TODO
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B10 — Baseline Rao**
+Current task: **B11 — Baseline Tối ưu**
 
-B09 was completed using compiled `donvang_tab.py` / `don_logic.py` evidence first, then direct Đồn screenshot measurement.
+B10 was completed using compiled `rao_tab.py` evidence first, then direct Rao screenshot measurement.
 
 Preserve Gate A baseline unchanged.
