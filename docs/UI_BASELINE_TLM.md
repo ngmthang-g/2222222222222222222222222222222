@@ -135,30 +135,64 @@ Behavior/config semantics are not inferred from this baseline.
 
 ---
 
-## B04 — Party — BLOCKED VISUAL / STATIC STRUCTURE RECOVERED
+## B04 — Party — VERIFIED
 
-No Party-selected screenshot exists in the current 12-screenshot baseline.
+Primary Party-selected capture:
+- `image(5).png`
+- SHA-256 `b04e9a73887bb8093bba8bfcd8a77a4dc57c5838ca11370c85def0f8adeb9590`
+- raw bitmap `451 × 1035`
 
-The screenshot previously tempting to use for Party, `TLMTool_fTpCsm0auQ`, is actually **▶ / Start / Xếp lưới**. Raster selection at y=56 and the original `start_tab.py` UI strings both verify this.
+This capture has different right/bottom edge-shadow framing from the original 452 × 1032 set, so B04 coordinates are raw Party-capture coordinates. B01's 450 × 1000 client reconstruction target remains unchanged.
 
-### Static original Party structure — VERIFIED
-Recovered from compiled `party_tab.py` evidence:
-- bottom action: `Bắt đầu`
-- section: `Sau khi party`
-- options: `Chờ | Train | Train LSV | Dồn vàng | Phó bản`
-- section: `Cấu hình tổ đội`
+### Party selected tab
+At `y=56`, white selected bridge = `x=65..101`.
+
+Party is selected without a dotted focus rectangle in this capture, confirming that the dotted rectangle is focus state rather than required selection state.
+
+### Sau khi party
+- group: `x=11..434, y=69..130`
+- `Chờ` selected
+- `Train`, `Train LSV`, `Dồn vàng`, `Phó bản` unselected
+
+### Cấu hình tổ đội
+- group: `x=11..434, y=144..181`
 - label: `Danh sách acc sẵn sàng:`
-- group configuration: `Cấu hình nhóm`
-- labels: `Nhóm`, `Trưởng nhóm:`
-- button: `+ Thêm nhóm`
-- 6 accounts per group cluster
-- 2 rows × 3 comboboxes
-- documented Party toggles: `Theo sau đội trưởng`, `Tự nhặt đồ`
+- no ready-account entry visible in this captured state
 
-### Not locked
-No Party pixel coordinates are copied from Phó Bản merely because the compiled module says the UI is similar.
+### Cấu hình nhóm
+- outer: `x=11..434, y=195..611`
+- Nhóm 1: `x=16..429, y=215..326`
+- Nhóm 2: `x=16..429, y=340..451`
+- Nhóm 3: `x=16..429, y=465..576`
+- each group visibly has **6 account slots = 2 rows × 3 comboboxes**
 
-To finish B04, a full-window Party-selected screenshot is required.
+#### Nhóm 1
+- leader: `ThápCa`
+- row 1: `ThápCa | 75C.S6 | TổngTài.S6`
+- row 2: blank
+- `Rời nhóm`: `x=261..330, y=227..245`
+- `✖ Xóa nhóm`: `x=335..423, y=227..245`
+- status/action bar: `x=22..423, y=297..322` — hourglass + `Đang vào...`
+
+#### Nhóm 2
+- leader: `(chưa chọn)`
+- six blank slots
+- action bar: `x=22..423, y=422..447` — `Tạo nhóm 2`
+
+#### Nhóm 3
+- leader: `(chưa chọn)`
+- six blank slots
+- action bar: `x=22..423, y=547..572` — `Tạo nhóm 3`
+
+### Other controls
+- `+ Thêm nhóm`: `x=18..151, y=586..607`
+- bottom `Bắt đầu`: `x=16..429, y=988..1017`
+
+### Static-only facts not visible in this capture
+The compiled Party module also contains documentation/labels for `Theo sau đội trưởng` and `Tự nhặt đồ`. They are not visibly present here, so no pixel placement is invented.
+
+Behavior remains deferred.
+
 
 ---
 
