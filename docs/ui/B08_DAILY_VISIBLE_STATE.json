@@ -1,0 +1,53 @@
+{
+  "task": "B08",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "binary": {
+    "path": "TLMTool.dist/TLMTool.exe",
+    "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "compiled_module": "daily_tab.py"
+  },
+  "screenshots": {
+    "files": ["TLMTool_3MXfXQKSHN(1).png", "TLMTool_Jktab78fPG(1).png"],
+    "sha256": [
+      "217178561894a4205c7b5835ed33c050b384c8f60359f6894165e3400d514834",
+      "3939691e166fa67d9c50069119e4e3904496cd6769b04cf0d3199c6b3e0f866b"
+    ],
+    "raster_px": [452, 1032],
+    "client_px": [450, 1000],
+    "selected_tab": "Daily",
+    "ui_state_equivalent": true,
+    "pixel_diff_count": 265,
+    "pixel_diff_union_bbox": [56, 151, 117, 242],
+    "difference_reason": "mouse cursor placement"
+  },
+  "visible_state": {
+    "punish_duration_seconds": 15,
+    "punish_move_mode": "Ngựa",
+    "punish_teleport_hotkey": "",
+    "punish_heal_below_30": true,
+    "punish_heal_location_text": "Tô Châu",
+    "punish_discard_equipment": false,
+    "punish_reconnect": true,
+    "punish_respawn": true,
+    "treasure_tomb_duration_seconds": 30,
+    "treasure_heal_below_30": false,
+    "treasure_heal_location": "Tô Châu",
+    "treasure_reconnect": true,
+    "treasure_respawn": true,
+    "account_rows_visible": 0,
+    "account_scroll_thumb_visible": false,
+    "all_account_controls": ["Tới bổ đầu", "Trị liệu"],
+    "bottom_action": "Bắt đầu"
+  },
+  "static_original_facts": {
+    "teleport_hotkey_values": ["1", "2", "3"],
+    "row_activity_values": ["Trừng ác", "Tàng bảo đồ"],
+    "row_initial_state": "Đã dừng",
+    "row_static_elements": ["▶", "⬤", "Tới bổ đầu", "Trị liệu"],
+    "later_button_state_strings": ["Dừng lại", "Đang dừng..."],
+    "all_go_bodau_target": {"map": "Tô Châu", "map_id": 4, "x": 224, "y": 285},
+    "all_heal_target": {"map": "Tô Châu", "map_id": 4, "x": 155, "y": 252}
+  },
+  "next_action": "B09 — Baseline Đồn"
+}

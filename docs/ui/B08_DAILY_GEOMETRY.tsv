@@ -1,0 +1,26 @@
+ELEMENT	X0	Y0	X1	Y1	WIDTH	HEIGHT	VISIBLE_STATE_OR_TEXT
+daily_selected_bridge_y56	244	56	279	56	36	1	Daily selected
+punish_group	13	69	436	279	424	211	Trừng ác
+punish_duration_white	197	106	230	124	34	19	15
+punish_radio_horse	44	157	56	169	13	13	selected
+punish_radio_teleport	108	157	120	169	13	13	unselected
+punish_hotkey_combo_outer	288	153	322	173	35	21	blank
+punish_heal_checkbox	20	183	32	195	13	13	checked
+punish_discard_checkbox	20	208	32	220	13	13	unchecked
+punish_reconnect_checkbox	20	233	32	245	13	13	checked
+punish_respawn_checkbox	199	233	211	245	13	13	checked
+punish_apply_fill	23	253	426	274	404	22	#795548
+treasure_group	13	295	436	408	424	114	Tàng bảo đồ
+treasure_duration_white	229	308	262	326	34	19	30
+treasure_heal_checkbox	20	337	32	349	13	13	unchecked
+treasure_heal_combo_outer_approx	300	333	394	353	95	21	Tô Châu
+treasure_reconnect_checkbox	20	362	32	374	13	13	checked
+treasure_respawn_checkbox	199	362	211	374	13	13	checked
+treasure_apply_fill	23	382	426	403	404	22	#795548
+accounts_group	13	424	436	983	424	560	Danh sách tài khoản
+account_scroll_up	427	463	431	468	5	6	visible
+account_scroll_track	424	474	424	935	1	462	visible
+account_scroll_down	427	942	431	947	5	6	visible
+all_go_bodau_fill	136	958	208	976	73	19	Tới bổ đầu
+all_heal_fill	215	958	266	976	52	19	Trị liệu
+bottom_start_fill	19	989	430	1016	412	28	#388E3C

@@ -1,0 +1,57 @@
+KEY	OFFSET_DEC	STATUS	TEXT
+module_filename	43035346	VERIFIED_STATIC	daily_tab.py
+module_marker	43035617	VERIFIED_STATIC	<module daily_tab>
+module_description	43031626	VERIFIED_STATIC	Daily Tab - Quản lý tác vụ hàng ngày.
+punish_group	43005298	VERIFIED_STATIC	Trừng ác
+common_label	43005377	VERIFIED_STATIC	Cấu hình chung:
+punish_duration_label	43005469	VERIFIED_STATIC	Thời gian đánh ác tặc (giây):
+punish_duration_ui_value	43005563	VERIFIED_STATIC	15
+move_method_label	43005760	VERIFIED_STATIC	Cách về NPC nhận nhiệm vụ:
+move_horse_label	43005883	VERIFIED_STATIC	Ngựa
+move_teleport_label	43005937	VERIFIED_STATIC	Định vị phù
+tele_hotkey_label	43005968	VERIFIED_STATIC	Phím tắt phù:
+tele_hotkey_values	43006034	VERIFIED_STATIC	1 / 2 / 3
+punish_heal	43006190	VERIFIED_STATIC	Trị liệu khi HP < 30%
+punish_heal_location	43006251	VERIFIED_STATIC	Vị trí trị liệu: Tô Châu
+punish_discard	43006327	VERIFIED_STATIC	Lọc trang bị (vứt vũ khí, trang bị trong quá trình làm nhiệm vụ)
+punish_reconnect	43006486	VERIFIED_STATIC	Tự kết nối lại khi mất mạng
+punish_respawn	43006547	VERIFIED_STATIC	Hồi sinh khi chết/Địa phủ
+punish_apply_all	43006591	VERIFIED_STATIC	Áp dụng Trừng ác cho tất cả acc
+brown_style	43006653	VERIFIED_STATIC	#795548
+treasure_group	43006814	VERIFIED_STATIC	Tàng bảo đồ
+treasure_duration_label	43006881	VERIFIED_STATIC	Thời gian đánh trong huyệt mộ (giây):
+treasure_duration_value	43006959	VERIFIED_STATIC	30
+treasure_heal	43007038	VERIFIED_STATIC	Trị liệu sau khi đào nếu HP < 30%
+treasure_heal_location_label	43007083	VERIFIED_STATIC	Vị trí trị liệu:
+treasure_heal_location_value	43007145	VERIFIED_STATIC	Tô Châu
+treasure_apply_all	43007290	VERIFIED_STATIC	Áp dụng Tàng bảo đồ cho tất cả acc
+accounts_group	43007363	VERIFIED_STATIC	Danh sách tài khoản
+account_header_name	43007430	VERIFIED_STATIC	Nhân vật
+account_header_activity	43007447	VERIFIED_STATIC	Hoạt động
+all_controls	43007918	VERIFIED_STATIC	Điều khiển tất cả:
+all_go_bodau	43007981	VERIFIED_STATIC	Tới bổ đầu
+all_heal	43008049	VERIFIFIED_STATIC	Trị liệu
+bottom_start	43008141	VERIFIED_STATIC	Bắt đấu
+start_green	43008155	VERIFIED_STATIC	#388e3c
+row_play	43009474	VERIFIED_STATIC	▶
+row_activity_punish	43009719	VERIFIED_STATIC	Trừng ác
+row_activity_treasure	43009745	VERIFIED_STATIC	Tâng bảo đồ
+row_state_dot	43009778	VERIFIED_STATIC	⬤
+row_gray_style	43009797	VERIFIED_STATIC	#755555
+row_initial_state	43009851	VERIFIED_STATIC	Đà dừng
+row_blue_style	43009944	VERIFIED_STATIC	#1565c0
+later_stopping_state	43019604	VERIFIED_STATIC	Đang dừng...
+later_stop_state	43016406	VERIFIED_STATIC	Dừng lại
+config_key_punish_duration	43030915	VERIFIED_STATIC	daily_punish_duration
+config_key_tele_use	43030942	VERIFIED_STATIC	daily_tele_use
+config_key_move_mode	43030960	VERIFIED_STATIC	daily_move_mode
+config_key_tele_hotkey	43030979	VERIFIED_STATIC	daily_tele_hotkey
+config_key_treasure_duration	43031001	VERIFIED_STATIC	daily_treasure_map_tomb_dur
+config_key_treasure_heal	43031036	VERIFIED_STATIC	daily_treasure_heal
+config_key_treasure_heal_map	43031061	VERIFIED_STATIC	daily_treasure_heal_map
+config_key_punish_heal	43031099	VERIFIED_STATIC	daily_punish_heal
+config_key_punish_discard	43031122	VERIFIED_STATIC	daily_punish_discard_equip
+config_key_punish_reconnect	43031154	VERIFIED_STATIC	daily_punish_dc_reconnect
+config_key_punish_respawn	43031185	VERIFIED_STATIC	daily_punish_respawn
+config_key_treasure_reconnect	43031211	VERIFIED_STATIC	daily_treasure_dc_reconnect
+config_key_treasure_respawn	43031244	VERIFIED_STATIC	daily_treasure_respawn

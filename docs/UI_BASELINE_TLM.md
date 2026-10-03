@@ -408,8 +408,69 @@ Runner-state strings include `Dừng lịch trình`, `Đang dừng lịch trình
 Behavior remains deferred.
 
 
-## B08 — Daily
-TODO
+## B08 — Daily — VERIFIED
+
+Binary-first evidence:
+- compiled `daily_tab.py`
+- inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`
+
+Two Daily captures show the same UI state; their only raster difference is mouse-cursor placement.
+
+### Selected tab
+At `y=56`, Daily selected bridge = `x=244..279`.
+
+### Trừng ác
+- group: `x=13..436, y=69..279`
+- duration: **15**
+- move mode: **Ngựa** selected
+- Định vị phù unselected
+- Phím tắt phù combobox blank; original values = `1 / 2 / 3`
+- Trị liệu khi HP < 30%: checked
+- visible location text: `Tô Châu`
+- Lọc trang bị: unchecked
+- Tự kết nối lại khi mất mạng: checked
+- Hồi sinh khi chết/Địa phủ: checked
+- apply-all fill: `#795548`, `x=23..426, y=253..274`
+
+### Tàng bảo đồ
+- group: `x=13..436, y=295..408`
+- tomb duration: **30**
+- Trị liệu sau khi đào nếu HP < 30%: unchecked
+- Vị trí trị liệu: `Tô Châu`
+- reconnect: checked
+- respawn: checked
+- apply-all fill: `#795548`, `x=23..426, y=382..403`
+
+### Danh sách tài khoản
+- group: `x=13..436, y=424..983`
+- headers: `Nhân vật | Hoạt động`
+- screenshot state: empty list
+- scrollbar arrows/track visible, no thumb
+
+Static populated-row structure:
+- `▶`
+- activity combobox `Trừng ác / Tàng bảo đồ`
+- status dot `⬤`
+- initial state `Đã dừng`
+- per-row `Tới bổ đầu`
+- per-row `Trị liệu`
+
+### Điều khiển tất cả
+- Tới bổ đầu fill: `x=136..208, y=958..976`
+- Trị liệu fill: `x=215..266, y=958..976`
+- both use `#795548`
+
+Static later-behavior targets are preserved:
+- bổ đầu: Tô Châu map 4, 224,285
+- trị liệu: Tô Châu map 4, 155,252
+
+### Bottom
+- `Bắt đầu`
+- green fill: `x=19..430, y=989..1016`
+- `#388E3C`
+
+Behavior remains deferred.
+
 
 ## B09 — Đồn
 TODO

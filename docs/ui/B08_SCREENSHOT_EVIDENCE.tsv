@@ -1,0 +1,4 @@
+SCREENSHOT	SHA256	RASTER	CLIENT	ACTIVE_TAB	NOTE
+TLMTool_3MXfXQKSHN(1).png	217178561894a4205c7b5835ed33c050b384c8f60359f6894165e3400d514834	452x1032	450x1000	Daily	Same visible UI state; cursor absent from central Daily controls
+TLMTool_Jktab78fPG(1).png	3939691e166fa67d9c50069119e4e3904496cd6769b04cf0d3199c6b3e0f866b	452x1032	450x1000	Daily	Same visible UI state; mouse cursor visible near move-mode area
+PAIR_DIFF	-	-	-	-	265 pixels differ; union bbox x=56..117 y=151..242; localized to mouse-cursor placement

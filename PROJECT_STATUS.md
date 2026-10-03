@@ -13,16 +13,16 @@ A01–A08: **COMPLETE / VERIFIED**
 - B05 — VERIFIED
 - B06 — VERIFIED
 - B07 — VERIFIED
-- B08 — CURRENT
-- B09 — TODO
+- B08 — VERIFIED
+- B09 — CURRENT
 - B10 — TODO
 - B11 — TODO
 - B12 — TODO
 - B13 — TODO
 - B14 — TODO
 
-Current task: **B08 — Baseline Daily**
+Current task: **B09 — Baseline Đồn**
 
-B07 was completed using compiled `phoban_tab.py` / `phoban_dungeons.py` evidence first, then direct Phó Bản screenshot measurement.
+B08 was completed using compiled `daily_tab.py` evidence first, then direct Daily screenshot measurement.
 
 Preserve Gate A baseline unchanged.
