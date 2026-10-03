@@ -75,17 +75,16 @@ These are raster separator spans, not source widget width units.
 - tab/frame separator: `#D9D9D9`
 - tab text/glyph: black
 - title: `TLMTool`
-- standard Windows-style title chrome is visible in all supplied captures
 
-### Selected tab evidence
+### Selected tab evidence — corrected during B04
 Direct selected captures exist for:
 `▶, Login, Train, Train LSV, Phó Bản, Daily, Đồn, Rao, Tối ưu`.
 
-Captured selected tabs expand into neighboring separator space, merge through the lower separator into the page, and show a dotted focus rectangle around the label/glyph.
+Direct selected Party and i captures remain **UNVERIFIED**.
 
-Direct active-state pixel evidence for **Party** and **i** is **UNVERIFIED**.
+The selected tab expands/merges through the lower separator into the page.
 
-The dotted rectangle is recorded only as a capture-state fact; B02 does not assert it must remain visible after focus changes.
+**Focus correction:** a dotted focus rectangle is not a required selected-state feature. The `TLMTool_fTpCsm0auQ` Start/Xếp-lưới capture has `▶` selected but focus is on the `Xếp lưới` radio, so the selected tab does not carry the dotted focus rectangle. Treat the dotted rectangle as widget-focus state, not tab-selection state.
 
 ### Deferred to B13
 Exact font family/point size, font weight, button palette/borders and deeper anti-aliasing/color metrics.
@@ -136,8 +135,32 @@ Behavior/config semantics are not inferred from this baseline.
 
 ---
 
-## B04 — Party
-TODO
+## B04 — Party — BLOCKED VISUAL / STATIC STRUCTURE RECOVERED
+
+No Party-selected screenshot exists in the current 12-screenshot baseline.
+
+The screenshot previously tempting to use for Party, `TLMTool_fTpCsm0auQ`, is actually **▶ / Start / Xếp lưới**. Raster selection at y=56 and the original `start_tab.py` UI strings both verify this.
+
+### Static original Party structure — VERIFIED
+Recovered from compiled `party_tab.py` evidence:
+- bottom action: `Bắt đầu`
+- section: `Sau khi party`
+- options: `Chờ | Train | Train LSV | Dồn vàng | Phó bản`
+- section: `Cấu hình tổ đội`
+- label: `Danh sách acc sẵn sàng:`
+- group configuration: `Cấu hình nhóm`
+- labels: `Nhóm`, `Trưởng nhóm:`
+- button: `+ Thêm nhóm`
+- 6 accounts per group cluster
+- 2 rows × 3 comboboxes
+- documented Party toggles: `Theo sau đội trưởng`, `Tự nhặt đồ`
+
+### Not locked
+No Party pixel coordinates are copied from Phó Bản merely because the compiled module says the UI is similar.
+
+To finish B04, a full-window Party-selected screenshot is required.
+
+---
 
 ## B05 — Train
 TODO

@@ -12,26 +12,6 @@
     "bottom_y": 1024,
     "visible_outer_width_px": 438
   },
-  "client_relative_margins_px": {
-    "left": 5,
-    "right": 7,
-    "top_to_tab_strip": 5,
-    "bottom": 6
-  },
-  "nominal_inactive_separators_x": [6, 29, 67, 102, 136, 192, 244, 278, 308, 336, 377, 401],
-  "nominal_separator_spans_px": {
-    "▶": 23,
-    "Login": 38,
-    "Party": 35,
-    "Train": 34,
-    "Train LSV": 56,
-    "Phó Bản": 52,
-    "Daily": 34,
-    "Đồn": 30,
-    "Rao": 28,
-    "Tối ưu": 41,
-    "i": 24
-  },
   "raster_colors": {
     "client_and_inactive_tab": "#F0F0F0",
     "selected_tab": "#FFFFFF",
@@ -43,15 +23,19 @@
   "selected_capture_pattern": {
     "expands_into_neighbor_separator_space": true,
     "bottom_separator_merged_under_selected_tab": true,
-    "dotted_focus_rectangle_visible_in_all_captured_selected_tabs": true
+    "dotted_focus_rectangle_is_required_for_selection": false,
+    "selected_tab_without_focus_rectangle_observed": true,
+    "example": "TLMTool_fTpCsm0auQ(2).png — ▶ selected, Xếp lưới radio focused"
+  },
+  "b04_correction": {
+    "TLMTool_fTpCsm0auQ(2).png": "▶ / Start / Xếp lưới",
+    "party_selected_screenshot_present": false
   },
   "explicit_unknowns": [
     "Exact widget class/theme",
     "Selected-state exact pixel bounds for Party",
     "Selected-state exact pixel bounds for i",
-    "Whether focus rectangle persists after keyboard focus moves",
-    "Exact font metrics (deferred to B13)",
+    "Exact font metrics (B13)",
     "OS/DPI behavior outside supplied screenshots"
-  ],
-  "next_action": "B03 — Baseline Login"
+  ]
 }

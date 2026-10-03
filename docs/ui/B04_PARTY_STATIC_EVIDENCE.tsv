@@ -1,0 +1,25 @@
+AREA	STATUS	EVIDENCE
+party_module	VERIFIED	Compiled markers party_tab.py and <module party_tab>
+party_role	VERIFIED_STATIC	Party Tab - group/team configuration
+group_capacity	VERIFIED_STATIC	6 accounts per group cluster
+group_grid	VERIFIED_STATIC	2 rows x 3 comboboxes
+structural_reference	VERIFIED_STATIC	Module documentation says UI similar to PhoBanTab but schedule area replaced by group configuration
+lower_schedule_table	VERIFIED_ABSENT_STATIC	Module documentation says remove Hoạt động/Tên Map/Lần/Status table
+bottom_action	VERIFIED_STATIC	Bắt đầu
+after_party_section	VERIFIED_STATIC	Sau khi party
+after_party_label	VERIFIED_STATIC	Sau khi party:
+after_party_option_wait	VERIFIED_STATIC	Chờ
+after_party_option_train	VERIFIED_STATIC	Train
+after_party_option_train_lsv	VERIFIED_STATIC	Train LSV
+after_party_option_don	VERIFIED_STATIC	Dồn vàng
+after_party_option_phoban	VERIFIED_STATIC	Phó bản
+team_section	VERIFIED_STATIC	Cấu hình tổ đội
+ready_list_label	VERIFIED_STATIC	Danh sách acc sẵn sàng:
+group_section	VERIFIED_STATIC	Cấu hình nhóm
+group_label	VERIFIED_STATIC	Nhóm
+leader_label	VERIFIED_STATIC	Trưởng nhóm:
+add_group_button	VERIFIED_STATIC	+ Thêm nhóm
+follow_toggle	VERIFIED_STATIC_DOC	Theo sau đội trưởng
+pickup_toggle	VERIFIED_STATIC_DOC	Tự nhặt đồ
+party_pixel_geometry	BLOCKED	No Party-selected screenshot supplied
+party_selected_tab_pixels	BLOCKED	No Party-selected screenshot supplied

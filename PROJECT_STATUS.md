@@ -3,22 +3,13 @@
 Authoritative continuation state: [STATE.md](STATE.md)
 
 ## Gate A
-- A01 — VERIFIED
-- A02 — VERIFIED
-- A03 — VERIFIED
-- A04 — VERIFIED_WITH_EXPLICIT_UNKNOWN
-- A05 — VERIFIED
-- A06 — VERIFIED
-- A07 — VERIFIED
-- A08 — VERIFIED
-
-**GATE A COMPLETE**
+A01–A08: **COMPLETE / VERIFIED**
 
 ## Gate B
 - B01 — VERIFIED
 - B02 — VERIFIED
 - B03 — VERIFIED
-- B04 — CURRENT
+- B04 — **BLOCKED_VISUAL_EVIDENCE**
 - B05 — TODO
 - B06 — TODO
 - B07 — TODO
@@ -32,6 +23,8 @@ Authoritative continuation state: [STATE.md](STATE.md)
 
 Current task: **B04 — Baseline Party**
 
-B03 locked the Login screenshot geometry, visible defaults, account-table layout, scroll region and bottom Start button without inferring runtime behavior.
+The current 12-screen set has no Party-selected screenshot. The black-preview/sync screenshot is now verified as `▶ / Start / Xếp lưới`, not Party.
+
+Static `party_tab.py` UI structure is recorded, but pixel geometry is not locked. A Party-selected full-window screenshot is required before B05.
 
 Preserve Gate A baseline unchanged.
