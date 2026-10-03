@@ -1,0 +1,41 @@
+{
+  "task": "A06",
+  "status": "VERIFIED",
+  "bootstrap": {
+    "binary_sha256": "42c96ffe01718c9d73236040dc6c960964d79461918b53a7a1db9295beb1654c",
+    "recovered_script_sha256": "a9b2effe1d915d072c63501a099872572cf47899d7433af7cf287a662503c7cc",
+    "script_bytes": 350,
+    "script_lines": 24,
+    "min_args": 2,
+    "arg1": "new_file",
+    "arg2": "target_file",
+    "retry_sleep_ms": 500,
+    "overwrite": true,
+    "timeout": null
+  },
+  "updater": {
+    "binary_sha256": "71811fc915765cfdf0ac8a1b140753fc4d38d3e9050c33986cd8058b852471f0",
+    "recovered_script_sha256": "7eaacc93423b7ce8be15553cfb76a4210aa41d169ab327b782cb2bb50edf581f",
+    "script_bytes": 9030,
+    "script_lines": 284,
+    "internal_version": "1.2",
+    "default_drive_file_id": "12BguvI-s4tLE6_rRfB9208TSJuKZMzRT",
+    "hosts": ["drive.google.com", "pixeldrain.com"],
+    "drive_zip_password": "1",
+    "pixeldrain_zip_password": "",
+    "download_buffer_bytes": 65536,
+    "minimum_download_size_bytes": 10000,
+    "bundled_7zip": "tools\\7z.exe",
+    "fallback_7zip": "C:\\Program Files\\7-Zip\\7z.exe",
+    "copy_scope": "new TLMTool.dist -> current A_ScriptDir (current TLMTool.dist)",
+    "robocopy_excludes": ["update.exe"],
+    "outer_root_launcher_copied": false,
+    "new_updater_staging_path": "update\\update.exe",
+    "bootstrap_self_replace": true,
+    "final_relaunch": "A_ScriptDir\\TLMTool.exe",
+    "final_relaunch_is_inner_exe": true,
+    "download_hash_verification": false,
+    "download_signature_verification": false
+  },
+  "next_action": "A07 — Lập ORIGINAL_MANIFEST"
+}

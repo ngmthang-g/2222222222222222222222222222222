@@ -1,0 +1,28 @@
+FACT	STATUS	STATIC_EVIDENCE
+bootstrap args	VERIFIED	A_Args[1]=NewFile; A_Args[2]=TargetFile; exit if argCount<2
+bootstrap retry	VERIFIED	Loop + Sleep, 500 + FileMove overwrite + break only on !ErrorLevel
+bootstrap timeout	VERIFIED NONE	No timeout or retry counter in recovered 24-line script
+updater version	VERIFIED	UpdaterVersion := "1.2"
+link arg	VERIFIED	DriveLink := A_Args[1]
+pixeldrain parsing	VERIFIED	InStr(pixeldrain.com) + /u/<id> regex
+google drive parsing	VERIFIED	InStr(drive.google.com) + Drive ID regex
+default drive ID	VERIFIED	12BguvI-s4tLE6_rRfB9208TSJuKZMzRT
+Drive ZIP password	VERIFIED	ZipPass := ... ? "" : "1"
+Pixeldrain ZIP password	VERIFIED EMPTY	SourceHost=pixeldrain gives empty ZipPass
+TLS	VERIFIED	PowerShell sets SecurityProtocol=Tls12
+download transport	VERIFIED	Net.HttpWebRequest, UserAgent Mozilla/5.0, 65536-byte buffer
+minimum ZIP size	VERIFIED	If fSize < 10000 => error/Return
+cryptographic ZIP hash check	VERIFIED NONE	No hash computation/comparison in recovered script
+digital signature check	VERIFIED NONE	No Authenticode/signature verification in recovered script
+7-Zip bundled path	VERIFIED	A_ScriptDir\\tools\\7z.exe
+7-Zip fallback path	VERIFIED	C:\\Program Files\\7-Zip\\7z.exe
+extraction success criteria	VERIFIED	unzip.log must contain EXITCODE=0 and Everything is Ok
+package selector	VERIFIED	First directory under update matching TLMTool*
+new dist selector	VERIFIED	<matched>\\TLMTool.dist
+copy destination	VERIFIED	$dest = ExtractDir = A_ScriptDir
+copy command	VERIFIED	robocopy new dist -> current dist /E /XF update.exe
+outer launcher copied	VERIFIED NO	Copy source is only extracted TLMTool.dist; outer package root is not copied
+new updater stage	VERIFIED	Copy new TLMTool.dist\\update.exe -> update\\update.exe
+bootstrap invocation	VERIFIED	bootstrap.exe newUpdater current update.exe, hidden
+final relaunch	VERIFIED	Run, %A_ScriptDir%\\TLMTool.exe
+final relaunch target	VERIFIED INNER	update.exe is packaged in TLMTool.dist, so A_ScriptDir\\TLMTool.exe is inner executable

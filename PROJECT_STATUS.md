@@ -3,22 +3,17 @@
 Authoritative continuation state: [STATE.md](STATE.md)
 
 ## Gate A
-- A01 — VERIFIED (artifacts restored to GitHub)
+- A01 — VERIFIED
 - A02 — VERIFIED
 - A03 — VERIFIED
 - A04 — VERIFIED_WITH_EXPLICIT_UNKNOWN
 - A05 — VERIFIED
-- A06 — CURRENT
-- A07 — TODO
+- A06 — VERIFIED
+- A07 — CURRENT
 - A08 — TODO
 
-Current task: **A06 — Phân tích bootstrap/update**
+Current task: **A07 — Lập ORIGINAL_MANIFEST**
 
-A01 repository artifacts are present at:
-- `docs/tasks/A01.md`
-- `original_manifest/A01_SUMMARY.json`
-- `original_manifest/A01_FILE_TREE.txt.gz`
-
-A05 verified that root `TLMTool.exe` is the elevation/launcher wrapper for `TLMTool.dist/TLMTool.exe`.
+A06 recovered and persisted the exact embedded AutoHotkey payloads for bootstrap.exe and update.exe and verified their update/self-replacement flow.
 
 Do not start reconstruction source before Gate A is complete.
