@@ -1,0 +1,15 @@
+; <COMPILER: v1.1.37.02>
+#NoTrayIcon
+#SingleInstance Force
+if !A_IsAdmin {
+Run, *RunAs %A_ScriptFullPath%
+ExitApp
+}
+scriptDir := A_ScriptDir
+exePath := scriptDir . "\TLMTool.dist\TLMTool.exe"
+workDir := scriptDir . "\TLMTool.dist"
+if FileExist(exePath) {
+Run, %exePath%, %workDir%
+} else {
+MsgBox, Không tìm thấy file: %exePath%
+}

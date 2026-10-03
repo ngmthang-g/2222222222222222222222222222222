@@ -1,0 +1,17 @@
+{
+  "task": "A05",
+  "status": "VERIFIED",
+  "outer_launcher": "TLMTool_2.1.2/TLMTool.exe",
+  "outer_runtime": "AutoHotkey 1.1.37.02",
+  "requires_admin_flow": true,
+  "elevation_mechanism": "Run, *RunAs %A_ScriptFullPath%",
+  "inner_target": "TLMTool_2.1.2/TLMTool.dist/TLMTool.exe",
+  "inner_working_directory": "TLMTool_2.1.2/TLMTool.dist",
+  "existence_check": true,
+  "launch_command": "Run, %exePath%, %workDir%",
+  "uses_runwait": false,
+  "forwards_command_line_args": false,
+  "outer_sha256": "49feb53c149801b6737912625319bf77952e30ed0a2bc76a03719192d9d43c6b",
+  "inner_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+  "next_action": "A06 — Phân tích bootstrap/update"
+}

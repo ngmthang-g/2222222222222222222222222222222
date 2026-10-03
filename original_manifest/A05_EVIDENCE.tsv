@@ -1,0 +1,11 @@
+FACT	STATUS	EVIDENCE
+Outer runtime	VERIFIED	Embedded compiler marker ; <COMPILER: v1.1.37.02> and AutoHotkey runtime identity
+Elevation check	VERIFIED	if !A_IsAdmin { Run, *RunAs %A_ScriptFullPath% ; ExitApp }
+Inner path	VERIFIED	exePath := scriptDir . "\TLMTool.dist\TLMTool.exe"
+Working directory	VERIFIED	workDir := scriptDir . "\TLMTool.dist"
+Existence guard	VERIFIED	if FileExist(exePath)
+Launch action	VERIFIED	Run, %exePath%, %workDir%
+Missing-target behavior	VERIFIED	MsgBox, Không tìm thấy file: %exePath%
+RunWait used	VERIFIED NO	No RunWait command in recovered outer launcher script
+Argument forwarding	VERIFIED NO	No argument variables are passed to the inner Run command
+Package target exists	VERIFIED	TLMTool_2.1.2/TLMTool.dist/TLMTool.exe exists in A01 inventory
