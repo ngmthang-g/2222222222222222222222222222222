@@ -196,8 +196,69 @@ Behavior remains deferred.
 
 ---
 
-## B05 — Train
-TODO
+## B05 — Train — VERIFIED
+
+Binary-first evidence:
+- compiled `farm_tab.py` / `<module farm_tab>`
+- inner binary SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`
+
+Primary screenshot:
+- `TLMTool_b2OvbUQCNB(2).png`
+- SHA-256 `17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53`
+- `452 × 1032`; copy (1) is byte-identical
+
+### Train selected
+At `y=56`, selected bridge = `x=102..137`.
+
+### Cấu hình Về thành
+- group: `x=11..438, y=69..133`
+- `Hiện cấu hình`: `x=312..431, y=83..104`
+- `Theo chu kỳ (phút)` selected; value **30**
+- `Không về`, `Khi đầy túi` unselected
+
+Original FarmTab explicitly marks the lower town block as **mặc định ẩn**. Hidden static controls include navigation priority `Phù 1/2/3/Ngựa`, `Bán trang bị`, HP/MP item+quantity controls and `Tọa độ Dược:`. No hidden pixels are invented.
+
+### Cấu hình Train
+- group: `x=11..438, y=147..329`
+- Quay lại train khi chết: unchecked
+- Tự kết nối lại khi mất mạng: unchecked
+- Nhặt đồ không dùng hồ lô (càn khôn hồ): unchecked
+- Trị liệu sau khi chết: unchecked
+- treatment combobox: `x=235..389, y=230..250` → `Trị liệu Tô Châu`
+- keep mode: **Tất cả**
+- no buff row visible
+- `+ Thêm`: `x=18..151, y=304..325`
+
+Static buff row supports **F1–F10 + 1,2,3** with `Phím:`, `Thời gian:`, `ph`, `giây`.
+
+### Cấu hình tọa độ lưu sẵn
+- group: `x=11..438, y=343..406`
+- headers: `Tên | Map | X | Y | Áp dụng hết | Xóa`
+- no saved row visible
+- `+ Thêm tọa độ`: `x=18..151, y=381..402`
+- `Ẩn danh sách tọa độ`: `x=298..431, y=381..402`
+
+Static row structure includes `Bán`, `Train`, delete `✕`.
+
+### Danh sách tài khoản
+- group: `x=11..438, y=420..983`
+- headers: `Nhân vật | Tọa độ bán | Tọa độ Train`
+- capture is empty-list state
+- scroll track/chevrons visible, no thumb visible
+
+Static populated-row structure includes `▶`, `⬤`, `Đã dừng`, sell/train comboboxes and goto/sell/move/farm controls. Their pixels are not inferred.
+
+### Điều khiển tất cả
+- Tới bán đồ: `x=133..207, y=959..979`
+- Bán đồ: `x=212..267, y=959..979`
+- Tới bãi train: `x=272..352, y=959..979`
+- Đánh: `x=357..403, y=959..979`
+
+### Bottom
+- `Bắt đầu`: `x=16..433, y=988..1017`
+
+Behavior remains deferred.
+
 
 ## B06 — Train LSV
 TODO
