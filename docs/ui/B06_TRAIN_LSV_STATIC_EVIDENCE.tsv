@@ -1,0 +1,63 @@
+KEY	OFFSET_DEC	STATUS	TEXT
+module_filename	46200678	VERIFIED_STATIC	train_lsv_tab.py
+module_marker	46201079	VERIFIED_STATIC	<module train_lsv_tab>
+module_description	46197325	VERIFIED_STATIC	Train LSV Tab - Cấu hình farm liên server (LSV) với danh sách acc.
+bottom_start	46168712	VERIFIED_STATIC	Bắt đầu
+train_lsv_group	46168930	VERIFIED_STATIC	Cấu hình Train LSV
+during_train	46169040	VERIFIED_STATIC	Trong khi train:
+respawn	46169179	VERIFIED_STATIC	Quay lại train khi chết
+reconnect	46169297	VERIFIED_STATIC	Tự kết nối lại khi mất mạng
+heal_lsv	46169358	VERIFIED_STATIC	Trị liệu sau khi chết tại Lạc Dương LSV
+pickup_label	46169447	VERIFIED_STATIC	Nhặt đồ:
+buff_section	46169636	VERIFIED_STATIC	Dùng thủ công châu, đan dược (2x, 4x...):
+add_buff	46169797	VERIFIED_STATIC	+ Thêm
+coord_group	46169917	VERIFIED_STATIC	Cấu hình tọa độ lưu sẵn
+coord_apply	46170134	VERIFIED_STATIC	Áp dụng
+add_coord	46170227	VERIFIED_STATIC	+ Thêm tọa độ
+hide_coord	46170264	VERIFIED_STATIC	Ẩn danh sách tọa độ
+account_group	46170349	VERIFIED_STATIC	Danh sách tài khoản
+account_name	46170461	VERIFIED_STATIC	Nhân vật
+account_train_coord	46170478	VERIFIED_STATIC	Tọa độ Train
+all_controls	46170952	VERIFIED_STATIC	Điều khiển tất cả:
+all_to_lsv	46171029	VERIFIED_STATIC	Tới LSV
+all_to_train	46171084	VERIFIED_STATIC	Tới chỗ train
+all_fight	46171116	VERIFIED_STATIC	Đánh
+all_leave_lsv	46171139	VERIFIED_STATIC	Rời LSV
+coord_show	46174956	VERIFIED_STATIC	Hiện danh sách tọa độ
+coord_toggle_doc	46175064	VERIFIED_STATIC	Ẩn/hiện phần nội dung tọa độ (header + body), toolbar luôn visible.
+buff_hotkey_doc	46176221	VERIFIED_STATIC	Danh sách phím tắt: F1-F10 + 1,2,3.
+fixed_buff_name	46176290	VERIFIED_STATIC	Dạ Minh Châu
+buff_key_label	46176367	VERIFIED_STATIC	Phím:
+buff_time_label	46176584	VERIFIED_STATIC	Thời gian:
+buff_seconds_label	46176738	VERIFIED_STATIC	giây
+fixed_buff_doc_1	46176919	VERIFIED_STATIC	fixed=True → dòng cố định (Dạ Minh Châu): thay tick bằng label tên,
+fixed_buff_doc_2	46177009	VERIFIED_STATIC	không có nút xóa, luôn active (enabled_var=True).
+row_play_glyph	46172149	VERIFIED_STATIC	▶
+row_state_dot	46172582	VERIFIED_STATIC	⬤
+row_initial_state	46172655	VERIFIED_STATIC	Đã dừng
+row_extra_elapsed	46172951	VERIFIED_STATIC	0h:00p
+row_extra_bag	46172970	VERIFIED_STATIC	Túi:
+row_extra_deaths	46172978	VERIFIED_STATIC	Chết: 0
+row_extra_exp	46172989	VERIFIED_STATIC	exp: 0
+row_extra_rate	46172997	VERIFIED_STATIC	0 exp/h
+map_tqh_1	46197600	VERIFIED_STATIC	Tần Hoàng Địa Cung Tầng 1
+map_tqh_2	46197640	VERIFIED_STATIC	Tần Hoàng Địa Cung Tầng 2
+map_tqh_3	46197680	VERIFIED_STATIC	Tần Hoàng Địa Cung Tầng 3
+map_tqh_4	46197720	VERIFIED_STATIC	Tần Hoàng Địa Cung Tầng 4
+map_pham_lien	46197760	VERIFIED_STATIC	Phàm Liên Trại
+map_thanh_lien	46197785	VERIFIED_STATIC	Thanh Liên Trại
+map_kho_vinh	46197810	VERIFIED_STATIC	Khô Vinh Đạo
+state_heal	46198108	VERIFIED_STATIC	Trị liệu
+state_return_lac_duong_lsv	46198122	VERIFIED_STATIC	Về Lạc Dương LSV
+state_goto_lsv_spot	46198145	VERIFIED_STATIC	Tới bãi LSV
+state_training	46198162	VERIFIED_STATIC	Đang train LSV
+state_discarding	46198179	VERIFIED_STATIC	Đang lọc đồ
+state_disconnected	46198198	VERIFIED_STATIC	Mất kết nối
+style_start_green	46168741	VERIFIED_STATIC	#388e3c
+style_lsv_purple	46171040	VERIFIED_STATIC	#8e24aa
+style_fixed_buff_purple	46176327	VERIFIED_STATIC	#8e24aa
+style_add_green	46169806	VERIFIED_STATIC	SeaGreen
+style_coord_toggle_gray	46170313	VERIFIED_STATIC	gray
+style_labelframe	46168954	VERIFIED_STATIC	Bold.TLabelframe
+style_combo	46172417	VERIFIED_STATIC	White.TCombobox
+pickup_semantics_doc	46195242	VERIFIED_STATIC	Không → discard all; Chỉ vũ khí → keep weapons/discard non-weapons; Tất cả → keep all/discard none
