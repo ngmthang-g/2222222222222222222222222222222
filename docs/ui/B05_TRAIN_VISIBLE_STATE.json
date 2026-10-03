@@ -1,0 +1,47 @@
+{
+  "task": "B05",
+  "status": "VERIFIED",
+  "confidence": "HIGH",
+  "binary": {
+    "path": "TLMTool.dist/TLMTool.exe",
+    "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "compiled_module": "farm_tab.py"
+  },
+  "screenshot": {
+    "files": ["TLMTool_b2OvbUQCNB(1).png", "TLMTool_b2OvbUQCNB(2).png"],
+    "byte_identical": true,
+    "sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53",
+    "raster_px": [452, 1032],
+    "client_px": [450, 1000],
+    "selected_tab": "Train"
+  },
+  "visible_state": {
+    "town_config_expanded": false,
+    "town_toggle_text": "Hiện cấu hình",
+    "town_condition": "Theo chu kỳ (phút)",
+    "town_cycle_minutes": 30,
+    "respawn_after_death": false,
+    "auto_reconnect": false,
+    "pickup_without_cankhon": false,
+    "heal_after_death": false,
+    "heal_coordinate": "Trị liệu Tô Châu",
+    "keep_mode": "Tất cả",
+    "buff_rows_visible": 0,
+    "saved_coordinate_rows_visible": 0,
+    "coordinate_list_state": "shown",
+    "account_rows_visible": 0,
+    "account_scroll_thumb_visible": false,
+    "bottom_action": "Bắt đầu"
+  },
+  "hidden_static_ui_recovered": {
+    "town_body_default": "hidden",
+    "navigation_options": ["Phù 1", "Phù 2", "Phù 3", "Ngựa"],
+    "hp_items": ["Hành huyết tán", "Hoạt huyết tán", "Kim sang dược"],
+    "mp_items": ["Hành khí tán", "Hoài linh đan", "Qui linh hoàn"],
+    "buff_hotkeys": ["F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","1","2","3"],
+    "buff_row_labels": ["Phím:", "Thời gian:", "ph", "giây"],
+    "coordinate_row_targets": ["Bán", "Train"],
+    "account_row_static_elements": ["▶", "⬤", "Đã dừng", "sell-coordinate combobox", "train-coordinate combobox", "goto/sell/move/farm controls"]
+  },
+  "next_action": "B06 — Baseline Train LSV"
+}
