@@ -1,0 +1,21 @@
+METRIC	VALUE	STATUS	NOTE
+outer_window_reference	452x1032	VERIFIED_RASTER	common original capture set
+client_area	450x1000	VERIFIED_RASTER	B01 reconstruction lock
+notebook_strip_height	21px	VERIFIED_RASTER	y=36..56
+labelframe_border	1px	VERIFIED_RASTER	common structural line
+checkbox_radio_indicator	13x13px	VERIFIED_RASTER	Train/Daily/Phó Bản representative indicators
+ttk_combobox_outer_height	21px	VERIFIED_RASTER	representative combos
+entry_spin_outer_height	19-21px	VERIFIED_RASTER	varies by classic/ttk control
+vertical_scrollbar_width	15px	VERIFIED_RASTER	classic list/text scrollbars
+small_custom_button_outer_height	21-23px	VERIFIED_RASTER	per-tab exact coords remain authoritative
+small_custom_button_fill_height	19-20px	VERIFIED_RASTER	one-pixel raised edges
+bottom_start_outer_height	30px	VERIFIED_RASTER	common primary action
+bottom_start_fill_height	28px	VERIFIED_RASTER	one px inside top/bottom
+raised_button_top_left_edge	1px	VERIFIED_RASTER	lighter highlight
+raised_button_right_bottom_edge	1px	VERIFIED_RASTER	black shadow representative
+start_green_highlight	#9CC79E	VERIFIED_RASTER	top/left edge around #388E3C
+royalblue_highlight	#A0B4FF	VERIFIED_RASTER	top/left edge around #4169E1
+seagreen_highlight	#97C5AB	VERIFIED_RASTER	top/left edge around #2E8B57
+gray_highlight	#C0C0C0	VERIFIED_RASTER	top/left edge around #808080
+combobox_entry_border	#7A7A7A / 1px	VERIFIED_RASTER	representative Windows theme
+scrollbar_thumb	#CDCDCD / 15px wide	VERIFIED_RASTER	Info + list scrollbars

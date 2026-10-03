@@ -755,8 +755,66 @@ No pixels are invented for conditional UI not present in this screenshot.
 Behavior remains deferred.
 
 
-## B13 — Màu/font/button metrics
-TODO
+## B13 — Màu/font/button metrics — VERIFIED_WITH_EXPLICIT_UNKNOWN
+
+### Exact base raster
+- client/inactive tab: `#F0F0F0`
+- selected tab / input field: `#FFFFFF`
+- notebook separator: `#D9D9D9`
+- LabelFrame border: `#DCDCDC`
+- entry/combobox border: `#7A7A7A`
+- checkbox/radio stroke: `#333333`
+- Info separators: `#A0A0A0`
+- scrollbar thumb: `#CDCDCD`
+
+### Main semantic fills
+- Start green `#388E3C`
+- add `#2E8B57`
+- running green `#2E7D32`
+- RoyalBlue `#4169E1`
+- action blue `#1565C0`
+- Phó Bản blue `#0277BD`
+- red `#C62828`
+- LSV purple `#8E24AA`
+- Daily brown `#795548`
+- Đồn gold `#B48608`
+- gray `#808080`
+- dark gray `#616161`
+- orange `#E65100`
+- Start sync red `#F44336`
+
+### Classic raised-button raster
+Representative custom buttons have one-pixel lighter top/left edge and one-pixel dark/black right/bottom edge.
+
+Examples:
+- #388E3C → #9CC79E highlight
+- #4169E1 → #A0B4FF
+- #2E8B57 → #97C5AB
+- #808080 → #C0C0C0
+
+### Common dimensions
+- checkbox/radio: 13 × 13
+- ttk combobox: ~21 px outer height
+- entry/spin: ~19–21 px
+- vertical scrollbar: 15 px
+- small custom button: ~21–23 px outer
+- bottom Start: 30 px outer / 28 px fill
+
+### Font lock
+Original binary verifies **Segoe UI** as global/default family and repeatedly configures `Bold.TLabelframe.Label` and bold custom-button fonts.
+
+Raster envelopes:
+- normal labels 9–11 px glyph height
+- bold section labels ~12 px
+- small button text ~9 px
+- bottom Start ~11 px
+- Info title ~16 px
+
+**Exact numeric Tk point sizes remain UNKNOWN** because the compiled readable string table does not expose them and screenshot DPI/scaling is not established. Reconstruction must calibrate point sizes against these raster envelopes.
+
+### Theme/rendering rule
+ClearType fringe pixels and some ttk details are environment-sensitive. Large fills, structural lines, control bounds and text envelopes are strict; anti-alias/native-theme fringe pixels are comparison-tolerant.
+
 
 ## B14 — Pixel comparison checklist
 TODO

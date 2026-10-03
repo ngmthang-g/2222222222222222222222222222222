@@ -18,11 +18,11 @@ A01–A08: **COMPLETE / VERIFIED**
 - B10 — VERIFIED
 - B11 — VERIFIED
 - B12 — VERIFIED
-- B13 — CURRENT
-- B14 — TODO
+- B13 — VERIFIED_WITH_EXPLICIT_UNKNOWN_FONT_POINT_SIZE
+- B14 — CURRENT
 
-Current task: **B13 — Màu/font/button metrics**
+Current task: **B14 — Pixel comparison checklist**
 
-B12 completed the direct i/Thông tin baseline and closed B02 selected-tab screenshot coverage at 11/11.
+B13 locked the cross-tab raster palette, common control dimensions, Segoe UI family/weight evidence and environment-sensitive rendering rules.
 
 Preserve Gate A baseline unchanged.

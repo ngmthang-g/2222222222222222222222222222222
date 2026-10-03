@@ -1,0 +1,10 @@
+ROLE	FAMILY	WEIGHT	RASTER_GLYPH_HEIGHT	SOURCE_POINT_SIZE_STATUS	NOTE
+global_default	Segoe UI	normal	9-11px typical	UNKNOWN	binary root sets *Font; screenshot/DPI do not prove numeric pt
+notebook_tabs	Segoe UI	normal	9-12px	UNKNOWN	focus rectangle can enlarge dark-pixel bbox; not part of glyph
+standard_labels	Segoe UI	normal	9-11px	UNKNOWN	verified across Train/Daily/etc
+labelframe_section	Segoe UI	bold	~12px	UNKNOWN	Bold.TLabelframe.Label static style
+small_colored_button	Segoe UI	bold	~9px	UNKNOWN	binary repeatedly supplies Segoe UI + bold
+bottom_start	Segoe UI	bold	~11px	UNKNOWN	common primary button
+info_title	Segoe UI	bold	~16px	UNKNOWN	TLMTool - Thông tin raster envelope
+info_links	Segoe UI	normal/underline on link style	~9-11px	UNKNOWN	Facebook/Zalo static style
+status_state_text	Segoe UI	mixed normal/bold	9-12px	UNKNOWN	per-module state labels

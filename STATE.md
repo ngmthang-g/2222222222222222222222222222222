@@ -30,65 +30,70 @@ IN_PROGRESS
 - B10 VERIFIED
 - B11 VERIFIED
 - B12 VERIFIED
+- B13 VERIFIED_WITH_EXPLICIT_UNKNOWN_FONT_POINT_SIZE
 
-## B12 VERIFIED RESULTS
-- Used binary-first workflow.
-- Original compiled `info_tab.py` / `TLMInfoTab` evidence recovered before screenshot measurement.
-- Direct i-selected screenshot: `TLMTool_f8iidp8FS8.png`, SHA-256 `e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc`, 452 × 1032.
-- i selected bridge at y=56: x=377..402.
-- B02 selected-state coverage is now complete: direct screenshots exist for all 11 tabs.
-- Header/title and separator measured.
-- Current version-status panel measured:
-  - `Bạn đang dùng bản phát triển: v2.1.2`
-  - #E2E3FF / #4A00E0
-- Information rows measured:
-  - version 2.1.2
-  - runtime/device-derived app ID d9ab65e4e118663e
-  - blank key + Nhập
-  - FREE
-  - 1/1
-  - Vĩnh viễn
-- Changelog scroll region/current visible content recorded.
-- Exact screenshot changelog lines are classified server-fed/current because binary contains placeholder/update path rather than those lines.
-- Price block current values recorded and classified server-fed/current via price handling.
-- Contact links and support button measured; static Facebook URL and log-support workflow recorded.
-- Auto-system current six-title catalog recorded; original module dynamically rebuilds it from server `price_tools`.
-- Conditional hidden original UI (manual/auto update, new-features panel, license entry, log popup) recorded without invented pixels.
+## B13 VERIFIED RESULTS
+- Consolidated screenshot/style evidence across B01–B12.
+- Locked exact base raster colors:
+  - #F0F0F0 client
+  - #FFFFFF selected/input
+  - #D9D9D9 notebook separator
+  - #DCDCDC LabelFrame border
+  - #7A7A7A entry/combobox border
+  - #333333 checkbox/radio stroke
+  - #A0A0A0 Info separators
+  - #CDCDCD scrollbar thumb
+- Consolidated semantic action palette:
+  - #388E3C, #2E8B57, #2E7D32, #4169E1, #1565C0, #0277BD,
+    #C62828, #8E24AA, #795548, #B48608, #808080, #616161,
+    #E65100, #F44336.
+- Verified classic raised button edge behavior:
+  - one-pixel light top/left edge
+  - one-pixel black/dark right/bottom edge
+  - representative highlight shades recorded.
+- Common raster metrics locked:
+  - 13×13 checkbox/radio
+  - ~21 px ttk combobox
+  - ~19–21 px entry/spin
+  - 15 px vertical scrollbar
+  - ~21–23 px small custom buttons
+  - 30 px bottom Start outer / 28 px fill
+- Original binary cross-check:
+  - Segoe UI occurs 226 times
+  - global default_font / *Font
+  - Bold.TLabelframe.Label
+  - White.TCombobox
+  - semantic color tokens corroborated.
+- Font raster envelopes recorded.
+- Exact numeric Tk source font point sizes remain explicit UNKNOWN because neither compiled readable strings nor screenshot DPI prove them.
+- ClearType/native-theme anti-aliasing classified environment-sensitive rather than hardcoded pixel palette.
 
-## B12 FILES
-- `docs/tasks/B12.md`
-- `docs/ui/B12_INFO_GEOMETRY.tsv`
-- `docs/ui/B12_INFO_VISIBLE_STATE.json`
-- `docs/ui/B12_INFO_STATIC_EVIDENCE.tsv`
-- `docs/ui/B12_SCREENSHOT_EVIDENCE.tsv`
+## B13 FILES
+- `docs/tasks/B13.md`
+- `docs/ui/B13_STYLE_PALETTE.tsv`
+- `docs/ui/B13_CONTROL_METRICS.tsv`
+- `docs/ui/B13_FONT_METRICS.tsv`
+- `docs/ui/B13_STATIC_STYLE_EVIDENCE.tsv`
 - `docs/UI_BASELINE_TLM.md`
-- B02 selected-state evidence updated to 11/11.
 
 ## CURRENT_TASK
-B13 — Màu/font/button metrics.
+B14 — Pixel comparison checklist.
 
 ## BLOCKERS
-None for B13. Gate B now has direct visual coverage for every tab label and per-tab baseline B03–B12.
-
-## WORKFLOW
-For B13:
-1. consolidate screenshot-measured colors/font/style tokens from B01–B12;
-2. cross-check against original binary style strings where available;
-3. distinguish exact raster colors from toolkit/theme-dependent borders/anti-aliasing;
-4. do not replace screenshot facts with guessed source styling.
+None. B01–B13 provide geometry, direct selected-state evidence for all tabs, per-tab baselines, palette and common control metrics.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Keep B12 server/runtime/update/license behavior deferred.
-- Do not hardcode current server-fed changelog/price/tool catalog as permanent package constants.
-- B13 may normalize the style inventory but must not alter per-tab geometry.
+- Do not convert B13's unknown numeric font point size into a claimed fact.
+- Do not hardcode ClearType fringe colors.
+- B14 is a comparison/checklist task only; do not begin source reconstruction.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Execute **B13 only**.
-4. Consolidate exact screenshot colors, font evidence, button fills/borders, entry/combobox surfaces, scrollbar/theme metrics across B01–B12.
-5. Cross-check original binary style tokens.
-6. Persist B13 metric inventory and update `docs/UI_BASELINE_TLM.md`.
-7. Advance to B14 only after B13 is verified.
+3. Execute **B14 only**.
+4. Build the pixel-comparison checklist from B01–B13.
+5. Define strict vs environment-sensitive comparison regions/tolerances.
+6. Persist B14 checklist/report and update `docs/UI_BASELINE_TLM.md`.
+7. Close Gate B only if the checklist covers all baseline tabs/regions without unresolved visual blockers.

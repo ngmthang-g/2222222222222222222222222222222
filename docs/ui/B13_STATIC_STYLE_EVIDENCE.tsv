@@ -1,0 +1,22 @@
+TOKEN	OFFSET_DEC_EXAMPLE	COUNT_OR_STATUS	EVIDENCE
+Segoe UI	42797892	226 occurrences	global/default and explicit module fonts
+default_font	42797904	VERIFIED_STATIC	root option_add *Font
+Bold.TLabelframe.Label	43005078	50 occurrences	bold group legend style
+White.TCombobox	43126511	12 occurrences	custom combobox style
+#388e3c	42829361	30 occurrences	primary green family
+#4169E1	43236966	3 occurrences	RoyalBlue action family
+SeaGreen	43129396	6 occurrences	add-button family matching #2E8B57 raster
+#1565c0	43009944	26 occurrences	blue action/state family
+#0277bd	45663231	1 occurrence	Phó Bản auto-blue
+#c62828	43032532	22 occurrences	danger/state family
+#8e24aa	43176339	6 occurrences	LSV purple family
+#795548	43006653	1 occurrence	Daily brown
+#B48608	43130536	4 occurrences	Đồn gold
+#808080	45685982	3 occurrences	gray family
+#616161	45980329	2 occurrences	Rao/Tối ưu dark gray
+#e65100	43231397	14 occurrences	orange warning/state family
+#555555	43009797	42 occurrences	default/stopped state text
+#fafafa	43126460	21 occurrences	White.TCombobox requested field/background
+#888888	45605202	6 occurrences	secondary gray static text/state
+#f44336	42799594	39 occurrences	stop/sync red family
+#ff9800	42828807	3 occurrences	CPU warning overlay family

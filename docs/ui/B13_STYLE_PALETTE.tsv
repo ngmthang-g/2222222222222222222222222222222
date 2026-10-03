@@ -1,0 +1,40 @@
+ROLE	HEX	STATUS	SOURCE_OR_USE
+client_background	#F0F0F0	VERIFIED_RASTER	main client + inactive tabs
+selected_tab_and_field_surface	#FFFFFF	VERIFIED_RASTER	selected tabs, entries, combobox fields
+notebook_separator	#D9D9D9	VERIFIED_RASTER	notebook/tab frame
+labelframe_border	#DCDCDC	VERIFIED_RASTER	group borders
+entry_combobox_border	#7A7A7A	VERIFIED_RASTER	representative entry/combobox edge
+checkbox_radio_stroke	#333333	VERIFIED_RASTER	13x13 indicators
+info_separator	#A0A0A0	VERIFIED_RASTER	Info horizontal separators
+scrollbar_thumb	#CDCDCD	VERIFIED_RASTER	classic vertical thumb
+login_table_header	#E8E8E8	VERIFIED_RASTER	Login table/header surface
+disabled_light_gray	#E0E0E0	VERIFIED_RASTER	disabled cells / graph grid
+plot_border	#BBBBBB	VERIFIED_RASTER	Tối ưu graphs
+primary_start_green	#388E3C	VERIFIED_RASTER_AND_STATIC	bottom Start
+add_seagreen	#2E8B57	VERIFIED_RASTER_AND_STATIC	add buttons; binary SeaGreen
+running_green	#2E7D32	VERIFIED_RASTER_AND_STATIC	state/action bars
+royal_blue	#4169E1	VERIFIED_RASTER_AND_STATIC	Login/Train/Start actions
+action_blue	#1565C0	VERIFIED_RASTER_AND_STATIC	row/action state family
+phoban_auto_blue	#0277BD	VERIFIED_RASTER_AND_STATIC	Tắt auto PB
+danger_red	#C62828	VERIFIED_RASTER_AND_STATIC	delete/error family
+lsv_purple	#8E24AA	VERIFIED_RASTER_AND_STATIC	Train LSV controls/state
+daily_brown	#795548	VERIFIED_RASTER_AND_STATIC	Daily controls
+don_gold	#B48608	VERIFIED_RASTER_AND_STATIC	Đồn controls
+gray_toggle	#808080	VERIFIED_RASTER_AND_STATIC	show/hide/config gray controls
+dark_gray	#616161	VERIFIED_RASTER_AND_STATIC	Tối ưu/Rao gray style
+orange_warning	#E65100	VERIFIED_RASTER_AND_STATIC	GPU N/A / warning state family
+start_sync_red	#F44336	VERIFIED_RASTER_AND_STATIC	Start Xếp lưới sync buttons
+info_dev_bg	#E2E3FF	VERIFIED_RASTER_AND_STATIC	development version panel
+info_dev_fg	#4A00E0	VERIFIED_RASTER_AND_STATIC	development version text/icon
+info_old_bg	#F8D7DA	VERIFIED_STATIC	conditional too-old panel
+info_old_fg	#721C24	VERIFIED_STATIC	conditional too-old text
+info_update_bg	#FFF3CD	VERIFIED_STATIC	conditional update panel
+info_update_fg	#856404	VERIFIED_STATIC	conditional update text
+info_latest_bg	#D4EDDA	VERIFIED_STATIC	conditional latest panel
+info_latest_fg	#155724	VERIFIED_STATIC_AND_RASTER	latest text / Auto-system green
+info_check_bg	#D1ECF1	VERIFIED_STATIC	conditional checking panel
+info_check_fg	#0C5460	VERIFIED_STATIC	conditional checking text
+hyperlink_blue	#0000FF	VERIFIED_RASTER	Info Facebook/Zalo
+license_activate_green	#28A745	VERIFIED_STATIC	hidden license activation button
+combobox_requested_field	#FAFAFA	VERIFIED_STATIC_THEME_DEPENDENT	White.TCombobox requested field/background
+state_default_gray	#555555	VERIFIED_STATIC	stopped/default state
