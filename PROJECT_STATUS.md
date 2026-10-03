@@ -3,7 +3,7 @@
 Authoritative continuation state: [STATE.md](STATE.md)
 
 ## Gate A
-- A01 — DONE
+- A01 — VERIFIED (artifacts restored to GitHub)
 - A02 — VERIFIED
 - A03 — VERIFIED
 - A04 — VERIFIED_WITH_EXPLICIT_UNKNOWN
@@ -14,6 +14,9 @@ Authoritative continuation state: [STATE.md](STATE.md)
 
 Current task: **A05 — Xác minh launcher ngoài và EXE trong .dist**
 
-A04 verified CPython 3.10.11 x64, Nuitka standalone for the inner binary, GCC 15.2.0 MinGW-W64, Tcl/Tk 8.6.12, and AutoHotkey 1.1.37.02 wrappers. Exact Nuitka version remains UNKNOWN.
+A01 repository artifacts now exist at:
+- `docs/tasks/A01.md`
+- `original_manifest/A01_SUMMARY.json`
+- `original_manifest/A01_FILE_TREE.txt.gz`
 
 Do not start reconstruction source before Gate A is complete.

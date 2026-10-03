@@ -1,0 +1,18 @@
+{
+  "task": "A01",
+  "status": "VERIFIED",
+  "archive_uploaded_name": "TLMTool_2.1.2(2).zip",
+  "archive_size_bytes": 93715901,
+  "zip_entries_total": 1050,
+  "zip_file_entries": 1002,
+  "zip_directory_entries": 48,
+  "uncompressed_file_bytes": 260061035,
+  "unsafe_paths": 0,
+  "duplicate_entry_names": 0,
+  "symlink_entries": 0,
+  "extraction_size_mismatches": 0,
+  "top_level_roots": ["TLMTool_2.1.2"],
+  "tree_lines": 1050,
+  "tree_file": "original_manifest/A01_FILE_TREE.txt.gz",
+  "restored_to_github": true
+}
