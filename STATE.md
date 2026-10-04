@@ -45,6 +45,7 @@ IN_PROGRESS
 - C08 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C09 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C10 VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
+- C11 VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -106,7 +107,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C11 — Xếp chéo.
+C12 — Ẩn hết.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -179,8 +180,22 @@ C11 — Xếp chéo.
 - docs/window/C10_STACK_TIGHT_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C11 VERIFIED RESULTS
+- Xếp chéo is wired to _stack_diagonal_cmd.
+- Exact positioning rule is origin (0,0) with +50 X/+50 Y per ordered window index.
+- Shared engine preserves current size and processes master first.
+- Re-layout clears hidden/off-screen bookkeeping.
+- Exact interaction if Auto tiling is already active remains explicit concurrency UNKNOWN.
+
+## C11 FILES
+- docs/tasks/C11.md
+- docs/window/C11_STACK_DIAGONAL_STATIC_EVIDENCE.tsv
+- docs/window/C11_STACK_DIAGONAL_FLOW.md
+- docs/window/C11_STACK_DIAGONAL_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C11.
+None known for C12.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -194,8 +209,8 @@ None known for C11.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C11 only.
-4. Recover Xếp chéo from the original EXE.
-5. Verify callback, +50/+50 per-index offset, origin, size preservation, master ordering and hidden-state integration.
-6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C11 evidence/report.
-7. Advance to C12 only after C11 is verified.
+3. Execute C12 only.
+4. Recover Ẩn hết from the original EXE.
+5. Verify saved rects, off-screen target, size preservation, why SW_HIDE is avoided, toggle restore behavior and hidden-state reset interactions.
+6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C12 evidence/report.
+7. Advance to C13 only after C12 is verified.

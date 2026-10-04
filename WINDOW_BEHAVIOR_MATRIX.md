@@ -418,3 +418,19 @@ Verified target: all windows stacked at top-left (0,0).
 Explicit unknown: exact priority if the Auto 1-second tile loop is already running.
 
 ---
+
+## C11 — Xếp chéo
+
+Xếp chéo
+→ _stack_diagonal_cmd
+→ _move_windows_offset(pos_fn)
+→ master index 0
+→ index i position = (50*i, 50*i)
+→ preserve current size
+→ _reset_hidden_state
+→ [Xếp] Đã xếp N cửa sổ
+
+Exact original doc confirms origin (0,0) and +50/+50 per window.
+Explicit unknown: later interaction if Auto tiling is already active.
+
+---

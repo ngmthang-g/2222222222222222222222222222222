@@ -1,0 +1,20 @@
+{
+  "task": "C11",
+  "status": "VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN",
+  "button": "Xếp chéo",
+  "callback": "_stack_diagonal_cmd",
+  "engine": "_move_windows_offset",
+  "origin": [
+    0,
+    0
+  ],
+  "per_index_offset": [
+    50,
+    50
+  ],
+  "preserves_size": true,
+  "master_first": true,
+  "resets_hidden_state": true,
+  "auto_tile_concurrency": "UNKNOWN",
+  "next_task": "C12 — Ẩn hết"
+}

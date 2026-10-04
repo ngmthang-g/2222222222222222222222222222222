@@ -1,0 +1,10 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+ui_button	0x2bfa164	VERIFIED_STATIC	Xếp chéo
+ui_callback	0x2bfa171	VERIFIED_STATIC	_stack_diagonal_cmd
+move_helper_doc	0x2bfb4d8	VERIFIED_STATIC	move by pos_fn(index), keep current size, master first
+reset_hidden_state	0x2bfb5db	VERIFIED_STATIC	_reset_hidden_state
+move_helper	0x2bfb5f0	VERIFIED_STATIC	_move_windows_offset
+diagonal_lambda	0x2bfb67b	VERIFIED_STATIC	TLMStartTab._stack_diagonal_cmd.<locals>.<lambda>
+diagonal_doc	0x2bfb6ae	VERIFIED_STATIC	origin (0,0), each window offset +50 x and +50 y
+move_log	0x2bfb4b6	VERIFIED_STATIC	[Xếp] Đã xếp ... cửa sổ
+mode_concurrency	-	EXPLICIT_UNKNOWN	exact priority if Auto tile loop is already active
