@@ -1,0 +1,47 @@
+{
+  "task": "E06",
+  "status": "VERIFIED_WITH_EXPLICIT_SIZE_CONSTANT_AND_THREAD_SERIALIZATION_UNKNOWNS",
+  "central_logger": {
+    "module": "debug_logger",
+    "setup": "setup",
+    "path_model": "<frozen executable dir>/log/tlmtool.log",
+    "session_file_reused": true,
+    "session_markers": true,
+    "tee_stdout": true,
+    "tee_stderr": true,
+    "timestamp_format": "%H:%M:%S.%f",
+    "atexit_restore": true,
+    "trimming": {
+      "policy": "drop oldest, keep newest",
+      "max_size_value": "UNKNOWN",
+      "keep_size_value": "UNKNOWN"
+    },
+    "explicit_lock_or_queue": "NOT_RECOVERED"
+  },
+  "crash_logging": {
+    "file": "crash_fault.log",
+    "mechanism": "faulthandler.enable(file=...)",
+    "resolved_directory": "UNKNOWN"
+  },
+  "thread_exceptions": {
+    "hook": "threading.excepthook",
+    "prefix": "[THREAD-EXC]",
+    "traceback_print": true,
+    "central_log_path": true
+  },
+  "specialized_logs": {
+    "memory": {
+      "file": "tlm_memory.log",
+      "timestamp": "%Y-%m-%d %H:%M:%S",
+      "documented_truncate_threshold": ">1MB"
+    },
+    "automove": {
+      "file": "data/automove_log.txt",
+      "consumer": "Toiuu watchdog",
+      "ping_pattern": "[pid=N] Perf: ping",
+      "writer_boundary": "native/injected path may write it"
+    }
+  },
+  "config_state_separation": true,
+  "next_task": "E07 — task/thread management"
+}
