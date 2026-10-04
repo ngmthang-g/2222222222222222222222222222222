@@ -1,0 +1,25 @@
+path	size_bytes	sha256	type	entropy	name_ref_count	ref_status	role
+TLMTool.dist/data/accounts.dat	74752	a637f140352e0db04999e80c07149f438a8457c64aed732d281055d77a95fa9a	OPAQUE_MZ_PE_LIKE_INVALID	7.997	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/app_state.dat	63488	ae5419d464c3dde57672130ea35a68013c29e87052a2ec29c34e3d46737eaf03	OPAQUE_MZ_PE_LIKE_INVALID	7.997	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/auth_token.dat	120832	2c9639d09c87f51f359ca1b44c4ef2b748945ff085c829c43434aa35b5c167d7	OPAQUE_MZ_PE_LIKE_INVALID	7.999	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/automove_log.txt	15741058	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500	TEXT_LOG	5.250	1	REFERENCED	automove/injected diagnostic log; monitored by optimization logic
+TLMTool.dist/data/cache.dat	88064	cdd1f02b0e6acb5a0457dc9dcfdb3131e53a7569b9a09ec4d308362b625ce82c	OPAQUE_MZ_PE_LIKE_INVALID	7.998	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/config.dat	52224	07ecb19cf1143fec694c7e06a9db3a9d5727c64e6ac8b49b9396e42fe558ad8a	OPAQUE_MZ_PE_LIKE_INVALID	7.996	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/license.dat	128000	5cff44b82a4a92ad57c27ae5d42b44684008a37af3f55dd9a97a12966185c9b6	OPAQUE_MZ_PE_LIKE_INVALID	7.999	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/logs.dat	102400	75268fcf20c42d8b7e1ba71bf823e19545bf790115e3d71cae1ffd1cc87e94f5	OPAQUE_MZ_PE_LIKE_INVALID	7.998	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/manifest.dat	79872	b7eaad4ba8dff4cf24031597aa47ea135b01c422584ae28cf87f1e94010c705e	OPAQUE_MZ_PE_LIKE_INVALID	7.998	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/package.dat	80896	4fb5675635e67e583f32de971c02208c57c167e2d6efd0dc891be571fffce698	OPAQUE_MZ_PE_LIKE_INVALID	7.998	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/resources.dat	39424	1375240c85abb9c211c66d3e8157a6dbfbc5551aabec465375b68e5301e645d4	PE_DLL_X64_UPX_CONTAINER	7.715	7	REFERENCED	active injected game payload
+TLMTool.dist/data/resources.dat.bak-20260923	32768	e301c0851aa28e79e561c85d02342c2ff3332daf15e521bc84f01544aa942efd	PE_DLL_X64_UPX_CONTAINER	7.702	0	NOT_NAME_REFERENCED	backup/old payload copy
+TLMTool.dist/data/resources.dat.old	23040	b9347a8369099bc009adb87053ebc94bcf9ebe326330ad3b45dfea327542604c	PE_DLL_X64_UPX_CONTAINER	7.607	0	NOT_NAME_REFERENCED	backup/old payload copy
+TLMTool.dist/data/resources.dat.old-locked	32768	e301c0851aa28e79e561c85d02342c2ff3332daf15e521bc84f01544aa942efd	PE_DLL_X64_UPX_CONTAINER	7.702	0	NOT_NAME_REFERENCED	backup/old payload copy; byte-identical to bak-20260923
+TLMTool.dist/data/resources.old2.dat	38912	712ac58d052bc4673765149ceca6556c01ea559a9d6e80bf1564d425d8632883	PE_DLL_X64_UPX_CONTAINER	7.721	0	NOT_NAME_REFERENCED	backup/old payload copy
+TLMTool.dist/data/resources.old3.dat	38912	a4d0d01652f5d545fdedc458f4a19028e260cb230d9d51d619a2d3d40f801961	PE_DLL_X64_UPX_CONTAINER	7.707	0	NOT_NAME_REFERENCED	backup/old payload copy
+TLMTool.dist/data/sec_key.dat	51200	ef0ec56174e7b40ee821d8aecbb1ab4f23466fe3f3963910e5160f66b53a3ff6	OPAQUE_MZ_PE_LIKE_INVALID	7.996	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/session.dat	64512	d4b4fea616103ad5b1fd0a9e53de400fcec54d06bde1a46a8b7f9c13830df9e0	OPAQUE_MZ_PE_LIKE_INVALID	7.997	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/settings.dat	93184	f535e4ce47ecfa5715ea0ba074aad224989bfc8b0a005e8f73ff9b5ee14cf5f5	OPAQUE_MZ_PE_LIKE_INVALID	7.998	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/signature.dat	57344	443635be206aaaddb68107b416ff3387f4b1aa7e2d438d2f6119c2fd2772a805	OPAQUE_MZ_PE_LIKE_INVALID	7.997	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/data/user_profile.dat	115712	1b12ec363af53372ac0289cecc710e56487c254d46e539b2668ba5867d4156c5	OPAQUE_MZ_PE_LIKE_INVALID	7.999	0	NOT_NAME_REFERENCED	opaque packaged data/container; runtime role not proven
+TLMTool.dist/proxy_working.txt	3805	424e16baba37292d641bb234905b3cb53ae74378a980a1f053aa9abbb8181c34	TEXT_PROXY_POOL	4.159	10	REFERENCED	working proxy pool consumed by forwarder/proxy/login flows
+TLMTool.dist/version.dat	61375	82432686f47ff4b9b7191221e0479f4f0e51624a2b97ac1e193d6a2564eaefeb	PE_DLL_X64_VERSION_PROXY	5.337	2	REFERENCED	version.dll-compatible proxy with Version API exports
+TLMTool.dist/ppx/Default.ppx	1348	3ea14cebf180045195de8cb0c5967166919a6958ef3207a2e2f2b39af6024e96	XML_PROXIFIER_CONFIG	5.157	1	REFERENCED	Proxifier profile: local SOCKS5 127.0.0.1:10800 for game executable
