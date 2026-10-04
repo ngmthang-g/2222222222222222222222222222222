@@ -1,0 +1,21 @@
+component	kind	name	input	output_or_role	evidence
+emu_client.js	rpc	ping	-	"emu-ok"	line 73
+emu_client.js	rpc	setBase	addrStr	sets resident player base pointer	line 74
+emu_client.js	rpc	readAll	-	validated full player-field object	line 75
+emu_client.js	rpc	validate	expectedRid	bool RoleID match + readable name	line 79
+emu_client.js	rpc	scanRoleId	rid	up to 8 matching player candidates	line 89
+emu_client.js	rpc	scanShape	-	up to 20 shape-validated candidates	line 106
+emu_client.js	rpc	bagSlots	-	count of Site==10 used bag entries	line 125
+ld_remote.js	GET	/ping	-	PC reachability/ok	line 511
+ld_remote.js	GET	/maps	-	merge PC map list into built-ins	line 778
+ld_remote.js	GET	/emu_coords?aid=	aid	coordinate presets	line 934
+ld_remote.js	GET	/emu_config	-	remote config snapshot	line 1211
+ld_remote.js	POST	/emu_steps	aid,token,steps(JSON),gap	run ordered tap/text/key/wait sequence	line 1047
+ld_remote.js	POST	/emu_act	aid,token,act	to_train/sell/heal action	line 1061
+ld_remote.js	POST	/emu_farm_toggle	aid,token	farm-state toggle/ack	line 1099
+emu_remote	GET	/emu_status?aid=	aid	role/map/tile/hp/bag status	EXE 0x2937efb
+emu_remote	GET	/emu_heal_presets	-	heal preset list	EXE 0x2936c5c
+emu_remote	POST	/emu_goto	aid,map,x,y,token	async movement accepted	EXE 0x2937f46
+emu_remote	POST	/emu_save_coord	aid,name,map,x,y,token	persist preset	EXE 0x2937f94
+emu_remote	POST	/emu_del_coord	aid,name,token	delete preset	EXE 0x2936d5f
+emu_remote	POST	/emu_config	key,value,token	allowlisted validated config set	EXE 0x2937cf2
