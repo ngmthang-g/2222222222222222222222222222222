@@ -1,0 +1,48 @@
+{
+  "task": "C18",
+  "status": "VERIFIED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS",
+  "button": {
+    "text": "Đồng bộ các cửa sổ",
+    "callback": "_toggle_layout",
+    "widget": "btn_layout",
+    "off_color": "#388e3c",
+    "on_color": "#f44336"
+  },
+  "state": [
+    "layout_active",
+    "sync_layout_running",
+    "sync_loop_id",
+    "_grid_slots"
+  ],
+  "pipeline": [
+    " _toggle_layout",
+    "_sync_windows_loop",
+    "_layout_worker",
+    "_refresh_cache",
+    "_arrange_grid"
+  ],
+  "grid": {
+    "master_first": true,
+    "master_position": "index 0 / top-left",
+    "geometry_formula": "UNKNOWN from C06"
+  },
+  "mode_integration": {
+    "sync_mode_auto_enables": true,
+    "auto_manual_disables": true
+  },
+  "limit": {
+    "guard": true,
+    "auto_stop_method": "_auto_stop_sync",
+    "over_limit_stops_both_syncs": true,
+    "comparator": "UNKNOWN"
+  },
+  "master_change": {
+    "layout_auto_disable": "NOT_PROVEN",
+    "input_auto_disable": "VERIFIED_ELSEWHERE",
+    "next_pass_uses_current_master": true
+  },
+  "exact_worker_cadence": "UNKNOWN",
+  "exact_initial_layout_value": "UNKNOWN",
+  "exact_stop_order": "UNKNOWN",
+  "next_task": "C19 — đồng bộ phím chuột"
+}
