@@ -1,0 +1,141 @@
+{
+  "task": "F06",
+  "status": "VERIFIED_BACKGROUND_WINDOW_INPUT_WITH_EXPLICIT_GLOBAL_RETRY_LIMIT_AND_DELAY_UNKNOWNS",
+  "selected_record": [
+    "row_idx",
+    "tk",
+    "mk",
+    "captcha_mode",
+    "proxy"
+  ],
+  "single_row": {
+    "worker": "_single_login_worker",
+    "retry_symbol": "MAX_LOGIN_RETRIES",
+    "retry_value": "UNKNOWN",
+    "failure_cleanup": "_force_close_window",
+    "success": [
+      " _mark_row_online",
+      "_record_login_time"
+    ]
+  },
+  "input": {
+    "mouse": {
+      "helper": "click_at",
+      "mode": "background/window-relative",
+      "protocol": "DLL sync + PostMessage",
+      "physical_cursor_moves": false
+    },
+    "keyboard": {
+      "helper": "press_at",
+      "printable_path": "WM_CHAR via Unity activation",
+      "dll_required": false
+    }
+  },
+  "readiness": {
+    "backend": "printwindow",
+    "update_popup": {
+      "pixel": [
+        "login",
+        "update"
+      ],
+      "close_xy": [
+        630,
+        457
+      ]
+    },
+    "login_form": {
+      "pixels": [
+        [
+          "login",
+          "login1"
+        ],
+        [
+          "login",
+          "login2"
+        ]
+      ],
+      "all_must_match": true,
+      "timeout_seconds": 100
+    }
+  },
+  "sequence": [
+    {
+      "step": 1,
+      "action": "click username",
+      "xy": [
+        613,
+        302
+      ]
+    },
+    {
+      "step": 2,
+      "action": "type tk via press_at"
+    },
+    {
+      "step": 3,
+      "action": "click password",
+      "xy": [
+        573,
+        362
+      ]
+    },
+    {
+      "step": 4,
+      "action": "type mk via press_at"
+    },
+    {
+      "step": 5,
+      "action": "click Login",
+      "xy": [
+        684,
+        506
+      ]
+    },
+    {
+      "step": 6,
+      "action": "poll login.vaoTroChoi",
+      "check_ceiling": 150,
+      "check_delay": "UNKNOWN"
+    },
+    {
+      "step": 7,
+      "action": "click Vào trò chơi",
+      "xy": [
+        684,
+        450
+      ]
+    },
+    {
+      "step": 8,
+      "action": "await common.active",
+      "timeout_seconds": 30
+    }
+  ],
+  "cancellation": "window-validity and cancel checks before/during each major stage",
+  "success": {
+    "complete_log": true,
+    "mark_online": true,
+    "record_login_time": true,
+    "online_state_file": "login_online.json",
+    "login_time_file": "last_login_times.json"
+  },
+  "multi_account": {
+    "launch": "sequential under _launch_lock",
+    "login": "parallel",
+    "limiter": "Semaphore(MAX_PARALLEL_LOGIN)",
+    "limiter_value": "UNKNOWN",
+    "finalize": "wait all account threads, aggregate results, reset UI"
+  },
+  "deferred": {
+    "F07": "captcha option internals",
+    "F08": "proxy policy/rotation/pinning",
+    "F10": "post-login routing"
+  },
+  "unknowns": [
+    "numeric MAX_LOGIN_RETRIES",
+    "numeric MAX_PARALLEL_LOGIN",
+    "exact vaoTroChoi polling delay",
+    "exact click_at/press_at delay and jitter values"
+  ],
+  "next_task": "F07 — captcha option"
+}
