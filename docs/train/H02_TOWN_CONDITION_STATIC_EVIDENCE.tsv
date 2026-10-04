@@ -1,0 +1,51 @@
+key	offset_hex	status	evidence
+town_condition_default	0x293af6f	VERIFIED_STATIC	StringVar initial value cycle
+town_condition_var	0x293af7f	VERIFIED_STATIC	town_condition_var
+town_never_value	0x293afad	VERIFIED_STATIC	never
+town_change_callback	0x293afb4	VERIFIED_STATIC	_on_town_condition_changed
+town_full_label	0x293b00b	REUSED_B05	Khi đầy túi
+town_full_value	0x293b01d	VERIFIED_STATIC	full_bag_timer
+town_cycle_label	0x293b043	REUSED_B05	Theo chu kỳ (phút)
+town_cycle_value	0x293b05b	VERIFIED_STATIC	cycle
+loop_default	0x293b07e	VERIFIED_STATIC	StringVar default 30
+loop_var	0x293b083	VERIFIED_STATIC	loop_var
+loop_spin	0x293b0fa	VERIFIED_STATIC	loop_spin
+town_body	0x293b105	VERIFIED_STATIC	_town_body
+nav_vars	0x293b14c	VERIFIED_STATIC	_nav_pri_vars
+nav_combos	0x293b15b	VERIFIED_STATIC	_nav_pri_cbs
+nav_options	0x293b16b	VERIFIED_STATIC	blank + Phù 1 / Phù 2 / Phù 3 / Ngựa
+nav_defaults	0x293b19d	VERIFIED_STATIC	Phù 1 / Phù 2 / Phù 3 / Ngựa
+nav_readonly	0x293b210	VERIFIED_STATIC	readonly Combobox state
+nav_change_callback	0x293b2c1	VERIFIED_STATIC	_on_nav_priority_changed
+town_change_doc	0x293c051	VERIFIED_STATIC	Khi chọn điều kiện về thành — lưu config.
+dungeon_farm_var	0x293c088	VERIFIED_STATIC	farm_var used by dungeon lock check
+dungeon_routes	0x293c0a3	VERIFIED_STATIC	TRUYEN_DAI_LY_ROUTES
+dungeon_lock_key	0x293c0bb	VERIFIED_STATIC	lock_town
+dungeon_has_flag	0x293c0c6	VERIFIED_STATIC	has_dungeon
+dungeon_disabled_state	0x293c0d3	VERIFIED_STATIC	disabled
+dungeon_normal_state	0x293c0dd	VERIFIED_STATIC	normal
+dungeon_force_never	0x293c0f7	VERIFIED_STATIC	never in lock method block
+dungeon_lock_doc	0x293c0ff	VERIFIED_STATIC	Any selected lock_town route forces Không về thành and disables radios
+dungeon_predicate_doc	0x293c17e	VERIFIED_STATIC	_is_dungeon_farm true for old dungeon / route lock_town
+nav_used	0x293c1dc	VERIFIED_STATIC	used set surface
+nav_add	0x293c1e2	VERIFIED_STATIC	add
+nav_values	0x293c1ee	VERIFIED_STATIC	values
+nav_change_doc	0x293c1f7	VERIFIED_STATIC	Each navigation value can be selected only once
+town_show_text	0x293aea7	REUSED_B05	Hiện cấu hình
+town_hide_text	0x293d225	VERIFIED_STATIC	Ẩn cấu hình
+town_toggle_doc	0x293d237	VERIFIED_STATIC	Hide/show all content below condition row; default hidden
+runtime_no_town_full_log	0x29418f4	VERIFIED_STATIC	bag full in Không về -> filter
+runtime_no_town_stay_log	0x2941942	VERIFIED_STATIC	still full after filter -> stay in Không về
+runtime_bag_mode_tuple	0x2941964	VERIFIED_STATIC	(full_bag_timer, full_bag) compatibility family
+runtime_return_full_log	0x29419ce	VERIFIED_STATIC	full-bag branch -> về thành
+save_town_condition	0x2942c8a	VERIFIED_STATIC	current save-side town_condition
+load_town_condition	0x2942e27	VERIFIED_STATIC	load-side town_condition
+legacy_full_bag_literal	0x2942e37	VERIFIED_COMPATIBILITY	legacy full_bag literal in load block
+load_local_tc	0x29451f3	VERIFIED_STATIC	_load_config local _tc normalization surface
+nav_change_locals	0x294557d	VERIFIED_STATIC	self/NAV_OPTIONS/idx/var/used/other_var/val/current/available
+dungeon_lock_locals	0x2945c84	VERIFIED_STATIC	self/has_dungeon/row/preset/mv/map_name/name/mid/state
+legacy_normalization_statement	-	EXPLICIT_UNKNOWN	Semantic alias verified; exact source assignment syntax not recovered
+prior_mode_restore_after_unlock	-	NOT_RECOVERED	No previous-town-condition state surface recovered
+loop_spin_condition_disable	-	NOT_RECOVERED	_on_town_condition_changed doc is save-only; lock doc names radios only
+inventory_threshold	-	DEFERRED_H03	Not decoded in H02
+periodic_timer_execution	-	DEFERRED_H04	Not decoded in H02
