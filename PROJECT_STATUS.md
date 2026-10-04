@@ -186,7 +186,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 
 ## Gate H
 - H01 — VERIFIED_FARMTAB_UI_MODULE_WIRING_WITH_5S_INCREMENTAL_REFRESH_AND_30S_AUTOSAVE
-- H02 — CURRENT
+- H02 — VERIFIED_TOWN_MODE_GATING_WITH_LOCK_TOWN_FORCE_NEVER_AND_LEGACY_FULL_BAG_ALIAS
+- H03 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -194,3 +195,10 @@ H01 intentionally defers return-town semantics, inventory-full, periodic-town ti
 
 ## Gate H current
 H02 — Train return-town condition and town-panel gating audit.
+
+
+H02 resolved the current return-town mode contract: never / full_bag_timer / cycle, default cycle with 30 minutes. The lower town panel is independently default-hidden. Legacy full_bag is a compatibility alias for the current full-bag mode, not a fourth visible option.
+
+Any selected Farm route marked lock_town forces the shared return-town mode to never and disables the return-town radios; no automatic previous-mode restoration was recovered. Navigation priorities remain four readonly unique-choice slots with defaults Phù 1 / Phù 2 / Phù 3 / Ngựa.
+
+H03 now owns inventory-full detection, bag threshold/filter interaction and the full_bag_timer early-stop path. Periodic loop-minute scheduler execution remains H04.
