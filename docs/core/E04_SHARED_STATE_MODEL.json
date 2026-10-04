@@ -1,0 +1,62 @@
+{
+  "task": "E04",
+  "status": "VERIFIED_WITH_OWNERSHIP_BOUNDARIES_AND_EXPLICIT_GLOBALS_LIMIT",
+  "ownership": {
+    "TLMMainApp": [
+      "root",
+      "notebook",
+      "_tab_frames",
+      "_tab_inner",
+      "_tab_keys",
+      "_callback_ready",
+      "_current_tab",
+      "_perm_state",
+      "_prev_limit_state",
+      "cpu_monitor",
+      "start_tab",
+      "cross-tab instance refs"
+    ],
+    "permission_guard": [
+      "permission normalization",
+      "plan/version/ban decisions",
+      "account/window-limit decision",
+      "block notifier registration",
+      "normalized permission/plan fields"
+    ],
+    "TLMInfoTab": [
+      "new_version_info",
+      "server_info",
+      "license state",
+      "session_id",
+      "heartbeat state"
+    ],
+    "TLMStartTab": [
+      "master HWND",
+      "HWND/name caches",
+      "preview order",
+      "preview/DWM items",
+      "grid state",
+      "layout/input sync",
+      "detached preview",
+      "window discovery cache"
+    ],
+    "feature_tabs": "feature FSM/account/schedule/runtime state remains tab-owned",
+    "persistent_files": [
+      "settings.ini",
+      "config.ini",
+      "login state JSON",
+      "forwarder/proxy runtime files",
+      "Android guest JSON"
+    ]
+  },
+  "cross_thread_bridge": {
+    "notifier": "permission_guard.set_block_notifier",
+    "ui_marshalling": "root.after",
+    "reason": "Tk widgets must be touched on the GUI thread"
+  },
+  "explicit_unknowns": [
+    "all private permission_guard backing globals and exact assignment expressions",
+    "exact heartbeat field mutation order"
+  ],
+  "next_task": "E05 — config management"
+}
