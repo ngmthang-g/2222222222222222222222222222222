@@ -26,11 +26,11 @@ B01–B14: **COMPLETE / VERIFIED**
 - C15 — VERIFIED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN
 - C16 — VERIFIED_WITH_EXPLICIT_POST_CLOSE_REFRESH_UNKNOWN
 - C17 — VERIFIED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS
-- C18 — CURRENT
-- C19 — TODO
+- C18 — VERIFIED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS
+- C19 — CURRENT
 - C20 — TODO
 
-Current task: **C18 — đồng bộ các cửa sổ**
+Current task: **C19 — đồng bộ phím chuột**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
@@ -53,3 +53,5 @@ C15 verified full DWM preview refresh/rebuild, preserved HWND preview order, aut
 C16 verified the real game-window close path: the shared utility sends normal Windows close requests to the current game windows, while lingering Unity crash-handler cleanup is handled separately. Preview/master cleanup then follows the existing discovery/maintenance lifecycle.
 
 C17 verified the embedded preview ordering controls: left moves one logical position earlier, right moves one position later, the order is keyed by source HWND, and refresh/rebuild preserves it. Edge behavior and detached-order propagation remain explicit unknowns.
+
+C18 verified the layout synchronization subsystem: real toggle state, worker-maintained grid application from cached HWNDs, master-first placement, mode integration, and max-window stop policy. Worker cadence and exact stop ordering remain explicit unknowns.
