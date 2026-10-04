@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-D07 — JS/helper files.
+D08 — module architecture diagram.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -454,8 +454,25 @@ D07 — JS/helper files.
 - docs/data/D06_DATA_SUMMARY.json
 - tools/D06_INVENTORY_DATA.py
 
+## D07 VERIFIED RESULTS
+- emu_client.js is a 150-line Frida 17 resident RPC memory reader with 7 exported RPC methods.
+- Player structure offsets/validation and bag Site==10 counting were recovered directly from the shipped JS.
+- ld_remote.js is a 1297-line AutoX/Auto.js floating guest UI and HTTP client.
+- PC listener contract includes 0.0.0.0, default port 8765, default token tlm, emulator identification by peer IPv4, maps/status/config/coords/action endpoints.
+- Overlay uses local AutoX storage plus /sdcard/TLM/tlm_<aid8>.json as an ADB-readable bridge.
+- forwarder.exe is a separate Nuitka SOCKS4/SOCKS5/HTTP CONNECT proxy helper with its own runtime state files.
+- bootstrap/update/7z/Proxifier helper connections were recorded without reopening Gate-A scope.
+- No helper, Frida script, emulator script or injected payload was executed during D07; live runtime parity remains deferred.
+
+## D07 FILES
+- docs/tasks/D07.md
+- docs/helpers/D07_JS_RPC_CONTRACT.tsv
+- docs/helpers/D07_HELPER_FILES.tsv
+- docs/helpers/D07_EMULATOR_ARCHITECTURE.json
+- tools/D07_ANALYZE_HELPERS.py
+
 ## BLOCKERS
-None known for D07.
+None known for D08.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -469,8 +486,8 @@ None known for D07.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute D07 only.
-4. Analyze emu_client.js, ld_remote.js and helper executables/resources statically.
-5. Recover message/RPC endpoints, data contracts, process roles and PC↔emulator interaction without executing helpers.
-6. Keep launcher/update executable behavior already covered by Gate A separate unless D07 evidence materially connects it.
-7. Persist D07 evidence/report and advance to D08 only after verification.
+3. Execute D08 only.
+4. Build the Gate-D architecture diagram from D01-D07 evidence.
+5. Show module layers, shared hubs, PC game-integration path, emulator path, proxy/update helpers, config/data stores, and confidence boundaries.
+6. Keep static-reference edges distinct from contextual/call-verified edges.
+7. Persist D08 diagram/report and close Gate D only if D01-D08 are coherent.
