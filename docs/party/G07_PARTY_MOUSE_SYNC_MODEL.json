@@ -1,0 +1,67 @@
+{
+  "task": "G07",
+  "status": "VERIFIED_NO_PARTY_MOUSE_SYNC_OWNERSHIP_OR_START_MOUSE_SYNC_CALL_EDGE_WITH_DIRECT_TARGETED_CLICK_FALLBACK",
+  "resume_check": {
+    "g01_to_g06_complete": true,
+    "g07_preexisting_artifact": false,
+    "continued_from_state_next_action": true
+  },
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "party_mouse_sync": {
+    "owns_mouse_listener": false,
+    "owns_master_click_handler": false,
+    "owns_master_scroll_handler": false,
+    "owns_master_move_handler": false,
+    "owns_sync_worker": false,
+    "owns_slave_client_scaling": false,
+    "owns_scroll_broadcast": false,
+    "owns_move_broadcast": false,
+    "calls_start_toggle_input": false,
+    "passes_party_group_as_start_slaves": false
+  },
+  "party_direct_mouse_actions": {
+    "check_pixel": true,
+    "click_at": true,
+    "target": "specific window_hwnd / leader create-team HWND",
+    "create_team_normalized_size": [1366, 768],
+    "known_clicks": [
+      [391, 683],
+      [34, 462]
+    ],
+    "uses_c19_master_slave_scaling": false,
+    "is_sync_broadcast": false
+  },
+  "party_mouse_symbol": {
+    "present": true,
+    "verified_adjacent_use": [
+      "bind_window_identity",
+      "unbind_window_identity"
+    ],
+    "listener_implication": false
+  },
+  "shared_start_mouse_contract": {
+    "authority": "C19",
+    "source": "selected Start master HWND",
+    "listener": "mouse.Listener",
+    "handlers": [
+      "_on_master_click",
+      "_on_master_scroll",
+      "_on_master_move"
+    ],
+    "size_aware_coordinate_scaling": true
+  },
+  "ownership_boundaries": {
+    "party_leader_is_start_mouse_master": false,
+    "party_group_is_start_mouse_slave_set": false,
+    "party_start_stop_controls_mouse_sync": false
+  },
+  "visual_cross_check": {
+    "authority": "B04",
+    "mouse_sync_control_on_party_ui": false,
+    "baseline_changed": false
+  },
+  "next_task": "G08 — Party configuration audit"
+}
