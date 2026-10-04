@@ -113,7 +113,7 @@ Visible defaults:
 - Tắt máy sau khi tắt game: unchecked
 - mở game: **04:20**
 - Sau khi login: **Chờ** selected
-- Party / Train / Train LSV / Đồn văn unselected
+- Party / Train / Train LSV / Dồn vàng unselected
 
 ### Cấu hình tài khoản
 - Hiện mật khẩu: unchecked
@@ -869,3 +869,6 @@ B01–B13 provide the required geometry, selected-state evidence, tab/page basel
 Remaining **per-widget override** point-size, ClearType and non-client uncertainties are explicitly environment-sensitive and are not visual blockers. Root/global default font is statically verified as Segoe UI 9.
 
 **GATE B — COMPLETE / VERIFIED.**
+
+## F01 Login EXE supplement
+Original-EXE-first F01 analysis resolves several screenshot-only B03 unknowns while preserving the measured raster: the Login groups are Tk `LabelFrame`s using `Bold.TLabelframe`; the header selector is a custom toggle-all Button; logical account capacity is exactly 100 rows with plan-controlled hiding/restoration; captcha modes are `Không / Tool / Proxy`; `Không` produces a blank gray disabled proxy-action cell; and the exact right-edge after-login label is `Dồn vàng`. Hidden/conditional Login widgets such as `lbl_dll_status`, `lbl_sched_countdown`, `lbl_proxifier_status`, and `_profile_btns` are not assigned invented pixel coordinates.
