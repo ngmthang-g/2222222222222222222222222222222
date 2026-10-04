@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G02 — Party HWND discovery / ready-account refresh and stale-window identity handling.
+G03 — Party character-state model.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -975,8 +975,29 @@ G02 — Party HWND discovery / ready-account refresh and stale-window identity h
 - docs/ui/B04_PARTY_STATIC_STRUCTURE.json (targeted G01 resolution note)
 - docs/UI_BASELINE_TLM.md (targeted Party baseline correction only)
 
+## G02 VERIFIED RESULTS
+- G02 used the frozen original EXE first; B04 geometry was not re-measured.
+- Party consumes `start_tab.get_windows()`; no Party-local EnumWindows/IsWindowVisible discovery path was recovered.
+- Party refresh uses a daemon worker for cached-window/character reads and a Tk-after apply path for UI/member updates.
+- Party recurring refresh is exactly **3000 ms**. Frozen constant bytes `6c b8 17` decode to 3000 with the same small-int encoding already validated in F11.
+- Exact first refresh tick timing and exact Tk-after handoff delay remain UNKNOWN.
+- Party runtime identity is HWND + PID generation through `_pid_of`, `bind_window_identity`, row `pid`, and `unbind_window_identity`.
+- Direct Party log proves same numeric HWND with a new PID is treated as a replaced process generation: old member is removed, identity unbound, widget destroyed, then refreshed.
+- `_remove_stale_members(active_hwnds)` removes members whose HWND disappears from the current shared active set.
+- Party display name uses shared character info → `RoleName` → `<[^>]+>` sanitization; a `Window ` fallback prefix exists, exact suffix UNKNOWN.
+- Ready list relayout is 3 accounts per row and hides members already chosen into groups.
+- Group dropdown refresh removes earlier-group selections from later choices while preserving the current value when possible.
+- Party owns refresh stop/cancel/destroy surfaces; exact destroy micro-order remains UNKNOWN.
+- Character state beyond name/identity is deferred to G03; team action behavior remains later G scope.
+
+## G02 FILES
+- docs/tasks/G02.md
+- docs/party/G02_PARTY_HWND_STATIC_EVIDENCE.tsv
+- docs/party/G02_PARTY_HWND_FLOW.md
+- docs/party/G02_PARTY_HWND_MODEL.json
+
 ## BLOCKERS
-None known for G02.
+None known for G03.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -992,10 +1013,10 @@ None known for G02.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute G02 only.
-4. Inspect the frozen original EXE first; do not infer HWND logic from screenshots.
-5. Recover Party ready-account discovery end-to-end: `start_tab.get_windows` source, refresh lifecycle/cadence, background read vs main-thread apply, HWND→PID binding, stale/closed/reused HWND removal, member-row identity updates, and group-combobox refresh after window changes.
-6. Determine the exact role of `bind_window_identity` / `unbind_window_identity` and PID-change handling.
-7. Keep character-state interpretation beyond identity/name in G03; do not expand into Party create/invite/run behavior yet.
-8. Cross-check against the existing B04 ready-list/group UI only after static extraction.
-9. Persist G02 evidence/report, update STATE.md, and advance only after verification.
+3. Execute G03 only.
+4. Inspect the frozen original EXE first.
+5. Recover Party character-state boundaries: fields read from `utils.get_character_info`, display/name identity, RoleID/TeamID sources, invalid/sentinel values, and read-failure behavior.
+6. Reuse G02 HWND+PID generation identity; do not redo window discovery.
+7. Do not implement team create/invite behavior yet.
+8. Cross-check B04 only after static extraction.
+9. Persist G03 evidence/report, update STATE.md, and advance only after verification.
