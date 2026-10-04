@@ -1,17 +1,17 @@
 KEY	OFFSET_HEX	STATUS	EVIDENCE
-preview_close_all_text	0x2bfa6b8	VERIFIED_STATIC	Đóng hết
-preview_close_all_callback	0x2bfa6c6	VERIFIED_STATIC	_close_all_preview_windows
-start_close_utility_ref	0x2bfc3c7	VERIFIED_STATIC	close_all_game_windows
-start_close_doc	0x2bfc3df	VERIFIED_STATIC	close all game windows + clean lingering Unity crash handler
-start_close_wrapper	0x2bfc428	VERIFIED_STATIC	_close_all
-preview_close_doc	0x2bfc437	VERIFIED_STATIC	close all game windows from preview button
-utils_module_ref	0x2c53862	VERIFIED_STATIC	close_all_game_windows in utils.py module table
-utils_get_windows	0x2c51e3b	VERIFIED_STATIC	get_game_windows
-utils_iswindow	0x2c51e4d	VERIFIED_STATIC	IsWindow
-utils_postmessage	0x2c51e57	VERIFIED_STATIC	PostMessage
-utils_wm_close	0x2c51e6e	VERIFIED_STATIC	WM_CLOSE
-utils_crash_handler	0x2c51eb6	VERIFIED_STATIC	UnityCrashHandler64.exe cleanup path
-utils_close_doc	0x2c51ef9	VERIFIED_STATIC	reusable close-all utility from start/info
+preview_close_all_text	0x2bfa6b9	VERIFIED_STATIC	Đóng hết
+preview_close_all_callback	0x2bfa6c7	VERIFIED_STATIC	_close_all_preview_windows
+start_close_utility_ref	0x2bfc3c8	VERIFIED_STATIC	close_all_game_windows
+start_close_doc	0x2bfc3e0	VERIFIED_STATIC	close all game windows + clean lingering Unity crash handler
+start_close_wrapper	0x2bfc429	VERIFIED_STATIC	_close_all
+preview_close_doc	0x2bfc438	VERIFIED_STATIC	close all game windows from preview button
+utils_module_ref	0x2c53863	VERIFIED_STATIC	close_all_game_windows in utils.py module table
+utils_get_windows	0x2c51e3c	VERIFIED_STATIC	get_game_windows
+utils_iswindow	0x2c51e4e	VERIFIED_STATIC	IsWindow
+utils_postmessage	0x2c51e58	VERIFIED_STATIC	PostMessage
+utils_wm_close	0x2c51e6f	VERIFIED_STATIC	WM_CLOSE
+utils_crash_handler	0x2c51eb7	VERIFIED_STATIC	UnityCrashHandler64.exe cleanup path
+utils_close_doc	0x2c51efa	VERIFIED_STATIC	reusable close-all utility from start/info
 main_game_force_kill_in_utils	-	NOT_RECOVERED	no main-game force-termination path recovered in shared utility
 direct_preview_refresh_after_close	-	EXPLICIT_UNKNOWN	no direct immediate refresh expression recovered
 preview_close_confirmation	-	NOT_RECOVERED	no close-specific confirmation path recovered
