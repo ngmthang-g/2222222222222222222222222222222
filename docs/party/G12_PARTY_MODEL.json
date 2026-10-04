@@ -1,0 +1,85 @@
+{
+  "task": "G12",
+  "status": "VERIFIED_GATE_G_RESEARCH_HANDOFF_WITH_RUNTIME_PARITY_RESERVATIONS",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b04_screenshot_sha256": "b04e9a73887bb8093bba8bfcd8a77a4dc57c5838ca11370c85def0f8adeb9590"
+  },
+  "coverage": {
+    "ui": "G01",
+    "hwnd": "G02",
+    "character_state": "G03",
+    "grid_layout": "G04",
+    "preview": "G05",
+    "sync_keyboard": "G06",
+    "sync_mouse": "G07",
+    "configuration": "G08",
+    "action_lifecycle": "G09",
+    "team_protocol": "G10",
+    "post_party": "G11",
+    "parity_handoff": "G12"
+  },
+  "locked_contracts": {
+    "party_refresh_ms": 3000,
+    "runtime_identity": "HWND+PID generation",
+    "display_identity": "sanitized RoleName",
+    "action_identity": "live RoleID",
+    "team_state": {
+      "0": "NO_TEAM",
+      "0xFFFFFFFF": "NO_TEAM",
+      "None": "READ_ERROR"
+    },
+    "owns_physical_layout": false,
+    "owns_preview": false,
+    "owns_keyboard_sync": false,
+    "owns_mouse_sync": false,
+    "config_identity": "member names",
+    "global_cluster_parallelism": "one thread per cluster",
+    "create_team": "packet-first 200057 action0 payload 0",
+    "leave_team": "200057 action4 payload 4:<ownRid>",
+    "invite_team": "200051 payload 5:<RoleID>",
+    "create_click_fallback": {
+      "size": [1366,768],
+      "conditional": [[391,683],[34,462]],
+      "tail": [[27,467],[154,214],[127,336]],
+      "gap_seconds": 1
+    },
+    "burst_resend_rounds": 1,
+    "post_party_readiness": {
+      "poll_seconds": 1.0,
+      "max_wait_seconds": 20,
+      "predicate": "want.issubset(have)"
+    }
+  },
+  "unknown_classes": {
+    "IMPLEMENTATION_SAFE": [
+      "exact Tk-after apply delay",
+      "exact destroy microorder",
+      "exact _saving_enabled flip statement timing",
+      "exact current-vs-legacy config branch syntax",
+      "exact malformed JSON exception syntax",
+      "exact dormant-key cleanup syntax",
+      "exact fresh_map dictionary expression",
+      "exact UI reset callback microorder"
+    ],
+    "RUNTIME_ONLY": [
+      "first Party refresh tick immediate vs delayed",
+      "same-cluster global+single collision",
+      "explicit global cancel post-party behavior",
+      "exact one-live-account user-visible branch"
+    ],
+    "STRONGER_DECOMPILATION_REQUIRED": [
+      "numeric invalid RoleID sentinel if any",
+      "_run_lock exact critical section",
+      "_last_targets exact reset/merge sequence",
+      "CREATE_RETRY exact numeric",
+      "exact numeric binding of Party symbolic timing constants"
+    ]
+  },
+  "mandatory_runtime_case_count": 33,
+  "proxy_runtime_development": "OUT_OF_SCOPE_BY_USER_LOCK",
+  "stage_s_started": false,
+  "gate_g": "CLOSED_FOR_RESEARCH_STATIC_RECONSTRUCTION_HANDOFF",
+  "next_task": "H01 — Train UI/module wiring audit using verified B05 baseline"
+}
