@@ -1,0 +1,81 @@
+{
+  "task": "F09",
+  "status": "VERIFIED_DAILY_NEXT_OCCURRENCE_SCHEDULER_WITH_EXPLICIT_RESTART_AUTORESUME_AND_CLOSE_MICROORDER_UNKNOWNS",
+  "controls": {
+    "schedule_on": "Chạy theo lịch (mở/tắt game)",
+    "close_time_label": "Hẹn giờ tắt game:",
+    "open_time_label": "Hẹn giờ mở game:",
+    "shutdown_after_close": "Tắt máy sau khi tắt game",
+    "countdown_label": "lbl_sched_countdown",
+    "locked_defaults": {
+      "schedule_on": false,
+      "close": "04:00",
+      "open": "04:20",
+      "shutdown_after_close": false
+    }
+  },
+  "independence": {
+    "manual_start": "immediate checked-account Login batch",
+    "second_manual_press": "stop active Login batch",
+    "schedule_toggle": "independent of manual start/stop"
+  },
+  "worker": {
+    "cancel_event": "_schedule_cancel",
+    "active_state": "_schedule_active",
+    "event_check_cadence_seconds": 20,
+    "countdown_visual_cadence_seconds": 1,
+    "countdown_main_thread": true
+  },
+  "time_model": {
+    "parse": "HH:MM",
+    "next_occurrence": "today if future; tomorrow if today's time already passed",
+    "missed_event_catchup": false,
+    "recurrence": "after trigger, same event +1 day",
+    "bugfix": "eliminates immediate open/close when schedule enabled after configured times"
+  },
+  "close_event": {
+    "action": "Login close-all game behavior",
+    "log": "Đến giờ tắt game (...) — đóng tất cả",
+    "internal_microorder": "UNKNOWN"
+  },
+  "shutdown": {
+    "enabled_by": "shutdown_after_close",
+    "popup": {
+      "seconds": 60,
+      "geometry": "340x150",
+      "topmost": true,
+      "close_button_behavior": "cancel",
+      "confirm": "immediate shutdown",
+      "cancel": "cancel shutdown",
+      "timeout": "automatic shutdown"
+    },
+    "command": [
+      "shutdown",
+      "/s",
+      "/t",
+      "0"
+    ]
+  },
+  "open_event": {
+    "method": "_open_game_batch",
+    "account_source": "currently checked Login rows",
+    "if_login_batch_active": "skip",
+    "pipeline": "reuse F05/F06 launcher + account-login path"
+  },
+  "post_open": {
+    "scheduler_stays_active": true,
+    "success_or_failure": "continues waiting for close event",
+    "routing": "DEFERRED_TO_F10"
+  },
+  "persistence": {
+    "keys": [
+      "schedule_on",
+      "schedule_close",
+      "schedule_open",
+      "shutdown_after_close"
+    ],
+    "auto_resume_fresh_process": "UNKNOWN"
+  },
+  "proxy_runtime_development": "OUT_OF_SCOPE_BY_USER_LOCK",
+  "next_task": "F10 — post-login routing"
+}
