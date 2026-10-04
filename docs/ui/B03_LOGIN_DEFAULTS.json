@@ -53,7 +53,7 @@
       "Party",
       "Train",
       "Train LSV",
-      "Đồn văn"
+      "Dồn vàng"
     ],
     "show_password": false,
     "header_selector_checked": true,
@@ -79,19 +79,33 @@
       349,
       432,
       472
-    ]
+    ],
+    "logical_row_capacity": 100,
+    "plan_limited_visibility": true
   },
   "unknowns": [
     "Hidden suffix of selected game path",
     "Scheduler runtime semantics",
-    "Header selector semantics",
-    "Total account capacity",
     "Account persistence mechanism",
     "Underlying password",
-    "Captcha/login/proxy behavior",
-    "Whether gray proxy cells are programmatically disabled",
-    "Exact widget classes/theme",
+    "Detailed captcha/login/proxy runtime behavior beyond F01 static UI contract",
     "Exact font metrics (B13)"
   ],
-  "next_action": "B04 — Baseline Party"
+  "next_action": "B04 — Baseline Party",
+  "resolved_by_F01": {
+    "group_widget_class": "LabelFrame / Bold.TLabelframe",
+    "header_selector_semantics": "custom Button; if any row unchecked -> check all, else uncheck all",
+    "captcha_modes": [
+      "Không",
+      "Tool",
+      "Proxy"
+    ],
+    "proxy_cell_states": {
+      "Tool": "⇄ enabled",
+      "Proxy": "➜ enabled",
+      "Không": "blank gray disabled"
+    },
+    "after_login_exact_label": "Dồn vàng",
+    "row_capacity": 100
+  }
 }
