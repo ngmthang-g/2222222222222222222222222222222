@@ -68,6 +68,7 @@ IN_PROGRESS
 - D08 VERIFIED_ARCHITECTURE_HANDOFF_WITH_CONFIDENCE_BOUNDARIES
 - E01 VERIFIED_WITH_EXPLICIT_NORMAL_CLOSE_ORDER_AND_SPLASH_ORDER_UNKNOWNS
 - E02 VERIFIED_WITH_HIGH_CONFIDENCE_POSITION_MODEL_AND_EXPLICIT_STYLE_UNKNOWNS
+- E03 VERIFIED_WITH_CONDITIONAL_VISIBILITY_AND_LAZY_BUILD_MODEL
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -129,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E03 — tab loader.
+E04 — shared state.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -539,8 +540,25 @@ E03 — tab loader.
 - docs/UI_BASELINE_TLM.md (B13 correction)
 - docs/ui/B13_STATIC_STYLE_EVIDENCE.tsv
 
+## E03 VERIFIED RESULTS
+- `create_tabs` uses local `_new_tab` plus `_tab_inner`, `_tab_frames`, `_tab_keys` maps.
+- Potential insertion order contains Start/Login/Party/Train/Train LSV/Train LD/Phó Bản/Daily/Đồn/Rao/Tối ưu/Info/Proxy/Debug/Debug Android.
+- Gate-B visible production order is the same sequence with Train LD, Proxy, Debug and Debug Android hidden.
+- Info is the invariant always-visible fallback; if selected tab becomes hidden, selection moves to Info.
+- Debug/Android/Proxy are dev-gated; Đồn/Rao/Tối ưu are permission-controlled.
+- Tab content has a one-time lazy-build guard plus `_rebuild_tab` path.
+- `_make_scrollable` provides Canvas+vertical Scrollbar+MouseWheel wrapper.
+- Central refresh lifecycle stops old tab polling and starts selected tab polling; after build only selected refresh-capable tab polls.
+- Permission/account-limit changes can disable child controls without destroying tab content.
+
+## E03 FILES
+- docs/tasks/E03.md
+- docs/core/E03_TAB_STATIC_EVIDENCE.tsv
+- docs/core/E03_TAB_ORDER.tsv
+- docs/core/E03_TAB_LOADER_MODEL.json
+
 ## BLOCKERS
-None known for E03.
+None known for E04.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -551,11 +569,10 @@ None known for E03.
 - Do not begin C08 before C07 is verified.
 
 ## NEXT_ACTION
-On CONTINUE:
+On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E03 only.
-4. Recover the tab-loader/create_tabs lifecycle from the original EXE.
-5. Verify tab constructor order, visible production tab order, internal key/frame maps, conditional dev/emulator/proxy tab visibility, scroll-wrapper/inner-frame construction where used, and rebuild behavior.
-6. Reconcile with Gate-B 11-tab visible order; do not force dormant/dev tabs into production UI.
-7. Persist E03 evidence/report and advance to E04 only after verification.
+3. Execute E04 only.
+4. Recover shared application state: root/app fields, cross-tab refs, permission/plan/version state, account/window-limit state, block notifier, and shared config/cache objects.
+5. Separate TLMMainApp-owned state from module globals and per-tab state.
+6. Persist E04 evidence/report and advance to E05 only after verification.
