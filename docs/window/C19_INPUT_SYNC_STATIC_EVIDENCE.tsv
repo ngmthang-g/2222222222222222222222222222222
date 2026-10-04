@@ -1,0 +1,44 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+ui_input_callback	0x2bf9ff2	VERIFIED_STATIC	_toggle_input
+state_input_active	0x2bf9644	VERIFIED_STATIC	input_active
+keepalive_id	0x2bfcee0	VERIFIED_STATIC	_sync_keepalive_id
+toggle_input_method	0x2c003dd	VERIFIED_STATIC	TLMStartTab._toggle_input
+keepalive_method	0x2c003fa	VERIFIED_STATIC	TLMStartTab._sync_keepalive
+mouse_listener	0x2bfd23f	VERIFIED_STATIC	mouse.Listener
+mouse_click_handler	0x2bfd250	VERIFIED_STATIC	_on_master_click
+mouse_scroll_handler	0x2bfd262	VERIFIED_STATIC	_on_master_scroll
+mouse_move_handler	0x2bfd275	VERIFIED_STATIC	_on_master_move
+keyboard_listener	0x2bfd2a6	VERIFIED_STATIC	keyboard.Listener
+key_press_handler	0x2bfd2b0	VERIFIED_STATIC	_on_master_key_press
+key_release_handler	0x2bfd2c6	VERIFIED_STATIC	_on_master_key_release
+window_from_point	0x2bfd2f6	VERIFIED_STATIC	WindowFromPoint
+get_ancestor	0x2bfd307	VERIFIED_STATIC	GetAncestor
+screen_to_client	0x2bfd314	VERIFIED_STATIC	ScreenToClient
+mouse_buttons	0x2bfd324	VERIFIED_STATIC	left/right/middle
+slave_client	0x2bfd33b	VERIFIED_STATIC	_slave_client
+get_client_rect	0x2bfd35a	VERIFIED_STATIC	GetClientRect
+coord_scale_doc	0x2bfd600	VERIFIED_STATIC	master client coordinates scaled to slave by window-size ratio
+sync_worker	0x2bfd442	VERIFIED_STATIC	_sync_worker
+do_down	0x2bfd450	VERIFIED_STATIC	_do_down
+do_up	0x2bfd45a	VERIFIED_STATIC	_do_up
+watchdog	0x2bfd47b	VERIFIED_STATIC	_watchdog_unlock
+watchdog_doc	0x2bfd577	VERIFIED_STATIC	unlock slave block older than 10s after missing release/master close/change/exit
+send_message_timeout	0x2bfd70b	VERIFIED_STATIC	SendMessageTimeout
+abort_if_hung	0x2bfd71f	VERIFIED_STATIC	SMTO_ABORTIFHUNG
+block_slave	0x2bfd73a	VERIFIED_STATIC	Block input 1 slave (activate + lock)
+retry_twice	0x2bfd831	VERIFIED_STATIC	short retry path 2 times
+restore_window	0x2bfd8e1	VERIFIED_STATIC	_dll_restore_window
+unblock_doc	0x2bfd8f7	VERIFIED_STATIC	Mở khóa input 1 slave. Idempotent.
+keyboard_foreground	0x2bfd936	VERIFIED_STATIC	GetForegroundWindow
+keyboard_vk	0x2bfd94c	VERIFIED_STATIC	vk
+keyboard_custom_msg	0x2bfd950	VERIFIED_STATIC	WM_MY_SYNC_KEY
+scroll_path	0x2bfd97e	VERIFIED_STATIC	send_scroll
+scroll_doc	0x2bfd986	VERIFIED_STATIC	Handle mouse wheel scroll from master and sync to slaves
+move_last_time	0x2bfd9c8	VERIFIED_STATIC	_last_move_time
+move_slave	0x2bfd9e1	VERIFIED_STATIC	send_move_slave
+move_doc	0x2bfd9ec	VERIFIED_STATIC	Handle mouse move from master and sync to slaves (throttled)
+keepalive_doc	0x2bfd031	VERIFIED_STATIC	Re-block slaves every 1.5s
+keyboard_payload	-	EXPLICIT_UNKNOWN	exact WM_MY_SYNC_KEY payload/bit packing not recovered
+move_throttle_interval	-	EXPLICIT_UNKNOWN	exact move throttle interval not recovered
+listener_start_timing	-	EXPLICIT_UNKNOWN	exact startup timing relative to toggle not source-visible
+retry_delay	-	EXPLICIT_UNKNOWN	exact retry delay/return branches not recovered
