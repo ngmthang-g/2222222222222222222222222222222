@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G08 — Party configuration audit.
+G09 — Party action-button wiring and run/stop lifecycle audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1112,24 +1112,54 @@ G08 — Party configuration audit.
 - docs/party/G07_PARTY_MOUSE_SYNC_FLOW.md
 - docs/party/G07_PARTY_MOUSE_SYNC_MODEL.json
 
+## G08 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; G01–G07 were already complete and no G08 artifact existed, so completed work was not repeated.
+- Rechecked the frozen EXE first. Inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Party configuration uses the shared settings backend: `CONFIG_PATH`, `CONFIG_DIR`, `_settings_lock`, `read_settings`, `write_settings`, section `Settings`, file `settings.ini`.
+- Party owns a `_saving_enabled` persistence guard. It exists specifically around build/load/save lifecycle so initialization/restoration does not become an uncontrolled write loop. Exact flag-enable instruction timing remains UNKNOWN.
+- `party_after` is active and defaults to `wait`. The exact allowed internal values recovered from the EXE are `wait / train / train_lsv / don / phoban`.
+- `_after_party.trace_add("write", ...)` is a direct autosave trigger.
+- Active team-section config keys are `party_groups` and `party_group1`; these are passed into the current `Cấu hình nhóm` section as `cfg_groups` / `cfg_group1`.
+- `get_groups_data` exact original documentation defines the current multi-group schema as `[{'num': n, 'members': [...]}, ...]`.
+- `party_groups` is therefore the current multi-group JSON representation.
+- `party_group1` is a backward-compatibility mirror for Nhóm 1. Exact original documentation says it contains selected Group-1 names with blanks/duplicates removed.
+- Load locals directly expose both current and legacy paths: `raw_groups`, `groups_data`, `parsed`, `legacy`, `g1`, `members`, `var`, `nm`. Exact source Boolean expression deciding precedence remains UNKNOWN.
+- Save/load directly use `json.loads` / `json.dumps`; save has `ensure_ascii=False`, preserving Vietnamese/Unicode character names.
+- Group restoration is name/StringVar based, not HWND/PID based. Exact malformed-JSON branch and exact treatment of saved `num` during visual renumbering remain UNKNOWN.
+- Party config persists member names/group structure, not HWND, PID, RoleID or TeamID. G02/G03 identity separation remains intact.
+- Runtime execution state such as `_running`, cancel events, refresh IDs, member-row live identity and per-cluster join-running state is not represented as Party config.
+- Four literals appear together only in the save block and have no active Party build/load UI path: `party_corps_groups`, `party_corps_group1`, `party_follow`, `party_pick`.
+- The `_save_config` code-object locals include iterator `_k`, consistent with processing that grouped legacy-key set. These are classified as dormant compatibility cleanup keys, not active features. Exact cleanup statement syntax (delete/pop/equivalent) remains UNKNOWN.
+- `_sec_corps` still exists as dormant constructor state, but no active second corps section is built in the current Party UI.
+- Save-side major surfaces are: ensure CONFIG_DIR → save party_after → serialize current/legacy group data → process dormant compatibility-key set → write_settings. Exact save error text is `[PARTY] Save error: `.
+- B04 was cross-checked only after EXE extraction and requires no geometry change.
+- Action semantics for create/invite/start buttons remain deferred to G09+.
+
+## G08 FILES
+- docs/tasks/G08.md
+- docs/party/G08_PARTY_CONFIG_STATIC_EVIDENCE.tsv
+- docs/party/G08_PARTY_CONFIG_FLOW.md
+- docs/party/G08_PARTY_CONFIG_MODEL.json
+
 ## BLOCKERS
-None known for G08.
+None known for G09.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Preserve G01–G07 Party boundaries: UI ownership, HWND/PID identity, RoleName/RoleID/TeamID separation, no Party grid arranger, no Party preview ownership, no Party keyboard-sync ownership, no Party mouse-sync ownership.
+- Preserve G01–G08 Party boundaries: UI ownership, HWND/PID identity, RoleName/RoleID/TeamID separation, no Party grid arranger, no Party preview ownership, no Party keyboard-sync ownership, no Party mouse-sync ownership, name-based Party persistence.
 - Do not add a Party-local EnumWindows scanner.
 - Do not duplicate Start physical layout, preview/DWM, keyboard-sync or mouse-sync systems inside PartyTab.
 - Keep Party direct check_pixel/click_at actions separate from Start synchronized input.
+- Do not persist HWND/PID/RoleID/TeamID in Party config.
+- Do not reactivate party_corps_groups / party_corps_group1 / party_follow / party_pick as active Party UI.
 - Do not derive Party group order or input targets from Start preview/layout state.
 - Do not equate Party leader with Start master HWND without direct new evidence.
 - Preserve the leader create-team 1366×768 resize precondition; do not globalize it.
 - Do not merge RoleName display identity with RoleID action identity.
 - Do not treat TeamID None/read-error as outside-team success.
 - Do not invent a numeric invalid RoleID sentinel.
-- Do not add Party follow/pick checkboxes; they are not active PartyTab UI in this frozen EXE.
 - Preserve explicit unknowns instead of guessing.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
@@ -1138,11 +1168,11 @@ None known for G08.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any G08 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute G08 only if still pending.
+3. Check GitHub first for any G09 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute G09 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Party configuration end-to-end: active settings keys, defaults, load/save order, JSON group encoding, autosave/write triggers, legacy compatibility keys, group restore behavior, and what is runtime-only vs persisted.
-7. Reconcile active team config keys with the G01 compatibility surfaces; do not reactivate stale Party follow/pick controls merely because old keys exist.
-8. Determine whether Party saves names only or any HWND/PID/RoleID/TeamID runtime identifiers; preserve G03 separation.
-9. Keep action semantics for create/invite/start buttons deferred to the later Party action-button task.
-10. Persist G08 evidence/report, update STATE.md, and advance to the next original PLAN item only after verification.
+6. Audit Party action-button wiring and lifecycle only: bottom Bắt đầu/_toggle_run, per-group action button/_run_single_cluster, Rời nhóm/_leave_group, delete/add structural controls, button running/disabled/red-green state, cancel objects, thread creation, global stop/reset, and whether per-group runs can coexist with global runs.
+7. Keep detailed create-team/invite packet/click sequence in a later dedicated Party action task; G09 should lock control→worker→cancel/reset wiring without prematurely decompiling the full team protocol.
+8. Determine exact relationships among _running, _cancel, _run_lock, _run_cancels, per-group join_running/join_cancel, _reset_run_button and _reset_single_button.
+9. Preserve permission/config boundaries already verified; do not reopen G01/G08.
+10. Persist G09 evidence/report, update STATE.md, and advance to the next Party action task only after verification.
