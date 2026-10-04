@@ -1,0 +1,46 @@
+{
+  "task": "C20",
+  "status": "VERIFIED_ORIGINAL_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED",
+  "screenshot": {
+    "sha256": "f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a",
+    "identities": [
+      "75C.S6",
+      "TổngTài.S6",
+      "ThápCa"
+    ],
+    "hp_percent": [
+      10,
+      10,
+      100
+    ],
+    "selected_master": "TổngTài.S6",
+    "preview_order": [
+      "75C.S6",
+      "TổngTài.S6",
+      "ThápCa"
+    ],
+    "preview_columns": 2,
+    "game_grid": {
+      "columns": 3,
+      "rows": 4
+    }
+  },
+  "combined_model": {
+    "source_hwnds": 3,
+    "master_first_for_physical_layout": true,
+    "master_first_for_preview": false,
+    "preview_order_independent": true,
+    "input_targets": 2,
+    "refresh_preserves_preview_order": true,
+    "stale_hwnd_cleanup": true
+  },
+  "runtime_deferred": [
+    "exact physical grid x/y/w/h",
+    "exact layout-worker cadence",
+    "preview first/last arrow boundary behavior",
+    "remaining low-level input timing",
+    "future reconstructed-build Windows parity"
+  ],
+  "gate_c": "COMPLETE_STATIC_ORIGINAL_RUNTIME_EVIDENCE",
+  "next_task": "D01 — Extract toàn bộ module names"
+}
