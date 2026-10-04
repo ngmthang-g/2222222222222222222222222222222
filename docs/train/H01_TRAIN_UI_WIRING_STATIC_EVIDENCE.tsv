@@ -1,0 +1,75 @@
+key	offset_hex	status	evidence
+module_region_start	0x293a91e	VERIFIED_STATIC	.farm_tab
+module_source_name	0x2943ecb	VERIFIED_STATIC	farm_tab.py
+module_marker	0x2944146	VERIFIED_STATIC	<module farm_tab>
+next_module_marker	0x2947cb1	VERIFIED_STATIC	<module fast_travel>
+state_farming	0x293aa2d	VERIFIED_STATIC	_farming
+state_acc_rows	0x293aa37	VERIFIED_STATIC	_acc_rows
+state_refresh_id	0x293aa42	VERIFIED_STATIC	_refresh_id
+state_autosave_id	0x293aa9c	VERIFIED_STATIC	_autosave_id
+state_coord_rows	0x293ac0f	VERIFIED_STATIC	_coord_rows
+state_saving_enabled	0x293ac1c	VERIFIED_STATIC	_saving_enabled
+constructor_build	0x293ac2d	VERIFIED_STATIC	_build_ui
+constructor_load	0x293ac38	VERIFIED_STATIC	_load_config
+constructor_destroy	0x293ac4c	VERIFIED_STATIC	<Destroy> -> _save_on_destroy
+constructor_refresh	0x293ac69	VERIFIED_STATIC	_start_refresh
+constructor_autosave	0x293ac79	VERIFIED_STATIC	_autosave_loop
+bottom_start	0x293acd2	REUSED_B05	Bắt đầu
+bottom_start_callback	0x293acdf	VERIFIED_STATIC	_toggle_farm
+town_toggle	0x293aeba	VERIFIED_STATIC	_toggle_town_config
+town_condition_var	0x293af7f	VERIFIED_STATIC	town_condition_var
+town_condition_callback	0x293afb4	VERIFIED_STATIC	_on_town_condition_changed
+town_full_value	0x293b01d	VERIFIED_STATIC	full_bag_timer
+town_cycle_value	0x293b05b	VERIFIED_STATIC	cycle
+town_loop_var	0x293b083	VERIFIED_STATIC	loop_var
+town_body	0x293b105	VERIFIED_STATIC	_town_body
+town_nav_vars	0x293b14c	VERIFIED_STATIC	_nav_pri_vars
+town_nav_callback	0x293b2c1	VERIFIED_STATIC	_on_nav_priority_changed
+train_respawn_var	0x293b727	VERIFIED_STATIC	respawn_var
+train_reconnect_var	0x293b77a	VERIFIED_STATIC	auto_reconnect_var
+train_pickup_no_cankhon	0x293b7b7	VERIFIED_STATIC	pickup_no_cankhon_var
+train_trist_var	0x293b804	VERIFIED_STATIC	trist_var
+train_heal_var	0x293b878	VERIFIED_STATIC	heal_map_var
+train_pickup_mode	0x293a942	VERIFIED_STATIC	pickup_mode_var
+buff_rows	0x293b9eb	VERIFIED_STATIC	_buff_rows
+buff_add	0x293ba00	VERIFIED_STATIC	_add_buff_row
+coord_body	0x293bb49	VERIFIED_STATIC	_coord_body
+coord_add	0x293bb7b	VERIFIED_STATIC	_add_coord_row
+coord_toggle	0x293bba8	VERIFIED_STATIC	_toggle_coord_list
+account_canvas	0x293bc7b	VERIFIED_STATIC	Canvas
+account_scrollbar	0x293bcaf	VERIFIED_STATIC	Scrollbar
+all_goto	0x293bf9b	VERIFIED_STATIC	_goto_sell_all
+all_sell	0x293bfc4	VERIFIED_STATIC	_sell_all
+all_move	0x293bfcf	VERIFIED_STATIC	_move_all
+all_farm	0x293bfda	VERIFIED_STATIC	_farm_all
+autosave_encoded	0x293bfec	VERIFIED_STATIC	6c b0 ea 01 = 30000ms
+autosave_doc	0x293bff0	VERIFIED_STATIC	Tự lưu config mỗi 30 giây
+identity_pid	0x293c258	VERIFIED_STATIC	_pid_of
+identity_bind	0x293c278	VERIFIED_STATIC	bind_window_identity
+identity_unbind	0x293c318	VERIFIED_STATIC	unbind_window_identity
+row_single_farm	0x293cae6	VERIFIED_STATIC	_toggle_single_farm
+row_move	0x293cbe5	VERIFIED_STATIC	_move_acc
+row_goto_sell	0x293cbfc	VERIFIED_STATIC	_goto_sell_acc
+row_toggle_sell	0x293cc0c	VERIFIED_STATIC	_toggle_sell
+row_farm_acc	0x293cc1a	VERIFIED_STATIC	_farm_acc
+coord_apply_all	0x293d4bf	VERIFIED_STATIC	_apply_coord_to_all
+coord_remove	0x293d4da	VERIFIED_STATIC	_remove_coord_row
+buff_remove	0x293d830	VERIFIED_STATIC	_remove_buff_row
+shared_start_tab	0x293d85a	VERIFIED_STATIC	start_tab
+shared_get_windows	0x293d867	VERIFIED_STATIC	get_windows
+refresh_worker	0x294066a	VERIFIED_STATIC	_refresh_acc_list local _worker
+refresh_apply	0x29407a0	VERIFIED_STATIC	worker local _apply
+refresh_schedule	0x294087f	VERIFIED_STATIC	_schedule_refresh
+refresh_encoded	0x2940909	VERIFIED_STATIC	6c 88 27 = 5000ms
+refresh_doc	0x294090d	VERIFIED_STATIC	Tự động refresh danh sách mỗi 5 giây
+start_tab_ref	0x294094b	VERIFIED_STATIC	start_tab_ref
+shared_character_info	0x293e4f6	VERIFIED_STATIC	get_character_info
+config_dir	0x2942c3f	VERIFIED_STATIC	CONFIG_DIR
+settings_lock	0x2942c57	VERIFIED_STATIC	_settings_lock
+read_settings	0x2942c67	VERIFIED_STATIC	read_settings
+config_section	0x2942c76	VERIFIED_STATIC	Farm
+write_settings	0x2942e00	VERIFIED_STATIC	write_settings
+config_keys	0x2942c7c	VERIFIED_STATIC	loop_minutes/town_condition/nav_priority_/sell_equip/sell_map/sell_tab/meds_map/buy_hp/hp_item/buy_mp/mp_item/hp_qty/mp_qty/respawn/auto_reconnect/trist/pickup_no_cankhon/pickup_mode/heal_map
+config_prefixes	0x2942d55	VERIFIED_STATIC	buff_ / acc_*_sell|farm / coord_
+full_bag_load_surface	0x2942e37	DEFERRED_SEMANTICS	full_bag
+screenshot_hash	-	VERIFIED_CROSSCHECK	current Train screenshot hash equals B05
