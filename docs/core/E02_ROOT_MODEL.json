@@ -1,0 +1,71 @@
+{
+  "task": "E02",
+  "status": "VERIFIED_WITH_HIGH_CONFIDENCE_POSITION_MODEL_AND_EXPLICIT_STYLE_UNKNOWNS",
+  "root": {
+    "title": "TLMTool",
+    "transient_geometry": "250x20",
+    "topmost": true,
+    "initially_withdrawn": true,
+    "icon": {
+      "name": "icon.ico",
+      "frozen_meipass_resolution": true,
+      "missing_icon_fallback": "UNKNOWN"
+    },
+    "default_font": {
+      "family": "Segoe UI",
+      "size": 9,
+      "scope": "root/global *Font"
+    }
+  },
+  "notebook": {
+    "widget": "ttk.Notebook",
+    "pack": {
+      "fill": "tk.BOTH",
+      "expand": "effective behavior VERIFIED; exact compiled bool token not separately printable",
+      "padx": 5,
+      "pady": 5
+    },
+    "styles": [
+      "TNotebook.Tab",
+      "TNotebook"
+    ],
+    "exact_tab_padding_values": "UNKNOWN",
+    "exact_tabmargins_values": "UNKNOWN"
+  },
+  "positioning": {
+    "method": "position_window_top_right",
+    "uses": [
+      "update_idletasks",
+      "winfo_screenwidth",
+      "winfo_screenheight",
+      "max",
+      "geometry"
+    ],
+    "constants": {
+      "screen_height_adjustment": 80,
+      "width": 450,
+      "right_margin_term": 10,
+      "y": 0
+    },
+    "high_confidence_formula": "w=450; h=screen_height-80; x=max(0, screen_width-w-10); y=0",
+    "exact_source_arithmetic": "NOT_DIRECTLY_RECOVERED",
+    "quarantined_literal": "350x450+1621+0"
+  },
+  "observed_gate_b": {
+    "client_px": [
+      450,
+      1000
+    ],
+    "outer_raster_px": [
+      452,
+      1032
+    ],
+    "screenshot_count": 12
+  },
+  "resize_policy": {
+    "resizable": "NOT_RECOVERED",
+    "minsize": "NOT_RECOVERED",
+    "maxsize": "NOT_RECOVERED"
+  },
+  "next_task": "E03 — tab loader"
+}
