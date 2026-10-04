@@ -1,0 +1,21 @@
+KEY	STATUS	EVIDENCE
+screenshot	VERIFIED_VISUAL	TLMTool_fTpCsm0auQ(3).png SHA256 f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a
+window_raster	VERIFIED_VISUAL	452x1032; client target 450x1000
+three_identities	VERIFIED_VISUAL	75C.S6 / TổngTài.S6 / ThápCa
+hp_values	VERIFIED_VISUAL	10.0% / 10.0% / 100.0%
+master_selected	VERIFIED_VISUAL	TổngTài.S6 selected in master radio list
+preview_order	VERIFIED_VISUAL	75C.S6, TổngTài.S6, ThápCa
+preview_grid	VERIFIED_VISUAL	2x selected; 2 items first row + 1 item second row
+game_layout_grid	VERIFIED_VISUAL	Cột:3 / Hàng:4
+preview_frame_geometry	VERIFIED_PRIOR	205x137 outer frame each; 197x110 visible Tk surface
+source_hwnd_mapping	VERIFIED_STATIC	one live preview item is backed by one source game HWND
+master_vs_preview_order	VERIFIED_COMBINED	selected master is not first preview card; states are independent
+layout_master_first	VERIFIED_STATIC	master is logical slot 0 for physical game-window layout
+input_master_source	VERIFIED_STATIC	selected master is input source; remaining live game HWNDs are targets
+three_to_two_cleanup	VERIFIED_ARCHITECTURE	closed HWND leaves discovery set and preview/master state rebuilds
+black_preview_surface	VERIFIED_INTERPRETATION	Tk surface in screenshot does not disprove DWM overlay content
+exact_physical_grid_xywh	RUNTIME_DEFERRED	C06 arithmetic unresolved
+layout_worker_cadence	RUNTIME_DEFERRED	exact cadence unresolved
+preview_boundary_behavior	RUNTIME_DEFERRED	first/last arrow behavior unresolved
+input_low_level_timing	RUNTIME_DEFERRED	several low-level details remain explicit unknowns
+reconstructed_windows_parity	DEFERRED	requires future reconstructed executable running with 3 real game HWNDs
