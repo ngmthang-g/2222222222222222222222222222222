@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G05 — Party preview relationship audit.
+G06 — Party sync-keyboard relationship audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1049,19 +1049,40 @@ G05 — Party preview relationship audit.
 - docs/party/G04_PARTY_LAYOUT_FLOW.md
 - docs/party/G04_PARTY_LAYOUT_MODEL.json
 
+## G05 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; G01–G04 were already complete and no G05 artifact/commit existed, so completed work was not repeated.
+- Rechecked the exact frozen specimen first: archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Inspected the Party implementation/code-object range from `.party_tab` near `0x2b7d066` through PartyTab methods and `<module party_tab>` at `0x2b81b28`.
+- PartyTab has **no owned preview subsystem**. Static Party-range scan found zero occurrences of preview/thumbnail/DWM registration/update/unregister, `src_hwnd`, `dst_hwnd`, `window_preview_items`, preview-list refresh, preview visibility control or detached-preview state.
+- Party has no direct preview-click activation path: no `_activate_game_window`, `SetForegroundWindow`, DWM destination WndProc/click-target map, or Start preview activation helper reference.
+- The direct shared Start dependency remains `start_tab.get_windows()` around `0x2b7dc49`–`0x2b7dc63`, already used by G02 for Party member discovery. No Party direct call to Start preview-control methods was recovered.
+- C03/C09/C14 therefore remain authoritative for embedded DWM preview, 1x–5x preview layout and detached preview. G05 does not duplicate those systems.
+- The same underlying game HWND may independently appear in Start preview state and Party member state, but that does not create shared preview ownership.
+- Party contains no preview-order or preview-column state; Party group order must not depend on Start preview order/columns.
+- Party contains no detached-preview dependency; Party member/action state should not be coupled to whether Start embedded/detached preview is shown, beyond the underlying game HWND remaining valid.
+- Party direct game-action helpers such as `click_at` / `resize_window` target game HWNDs directly and are not preview activation.
+- B04 was cross-checked only after EXE extraction; no Party preview geometry was added and the baseline is unchanged.
+- G05 closes the preview item in the original Party PLAN with a negative ownership result: **Party does not own or directly control preview**.
+
+## G05 FILES
+- docs/tasks/G05.md
+- docs/party/G05_PARTY_PREVIEW_STATIC_EVIDENCE.tsv
+- docs/party/G05_PARTY_PREVIEW_FLOW.md
+- docs/party/G05_PARTY_PREVIEW_MODEL.json
+
 ## BLOCKERS
-None known for G05.
+None known for G06.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Preserve G01 Party UI/control ownership, G02 HWND+PID identity, G03 RoleName/RoleID/TeamID separation and G04 layout ownership boundary.
+- Preserve G01–G05 Party boundaries: UI ownership, HWND/PID identity, RoleName/RoleID/TeamID separation, no Party grid arranger, no Party preview ownership.
 - Do not add a Party-local EnumWindows scanner.
-- Do not duplicate Start physical grid/Auto/Xếp-lưới algorithms inside PartyTab.
-- Do not treat Party 2×3 member slots as physical desktop window positions.
+- Do not duplicate Start physical layout or preview/DWM systems inside PartyTab.
+- Do not derive Party group order from Start preview order.
 - Do not equate Party leader with Start master HWND without direct new evidence.
-- Preserve the exact leader create-team 1366×768 resize precondition; do not globalize it to all Party members.
+- Preserve the leader create-team 1366×768 resize precondition; do not globalize it.
 - Do not merge RoleName display identity with RoleID action identity.
 - Do not treat TeamID None/read-error as outside-team success.
 - Do not invent a numeric invalid RoleID sentinel.
@@ -1074,11 +1095,11 @@ None known for G05.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any G05 artifacts/commits created since the previous turn; if complete and verified, do not redo them.
-4. Execute G05 only if still pending.
+3. Check GitHub first for any G06 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute G06 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Party's relationship to preview without redoing C03/C09/C14: search PartyTab for preview/DWM/thumbnail/activation/update references and determine whether Party owns, creates or directly manipulates preview surfaces.
-7. Distinguish Party's use of shared HWND/member data from actual Start preview ownership.
-8. If Party only relies on shared Start preview/window infrastructure and has no Party preview call edge, record that negative result explicitly.
-9. Do not infer preview behavior from B04 black/empty UI areas; cross-check screenshots only after static extraction.
-10. Persist G05 evidence/report, update STATE.md, and advance only after verification.
+6. Audit Party's relationship to keyboard synchronization without redoing the Start/window input-sync tasks: search PartyTab for keyboard sync state, keyboard hooks/listeners, key-event forwarding, Start `_toggle_input` / sync references, and any Party-owned key broadcasting.
+7. Distinguish Party direct background UI clicks/actions from synchronized keyboard input.
+8. If Party has no keyboard-sync ownership or call edge, record the negative result explicitly and keep ownership in the shared Start/input subsystem.
+9. Do not infer keyboard sync from Party group size or shared HWND lists.
+10. Persist G06 evidence/report, update STATE.md, and advance to the next original PLAN item only after verification.
