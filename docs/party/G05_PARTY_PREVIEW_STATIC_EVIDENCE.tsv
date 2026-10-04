@@ -1,0 +1,29 @@
+key	offset_hex	status	evidence
+party_region_start	0x2b7d066	VERIFIED_STATIC	.party_tab implementation/constants region
+party_start_tab_ref	0x2b7dc49	VERIFIED_STATIC	start_tab
+party_get_windows_ref	0x2b7dc56	VERIFIED_STATIC	get_windows
+party_get_windows_call	0x2b7dc63	VERIFIED_STATIC	get_windows call surface
+party_methods_start	0x2b8133b	VERIFIED_STATIC	PartyTab.__init__
+party_methods_end	0x2b819d9	VERIFIED_STATIC	PartyTab._save_config
+party_source_name	0x2b819f0	VERIFIED_STATIC	party_tab.py
+party_module_marker	0x2b81b28	VERIFIED_STATIC	<module party_tab>
+party_preview_token	-	ABSENT_PARTY_OWNERSHIP	0 occurrences in Party implementation range
+party_thumbnail_token	-	ABSENT_PARTY_OWNERSHIP	0 occurrences
+party_dwm_register	-	ABSENT_PARTY_OWNERSHIP	No DwmRegisterThumbnail
+party_dwm_update	-	ABSENT_PARTY_OWNERSHIP	No DwmUpdateThumbnailProperties
+party_dwm_unregister	-	ABSENT_PARTY_OWNERSHIP	No DwmUnregisterThumbnail
+party_create_dwm_dst	-	ABSENT_PARTY_OWNERSHIP	No _create_dwm_dst_hwnd
+party_destroy_dwm_dst	-	ABSENT_PARTY_OWNERSHIP	No _destroy_dwm_dst_hwnd
+party_window_preview_items	-	ABSENT_PARTY_OWNERSHIP	No window_preview_items
+party_src_hwnd	-	ABSENT_PARTY_OWNERSHIP	No src_hwnd preview item field
+party_dst_hwnd	-	ABSENT_PARTY_OWNERSHIP	No dst_hwnd preview item field
+party_refresh_preview_list	-	ABSENT_PARTY_OWNERSHIP	No refresh_window_preview_list
+party_preview_visibility	-	ABSENT_PARTY_OWNERSHIP	No _set_window_previews_visible
+party_detached_preview	-	ABSENT_PARTY_OWNERSHIP	No detached_preview state/callback surface
+party_activate_game_window	-	ABSENT_PARTY_OWNERSHIP	No _activate_game_window
+party_set_foreground	-	ABSENT_PARTY_OWNERSHIP	No SetForegroundWindow
+party_preview_order	-	ABSENT_PARTY_OWNERSHIP	No preview order state/callback surface
+party_preview_columns	-	ABSENT_PARTY_OWNERSHIP	No preview_grid_var/_get_preview_columns
+start_preview_backend	C03	REUSED_VERIFIED_CONTRACT	Live DWM thumbnail preview owned by TLMStartTab
+start_preview_columns	C09	REUSED_VERIFIED_CONTRACT	Main preview 1x-5x layout owned by Start
+start_detached_preview	C14	REUSED_VERIFIED_CONTRACT	Detached DWM preview owned by Start
