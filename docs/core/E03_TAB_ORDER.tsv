@@ -1,0 +1,16 @@
+position	label	internal_key_or_role	gate_b_visible	visibility_notes
+1	▶	start_tab	YES	permission-controlled action tab; Gate-B visible
+2	Login	login_tab	YES	permission-controlled action tab; Gate-B visible
+3	Party	party_tab	YES	permission-controlled action tab; Gate-B visible
+4	Train	farm_tab	YES	permission-controlled action tab; Gate-B visible
+5	Train LSV	trainlsv_tab	YES	permission-controlled action tab; Gate-B visible
+6	Train LD	emu_farm_tab	NO	emulator/dormant/conditional tab
+7	Phó Bản	phoban_tab	YES	permission-controlled action tab; Gate-B visible
+8	Daily	daily_tab	YES	permission-controlled action tab; Gate-B visible
+9	Đồn	donvang_tab	YES	permission-controlled; original doc says dev/permission gate
+10	Rao	rao_tab	YES	permission-controlled
+11	Tối ưu	toiuu_tab	YES	permission-controlled
+12	ℹ	info_tab	YES	always-visible fallback
+13	Proxy	proxy_tab	NO	dev-only
+14	🔎	debug_tab	NO	dev-only
+15	🔍	android_tab	NO	dev-plan Debug Android
