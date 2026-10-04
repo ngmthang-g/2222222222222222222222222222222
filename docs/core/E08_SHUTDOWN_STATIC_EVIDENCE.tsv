@@ -1,0 +1,38 @@
+key	offset_hex	status	evidence
+daily_destroy	0x29034f5	VERIFIED_STATIC	<Destroy> → _save_on_destroy
+debug_android_destroy	0x290bc58	VERIFIED_STATIC	<Destroy> → _on_destroy
+donvang_destroy	0x2920f82	VERIFIED_STATIC	<Destroy> → _save_on_destroy
+farm_destroy	0x293ac4c	VERIFIED_STATIC	<Destroy> → _save_on_destroy
+info_destroy	0x2970791	VERIFIED_STATIC	<Destroy> → _on_frame_destroy
+info_stop_heartbeat	0x2975417	VERIFIED_STATIC	TLMInfoTab.stop_heartbeat
+login_destroy	0x2b5e6c2	VERIFIED_STATIC	<Destroy> → _save_on_destroy
+party_destroy	0x2b7d341	VERIFIED_STATIC	<Destroy> → _on_destroy
+phoban_destroy	0x2b87356	VERIFIED_STATIC	<Destroy> → _on_destroy
+rao_destroy	0x2bd79e6	VERIFIED_STATIC	<Destroy> → _save_on_destroy
+start_destroy	0x2bf9bd4	VERIFIED_STATIC	<Destroy> → _save_on_destroy
+toiuu_destroy	0x2c021e2	VERIFIED_STATIC	<Destroy> → _save_on_destroy
+train_lsv_destroy	0x2c07a03	VERIFIED_STATIC	<Destroy> → _save_on_destroy
+shell_wm_delete	-	NOT_RECOVERED	no TLMMainApp WM_DELETE_WINDOW protocol handler recovered
+forced_quit_method	0x29754c9	VERIFIED_STATIC	TLMInfoTab._force_quit_app
+forced_second_strike_doc	0x2971460	VERIFIED_STATIC	second blocking heartbeat waits about 5s then destroys app
+forced_keep_forwarder_doc	0x29714de	VERIFIED_STATIC	independent forwarder stays running / not killed
+forced_os_exit	0x2971582	VERIFIED_STATIC	os._exit hard process termination
+tab_rebuild	0x28d2b68	VERIFIED_STATIC	TLMMainApp._rebuild_tab
+start_unstick_button_cmd	0x2bf9a99	VERIFIED_STATIC	_unstick_all_cmd
+start_unstick_lower	0x2bfb0c5	VERIFIED_STATIC	_dll_unstick_windows + [Reload] prefix
+start_unstick_shared	0x2bff8de	VERIFIED_STATIC	unstick_windows helper reference
+login_reload_worker	0x2b61128	VERIFIED_STATIC	_reload_worker
+login_reload_doc_step1	0x2b6113e	VERIFIED_STATIC	advance forwarder instance to next proxy
+login_reload_doc_step2	0x2b611b5	VERIFIED_STATIC	force-close currently tracked game window for that account
+login_reload_doc_step3	0x2b6120a	VERIFIED_STATIC	login immediately with new proxy without second advance
+info_update_exe	0x2974e43	VERIFIED_STATIC	update.exe
+info_update_confirm	0x2974e4f	VERIFIED_STATIC	askyesno
+info_update_close_games	0x2974f03	VERIFIED_STATIC	_close_all_game_windows
+info_update_stop_forwarders	0x2974f1c	VERIFIED_STATIC	stop_all_forwarder_processes
+info_update_get_link	0x2974f69	VERIFIED_STATIC	_get_update_link
+info_update_find_updater	0x2974f7b	VERIFIED_STATIC	_find_updater_exe
+info_update_spawn	0x2974fd7	VERIFIED_STATIC	Popen
+info_auto_update_method	0x2975a3c	VERIFIED_STATIC	TLMInfoTab.on_auto_update_click
+normal_forwarder_cleanup	-	EXPLICIT_UNKNOWN	no shell-wide normal-close policy recovered
+normal_destroy_order	-	EXPLICIT_UNKNOWN	exact ordering of child/tab Destroy handlers not source-visible
+start_unstick_microsequence	-	EXPLICIT_UNKNOWN	exact source-level DLL/window restore order not decompiled
