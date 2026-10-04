@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H04 — Train periodic-town scheduler and loop-minute timing audit.
+H05 — Train coordinates / movement-to-train and return-route execution audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1351,32 +1351,60 @@ H04 — Train periodic-town scheduler and loop-minute timing audit.
 - docs/train/H03_INVENTORY_FULL_FLOW.md
 - docs/train/H03_INVENTORY_FULL_MODEL.json
 
+## H04 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H04 artifact existed, so no completed Train work was repeated.
+- Rechecked the frozen original EXE first; inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- `FarmTab._farm_cycle` exact documentation is `Vòng lặp farm cho 1 acc: bán đồ → mua thuốc → tới → farm → chờ chu kỳ.`
+- Farm-cycle code-object locals directly include `cycle_start`, `condition`, `loop_minutes`, `elapsed`, and `sleep_time`.
+- The periodic-wait constant surface contains exact integer **60** next to the sleep-time portion. Together with the `Theo chu kỳ (phút)` UI and those locals, the target cycle duration is locked as `loop_minutes × 60` seconds.
+- Distinct `cycle_start` + `elapsed` + `sleep_time` surfaces prove Train uses a remaining-cycle wait after accounting for time already spent on the front-half cycle work, rather than intentionally adding a second full `loop_minutes` sleep after sell/buy/move/farm.
+- Exact source-level clamp/floor expression for the remaining sleep is not safely recoverable and remains UNKNOWN.
+- `cycle` uses the normal timer boundary without H03's bag-full early-stop predicate.
+- `full_bag_timer` and legacy `full_bag` use the same timed cycle wait but overlay nested `stop_bag_check → MI.is_full_bag`; bag fullness can end the wait early and transition to the town path.
+- H02/H03 `never` semantics are preserved: ordinary timer completion does not authorize automatic town return; lock_town routes force this no-town condition.
+- Normal timer expiry is a cycle boundary, not a Farm worker terminal state. No dedicated “timer done” terminal log was recovered; the outer per-account Farm loop proceeds to its next iteration.
+- User/per-account stop is cancellation-aware through `stop_check` / `hard_stop`, so Farm does not intentionally wait out the full periodic interval after a stop request.
+- Death/respawn is an asynchronous interrupt/reset boundary. The exact death monitor doc says it checks every **4s** and sets `respawn_event`; `_farm_cycle` directly contains `respawn_event`, `Đang hồi sinh`, and `_heal_at_death`. Detailed recovery remains later H scope.
+- Disconnect/reconnect is also asynchronous. Exact monitor doc locks: watchdog every **2s**, **3 consecutive ticks (~6s)** to confirm disconnect, set `halt` and stop the farm loop immediately, reconnect attempts with **30s common.active wait per attempt**, and successful reconnect sets `reconnect_ok` as a cycle reset.
+- Farm-cycle constants directly bind post-reconnect memory stabilization to `wait_memory_ready(timeout=45.0, need=3)`.
+- A literal **5** exists near the periodic constant surface, but it cannot safely be assigned as the scheduler sleep/check quantum because the same Farm module independently documents another feature with an exact 5-second pickup delay and Nuitka constants are module-deduplicated.
+- Therefore exact periodic sleep/check quantum remains explicit UNKNOWN.
+- Exact clock API for `cycle_start/elapsed` and exact invalid/min/max `loop_minutes` parsing/clamp remain UNKNOWN rather than guessed.
+- H03 inventory/full-bag/filter semantics were preserved unchanged; movement/town-route execution was intentionally deferred to H05.
+- B05 was cross-checked only after static extraction; no geometry work was performed.
+
+## H04 FILES
+- docs/tasks/H04.md
+- docs/train/H04_PERIODIC_TOWN_STATIC_EVIDENCE.tsv
+- docs/train/H04_PERIODIC_TOWN_FLOW.md
+- docs/train/H04_PERIODIC_TOWN_MODEL.json
+
 ## BLOCKERS
-None known for H04.
+None known for H05.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H03 verified FarmTab wiring/town/full-bag boundaries.
+- Preserve B05 Train visual baseline and H01–H04 verified FarmTab wiring/town/full-bag/periodic-timing boundaries.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
 - Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
 - Preserve H01 refresh 5000 ms and autosave 30000 ms.
 - Preserve H02 current return-town values never/full_bag_timer/cycle and default cycle/30.
-- Preserve H03 bag metric as occupied Site-10 slots; do not reinterpret it as free slots.
-- Do not invent the exact numeric Farm bag-full threshold or MI.is_full_bag read-failure mapping.
-- Keep Train pickup discard filtering separate from sell/shop logic.
-- Do not fold H04 periodic timing into movement/FSM tasks.
+- Preserve H03 bag metric as occupied Site-10 slots and its filter/no-town semantics.
+- Preserve H04 loop_minutes × 60 remaining-cycle timing semantics.
+- Do not invent the exact periodic sleep quantum, clamp expression, clock API, or loop-minute parse range.
+- Do not fold H05 movement/coordinate work into heal/reconnect/FSM tasks.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H04 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H04 only if still pending.
+3. Check GitHub first for any H05 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H05 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit only the periodic-town scheduler and common farm waiting loop: parse `loop_minutes`, elapsed/sleep_time behavior, sleep chunk size, cycle-mode timeout, how `full_bag_timer` overlays its early-stop predicate on the same wait, cancellation/reconnect/death exits, and exact state/log transitions when the wait completes normally.
-7. Recover exact timing constants directly from the FarmTab constant stream where safely bindable; keep any unbound timing values UNKNOWN.
-8. Preserve H03 inventory-full semantics and do not yet decode movement/town-route execution; H05+ owns coordinates/movement.
-9. Cross-check B05 only after static extraction; no geometry work is needed.
-10. Persist H04 evidence/report, update STATE.md, and advance to H05 only after verification.
+6. Audit Train coordinates and movement routing only: selected per-account Farm preset/manual saved coordinate resolution, near-target skip predicate, move-to-train path, navigation priority ordering, fast-travel/Truyền route use, return-route resolution, arrival verification, and fallback-to-walk behavior.
+7. Recover exact map/coordinate/tolerance/retry/timeout constants where safely bindable; keep any unbound values UNKNOWN.
+8. Preserve H02 lock_town and H04 timing boundaries; do not yet decode heal/death/reconnect behavior beyond movement interactions.
+9. Cross-check B05 only after static extraction; do not remeasure geometry.
+10. Persist H05 evidence/report, update STATE.md, and advance to H06 only after verification.
