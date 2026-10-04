@@ -1,0 +1,63 @@
+key	offset_hex	status	evidence
+targets_lock	0x2b7d112	VERIFIED_STATIC	_targets_lock
+last_targets	0x2b7d187	VERIFIED_STATIC	_last_targets
+aggregate_after_party	0x2b7fd08	VERIFIED_STATIC	_run_worker references _after_party_action after child-thread aggregate
+aggregate_doc	0x2b7fd30	VERIFIED_STATIC	after all cluster threads complete -> post-party + UI reset once
+phoban_missing_ref_log	0x2b80182	VERIFIED_STATIC	Sau khi party=Phó bản nhưng chưa nối phoban_tab
+phoban_running_skip	0x2b801c2	VERIFIED_STATIC	Phó bản đang chạy rồi — bỏ qua kích hoạt
+phoban_activate_log	0x2b80205	VERIFIED_STATIC	Sau khi party: kích hoạt Phó bản
+phoban_error_log	0x2b80267	VERIFIED_STATIC	kích hoạt phó bản lỗi
+mode_train	0x2b80292	VERIFIED_STATIC	train
+mode_train_lsv	0x2b80299	VERIFIED_STATIC	train_lsv
+mode_don	0x2b802a4	VERIFIED_STATIC	don
+ref_train	0x2b802ab	VERIFIED_STATIC	farm_tab_ref
+label_train	0x2b802b9	VERIFIED_STATIC	Train
+ref_train_lsv	0x2b802c2	VERIFIED_STATIC	train_lsv_tab_ref
+label_train_lsv	0x2b802d5	VERIFIED_STATIC	Train LSV
+ref_don	0x2b802e2	VERIFIED_STATIC	donvang_tab_ref
+label_don	0x2b802f3	VERIFIED_STATIC	Dồn vàng
+generic_missing_ref_log	0x2b80300	VERIFIED_STATIC	Sau khi party=<mode> nhưng chưa nối tab
+generic_empty_targets_log	0x2b80331	VERIFIED_STATIC	không có acc nào vừa party
+generic_activate_log	0x2b80354	VERIFIED_STATIC	Sau khi party: kích hoạt <label> cho <N>
+ensure_refresh	0x2b80381	VERIFIED_STATIC	_ensure_refresh nested post-party surface
+wait_dispatch	0x2b803c9	VERIFIED_STATIC	_wait_and_dispatch_after_party
+after_action_doc	0x2b80400	VERIFIED_STATIC	phoban whole-tab; train/train_lsv/don per just-partied account; wait no-op
+after_phoban_main	0x2b8052a	VERIFIED_STATIC	_after_phoban_main
+select_tab_helper	0x2b8053e	VERIFIED_STATIC	_select_tab_by_text
+select_tab_doc	0x2b80577	VERIFIED_STATIC	select notebook tab by visible label; return True if found
+phoban_label	0x2b805b8	VERIFIED_STATIC	Phó bản
+after_phoban_doc	0x2b805c4	VERIFIED_STATIC	main-thread switch to Phó Bản tab + start its process
+dest_rows	0x2b80605	VERIFIED_STATIC	_acc_rows
+dest_toggle	0x2b80610	VERIFIED_STATIC	_toggle_single_farm
+missing_toggle_log	0x2b80625	VERIFIED_STATIC	destination tab lacks _toggle_single_farm
+match_hwnd_map	0x2b80656	VERIFIED_STATIC	hwnd/by_hwnd
+match_name_map	0x2b80667	VERIFIED_STATIC	lbl_name/by_name
+rows_empty_log	0x2b8067a	VERIFIED_STATIC	rows empty; hidden/permission diagnostic
+name_fallback_log	0x2b806de	VERIFIED_STATIC	match by name: Party hwnd -> destination hwnd
+fresh_map	0x2b80714	VERIFIED_STATIC	_fresh_map
+fresh_resolve_log	0x2b80720	VERIFIED_STATIC	match after fresh resolve; new hwnd
+missing_target_log	0x2b80757	VERIFIED_STATIC	not found in destination tab -> skip
+farming_state	0x2b80795	VERIFIED_STATIC	_farming_acc
+already_running_log	0x2b807a3	VERIFIED_STATIC	already running destination mode
+toggle_success_log	0x2b807ba	VERIFIED_STATIC	activate <label> OK
+dispatch_doc	0x2b807d0	VERIFIED_STATIC	main-thread per-account start; HWND first then name; use found-row HWND
+readiness_want	0x2b8089e	VERIFIED_STATIC	want
+readiness_range	0x2b808a4	VERIFIED_STATIC	serialized 0/20/1 range
+readiness_issubset	0x2b808ab	VERIFIED_STATIC	issubset
+readiness_sleep	0x2b808b5	VERIFIED_STATIC	sleep
+readiness_sleep_1s	0x2b808bd	VERIFIED_STATIC	serialized float 1.0
+readiness_doc	0x2b80902	VERIFIED_STATIC	background wait; select hidden tab then max 20s; read only row hwnds; dispatch on main
+after_dispatch_main	0x2b80a2d	VERIFIED_STATIC	_after_dispatch_main
+qual_after_action	0x2b8190b	VERIFIED_STATIC	PartyTab._after_party_action
+qual_select_tab	0x2b81929	VERIFIED_STATIC	PartyTab._select_tab_by_text
+qual_after_phoban	0x2b81947	VERIFIED_STATIC	PartyTab._after_phoban_main
+qual_after_dispatch	0x2b81964	VERIFIED_STATIC	PartyTab._after_dispatch_main
+qual_wait_dispatch	0x2b81983	VERIFIED_STATIC	PartyTab._wait_and_dispatch_after_party
+dispatch_maps_locals	0x2b81c32	VERIFIED_STATIC	self/tab/label/targets/rows/toggle/by_hwnd/by_name/by_lower/.../used_hwnd
+after_action_locals	0x2b81ccf	VERIFIED_STATIC	self/mode/phoban/_dispatch/ref_attr/label/tab/targets/_ensure_refresh
+wait_target_locals	0x2b825e5	VERIFIED_STATIC	self/tab/label/targets/_time/want/nm/hwnd/_rows/have; target handoff is name+hwnd
+aggregate_result_collection	-	NOT_RECOVERED	_run_worker has threads/cancels/join but no result/success aggregation surface
+ordinary_cluster_failure_success_gate	-	NOT_RECOVERED	no all-success gate before aggregate post-party action
+global_cancel_post_action_guard	-	EXPLICIT_UNKNOWN	self._cancel attribute branch may exist without distinct result locals; static readable evidence insufficient
+last_targets_reset_merge_microorder	-	EXPLICIT_UNKNOWN	_targets_lock/_last_targets prove aggregate store; exact reset/append statements not source-visible
+fresh_map_exact_source_expression	-	EXPLICIT_UNKNOWN	fresh re-resolution proven; exact dictionary construction not source-visible
