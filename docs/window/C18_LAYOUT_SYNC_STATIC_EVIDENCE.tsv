@@ -1,0 +1,28 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+ui_layout_callback	0x2bf9f5b	VERIFIED_STATIC	_toggle_layout
+ui_layout_green	0x2bf9f6b	VERIFIED_STATIC	#388e3c
+ui_layout_button	0x2bf9f7e	VERIFIED_STATIC	btn_layout
+state_layout_active	0x2bf9652	VERIFIED_STATIC	layout_active
+state_sync_layout_running	0x2bf966f	VERIFIED_STATIC	sync_layout_running
+state_sync_loop_id	0x2bf965f	VERIFIED_STATIC	sync_loop_id
+state_grid_slots	0x2bf9683	VERIFIED_STATIC	_grid_slots
+stop_sync_loop	0x2bfd087	VERIFIED_STATIC	_stop_sync_loop
+layout_label_off	0x2bfd09a	VERIFIED_STATIC	Đồng bộ các cửa sổ
+layout_green_runtime	0x2bfd0b5	VERIFIED_STATIC	#388e3c
+layout_label_on	0x2bfd0c3	VERIFIED_STATIC	Đồng bộ các cửa sổ
+layout_red_runtime	0x2bfd0dd	VERIFIED_STATIC	#f44336
+layout_on_log	0x2bfd0ea	VERIFIED_STATIC	[LAYOUT] ON layout_active=... sync_layout_running=...
+layout_worker	0x2bfd11d	VERIFIED_STATIC	_layout_worker
+auto_stop_sync	0x2bfd12d	VERIFIED_STATIC	_auto_stop_sync
+arrange_grid	0x2bfd13e	VERIFIED_STATIC	_arrange_grid
+auto_stop_doc	0x2bfd14d	VERIFIED_STATIC	Tắt cả layout sync và input sync khi quá limit
+refresh_cache	0x2bfd184	VERIFIED_STATIC	worker-thread cached window list; does not block main thread
+get_system_metrics	0x2bfd1a3	VERIFIED_STATIC	GetSystemMetrics in grid arranger
+grid_master_doc	0x2bfd206	VERIFIED_STATIC	master is position 0/top-left; other windows follow
+sync_windows_loop_ref	0x2bfcef8	VERIFIED_STATIC	_sync_windows_loop
+mode_contract	0x2bfae86	VERIFIED_STATIC	sync mode auto-enables layout+input; auto/manual disables both
+limit_warning	0x2bfcf9e	VERIFIED_STATIC	over-limit warning for synchronization
+layout_worker_cadence	-	EXPLICIT_UNKNOWN	exact cadence not source-visible
+layout_initial_value	-	EXPLICIT_UNKNOWN	exact initial assignment not source-visible
+master_change_layout_auto_off	-	NOT_PROVEN	original master-change doc only mentions input sync
+stop_order	-	EXPLICIT_UNKNOWN	exact cancel/stop ordering in every branch not recovered
