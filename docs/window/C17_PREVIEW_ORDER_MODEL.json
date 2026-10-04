@@ -1,0 +1,30 @@
+{
+  "task": "C17",
+  "status": "VERIFIED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS",
+  "scope": "embedded/main preview",
+  "controls": {
+    "left": {
+      "symbol": "◀",
+      "delta": -1,
+      "meaning": "one logical position earlier"
+    },
+    "right": {
+      "symbol": "▶",
+      "delta": 1,
+      "meaning": "one logical position later"
+    }
+  },
+  "callback": "_move_preview_item",
+  "order_state": "_preview_order",
+  "key": "source HWND",
+  "refresh_preserves_order": true,
+  "column_layout_independent": true,
+  "boundary_behavior": "UNKNOWN",
+  "new_hwnd_insertion": "UNKNOWN",
+  "detached_preview": {
+    "arrow_controls_recovered": false,
+    "shared_order_propagation": "UNKNOWN"
+  },
+  "persistence_across_restart": "NOT_RECOVERED",
+  "next_task": "C18 — đồng bộ các cửa sổ"
+}
