@@ -1,0 +1,33 @@
+{
+  "task": "C16",
+  "status": "VERIFIED_WITH_EXPLICIT_POST_CLOSE_REFRESH_UNKNOWN",
+  "button": {
+    "text": "Đóng hết",
+    "callback": "_close_all_preview_windows",
+    "wrapper": "_close_all"
+  },
+  "shared_utility": {
+    "name": "close_all_game_windows",
+    "module": "utils.py",
+    "reusable": true
+  },
+  "game_close": {
+    "source": "get_game_windows",
+    "validate": "IsWindow",
+    "mechanism": "PostMessage",
+    "message": "WM_CLOSE",
+    "force_kill_main_game_process": false,
+    "semantic_sort": "NOT_PRESENT"
+  },
+  "crash_handler_cleanup": {
+    "executable": "UnityCrashHandler64.exe",
+    "separate_cleanup": true
+  },
+  "post_close": {
+    "eventual_discovery_cleanup": true,
+    "eventual_preview_rebuild": true,
+    "direct_immediate_refresh_call": "UNKNOWN"
+  },
+  "confirmation": "NOT_RECOVERED",
+  "next_task": "C17 — chuyển preview trái/phải"
+}
