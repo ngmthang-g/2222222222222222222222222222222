@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G04 — Party grid-layout relationship audit.
+G05 — Party preview relationship audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1026,20 +1026,46 @@ G04 — Party grid-layout relationship audit.
 - docs/party/G03_PARTY_CHARACTER_STATE_FLOW.md
 - docs/party/G03_PARTY_CHARACTER_STATE_MODEL.json
 
+## G04 VERIFIED RESULTS
+- Before doing new work, GitHub was checked exactly as requested. G01–G03 artifacts and completion commits are present and STATE.md already marked them complete; no G04 files existed, so completed work was not repeated.
+- Frozen archive and inner EXE were rechecked first: archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Party does NOT own or invoke a second physical game-window grid engine. No Party references were recovered for `_arrange_grid`, `_move_windows_offset`, `_auto_tile_windows`, `_layout_worker`, `_sync_windows_loop`, `grid_cols` or `grid_rows`.
+- Party's shared Start call remains `start_tab.get_windows()` for ready/member discovery. No direct Party edge to Start arrange/tile entry points was recovered.
+- Party `grid` / `grid_remove` and `_relayout_ready_list` are Tk UI geometry only. The exact Party doc says ready accounts are laid out 3 per UI row and selected accounts are hidden.
+- The six group slots / 2×3 Combobox arrangement is Party UI/member grouping, not physical desktop window positions.
+- No evidence maps Party logical group order to C06 grid slots, Auto RoleName sort or Xếp-lưới row/column order.
+- No evidence equates a Party group leader with the Start subsystem's master HWND. These concepts remain independent.
+- One direct physical-window geometry operation exists: `PartyTab._click_create_team` contains leader HWND local `lhwnd`, shared `resize_window`, and exact encoded integers 1366 and 768.
+- Raw EXE bytes immediately after `resize_window` are `6c d6 0a` (1366) and `6c 80 06` (768), and the exact Party method doc says the leader creates the team by UI click with game at 1366x768.
+- This resize applies to the leader/create-team HWND, not all Party members. No Party loop resizing every member/window was recovered.
+- C06's already-verified shared `resize_window` semantics apply: normalize window state, resize with SetWindowPos, preserve x/y through SWP_NOMOVE, do not activate, and do not alter z-order through the resize helper itself.
+- Therefore the 1366×768 resize is a coordinate-system precondition for later fixed Party create-team clicks, not Party grid/tile arrangement.
+- B04 was cross-checked only after EXE extraction and requires no change; it shows Party UI grouping, not physical desktop game-window layout.
+- Full create-team click sequencing remains deferred to the later Party action-button task.
+
+## G04 FILES
+- docs/tasks/G04.md
+- docs/party/G04_PARTY_LAYOUT_STATIC_EVIDENCE.tsv
+- docs/party/G04_PARTY_LAYOUT_FLOW.md
+- docs/party/G04_PARTY_LAYOUT_MODEL.json
+
 ## BLOCKERS
-None known for G04.
+None known for G05.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Preserve G01 Party UI/control ownership, G02 HWND+PID identity and G03 RoleName/RoleID/TeamID separation.
+- Preserve G01 Party UI/control ownership, G02 HWND+PID identity, G03 RoleName/RoleID/TeamID separation and G04 layout ownership boundary.
 - Do not add a Party-local EnumWindows scanner.
+- Do not duplicate Start physical grid/Auto/Xếp-lưới algorithms inside PartyTab.
+- Do not treat Party 2×3 member slots as physical desktop window positions.
+- Do not equate Party leader with Start master HWND without direct new evidence.
+- Preserve the exact leader create-team 1366×768 resize precondition; do not globalize it to all Party members.
 - Do not merge RoleName display identity with RoleID action identity.
 - Do not treat TeamID None/read-error as outside-team success.
 - Do not invent a numeric invalid RoleID sentinel.
 - Do not add Party follow/pick checkboxes; they are not active PartyTab UI in this frozen EXE.
-- Do not move preview/layout/input-sync ownership into PartyTab without new direct evidence.
 - Preserve explicit unknowns instead of guessing.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
@@ -1048,11 +1074,11 @@ None known for G04.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute G04 only.
-4. Inspect the frozen original EXE first.
-5. Audit Party's relationship to grid/window arrangement without redoing C06/C07/C08: search PartyTab for shared layout/arrange/move/resize entry points, determine whether Party ever invokes them directly, and if so recover the exact HWND set/order passed.
-6. Separate Party group ordering from physical game-window layout ordering; do not assume the six group Combobox slots imply window positions.
-7. Reuse the already-verified Start/window layout contracts for any shared calls; do not duplicate grid algorithms inside Party.
-8. If no Party-owned or Party-invoked grid action exists, record that negative result explicitly rather than inventing one.
-9. Cross-check B04 only after static extraction; screenshots do not prove physical window arrangement.
-10. Persist G04 evidence/report, update STATE.md, and advance only after verification.
+3. Check GitHub first for any G05 artifacts/commits created since the previous turn; if complete and verified, do not redo them.
+4. Execute G05 only if still pending.
+5. Inspect the frozen original EXE first.
+6. Audit Party's relationship to preview without redoing C03/C09/C14: search PartyTab for preview/DWM/thumbnail/activation/update references and determine whether Party owns, creates or directly manipulates preview surfaces.
+7. Distinguish Party's use of shared HWND/member data from actual Start preview ownership.
+8. If Party only relies on shared Start preview/window infrastructure and has no Party preview call edge, record that negative result explicitly.
+9. Do not infer preview behavior from B04 black/empty UI areas; cross-check screenshots only after static extraction.
+10. Persist G05 evidence/report, update STATE.md, and advance only after verification.
