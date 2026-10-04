@@ -1,0 +1,58 @@
+key	offset_hex	status	evidence
+selected_tuple_doc	0x2b60755	VERIFIED_STATIC	checked rows -> (row_index, tk, mk, captcha_mode, proxy)
+missing_credentials	0x2b6085b	VERIFIED_STATIC	Dòng thiếu tài khoản hoặc mật khẩu
+row_busy_button	0x2b609aa	VERIFIED_STATIC	Đang login dòng ... captcha state
+single_worker	0x2b609d0	VERIFIED_STATIC	_single_login_worker
+single_worker_doc	0x2b60a0d	VERIFIED_STATIC	one-row login; reads captcha mode; asynchronous worker
+max_login_retries	0x2b60bdb	VERIFIED_STATIC	MAX_LOGIN_RETRIES symbol
+launch_one_window	0x2b60bf6	VERIFIED_STATIC	_launch_one_window
+login_click_worker	0x2b60c33	VERIFIED_STATIC	_login_click_worker
+worker_username	0x2b60c48	VERIFIED_STATIC	tk_val
+worker_password	0x2b60c50	VERIFIED_STATIC	mk_val
+mark_row_online_call	0x2b60cf2	VERIFIED_STATIC	_mark_row_online
+record_login_time	0x2b60d4e	VERIFIED_STATIC	_record_login_time
+force_close_failure	0x2b60d62	VERIFIED_STATIC	_force_close_window
+single_worker_retry_doc	0x2b60e14	VERIFIED_STATIC	one-account worker launch+login with retry and Tk-after UI update
+online_mark_doc	0x2b62204	VERIFIED_STATIC	remember successful HWND, paint row green, save runtime state
+online_proxy_doc	0x2b62250	VERIFIED_STATIC	persist row proxy for monitor/reload continuity
+max_parallel_login	0x2b63c22	VERIFIED_STATIC	MAX_PARALLEL_LOGIN
+multi_account_doc	0x2b63cda	VERIFIED_STATIC	LAUNCH TUẦN TỰ + LOGIN SONG SONG
+multi_account_semaphore	0x2b63c17	VERIFIED_STATIC	Semaphore
+wait_correct_pid_window	0x2b6441b	VERIFIED_STATIC	find_main_window_by_pid
+wait_hwnd_timeout	0x2b64434	VERIFIED_STATIC	no window after 25s
+login_start_log	0x2b660ca	VERIFIED_STATIC	begin login for target HWND/account
+login_window_gone	0x2b660fe	VERIFIED_STATIC	window does not exist
+check_update_pixel	0x2b661ab	VERIFIED_STATIC	check_pixel
+printwindow_backend	0x2b661b8	VERIFIED_STATIC	printwindow
+update_pixel_key	0x2b661ce	VERIFIED_STATIC	login/update
+update_popup_log	0x2b661ff	VERIFIED_STATIC	detected update popup; click to close
+update_click_xy	0x2b6624a	VERIFIED_STATIC	serialized tuple decodes to (630,457)
+login_multipixel	0x2b66277	VERIFIED_STATIC	check_multipixel
+login1_key	0x2b66296	VERIFIED_STATIC	login/login1
+login2_key	0x2b662a7	VERIFIED_STATIC	login/login2
+login_screen_timeout	0x2b662af	VERIFIED_STATIC	timeout after 100s
+username_xy	0x2b66363	VERIFIED_STATIC	serialized tuple decodes to (613,302)
+press_at_call	0x2b66389	VERIFIED_STATIC	press_at
+password_xy	0x2b663ba	VERIFIED_STATIC	serialized tuple decodes to (573,362)
+login_button_xy	0x2b66440	VERIFIED_STATIC	serialized tuple decodes to (684,506)
+vao_tro_choi_loop_bound	0x2b664a3	STRONG_STATIC	encoded integer 150 adjacent to retry loop/failure text
+vao_tro_choi_key	0x2b66531	VERIFIED_STATIC	login/vaoTroChoi
+vao_tro_choi_xy	0x2b66544	VERIFIED_STATIC	serialized tuple decodes to (684,450)
+await_active	0x2b66666	VERIFIED_STATIC	await_pixel
+active_timeout	0x2b66672	VERIFIED_STATIC	encoded timeout 30
+active_section	0x2b66676	VERIFIED_STATIC	common
+active_key	0x2b6667e	VERIFIED_STATIC	active
+active_timeout_log	0x2b666c5	VERIFIED_STATIC	timeout waiting common.active
+login_complete_log	0x2b66739	VERIFIED_STATIC	completed login for target window
+login_sequence_doc	0x2b6677d	VERIFIED_STATIC	login sequence doc with exact username/password/Login coordinates
+wait_all_threads_doc	0x2b66922	VERIFIED_STATIC	wait all threads then update UI
+reset_ui_call	0x2b668e0	VERIFIED_STATIC	_login_reset_ui
+mouse_background_doc	0x2b798e3	VERIFIED_STATIC	background click using DLL sync protocol
+mouse_window_relative_doc	0x2b799a9	VERIFIED_STATIC	click coordinates packed/window-relative target
+mouse_cursor_no_move	0x2b7accf	VERIFIED_STATIC	coordinates window-relative; cursor does not move
+keyboard_press_at_doc	0x2b5da7b	VERIFIED_STATIC	press_at sends WM_CHAR via Unity activation; no DLL dependency
+multipixel_printwindow_doc	0x2b9642e	VERIFIED_STATIC	one PrintWindow capture; all configured pixels must match
+max_login_retries_value	-	EXPLICIT_UNKNOWN	exact numeric value not recovered
+max_parallel_login_value	-	EXPLICIT_UNKNOWN	exact numeric value not recovered
+vao_tro_choi_poll_delay	-	EXPLICIT_UNKNOWN	exact delay between 150 checks not recovered
+per_step_delay_jitter	-	EXPLICIT_UNKNOWN	exact delay/jitter values for click_at/press_at calls not source-decompiled
