@@ -1,0 +1,46 @@
+key	offset_hex	status	evidence
+farm_get_bag_call	0x29401d1	VERIFIED_STATIC	get_bag
+farm_get_bag_slots_field	0x29401dc	VERIFIED_STATIC	slots
+farm_get_bag_doc	0x29401e6	VERIFIED_STATIC	Số ô túi đồ đang dùng (Site 10) — None nếu đọc lỗi (giữ giá trị cũ)
+shared_read_bag	0x2b6a802	VERIFIED_SHARED_STATIC	read_bag
+shared_get_bag	0x2b6a828	VERIFIED_SHARED_STATIC	get_bag
+shared_get_bag_dict_slots	0x2b6a870	VERIFIED_SHARED_STATIC	slots
+shared_get_bag_dict_distinct	0x2b6a878	VERIFIED_SHARED_STATIC	distinct
+shared_get_bag_dict_total_qty	0x2b6a881	VERIFIED_SHARED_STATIC	total_qty
+shared_get_bag_dict_non_bag	0x2b6a891	VERIFIED_SHARED_STATIC	non_bag
+shared_get_bag_dict_info	0x2b6a899	VERIFIED_SHARED_STATIC	info
+shared_get_bag_doc	0x2b6a8a0	VERIFIED_SHARED_STATIC	Tổng hợp túi Site 10 + enrich tên. Trả dict hoặc None.
+filter_keys	0x29413fa	VERIFIED_STATIC	get_pickup_preset_keys
+filter_activity	0x2941412	VERIFIED_STATIC	bag_filter
+filter_state	0x2941428	VERIFIED_STATIC	Đang lọc đồ
+filter_worker	0x294143b	VERIFIED_STATIC	discard_for_activity
+filter_kind	0x2941451	VERIFIED_STATIC	train
+filter_cancel	0x2941460	VERIFIED_STATIC	stop_check
+filter_error_log	0x294146c	VERIFIED_STATIC	lọc lỗi
+filter_doc	0x2941490	VERIFIED_STATIC	Train pickup preset filter shared by all town/full-bag paths; returns slots_after int or None
+filter_slots_after_doc	0x2941523	VERIFIED_STATIC	slots_after int or None = keep-all/error
+never_full_log_prefix	0x29418e0	VERIFIED_STATIC	túi đầy (
+never_full_log_suffix	0x29418f4	VERIFIED_STATIC	ô, Không về) → lọc
+filter_before_town_call	0x2941911	VERIFIED_STATIC	_filter_before_town
+never_after_filter_log	0x2941926	VERIFIED_STATIC	lọc xong vẫn đầy (
+never_stay_log	0x2941942	VERIFIED_STATIC	ô) → ở lại (Không về)
+bag_mode_current	0x2941966	VERIFIED_STATIC	full_bag_timer
+bag_mode_legacy	0x2941976	VERIFIED_COMPATIBILITY	full_bag
+bag_stop_predicate	0x2941980	VERIFIED_STATIC	stop_bag_check
+bag_stop_qualname	0x2941990	VERIFIED_STATIC	FarmTab._farm_cycle.<locals>.stop_bag_check
+bag_helper_alias	0x29419bd	VERIFIED_STATIC	MI
+bag_full_helper	0x29419c1	VERIFIED_STATIC	is_full_bag
+bag_town_log	0x29419ce	VERIFIED_STATIC	ô) → về thành
+farm_cycle_local_threshold	0x2944dbd	VERIFIED_STATIC	threshold local in FarmTab._farm_cycle metadata
+farm_cycle_local_bag	0x2944dc8	VERIFIED_STATIC	bag
+farm_cycle_local_slots	0x2944dcd	VERIFIED_STATIC	slots
+farm_cycle_condition	0x2944d5c	VERIFIED_STATIC	condition
+farm_cycle_is_full_local	0x2944d67	VERIFIED_STATIC	is_full_bag
+bag_filter_module	0x28d5daf	VERIFIED_SHARED_STATIC	.bag_filter
+bag_filter_reader_none	0x28d60a3	VERIFIED_SHARED_STATIC	Khong doc duoc memory (reader None)
+bag_filter_discard_doc	0x28d6532	VERIFIED_SHARED_STATIC	shared filter/discard logic; empty rules do nothing
+bag_filter_empty_rules_doc	0x28d6572	VERIFIED_SHARED_STATIC	Mac dinh KHONG vut gi: rules rong -> zero/no scan/no packet
+current_threshold_config_key	-	NOT_RECOVERED	No current Farm settings/UI key for bag-full threshold
+exact_threshold_numeric	-	EXPLICIT_UNKNOWN	FarmTab local threshold exists but readable static constant stream does not safely bind a numeric value
+is_full_bag_read_error_mapping	-	EXPLICIT_UNKNOWN	Internal helper failure mapping not exposed strongly enough
+periodic_scheduler	-	DEFERRED_H04	Not decoded in H03
