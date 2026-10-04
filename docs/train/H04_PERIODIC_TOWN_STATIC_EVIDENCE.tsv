@@ -1,0 +1,36 @@
+key	offset_hex	status	evidence
+farmcycle_qualname	0x2943cb6	VERIFIED_STATIC	FarmTab._farm_cycle
+farmcycle_doc	0x2941a08	VERIFIED_STATIC	Vòng lặp farm cho 1 acc: bán đồ → mua thuốc → tới → farm → chờ chu kỳ.
+local_cycle_start	0x2944d23	VERIFIED_STATIC	cycle_start
+local_condition	0x2944d5c	VERIFIED_STATIC	condition
+local_loop_minutes	0x2944dd4	VERIFIED_STATIC	loop_minutes
+local_elapsed	0x2944de2	VERIFIED_STATIC	elapsed
+local_sleep_time	0x2944deb	VERIFIED_STATIC	sleep_time
+minute_to_second_literal	0x29419e4	VERIFIED_STATIC	integer 60 in periodic wait surface
+bag_mode_current	0x2941966	REUSED_H03	full_bag_timer
+bag_mode_legacy	0x2941976	REUSED_H03	full_bag
+bag_stop_predicate	0x2941980	REUSED_H03	stop_bag_check
+bag_full_helper	0x29419c1	REUSED_H03	MI.is_full_bag
+bag_town_transition_log	0x29419ce	REUSED_H03	... ô) → về thành
+local_is_dungeon	0x2944d37	VERIFIED_STATIC	is_dungeon
+hard_stop_surface	0x29417a9	VERIFIED_STATIC	hard_stop
+respawn_event_surface	0x29440cb	VERIFIED_STATIC	respawn_event code-object/local surface
+respawn_state	0x2941787	VERIFIED_STATIC	Đang hồi sinh
+heal_after_death	0x2941799	VERIFIED_STATIC	_heal_at_death
+halt_surface	0x29417e6	VERIFIED_STATIC	halt
+reconnect_state	0x29417ec	VERIFIED_STATIC	Chờ kết nối lại
+reconnect_ok	0x2941805	VERIFIED_STATIC	reconnect_ok
+wait_memory_ready_1	0x2941820	VERIFIED_STATIC	wait_memory_ready
+wait_memory_ready_2	0x2941833	VERIFIED_STATIC	wait_memory_ready
+memory_ready_timeout	0x2941848	VERIFIED_STATIC	float 45.0
+memory_ready_need	0x2941851	VERIFIED_STATIC	integer 3
+memory_ready_keywords	0x2941855	VERIFIED_STATIC	timeout / need
+diaphu_monitor_doc	0x29411a6	VERIFIED_STATIC	monitor every 4s; respawn MapID87/HP0 latch behavior
+disconnect_monitor_doc	0x2941c03	VERIFIED_STATIC	watchdog every 2s; 3 consecutive ticks ~6s; halt cycle; reconnect; common.active 30s/attempt; reconnect_ok cycle reset
+literal_5_near_wait	0x29419f2	UNBOUND_CONSTANT	integer 5 exists but cannot be bound to scheduler quantum because module deduplicates constants and pickup helper independently documents sleep 5s
+pickup_sleep5_doc	0x293ff93	VERIFIED_CONFLICTING_BINDING	independent feature explicitly uses sleep 5s
+exact_wait_quantum	-	EXPLICIT_UNKNOWN	No safe source-level binding
+exact_clock_api	-	EXPLICIT_UNKNOWN	cycle_start/elapsed proven; exact time API not safely bound
+exact_sleep_clamp	-	EXPLICIT_UNKNOWN	remaining-cycle semantics proven; exact max/min expression not safely bound
+loop_minutes_parse_range	-	EXPLICIT_UNKNOWN	default 30 known; exact invalid/min/max behavior not recovered
+movement_execution	-	DEFERRED_H05	Not decoded in H04
