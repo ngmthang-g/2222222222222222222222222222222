@@ -51,6 +51,7 @@ IN_PROGRESS
 - C14 VERIFIED_WITH_EXPLICIT_EMBEDDED_VISIBILITY_UNKNOWN
 - C15 VERIFIED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN
 - C16 VERIFIED_WITH_EXPLICIT_POST_CLOSE_REFRESH_UNKNOWN
+- C17 VERIFIED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -112,7 +113,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C17 — chuyển preview trái/phải.
+C18 — đồng bộ các cửa sổ.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -280,8 +281,14 @@ C17 — chuyển preview trái/phải.
 - docs/window/C16_CLOSE_ALL_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C17 VERIFIED RESULTS
+- Preview arrows reorder the embedded preview list.
+- Left uses delta -1; right uses delta +1.
+- Order state is keyed by source HWND and survives refresh/rebuild.
+- Boundary behavior and detached-order propagation remain explicit UNKNOWN.
+
 ## BLOCKERS
-None known for C17.
+None known for C18.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -295,8 +302,8 @@ None known for C17.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C17 only.
-4. Recover the preview ◀/▶ ordering controls from the original EXE.
-5. Verify delta semantics, HWND-based order persistence, rebuild interaction, boundary handling and detached-preview relationship.
-6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C17 evidence/report.
-7. Advance to C18 only after C17 is verified.
+3. Execute C18 only.
+4. Recover the layout synchronization control from the original EXE.
+5. Verify its toggle state, worker loop, grid application, window-limit guard, and start/stop lifecycle.
+6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C18 evidence/report.
+7. Advance to C19 only after C18 is verified.
