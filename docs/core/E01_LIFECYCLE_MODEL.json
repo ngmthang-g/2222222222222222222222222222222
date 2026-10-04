@@ -1,0 +1,56 @@
+{
+  "task": "E01",
+  "status": "VERIFIED_WITH_EXPLICIT_NORMAL_CLOSE_ORDER_AND_SPLASH_ORDER_UNKNOWNS",
+  "entry": {
+    "normal_gui": true,
+    "special_forwarder_branch": {
+      "flag": "--forwarder",
+      "mode_flag": "--mode"
+    }
+  },
+  "startup": [
+    "debug_logger/fault diagnostics",
+    "thread exception hook",
+    "single-instance mutex",
+    "Tk root",
+    "TLMMainApp shell",
+    "Notebook/tab construction",
+    "CPU monitor",
+    "Info startup API",
+    "plan/license/permission application",
+    "heartbeat",
+    "selected-tab refresh lifecycle",
+    "splash/root visibility contract",
+    "Tk mainloop"
+  ],
+  "shell_class": "TLMMainApp",
+  "possible_tabs": [
+    "TLMStartTab",
+    "LoginTab",
+    "PartyTab",
+    "FarmTab",
+    "TrainLsvTab",
+    "EmuFarmTab",
+    "PhoBanTab",
+    "DailyTab",
+    "DonVangTab",
+    "RaoTab",
+    "ToiuuTab",
+    "TLMInfoTab",
+    "ProxyTab",
+    "DebugTab",
+    "DebugAndroidTab"
+  ],
+  "shutdown": {
+    "normal": "Tk/widget Destroy hooks; exact order UNKNOWN",
+    "forced": "Info heartbeat enforcement -> destroy GUI -> os._exit",
+    "forced_forwarder_child_killed": false
+  },
+  "unknowns": [
+    "exact root/TLMMainApp/show_splash/close_splash instruction order",
+    "exact normal user-close cleanup order",
+    "exact duplicate-instance GetLastError comparison/message",
+    "final root geometry/style metrics deferred to E02"
+  ],
+  "next_task": "E02 — Tk root/window creation"
+}
