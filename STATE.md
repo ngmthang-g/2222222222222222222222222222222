@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G07 — Party sync-mouse relationship audit.
+G08 — Party configuration audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1090,17 +1090,40 @@ G07 — Party sync-mouse relationship audit.
 - docs/party/G06_PARTY_KEYBOARD_SYNC_FLOW.md
 - docs/party/G06_PARTY_KEYBOARD_SYNC_MODEL.json
 
+## G07 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; G01–G06 were already complete and no G07 artifact existed, so completed work was not repeated.
+- Rechecked the frozen Party implementation range first against the same locked inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Static Party-range scan found no synchronized-mouse ownership: no `mouse.Listener`, `_on_master_click`, `_on_master_scroll`, `_on_master_move`, `_sync_worker`, `_do_down`, `_do_up`, `_slave_client`, `send_scroll`, `send_move_slave`, `WindowFromPoint`, `GetAncestor`, `ScreenToClient` or `GetClientRect`.
+- Party also has no `_toggle_input`, `input_active`, `_sync_keepalive` or `_sync_locked` surface and no direct call edge into Start mouse-sync lifecycle.
+- C19 remains authoritative for synchronized mouse input: selected Start master HWND → mouse.Listener → click/scroll/move handlers → client-coordinate conversion → size-aware master/slave scaling → Start-managed slaves.
+- No Party edge maps a Party leader to Start mouse master, or Party group members to Start mouse slaves.
+- Party does contain direct targeted input helpers. Frozen Party evidence contains `check_pixel` at about `0x2b7f0bf`, `click_at` at about `0x2b7f0db`, `resize_window`, and target `window_hwnd`.
+- The create-team fallback uses fixed-coordinate UI actions on the intended leader/create-team HWND, including the recovered `(391,683)` and `(34,462)` clicks after the corresponding pixel checks.
+- That Party fallback is not synchronized mouse replay. It is one-target automation after the leader window is normalized to 1366×768.
+- Party's `mouse` symbol around `0x2b7daa3` is directly adjacent to `bind_window_identity` / `unbind_window_identity`; this is G02 HWND/PID-generation safety and must not be misread as mouse.Listener ownership.
+- Party fixed-coordinate action has no C19 coordinate-scaling stage. No Party `ScreenToClient`, `GetClientRect` or `_slave_client` path was recovered.
+- No Party mouse move or wheel broadcast path exists.
+- B04 contains no Party mouse-sync control; no UI baseline change was required.
+- G07 closes the original PLAN's Party `sync mouse` item: synchronized mouse ownership remains in Start/input; Party keeps only its separate direct targeted action path.
+
+## G07 FILES
+- docs/tasks/G07.md
+- docs/party/G07_PARTY_MOUSE_SYNC_STATIC_EVIDENCE.tsv
+- docs/party/G07_PARTY_MOUSE_SYNC_FLOW.md
+- docs/party/G07_PARTY_MOUSE_SYNC_MODEL.json
+
 ## BLOCKERS
-None known for G07.
+None known for G08.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Preserve G01–G06 Party boundaries: UI ownership, HWND/PID identity, RoleName/RoleID/TeamID separation, no Party grid arranger, no Party preview ownership, no Party keyboard-sync ownership.
+- Preserve G01–G07 Party boundaries: UI ownership, HWND/PID identity, RoleName/RoleID/TeamID separation, no Party grid arranger, no Party preview ownership, no Party keyboard-sync ownership, no Party mouse-sync ownership.
 - Do not add a Party-local EnumWindows scanner.
-- Do not duplicate Start physical layout, preview/DWM or keyboard-sync systems inside PartyTab.
-- Do not derive Party group order or keyboard targets from Start preview/layout state.
+- Do not duplicate Start physical layout, preview/DWM, keyboard-sync or mouse-sync systems inside PartyTab.
+- Keep Party direct check_pixel/click_at actions separate from Start synchronized input.
+- Do not derive Party group order or input targets from Start preview/layout state.
 - Do not equate Party leader with Start master HWND without direct new evidence.
 - Preserve the leader create-team 1366×768 resize precondition; do not globalize it.
 - Do not merge RoleName display identity with RoleID action identity.
@@ -1115,11 +1138,11 @@ None known for G07.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any G07 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute G07 only if still pending.
+3. Check GitHub first for any G08 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute G08 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Party's relationship to mouse synchronization without redoing C19: search PartyTab for mouse Listener/master event handlers, move/scroll/click broadcast workers, Start `_toggle_input`/input sync references, coordinate-scaling/sync-slave calls, and any Party-owned mouse broadcasting.
-7. Separate Party direct `click_at`/check-pixel action helpers from Start synchronized mouse input.
-8. Determine whether Party group/leader HWNDs are ever passed into Start mouse-sync source/target selection. If no edge exists, record the negative result explicitly.
-9. Do not infer mouse-sync targets from Party group size/member order.
-10. Persist G07 evidence/report, update STATE.md, and advance to the next original PLAN item only after verification.
+6. Audit Party configuration end-to-end: active settings keys, defaults, load/save order, JSON group encoding, autosave/write triggers, legacy compatibility keys, group restore behavior, and what is runtime-only vs persisted.
+7. Reconcile active team config keys with the G01 compatibility surfaces; do not reactivate stale Party follow/pick controls merely because old keys exist.
+8. Determine whether Party saves names only or any HWND/PID/RoleID/TeamID runtime identifiers; preserve G03 separation.
+9. Keep action semantics for create/invite/start buttons deferred to the later Party action-button task.
+10. Persist G08 evidence/report, update STATE.md, and advance to the next original PLAN item only after verification.
