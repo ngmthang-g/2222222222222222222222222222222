@@ -1,0 +1,212 @@
+{
+  "task": "F01",
+  "status": "VERIFIED_ORIGINAL_EXE_FIRST_WITH_SCREENSHOT_PARITY",
+  "evidence": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "screenshot_sha256": "a555bce4054a0d32d19c2377a726c7fa2e6b78c03ce80e8291affb6185f04461",
+    "workflow": "original EXE first, screenshot second"
+  },
+  "groups": [
+    {
+      "label": "Cấu hình game",
+      "class": "LabelFrame",
+      "style": "Bold.TLabelframe",
+      "bounds": [
+        11,
+        69,
+        438,
+        133
+      ]
+    },
+    {
+      "label": "Cấu hình lịch trình",
+      "class": "LabelFrame",
+      "style": "Bold.TLabelframe",
+      "bounds": [
+        11,
+        147,
+        438,
+        283
+      ]
+    },
+    {
+      "label": "Cấu hình tài khoản",
+      "class": "LabelFrame",
+      "style": "Bold.TLabelframe",
+      "bounds": [
+        11,
+        297,
+        438,
+        1013
+      ]
+    }
+  ],
+  "game": {
+    "controls": [
+      {
+        "type": "Button",
+        "text": "Chọn thư mục game"
+      },
+      {
+        "type": "Button",
+        "text": "Mở game"
+      },
+      {
+        "type": "Label",
+        "symbol": "lbl_game_dir",
+        "initial": "Đường dẫn game: (Chưa chọn)",
+        "conditional_visibility": true
+      },
+      {
+        "type": "Label",
+        "symbol": "lbl_dll_status",
+        "conditional_visibility": true
+      }
+    ],
+    "unknown_hidden_pixels": [
+      "lbl_dll_status",
+      "_profile_btns"
+    ]
+  },
+  "schedule": {
+    "enabled_widget": "Checkbutton",
+    "time_widget": "readonly Combobox",
+    "visible_defaults": {
+      "enabled": false,
+      "close": "04:00",
+      "shutdown_pc": false,
+      "open": "04:20",
+      "after_login": "Chờ"
+    },
+    "after_login": [
+      {
+        "label": "Chờ",
+        "value": "wait"
+      },
+      {
+        "label": "Party",
+        "value": "party"
+      },
+      {
+        "label": "Train",
+        "value": "train"
+      },
+      {
+        "label": "Train LSV",
+        "value": "train_lsv"
+      },
+      {
+        "label": "Dồn vàng",
+        "value": "don"
+      }
+    ],
+    "conditional_status": "lbl_sched_countdown"
+  },
+  "accounts": {
+    "container": "Canvas + vertical Scrollbar + rows_inner",
+    "prompt": "Chọn tài khoản muốn login",
+    "show_password_widget": "Checkbutton",
+    "columns": [
+      "selector",
+      "Tài khoản",
+      "Mật khẩu",
+      "Ẩn captcha",
+      "Login",
+      "Proxy"
+    ],
+    "header_selector": {
+      "type": "Button",
+      "text": "✅",
+      "callback": "_toggle_all_checks",
+      "semantics": "if any row unchecked -> check all; otherwise uncheck all"
+    },
+    "logical_row_capacity": 100,
+    "row_limit": {
+      "method": "apply_account_row_limit",
+      "hidden_store": "_hidden_rows",
+      "plan_decrease": "hide excess FIFO",
+      "plan_increase": "restore hidden first then blank rows"
+    },
+    "row": {
+      "selector": {
+        "type": "Button",
+        "unchecked": "⬜",
+        "checked": "✅️"
+      },
+      "account": {
+        "type": "Entry",
+        "font": "Consolas 10"
+      },
+      "password": {
+        "type": "Entry",
+        "font": "Consolas 10",
+        "masked_when_show_off": true
+      },
+      "captcha": {
+        "type": "readonly Combobox",
+        "values": [
+          "Không",
+          "Tool",
+          "Proxy"
+        ]
+      },
+      "login_action": {
+        "type": "Button",
+        "idle": "▶",
+        "online": "II"
+      },
+      "proxy_action": {
+        "Tool": {
+          "text": "⇄",
+          "state": "enabled"
+        },
+        "Proxy": {
+          "text": "➜",
+          "state": "enabled",
+          "color": "#6a1b9a"
+        },
+        "Không": {
+          "text": "",
+          "state": "disabled",
+          "color": "#e0e0e0"
+        }
+      }
+    },
+    "screenshot": {
+      "row_pitch": 35,
+      "fully_visible_rows": 17,
+      "partial_18th": true
+    }
+  },
+  "bottom_action": {
+    "type": "Button",
+    "text": "Bắt đầu",
+    "callback": "_login_toggle",
+    "color": "#388e3c",
+    "font": "Segoe UI 10 bold",
+    "bounds": [
+      20,
+      978,
+      429,
+      1007
+    ]
+  },
+  "corrections_to_b03": {
+    "after_login_exact_label": "Dồn vàng",
+    "group_class": "LabelFrame",
+    "total_row_capacity": 100,
+    "header_selector_semantics": "resolved",
+    "gray_proxy_cells": "programmatically disabled for Không mode"
+  },
+  "deferred_to_later_tasks": [
+    "account persistence/storage",
+    "password persistence/security behavior",
+    "game path/launcher behavior",
+    "login runtime/click behavior",
+    "captcha internals",
+    "proxy runtime",
+    "scheduler engine"
+  ],
+  "next_task": "F02 — account storage"
+}
