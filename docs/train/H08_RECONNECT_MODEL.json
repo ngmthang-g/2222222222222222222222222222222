@@ -1,0 +1,152 @@
+{
+  "task": "H08",
+  "status": "VERIFIED_2S_MEMORY_VETO_3STRIKE_RECONNECT_WITH_5_ATTEMPT_30S_ACTIVE_BATCHES_INFINITE_RETRY_AND_45S_MEMORY_READY_FAILOPEN_DIRECT_REINJECT_EDGE_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "config": {
+    "key": "auto_reconnect",
+    "var": "auto_reconnect_var",
+    "label": "Tự kết nối lại khi mất mạng",
+    "default": false,
+    "exact_gate_location": "UNKNOWN"
+  },
+  "watchdog": {
+    "method": "_disconnect_monitor",
+    "cadence_seconds": 2,
+    "runs_parallel_with_farm": true,
+    "connection_memory": {
+      "helper": "is_connected/read_connected",
+      "source": "TCPGame.Instance.tcpClient.Connected",
+      "true": "reset strikes; veto false-positive halt",
+      "false": "disconnected memory state, but persistent pixel dialog is still required",
+      "null": "read error; ignore memory result and let pixel decide"
+    },
+    "pixels": [
+      {
+        "key": "login.ngatKetNoi1",
+        "point": [
+          640,
+          244
+        ],
+        "rgb": [
+          160,
+          145,
+          52
+        ],
+        "cfg_timeout": 5,
+        "tolerance": 0
+      },
+      {
+        "key": "login.ngatKetNoi2",
+        "point": [
+          702,
+          453
+        ],
+        "rgb": [
+          212,
+          28,
+          34
+        ],
+        "cfg_timeout": 5,
+        "tolerance": 0
+      }
+    ],
+    "both_pixels_required": true,
+    "consecutive_strikes": 3,
+    "approximate_confirm_seconds": 6,
+    "halt_event": "halt",
+    "movement_stop": "stop_character",
+    "direct_stop_game_auto": false
+  },
+  "reconnect": {
+    "click_client": [
+      616,
+      455
+    ],
+    "dialog_rechecked_before_each_click": true,
+    "attempts_per_batch": 5,
+    "active_wait": {
+      "key": "common.active",
+      "point": [
+        1330,
+        33
+      ],
+      "rgb": [
+        34,
+        8,
+        11
+      ],
+      "tolerance": 5,
+      "configured_default_timeout": 100,
+      "reconnect_override_timeout_seconds": 30,
+      "exact_interval_debug_args": "UNKNOWN"
+    },
+    "failed_batch_delay_seconds": 30,
+    "retry_policy": "infinite batches until user/session/generation/window invalidation",
+    "unsuccessful_reconnect_disables_account": false,
+    "success": {
+      "log": "kết nối lại THANH CONG",
+      "invalidate_character_cache_current_pid": true,
+      "set_event": "reconnect_ok",
+      "effect": "cycle reset",
+      "watchdog_session_terminates": false
+    }
+  },
+  "farm_cycle_recovery": {
+    "state": "Chờ kết nối lại",
+    "reconnect_ok_wait": "event-driven",
+    "reconnect_ok_wait_quantum": "UNKNOWN",
+    "memory_ready": {
+      "helper": "wait_memory_ready",
+      "timeout_seconds": 45,
+      "need_consecutive_valid_reads": 3,
+      "valid_read": [
+        "clear RoleName",
+        "MapID != None"
+      ],
+      "invalidates_cache_before_each_sample": true,
+      "timeout_behavior": "False + log + fail-open; never wedge Farm"
+    }
+  },
+  "cache_and_injection": {
+    "immediate_success_cache_invalidation": true,
+    "cache_reason": "reconnect/character reload may invalidate old pointer-chain cache up to 10s",
+    "ensure_injected_helper": {
+      "method": "_ensure_injected",
+      "resource": "resources.dat DLL",
+      "double_inject_guard": true
+    },
+    "unconditional_post_reconnect_ensure_injected_edge": "NOT_PROVEN"
+  },
+  "exits": [
+    "user stop / stop_event",
+    "account no longer in _farming_acc",
+    "Farm generation changed",
+    "real game window died"
+  ],
+  "death_overlap": {
+    "reconnect_halt_interrupts_hard_stop_actions": true,
+    "current_treatment_or_movement_can_be_canceled": true,
+    "post_success_effect": "cycle reset then re-read current state",
+    "same_tick_pre_halt_order": "UNKNOWN"
+  },
+  "explicit_unknowns": [
+    "exact source-level auto_reconnect gate placement",
+    "exact stop_character argument microdetails",
+    "exact reconnect_ok Event wait quantum",
+    "exact wait_pixel interval/debug arguments",
+    "unconditional post-reconnect _ensure_injected call edge",
+    "same-tick death/disconnect order before halt",
+    "monitor exception loop micro-order"
+  ],
+  "preserved": {
+    "H07_death_monitor": true,
+    "H06_treatment": true,
+    "H05_movement": true,
+    "H04_scheduler": true
+  },
+  "next_task": "H09 — Train loot filtering / pickup mode and discard-preset interaction audit"
+}
