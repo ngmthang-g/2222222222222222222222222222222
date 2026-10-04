@@ -1,0 +1,66 @@
+{
+  "task": "E08",
+  "status": "VERIFIED_WITH_EXPLICIT_NORMAL_DESTROY_ORDER_AND_START_RELOAD_MICRODETAIL_UNKNOWNS",
+  "normal_close": {
+    "shell_wm_delete_handler": "NOT_RECOVERED",
+    "mechanism": "Tk/root/widget destruction cascades to tab-owned <Destroy> hooks",
+    "tab_destroy_hooks": 12,
+    "exact_order": "UNKNOWN",
+    "kill_all_game_windows": false,
+    "stop_all_forwarders": "UNKNOWN / NOT PROVEN"
+  },
+  "forced_heartbeat_exit": {
+    "first_bad_state": "strike 1 / wait for confirmation",
+    "second_bad_state": "wait about 5 seconds then destroy app",
+    "hard_exit": "os._exit",
+    "forwarder_killed": false
+  },
+  "in_process": {
+    "tab_rebuild": "TLMMainApp._rebuild_tab",
+    "preview_refresh": "refresh_window_preview_list",
+    "detached_preview_refresh": "_refresh_detached_preview",
+    "start_reload": {
+      "callback": "_unstick_all_cmd",
+      "helpers": [
+        "_dll_unstick_windows",
+        "unstick_windows"
+      ],
+      "role": "game-window/input-lock recovery",
+      "process_restart": false,
+      "exact_microsequence": "UNKNOWN"
+    }
+  },
+  "login_account_reload": {
+    "method": "_reload_worker",
+    "sequence": [
+      "advance that forwarder instance to next proxy",
+      "close tracked game HWND if present",
+      "login same account with new proxy without second advance"
+    ],
+    "main_process_restart": false
+  },
+  "auto_update": {
+    "method": "TLMInfoTab.on_auto_update_click",
+    "confirm": true,
+    "pre_spawn": [
+      "close all game windows",
+      "stop all forwarder processes",
+      "resolve update link",
+      "locate update.exe"
+    ],
+    "spawn": "Popen(update.exe)",
+    "external": [
+      "download ZIP",
+      "7z extract",
+      "replace TLMTool.dist",
+      "bootstrap updater self-replacement if needed",
+      "relaunch TLMTool.exe"
+    ]
+  },
+  "boundaries": {
+    "forced_quit_forwarder": "survives",
+    "update_forwarder": "stopped",
+    "normal_close_forwarder": "UNKNOWN"
+  },
+  "next_task": "E09 — error handling"
+}
