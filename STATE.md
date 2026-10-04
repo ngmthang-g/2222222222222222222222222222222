@@ -10,7 +10,7 @@ IN_PROGRESS
 **COMPLETE / VERIFIED**
 
 ## GATE C
-IN_PROGRESS
+**COMPLETE / STATIC+VISUAL VERIFIED; RECONSTRUCTED WINDOWS PARITY DEFERRED**
 
 ## COMPLETED
 - A01 VERIFIED
@@ -54,6 +54,7 @@ IN_PROGRESS
 - C17 VERIFIED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS
 - C18 VERIFIED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS
 - C19 VERIFIED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS
+- C20 VERIFIED_ORIGINAL_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -115,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C20 — test đồng thời 3 HWND như ảnh.
+D01 — Extract toàn bộ module names.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -324,8 +325,28 @@ C20 — test đồng thời 3 HWND như ảnh.
 - docs/window/C19_INPUT_SYNC_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C20 VERIFIED RESULTS
+- The locked original screenshot shows three simultaneously tracked game identities: 75C.S6, TổngTài.S6, ThápCa.
+- TổngTài.S6 is selected as master while the preview order starts with 75C.S6, proving master order and preview order are independent.
+- Embedded preview uses 2 columns while physical game-window layout independently uses a 3×4 grid setting.
+- With three live HWNDs, the combined model is one master source plus two follower targets.
+- C01–C19 discovery, identity, DWM preview, ordering, layout, refresh, close, layout-sync and input-sync models are mutually coherent.
+- Exact physical grid geometry/timing and a future reconstructed-build Windows three-HWND parity run remain deferred rather than falsely marked PASS.
+
+## C20 FILES
+- docs/tasks/C20.md
+- docs/window/C20_THREE_HWND_EVIDENCE.tsv
+- docs/window/C20_THREE_HWND_FLOW.md
+- docs/window/C20_THREE_HWND_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
+## GATE C DECISION
+- C01–C20 analysis is complete for original static + screenshot evidence.
+- Remaining unknowns are explicit and localized.
+- Reconstructed executable runtime parity is deferred to the later implementation/parity stage.
+
 ## BLOCKERS
-None known for C20.
+None known for D01.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -336,12 +357,11 @@ None known for C20.
 - Do not begin C08 before C07 is verified.
 
 ## NEXT_ACTION
-On CONTINUE / current continuation:
+On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C20 only.
-4. Validate the combined 3-HWND scenario against the original EXE evidence and the locked three-preview screenshot.
-5. Check discovery/mapping, master selection, three live previews, layout behavior, preview ordering, refresh lifecycle, and separation of layout sync vs input sync.
-6. Record what is statically verified versus what still requires a real Windows runtime parity test.
-7. Update WINDOW_BEHAVIOR_MATRIX.md and persist C20 evidence/report.
-8. Close Gate C only if all C01–C20 evidence is coherent.
+3. Execute D01 only.
+4. Extract the full original module-name inventory from the frozen TLMTool specimen.
+5. Separate TLM internal modules, Python/stdlib, third-party packages, native extension modules, and helper executables/resources without changing prior Gate A–C baselines.
+6. Persist D01 evidence/report and update PROJECT_STATUS.md.
+7. Advance to D02 only after D01 is verified.
