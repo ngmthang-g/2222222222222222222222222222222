@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H07 — Train death-recovery / respawn monitor and recovery FSM audit.
+H08 — Train reconnect watchdog / reconnect recovery audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1442,12 +1442,46 @@ H07 — Train death-recovery / respawn monitor and recovery FSM audit.
 - docs/train/H06_TRAIN_HEAL_FLOW.md
 - docs/train/H06_TRAIN_HEAL_MODEL.json
 
+## H07 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H07 artifact existed, so no completed Train work was repeated.
+- Inspected the exact frozen inner EXE first; SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Train return-to-train setting is `respawn_var` / config key `respawn`, visible label `Quay lại train khi chết`; B05/load fallback is OFF by default.
+- Exact death monitor is `FarmTab._diaphu_monitor`; local surface is `self/hwnd/respawn_event/stop_event/detected/hp_latched/click_at/get_character_info/ci/hp_pct/row_d`.
+- Exact original monitor doc locks cadence at **4 seconds** and says it runs `từ đầu khi start farm`, not only after reaching the Train spot.
+- Two independent death signals are combined:
+  - **MapID 87** → set `respawn_event` for recovery.
+  - real numeric **HP 0%** → one respawn click.
+- Exact HP-zero respawn click is client coordinate **(792,441)** and the doc says **1 lần**.
+- `hp_latched` prevents repeated clicks while HP remains 0 and resets only when HP becomes nonzero. Unreadable HP is explicitly not equivalent to true zero.
+- `detected` latches MapID-87 detection so the recovery event is set once per continuous stay in map 87 and re-arms/clears only after leaving map 87, preventing an endless recovery loop while moving out of Địa phủ.
+- HP click and MapID-87 event are separate paths; recovery readiness is therefore state-based on observed MapID 87 rather than assuming the click succeeded.
+- FarmTab's death monitor does **not** contain the Train-LSV-specific `common.active sau hồi sinh` wait. Do not import that behavior.
+- H04's `wait_memory_ready(timeout=45.0, need=3)` remains bound to reconnect recovery; H07 does not reuse it as a death-respawn readiness wait.
+- `_farm_cycle` directly owns `respawn_event`, state `Đang hồi sinh`, H06 `_heal_at_death`, `hard_stop`, and exact failure surface `trị liệu sau chết thất bại`. This verifies a real recovery branch and treatment result handoff.
+- Exact FSM consequence after H06 treatment returns failure remains UNKNOWN; H07 does not invent abort/skip/continue semantics.
+- `respawn` is the return-to-train enable setting. Verified intent: enabled allows recovery to return to the selected Train target; disabled must not fabricate an automatic return-to-train request.
+- Exact worker continuation when `respawn=False` (stop vs remain alive/skip relocation) is not source-visible enough and remains explicit RUNTIME UNKNOWN.
+- When return-to-train is enabled, reconstruction must reuse H05's current saved `farm_var` target and active movement path; no death-only hard-coded Train destination is recovered.
+- New row tracker starts at `Chết: 0` and owns `_extra_deaths`. The HP-zero monitor branch directly references `_extra_deaths` beside the one-click recovery path, supporting one counter increment per latched HP-zero episode. No separate MapID-87-only increment is recovered.
+- Exact death-counter reset behavior on stop/start of the same row remains RUNTIME UNKNOWN; row creation initial 0 is verified.
+- Recovered state phases include monitor-side `Về địa phủ`, Farm-cycle `Đang hồi sinh`, and H06 `Trị liệu`.
+- Farm-session safety layering is preserved: per-cycle `monitor_stop`, `gen_snap`, `hard_stop`, and `_hwnd_alive`. Exact `_hwnd_alive` doc rejects closed/invisible windows and same numeric HWND reused by a different PID.
+- The death monitor itself receives the session stop event rather than a generation argument; generation/window safety is enforced by the surrounding Farm lifecycle. Exact monitor cleanup/finally ordering remains UNKNOWN.
+- Death vs reconnect simultaneous arbitration is intentionally deferred to H08.
+- B05 was cross-checked only after static extraction; no geometry was remeasured.
+
+## H07 FILES
+- docs/tasks/H07.md
+- docs/train/H07_DEATH_RECOVERY_STATIC_EVIDENCE.tsv
+- docs/train/H07_DEATH_RECOVERY_FLOW.md
+- docs/train/H07_DEATH_RECOVERY_MODEL.json
+
 ## BLOCKERS
-None known for H07.
+None known for H08.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H06 verified Train wiring/town/full-bag/timing/movement/heal contracts.
+- Preserve B05 Train visual baseline and H01–H07 verified Train wiring/town/full-bag/timing/movement/heal/death contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
@@ -1456,21 +1490,22 @@ None known for H07.
 - Preserve H02 return-town values/lock_town behavior.
 - Preserve H03 occupied Site-10 bag metric and filter/no-town semantics.
 - Preserve H04 loop_minutes × 60 remaining-cycle timing semantics.
-- Preserve H05 movement conventions, 8-tile near skip and current-MapID-first return routing.
-- Preserve H06 built-in treatment map/coordinate table, exact click points (892,474)/(514,424), x4 repeat, and failure handoff.
-- Do not bind H06's 0.2 constant to click delay or wait interval until stronger evidence/runtime parity resolves it.
-- Do not invent exact common.active wait placement/timeout or city failover.
-- H07 may analyze death/respawn FSM, but must not reopen H06 treatment routing unless contradictory evidence appears.
+- Preserve H05 movement conventions and active FarmTab Truyền ownership.
+- Preserve H06 treatment routing/clicks and unresolved 0.2/common.active microbinding.
+- Preserve H07 4s death monitor, MapID87 recovery event, HP0 single click (792,441), detected/hp latches, and death counter boundary.
+- Do not import Train-LSV's post-respawn common.active wait into FarmTab.
+- Keep exact treatment-failure continuation, respawn-off worker continuation, death-counter restart reset and monitor cleanup ordering UNKNOWN.
+- H08 may analyze reconnect and its interaction with death, but must not reopen H07 monitor semantics unless contradictory evidence appears.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H07 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H07 only if still pending.
+3. Check GitHub first for any H08 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H08 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Train death recovery end-to-end: _diaphu_monitor signals, MapID 87 / HP 0% detection, one-click respawn trigger, latches/debounce, respawn_event consumption in _farm_cycle, window/game readiness after respawn, optional H06 treatment call, return-to-train decision, death counters/state labels, and cancellation/generation safety.
-7. Recover exact monitor cadence, click coordinates, readiness/retry/timeouts where safely bindable; keep unbound values UNKNOWN.
-8. Preserve H06 treatment worker as a called subroutine and do not expand reconnect behavior beyond death-recovery interactions; H08 owns reconnect.
+6. Audit Train reconnect end-to-end: _disconnect_monitor memory veto, disconnect pixel 3-strike detection, halt signaling, stop-character/auto interaction, exact reconnect click/pixel confirmation sequence, infinite retry policy, common.active waits, reconnect_ok cycle reset, cache invalidation/reinjection/memory-ready gate, and cancellation/window-generation exits.
+7. Recover exact tick cadence, strike count, click coordinates, retry limits/wording and wait timeouts where safely bindable; keep unbound values UNKNOWN.
+8. Resolve only death-vs-reconnect arbitration that is directly evidenced by the reconnect control flow; preserve H07 otherwise.
 9. Cross-check B05 only after static extraction; no geometry work is needed.
-10. Persist H07 evidence/report, update STATE.md, and advance to H08 only after verification.
+10. Persist H08 evidence/report, update STATE.md, and advance to H09 only after verification.
