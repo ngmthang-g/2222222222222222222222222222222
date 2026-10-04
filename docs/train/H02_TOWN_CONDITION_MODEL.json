@@ -1,0 +1,104 @@
+{
+  "task": "H02",
+  "status": "VERIFIED_TOWN_MODE_GATING_WITH_LOCK_TOWN_FORCE_NEVER_AND_LEGACY_FULL_BAG_ALIAS",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "modes": {
+    "default": "cycle",
+    "loop_minutes_default": 30,
+    "visible": [
+      {
+        "label": "Không về",
+        "value": "never"
+      },
+      {
+        "label": "Khi đầy túi",
+        "value": "full_bag_timer"
+      },
+      {
+        "label": "Theo chu kỳ (phút)",
+        "value": "cycle"
+      }
+    ],
+    "semantics": {
+      "never": "no automatic town return; full bag may still trigger filter but remaining full stays in place",
+      "full_bag_timer": "bag-enabled timed mode; bag-full early-stop family",
+      "cycle": "periodic loop_minutes mode without full-bag early-stop branch"
+    }
+  },
+  "condition_change": {
+    "callback": "_on_town_condition_changed",
+    "exact_doc": "Khi chọn điều kiện về thành — lưu config.",
+    "owns_body_visibility": false,
+    "loop_spin_dynamic_state_recovered": false
+  },
+  "compatibility": {
+    "current_config_key": "town_condition",
+    "current_full_bag_value": "full_bag_timer",
+    "legacy_value": "full_bag",
+    "runtime_alias_tuple": [
+      "full_bag_timer",
+      "full_bag"
+    ],
+    "exact_load_normalization_statement": "UNKNOWN",
+    "active_fourth_radio": false
+  },
+  "town_body": {
+    "toggle": "_toggle_town_config",
+    "default_hidden": true,
+    "show_text": "Hiện cấu hình",
+    "hide_text": "Ẩn cấu hình",
+    "condition_row_always_outside_body": true
+  },
+  "dungeon_lock": {
+    "method": "_update_dungeon_town_lock",
+    "predicate": "_is_dungeon_farm",
+    "route_table": "TRUYEN_DAI_LY_ROUTES",
+    "route_flag": "lock_town",
+    "scope": "if any selected Farm route is locked",
+    "locked": {
+      "force_condition": "never",
+      "radio_state": "disabled"
+    },
+    "unlocked": {
+      "radio_state": "normal",
+      "automatic_previous_mode_restore": false,
+      "previous_mode_restore_evidence": "NOT_RECOVERED"
+    },
+    "nav_priority_disabled_by_lock": false
+  },
+  "nav_priority": {
+    "count": 4,
+    "state": "readonly",
+    "options": [
+      "",
+      "Phù 1",
+      "Phù 2",
+      "Phù 3",
+      "Ngựa"
+    ],
+    "defaults": [
+      "Phù 1",
+      "Phù 2",
+      "Phù 3",
+      "Ngựa"
+    ],
+    "callback": "_on_nav_priority_changed",
+    "rule": "route methods already selected by other slots are removed from current available values while preserving current choice",
+    "movement_execution": "DEFERRED"
+  },
+  "loop_minutes": {
+    "persisted_independently": true,
+    "visible_outside_hidden_body": true,
+    "cleared_on_mode_change": false
+  },
+  "deferred": {
+    "H03": "inventory-full threshold/filter and full-bag interaction",
+    "H04": "periodic-town timer execution",
+    "later_H": "movement/FSM/runtime parity"
+  },
+  "next_task": "H03 — Train inventory-full detection and full-bag return/filter interaction audit"
+}
