@@ -1,0 +1,86 @@
+{
+  "task": "G02",
+  "status": "VERIFIED_PARTY_3S_INCREMENTAL_HWND_PID_GENERATION_REFRESH_WITH_EXPLICIT_FIRST_TICK_AND_UI_APPLY_DELAY_UNKNOWNS",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "discovery": {
+    "party_owns_enumwindows": false,
+    "source": "start_tab.get_windows()",
+    "source_contract": "reads shared Start cached game-window list without blocking Tk",
+    "start_background_producer_seconds": "approximately 3 (C01)",
+    "party_consumer_interval_ms": 3000
+  },
+  "refresh": {
+    "entry": "_refresh_acc_list",
+    "worker": "daemon Thread",
+    "worker_inputs": [
+      "start_tab.get_windows",
+      "utils.get_character_info",
+      "_get_pid_from_hwnd"
+    ],
+    "worker_result": "infos",
+    "main_thread_handoff": "Tk after",
+    "apply": [
+      "_add_or_update_member",
+      "_remove_stale_members(active_hwnds)",
+      "_apply_group_permission",
+      "_schedule_refresh"
+    ],
+    "overlap_state": "_refreshing",
+    "active_state": "_refresh_active",
+    "schedule_ms": 3000,
+    "schedule_evidence": "encoded bytes 6c b8 17 at about 0x2b7dfbf; unsigned LEB128 payload = 3000",
+    "first_tick_timing": "UNKNOWN",
+    "tk_after_delay": "UNKNOWN"
+  },
+  "identity": {
+    "runtime_key": "HWND with PID generation snapshot",
+    "pid_helper": "_pid_of / _get_pid_from_hwnd",
+    "bind": "mouse.bind_window_identity(hwnd,pid)",
+    "unbind": "mouse.unbind_window_identity(hwnd,pid) matching generation",
+    "same_hwnd_same_pid": "retain/update member",
+    "same_hwnd_new_pid": "remove old member generation, unbind/destroy, create fresh member",
+    "direct_party_log": "[Party] hwnd=... đổi process (pid old → new) → xóa member cũ",
+    "missing_hwnd": "remove through _remove_stale_members(active_hwnds)"
+  },
+  "name_identity": {
+    "source": "utils.get_character_info(hwnd)",
+    "field": "RoleName",
+    "sanitize_regex": "<[^>]+>",
+    "fallback_prefix": "Window ",
+    "fallback_suffix": "UNKNOWN",
+    "deeper_character_fields": "DEFERRED_G03"
+  },
+  "ready_list": {
+    "store": "_member_rows",
+    "name_view": "_ready_names",
+    "layout": "3 accounts per row",
+    "selected_member_visibility": "hide from ready list when chosen into a cluster"
+  },
+  "group_dropdowns": {
+    "method": "_refresh_group_combo_values",
+    "rule": "earlier-cluster selections excluded from later choices",
+    "preserve_current_selection": true,
+    "leader_refresh": "_update_all_leader_labels"
+  },
+  "lifecycle": {
+    "start": "_start_refresh",
+    "stop": "_stop_refresh",
+    "schedule": "_schedule_refresh",
+    "cancel_api": "after_cancel",
+    "destroy": "_on_destroy",
+    "destroy_microorder": "UNKNOWN"
+  },
+  "visual_cross_check": {
+    "authority": "B04",
+    "geometry_changed": false,
+    "ready_list_empty_in_capture": "runtime state only; not interpreted as fixed-empty UI"
+  },
+  "deferred": {
+    "G03": "Party character-state fields and semantics beyond name/identity",
+    "later_G": "team create/invite/run and post-party actions"
+  },
+  "next_task": "G03 — Party character-state model"
+}
