@@ -1,0 +1,130 @@
+{
+  "task": "F08",
+  "status": "VERIFIED_5MIN_RUNTIME_ROTATION_WITH_STALE_30MIN_DOC_AND_INTERNAL_COOLDOWNS_EXPLICITLY_BOUNDED",
+  "package": {
+    "proxy_working": {
+      "sha256": "424e16baba37292d641bb234905b3cb53ae74378a980a1f053aa9abbb8181c34",
+      "entries": 131,
+      "protocols": {
+        "socks5": 108,
+        "http": 17,
+        "socks4": 6
+      }
+    },
+    "forwarder_exe_sha256": "7ef5dfa5026b2269bb579954bad29908a0de107fb1288f6c9d4e2325245c847d"
+  },
+  "parser": {
+    "result": [
+      "host",
+      "port",
+      "user",
+      "password",
+      "protocol"
+    ],
+    "protocol_values": [
+      "socks5",
+      "socks4",
+      "http",
+      null
+    ],
+    "forms": [
+      "socks5://host:port",
+      "socks4://host:port",
+      "http://host:port",
+      "host:port@user:pass",
+      "user:pass@host:port",
+      "host:port:user:pass",
+      "host:port"
+    ]
+  },
+  "refresh": {
+    "files": [
+      "proxy_working.txt",
+      "proxy_last_refresh.txt"
+    ],
+    "login_stale_seconds": 300,
+    "login_stale_minutes": 5,
+    "lower_level_recent_skip_seconds": 60,
+    "concurrent_refresh_suppression": true,
+    "parallel_checks": true,
+    "sort_fastest_first": true,
+    "max_check": 300,
+    "true_refresh_reset": [
+      "forwarder_idx*.txt -> 0",
+      "remove forwarder_advance*.txt",
+      "clear proxy_alloc.txt claims"
+    ]
+  },
+  "rotation": {
+    "last_login_file": "last_login_times.json",
+    "runtime_threshold_seconds": 300,
+    "runtime_threshold_minutes": 5,
+    "stale_doc_claim_minutes": 30,
+    "stale_doc_resolution": "runtime constant + call-site logs win",
+    "advance_handshake": [
+      "write forwarder_advance[_IID].txt",
+      "forwarder increments index",
+      "poll forwarder_idx[_IID].txt until changed"
+    ]
+  },
+  "instances": {
+    "default_port": 22200,
+    "multi_port_formula": "22200 + profile_idx",
+    "iid": "str(profile_idx)",
+    "per_iid_files": [
+      "forwarder_mode",
+      "forwarder_idx",
+      "forwarder_stats",
+      "forwarder_pid",
+      "forwarder_advance",
+      "forwarder_pinned_proxy"
+    ]
+  },
+  "modes": {
+    "direct": "Không",
+    "free_pool": "Tool",
+    "private_pinned": "Proxy"
+  },
+  "pinned": {
+    "direct_literal": "direct",
+    "missing_file": "round-robin",
+    "private_failure_fallback": false,
+    "poll_seconds": 3
+  },
+  "coordination": {
+    "alloc_lock": "proxy_alloc.lock / msvcrt cross-process lock",
+    "alloc_file": "proxy_alloc.txt",
+    "bad_file": "proxy_bad.txt",
+    "skip_other_claims": true,
+    "shared_bad_list": true
+  },
+  "target_routing": {
+    "proxied_game_server": "103.147.34.81",
+    "proxied_ports": [
+      3001,
+      4001
+    ],
+    "direct_cdn_port": 443,
+    "target_file": "forwarder_targets.txt"
+  },
+  "row_reload": [
+    "advance once",
+    "confirm new index",
+    "close tracked game session",
+    "relogin same account",
+    "no second automatic advance"
+  ],
+  "lifecycle": {
+    "reuse_healthy_listener": true,
+    "replace_stale_listener": true,
+    "readiness_required_before_game_launch": true,
+    "stats_file": "forwarder_stats[_IID].json"
+  },
+  "unknowns": [
+    "ALLOC_TTL numeric value",
+    "BAD_COOLDOWN / PROXY_COOLDOWN_SECS numeric values",
+    "forwarder ROTATE_INTERVAL numeric value",
+    "some lower-level worker/socket timeout mappings"
+  ],
+  "next_task": "F09 — scheduler"
+}
