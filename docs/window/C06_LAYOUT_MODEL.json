@@ -1,0 +1,58 @@
+{
+  "task": "C06",
+  "status": "VERIFIED_WITH_EXPLICIT_UNKNOWNS",
+  "input_integrity": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_matches_gate_a": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "grid_screenshot_sha256": "f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a",
+    "grid_screenshot_matches_gate_b": true
+  },
+  "grid": {
+    "cols_default": 3,
+    "rows_default": 4,
+    "persisted": true,
+    "screen_metrics_api": "GetSystemMetrics",
+    "exact_literals": [450, 40],
+    "locals": ["new_slots", "cols", "ww", "wh"],
+    "master_position": "index 0 / top-left",
+    "followers": "sequential after master",
+    "exact_arithmetic_formula": "UNKNOWN",
+    "exact_cols_rows_bounds": "UNKNOWN"
+  },
+  "move_only": {
+    "helper": "_move_windows_offset",
+    "position_source": "pos_fn(index)",
+    "keeps_current_size": true,
+    "master_first": true,
+    "setwindowpos_recovered": true,
+    "movewindow_literal_recovered": false
+  },
+  "resize": {
+    "helper": "resize_window",
+    "get_window_placement": true,
+    "show_window_normal": true,
+    "set_window_pos": true,
+    "recovered_flags": ["SWP_NOZORDER", "SWP_NOACTIVATE", "SWP_NOMOVE"]
+  },
+  "stack_primitives": {
+    "tight": "(0,0)",
+    "diagonal": "+50 x, +50 y",
+    "horizontal": "+50 x",
+    "vertical": "+50 y"
+  },
+  "layout_sync": {
+    "symbols": ["_toggle_layout", "_sync_windows_loop", "_layout_worker", "_stop_sync_loop", "_arrange_grid", "_refresh_cache"],
+    "window_list_from_worker_cache": true,
+    "exact_worker_cadence": "UNKNOWN"
+  },
+  "limit": {
+    "source": "new_version_info.max_windows",
+    "fallback_literal": 999,
+    "process_count_from_worker_cache": true,
+    "over_limit_blocks_sync_enable": true,
+    "auto_stop_disables_layout_and_input_sync": true,
+    "exact_comparator": "UNKNOWN"
+  },
+  "next_task": "C07 — Auto"
+}

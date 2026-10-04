@@ -14,8 +14,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C03 — VERIFIED_WITH_EXPLICIT_UNKNOWN_PROPERTY_BOOLEANS
 - C04 — VERIFIED_WITH_EXPLICIT_UNKNOWN_BOUNDARY_AND_DETACHED_CADENCE
 - C05 — VERIFIED_WITH_EXPLICIT_UNKNOWN_AUTO_SELECTION_RULE
-- C06 — CURRENT
-- C07 — TODO
+- C06 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C07 — CURRENT
 - C08 — TODO
 - C09 — TODO
 - C10 — TODO
@@ -30,8 +30,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C06 — bố trí nhiều cửa sổ**
+Current task: **C07 — Auto**
 
-C05 recovered the HWND-backed master model, dynamic master Radiobuttons, master-first layout role and sync safety behavior while preserving the unknown exact automatic-selection rule.
+C06 recovered the common multi-window layout engine from the original EXE: 3×4 persisted grid defaults, master-first ordering, SetWindowPos-based move/resize primitives, stack offsets, worker-backed layout sync and server max-window guard. Exact grid arithmetic/bounds/comparator/cadence remain explicit UNKNOWN.
 
 Preserve Gate A/B baselines unchanged.

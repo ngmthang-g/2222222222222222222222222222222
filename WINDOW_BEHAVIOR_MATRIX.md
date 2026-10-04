@@ -266,5 +266,65 @@ Safety:
 
 ---
 
-## C06
-TODO — bố trí nhiều cửa sổ.
+## C06 — common multi-window layout engine
+
+```text
+worker-cached game HWNDs
+↓
+master-aware order
+├─ master → index 0 / top-left
+└─ remaining HWNDs → sequential after master
+↓
+_arrange_grid(windows, cols, rows)
+├─ GetSystemMetrics
+├─ exact literals 450 and 40
+├─ min
+├─ ww / wh
+├─ exact arithmetic expression = UNKNOWN
+└─ new_slots / _grid_slots
+↓
+SetWindowPos-family placement/resize
+↓
+continuous maintenance through _layout_worker while layout sync is active
+```
+
+Grid configuration:
+- persisted keys: `grid_cols`, `grid_rows`
+- recovered defaults: **3 columns × 4 rows**
+- current Xếp-lưới screenshot independently shows `Cột:3`, `Hàng:4`
+
+Move-only primitive:
+- `_move_windows_offset(pos_fn)`
+- exact doc says position comes from `pos_fn(index)`
+- **keeps current size**
+- master always index 0
+- `SetWindowPos` / `SWP_NOSIZE` family recovered
+- no `MoveWindow` literal/import recovered from the inner EXE
+
+Resize primitive:
+- `resize_window`
+- `GetWindowPlacement` → `ShowWindow(SW_SHOWNORMAL)` when needed → `SetWindowPos`
+- recovered flags include `SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE`
+
+Shared stack position rules recovered:
+- tight: all → `(0,0)`
+- diagonal: +50 x / +50 y per index
+- horizontal: +50 x
+- vertical: +50 y
+
+Limit handling:
+- runtime source: `new_version_info.max_windows`
+- fallback literal: **999**
+- process count comes from worker cache
+- over limit cannot enable sync
+- `_auto_stop_sync` disables both layout and input sync
+
+Explicit unknowns preserved:
+- exact grid x/y/w/h arithmetic involving screen metrics, 450, 40, cols/rows
+- exact +/- row/column bounds
+- exact max-window comparator operator
+- exact layout-worker cadence
+
+C07-only evidence (1366×768 Auto reset, RoleName auto-tile, 1-second loop) was observed but intentionally not promoted to C06/C07 completion.
+
+---

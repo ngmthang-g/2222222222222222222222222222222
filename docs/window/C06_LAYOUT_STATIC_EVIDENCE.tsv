@@ -1,0 +1,39 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+archive_current	-	VERIFIED	SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; byte-identical to Gate-A frozen archive
+inner_binary	-	VERIFIED	TLMTool.dist/TLMTool.exe SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+screenshot_grid_current	-	VERIFIED	TLMTool_fTpCsm0auQ(3).png SHA256 f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a; same Gate-B baseline
+resize_GetWindowPlacement	0x2bf901e	VERIFIED_STATIC	GetWindowPlacement
+resize_ShowWindow	0x2bf9033	VERIFIED_STATIC	ShowWindow + SW_SHOWNORMAL
+resize_SetWindowPos	0x2bf9053	VERIFIED_STATIC	SetWindowPos
+resize_flags	0x2bf9060	VERIFIED_STATIC	SWP_NOZORDER / SWP_NOACTIVATE / SWP_NOMOVE
+move_helper_doc	0x2bfb4d9	VERIFIED_STATIC	pos_fn(index)->(x,y), keep size; master first/index0
+stack_tight_doc	0x2bfb63c	VERIFIED_STATIC	all windows to (0,0)
+stack_diagonal_doc	0x2bfb6af	VERIFIED_STATIC	origin (0,0), +50 x/+50 y per window
+stack_horizontal_doc	0x2bfb743	VERIFIED_STATIC	origin (0,0), +50 x only
+stack_vertical_doc	0x2bfb7a5	VERIFIED_STATIC	origin (0,0), +50 y only
+limit_state	0x2bfaa80	VERIFIED_STATIC	new_version_info / max_windows
+limit_fallback_999	0x2bfaa98	VERIFIED_STATIC	serialized integer 999 appears twice
+limit_doc	0x2bfaaa0	VERIFIED_STATIC	server new_version_info.max_windows
+auto_reset_cross_task	0x2bfadff	EVIDENCE_ONLY_C07	Auto reset log contains (0,0) 1366x768
+auto_tile_doc_cross_task	0x2bfc21f	EVIDENCE_ONLY_C07	auto tile sorted by character name; master first
+auto_tile_loop_cross_task	0x2bfc2f9	EVIDENCE_ONLY_C07	1-second rearrange loop while auto_tile_active=True
+limit_ui	0x2bfcf9e	VERIFIED_STATIC	over-limit cannot enable sync
+layout_worker	0x2bfd100	VERIFIED_STATIC	_layout_worker / _auto_stop_sync / _arrange_grid clustered
+auto_stop_sync_doc	0x2bfd14d	VERIFIED_STATIC	stops both layout sync and input sync when over limit
+refresh_cache_doc	0x2bfd183	VERIFIED_STATIC	window list comes from worker cache; does not block main thread
+arrange_GetSystemMetrics	0x2bfd1e2	VERIFIED_STATIC	GetSystemMetrics
+arrange_literal_450	0x2bfd1f4	VERIFIED_STATIC	serialized integer 450 (l c2 03)
+arrange_literal_40	0x2bfd1f7	VERIFIED_STATIC	serialized integer 40 (l 28)
+arrange_min_sorted	0x2bfd1f9	VERIFIED_STATIC	min / sorted
+arrange_lambda	0x2bfd206	VERIFIED_STATIC	TLMStartTab._arrange_grid.<locals>.<lambda>
+arrange_new_slots	0x2bfd233	VERIFIED_STATIC	new_slots
+arrange_cols_ww_wh	0x2bfd23f	VERIFIED_STATIC	cols / ww / wh
+arrange_doc	0x2bfd24d	VERIFIED_STATIC	master position 0/top-left; remaining windows follow
+grid_cols_default	0x2bfdc0f	VERIFIED_STATIC	grid_cols + serialized integer 3
+grid_rows_default	0x2bfdc20	VERIFIED_STATIC	grid_rows + serialized integer 4
+grid_settings_path	0x2bfdc5d	VERIFIED_STATIC	settings.ini under %APPDATA%/TLMTool
+move_api_MoveWindow	-	NOT_RECOVERED	No MoveWindow literal/import recovered from entire inner EXE
+grid_exact_math	-	EXPLICIT_UNKNOWN	Exact arithmetic combining screen metrics, 450, 40, cols/rows is not source-visible
+grid_bounds	-	EXPLICIT_UNKNOWN	Exact min/max clamp for +/- cols/rows handlers not source-visible
+limit_comparator	-	EXPLICIT_UNKNOWN	Exact source comparator for max_windows not source-visible
+layout_worker_cadence	-	EXPLICIT_UNKNOWN	Exact layout-worker cadence not recovered in C06
