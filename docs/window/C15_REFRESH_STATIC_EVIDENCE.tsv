@@ -1,0 +1,27 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+archive	-	VERIFIED	SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe	-	VERIFIED	SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+main_refresh_text	0x2bfa770	VERIFIED_STATIC	Làm mới
+main_refresh_widget	0x2bfa77c	VERIFIED_STATIC	btn_refresh_preview
+clear_preview_list	0x2bfe2b1	VERIFIED_STATIC	_clear_window_preview_list
+clear_preview_doc	0x2bfe1f0	VERIFIED_STATIC	Xóa tất cả preview items
+destroy_preview_item	0x2bfe180	VERIFIED_STATIC	_destroy_window_preview_item
+destroy_preview_doc	0x2bfe220	VERIFIED_STATIC	Hủy một preview item (thumbnail + cửa sổ + frame)
+dwm_unregister	0x2bfe220	VERIFIED_STATIC	DwmUnregisterThumbnail
+destroy_dwm_dst	0x2bfe220	VERIFIED_STATIC	_destroy_dwm_dst_hwnd
+refresh_no_game	0x2bfe2d9	VERIFIED_STATIC	Không tìm thấy cửa sổ game, hãy mở game trước
+refresh_columns	0x2bfe2d9	VERIFIED_STATIC	_get_preview_columns / preview_cols / preview_rows
+refresh_dwm_register	0x2bfe700	VERIFIED_STATIC	DwmRegisterThumbnail and thumbnail property application in refresh block
+refresh_doc	0x2bfe7f6	VERIFIED_STATIC	Làm mới toàn bộ danh sách preview DWM
+preview_order	0x2bfe0a4	VERIFIED_STATIC	_preview_order
+preview_order_doc	0x2bfe0a4	VERIFIED_STATIC	order stored by HWND; refresh preserves order after rebuild
+update_alive	0x2bfe9ac	VERIFIED_STATIC	alive_hwnds
+update_valid_items	0x2bfe9b9	VERIFIED_STATIC	valid_items
+update_need_refresh	0x2bfe9df	VERIFIED_STATIC	need_refresh
+update_loop_doc	0x2bfea94	VERIFIED_STATIC	reposition + refresh list if needed + refresh HP
+detached_refresh_button	0x2bff070	VERIFIED_STATIC	↺ / _btn_detached_refresh
+detached_refresh_method	0x2bff0a5	VERIFIED_STATIC	_refresh_detached_preview
+detached_refresh_doc	0x2bff0c0	VERIFIED_STATIC	Đóng rồi mở lại preview — tải lại danh sách cửa sổ mới
+main_button_exact_command	-	EXPLICIT_UNKNOWN	Tk command expression not directly source-visible in deduplicated constants
+need_refresh_formula	-	EXPLICIT_UNKNOWN	exact Boolean formula not recovered
+forced_memory_refresh	-	EXPLICIT_UNKNOWN	manual refresh forcing new memory read is not proven

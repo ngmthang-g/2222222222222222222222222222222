@@ -23,14 +23,14 @@ B01–B14: **COMPLETE / VERIFIED**
 - C12 — VERIFIED_WITH_EXPLICIT_RESTORE_DOC_CONFLICT
 - C13 — VERIFIED_WITH_EXPLICIT_POST_CLOSE_UI_UNKNOWN
 - C14 — VERIFIED_WITH_EXPLICIT_EMBEDDED_VISIBILITY_UNKNOWN
-- C15 — CURRENT
-- C16 — TODO
+- C15 — VERIFIED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN
+- C16 — CURRENT
 - C17 — TODO
 - C18 — TODO
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C15 — Làm mới**
+Current task: **C16 — Đóng hết**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
@@ -47,3 +47,5 @@ C12 verified the off-screen hide design: move to (-2200,-2200), preserve size, a
 C13 verified Đóng xem as detached-preview teardown, distinct from Hủy tách, refresh, and the later Đóng hết game-window action.
 
 C14 verified the detached DWM-preview subsystem, its screen region, topmost lifecycle, persisted auto-open/grid settings and independent update loop.
+
+C15 verified full DWM preview refresh/rebuild, preserved HWND preview order, automatic conditional refresh, and the detached close+reopen refresh path.

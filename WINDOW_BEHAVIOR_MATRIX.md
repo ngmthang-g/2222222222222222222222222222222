@@ -484,3 +484,30 @@ Control bar: Cột, Tên, HP, Lv, Map, refresh, Hủy tách, Đóng xem.
 Explicit unknown: exact embedded-preview hide/restore sequence across detach/cancel/close branches.
 
 ---
+
+## C15 — Làm mới
+
+Main embedded preview:
+`Làm mới` / `btn_refresh_preview`
+→ full DWM preview-list rebuild behavior (`refresh_window_preview_list`)
+→ clear old items
+→ `DwmUnregisterThumbnail`
+→ destroy destination overlay HWND + frame
+→ current game-window/cache list
+→ preserve `_preview_order` by HWND
+→ apply current preview column count
+→ rebuild frames + `DwmRegisterThumbnail`
+→ live previews restored
+
+Automatic maintenance is separate:
+`_update_window_previews_loop` → `alive_hwnds` + `valid_items` + `need_refresh` → conditional list rebuild + label/HP refresh.
+
+Detached ↺ refresh:
+`_refresh_detached_preview` → close → reopen → reload current game-window list.
+
+Explicit unknown:
+- exact Tk command expression of the main `Làm mới` button;
+- exact `need_refresh` Boolean formula;
+- whether manual refresh forces a new worker-memory read.
+
+---

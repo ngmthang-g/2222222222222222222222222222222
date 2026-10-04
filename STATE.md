@@ -49,6 +49,7 @@ IN_PROGRESS
 - C12 VERIFIED_WITH_EXPLICIT_RESTORE_DOC_CONFLICT
 - C13 VERIFIED_WITH_EXPLICIT_POST_CLOSE_UI_UNKNOWN
 - C14 VERIFIED_WITH_EXPLICIT_EMBEDDED_VISIBILITY_UNKNOWN
+- C15 VERIFIED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -110,7 +111,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C15 — Làm mới.
+C16 — Đóng hết.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -246,8 +247,24 @@ C15 — Làm mới.
 - docs/window/C14_DETACHED_PREVIEW_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C15 VERIFIED RESULTS
+- Main preview has a real `Làm mới` control and a dedicated full-list DWM rebuild method.
+- Full rebuild clears old preview items, unregisters DWM thumbnails, destroys destination overlay HWNDs/frames, then recreates live DWM previews from the current game-window/cache set.
+- Current 1x–5x preview-column selection is reused during rebuild.
+- Manual preview ordering is preserved by HWND across refresh/rebuild.
+- `_update_window_previews_loop` can also conditionally rebuild the list when `need_refresh` is true and separately refreshes labels/HP.
+- Detached ↺ refresh uses `_refresh_detached_preview`: close then reopen to reload the current game-window list.
+- Exact Tk command expression for `btn_refresh_preview`, exact `need_refresh` formula, and forced fresh-memory-read semantics remain explicit UNKNOWN.
+
+## C15 FILES
+- docs/tasks/C15.md
+- docs/window/C15_REFRESH_STATIC_EVIDENCE.tsv
+- docs/window/C15_REFRESH_FLOW.md
+- docs/window/C15_REFRESH_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C15.
+None known for C16.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -258,11 +275,11 @@ None known for C15.
 - Do not begin C08 before C07 is verified.
 
 ## NEXT_ACTION
-On CONTINUE / current continuation:
+On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C15 only.
-4. Recover Làm mới behavior from the original EXE.
-5. Verify embedded preview refresh, detached preview refresh if relevant, list teardown/rebuild, DWM resource lifecycle and preservation of preview ordering.
-6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C15 evidence/report.
-7. Advance to C16 only after C15 is verified.
+3. Execute C16 only.
+4. Recover `Đóng hết` from the original EXE.
+5. Distinguish preview cleanup from actual game-window close; verify HWND close mechanism, ordering, error/confirmation behavior and post-close preview/cache cleanup.
+6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C16 evidence/report.
+7. Advance to C17 only after C16 is verified.

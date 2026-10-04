@@ -1,0 +1,42 @@
+{
+  "task": "C15",
+  "status": "VERIFIED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN",
+  "main_preview": {
+    "visible_button": "Làm mới",
+    "widget_state": "btn_refresh_preview",
+    "behavior_method": "refresh_window_preview_list",
+    "exact_button_command_expression": "UNKNOWN",
+    "behavior_doc": "Làm mới toàn bộ danh sách preview DWM.",
+    "teardown": {
+      "clear_method": "_clear_window_preview_list",
+      "item_destroy_method": "_destroy_window_preview_item",
+      "unregister_thumbnail": true,
+      "destroy_destination_hwnd": true,
+      "destroy_frame": true
+    },
+    "rebuild": {
+      "current_window_set": true,
+      "current_preview_columns": true,
+      "dwm_register_thumbnail": true,
+      "preserves_preview_order_by_hwnd": true
+    }
+  },
+  "automatic_maintenance": {
+    "method": "_update_window_previews_loop",
+    "fields": [
+      "alive_hwnds",
+      "valid_items",
+      "need_refresh"
+    ],
+    "conditional_list_rebuild": true,
+    "refresh_labels_hp": true,
+    "exact_need_refresh_formula": "UNKNOWN"
+  },
+  "detached_preview": {
+    "button": "↺",
+    "method": "_refresh_detached_preview",
+    "behavior": "close then reopen preview to reload current game-window list"
+  },
+  "forced_fresh_memory_read": "UNKNOWN",
+  "next_task": "C16 — Đóng hết"
+}
