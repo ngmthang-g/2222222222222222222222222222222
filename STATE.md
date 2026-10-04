@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-D06 — config/data files.
+D07 — JS/helper files.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -437,8 +437,25 @@ D06 — config/data files.
 - docs/modules/D05_HIGH_SIGNAL_SAMPLES.tsv
 - tools/D05_EXTRACT_MODULE_STRINGS.py
 
+## D06 VERIFIED RESULTS
+- Gate-A package DATA set was reconciled: 23 DATA files plus Default.ppx as an additional config resource.
+- Fourteen high-entropy MZ/PE-like invalid .dat files remain opaque; semantic roles are not inferred from filenames.
+- Active data/resources.dat is a valid x64 PE DLL-format injected payload; five old/backup copies are preserved separately.
+- version.dat is a valid x64 version.dll-compatible proxy PE with Version API exports.
+- automove_log.txt and proxy_working.txt are plain-text runtime data/log files with direct consumers.
+- Default.ppx is the Proxifier XML template using local SOCKS5 127.0.0.1:10800 for the game rule.
+- Persistent PC settings/config, login JSON state, forwarder/proxy coordination files, Android guest JSON, and logs are separated by lifecycle.
+- emu_client.js and ld_remote.js are explicitly deferred to D07.
+
+## D06 FILES
+- docs/tasks/D06.md
+- docs/data/D06_PACKAGE_DATA.tsv
+- docs/data/D06_RUNTIME_CONFIG_REFERENCES.tsv
+- docs/data/D06_DATA_SUMMARY.json
+- tools/D06_INVENTORY_DATA.py
+
 ## BLOCKERS
-None known for D06.
+None known for D07.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -452,8 +469,8 @@ None known for D06.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute D06 only.
-4. Inventory configuration and data files from the frozen distribution, including their format/type, consumers/references, persistence role and confidence.
-5. Separate real text/config files from disguised PE/data containers and immutable resources.
-6. Persist D06 evidence/report and reproducible extractor.
-7. Advance to D07 only after D06 is verified.
+3. Execute D07 only.
+4. Analyze emu_client.js, ld_remote.js and helper executables/resources statically.
+5. Recover message/RPC endpoints, data contracts, process roles and PC↔emulator interaction without executing helpers.
+6. Keep launcher/update executable behavior already covered by Gate A separate unless D07 evidence materially connects it.
+7. Persist D07 evidence/report and advance to D08 only after verification.
