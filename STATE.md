@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H01 — Train UI/module wiring audit using the verified B05 baseline.
+H02 — Train return-town condition and town-panel gating audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1263,28 +1263,59 @@ H01 — Train UI/module wiring audit using the verified B05 baseline.
 - Runtime/decompilation reservations remain preserved and do not justify repeating G01–G11.
 - The next PLAN phase is H — Train.
 
+## H01 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; Gate G was already closed, B05 was already verified, and no H01 artifact existed, so no completed work was repeated.
+- Rechecked the exact frozen inner EXE first; SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- FarmTab static module boundary is now locked: `.farm_tab` near `0x293a91e`, `farm_tab.py` near `0x2943ecb`, `<module farm_tab>` near `0x2944146`, next module `<module fast_travel>` near `0x2947cb1`.
+- `FarmTab.__init__` owns Train UI/config/account-row lifecycle. Direct early state includes `_farming`, `_acc_rows`, refresh/scroll/import/farm-thread/autosave state, map caches, `_coord_rows`, and `_saving_enabled`.
+- Constructor lifecycle is directly ordered as `_build_ui → _load_config → <Destroy>/_save_on_destroy → _start_refresh → _autosave_loop`.
+- Bottom B05 `Bắt đầu` is wired to `_toggle_farm`; H01 does not decode the full start/stop FSM yet.
+- Town section ownership is locked: `_toggle_town_config`, default-hidden `_town_body`, `town_condition_var`, values `never/full_bag_timer/cycle`, `_on_town_condition_changed`, `loop_var`, nav-priority variables/comboboxes and `_on_nav_priority_changed`.
+- Hidden town config variables directly include sell-equipment/map/tab, HP/MP purchase item/quantity and medicine-coordinate state. H01 records ownership only; routing/shop semantics are deferred.
+- Train section owns `respawn_var`, `auto_reconnect_var`, `pickup_no_cankhon_var`, `trist_var`, `heal_map_var`, `pickup_mode_var`, manual buff rows and add/remove callbacks. Original buff-key doc remains `F1–F10 + 1,2,3`.
+- Saved-coordinate section owns header/body/toolbar/rows, add-row and visibility-toggle callbacks, plus map select/apply-all/remove/save/refresh wiring. Coordinate behavior is deferred.
+- Account list is a FarmTab Canvas + vertical Scrollbar. `_add_or_update_row` owns live rows; row action surfaces include `_toggle_single_farm`, `_goto_sell_acc`, `_toggle_sell`, `_move_acc`, and `_farm_acc`.
+- B05 all-account buttons map to genuine background actions: `Tới bán đồ → _goto_sell_all`, `Bán đồ → _sell_all`, `Tới bãi train → _move_all`, `Đánh → _farm_all`; build wiring uses daemon Thread launches.
+- FarmTab consumes shared Start discovery through `start_tab.get_windows()`; character/bag reads occur in the background refresh worker and row mutation is applied on the Tk/main thread.
+- Row identity wiring directly includes `_pid_of`, `bind_window_identity`, `unbind_window_identity`, and stale-row removal.
+- Exact incremental account refresh is **5000 ms**. Original doc says refresh every 5 seconds; frozen bytes `6c 88 27` decode to 5000.
+- Exact periodic config autosave is **30000 ms**. Original doc says autosave every 30 seconds; frozen bytes `6c b0 ea 01` decode to 30000.
+- FarmTab uses shared settings backend with section `Farm`. Active key surfaces include loop/town condition/nav priorities, sell/buy/meds, respawn/reconnect/trist/pickup/heal, `buff_*`, `coord_*`, and per-account `acc_*_sell/farm`.
+- The load block also contains `full_bag`; its exact relationship to current town-condition semantics is deliberately deferred to H02/H03.
+- Permission wiring uses the shared guard/account-limit layer with scope/action `farm_tab/farm`; enabled Combobox state is documented as `readonly`.
+- FarmTab owns `_sync_start_tab_btn` through `start_tab_ref`, keeping Start-tab Farm UI synchronized with FarmTab run state.
+- Only after static extraction, current `TLMTool_b2OvbUQCNB(4).png` was hashed; SHA-256 exactly matches B05 `17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53`. No Train geometry was remeasured.
+- Return-town conditions, inventory-full, periodic-town, train coordinates, heal/death/reconnect, loot, mount, saved-coordinate semantics and Farm FSM remain later H tasks.
+
+## H01 FILES
+- docs/tasks/H01.md
+- docs/train/H01_TRAIN_UI_WIRING_STATIC_EVIDENCE.tsv
+- docs/train/H01_TRAIN_UI_WIRING_FLOW.md
+- docs/train/H01_TRAIN_UI_WIRING_MODEL.json
+
 ## BLOCKERS
-None known for H01.
+None known for H02.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve Gate B/B05 Train visual baseline; H01 must reuse it instead of remeasuring from scratch.
-- Preserve Gate F Login handoff.
-- Preserve Gate G Party handoff G01–G12; do not reopen Party without contradictory new evidence.
-- Preserve all Party runtime/decompilation UNKNOWN classifications.
+- Preserve B05 Train visual baseline and H01 FarmTab ownership/wiring; do not remeasure Train UI unless contradictory visual evidence appears.
+- Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
-- For Train, follow the original EXE-first workflow and do not import behavior from older external Than Long projects as a substitute for TLM evidence.
+- Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
+- Do not collapse H02 with inventory-full/periodic-town/FSM tasks; keep Train PLAN categories separated.
+- Preserve H01 refresh 5000 ms and autosave 30000 ms unless stronger contradictory evidence appears.
+- Preserve the current Farm config key surfaces; do not reinterpret `full_bag` until H02/H03 resolves it.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H01 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H01 only if still pending.
+3. Check GitHub first for any H02 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H02 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Reuse the already-verified B05 Train baseline; do not remeasure/redraw Train UI from screenshots alone.
-7. Audit Train/FarmTab module and UI wiring only: constructor state, visible/hidden section ownership, exact widget→callback bindings, config variables/keys, account-row/control surfaces, shared HWND/character references, and lifecycle hooks.
-8. Do not yet implement or deeply analyze return-town, inventory-full, periodic-town, train coordinates, heal, death recovery, reconnect, loot filtering, mount, saved-coordinate behavior or FSM; those are later H tasks.
-9. Cross-check B05 only after static EXE extraction.
-10. Persist H01 evidence/report, update STATE.md, and advance to H02 only after verification.
+6. Audit only Train return-town condition selection and town-panel gating: exact semantics of `never`, `full_bag_timer`, `cycle`; relationship among `town_condition`, legacy/load `full_bag`, loop minutes and enabled/disabled controls; default-hidden town body; dungeon/lock_town gating; and nav-priority UI availability.
+7. Recover exact UI state transitions caused by `_on_town_condition_changed`, `_update_dungeon_town_lock`, and `_on_nav_priority_changed`.
+8. Do not yet decode bag-full threshold logic or periodic-town timer execution; those are H03/H04.
+9. Cross-check B05 only after static extraction; do not remeasure geometry.
+10. Persist H02 evidence/report, update STATE.md, and advance to H03 only after verification.
