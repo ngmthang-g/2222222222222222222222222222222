@@ -6,7 +6,10 @@
   "party_selected_screenshot": {
     "file": "image(5).png",
     "sha256": "b04e9a73887bb8093bba8bfcd8a77a4dc57c5838ca11370c85def0f8adeb9590",
-    "raw_raster_px": [451, 1035]
+    "raw_raster_px": [
+      451,
+      1035
+    ]
   },
   "prior_correction": {
     "file": "TLMTool_fTpCsm0auQ(2).png",
@@ -34,12 +37,13 @@
       "Trưởng nhóm:",
       "+ Thêm nhóm"
     ],
-    "documented_toggles_not_visible_in_party_capture": [
-      "Theo sau đội trưởng",
-      "Tự nhặt đồ"
-    ]
+    "documented_toggles_not_visible_in_party_capture": []
   },
   "visual_geometry_file": "docs/ui/B04_PARTY_GEOMETRY.tsv",
   "visual_defaults_file": "docs/ui/B04_PARTY_DEFAULTS.json",
-  "next_action": "B05 — Baseline Train"
+  "next_action": "B05 — Baseline Train",
+  "g01_resolution": {
+    "note": "The later G01 EXE audit does not treat the old follow/pick prose as active PartyTab UI. B04 geometry is unchanged.",
+    "active_party_follow_pick_controls": false
+  }
 }
