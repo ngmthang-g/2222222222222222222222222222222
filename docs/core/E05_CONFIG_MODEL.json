@@ -1,0 +1,50 @@
+{
+  "task": "E05",
+  "status": "VERIFIED_WITH_EXPLICIT_BACKUP_COUNT_AND_LOCK_TYPE_UNKNOWNS",
+  "shared_paths": {
+    "config_ini": "%APPDATA%/TLMTool/config.ini",
+    "settings_ini": "%APPDATA%/TLMTool/settings.ini"
+  },
+  "central_config": {
+    "parser": "RawConfigParser",
+    "utf8": true,
+    "ensure_dir": true,
+    "add_missing_section": true,
+    "direct_write": true,
+    "atomic_replace": "NOT_RECOVERED"
+  },
+  "settings": {
+    "parser": "RawConfigParser",
+    "duplicate_keys": "last wins / no error",
+    "control_char_sanitization": true,
+    "shared_lock_symbol": "_settings_lock",
+    "lock_type": "UNKNOWN",
+    "write": {
+      "temp_file": true,
+      "atomic_replace": true,
+      "dated_backups": true,
+      "backup_pattern": "settings.*.ini",
+      "backup_keep_value": "UNKNOWN"
+    }
+  },
+  "section_model": {
+    "common_section": "Settings",
+    "typed_reads_owned_by_tabs": true,
+    "complex_values": "JSON strings inside INI"
+  },
+  "info_tab_config": {
+    "separate_contract": true,
+    "path_doc": "config.ini alongside this script",
+    "parser": "ConfigParser",
+    "model": "simple dict load/save"
+  },
+  "separate_runtime_state": [
+    "login_online.json",
+    "last_login_times.json",
+    "forwarder/proxy state files",
+    "/sdcard/TLM/tlm_*.json",
+    "logs"
+  ],
+  "global_hot_reload": "NOT_RECOVERED",
+  "next_task": "E06 — logging"
+}
