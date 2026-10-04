@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-D08 — module architecture diagram.
+E01 — Main application lifecycle.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -471,8 +471,25 @@ D08 — module architecture diagram.
 - docs/helpers/D07_EMULATOR_ARCHITECTURE.json
 - tools/D07_ANALYZE_HELPERS.py
 
+## D08 VERIFIED RESULTS
+- D01–D07 were reconciled into one integrated architecture handoff.
+- Main architecture is separated into shell/orchestration, feature automation, shared support/guards, low-level PC game integration, emulator path, proxy helpers, update helpers and persistent data stores.
+- Diagram edge meanings explicitly separate contextual Tier-A evidence, static Tier-B references, protocol/helper boundaries and data associations.
+- Key parity constraints are preserved: master vs preview order, physical vs preview grids, layout vs input sync, PC vs emulator paths, runtime config vs immutable payload, static reference vs exact import syntax.
+- Gate D is complete for static architecture evidence; live helper/emulator/runtime parity remains deferred.
+
+## D08 FILES
+- docs/tasks/D08.md
+- docs/architecture/D08_MODULE_ARCHITECTURE.mmd
+- docs/architecture/D08_ARCHITECTURE_LEGEND.tsv
+- docs/architecture/D08_ARCHITECTURE.json
+
+## GATE D DECISION
+- D01–D08 COMPLETE / VERIFIED for static architecture evidence.
+- Remaining uncertainty is explicit and moves to later implementation/runtime gates.
+
 ## BLOCKERS
-None known for D08.
+None known for E01.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -483,11 +500,10 @@ None known for D08.
 - Do not begin C08 before C07 is verified.
 
 ## NEXT_ACTION
-On CONTINUE / current continuation:
+On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute D08 only.
-4. Build the Gate-D architecture diagram from D01-D07 evidence.
-5. Show module layers, shared hubs, PC game-integration path, emulator path, proxy/update helpers, config/data stores, and confidence boundaries.
-6. Keep static-reference edges distinct from contextual/call-verified edges.
-7. Persist D08 diagram/report and close Gate D only if D01-D08 are coherent.
+3. Execute E01 only.
+4. Recover the main application lifecycle from the original EXE: process entry, startup ordering, main Tk application creation, splash/license/update/init hooks, tab construction, background worker startup and shutdown path.
+5. Distinguish TLMTool shell lifecycle from helper process lifecycles.
+6. Persist E01 evidence/report and advance to E02 only after verification.
