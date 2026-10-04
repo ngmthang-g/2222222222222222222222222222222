@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G01 — Party module/UI wiring audit using the verified B04 baseline.
+G02 — Party HWND discovery / ready-account refresh and stale-window identity handling.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -944,25 +944,58 @@ G01 — Party module/UI wiring audit using the verified B04 baseline.
 - Mixed-success / zero-success route guard remains runtime-only and is explicitly reserved for later Windows original-vs-reconstruction parity testing.
 - Proxy runtime implementation remains excluded by user scope lock.
 
+## G01 VERIFIED RESULTS
+- Re-read PLAN.md and STATE.md and executed G01 only; no previous Party geometry was remeasured.
+- Re-opened the frozen `TLMTool_2.1.2(4).zip` / inner EXE first. Inner `TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Party module markers are frozen around `.party_tab`, `party_tab.py`, `<module party_tab>`, and `PartyTab.__init__`.
+- Party-owned constructor state surfaces recovered: `_running`, `_cancel`, `_run_lock`, `_run_cancels`, `_targets_lock`, `_refresh_id`, `_refreshing`, `_closing`, `_last_targets`, `_member_rows`, `_sections`, `_sec_team`, `_sec_corps`, plus refs to Phó Bản / Train / Train LSV / Dồn vàng.
+- Constructor lifecycle is wired as build UI → load config → bind Destroy cleanup → start refresh.
+- Bottom green `Bắt đầu` is a real Party action bound to `_toggle_run`.
+- `Sau khi party` is backed by `_after_party` StringVar and exact values: Chờ/wait, Train/train, Train LSV/train_lsv, Dồn vàng/don, Phó bản/phoban. A write trace participates in config persistence.
+- `Cấu hình tổ đội` owns the ready-account container `_team_body`.
+- `Cấu hình nhóm` is dynamic and parameterized with active team keys `party_groups` / `party_group1`; `+ Thêm nhóm` binds `_add_group_cluster`.
+- One group cluster wires: leader label, 6 readonly account Comboboxes (B04 locks 2×3), `Rời nhóm` → `_leave_group`, delete → `_remove_group`, Combobox open → `_open_dropdown`, selection → `_on_group_selected`, group action → `_run_single_cluster`, leader update → `_update_leader_label`, structural renumber → `_renumber_groups`.
+- Party refresh consumes shared `start_tab.get_windows`, shared `utils.get_character_info` / `RoleName`, PID/window-identity bind/unbind helpers, and applies worker results back through Tk `after`.
+- Party does NOT own DWM preview, layout sync or keyboard/mouse sync. Static scan of the Party module range found no DWM thumbnail, `_toggle_layout`, `_toggle_input`, PostMessage or SendInput ownership. Those remain Start/window-subsystem responsibilities.
+- Permission UI wiring recovered through `permission_guard`, `has_permission`, `check_account_limit`, `has_permission_with_limit`, `set_children_state`, `refresh_permission_state`, and `_apply_group_permission`.
+- Config uses shared `read_settings` / `write_settings` under `Settings`, with `party_after`, team group JSON, plus compatibility surfaces `party_corps_groups` / `party_corps_group1`.
+- Important correction: the old Party module prose mentions `Theo sau đội trưởng` and `Tự nhặt đồ`, and compatibility keys `party_follow` / `party_pick` remain, but the active frozen PartyTab widget/method surface has no matching BooleanVar/widgets/toggle methods. The real matching controls/methods are in PhoBanTab. These two controls must NOT be added to reconstructed Party UI.
+- B04 pixel geometry remains unchanged; only its stale static-only note was corrected.
+- Detailed HWND enumeration, refresh cadence, stale HWND/process replacement and ready-account identity are deliberately deferred to G02.
+- Character-state semantics beyond the shared RoleName surface remain deferred to G03.
+- Actual create/invite/run behavior remains deferred to later G action tasks.
+
+## G01 FILES
+- docs/tasks/G01.md
+- docs/party/G01_PARTY_UI_WIRING_STATIC_EVIDENCE.tsv
+- docs/party/G01_PARTY_UI_WIRING_FLOW.md
+- docs/party/G01_PARTY_UI_WIRING_MODEL.json
+- docs/tasks/B04.md (targeted stale-note correction only)
+- docs/ui/B04_PARTY_DEFAULTS.json (targeted G01 resolution note)
+- docs/ui/B04_PARTY_STATIC_STRUCTURE.json (targeted G01 resolution note)
+- docs/UI_BASELINE_TLM.md (targeted Party baseline correction only)
+
 ## BLOCKERS
-None known for G01.
+None known for G02.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve Gate B/B04 Party visual baseline; G01 must reuse it, not remeasure from scratch.
-- Preserve Gate F Login handoff; do not reopen F01–F11 without contradictory new evidence.
+- Preserve B04 Party pixel geometry unchanged; G01 only corrected a stale documentation-only control claim.
+- Preserve Gate F Login handoff.
+- Do not add Party follow/pick checkboxes; those are not active PartyTab UI in this frozen EXE.
+- Do not move preview/layout/input-sync ownership into PartyTab.
 - Preserve explicit unknowns instead of guessing.
 - Proxy runtime/network development remains locked out.
-- Do not start Stage S source reconstruction early; continue the planned Party research tasks first.
+- Do not start Stage S source reconstruction early.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute G01 only.
-4. Reuse the already-verified B04 Party baseline; do not redraw/re-measure Party UI from screenshots alone.
-5. Inspect the frozen original EXE first and audit Party module/UI wiring: Party tab construction, visible controls, exact state variables, widget → callback bindings, config keys, and references into shared HWND/preview/sync infrastructure.
-6. Cross-check EXE evidence against the supplied Party screenshot only after static extraction.
-7. Do not implement behavior from later G tasks yet; G01 is the Party UI/control-wiring handoff.
-8. Respect the Proxy scope lock and all existing Gate A/B/F evidence.
-9. Persist G01 evidence/report, update STATE.md, and advance to the next Party task only after verification.
+3. Execute G02 only.
+4. Inspect the frozen original EXE first; do not infer HWND logic from screenshots.
+5. Recover Party ready-account discovery end-to-end: `start_tab.get_windows` source, refresh lifecycle/cadence, background read vs main-thread apply, HWND→PID binding, stale/closed/reused HWND removal, member-row identity updates, and group-combobox refresh after window changes.
+6. Determine the exact role of `bind_window_identity` / `unbind_window_identity` and PID-change handling.
+7. Keep character-state interpretation beyond identity/name in G03; do not expand into Party create/invite/run behavior yet.
+8. Cross-check against the existing B04 ready-list/group UI only after static extraction.
+9. Persist G02 evidence/report, update STATE.md, and advance only after verification.
