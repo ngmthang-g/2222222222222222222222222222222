@@ -1,0 +1,50 @@
+key	offset_hex	status	evidence
+login_module_marker	0x2b683ba	VERIFIED_STATIC	<module login_tab>
+group_style	0x2b5e5cb	VERIFIED_STATIC	Bold.TLabelframe
+group_widget_class	0x2b5e6e0	VERIFIED_STATIC	LabelFrame
+group_game_label	0x2b5e6ef	VERIFIED_STATIC	Cấu hình game
+choose_game_button	0x2b5e7bf	VERIFIED_STATIC	Chọn thư mục game
+open_game_button	0x2b5e88e	VERIFIED_STATIC	Mở game
+game_path_initial	0x2b5e8d6	VERIFIED_STATIC	Đường dẫn game: (Chưa chọn)
+dll_status_symbol	0x2b5e960	VERIFIED_STATIC	lbl_dll_status
+group_schedule_label	0x2b5e990	VERIFIED_STATIC	Cấu hình lịch trình
+schedule_checkbox	0x2b5e9d5	VERIFIED_STATIC	Chạy theo lịch (mở/tắt game)
+schedule_close_label	0x2b5ea46	VERIFIED_STATIC	Hẹn giờ tắt game:
+schedule_shutdown_pc	0x2b5ebad	VERIFIED_STATIC	Tắt máy sau khi tắt game
+schedule_open_label	0x2b5ebea	VERIFIED_STATIC	Hẹn giờ mở game:
+after_login_label	0x2b5ec5e	VERIFIED_STATIC	Sau khi login:
+after_wait	0x2b5ec9d	VERIFIED_STATIC	Chờ / internal wait
+after_party	0x2b5ecd1	VERIFIED_STATIC	Party / internal party
+after_train	0x2b5ecdf	VERIFIED_STATIC	Train / internal train
+after_train_lsv	0x2b5eced	VERIFIED_STATIC	Train LSV / internal train_lsv
+after_don	0x2b5ed03	VERIFIED_STATIC	Dồn vàng / internal don
+schedule_countdown	0x2b5ed5a	VERIFIED_STATIC	lbl_sched_countdown conditional status
+group_accounts_label	0x2b5ed80	VERIFIED_STATIC	Cấu hình tài khoản
+accounts_prompt	0x2b5ede0	VERIFIED_STATIC	Chọn tài khoản muốn login
+show_password	0x2b5ee3c	VERIFIED_STATIC	Hiện mật khẩu
+accounts_canvas	0x2b5ee92	VERIFIED_STATIC	Canvas
+accounts_scrollbar	0x2b5eed2	VERIFIED_STATIC	Scrollbar vertical + yview
+header_toggle_callback	0x2b5f055	VERIFIED_STATIC	_toggle_all_checks
+header_account	0x2b5f0e6	VERIFIED_STATIC	Tài khoản
+header_password	0x2b5f15d	VERIFIED_STATIC	Mật khẩu
+header_captcha	0x2b5f19f	VERIFIED_STATIC	Ẩn captcha
+header_proxy	0x2b5f21c	VERIFIED_STATIC	Proxy
+hidden_rows	0x2b5f263	VERIFIED_STATIC	_hidden_rows
+bottom_start	0x2b5f271	VERIFIED_STATIC	Bắt đầu → _login_toggle
+row_idle_login	0x2b609a4	VERIFIED_STATIC	▶ login action
+row_online_login	0x2b6100a	VERIFIED_STATIC	II online-state action
+row_tool_proxy	0x2b610e2	VERIFIED_STATIC	⇄ Tool-mode proxy action
+row_private_proxy	0x2b6151a	VERIFIED_STATIC	➜ private proxy editor
+captcha_change_handler	0x2b61531	VERIFIED_STATIC	_on_captcha_mode_change
+row_create_method	0x2b61bba	VERIFIED_STATIC	_create_account_row
+row_account_font	0x2b61bfc	VERIFIED_STATIC	Consolas 10
+row_password_font	0x2b61c66	VERIFIED_STATIC	Consolas 10
+row_action_font	0x2b61cca	VERIFIED_STATIC	Segoe UI 11 bold
+row_proxy_disabled_color	0x2b615de	VERIFIED_STATIC	#e0e0e0 + disabled for Không mode
+row_capacity_doc	0x2b67b09	VERIFIED_STATIC	fixed logical account-row capacity is 100
+row_limit_method	0x2b6204e	VERIFIED_STATIC	apply_account_row_limit
+screenshot_sha256	-	VERIFIED_VISUAL	a555bce4054a0d32d19c2377a726c7fa2e6b78c03ce80e8291affb6185f04461
+after_login_visual_clip	-	VERIFIED_COMBINED	original EXE says Dồn vàng; right-edge screenshot is clipped
+profile_btns_pixels	-	EXPLICIT_UNKNOWN	_profile_btns exists but screenshot does not lock visual composition/coordinates
+dll_status_pixels	-	EXPLICIT_UNKNOWN	conditional lbl_dll_status not visible in locked screenshot
+proxifier_status_pixels	-	EXPLICIT_UNKNOWN	lbl_proxifier_status exists but not visible in locked screenshot
