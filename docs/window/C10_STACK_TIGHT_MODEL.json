@@ -1,0 +1,18 @@
+{
+  "task": "C10",
+  "status": "VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN",
+  "button": "Xếp gọn",
+  "callback": "_stack_tight_cmd",
+  "engine": "_move_windows_offset",
+  "target": {
+    "x": 0,
+    "y": 0
+  },
+  "affects": "current discovered game HWNDs",
+  "preserves_size": true,
+  "master_first": true,
+  "resets_hidden_state": true,
+  "api_family": "SetWindowPos",
+  "auto_tile_concurrency": "UNKNOWN",
+  "next_task": "C11 — Xếp chéo"
+}

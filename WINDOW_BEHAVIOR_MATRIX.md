@@ -402,3 +402,19 @@ Detached preview uses separate detached_grid state/Combobox and persists it; no 
 Explicit unknown: exact preview_rows arithmetic and exact manual-flag assignment timing. Pixel geometry for 1x/3x/4x/5x remains runtime-unverified.
 
 ---
+
+## C10 — Xếp gọn
+
+Xếp gọn
+→ _stack_tight_cmd
+→ _move_windows_offset(pos_fn)
+→ master index 0 + remaining game HWNDs
+→ every pos_fn(index) = (0,0)
+→ move only; preserve current size
+→ _reset_hidden_state
+→ [Xếp] Đã xếp N cửa sổ
+
+Verified target: all windows stacked at top-left (0,0).
+Explicit unknown: exact priority if the Auto 1-second tile loop is already running.
+
+---

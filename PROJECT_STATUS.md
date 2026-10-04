@@ -18,8 +18,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C07 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C08 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C09 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
-- C10 — CURRENT
-- C11 — TODO
+- C10 — VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
+- C11 — CURRENT
 - C12 — TODO
 - C13 — TODO
 - C14 — TODO
@@ -30,10 +30,12 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C10 — Xếp gọn**
+Current task: **C11 — Xếp chéo**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
 Preserve Gate A/B baselines unchanged.
 
 C09 verified the main preview 1x–5x column selector: runtime default 2x, manual callback, numeric column resolver, row/column rebuild and separate persisted detached-grid state.
+
+C10 verified Xếp gọn as a real move-only multi-HWND action to (0,0), preserving each window's current size and clearing hidden-state bookkeeping.

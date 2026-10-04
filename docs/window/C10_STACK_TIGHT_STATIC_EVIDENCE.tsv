@@ -1,0 +1,15 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+ui_button	0x2bfa145	VERIFIED_STATIC	Xếp gọn
+ui_callback	0x2bfa152	VERIFIED_STATIC	_stack_tight_cmd
+move_helper_preview_hwnds	0x2bfb48c	VERIFIED_STATIC	_get_preview_hwnds
+move_helper_master	0x2bfb4a0	VERIFIED_STATIC	master
+move_helper_wins	0x2bfb4a8	VERIFIED_STATIC	wins
+move_helper_pos_fn	0x2bfb4ae	VERIFIED_STATIC	pos_fn
+move_log	0x2bfb4b6	VERIFIED_STATIC	[Xếp] Đã xếp ... cửa sổ
+move_doc	0x2bfb4d8	VERIFIED_STATIC	move by pos_fn(index), keep size, master index 0
+reset_hidden_state	0x2bfb5db	VERIFIED_STATIC	_reset_hidden_state
+move_helper	0x2bfb5f0	VERIFIED_STATIC	_move_windows_offset
+tight_lambda	0x2bfb60a	VERIFIED_STATIC	TLMStartTab._stack_tight_cmd.<locals>.<lambda>
+tight_doc	0x2bfb63b	VERIFIED_STATIC	Xếp gọn: đưa tất cả cửa sổ về vị trí (0,0)
+hidden_reset_doc	0x2bfb427	VERIFIED_STATIC	reset hidden state when windows have been laid out visible
+mode_concurrency	-	EXPLICIT_UNKNOWN	exact priority if Auto tile loop is already active

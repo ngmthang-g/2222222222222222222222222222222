@@ -44,6 +44,7 @@ IN_PROGRESS
 - C07 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C08 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C09 VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C10 VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -105,7 +106,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C10 — Xếp gọn.
+C11 — Xếp chéo.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -163,8 +164,23 @@ C10 — Xếp gọn.
 - docs/window/C09_PREVIEW_COLUMNS_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C10 VERIFIED RESULTS
+- Xếp gọn is wired to _stack_tight_cmd.
+- Exact original behavior: all current game windows move to (0,0).
+- Shared _move_windows_offset preserves current size and processes master first.
+- Layout movement resets the hidden/off-screen bookkeeping state.
+- Shared movement path is SetWindowPos-family, not a resize-to-default operation.
+- Exact interaction if the Auto tile loop is already active remains explicit concurrency UNKNOWN.
+
+## C10 FILES
+- docs/tasks/C10.md
+- docs/window/C10_STACK_TIGHT_STATIC_EVIDENCE.tsv
+- docs/window/C10_STACK_TIGHT_FLOW.md
+- docs/window/C10_STACK_TIGHT_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C10.
+None known for C11.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -178,8 +194,8 @@ None known for C10.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C10 only.
-4. Recover Xếp gọn from the original EXE and confirm its callback → shared move engine → HWND effect.
-5. Verify position, size preservation, master ordering, hidden-state reset and interaction with Auto/sync modes.
-6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C10 evidence/report.
-7. Advance to C11 only after C10 is verified.
+3. Execute C11 only.
+4. Recover Xếp chéo from the original EXE.
+5. Verify callback, +50/+50 per-index offset, origin, size preservation, master ordering and hidden-state integration.
+6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C11 evidence/report.
+7. Advance to C12 only after C11 is verified.
