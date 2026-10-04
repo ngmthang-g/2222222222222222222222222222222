@@ -1,0 +1,57 @@
+key	offset_hex	status	evidence
+party_member_rows	0x2b7d196	VERIFIED_STATIC	_member_rows runtime Party member store
+pid_helper	0x2b7da9a	VERIFIED_STATIC	_pid_of
+identity_bind_symbol	0x2b7daac	VERIFIED_STATIC	mouse.bind_window_identity
+identity_bind_call_surface	0x2b7dac2	VERIFIED_STATIC	bind_window_identity
+row_pid_field	0x2b7dad8	VERIFIED_STATIC	pid row/generation field
+ready_relayout	0x2b7dadd	VERIFIED_STATIC	_relayout_ready_list
+pid_change_log_prefix	0x2b7dafa	VERIFIED_STATIC	[Party] hwnd=
+pid_change_log_text	0x2b7db08	VERIFIED_STATIC	UTF-8 fragments decode to đổi process (pid old → new) → xóa member cũ
+identity_unbind_symbol	0x2b7db40	VERIFIED_STATIC	mouse.unbind_window_identity
+identity_unbind_call_surface	0x2b7db58	VERIFIED_STATIC	unbind_window_identity
+stale_widget_destroy	0x2b7db70	VERIFIED_STATIC	destroy
+member_change_combo_refresh	0x2b7db79	VERIFIED_STATIC	_refresh_group_combo_values
+member_name_helper	0x2b7db96	VERIFIED_STATIC	_get_char_name
+ready_grid_hide	0x2b7dbd2	VERIFIED_STATIC	grid_remove
+ready_grid_show	0x2b7dbdf	VERIFIED_STATIC	grid
+ready_grid_doc	0x2b7dc10	VERIFIED_STATIC	Sắp lại grid 3 acc/dòng; ẩn acc đã được cụm nào chọn
+shared_start_tab	0x2b7dc49	VERIFIED_STATIC	start_tab
+shared_get_windows	0x2b7dc56	VERIFIED_STATIC	get_windows
+shared_get_windows_call	0x2b7dc63	VERIFIED_STATIC	get_windows
+shared_utils	0x2b7dc79	VERIFIED_STATIC	utils
+shared_character_info	0x2b7dc82	VERIFIED_STATIC	get_character_info
+shared_character_info_call	0x2b7dc96	VERIFIED_STATIC	get_character_info
+shared_pid_resolver	0x2b7dcac	VERIFIED_STATIC	_get_pid_from_hwnd
+shared_pid_resolver_call	0x2b7dcc0	VERIFIED_STATIC	_get_pid_from_hwnd
+name_sanitize_regex	0x2b7dcdf	VERIFIED_STATIC	<[^>]+>
+char_info_helper	0x2b7dce8	VERIFIED_STATIC	_get_char_info
+sanitize_helper	0x2b7dcf8	VERIFIED_STATIC	_sanitize_name
+role_name	0x2b7dd0a	VERIFIED_STATIC	RoleName
+window_fallback	0x2b7dd1a	VERIFIED_STATIC	Window  fallback prefix
+ready_names	0x2b7dd2c	VERIFIED_STATIC	_ready_names
+dropdown_refresh_doc	0x2b7dda9	VERIFIED_STATIC	Earlier-cluster selections removed from later choices; keep current value
+dropdown_filter_genexpr	0x2b7de3a	VERIFIED_STATIC	PartyTab._refresh_group_combo_values.<locals>.<genexpr>
+refresh_worker	0x2b7de7c	VERIFIED_STATIC	PartyTab._refresh_acc_list.<locals>._worker
+thread_class	0x2b7dea9	VERIFIED_STATIC	Thread
+thread_daemon	0x2b7debb	VERIFIED_STATIC	daemon
+thread_start	0x2b7dec3	VERIFIED_STATIC	start
+worker_infos	0x2b7deca	VERIFIED_STATIC	infos
+refresh_apply	0x2b7ded9	VERIFIED_STATIC	PartyTab._refresh_acc_list.<locals>._worker.<locals>._apply
+tk_after	0x2b7df16	VERIFIED_STATIC	after main-thread dispatch surface
+apply_add_update	0x2b7df1d	VERIFIED_STATIC	_add_or_update_member
+apply_remove_stale	0x2b7df3a	VERIFIED_STATIC	_remove_stale_members
+apply_active_hwnds	0x2b7df53	VERIFIED_STATIC	active_hwnds
+apply_permission	0x2b7df61	VERIFIED_STATIC	_apply_group_permission
+refresh_active	0x2b7df7a	VERIFIED_STATIC	_refresh_active
+schedule_refresh	0x2b7df8b	VERIFIED_STATIC	_schedule_refresh
+after_cancel	0x2b7df9e	VERIFIED_STATIC	after_cancel
+refresh_method	0x2b7dfac	VERIFIED_STATIC	_refresh_acc_list
+refresh_interval_encoded	0x2b7dfbf	VERIFIED_STATIC	bytes 6c b8 17; small-int LEB128 payload decodes to 3000 ms
+start_refresh_qualname	0x2b81495	VERIFIED_STATIC	PartyTab._start_refresh
+stop_refresh_qualname	0x2b814bd	VERIFIED_STATIC	PartyTab._stop_refresh
+schedule_refresh_qualname	0x2b814d5	VERIFIED_STATIC	PartyTab._schedule_refresh
+destroy_qualname	0x2b819ac	VERIFIED_STATIC	PartyTab._on_destroy
+party_enumwindows	-	ABSENT_PARTY_OWNERSHIP	No EnumWindows/IsWindowVisible Party-module constants; uses shared Start cache
+first_refresh_tick	-	EXPLICIT_UNKNOWN	Readable constants do not prove immediate-vs-first-delayed micro-order
+ui_apply_after_delay	-	EXPLICIT_UNKNOWN	Tk after surface is proven; exact delay literal is not independently locked
+window_placeholder_suffix	-	EXPLICIT_UNKNOWN	Window fallback prefix proven; exact suffix formatting not proven
