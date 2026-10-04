@@ -755,7 +755,7 @@ No pixels are invented for conditional UI not present in this screenshot.
 Behavior remains deferred.
 
 
-## B13 — Màu/font/button metrics — VERIFIED_WITH_EXPLICIT_UNKNOWN
+## B13 — Màu/font/button metrics — AUDITED_WITH_ROOT_FONT_SIZE_VERIFIED
 
 ### Exact base raster
 - client/inactive tab: `#F0F0F0`
@@ -801,7 +801,7 @@ Examples:
 - bottom Start: 30 px outer / 28 px fill
 
 ### Font lock
-Original binary verifies **Segoe UI** as global/default family and repeatedly configures `Bold.TLabelframe.Label` and bold custom-button fonts.
+Original binary verifies the root/global default tuple **(`Segoe UI`, 9)** and applies it through `option_add("*Font", default_font)`. It also repeatedly configures `Bold.TLabelframe.Label` and bold custom-button fonts.
 
 Raster envelopes:
 - normal labels 9–11 px glyph height
@@ -810,7 +810,7 @@ Raster envelopes:
 - bottom Start ~11 px
 - Info title ~16 px
 
-**Exact numeric Tk point sizes remain UNKNOWN** because the compiled readable string table does not expose them and screenshot DPI/scaling is not established. Reconstruction must calibrate point sizes against these raster envelopes.
+**Root/global default is now VERIFIED as Segoe UI 9.** Exact point sizes for explicit per-widget overrides remain UNKNOWN where not separately evidenced, and screenshot DPI/scaling is not established. Reconstruction should use Segoe UI 9 as the root/default and calibrate only widget-specific overrides against these raster envelopes.
 
 ### Theme/rendering rule
 ClearType fringe pixels and some ttk details are environment-sensitive. Large fills, structural lines, control bounds and text envelopes are strict; anti-alias/native-theme fringe pixels are comparison-tolerant.
@@ -866,6 +866,6 @@ A page does not pass merely from a low whole-window mismatch percentage if a loc
 ### Gate decision
 B01–B13 provide the required geometry, selected-state evidence, tab/page baselines, palette and common metrics. B14 provides the strict/tolerant comparison contract.
 
-Remaining font point-size/ClearType/non-client uncertainties are explicitly environment-sensitive and are not visual blockers.
+Remaining **per-widget override** point-size, ClearType and non-client uncertainties are explicitly environment-sensitive and are not visual blockers. Root/global default font is statically verified as Segoe UI 9.
 
 **GATE B — COMPLETE / VERIFIED.**
