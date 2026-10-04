@@ -1,0 +1,93 @@
+{
+  "task": "D02",
+  "status": "VERIFIED_STATIC_REFERENCE_GRAPH_WITH_EXPLICIT_IMPORT_SYNTAX_UNKNOWN",
+  "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+  "exact_marker_internal_sources": 37,
+  "filename_only_internal_names": [
+    "TLMTool",
+    "bag_filter",
+    "emu_reader",
+    "pixel",
+    "proxy_refresh"
+  ],
+  "static_reference_edges_total": 377,
+  "edges_by_target_category": {
+    "TLM_INTERNAL": 132,
+    "THIRD_PARTY_PYTHON": 59,
+    "PYTHON_STDLIB_REFERENCE": 153,
+    "NATIVE_EXTENSION_PYD": 33
+  },
+  "internal_graph": {
+    "edges": 132,
+    "source_modules": 31,
+    "distinct_targets": 36,
+    "top_incoming": [
+      [
+        "info_tab",
+        18
+      ],
+      [
+        "utils",
+        18
+      ],
+      [
+        "pixel",
+        9
+      ],
+      [
+        "start_tab",
+        8
+      ],
+      [
+        "permission_guard",
+        7
+      ],
+      [
+        "emu_reader",
+        6
+      ],
+      [
+        "bag_filter",
+        5
+      ],
+      [
+        "memory_items",
+        5
+      ]
+    ],
+    "top_outgoing": [
+      [
+        "party_tab",
+        12
+      ],
+      [
+        "don_logic",
+        11
+      ],
+      [
+        "farm_data",
+        11
+      ],
+      [
+        "debug_logger",
+        9
+      ],
+      [
+        "local_token_secret",
+        9
+      ],
+      [
+        "toiuu_tab",
+        9
+      ],
+      [
+        "phoban_dungeons",
+        8
+      ]
+    ]
+  },
+  "evidence": "tagged accepted name inside exact-marker compiled module block",
+  "relation_status": "STATIC_REFERENCE_NOT_IMPORT_PROOF",
+  "exact_python_import_syntax": "UNKNOWN",
+  "next_task": "D03"
+}
