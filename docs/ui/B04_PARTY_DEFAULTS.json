@@ -5,14 +5,22 @@
   "screenshot": {
     "file": "image(5).png",
     "sha256": "b04e9a73887bb8093bba8bfcd8a77a4dc57c5838ca11370c85def0f8adeb9590",
-    "raw_raster_px": [451, 1035],
+    "raw_raster_px": [
+      451,
+      1035
+    ],
     "selected_tab": "Party",
     "coordinate_space": "raw screenshot coordinates",
     "b01_baseline_changed": false
   },
   "after_party": {
     "selected": "Chờ",
-    "unselected": ["Train", "Train LSV", "Dồn vàng", "Phó bản"]
+    "unselected": [
+      "Train",
+      "Train LSV",
+      "Dồn vàng",
+      "Phó bản"
+    ]
   },
   "team_config": {
     "label": "Danh sách acc sẵn sàng:",
@@ -22,22 +30,46 @@
     {
       "title": "Nhóm 1",
       "leader": "ThápCa",
-      "row1": ["ThápCa", "75C.S6", "TổngTài.S6"],
-      "row2": ["", "", ""],
+      "row1": [
+        "ThápCa",
+        "75C.S6",
+        "TổngTài.S6"
+      ],
+      "row2": [
+        "",
+        "",
+        ""
+      ],
       "action_text": "Đang vào..."
     },
     {
       "title": "Nhóm 2",
       "leader": "(chưa chọn)",
-      "row1": ["", "", ""],
-      "row2": ["", "", ""],
+      "row1": [
+        "",
+        "",
+        ""
+      ],
+      "row2": [
+        "",
+        "",
+        ""
+      ],
       "action_text": "Tạo nhóm 2"
     },
     {
       "title": "Nhóm 3",
       "leader": "(chưa chọn)",
-      "row1": ["", "", ""],
-      "row2": ["", "", ""],
+      "row1": [
+        "",
+        "",
+        ""
+      ],
+      "row2": [
+        "",
+        "",
+        ""
+      ],
       "action_text": "Tạo nhóm 3"
     }
   ],
@@ -50,9 +82,14 @@
     "group_border": "#DCDCDC",
     "page_background": "#F0F0F0"
   },
-  "static_only_not_visible_in_this_capture": [
-    "Theo sau đội trưởng",
-    "Tự nhặt đồ"
-  ],
-  "next_action": "B05 — Baseline Train"
+  "static_only_not_visible_in_this_capture": [],
+  "next_action": "B05 — Baseline Train",
+  "g01_resolution": {
+    "stale_doc_only": [
+      "Theo sau đội trưởng",
+      "Tự nhặt đồ"
+    ],
+    "active_party_ui": false,
+    "note": "G01 found no active PartyTab BooleanVar/widget/callback surface for these; matching real controls belong to PhoBanTab. B04 pixels unchanged."
+  }
 }
