@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F08 — proxy.
+F09 — scheduler.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -829,8 +829,34 @@ F08 — proxy.
 - docs/login/F07_CAPTCHA_FLOW.md
 - docs/login/F07_CAPTCHA_MODEL.json
 
+## F08 VERIFIED RESULTS
+- Packaged proxy_working.txt baseline is hash-locked: 131 entries (108 SOCKS5, 17 HTTP, 6 SOCKS4).
+- Shared parser contract returns host/port/user/password/protocol and supports explicit SOCKS5/SOCKS4/HTTP plus multiple authenticated/unauthed text forms.
+- Login treats proxy_working.txt older than 5 minutes as stale and refreshes it in a worker-thread path.
+- proxy_refresh suppresses overlapping refreshes, has a <60s recent-refresh skip guard, downloads/deduplicates/checks proxies in parallel, and writes live proxies fastest-first.
+- A real refresh resets every forwarder index to 0 and clears stale advance/allocation state so the new fastest list starts from the beginning.
+- Runtime account proxy-advance threshold is 300 seconds / 5 minutes. This is supported by serialized _proxy_reload_threshold=300 and >5/<5-minute call-site logs.
+- The original sentence claiming >=30 minutes is stale documentation and is explicitly not treated as runtime truth.
+- Multi-account forwarder mapping is port=22200+profile_idx with iid=str(profile_idx); 22200 is reserved for the default instance.
+- Multi instances use IID-suffixed mode/index/stats/pid/advance/pinned files.
+- Healthy listeners are reused; stale/non-listening or zombie port owners are replaced before game launch; forwarder readiness is required before launch.
+- Mode switching is file-driven and does not require restarting a healthy forwarder.
+- Private proxy is pinned per IID; pinned failure is PINNED-ONLY with no fallback to the free pool.
+- Tool/free mode uses cross-process allocation locking via proxy_alloc.lock/proxy_alloc.txt and a shared proxy_bad.txt failure list.
+- Selective routing is critical: GAME SERVER 103.147.34.81 ports 3001/4001 is proxied while CDN/SDK 443 must remain direct.
+- _advance_forwarder_proxy uses an advance-file signal plus idx-file confirmation.
+- Row reload advances once, closes that row's tracked game session, and immediately re-logins without a second automatic advance.
+- forwarder_stats[_IID].json is consumed asynchronously for UI status.
+- Exact ALLOC_TTL, BAD_COOLDOWN/PROXY_COOLDOWN numeric values, forwarder ROTATE_INTERVAL and some low-level worker/socket timeouts remain explicit UNKNOWN.
+
+## F08 FILES
+- docs/tasks/F08.md
+- docs/login/F08_PROXY_STATIC_EVIDENCE.tsv
+- docs/login/F08_PROXY_FLOW.md
+- docs/login/F08_PROXY_MODEL.json
+
 ## BLOCKERS
-None known for F08.
+None known for F09.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -844,7 +870,7 @@ None known for F08.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F08 only.
-4. Recover proxy behavior from the original EXE: proxy_working.txt/free-pool lifecycle, parse_proxy accepted forms, forwarder port/iid allocation, mode/pinned/index/advance files, private proxy pinning, free proxy rotation, five-minute advance rule, forwarder readiness/start/stop/reuse, proxy refresh thresholds and row reload behavior.
-5. Keep scheduler timing outside proxy-specific retry/rotation behavior deferred to F09, and keep post-login routing deferred to F10.
-6. Persist F08 evidence/report and advance to F09 only after verification.
+3. Execute F09 only.
+4. Recover Login scheduler behavior from the original EXE: schedule_on, shutdown_after_close, close/open time controls, schedule worker lifecycle/cancellation, day rollover, close-game action, optional PC shutdown popup/action, scheduled game reopening/login and countdown/status updates.
+5. Keep post-login destination routing deferred to F10 except where the scheduler invokes the already-recovered Login start path.
+6. Persist F09 evidence/report and advance to F10 only after verification.
