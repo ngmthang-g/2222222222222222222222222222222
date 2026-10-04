@@ -743,7 +743,7 @@ None known for F03.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F02 only.
-4. Recover Login account storage from the original EXE: settings keys/serialization, fixed 100-row cache, hidden-row interaction, load/save lifecycle, online-state JSON vs persistent account data, and field ordering.
-5. Keep password display/security semantics deferred to F03 except where F02 needs the stored field shape.
-6. Persist F02 evidence/report and advance to F03 only after verification.
+3. Execute F03 only.
+4. Recover Login password behavior from the original EXE: Entry masking/unmasking, in-memory value handling, persisted representation and login-use path.
+5. Distinguish visual masking from the stored representation; do not infer encryption from the UI.
+6. Persist F03 evidence/report and advance to F04 only after verification.
