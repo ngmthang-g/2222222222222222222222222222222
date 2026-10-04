@@ -190,7 +190,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H03 — VERIFIED_SITE10_USED_SLOT_FULL_BAG_WATCH_WITH_FILTER_RECHECK_IN_NEVER_MODE_AND_EXPLICIT_THRESHOLD_BINDING_UNKNOWN
 - H04 — VERIFIED_CYCLE_REMAINDER_WAIT_WITH_60S_MINUTE_CONVERSION_AND_FULL_BAG_EARLY_BREAK_WITH_EXPLICIT_WAIT_QUANTUM_UNKNOWN
 - H05 — VERIFIED_SAVED_PRESET_TILE_MOVEMENT_WITH_8_TILE_NEAR_SKIP_AND_LIVE_TRUYEN_RETURN_WALK_FALLBACK
-- H06 — CURRENT
+- H06 — VERIFIED_BUILTIN_OR_MANUAL_TREATMENT_ROUTE_WITH_EXACT_TWO_CLICK_POINTS_X4_AND_BOOLEAN_FAILURE_HANDOFF
+- H07 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -228,3 +229,10 @@ FarmTab's active forward path uses its own _move_truyen_to/_exec_truyen_steps co
 Return routing prefers the actual current MapID, only falling back to the selected Farm preset if memory reading fails. Return destinations normalize built-in or manual coordinates and then use the configured Phù 1/2/3/Ngựa home-priority list.
 
 fast_travel.goto_map remains explicitly DORMANT in this frozen build; fast_hop_to_map is live only through move_to_npc, and FarmTab uses verify_exited_farm. Forward shortcut final-failure fallback, route retry count and ordinary move tolerance remain intentionally UNKNOWN. H06 now owns heal/treatment routing.
+
+
+H06 resolved Train treatment routing. The treatment toggle is trist (default off); heal_map defaults visually to Trị liệu Tô Châu. Built-in destinations are exact: Đại Lý (43,178), Lạc Dương (255,126), Tô Châu (155,252), Lâu Lan (294,170), mapped to Farm MapIDs 2/3/4/5.
+
+_heal_at_death supports both built-in and saved manual coordinates, reuses the H05 movement convention, and fails explicitly on missing/invalid/unresolvable targets or movement failure. The exact treatment interaction points are (892,474) and (514,424), repeated x4 by the original documentation.
+
+A 0.2 pacing constant and common.active readiness pair are present in the frozen heal block, but their exact source-level argument binding/placement remains intentionally UNKNOWN. The Farm cycle checks the treatment result and exposes "trị liệu sau chết thất bại" on failure. H07 now owns the complete death/respawn recovery FSM.
