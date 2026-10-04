@@ -1,0 +1,58 @@
+key	offset_hex	status	evidence
+after_login_var	0x2b5ec3b	VERIFIED_STATIC	_after_login UI variable
+after_login_label	0x2b5ec5d	VERIFIED_STATIC	Sau khi login:
+choice_wait_text	0x2b5ec9c	VERIFIED_STATIC	Chờ
+choice_wait_value	0x2b5eca3	VERIFIED_STATIC	wait
+choice_party_text	0x2b5ecd0	VERIFIED_STATIC	Party
+choice_party_value	0x2b5ecd7	VERIFIED_STATIC	party
+choice_train_text	0x2b5ecde	VERIFIED_STATIC	Train
+choice_train_value	0x2b5ece5	VERIFIED_STATIC	train
+choice_train_lsv_text	0x2b5ecec	VERIFIED_STATIC	Train LSV
+choice_train_lsv_value	0x2b5ecf7	VERIFIED_STATIC	train_lsv
+choice_don_text_exe	0x2b5ed02	VERIFIED_STATIC	compiled EXE literal Dồn vàng
+choice_don_value	0x2b5ed0f	VERIFIED_STATIC	don
+choice_don_text_screenshot	-	VISUAL_EVIDENCE	supplied Login screenshot visually reads Đồn vàng; retain discrepancy for F11
+party_helper_ref	0x2b66997	VERIFIED_STATIC	_auto_start_party_after_login
+farm_tab_ref	0x2b669b6	VERIFIED_STATIC	farm_tab_ref
+train_lsv_tab_ref	0x2b669c4	VERIFIED_STATIC	train_lsv_tab_ref
+donvang_tab_ref	0x2b669d7	VERIFIED_STATIC	donvang_tab_ref
+missing_generic_ref_log	0x2b669e8	VERIFIED_STATIC	Không có ref tab để auto-start
+generic_wait_helper	0x2b66a55	VERIFIED_STATIC	_wait_and_activate
+generic_wait_helper_qualname	0x2b66a69	VERIFIED_STATIC	LoginTab._auto_start_after_login.<locals>._wait_and_activate
+generic_helper_doc	0x2b66aa7	VERIFIED_STATIC	wait for corresponding tab to scan just-logged windows then activate its Bắt đầu; Chờ does nothing
+tab_text_map	0x2b66ba4	VERIFIED_STATIC	_TAB_TEXT
+tab_collection	0x2b66baf	VERIFIED_STATIC	tabs
+target_tab	0x2b66bb5	VERIFIED_STATIC	tab
+generic_ui_lambda	0x2b66bba	VERIFIED_STATIC	nested lambda for UI tab handoff
+generic_tab_switch_error	0x2b66c0a	VERIFIED_STATIC	Lỗi chuyển tab ...
+generic_acc_rows	0x2b66c27	VERIFIED_STATIC	_acc_rows
+generic_on_main	0x2b66c32	VERIFIED_STATIC	_on_main
+generic_on_main_qualname	0x2b66c3c	VERIFIED_STATIC	nested main-thread activation helper
+generic_auto_start_error	0x2b66c8c	VERIFIED_STATIC	Lỗi auto-start ...
+generic_farming_acc	0x2b66cb1	VERIFIED_STATIC	_farming_acc
+generic_farming	0x2b66d10	VERIFIED_STATIC	_farming
+generic_already_running_log	0x2b66d1a	VERIFIED_STATIC	[LOGIN] <target> đang chạy rồi — bỏ qua
+generic_toggle_farm	0x2b66d46	VERIFIED_STATIC	_toggle_farm
+generic_start_success	0x2b66d54	VERIFIED_STATIC	Đã kích hoạt auto ...
+party_tab_ref	0x2b66d84	VERIFIED_STATIC	party_tab_ref
+party_missing_ref_log	0x2b66d95	VERIFIED_STATIC	Không có ref party_tab để auto-start
+party_wait_helper	0x2b66dcf	VERIFIED_STATIC	LoginTab._auto_start_party_after_login.<locals>._wait_and_activate
+party_helper_doc	0x2b66e14	VERIFIED_STATIC	switch to Party, wait for scan, press Party Bắt đầu
+party_ui_lambda	0x2b66eb2	VERIFIED_STATIC	nested lambda for Party tab handoff
+party_tab_switch_error	0x2b66f08	VERIFIED_STATIC	Lỗi chuyển tab Party
+party_member_rows	0x2b66f2c	VERIFIED_STATIC	_member_rows
+party_running_state	0x2b66f3a	VERIFIED_STATIC	_running
+party_already_running_log	0x2b66f46	VERIFIED_STATIC	Party đang chạy rồi — bỏ qua
+party_toggle_run	0x2b66f75	VERIFIED_STATIC	_toggle_run
+party_start_success	0x2b66f85	VERIFIED_STATIC	Đã kích hoạt Party sau login
+party_auto_start_error	0x2b66fb5	VERIFIED_STATIC	Lỗi auto-start party
+generic_helper_attr	0x2b67058	VERIFIED_STATIC	_auto_start_after_login completion-call surface
+load_after_login_key	0x2b67191	VERIFIED_STATIC	after_login config key
+load_after_login_default	0x2b6719e	VERIFIED_STATIC	wait default/fallback
+save_after_login_key	0x2b67340	VERIFIED_STATIC	after_login in save surface
+helper_qualname	0x2b680f1	VERIFIED_STATIC	LoginTab._auto_start_after_login
+party_helper_qualname	0x2b68113	VERIFIED_STATIC	LoginTab._auto_start_party_after_login
+crossref_readiness_doc	0x2b80902	VERIFIED_STATIC	Party helper says same as login_tab._wait_and_activate; hidden tab may not scan; wait max 20s for HWND readiness
+readiness_poll_cadence	-	EXPLICIT_UNKNOWN	exact sleep/poll cadence within 20s not recovered
+login_row_match_formula	-	EXPLICIT_UNKNOWN	exact count/subset/identity formula inside Login helper not recovered
+partial_failure_route_condition	-	EXPLICIT_UNKNOWN	exact mixed-success / zero-success routing trigger not proven
