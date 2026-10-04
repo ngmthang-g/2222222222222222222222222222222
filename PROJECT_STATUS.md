@@ -30,7 +30,7 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — VERIFIED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS
 - C20 — VERIFIED_ORIGINAL_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED
 
-Current task: **D02 — import relationships**
+Current task: **D03 — third-party dependencies**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
@@ -63,8 +63,8 @@ C01–C20 are complete for the original executable/static/screenshot evidence. T
 
 ## Gate D
 - D01 — VERIFIED_WITH_PROVENANCE_TIERS
-- D02 — CURRENT
-- D03 — TODO
+- D02 — VERIFIED_STATIC_REFERENCE_GRAPH_WITH_EXPLICIT_IMPORT_SYNTAX_UNKNOWN
+- D03 — CURRENT
 - D04 — TODO
 - D05 — TODO
 - D06 — TODO
@@ -72,3 +72,5 @@ C01–C20 are complete for the original executable/static/screenshot evidence. T
 - D08 — TODO
 
 D01 completed the full original module-name inventory with provenance tiers: 570 accepted unique names across TLM internal, third-party, stdlib-reference, native-extension and Nuitka-hook categories, plus 3 rejected artifacts. The canonical row-level inventory is stored as a compressed TSV.
+
+D02 recovered a conservative compiled-module relationship graph: 377 static references, including 132 TLM-internal edges. Relationship evidence is explicitly not promoted to literal Python import syntax where the Nuitka binary cannot prove it.
