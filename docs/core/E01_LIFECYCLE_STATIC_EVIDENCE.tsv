@@ -1,0 +1,48 @@
+key	offset_hex	status	evidence
+main_forwarder_flag	0x28d24bb	VERIFIED_STATIC	--forwarder
+main_mode_flag	0x28d24e6	VERIFIED_STATIC	--mode
+main_debug_logger	0x28d2504	VERIFIED_STATIC	debug_logger
+main_crash_fault_log	0x28d252b	VERIFIED_STATIC	crash_fault.log
+main_thread_excepthook	0x28d257e	VERIFIED_STATIC	main.<locals>._thread_excepthook
+main_show_splash	0x28d25b6	VERIFIED_STATIC	show_splash
+main_create_mutex	0x28d25e2	VERIFIED_STATIC	CreateMutexW
+main_mutex_name	0x28d25f2	VERIFIED_STATIC	TLMTool_SingleInstance
+main_get_last_error	0x28d260c	VERIFIED_STATIC	GetLastError
+main_tk	0x28d261d	VERIFIED_STATIC	Tk
+main_app_symbol	0x28d2476	VERIFIED_STATIC	TLMMainApp
+main_mainloop	0x28d2692	VERIFIED_STATIC	mainloop
+app_notebook	0x28d0b75	VERIFIED_STATIC	Notebook
+app_create_tabs	0x28d0c7b	VERIFIED_STATIC	create_tabs
+app_cpu_monitor	0x28d0c88	VERIFIED_STATIC	CPUMonitor
+app_tab_changed_bind	0x28d0ceb	VERIFIED_STATIC	<<NotebookTabChanged>>
+app_start_tab_ctor	0x28d1f24	VERIFIED_STATIC	TLMStartTab
+app_login_ctor	0x28d1ef8	VERIFIED_STATIC	LoginTab
+app_farm_ctor	0x28d1f61	VERIFIED_STATIC	FarmTab
+app_train_lsv_ctor	0x28d1f75	VERIFIED_STATIC	TrainLsvTab
+app_emu_ctor	0x28d1f91	VERIFIED_STATIC	EmuFarmTab
+app_phoban_ctor	0x28d1fab	VERIFIED_STATIC	PhoBanTab
+app_party_ctor	0x28d1fc3	VERIFIED_STATIC	PartyTab
+app_debug_ctor	0x28d1fd9	VERIFIED_STATIC	DebugTab
+app_android_ctor	0x28d2010	VERIFIED_STATIC	DebugAndroidTab
+app_daily_ctor	0x28d2034	VERIFIED_STATIC	DailyTab
+app_proxy_ctor	0x28d204a	VERIFIED_STATIC	ProxyTab
+app_donvang_ctor	0x28d2060	VERIFIED_STATIC	DonVangTab
+app_rao_ctor	0x28d207a	VERIFIED_STATIC	RaoTab
+app_toiuu_ctor	0x28d208c	VERIFIED_STATIC	ToiuuTab
+app_info_ctor	0x28d107a	VERIFIED_STATIC	TLMInfoTab
+app_plan_callback	0x28d1092	VERIFIED_STATIC	_on_plan_update / plan_update_callback
+app_apply_permission	0x28d2c0e	VERIFIED_STATIC	TLMMainApp._apply_permission_state
+app_refresh_limit	0x28d2c32	VERIFIED_STATIC	TLMMainApp._refresh_limit_state
+app_sync_initial_refresh	0x28d2b0d	VERIFIED_STATIC	TLMMainApp._sync_initial_refresh
+app_tab_refresh_doc	0x28d1832	VERIFIED_STATIC	selected-tab refresh lifecycle block
+splash_close_symbol	0x2bf8960	VERIFIED_STATIC	close_splash
+splash_contract	0x2bf8991	VERIFIED_STATIC	Toplevel on withdrawn root; close_splash destroys splash + deiconifies root
+info_destroy_bind	0x2970791	VERIFIED_STATIC	<Destroy>
+info_startup_api	0x2970924	VERIFIED_STATIC	call_server_api_at_startup
+info_start_heartbeat	0x2970fd3	VERIFIED_STATIC	start_heartbeat
+info_force_quit	0x29754c9	VERIFIED_STATIC	TLMInfoTab._force_quit_app
+forced_quit_destroy_doc	0x2971499	VERIFIED_STATIC	second blocking heartbeat waits then destroys app
+forced_quit_os_exit	0x2971582	VERIFIED_STATIC	os._exit documented to stop process despite non-daemon threads
+normal_wm_delete_handler	-	NOT_RECOVERED	no main-shell WM_DELETE_WINDOW protocol callback recovered
+normal_cleanup_order	-	EXPLICIT_UNKNOWN	exact order of per-tab Destroy cleanup not source-visible
+root_app_splash_order	-	EXPLICIT_UNKNOWN	exact instruction-level construction/close ordering not source-visible
