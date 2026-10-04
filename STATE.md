@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F10 — post-login routing.
+F11 — Login parity test / reconstruction handoff.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -884,8 +884,32 @@ F10 — post-login routing.
 - docs/login/F09_SCHEDULER_FLOW.md
 - docs/login/F09_SCHEDULER_MODEL.json
 
+## F10 VERIFIED RESULTS
+- Rechecked the current uploaded `TLMTool_2.1.2(4).zip`; its inner `TLMTool.dist/TLMTool.exe` is SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, matching the frozen EXE used by the existing forensic work. Gate A was not repeated.
+- Cross-checked the supplied Login screenshot against the EXE before recording UI behavior.
+- `Sau khi login` modes are persisted under `after_login`; default/fallback is `wait`.
+- Internal mode mapping is: Chờ→wait, Party→party, Train→train, Train LSV→train_lsv, compiled EXE Dồn vàng→don.
+- The supplied screenshot visually reads `Đồn vàng` while the frozen EXE contains literal `Dồn vàng`; this text discrepancy is preserved for F11 instead of being silently normalized.
+- `LoginTab._auto_start_after_login` is the generic routing coordinator. Exact original documentation says it waits for the target tab to scan the just-logged windows and then activates that tab's real Bắt đầu path; Chờ does nothing.
+- Party has a dedicated helper `_auto_start_party_after_login` using `party_tab_ref`, `_member_rows`, `_running`, and `_toggle_run`.
+- Train / Train LSV / Dồn vàng use `farm_tab_ref` / `train_lsv_tab_ref` / `donvang_tab_ref`, scan `_acc_rows`, guard `_farming` / `_farming_acc`, and invoke the real `_toggle_farm`.
+- Target tab selection happens before readiness waiting because hidden tabs may not scan while hidden.
+- A separate original Party helper explicitly cross-references `login_tab._wait_and_activate` and states a maximum 20-second wait for sufficient HWND scan readiness. Exact poll cadence remains UNKNOWN.
+- Generic and Party helpers contain nested main-thread/UI handoff surfaces; final tab/start mutation is not performed blindly from the background wait path.
+- Missing tab refs produce warning/skip behavior.
+- Already-running target automation is skipped so the toggle is not accidentally inverted/stopped.
+- Routing errors are logged locally: tab-switch and auto-start failures do not redefine the completed credential-login result.
+- F09 scheduled open and manual Login both reuse `_open_game_batch`; both therefore feed the same post-login routing layer after normal Login completion.
+- Exact Login helper HWND identity/count formula and exact mixed-success/zero-success routing trigger remain explicit UNKNOWN for F11.
+
+## F10 FILES
+- docs/tasks/F10.md
+- docs/login/F10_POST_LOGIN_STATIC_EVIDENCE.tsv
+- docs/login/F10_POST_LOGIN_FLOW.md
+- docs/login/F10_POST_LOGIN_MODEL.json
+
 ## BLOCKERS
-None known for F10.
+None known for F11.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -899,7 +923,9 @@ None known for F10.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F10 only.
-4. Recover post-login routing from the original EXE: Chờ / Party / Train / Train LSV / Dồn vàng, tab-selection handoff, wait-for-tab/readiness loops, start-button activation, already-running guards, result/error handling and interaction with scheduled/manual Login completion.
-5. Respect the proxy scope lock: do not develop or extend runtime proxy/network behavior while reconstructing routing.
-6. Persist F10 evidence/report and advance to F11 only after verification.
+3. Execute F11 only.
+4. Perform Login parity-test / reconstruction handoff for F01–F10 without redoing verified forensic work.
+5. Reconcile the visible `Đồn vàng` screenshot text against the frozen EXE literal `Dồn vàng` by parity evidence; do not guess.
+6. Verify post-login routing boundaries that remain unknown from F10: exact 20s polling cadence, exact target-row readiness/match condition, and mixed-success/zero-success routing trigger.
+7. Respect the proxy scope lock: do not develop or extend runtime proxy/network behavior.
+8. Persist F11 evidence/report and advance only after verification.
