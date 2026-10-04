@@ -550,3 +550,32 @@ Explicit unknown:
 - persistence across app restart.
 
 ---
+
+## C18 — Đồng bộ các cửa sổ
+
+`Đồng bộ các cửa sổ`
+→ `_toggle_layout`
+→ `layout_active` / `sync_layout_running`
+→ `_sync_windows_loop`
+→ `_layout_worker`
+→ worker-cached game HWND set
+→ `_arrange_grid`
+→ master index 0 / top-left
+→ remaining HWNDs follow
+
+Mode integration:
+- Xếp lưới/internal `sync` automatically enables layout sync;
+- Auto/manual disables it.
+
+Limit integration:
+over runtime max-window limit
+→ `_auto_stop_sync`
+→ both synchronization systems stop.
+
+Explicit unknown:
+- exact layout-worker cadence;
+- exact initial `layout_active` assignment;
+- exact stop/cancel ordering;
+- layout auto-disable on manual master change is not proven.
+
+---
