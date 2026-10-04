@@ -191,7 +191,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H04 — VERIFIED_CYCLE_REMAINDER_WAIT_WITH_60S_MINUTE_CONVERSION_AND_FULL_BAG_EARLY_BREAK_WITH_EXPLICIT_WAIT_QUANTUM_UNKNOWN
 - H05 — VERIFIED_SAVED_PRESET_TILE_MOVEMENT_WITH_8_TILE_NEAR_SKIP_AND_LIVE_TRUYEN_RETURN_WALK_FALLBACK
 - H06 — VERIFIED_BUILTIN_OR_MANUAL_TREATMENT_ROUTE_WITH_EXACT_TWO_CLICK_POINTS_X4_AND_BOOLEAN_FAILURE_HANDOFF
-- H07 — CURRENT
+- H07 — VERIFIED_4S_MAP87_HP0_RESPAWN_MONITOR_WITH_LATCHED_SINGLE_CLICK_EVENT_DRIVEN_RECOVERY_AND_EXPLICIT_RETURN_BRANCH_UNKNOWN
+- H08 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -236,3 +237,10 @@ H06 resolved Train treatment routing. The treatment toggle is trist (default off
 _heal_at_death supports both built-in and saved manual coordinates, reuses the H05 movement convention, and fails explicitly on missing/invalid/unresolvable targets or movement failure. The exact treatment interaction points are (892,474) and (514,424), repeated x4 by the original documentation.
 
 A 0.2 pacing constant and common.active readiness pair are present in the frozen heal block, but their exact source-level argument binding/placement remains intentionally UNKNOWN. The Farm cycle checks the treatment result and exposes "trị liệu sau chết thất bại" on failure. H07 now owns the complete death/respawn recovery FSM.
+
+
+H07 resolved Train death recovery around FarmTab._diaphu_monitor. The monitor runs from Farm-session start at 4-second cadence, combines MapID 87 detection with real numeric HP=0 detection, and issues exactly one client respawn click at (792,441) per hp_latched zero-HP episode. MapID 87 sets a latched respawn_event once per continuous stay and re-arms only after leaving Địa phủ.
+
+Farm recovery enters the Đang hồi sinh state and may call the H06 treatment worker through hard_stop. The return-to-train option is the respawn setting, default off; when enabled it must reuse the H05 current saved Train target/movement path. Exact worker continuation when respawn is off and exact FSM consequence after treatment failure remain intentionally UNKNOWN.
+
+The row death counter starts at Chết: 0 and the HP-zero monitor branch owns _extra_deaths, supporting one count per latched HP-zero episode. Death-counter reset on same-row restart remains runtime-only. Farm does not inherit Train-LSV's post-respawn common.active wait; the 45s/need3 memory-ready gate remains reconnect-specific. H08 now owns reconnect and death/reconnect overlap.
