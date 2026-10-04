@@ -466,3 +466,21 @@ Hủy tách is a separate visible action and is not merged with Đóng xem.
 Explicit unknown: exact user-initiated secondary UI state and exact Hủy tách vs Đóng xem embedded-preview restoration difference.
 
 ---
+
+## C14 — Tách rời
+
+Tách rời
+→ _toggle_detached_preview
+→ _open_detached_preview
+→ DWM overlay region x=0, y=768, width=screen_width-450, extends to bottom
+→ HWND_TOPMOST detached items + detached control bar
+→ _detached_update_loop
+   rebuilds when game-window list changes
+   independent of Start tab visibility
+
+Persisted: detached_auto_open (fallback True), detached_grid (default-like 3).
+Control bar: Cột, Tên, HP, Lv, Map, refresh, Hủy tách, Đóng xem.
+
+Explicit unknown: exact embedded-preview hide/restore sequence across detach/cancel/close branches.
+
+---

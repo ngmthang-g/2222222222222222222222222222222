@@ -1,0 +1,28 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+main_detach_button	0x2bfa790	VERIFIED_STATIC	Tách rời
+main_detach_button_state	0x2bfa79d	VERIFIED_STATIC	btn_detach_preview
+toggle_detached	0x2bfa107	VERIFIED_STATIC	_toggle_detached_preview
+detached_active	0x2bf987f	VERIFIED_STATIC	detached_active
+detached_items	0x2bf9890	VERIFIED_STATIC	detached_items
+detached_bar	0x2bf98a0	VERIFIED_STATIC	_detached_bar
+detached_grid_var	0x2bf98b1	VERIFIED_STATIC	_detached_grid_var with recovered default-like 3
+toggle_doc	0x2bfeb25	VERIFIED_STATIC	Bật/tắt vùng preview tách rời
+detached_cols_label	0x2bfee6c	VERIFIED_STATIC	Cột
+detached_combobox	0x2bfeeac	VERIFIED_STATIC	readonly Combobox
+detached_cmb_cols	0x2bfeeed	VERIFIED_STATIC	_detached_cmb_cols
+refresh_detached	0x2bff0a4	VERIFIED_STATIC	_refresh_detached_preview
+refresh_doc	0x2bff0bf	VERIFIED_STATIC	close then reopen to reload list
+open_detached	0x2bff11a	VERIFIED_STATIC	_open_detached_preview
+cancel_detach	0x2bff238	VERIFIED_STATIC	Hủy tách
+close_view	0x2bff250	VERIFIED_STATIC	Đóng xem
+control_bar	0x2bff265	VERIFIED_STATIC	_build_detached_control_bar
+detached_loop	0x2bff282	VERIFIED_STATIC	_detached_update_loop
+open_geometry_doc	0x2bff299	VERIFIED_STATIC	x=0,y=768 to bottom; width screen_width-450
+silent_auto_open_doc	0x2bff316	VERIFIED_STATIC	silent=True suppresses messagebox for auto-open
+close_doc	0x2bff380	VERIFIED_STATIC	close all detached windows
+topmost	0x2bff3f2	VERIFIED_STATIC	HWND_TOPMOST
+loop_doc	0x2bff400	VERIFIED_STATIC	rebuild on game-list change; independent of Start visibility
+config_detached_auto_open	0x2bfdc38	VERIFIED_STATIC	detached_auto_open getboolean, fallback True marker
+config_detached_grid	0x2bfdc4f	VERIFIED_STATIC	detached_grid
+config_detached_grid_default	0x2bfdc5e	VERIFIED_STATIC	string-like default 3
+embedded_visibility_sequence	-	EXPLICIT_UNKNOWN	exact show/hide/restore sequence for embedded previews not source-visible

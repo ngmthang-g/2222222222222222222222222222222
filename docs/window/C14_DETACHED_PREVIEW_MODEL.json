@@ -1,0 +1,47 @@
+{
+  "task": "C14",
+  "status": "VERIFIED_WITH_EXPLICIT_EMBEDDED_VISIBILITY_UNKNOWN",
+  "button": "Tách rời",
+  "toggle": "_toggle_detached_preview",
+  "state": [
+    "detached_active",
+    "detached_items",
+    "_detached_bar",
+    "_detached_grid_var"
+  ],
+  "open_method": "_open_detached_preview",
+  "region": {
+    "x": 0,
+    "y": 768,
+    "width": "screen_width - 450",
+    "height": "to screen bottom"
+  },
+  "topmost": true,
+  "renderer": "DWM thumbnail destination overlays",
+  "auto_open": {
+    "persisted": true,
+    "fallback": true,
+    "silent_no_window": true
+  },
+  "detached_grid": {
+    "persisted": true,
+    "recovered_default": "3"
+  },
+  "controls": [
+    "Cột",
+    "Tên",
+    "HP",
+    "Lv",
+    "Map",
+    "refresh",
+    "Hủy tách",
+    "Đóng xem"
+  ],
+  "update_loop": {
+    "method": "_detached_update_loop",
+    "rebuild_on_game_list_change": true,
+    "independent_of_start_visibility": true
+  },
+  "exact_embedded_preview_visibility_sequence": "UNKNOWN",
+  "next_task": "C15 — Làm mới"
+}

@@ -48,6 +48,7 @@ IN_PROGRESS
 - C11 VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
 - C12 VERIFIED_WITH_EXPLICIT_RESTORE_DOC_CONFLICT
 - C13 VERIFIED_WITH_EXPLICIT_POST_CLOSE_UI_UNKNOWN
+- C14 VERIFIED_WITH_EXPLICIT_EMBEDDED_VISIBILITY_UNKNOWN
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -109,7 +110,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C14 — Tách rời.
+C15 — Làm mới.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -228,8 +229,25 @@ C14 — Tách rời.
 - docs/window/C13_CLOSE_VIEW_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C14 VERIFIED RESULTS
+- Tách rời uses _toggle_detached_preview and a real DWM detached-overlay subsystem.
+- Detached region is documented as x=0, y=768 to screen bottom, width screen_width-450.
+- Detached overlays have topmost behavior.
+- detached_auto_open is persisted with fallback True and uses silent no-window opening.
+- detached_grid is persisted with recovered default-like value 3.
+- Detached control bar includes Cột/Tên/HP/Lv/Map/refresh/Hủy tách/Đóng xem.
+- _detached_update_loop rebuilds on game-list changes independently of Start-tab visibility.
+- Exact embedded-preview visibility/restoration sequence remains explicit UNKNOWN.
+
+## C14 FILES
+- docs/tasks/C14.md
+- docs/window/C14_DETACHED_PREVIEW_STATIC_EVIDENCE.tsv
+- docs/window/C14_DETACHED_PREVIEW_FLOW.md
+- docs/window/C14_DETACHED_PREVIEW_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C14.
+None known for C15.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -243,8 +261,8 @@ None known for C14.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C14 only.
-4. Recover Tách rời behavior from the original EXE.
-5. Verify detached-region geometry, DWM overlay lifecycle, control bar, persisted detached settings and relationship to embedded previews.
-6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C14 evidence/report.
-7. Advance to C15 only after C14 is verified.
+3. Execute C15 only.
+4. Recover Làm mới behavior from the original EXE.
+5. Verify embedded preview refresh, detached preview refresh if relevant, list teardown/rebuild, DWM resource lifecycle and preservation of preview ordering.
+6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C15 evidence/report.
+7. Advance to C16 only after C15 is verified.
