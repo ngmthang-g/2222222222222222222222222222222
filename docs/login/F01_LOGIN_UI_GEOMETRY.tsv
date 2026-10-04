@@ -1,0 +1,34 @@
+element	x0	y0	x1	y1	width	height	state_or_note
+group_game	11	69	438	133	428	65	Cấu hình game / LabelFrame
+choose_game_button	16	83	150	106	135	24	Chọn thư mục game
+open_game_button	157	83	232	106	76	24	Mở game
+game_status_indicator	23	113	35	125	13	13	selected-game success state visible
+group_schedule	11	147	438	283	428	137	Cấu hình lịch trình / LabelFrame
+schedule_checkbox	20	165	32	177	13	13	unchecked
+close_hour	149	186	195	206	47	21	04
+close_minute	209	186	255	206	47	21	00
+shutdown_pc_checkbox	268	190	280	202	13	13	unchecked
+open_hour	149	211	195	231	47	21	04
+open_minute	209	211	255	231	47	21	20
+radio_wait	107	240	119	252	13	13	selected
+radio_party	164	240	176	252	13	13	unselected
+radio_train	226	240	238	252	13	13	unselected
+radio_train_lsv	287	240	299	252	13	13	unselected
+radio_don	370	240	382	252	13	13	unselected; source label Dồn vàng is right-edge clipped
+group_accounts	11	297	438	1013	428	717	Cấu hình tài khoản / LabelFrame
+show_password_checkbox	180	313	192	325	13	13	unchecked
+header_selector	20	342	39	360	20	19	custom check-glyph Button; visible checked
+header_account	46	340	147	360	102	21	Tài khoản
+header_password	152	340	239	360	88	21	Mật khẩu
+header_captcha	244	340	310	360	67	21	Ẩn captcha
+header_login	315	340	350	360	36	21	Login
+header_proxy	353	340	390	360	38	21	Proxy
+row1_selector	20	378	39	396	20	19	unchecked
+row1_account	46	373	147	399	102	27	first visible account field
+row1_password	152	373	239	399	88	27	masked field
+row1_captcha	244	374	310	398	67	25	Tool
+row1_login	317	371	349	401	33	31	green ▶
+row1_proxy	356	371	388	401	33	31	blue ⇄
+scrollbar_column	418	349	432	970	15	622	approx visible scrollbar rail/controls
+scrollbar_thumb	418	349	432	472	15	124	visible thumb
+bottom_start	20	978	429	1007	410	30	Bắt đầu
