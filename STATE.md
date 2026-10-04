@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E04 — shared state.
+E05 — config management.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -557,8 +557,28 @@ E04 — shared state.
 - docs/core/E03_TAB_ORDER.tsv
 - docs/core/E03_TAB_LOADER_MODEL.json
 
+## E04 AUDIT / COMPLETION
+- Existing E04 report and state table were audited against prior Gate-D/E01-E03 evidence.
+- No semantic contradiction was found; the ownership model is coherent.
+- The declared JSON model artifact was missing and has now been created.
+
+## E04 VERIFIED RESULTS
+- TLMMainApp owns shell coordination state and tab instance refs.
+- permission_guard owns normalized permission/plan/limit decisions and the block-notifier service API.
+- TLMInfoTab owns server/license/session/heartbeat transport state.
+- TLMStartTab owns multi-window HWND/preview/grid/sync runtime state.
+- Feature FSM/account/schedule state remains tab-owned.
+- Cross-thread block notifications marshal back to Tk with root.after.
+- Persistent files remain separate from in-memory app state.
+- Exact private permission_guard backing globals and heartbeat mutation order remain explicit UNKNOWN/PARTIAL.
+
+## E04 FILES
+- docs/tasks/E04.md
+- docs/core/E04_SHARED_STATE.tsv
+- docs/core/E04_SHARED_STATE_MODEL.json
+
 ## BLOCKERS
-None known for E04.
+None known for E05.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -572,7 +592,7 @@ None known for E04.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E04 only.
-4. Recover shared application state: root/app fields, cross-tab refs, permission/plan/version state, account/window-limit state, block notifier, and shared config/cache objects.
-5. Separate TLMMainApp-owned state from module globals and per-tab state.
-6. Persist E04 evidence/report and advance to E05 only after verification.
+3. Execute E05 only.
+4. Recover config management: settings/config paths, read/write helpers, parser behavior, defaults/fallbacks, atomic write semantics, section/key ownership and reload propagation.
+5. Separate shell/shared config from tab-owned runtime state files.
+6. Persist E05 evidence/report and advance to E06 only after verification.
