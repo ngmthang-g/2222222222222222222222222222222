@@ -49,12 +49,12 @@ IN_PROGRESS
 - C12 VERIFIED_WITH_EXPLICIT_RESTORE_DOC_CONFLICT
 - C13 VERIFIED_WITH_EXPLICIT_POST_CLOSE_UI_UNKNOWN
 - C14 VERIFIED_WITH_EXPLICIT_EMBEDDED_VISIBILITY_UNKNOWN
-- C15 VERIFIED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN
-- C16 VERIFIED_WITH_EXPLICIT_POST_CLOSE_REFRESH_UNKNOWN
-- C17 VERIFIED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS
-- C18 VERIFIED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS
-- C19 VERIFIED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS
-- C20 VERIFIED_ORIGINAL_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED
+- C15 AUDITED_CLOSED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN
+- C16 AUDITED_CLOSED_WITH_EXPLICIT_POST_CLOSE_REFRESH_UNKNOWN
+- C17 AUDITED_CLOSED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS
+- C18 AUDITED_CLOSED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS
+- C19 AUDITED_CLOSED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS
+- C20 AUDITED_CLOSED_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-D03 — third-party dependencies.
+D04 — TLM internal dependencies.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -381,8 +381,33 @@ D03 — third-party dependencies.
 - docs/modules/D02_INTERNAL_RELATIONSHIPS.tsv.gz
 - tools/D02_EXTRACT_RELATIONSHIPS.py
 
+## C15–C20 + D01 AUDIT
+- Exact user archive and inner EXE hashes rechecked against Gate A.
+- C15/C16 semantics remain correct; evidence tables had several nearby/off-by-one offsets and were normalized to exact literal/symbol starts.
+- C17/C18 semantic models remain correct with their existing explicit unknowns.
+- C19 model status metadata was aligned with the detailed task status.
+- C20 wording was tightened to static+visual original evidence; no new live runtime trace is claimed.
+- D01 reproducibility was corrected: raw source-filename candidates = 541; normalized count = 538 after collapsing three exact leading-u duplicate-tag pairs.
+- Canonical D01 accepted inventory remains 570 names; D02 is unaffected.
+- Audit report: docs/tasks/C15_C20_D01_AUDIT.md
+
+## D03 VERIFIED RESULTS
+- Third-party presence, exact version evidence and direct TLM reference evidence are separated.
+- Exact package versions recovered for requests 2.34.2, urllib3 2.7.0, Pillow 12.3.0, cryptography 49.0.0, idna 3.18, certifi 2026.06.17, PyAutoGUI 0.9.54, pyperclip 1.11.0, PyScreeze 1.0.1, PyTweening 1.2.0, PyMsgBox 1.0.9, PyGetWindow 0.0.9 and six 1.17.0.
+- PyWin32 binaries expose File/ProductVersion 3.10.312.0.
+- 32 PYD files split into 16 CPython/runtime extensions and 16 third-party native extensions.
+- Direct internal reference mapping identifies major Windows/input/process families without overclaiming exact Python import syntax.
+- Frida/psutil/pynput/keyboard/mouse/typing_extensions/Brotli/cffi package versions remain UNKNOWN where no strong version evidence was recovered.
+
+## D03 FILES
+- docs/tasks/D03.md
+- docs/modules/D03_DEPENDENCY_MATRIX.tsv
+- docs/modules/D03_DEPENDENCY_SUMMARY.json
+- docs/modules/D03_DIRECT_USAGE.tsv
+- tools/D03_EXTRACT_DEPENDENCIES.py
+
 ## BLOCKERS
-None known for D03.
+None known for D04.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -396,8 +421,8 @@ None known for D03.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute D03 only.
-4. Inventory third-party dependency families, native extensions, versions where recoverable, and their evidenced roles in TLM.
-5. Separate package-presence evidence from version evidence and from actual TLM usage/reference evidence.
-6. Persist D03 evidence/report and update PROJECT_STATUS.md.
-7. Advance to D04 only after D03 is verified.
+3. Execute D04 only.
+4. Refine the TLM internal dependency architecture from D02 using module-specific symbols, class/function names, shared-state references and call-context evidence.
+5. Separate directional dependency confidence from mere compiled-name adjacency.
+6. Persist D04 graph/report and update PROJECT_STATUS.md.
+7. Advance to D05 only after D04 is verified.
