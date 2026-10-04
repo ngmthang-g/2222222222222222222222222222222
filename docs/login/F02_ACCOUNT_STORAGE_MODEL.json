@@ -1,0 +1,90 @@
+{
+  "task": "F02",
+  "status": "VERIFIED_WITH_EXPLICIT_CHECK_TOKEN_AND_LEGACY_CAPTCHA_MIGRATION_UNKNOWNS",
+  "persistent_account_store": {
+    "file": "%APPDATA%/TLMTool/settings.ini",
+    "section": "Settings",
+    "key": "accounts",
+    "row_separator": "\\n",
+    "field_separator": "|",
+    "save_field_order": [
+      "check",
+      "user",
+      "pass",
+      "captcha",
+      "proxy"
+    ],
+    "normalized_record_keys": [
+      "check",
+      "username",
+      "password",
+      "captcha_mode",
+      "proxy_env"
+    ],
+    "check_token_encoding": "UNKNOWN"
+  },
+  "cache": {
+    "name": "_accounts_cache",
+    "representation": "plain dicts",
+    "synchronization": "widget state -> _sync_accounts_cache before save",
+    "logical_rows": 100
+  },
+  "row_limit": {
+    "hidden_store": "_hidden_rows",
+    "plan_decrease": "hide excess rows FIFO without deleting data",
+    "plan_increase": "restore hidden rows first, then add blanks",
+    "storage_requirement": "plan-hidden data must be preserved"
+  },
+  "autosave": {
+    "scheduler": "_schedule_save",
+    "debounce_ms": 300,
+    "save_method": "_save_accounts",
+    "coalesces_changes": true,
+    "destroy_safety_method": "_save_on_destroy",
+    "shared_lock": "_settings_lock"
+  },
+  "compatibility": {
+    "loader_tokens": [
+      "Không",
+      "Có",
+      "Tool",
+      "Proxy"
+    ],
+    "current_ui_modes": [
+      "Không",
+      "Tool",
+      "Proxy"
+    ],
+    "legacy_co_mapping": "UNKNOWN"
+  },
+  "runtime_online_state": {
+    "file": "login_online.json",
+    "role": "live HWND/session/proxy tracking",
+    "writer": "_save_online_state",
+    "restoration": "read on restart, validate HWND alive, repaint/restore tracking",
+    "credential_store": false,
+    "evidenced_fields": [
+      "use_proxy",
+      "iid",
+      "exe_path",
+      "profile_idx",
+      "port",
+      "user",
+      "tracked HWND/row state"
+    ]
+  },
+  "last_login_history": {
+    "file": "last_login_times.json",
+    "role": "successful-login timestamps across sessions",
+    "credential_store": false
+  },
+  "deferred": [
+    "password security/storage semantics F03",
+    "game path F04",
+    "login execution F06",
+    "captcha F07",
+    "proxy F08",
+    "scheduler F09"
+  ],
+  "next_task": "F03 — password behavior"
+}
