@@ -1,0 +1,41 @@
+key	raw_offset_hex	status	evidence
+root_title	0x28d0ad3	VERIFIED_STATIC	aTLMTool tagged constant used with title
+root_geometry_symbol	0x28d0adc	VERIFIED_STATIC	geometry
+transient_geometry	0x28d0ae8	VERIFIED_STATIC	u250x20 tagged literal
+root_attributes	0x28d0af0	VERIFIED_STATIC	attributes
+topmost_tuple	0x28d0afe	VERIFIED_STATIC	serialized two-argument constant (-topmost, True)
+frozen_flag	0x28d0b08	VERIFIED_STATIC	frozen
+meipass	0x28d0b11	VERIFIED_STATIC	_MEIPASS
+icon_name	0x28d0b21	VERIFIED_STATIC	uicon.ico
+iconbitmap	0x28d0b2b	VERIFIED_STATIC	iconbitmap
+root_withdraw	0x28d0b37	VERIFIED_STATIC	withdraw
+default_font_family	0x28d0b43	VERIFIED_STATIC	uSegoe UI
+default_font_size	0x28d0b4d	VERIFIED_STATIC	serialized integer 9 immediately following Segoe UI in 2-tuple
+default_font_state	0x28d0b4f	VERIFIED_STATIC	default_font
+option_add	0x28d0b5d	VERIFIED_STATIC	option_add
+font_option_pattern	0x28d0b69	VERIFIED_STATIC	u*Font
+notebook_ctor	0x28d0b75	VERIFIED_STATIC	Notebook
+notebook_pack	0x28d0b89	VERIFIED_STATIC	pack
+pack_fill_constant	0x28d0b93	VERIFIED_STATIC	BOTH
+pack_margin_literal	0x28d0b99	VERIFIED_STATIC	serialized integer 5 reused by pack kwargs
+pack_keywords	0x28d0b9c	VERIFIED_STATIC	fill / expand / padx / pady keyword set follows
+ttk_style	0x28d0bb7	VERIFIED_STATIC	Style
+notebook_tab_style	0x28d0bcb	VERIFIED_STATIC	uTNotebook.Tab
+notebook_tab_padding	0x28d0be1	VERIFIED_STATIC	padding
+notebook_style	0x28d0bec	VERIFIED_STATIC	TNotebook
+notebook_tabmargins	0x28d0c00	VERIFIED_STATIC	tabmargins
+position_method	0x28d0d35	VERIFIED_STATIC	position_window_top_right
+deiconify	0x28d0d50	VERIFIED_STATIC	deiconify
+update_idletasks	0x28d0d5b	VERIFIED_STATIC	update_idletasks
+screen_width	0x28d0d6d	VERIFIED_STATIC	winfo_screenwidth
+screen_height	0x28d0d80	VERIFIED_STATIC	winfo_screenheight
+position_literal_80	0x28d0d94	VERIFIED_STATIC	serialized integer 80
+position_max	0x28d0d96	VERIFIED_STATIC	max
+position_literal_450	0x28d0d9b	VERIFIED_STATIC	serialized integer 450 (LEB128 c2 03)
+position_literal_10	0x28d0d9e	VERIFIED_STATIC	serialized integer 10
+geometry_format_fragments	0x28d0da0	VERIFIED_STATIC	width/height/x format fragments ending +0
+stale_geometry_literal	0x28d0daa	QUARANTINED_UNKNOWN_FLOW	u350x450+1621+0 conflicts with locked production raster/current positioning constants
+gate_b_client	-	VERIFIED_VISUAL	12/12 locked screenshots: 450x1000 client, 452x1032 outer
+style_padding_values	-	EXPLICIT_UNKNOWN	exact source list values for TNotebook.Tab padding and TNotebook tabmargins not fully decoded
+position_arithmetic	-	HIGH_CONFIDENCE_MODEL	consistent with w=450; h=sh-80; x=max(0,sw-w-10); y=0 but exact source expression not directly recovered
+resizable_minsize_maxsize	-	NOT_RECOVERED	no corresponding main-shell symbols recovered
