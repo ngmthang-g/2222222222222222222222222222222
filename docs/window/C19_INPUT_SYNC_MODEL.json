@@ -1,0 +1,20 @@
+{
+  "task": "C19",
+  "status": "VERIFIED_WITH_EXPLICIT_UNKNOWNS",
+  "control": "Đồng bộ phím chuột",
+  "source": "selected master game window",
+  "mouse_sync": true,
+  "keyboard_sync": true,
+  "coordinate_scaling": true,
+  "ordered_processing": true,
+  "keepalive_seconds": 1.5,
+  "stale_state_watchdog_seconds": 10,
+  "master_change_disables_sync": true,
+  "unknowns": [
+    "exact key-message format",
+    "exact move throttle interval",
+    "exact listener startup timing",
+    "exact retry delay"
+  ],
+  "next_task": "C20"
+}
