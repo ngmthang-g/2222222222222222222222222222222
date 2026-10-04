@@ -52,6 +52,7 @@ IN_PROGRESS
 - C15 VERIFIED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN
 - C16 VERIFIED_WITH_EXPLICIT_POST_CLOSE_REFRESH_UNKNOWN
 - C17 VERIFIED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS
+- C18 VERIFIED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -113,7 +114,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C18 — đồng bộ các cửa sổ.
+C19 — đồng bộ phím chuột.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -287,8 +288,25 @@ C18 — đồng bộ các cửa sổ.
 - Order state is keyed by source HWND and survives refresh/rebuild.
 - Boundary behavior and detached-order propagation remain explicit UNKNOWN.
 
+## C18 VERIFIED RESULTS
+- `Đồng bộ các cửa sổ` is a real toggle backed by `_toggle_layout`.
+- Runtime state includes `layout_active`, `sync_layout_running`, `sync_loop_id`, and grid-slot state.
+- The maintenance path uses `_sync_windows_loop` → `_layout_worker` → worker-cached HWNDs → `_arrange_grid`.
+- Grid application is master-aware: current master is index 0/top-left.
+- Xếp-lưới mode auto-enables layout synchronization; Auto/manual disables it.
+- Runtime max-window policy is integrated; the over-limit path stops both synchronization subsystems.
+- Manual master change auto-disabling layout sync is not proven.
+- Exact worker cadence, initial layout-active value, and exact stop/cancel ordering remain explicit UNKNOWN.
+
+## C18 FILES
+- docs/tasks/C18.md
+- docs/window/C18_LAYOUT_SYNC_STATIC_EVIDENCE.tsv
+- docs/window/C18_LAYOUT_SYNC_FLOW.md
+- docs/window/C18_LAYOUT_SYNC_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C18.
+None known for C19.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -302,8 +320,9 @@ None known for C18.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C18 only.
-4. Recover the layout synchronization control from the original EXE.
-5. Verify its toggle state, worker loop, grid application, window-limit guard, and start/stop lifecycle.
-6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C18 evidence/report.
-7. Advance to C19 only after C18 is verified.
+3. Execute C19 only.
+4. Recover the keyboard/mouse synchronization subsystem from the original EXE.
+5. Verify master event capture, slave targeting, coordinate scaling, block/unblock lifecycle, keepalive, watchdog, key and mouse paths.
+6. Keep C18 layout synchronization logic separate.
+7. Update WINDOW_BEHAVIOR_MATRIX.md and persist C19 evidence/report.
+8. Advance to C20 only after C19 is verified.
