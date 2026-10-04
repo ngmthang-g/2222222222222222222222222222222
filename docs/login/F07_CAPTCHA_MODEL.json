@@ -1,0 +1,89 @@
+{
+  "task": "F07",
+  "status": "VERIFIED_THREE_MODE_PROXY_ROUTING_WITH_LOCAL_DLL_READINESS_AND_EXPLICIT_LEGACY_MIGRATION_UNKNOWNS",
+  "modes": {
+    "Không": {
+      "network_route": "direct",
+      "row_action": "blank/disabled/hidden-looking",
+      "private_proxy_required": false
+    },
+    "Tool": {
+      "network_route": "ordinary/free proxy via tool/forwarder",
+      "row_action": "⇄",
+      "private_proxy_required": false,
+      "detailed_pool_rotation": "DEFERRED_TO_F08"
+    },
+    "Proxy": {
+      "network_route": "row-specific private proxy",
+      "row_action": "➜",
+      "private_proxy_required": true,
+      "missing_proxy": "reject/skip account",
+      "user_selection_auto_popup": true,
+      "config_load_auto_popup": false,
+      "detailed_pinning": "DEFERRED_TO_F08"
+    }
+  },
+  "persistence": {
+    "key": "captcha_mode",
+    "account_autosave": true,
+    "mode_change_calls": "_schedule_save"
+  },
+  "private_proxy_editor": {
+    "permission_guard": true,
+    "denial_text": "⚠️ Không có quyền nhập proxy — kiểm tra key bản quyền",
+    "geometry": "440x100",
+    "accepted_hints": [
+      "protocol://user:pass@ip:port",
+      "user:pass:ip:port"
+    ],
+    "parser_surface": "parse_proxy",
+    "detailed_parse_and_pinning": "DEFERRED_TO_F08"
+  },
+  "captcha_readiness": {
+    "init_check": "_check_dll_status",
+    "label": "lbl_dll_status",
+    "path_symbols": [
+      "DLL_PATH",
+      "_tool_dll_src"
+    ],
+    "tool_dll_src_doc": "Trả về đường dẫn DLL đã build trong APPDATA.",
+    "not_ready": "⚠️ Vượt captcha chưa hoạt động",
+    "ready": "✅ Hệ thống vượt captcha sẵn sàng",
+    "hash_worker": "_check_dll_hash_worker",
+    "hash_algorithm": "md5",
+    "fresh": "Đã cập nhật cấu hình mới nhất",
+    "stale": "Cần cập nhật cấu hình",
+    "hard_gate_over_modes": "NOT_RECOVERED"
+  },
+  "external_solver": {
+    "http_service": "NOT_RECOVERED",
+    "captcha_vendor_api": "NOT_RECOVERED",
+    "ocr_pytesseract": "NOT_RECOVERED",
+    "selenium_browser_solver": "NOT_RECOVERED"
+  },
+  "legacy": {
+    "proxy_mode_values": [
+      "none",
+      "free",
+      "private"
+    ],
+    "captcha_tokens": [
+      "Không",
+      "Có",
+      "Tool",
+      "Proxy"
+    ],
+    "current_ui": [
+      "Không",
+      "Tool",
+      "Proxy"
+    ],
+    "co_mapping": "UNKNOWN",
+    "proxy_mode_migration": "UNKNOWN"
+  },
+  "boundaries": {
+    "F06": "mechanical background login sequence consumes resolved captcha_mode/proxy",
+    "F08": "proxy pool/allocation/rotation/pinning mechanics"
+  },
+  "next_task": "F08 — proxy"
+}
