@@ -1,0 +1,94 @@
+{
+  "task": "G08",
+  "status": "VERIFIED_ACTIVE_TEAM_CONFIG_WITH_MULTI_GROUP_JSON_PLUS_LEGACY_GROUP1_MIRROR_AND_DORMANT_KEY_CLEANUP_BOUNDARY",
+  "resume_check": {
+    "g01_to_g07_complete": true,
+    "g08_preexisting_artifact": false,
+    "continued_from_state_next_action": true
+  },
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "backend": {
+    "file": "settings.ini",
+    "section": "Settings",
+    "config_path": "CONFIG_PATH",
+    "config_dir": "CONFIG_DIR",
+    "lock": "_settings_lock",
+    "read": "read_settings",
+    "write": "write_settings"
+  },
+  "save_guard": {
+    "state": "_saving_enabled",
+    "purpose": "suppress writes during initialization/config restore",
+    "exact_enable_timing": "UNKNOWN"
+  },
+  "after_party": {
+    "key": "party_after",
+    "default": "wait",
+    "allowed": ["wait", "train", "train_lsv", "don", "phoban"],
+    "autosave": "_after_party.trace_add('write', ...)"
+  },
+  "team_groups": {
+    "current_key": "party_groups",
+    "legacy_group1_key": "party_group1",
+    "current_schema": [
+      {
+        "num": "cluster number",
+        "members": ["character name"]
+      }
+    ],
+    "legacy_group1_semantics": "selected Group-1 names with blanks/duplicates removed",
+    "encoding": "JSON",
+    "ensure_ascii": false,
+    "load_has_current_and_legacy_paths": true,
+    "exact_precedence_expression": "UNKNOWN",
+    "malformed_json_exact_branch": "UNKNOWN"
+  },
+  "persisted_identity": {
+    "member_name": true,
+    "hwnd": false,
+    "pid": false,
+    "role_id": false,
+    "team_id": false
+  },
+  "runtime_only": [
+    "_running",
+    "_cancel",
+    "_run_cancels",
+    "_targets_lock",
+    "_refresh_id",
+    "_refreshing",
+    "_closing",
+    "_last_targets",
+    "_member_rows",
+    "join_running",
+    "join_cancel",
+    "HWND/PID/RoleID/TeamID"
+  ],
+  "dormant_compatibility_cleanup": {
+    "keys": [
+      "party_corps_groups",
+      "party_corps_group1",
+      "party_follow",
+      "party_pick"
+    ],
+    "active_ui": false,
+    "active_load_path": false,
+    "grouped_in_save_block": true,
+    "save_local_iterator": "_k",
+    "exact_cleanup_statement": "UNKNOWN"
+  },
+  "corps_section": {
+    "_sec_corps_state_exists": true,
+    "active_build_section_call": false,
+    "reconstruct_ui": false
+  },
+  "save_error": "[PARTY] Save error: ",
+  "deferred": {
+    "G09": "Party action-button wiring and run/stop lifecycle",
+    "later_G": "create/invite team action details and parity"
+  },
+  "next_task": "G09 — Party action-button wiring and run/stop lifecycle audit"
+}
