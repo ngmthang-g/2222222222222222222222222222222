@@ -1,0 +1,44 @@
+key	offset_hex	status	evidence
+new_tab_helper	0x28d0e82	VERIFIED_STATIC	TLMMainApp.create_tabs.<locals>._new_tab
+start_label	0x28d0eae	VERIFIED_STATIC	▶
+login_label	0x28d0ec6	VERIFIED_STATIC	Login
+party_label	0x28d0ee2	VERIFIED_STATIC	Party
+train_label	0x28d0efe	VERIFIED_STATIC	Train
+train_lsv_label	0x28d0f19	VERIFIED_STATIC	Train LSV
+train_ld_label	0x28d0f3c	VERIFIED_STATIC	Train LD
+phoban_label	0x28d0f5e	VERIFIED_STATIC	Phó Bản
+daily_label	0x28d0f97	VERIFIED_STATIC	Daily
+don_label	0x28d0fb3	VERIFIED_STATIC	Đồn
+rao_label	0x28d0fd1	VERIFIED_STATIC	Rao
+toiuu_label	0x28d0fe9	VERIFIED_STATIC	Tối ưu
+info_label	0x28d1009	VERIFIED_STATIC	ℹ
+debug_label	0x28d1042	VERIFIED_STATIC	🔎
+android_label	0x28d105d	VERIFIED_STATIC	🔍
+info_ctor	0x28d107a	VERIFIED_STATIC	TLMInfoTab
+plan_callback	0x28d1092	VERIFIED_STATIC	_on_plan_update / plan_update_callback
+rebuild_tab	0x28d10bb	VERIFIED_STATIC	_rebuild_tab
+cross_tab_refs	0x28d1187	VERIFIED_STATIC	daily/start/farm/train-LSV/don/phoban/party/login/toiuu ref fields
+selected_tab_key	0x28d181f	VERIFIED_STATIC	_selected_tab_key
+refresh_switch_doc	0x28d1844	VERIFIED_STATIC	stop old tab refresh; start selected tab immediately
+refresh_keys	0x28d188e	VERIFIED_STATIC	_TAB_REFRESH_KEYS
+refresh_methods	0x28d18b5	VERIFIED_STATIC	_start_refresh / _stop_refresh
+initial_refresh_doc	0x28d1928	VERIFIED_STATIC	after build only selected tab polls; others stop
+scrollable_doc	0x28d1ba6	VERIFIED_STATIC	Canvas+Scrollbar wrapper returns inner_frame
+scroll_canvas	0x28d197c	VERIFIED_STATIC	Canvas
+scrollbar	0x28d19a3	VERIFIED_STATIC	Scrollbar vertical/yview
+mousewheel_bind	0x28d1cc8	VERIFIED_STATIC	<MouseWheel> bind/unbind lifecycle
+lazy_build_doc	0x28d20a0	VERIFIED_STATIC	Chỉ build 1 lần khi tab chưa có nội dung.
+toggle_children_doc	0x28d2133	VERIFIED_STATIC	has_permission + check_account_limit toggles normal/disabled without destroy
+account_limit_doc	0x28d2189	VERIFIED_STATIC	heartbeat can toggle action-tab state when account limit changes
+debug_visibility_doc	0x28d21e0	VERIFIED_STATIC	Debug only with dev permission
+android_visibility_doc	0x28d2222	VERIFIED_STATIC	Debug Android follows dev plan
+proxy_visibility_doc	0x28d2269	VERIFIED_STATIC	Proxy only with dev permission
+don_visibility_doc	0x28d22ad	VERIFIED_STATIC	Đồn only with permission/dev rule
+rao_visibility_doc	0x28d22f3	VERIFIED_STATIC	Rao permission-controlled
+toiuu_visibility_doc	0x28d233b	VERIFIED_STATIC	Tối ưu permission-controlled
+generic_visibility_doc	0x28d2389	VERIFIED_STATIC	only Info always visible; other tabs hidden without permission
+hidden_selected_fallback	0x28d23ec	VERIFIED_STATIC	if selected tab becomes hidden, select Info
+version_plan_lock_doc	0x28d1721	VERIFIED_STATIC	version lock or banned plan permits only Info and redirects others
+gate_b_visible_order	-	VERIFIED_VISUAL	▶|Login|Party|Train|Train LSV|Phó Bản|Daily|Đồn|Rao|Tối ưu|i
+exact_constructor_micro_order	-	EXPLICIT_CONTEXTUAL	constructors recovered; every source-level assignment/call sequence not fully decompiled
+exact_wrap_scroll_per_tab	-	EXPLICIT_UNKNOWN	wrapper capability recovered; all per-tab Booleans not source-expression visible
