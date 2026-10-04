@@ -1,6 +1,6 @@
 {
   "task": "C20",
-  "status": "VERIFIED_ORIGINAL_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED",
+  "status": "AUDITED_CLOSED_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED",
   "screenshot": {
     "sha256": "f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a",
     "identities": [
@@ -41,6 +41,6 @@
     "remaining low-level input timing",
     "future reconstructed-build Windows parity"
   ],
-  "gate_c": "COMPLETE_STATIC_ORIGINAL_RUNTIME_EVIDENCE",
+  "gate_c": "COMPLETE_ORIGINAL_STATIC_VISUAL_EVIDENCE_RUNTIME_PARITY_DEFERRED",
   "next_task": "D01 — Extract toàn bộ module names"
 }
