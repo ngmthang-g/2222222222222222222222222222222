@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E06 — logging.
+E07 — task/thread management.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -595,8 +595,24 @@ E06 — logging.
 - docs/core/E05_CONFIG_FLOW.md
 - docs/core/E05_CONFIG_MODEL.json
 
+## E06 VERIFIED RESULTS
+- debug_logger.setup creates the central append-only session log under log/tlmtool.log and tees stdout/stderr to the original streams plus the file.
+- Session Start/End markers, runtime/executable information and timestamp formatting are recovered.
+- Central log trimming drops oldest content when MAX_SIZE is exceeded and keeps newest KEEP_SIZE content; exact numeric size values remain UNKNOWN.
+- Main startup separately enables faulthandler against crash_fault.log.
+- A custom threading.excepthook records [THREAD-EXC] metadata plus traceback through the central log path.
+- memory diagnostics use separate tlm_memory.log with documented >1MB truncation behavior.
+- data/automove_log.txt is monitored by Tối ưu watchdog for per-PID Perf: ping evidence and belongs to the injected/performance diagnostic boundary.
+- No explicit central logging lock/queue was recovered; concurrent-write serialization remains NOT RECOVERED.
+
+## E06 FILES
+- docs/tasks/E06.md
+- docs/core/E06_LOGGING_STATIC_EVIDENCE.tsv
+- docs/core/E06_LOGGING_FLOW.md
+- docs/core/E06_LOGGING_MODEL.json
+
 ## BLOCKERS
-None known for E06.
+None known for E07.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -610,7 +626,7 @@ None known for E06.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E06 only.
-4. Recover logging architecture: debug_logger setup, stdout/stderr tee, tlmtool.log, crash_fault.log/faulthandler, module log prefixes, memory/automove logs, thread-safety and rotation/truncation behavior if recoverable.
-5. Separate diagnostic logging from feature-state persistence.
-6. Persist E06 evidence/report and advance to E07 only after verification.
+3. Execute E07 only.
+4. Recover task/thread management: Thread creation, daemon flags, Event/Lock/Queue use, root.after handoff, per-tab worker ownership, cancellation/stop flags, joins/timeouts, listener threads and watchdog loops.
+5. Separate long-lived shell/service workers from per-feature FSM workers and helper processes.
+6. Persist E07 evidence/report and advance to E08 only after verification.
