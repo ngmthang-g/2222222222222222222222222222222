@@ -1,0 +1,150 @@
+{
+  "task": "G10",
+  "status": "VERIFIED_B0_B3_PACKET_FIRST_TEAM_PROTOCOL_WITH_TEAMID_CONFIRMATION_BURST_RETRY_AND_EXPLICIT_UNBOUND_TIMING_CONSTANTS",
+  "resume_check": {
+    "g01_to_g09_complete": true,
+    "g10_preexisting_artifact": false,
+    "continued_from_state_next_action": true
+  },
+  "protocol": {
+    "order": ["B0_AUTO_ACCEPT", "B1_LEAVE_AND_VERIFY_OUTSIDE", "B2_CREATE_TEAM", "B3_BURST_INVITE"],
+    "engine": "_run_one_group",
+    "shared_by_global_and_single_cluster": true
+  },
+  "target_resolution": {
+    "config_identity": "member names",
+    "live_source": "memory_items.read_own_ids",
+    "hwnd_source": "hwnd_of_pid",
+    "result_shape": ["name", "hwnd", "RoleID"],
+    "offline_or_missing_window": "skip + log",
+    "single_online_guard_exists": true,
+    "single_online_exact_return_expression": "UNKNOWN"
+  },
+  "B0": {
+    "setter": "memory_items.set_auto_fields",
+    "section": "UTILITIES",
+    "field": "AutoAcceptInviteTeam",
+    "type": "bool",
+    "value": true,
+    "setter_persists_live_game_setting": "SaveSetting()",
+    "delay_symbol": "AUTOSET_DELAY",
+    "readback": "_is_autoset_on -> get_auto_settings",
+    "readback_states": {
+      "True": "confirmed on",
+      "False": "still off; warn/manual accept",
+      "None": "unreadable"
+    }
+  },
+  "B1": {
+    "no_team_ids": [0, 4294967295],
+    "read_error": "None",
+    "already_outside": "skip leave",
+    "leave_helper": "memory_items.leave_team",
+    "packet": {
+      "channel": 200057,
+      "action": 4,
+      "payload": "4:<ownRid>"
+    },
+    "delay_symbol": "LEAVE_DELAY",
+    "verify": "_wait_team_state(expect_zero=True)",
+    "timeout_symbol": "WAIT_LEFT_TIMEOUT",
+    "timeout_behavior": "log diagnostic and continue"
+  },
+  "B2": {
+    "leader_only_create": true,
+    "packet_first": {
+      "helper": "memory_items.create_team",
+      "channel": 200057,
+      "action": 0,
+      "payload": "0",
+      "verify": "leader obtains real TeamID",
+      "timeout_symbol": "CREATE_PACKET_TIMEOUT"
+    },
+    "fallback": {
+      "method": "_click_create_team",
+      "normalize_size": [1366, 768],
+      "conditional_clicks": [
+        {"pixel": "donVang.nguoiChoiGan", "xy": [391, 683]},
+        {"pixel": "donVang.muiTenAnNhiemVu", "xy": [34, 462]}
+      ],
+      "tail_clicks": [[27,467], [154,214], [127,336]],
+      "click_gap_seconds": 1,
+      "cancel_aware": true
+    },
+    "retry": {
+      "count_symbol": "CREATE_RETRY",
+      "count_numeric": "UNKNOWN",
+      "verify_timeout_symbol": "WAIT_TEAM_TIMEOUT",
+      "retry_delay_symbol": "INVITE_DELAY",
+      "exhausted": "log create failure and skip cluster"
+    }
+  },
+  "B3": {
+    "invite_helper": "memory_items.invite",
+    "kind": "team",
+    "packet": {
+      "channel": 200051,
+      "prefix": "5:",
+      "payload": "5:<targetRoleID>"
+    },
+    "burst_delay_symbol": "BURST_INVITE_DELAY",
+    "burst_delay_documented": "~0.5s",
+    "wait": {
+      "helper": "_wait_group_same_team",
+      "poll_symbol": "GROUP_JOIN_POLL",
+      "timeout_symbol": "GROUP_JOIN_TIMEOUT",
+      "success": "every other TeamID equals leader real TeamID",
+      "timeout_result": "missing target list",
+      "cancel_result": null
+    },
+    "rounds": 2,
+    "round_structure": ["initial all others", "one resend of missing only"],
+    "remaining_missing_after_second_wait": "warn/log snapshot, still return finished unless canceled"
+  },
+  "legacy_invite_join": {
+    "main_B3_path": false,
+    "behavior": "one invite + fixed JOIN_WAIT without TeamID verification",
+    "documented_old_wait_seconds_per_member": 2
+  },
+  "leave_button": {
+    "worker": "_leave_group_worker",
+    "resolves_live_targets": true,
+    "skips_offline": true,
+    "skips_no_team": true,
+    "leave_helper": "memory_items.leave_team",
+    "delay_symbol": "LEAVE_DELAY",
+    "aggregate_teamid_wait": false
+  },
+  "timing_evidence": {
+    "exact_documented": {
+      "create_click_gap_seconds": 1,
+      "legacy_sequential_wait_seconds_per_member": 2,
+      "burst_resend_rounds": 1
+    },
+    "approx_documented": {
+      "BURST_INVITE_DELAY": "~0.5s"
+    },
+    "module_unique_float_pool": [0.3,0.8,2.0,12.0,0.5,15.0,6.0],
+    "unbound_symbols": [
+      "AUTOSET_DELAY",
+      "LEAVE_DELAY",
+      "WAIT_LEFT_TIMEOUT",
+      "TEAMID_POLL",
+      "CREATE_PACKET_TIMEOUT",
+      "WAIT_TEAM_TIMEOUT",
+      "INVITE_DELAY",
+      "JOIN_WAIT",
+      "GROUP_JOIN_POLL",
+      "GROUP_JOIN_TIMEOUT",
+      "BURST_INVITE_DELAY"
+    ],
+    "reason_unbound": "deduplicated Nuitka constant pool does not safely expose the source assignment of every float to every symbol"
+  },
+  "preserved_from_G09": {
+    "global_parallel_clusters": true,
+    "per_cluster_cancel": true,
+    "single_cluster_own_worker": true,
+    "same_cluster_global_single_collision": "UNKNOWN"
+  },
+  "next_task": "G11 — Party post-party action dispatch audit"
+}
