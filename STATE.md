@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E07 — task/thread management.
+E08 — shutdown/reload.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -611,8 +611,27 @@ E07 — task/thread management.
 - docs/core/E06_LOGGING_FLOW.md
 - docs/core/E06_LOGGING_MODEL.json
 
+## E07 VERIFIED RESULTS
+- Concurrency is split across Tk after/after_cancel jobs, Python worker threads, listener/service threads, and external/native process boundaries.
+- Background workers return Tk mutations through root.after rather than touching widgets directly.
+- CPU monitor is a daemon worker with bounded join cleanup.
+- Start input sync uses a Queue-backed serialized worker plus Locks and daemon listener threads.
+- Start preview/cache worker performs window/basic-info refresh around 3s and heavier memory refresh around 8s without Tk calls.
+- Login owns cancellation Events and a launch Lock; Party owns cancellation/locks and one-thread-per-group execution with join(timeout).
+- Daily/Farm/Train families use per-account threads, stop Events/running-generation flags and main-thread UI apply.
+- Emulator remote listener is a daemon ThreadingHTTPServer service with shutdown/server_close.
+- Info heartbeat is centrally coordinated through Tk after-id state.
+- CreateRemoteThread/helper processes are explicitly separated from Python threading.
+- Exact daemon flag for every worker, every join timeout, and simultaneous global stop ordering remain explicit UNKNOWN.
+
+## E07 FILES
+- docs/tasks/E07.md
+- docs/core/E07_THREAD_STATIC_EVIDENCE.tsv
+- docs/core/E07_THREAD_FLOW.md
+- docs/core/E07_THREAD_MODEL.json
+
 ## BLOCKERS
-None known for E07.
+None known for E08.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -626,7 +645,7 @@ None known for E07.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E07 only.
-4. Recover task/thread management: Thread creation, daemon flags, Event/Lock/Queue use, root.after handoff, per-tab worker ownership, cancellation/stop flags, joins/timeouts, listener threads and watchdog loops.
-5. Separate long-lived shell/service workers from per-feature FSM workers and helper processes.
-6. Persist E07 evidence/report and advance to E08 only after verification.
+3. Execute E08 only.
+4. Recover shutdown/reload behavior: normal widget destruction, per-tab stop/save hooks, root destruction, forced heartbeat exit, refresh/rebuild/reload workers, updater relaunch, and helper-process survival/cleanup boundaries.
+5. Separate in-app tab reload/rebuild from full process restart/update.
+6. Persist E08 evidence/report and advance to E09 only after verification.
