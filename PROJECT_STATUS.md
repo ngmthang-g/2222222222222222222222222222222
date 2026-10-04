@@ -30,7 +30,7 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — VERIFIED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS
 - C20 — VERIFIED_ORIGINAL_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED
 
-Current task: **D01 — Extract toàn bộ module names**
+Current task: **D02 — import relationships**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
@@ -62,11 +62,13 @@ C19 verified the input synchronization subsystem: master-originated mouse/keyboa
 C01–C20 are complete for the original executable/static/screenshot evidence. The locked three-HWND screenshot is coherent with the recovered discovery, master, preview-order, layout and synchronization models. Exact reconstructed-build Windows parity is explicitly deferred to the later implementation/parity stage.
 
 ## Gate D
-- D01 — CURRENT
-- D02 — TODO
+- D01 — VERIFIED_WITH_PROVENANCE_TIERS
+- D02 — CURRENT
 - D03 — TODO
 - D04 — TODO
 - D05 — TODO
 - D06 — TODO
 - D07 — TODO
 - D08 — TODO
+
+D01 completed the full original module-name inventory with provenance tiers: 570 accepted unique names across TLM internal, third-party, stdlib-reference, native-extension and Nuitka-hook categories, plus 3 rejected artifacts. The canonical row-level inventory is stored as a compressed TSV.
