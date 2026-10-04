@@ -1,6 +1,6 @@
 {
   "task": "F10",
-  "status": "VERIFIED_STATIC_ROUTING_WITH_20S_READINESS_BOUND_AND_EXPLICIT_PARTIAL_FAILURE_POLL_CADENCE_UNKNOWNS",
+  "status": "VERIFIED_STATIC_ROUTING_F11_RESOLVED_1S_SUBSET_READINESS_WITH_RUNTIME_ONLY_SUCCESS_GUARD_UNKNOWN",
   "source": {
     "specimen": "TLMTool.dist/TLMTool.exe",
     "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
@@ -28,24 +28,33 @@
       "ui": "Train",
       "ref": "farm_tab_ref",
       "rows": "_acc_rows",
-      "running": ["_farming", "_farming_acc"],
+      "running": [
+        "_farming",
+        "_farming_acc"
+      ],
       "start": "_toggle_farm"
     },
     "train_lsv": {
       "ui": "Train LSV",
       "ref": "train_lsv_tab_ref",
       "rows": "_acc_rows",
-      "running": ["_farming", "_farming_acc"],
+      "running": [
+        "_farming",
+        "_farming_acc"
+      ],
       "start": "_toggle_farm"
     },
     "don": {
-      "ui_exe_literal": "Dồn vàng",
-      "ui_screenshot_reading": "Đồn vàng",
-      "visual_text_status": "DISCREPANCY_DEFER_TO_F11",
+      "ui": "Dồn vàng",
+      "value": "don",
       "ref": "donvang_tab_ref",
       "rows": "_acc_rows",
-      "running": ["_farming", "_farming_acc"],
-      "start": "_toggle_farm"
+      "running": [
+        "_farming",
+        "_farming_acc"
+      ],
+      "start": "_toggle_farm",
+      "visual_text_status": "RESOLVED_CANONICAL_BY_F01_EXE_AND_F11_USER_CONFIRMATION"
     }
   },
   "routing": {
@@ -62,7 +71,9 @@
     "readiness_max_seconds": 20,
     "readiness_reason": "hidden tabs may not scan until selected",
     "readiness_poll_cadence": "UNKNOWN",
-    "login_row_identity_formula": "UNKNOWN"
+    "login_row_identity_formula": "want.issubset(have); have from target _acc_rows.get('hwnd')",
+    "readiness_poll_cadence_seconds": 1,
+    "readiness_max_polls": 20
   },
   "guards": {
     "missing_ref": "warn and skip",
@@ -73,8 +84,16 @@
     "manual": "normal _open_game_batch -> Login completion -> same route",
     "scheduled": "F09 schedule -> same _open_game_batch -> same route",
     "scheduler_after_route": "remains active waiting for later scheduled event",
-    "mixed_or_zero_success_route_condition": "UNKNOWN"
+    "mixed_or_zero_success_route_condition": "RUNTIME_ONLY_UNKNOWN"
   },
   "proxy_runtime_development": "OUT_OF_SCOPE_BY_USER_LOCK",
-  "next_task": "F11 — Login parity test / reconstruction handoff"
+  "next_task": "F11 — Login parity test / reconstruction handoff",
+  "resolved_by_F11": {
+    "canonical_label": "Dồn vàng",
+    "readiness_poll_seconds": 1,
+    "readiness_max_polls": 20,
+    "readiness_predicate": "want.issubset(have)",
+    "have_source": "_acc_rows.get('hwnd')",
+    "evidence": "later original helper explicitly says same as login_tab._wait_and_activate and serializes 0/20/1, issubset, sleep, float 1.0"
+  }
 }
