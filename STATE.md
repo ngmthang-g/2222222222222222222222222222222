@@ -38,77 +38,67 @@ IN_PROGRESS
 - C01 VERIFIED_WITH_EXPLICIT_UNKNOWN_BOOLEAN_FORMULA
 - C02 VERIFIED_WITH_EXPLICIT_UNKNOWN_FALLBACK_FORMAT
 - C03 VERIFIED_WITH_EXPLICIT_UNKNOWN_PROPERTY_BOOLEANS
+- C04 VERIFIED_WITH_EXPLICIT_UNKNOWN_BOUNDARY_AND_DETACHED_CADENCE
 
-## C03 VERIFIED RESULTS
-- Verified Start preview backend is live Windows DWM Thumbnail, not BitBlt/PrintWindow polling.
-- Source window is the discovered game `src_hwnd`.
-- TLM creates a separate destination overlay HWND:
-  - registered class `ThlDwmThumbDst`
-  - CreateWindowExW
-  - WS_EX_LAYERED
-  - WS_EX_TOOLWINDOW
-  - WS_EX_NOACTIVATE
-  - WS_POPUP
-  - WS_VISIBLE
-- Preview Tk child supplies screen geometry through `winfo_rootx/y/width/height`.
-- Destination owner comes from Tk toplevel `winfo_id`.
-- Registration chain:
-  - create destination HWND
-  - DwmRegisterThumbnail(dst, src)
-  - DwmUpdateThumbnailProperties
-- Verified property flags/fields:
-  - RECTDESTINATION
-  - OPACITY
-  - VISIBLE
-  - SOURCECLIENTAREAONLY
-  - serialized opacity constant = 255
-- Exact source-level boolean assignment for fVisible/fSourceClientAreaOnly remains explicit UNKNOWN.
-- Destination overlay follows Tk preview geometry through debounced reposition logic.
-- Verified custom WndProc click messages:
-  - 0x201 WM_LBUTTONDOWN
-  - 0x202 WM_LBUTTONUP
-  - 0x203 WM_LBUTTONDBLCLK
-- Overlay click target map resolves destination HWND back to source game HWND.
-- Source activation path uses IsWindow / IsIconic / SW_RESTORE or SW_SHOW / SetForegroundWindow.
-- Hung handling:
-  - IsHungAppWindow
-  - nonblocking check
-  - visible error path `Cửa sổ không phản hồi`
-- Teardown:
-  - DwmUnregisterThumbnail
-  - remove click-target mapping
-  - DestroyWindow destination
-  - destroy Tk frame
-- Screenshot corroboration recorded for three visible preview items:
-  - outer frame 205×137
-  - visible black preview surface 197×110
+## C04 VERIFIED RESULTS
+- Verified 800/2000ms are **preview maintenance/update cadence**, not DWM image FPS.
+- DWM thumbnail image remains compositor-driven; no TLM app-defined DWM FPS was recovered.
+- Preview maintenance is Tk `after` scheduled:
+  - `_preview_loop_id`
+  - `_schedule_preview_loop`
+  - respects `_refresh_active`
+- Adaptive policy recovered:
+  - switch constant = 6
+  - short delay = 800ms
+  - long delay = 2000ms
+  - exact boundary operator (< vs <=) remains explicit UNKNOWN
+- Normal update-loop responsibilities recovered:
+  - reposition DWM destination HWNDs
+  - compare alive HWNDs/current valid preview items
+  - conditionally rebuild list
+  - refresh cached name/HP
+  - refresh slot combobox HWND mapping
+  - schedule next cycle
+- Update-loop block contains `cache_ts` + exact float 3.0; exact source comparator/use remains explicit UNKNOWN.
+- Reposition debounce recovered exactly: **60ms**.
+- Timing layers distinguished:
+  - Start list poll: 2000ms
+  - preview maintenance: 800/2000ms
+  - worker EnumWindows + character info: ~3s
+  - heavier memory: ~8s
+  - DWM composition: live compositor
+- Detached preview has separate `_detached_update_loop`:
+  - rebuilds when game-window list changes
+  - independent of Start tab visibility
+  - exact detached timer interval remains explicit UNKNOWN
+- Leaving Start stops normal poll/preview scheduled work while detached preview remains active.
 
-## C03 FILES
-- `docs/tasks/C03.md`
-- `docs/window/C03_PREVIEW_STATIC_EVIDENCE.tsv`
-- `docs/window/C03_PREVIEW_FLOW.md`
-- `docs/window/C03_PREVIEW_SCREENSHOT_GEOMETRY.tsv`
+## C04 FILES
+- `docs/tasks/C04.md`
+- `docs/window/C04_PREVIEW_UPDATE_STATIC_EVIDENCE.tsv`
+- `docs/window/C04_PREVIEW_TIMING_MODEL.md`
+- `docs/window/C04_PREVIEW_TIMING.json`
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C04 — update preview và FPS.
+C05 — cửa sổ chính.
 
 ## BLOCKERS
-None known for C04.
+None known for C05.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve Gate B visual contract unchanged.
-- Preserve C01/C02 explicit unknowns.
-- Do not assume the two C03 DWM boolean field assignments.
-- Do not begin C05 before C04 is verified.
+- Preserve C01–C04 explicit unknowns.
+- Do not mislabel maintenance timers as DWM FPS.
+- Do not begin C06 before C05 is verified.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read `PLAN.md`.
 2. Read `STATE.md`.
-3. Execute **C04 only**.
-4. Recover preview-loop scheduling, 800/2000 ms policy, rebuild conditions, label/HP refresh, reposition debounce and detached-loop separation from original evidence.
-5. Distinguish DWM compositor rendering from TLM's metadata/update polling; do not call DWM thumbnail repaint an app FPS unless evidence supports that wording.
-6. Update `WINDOW_BEHAVIOR_MATRIX.md` and persist C04 evidence/report.
-7. Advance to C05 only after C04 is verified.
+3. Execute **C05 only**.
+4. Recover how TLM chooses/stores the main/master game window.
+5. Determine master-variable semantics, automatic selection/fallback, effect on sorting/sync/layout and stale-window handling only from original evidence.
+6. Update `WINDOW_BEHAVIOR_MATRIX.md` and persist C05 evidence/report.
+7. Advance to C06 only after C05 is verified.

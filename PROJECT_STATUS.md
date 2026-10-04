@@ -12,8 +12,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C01 — VERIFIED_WITH_EXPLICIT_UNKNOWN_BOOLEAN_FORMULA
 - C02 — VERIFIED_WITH_EXPLICIT_UNKNOWN_FALLBACK_FORMAT
 - C03 — VERIFIED_WITH_EXPLICIT_UNKNOWN_PROPERTY_BOOLEANS
-- C04 — CURRENT
-- C05 — TODO
+- C04 — VERIFIED_WITH_EXPLICIT_UNKNOWN_BOUNDARY_AND_DETACHED_CADENCE
+- C05 — CURRENT
 - C06 — TODO
 - C07 — TODO
 - C08 — TODO
@@ -30,8 +30,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C04 — update preview và FPS**
+Current task: **C05 — cửa sổ chính**
 
-C03 verified DWM live-thumbnail architecture, destination overlay HWND lifecycle, click activation and hung-window guard.
+C04 separated live DWM composition from the adaptive 800/2000ms preview-maintenance loop, recovered the 60ms resize debounce, update responsibilities and detached-loop independence.
 
 Preserve Gate A/B baselines unchanged.

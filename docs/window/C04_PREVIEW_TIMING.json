@@ -1,0 +1,38 @@
+{
+  "task": "C04",
+  "status": "VERIFIED_WITH_EXPLICIT_UNKNOWNS",
+  "timers": {
+    "start_ui_list_poll_ms": 2000,
+    "preview_maintenance": {
+      "short_ms": 800,
+      "long_ms": 2000,
+      "account_count_switch_constant": 6,
+      "boundary_operator": "UNKNOWN",
+      "gated_by": "_refresh_active",
+      "timer_id": "_preview_loop_id"
+    },
+    "reposition_debounce_ms": 60,
+    "background_window_and_character_info_seconds_approx": 3,
+    "background_heavy_memory_seconds_approx": 8,
+    "cache_ts_criterion_seconds": 3.0,
+    "cache_ts_exact_comparator": "UNKNOWN",
+    "detached_loop_interval": "UNKNOWN"
+  },
+  "preview_loop_responsibilities": [
+    "reposition DWM destination overlays",
+    "compare alive HWNDs with valid preview items",
+    "conditionally rebuild preview list",
+    "refresh character name/HP from worker cache",
+    "update slot combobox HWND mapping",
+    "schedule next cycle"
+  ],
+  "detached_preview": {
+    "independent_of_start_tab_visibility": true,
+    "rebuild_when_game_window_list_changes": true
+  },
+  "dwm_rendering": {
+    "backend": "DWM Thumbnail compositor",
+    "app_defined_fps": false,
+    "note": "800/2000 ms are maintenance timers, not DWM frame rate"
+  }
+}

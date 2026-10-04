@@ -156,5 +156,63 @@ Explicit unknown:
 
 ---
 
-## C04
-TODO — update preview và FPS.
+## C04 — update preview và FPS
+
+```text
+Preview live image
+↓
+Windows DWM compositor
+↓
+source game HWND → registered DWM thumbnail → destination overlay HWND
+↓
+FPS/image composition is not driven by TLM's 800/2000ms timer
+↓
+kết quả: live thumbnail remains compositor-driven
+```
+
+```text
+Preview maintenance
+↓
+TLMStartTab._update_window_previews_loop
+↓
+Tk after / _schedule_preview_loop
+↓
+HWND affected: current preview source/destination set
+↓
+timing:
+  - threshold constant 6
+  - low-count branch 800ms
+  - high-count branch 2000ms
+↓
+mỗi cycle:
+  - reposition destination overlays
+  - compare alive_hwnds / valid_items
+  - conditional list rebuild via need_refresh
+  - refresh cached RoleName/HP
+  - update slot combobox HWND mapping
+  - reschedule while _refresh_active
+```
+
+Other clocks:
+- Start UI list poll: 2000ms
+- background EnumWindows + character info: ~3s
+- heavy memory: ~8s
+- resize reposition debounce: 60ms
+
+Detached:
+- `_detached_update_loop`
+- independent of Start tab visibility
+- rebuild when game-window list changes
+- exact detached timer cadence remains UNKNOWN
+
+Explicit unknown:
+- boundary operator at threshold 6
+- exact need_refresh source Boolean formula
+- exact use/comparator of cache_ts float 3.0
+- detached loop interval
+- DWM compositor FPS
+
+---
+
+## C05
+TODO — cửa sổ chính.

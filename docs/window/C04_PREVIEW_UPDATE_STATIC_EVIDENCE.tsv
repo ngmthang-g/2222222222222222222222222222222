@@ -1,0 +1,38 @@
+KEY	OFFSET_DEC	STATUS	EVIDENCE
+refresh_active	46110670	VERIFIED_STATIC	_refresh_active
+preview_loop_id	46110701	VERIFIED_STATIC	_preview_loop_id
+preview_proc_count	46110781	VERIFIED_STATIC	_preview_proc_count
+preview_cache_ts	46110803	VERIFIED_STATIC	_preview_cache_ts
+tk_after	46111375	VERIFIED_STATIC	after
+update_loop_symbol	46111588	VERIFIED_STATIC	_update_window_previews_loop
+auto_refresh_2000_constant	46127658	VERIFIED_STATIC	serialized int 2000 before 2-second Start auto-refresh doc
+auto_refresh_doc	46127672	VERIFIED_STATIC	Tự động cập nhật danh sách cửa sổ mỗi 2 giây (dừng khi rời tab).
+stop_poll_doc	46127888	VERIFIED_STATIC	Dừng poll nền khi rời tab Start — detached preview giữ nguyên.
+preview_switch_constant_6	46127958	VERIFIED_STATIC	serialized int 6 in _preview_delay block
+preview_short_delay_800	46127960	VERIFIED_STATIC	serialized int 800 in _preview_delay block
+preview_delay_doc	46127963	VERIFIED_STATIC	Delay loop preview theo số acc: ít acc mượt 800ms, đông acc 2000ms.
+preview_delay_method	46128040	VERIFIED_STATIC	_preview_delay
+schedule_loop_doc	46128061	VERIFIED_STATIC	Hẹn cycle preview tiếp theo (tôn trọng _refresh_active).
+worker_doc	46128862	VERIFIED_STATIC	Background thread: enum windows + character info mỗi ~3s
+memory_8s_doc	46129008	VERIFIED_STATIC	Đọc memory mỗi ~8s
+reposition_debounce_60	46131363	VERIFIED_STATIC	serialized int 60 immediately before debounce doc
+reposition_debounce_doc	46131365	VERIFIED_STATIC	Schedule reposition after resize (debounced).
+schedule_preview_loop	46131585	VERIFIED_STATIC	_schedule_preview_loop
+cache_ts_local	46131609	VERIFIED_STATIC	cache_ts
+cache_3s_constant	46131618	VERIFIED_STATIC	serialized float 3.0 adjacent to cache_ts
+alive_hwnds	46131627	VERIFIED_STATIC	alive_hwnds
+valid_items	46131640	VERIFIED_STATIC	valid_items
+refresh_preview_labels	46131653	VERIFIED_STATIC	_refresh_preview_labels
+need_refresh	46131678	VERIFIED_STATIC	need_refresh
+slot_vars	46131692	VERIFIED_STATIC	_slot_vars
+slot_hwnd_last	46131709	VERIFIED_STATIC	_slot_hwnd_last
+update_slot_comboboxes	46131726	VERIFIED_STATIC	_update_slot_comboboxes
+update_loop_doc	46131755	VERIFIED_STATIC	Vòng lặp cập nhật preview: reposition + làm mới danh sách nếu cần + refresh HP.
+refresh_name_doc	46131935	VERIFIED_STATIC	Cập nhật tên nhân vật từ cache worker thread.
+detached_update_loop	46133890	VERIFIED_STATIC	_detached_update_loop
+detached_loop_doc	46134272	VERIFIED_STATIC	Loop kiểm tra cửa sổ tách rời: rebuild nếu danh sách game thay đổi. Độc lập với tab Start hiển thị hay không.
+detached_tracked	46134481	VERIFIED_STATIC	tracked
+preview_boundary_operator	-	EXPLICIT_UNKNOWN	Static constants prove threshold 6, not exact < vs <= operator.
+need_refresh_formula	-	EXPLICIT_UNKNOWN	Locals prove conditional rebuild structure; exact source Boolean expression not visible.
+cache_3s_formula	-	EXPLICIT_UNKNOWN	Float 3.0 criterion is present beside cache_ts; exact comparator/use not source-visible.
+detached_cadence	-	EXPLICIT_UNKNOWN	Independent loop proven; exact timer interval not proven by readable constants.
