@@ -528,3 +528,25 @@ Verified from the original EXE:
 Explicit unknown: exact immediate refresh timing and any unrecovered confirmation wrapper.
 
 ---
+
+## C17 — chuyển preview trái/phải
+
+Embedded preview header:
+`◀` / `▶`
+→ `_move_preview_item(src_hwnd, delta)`
+→ `_preview_order` keyed by source HWND
+
+Exact delta semantics from the original EXE:
+- `◀` = delta `-1` = one logical position earlier
+- `▶` = delta `+1` = one logical position later
+
+Refresh/rebuild preserves this order by HWND.
+1x–5x controls only the number of columns used to lay out the ordered list.
+
+Explicit unknown:
+- exact edge behavior at first/last item;
+- insertion position for a newly discovered HWND under an existing manual order;
+- whether detached preview indirectly consumes the same `_preview_order`;
+- persistence across app restart.
+
+---
