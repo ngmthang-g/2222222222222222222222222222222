@@ -1,0 +1,37 @@
+key	offset_hex	status	evidence
+party_region_start	0x2b7d066	VERIFIED_STATIC	.party_tab implementation/constants region
+party_mouse_symbol	0x2b7daa3	VERIFIED_STATIC	mouse symbol
+party_bind_identity	0x2b7daac	VERIFIED_STATIC	bind_window_identity
+party_unbind_identity	0x2b7db40	VERIFIED_STATIC	unbind_window_identity
+party_check_pixel_1	0x2b7f0bf	VERIFIED_STATIC	check_pixel
+party_check_pixel_2	0x2b7f0cc	VERIFIED_STATIC	check_pixel call surface
+party_click_at_1	0x2b7f0db	VERIFIED_STATIC	click_at
+party_click_at_2	0x2b7f0e5	VERIFIED_STATIC	click_at call surface
+party_resize_window	0x2b7f0f1	VERIFIED_STATIC	resize_window
+party_action_window_hwnd	0x2b7f175	VERIFIED_STATIC	window_hwnd target in create-team click block
+party_near_player_click	0x2b7f1c6	VERIFIED_STATIC	click (391, 683) after nguoiChoiGan pixel path
+party_task_arrow_click	0x2b7f26c	VERIFIED_STATIC	click (34, 462) after muiTenAnNhiemVu pixel path
+party_create_click_doc	0x2b7f311	VERIFIED_STATIC	leader create-team by click UI at game 1366x768
+party_mouse_listener	-	ABSENT_PARTY_OWNERSHIP	No mouse.Listener
+party_master_click	-	ABSENT_PARTY_OWNERSHIP	No _on_master_click
+party_master_scroll	-	ABSENT_PARTY_OWNERSHIP	No _on_master_scroll
+party_master_move	-	ABSENT_PARTY_OWNERSHIP	No _on_master_move
+party_sync_worker	-	ABSENT_PARTY_OWNERSHIP	No _sync_worker
+party_do_down_up	-	ABSENT_PARTY_OWNERSHIP	No _do_down/_do_up
+party_slave_client	-	ABSENT_PARTY_OWNERSHIP	No _slave_client
+party_send_scroll	-	ABSENT_PARTY_OWNERSHIP	No send_scroll
+party_send_move	-	ABSENT_PARTY_OWNERSHIP	No send_move_slave
+party_window_from_point	-	ABSENT_PARTY_OWNERSHIP	No WindowFromPoint
+party_get_ancestor	-	ABSENT_PARTY_OWNERSHIP	No GetAncestor
+party_screen_to_client	-	ABSENT_PARTY_OWNERSHIP	No ScreenToClient
+party_get_client_rect	-	ABSENT_PARTY_OWNERSHIP	No GetClientRect
+party_toggle_input	-	ABSENT_PARTY_OWNERSHIP	No _toggle_input
+party_input_active	-	ABSENT_PARTY_OWNERSHIP	No input_active
+party_sync_keepalive	-	ABSENT_PARTY_OWNERSHIP	No _sync_keepalive
+party_sync_locked	-	ABSENT_PARTY_OWNERSHIP	No _sync_locked
+party_start_mouse_sync_call	-	NOT_RECOVERED	No Party call edge into Start mouse-sync lifecycle
+start_mouse_listener	0x2bfd23f	REUSED_C19_CONTRACT	mouse.Listener owned by TLMStartTab
+start_master_click	0x2bfd250	REUSED_C19_CONTRACT	_on_master_click
+start_master_scroll	0x2bfd262	REUSED_C19_CONTRACT	_on_master_scroll
+start_master_move	0x2bfd275	REUSED_C19_CONTRACT	_on_master_move
+start_coord_scale	0x2bfd600	REUSED_C19_CONTRACT	master-client to slave scaling by window-size ratio
