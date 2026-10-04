@@ -1,0 +1,162 @@
+{
+  "task": "H01",
+  "status": "VERIFIED_FARMTAB_UI_MODULE_WIRING_WITH_5S_INCREMENTAL_REFRESH_AND_30S_AUTOSAVE",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "module": {
+    "name": "farm_tab.py",
+    "class": "FarmTab",
+    "region_start": "0x293a91e",
+    "module_marker": "0x2944146",
+    "next_module_marker": "0x2947cb1"
+  },
+  "constructor": {
+    "inputs": [
+      "parent",
+      "info_tab",
+      "notebook"
+    ],
+    "lifecycle": [
+      "_build_ui",
+      "_load_config",
+      "<Destroy>->_save_on_destroy",
+      "_start_refresh",
+      "_autosave_loop"
+    ]
+  },
+  "ui": {
+    "global_start": {
+      "text": "Bắt đầu",
+      "callback": "_toggle_farm"
+    },
+    "town": {
+      "toggle": "_toggle_town_config",
+      "body_default_hidden": true,
+      "condition_values": [
+        "never",
+        "full_bag_timer",
+        "cycle"
+      ],
+      "condition_callback": "_on_town_condition_changed"
+    },
+    "train": {
+      "vars": [
+        "respawn_var",
+        "auto_reconnect_var",
+        "pickup_no_cankhon_var",
+        "trist_var",
+        "heal_map_var",
+        "pickup_mode_var"
+      ],
+      "buff_add": "_add_buff_row",
+      "buff_remove": "_remove_buff_row"
+    },
+    "coordinates": {
+      "add": "_add_coord_row",
+      "toggle": "_toggle_coord_list"
+    },
+    "accounts": {
+      "store": "_acc_rows",
+      "row_builder": "_add_or_update_row",
+      "single_toggle": "_toggle_single_farm",
+      "actions": [
+        "_goto_sell_acc",
+        "_toggle_sell",
+        "_move_acc",
+        "_farm_acc"
+      ]
+    },
+    "all_accounts": [
+      {
+        "label": "Tới bán đồ",
+        "worker": "_goto_sell_all"
+      },
+      {
+        "label": "Bán đồ",
+        "worker": "_sell_all"
+      },
+      {
+        "label": "Tới bãi train",
+        "worker": "_move_all"
+      },
+      {
+        "label": "Đánh",
+        "worker": "_farm_all"
+      }
+    ]
+  },
+  "refresh": {
+    "source": "start_tab.get_windows()",
+    "worker": "_refresh_acc_list.<locals>._worker",
+    "main_thread_apply": "_refresh_acc_list.<locals>._worker.<locals>._apply",
+    "interval_ms": 5000,
+    "identity": [
+      "_pid_of",
+      "bind_window_identity",
+      "unbind_window_identity"
+    ]
+  },
+  "autosave": {
+    "interval_ms": 30000,
+    "loop": "_autosave_loop",
+    "destroy_save": "_save_on_destroy"
+  },
+  "config": {
+    "section": "Farm",
+    "backend": [
+      "CONFIG_DIR",
+      "CONFIG_PATH",
+      "_settings_lock",
+      "read_settings",
+      "write_settings"
+    ],
+    "key_families": [
+      "loop_minutes",
+      "town_condition",
+      "nav_priority_1..4",
+      "sell_equip",
+      "sell_map",
+      "sell_tab",
+      "meds_map",
+      "buy_hp",
+      "hp_item",
+      "hp_qty",
+      "buy_mp",
+      "mp_item",
+      "mp_qty",
+      "respawn",
+      "auto_reconnect",
+      "trist",
+      "pickup_no_cankhon",
+      "pickup_mode",
+      "heal_map",
+      "buff_*",
+      "coord_*",
+      "acc_*_sell",
+      "acc_*_farm"
+    ],
+    "full_bag_load_surface": "DEFERRED_H02_H03"
+  },
+  "permissions": {
+    "scope": "farm_tab",
+    "action": "farm",
+    "enabled_combobox_state": "readonly"
+  },
+  "cross_tab": {
+    "start_tab_ref": true,
+    "sync_helper": "_sync_start_tab_btn"
+  },
+  "visual": {
+    "authority": "B05",
+    "current_hash_matches": true,
+    "geometry_remeasured": false
+  },
+  "deferred": {
+    "H02": "return-town condition and town-panel gating",
+    "later_H": "remaining Train behavior/FSM tasks"
+  },
+  "next_task": "H02 — Train return-town condition and town-panel gating audit"
+}
