@@ -1,0 +1,15 @@
+source	target	tier	status	context
+start_tab	daily_tab	A	CALL_CONTEXT_VERIFIED	daily_tab_ref plus punish/treasure toggle coordination during mode change
+start_tab	farm_tab	A	CALL_CONTEXT_VERIFIED	farm_tab_ref._is_farming / _toggle_farm coordination
+farm_data	start_tab	A	CALL_CONTEXT_VERIFIED	start_tab_ref and _sync_start_tab_btn
+memory_items	memory_reader	A	CALL_CONTEXT_VERIFIED	explicit .memory_reader and shared Reader cache comments
+memory_items	dll_injector	A	CALL_CONTEXT_VERIFIED	inject_dll workflow
+login_tab	memory_items	A	CALL_CONTEXT_VERIFIED	explicit .memory_items plus shared Reader/memory comments
+fast_travel	forwarder	A	CALL_CONTEXT_VERIFIED	.forwarder + FORWARDER_IID + relay/forwarder docs
+emu_input	emu_remote	A	CALL_CONTEXT_VERIFIED	.emu_remote + remote_port/token + remote command context
+emu_input	farm_data	A	CALL_CONTEXT_VERIFIED	FARM_MAP_LIST and farm-state integration
+emu_input	train_lsv_tab	A	CALL_CONTEXT_VERIFIED	train-LSV map-list integration
+emu_input	permission_guard	A	CALL_CONTEXT_VERIFIED	has_permission + emulator farm gate
+party_tab	permission_guard	A	CALL_CONTEXT_VERIFIED	has_permission, permissions cache/update and runtime guard docs
+farm_data	dll_injector	A	CALL_CONTEXT_VERIFIED	inject_into_pid and ensure-injected workflow
+memory_reader	coordinate_utils	A	CALL_CONTEXT_VERIFIED	explicit coordinate_utils + window-relative coordinate docs
