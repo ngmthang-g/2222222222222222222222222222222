@@ -1,0 +1,78 @@
+key	offset_hex	status	evidence
+leave_worker_import	0x2b7e643	VERIFIED_STATIC	memory_items import
+leave_worker_targets	0x2b7e676	VERIFIED_STATIC	_resolve_targets
+leave_worker_teamid	0x2b7e6af	VERIFIED_STATIC	_team_id
+leave_worker_no_team	0x2b7e6b9	VERIFIED_STATIC	_no_team_ids
+leave_worker_leave	0x2b7e6ed	VERIFIED_STATIC	leave_team
+leave_worker_delay	0x2b7e72d	VERIFIED_STATIC	LEAVE_DELAY
+leave_worker_done	0x2b7e73a	VERIFIED_STATIC	rời nhóm XONG
+roleid_source	0x2b7ec29	REUSED_G03	read_own_ids
+teamid_source	0x2b7eda1	REUSED_G03	read_team_id
+autoset_readback	0x2b7ee37	VERIFIED_STATIC	get_auto_settings
+autoset_true	0x2b7ee4c	VERIFIED_STATIC	True = setting confirmed on
+autoset_false	0x2b7ee56	VERIFIED_STATIC	False = still off after write
+autoset_none	0x2b7eee0	VERIFIED_STATIC	None = unreadable
+no_team_ids	0x2b7ef06	REUSED_G03	0 and 0xFFFFFFFF semantic set
+teamid_poll_symbol	0x2b7ef41	VERIFIED_STATIC	TEAMID_POLL
+wait_team_state_doc	0x2b7ef58	VERIFIED_STATIC	outside vs real-team state; None never success
+wait_same_team_doc	0x2b7f066	VERIFIED_STATIC	same real TeamID only
+click_create_check_pixel	0x2b7f0bf	VERIFIED_STATIC	check_pixel
+click_create_click_at	0x2b7f0db	VERIFIED_STATIC	click_at
+click_create_resize	0x2b7f0f1	VERIFIED_STATIC	resize_window
+click_gap_symbol	0x2b7f148	VERIFIED_STATIC	CREATE_CLICK_GAP
+click_near_player	0x2b7f1c6	VERIFIED_STATIC	conditional click (391,683)
+click_task_arrow	0x2b7f26c	VERIFIED_STATIC	conditional click (34,462)
+click_tail_symbol	0x2b7f2b2	VERIFIED_STATIC	CREATE_TAIL_CLICKS
+click_tail_doc	0x2b7f311	VERIFIED_STATIC	(27,467)->(154,214)->(127,336), every click 1s apart
+create_retry_symbol	0x2b7f45d	VERIFIED_STATIC	CREATE_RETRY
+create_packet_helper	0x2b7f46b	VERIFIED_STATIC	create_team
+create_packet_wait	0x2b7f4c4	VERIFIED_STATIC	_wait_team_state
+create_packet_timeout	0x2b7f4d6	VERIFIED_STATIC	CREATE_PACKET_TIMEOUT
+create_click_fallback	0x2b7f54d	VERIFIED_STATIC	_click_create_team
+create_wait_timeout	0x2b7f561	VERIFIED_STATIC	WAIT_TEAM_TIMEOUT
+create_retry_delay	0x2b7f599	VERIFIED_STATIC	INVITE_DELAY
+create_protocol_doc	0x2b7f5d5	VERIFIED_STATIC	packet-first create; click fallback; retry; TeamID verify
+legacy_invite_helper	0x2b7f821	VERIFIED_STATIC	invite
+legacy_join_wait	0x2b7f83d	VERIFIED_STATIC	JOIN_WAIT
+legacy_invite_doc	0x2b7f848	VERIFIED_STATIC	one invite + fixed wait; retained compatibility
+group_join_poll	0x2b7f932	VERIFIED_STATIC	GROUP_JOIN_POLL
+group_wait_doc	0x2b7f943	VERIFIED_STATIC	return missing list; cancel->None
+burst_delay_symbol	0x2b7fa13	VERIFIED_STATIC	BURST_INVITE_DELAY
+group_wait_helper	0x2b7fa53	VERIFIED_STATIC	_wait_group_same_team
+group_join_timeout	0x2b7fa6a	VERIFIED_STATIC	GROUP_JOIN_TIMEOUT
+burst_doc	0x2b7fb36	VERIFIED_STATIC	burst all, ~0.5s spacing doc, one resend, shared wait
+run_group_autoset	0x2b7fe04	VERIFIED_STATIC	set_auto_fields
+run_group_autoset_section	0x2b7fe15	VERIFIED_STATIC	UTILITIES
+run_group_autoset_type	0x2b7fe20	VERIFIED_STATIC	bool
+run_group_autoset_verify	0x2b7fe3e	VERIFIED_STATIC	_is_autoset_on
+autoset_delay_symbol	0x2b7feb1	VERIFIED_STATIC	AUTOSET_DELAY
+wait_left_timeout	0x2b7fef2	VERIFIED_STATIC	WAIT_LEFT_TIMEOUT
+run_group_create	0x2b7ff6b	VERIFIED_STATIC	_invite_create
+run_group_burst	0x2b7ff7b	VERIFIED_STATIC	_invite_burst
+run_group_doc	0x2b7ffa9	VERIFIED_STATIC	B0->B1->B2->B3
+party_summary_autoset	0x2b80f7c	VERIFIED_STATIC	write auto-accept all accounts
+party_summary_leave	0x2b80fd8	VERIFIED_STATIC	leave_team + wait outside TeamID
+party_summary_create	0x2b81022	VERIFIED_STATIC	memory_items.create_team packet 200057 action 0
+party_summary_invite	0x2b810b7	VERIFIED_STATIC	invite kind='team'
+party_summary_verify	0x2b81144	VERIFIED_STATIC	TeamID verify and retry
+memory_invite_map	0x2b6e8b0	VERIFIED_STATIC	serialized keys trade/team/group; prefixes 7:1:/5:/10:
+memory_invite_packet_doc	0x2b6e906	VERIFIED_STATIC	invite kinds use packet 200051
+memory_team_action	0x2b6e930	VERIFIED_STATIC	PKT_TEAM_ACTION
+memory_create_payload	0x2b6e99c	VERIFIED_STATIC	create_team payload "0"
+memory_create_enum_doc	0x2b6ea24	VERIFIED_STATIC	C_TeamAction.CreateTeam=0
+memory_leave_enum_doc	0x2b6eaba	VERIFIED_STATIC	C_TeamAction.LeaveTeam=4
+memory_team_packet_doc	0x2b6eb31	VERIFIED_STATIC	channel 200057; leave payload 4:ownRid
+memory_teamid_doc	0x2b70d3e	REUSED_G03	0/0xFFFFFFFF no-team; None read error
+module_float_pool_0_3	0x2b812cb	VERIFIED_UNBOUND_CONSTANT	0.3 exact float exists in Party module pool
+module_float_pool_0_8	0x2b812d4	VERIFIED_UNBOUND_CONSTANT	0.8 exact float exists in Party module pool
+module_float_pool_2_0	0x2b812dd	VERIFIED_UNBOUND_CONSTANT	2.0 exact float exists in Party module pool
+module_float_pool_12_0	0x2b812e6	VERIFIED_UNBOUND_CONSTANT	12.0 exact float exists in Party module pool
+module_float_pool_0_5	0x2b812ef	VERIFIED_UNBOUND_CONSTANT	0.5 exact float exists in Party module pool
+module_tail_click_1	0x2b812f8	VERIFIED_STATIC	(27,467)
+module_tail_click_2	0x2b81300	VERIFIED_STATIC	(154,214)
+module_tail_click_3	0x2b81308	VERIFIED_STATIC	(127,336)
+module_float_pool_15_0	0x2b8130e	VERIFIED_UNBOUND_CONSTANT	15.0 exact float exists in Party module pool
+module_float_pool_6_0	0x2b81317	VERIFIED_UNBOUND_CONSTANT	6.0 exact float exists in Party module pool
+exact_symbolic_float_binding	-	EXPLICIT_UNKNOWN	Nuitka dedup pool does not safely map every float to each named timing constant
+exact_create_retry_numeric	-	EXPLICIT_UNKNOWN	CREATE_RETRY symbol/retry architecture proven; numeric count not safely bound
+single_online_guard	0x2b7ff50	VERIFIED_GUARD_EXISTS	'chỉ 1 acc online — ...' branch before create/burst; exact assembled suffix/source return expression not fully recovered
