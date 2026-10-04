@@ -1,0 +1,73 @@
+{
+  "task": "G03",
+  "status": "VERIFIED_NAME_VS_ACTION_IDENTITY_SPLIT_WITH_TEAMID_SENTINELS_AND_EXPLICIT_ROLEID_SENTINEL_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "identity_layers": {
+    "physical": "HWND + PID generation (G02)",
+    "display_config": "sanitized RoleName / member name",
+    "team_action": "live RoleID + live TeamID"
+  },
+  "character_info": {
+    "source": "utils.get_character_info(hwnd)",
+    "direct_party_fields": ["RoleName"],
+    "sanitize_regex": "<[^>]+>",
+    "fallback_prefix": "Window ",
+    "fallback_suffix": "UNKNOWN",
+    "not_directly_consumed_in_party_range": [
+      "CurrentHP",
+      "MaxHP",
+      "HPPercent",
+      "Level",
+      "MapID",
+      "PosX",
+      "PosY"
+    ]
+  },
+  "role_id": {
+    "source": "memory_items.read_own_ids()",
+    "shared_record_shape": ["pid", "RoleID", "Name", "Lv"],
+    "resolver": {
+      "name_normalization": ["strip", "exact map", "lowercase fallback map"],
+      "hwnd_binding": "GI.hwnd_of_pid(pid)",
+      "result_shape": ["name", "hwnd", "rid"],
+      "offline": "log and skip",
+      "missing_window": "log and skip",
+      "read_failure_log": "[Party] Không đọc được RoleID: ..."
+    },
+    "numeric_invalid_sentinel": "UNKNOWN",
+    "persisted": false
+  },
+  "team_id": {
+    "source": "memory_items.read_team_id(hwnd)",
+    "memory_location_doc": "RoleData+0xE8",
+    "states": {
+      "0": "NO_TEAM",
+      "0xFFFFFFFF": "NO_TEAM",
+      "None": "READ_ERROR_UNKNOWN",
+      "other_real_id": "IN_TEAM"
+    },
+    "none_counts_as_no_team": false,
+    "same_team": "equal real TeamID after excluding 0, 0xFFFFFFFF and None",
+    "snapshot_read_error_display": "?",
+    "persisted": false
+  },
+  "separate_shared_helper": {
+    "memory_items.read_team_leader": {
+      "doc": "leader RoleID at RoleData+0xEC",
+      "party_g03_usage": false
+    }
+  },
+  "config_identity": {
+    "group_members": "names",
+    "role_id_saved": false,
+    "team_id_saved": false
+  },
+  "deferred": {
+    "G04": "Party relationship to shared grid/window layout",
+    "later_G": "team create/invite/action sequencing"
+  },
+  "next_task": "G04 — Party grid-layout relationship audit"
+}
