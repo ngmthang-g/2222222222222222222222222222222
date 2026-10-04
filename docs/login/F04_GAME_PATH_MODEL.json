@@ -1,0 +1,68 @@
+{
+  "task": "F04",
+  "status": "VERIFIED_RESOLVER_WITH_EXPLICIT_REVALIDATION_MICROSEQUENCE_UNKNOWNS",
+  "canonical_executable": "Thần Long  Mobile.exe",
+  "picker": {
+    "type": "tkinter.filedialog.askdirectory",
+    "title": "Chọn thư mục chứa Thần Long Mobile",
+    "selects": "directory"
+  },
+  "resolver": {
+    "method": "_resolve_game_dir",
+    "returns": [
+      "resolved_dir",
+      "note"
+    ],
+    "normalization": "strip trailing slash/backslash",
+    "cases": [
+      "selected contains canonical executable",
+      "selected/Game contains canonical executable",
+      "selected is a child inside Game -> step toward parent containing executable",
+      "scan one child level, prioritizing names containing game"
+    ],
+    "failure_notes": [
+      "thư mục không tồn tại",
+      "không tìm thấy executable trong thư mục đã chọn"
+    ],
+    "note_examples": [
+      "tự nhận diện thư mục Game bên trong",
+      "tự lùi về thư mục cha chứa game",
+      "tự nhận diện thư mục con"
+    ]
+  },
+  "ui": {
+    "initial_label": "Đường dẫn game: (Chưa chọn)",
+    "label_symbol": "lbl_game_dir",
+    "initially_hidden": true,
+    "helper": "_show_game_dir_status",
+    "invalid_dialog_title": "Thư mục game không hợp lệ",
+    "example_path": "D:\\ThanLongMobile_PC\\Game",
+    "success_prefix": "✅ Đã chọn game thành công:",
+    "profile_controls_enabled_on_valid_path": true
+  },
+  "persistence": {
+    "key": "game_dir",
+    "load": true,
+    "save": true,
+    "file_family": "%APPDATA%/TLMTool/settings.ini",
+    "immediate_flush_after_select": "UNKNOWN"
+  },
+  "launch_boundary": {
+    "method": "_get_exe_path",
+    "required_by": [
+      "Open game",
+      "single/account login",
+      "profile launch"
+    ],
+    "profile_launch_inputs": [
+      "exe_path",
+      "profile_idx"
+    ],
+    "profile_index_range": "1-5",
+    "per_profile_install_dirs": "NOT_RECOVERED",
+    "exact_revalidation_microsequence": "UNKNOWN",
+    "cwd_derivation": "DEFERRED_TO_F05"
+  },
+  "hardcoded_install_root": false,
+  "next_task": "F05 — launcher"
+}
