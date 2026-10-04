@@ -1,0 +1,43 @@
+key	offset_hex	status	evidence
+main_faulthandler	0x28d4f09	VERIFIED_STATIC	faulthandler startup diagnostics
+main_thread_excepthook	0x28d4f6e	VERIFIED_STATIC	custom threading.excepthook
+main_thread_exc_prefix	0x28d509f	VERIFIED_STATIC	[THREAD-EXC]
+main_traceback	0x28d50d0	VERIFIED_STATIC	traceback.print_exception
+config_load_error	0x2c4cda4	VERIFIED_STATIC	[CONFIG] Error loading ...
+config_save_error	0x2c4cea5	VERIFIED_STATIC	[CONFIG] Error saving ...
+config_parse_valueerror	0x2c4d0b7	VERIFIED_STATIC	ValueError in scalar/coord parser
+config_parse_typeerror	0x2c4d0c3	VERIFIED_STATIC	TypeError
+config_parse_attributeerror	0x2c4d0ce	VERIFIED_STATIC	AttributeError
+start_config_save_error	0x2bfdd23	VERIFIED_STATIC	[CONFIG] Save error:
+info_config_save_error	0x2970a14	VERIFIED_STATIC	Error saving config:
+info_server_api_failed	0x2970ec6	VERIFIED_STATIC	Server API call failed
+info_invalid_token	0x2970f34	VERIFIED_STATIC	Server did not return a valid token
+info_token_decode_error	0x2970f7d	VERIFIED_STATIC	Token verification/decode failed
+info_server_call_error	0x2970fe4	VERIFIED_STATIC	Error calling server API:
+heartbeat_prereq	0x29710a2	VERIFIED_STATIC	Heartbeat prerequisites not ready
+heartbeat_invalid_token	0x297113d	VERIFIED_STATIC	Heartbeat did not return a valid token
+heartbeat_decode_error	0x2971165	VERIFIED_STATIC	Heartbeat token decode failed
+heartbeat_failure_record	0x29711e6	VERIFIED_STATIC	record_heartbeat_failure
+heartbeat_error_log	0x2971200	VERIFIED_STATIC	[HEARTBEAT] Error:
+permission_fail_closed	0x2b83f6e	VERIFIED_STATIC	check_account_limit docs explicitly say Fail-closed
+permission_limit_nonpositive	0x2b83fc6	VERIFIED_STATIC	limit <= 0 trial/unlimited allow semantic
+permission_logic_guard_doc	0x2b847c4	VERIFIED_STATIC	Runtime permission guard; UI enable/disable only cosmetic
+utils_send_timeout	0x2c51ca6	VERIFIED_STATIC	SendMessageTimeoutW safe window messaging
+start_send_timeout	0x2bfd6fb	VERIFIED_STATIC	SendMessageTimeout
+start_abort_if_hung	0x2bfd70f	VERIFIED_STATIC	SMTO_ABORTIFHUNG
+start_block_idempotent_doc	0x2bfd739	VERIFIED_STATIC	Block input 1 slave; idempotent
+start_hung_guard_doc	0x2bfd7e4	VERIFIED_STATIC	SendMessageTimeout prevents hung window blocking worker
+start_retry_two	0x2bfd829	VERIFIED_STATIC	short retry two times when Unity temporarily busy
+start_skip_failure	0x2bfd879	VERIFIED_STATIC	skip failed slave/current action so worker stays alive
+start_watchdog	0x2bfd4ab	VERIFIED_STATIC	_watchdog_unlock
+login_reload_worker_error	0x2b61342	VERIFIED_STATIC	[RELOAD] Worker error:
+login_reload_err_callback	0x2b6135b	VERIFIED_STATIC	_reload_worker.<locals>._err
+emu_wrong_token	0x2936ced	VERIFIED_STATIC	token sai structured error
+emu_unsupported_action	0x29372f6	VERIFIED_STATIC	act khong ho tro
+emu_missing_machine	0x2937316	VERIFIED_STATIC	chua thay may
+emu_missing_coords	0x293766e	VERIFIED_STATIC	thieu map/x/y
+emu_unsupported_key	0x2937c70	VERIFIED_STATIC	key khong ho tro
+ui_tclerror	0x28d4e5c	VERIFIED_STATIC	TclError local lifecycle handling surface
+retry_delay	-	EXPLICIT_UNKNOWN	exact Start retry sleep/delay not recovered
+emu_http_status_map	-	EXPLICIT_UNKNOWN	exact HTTP status code for every structured error not claimed
+exhaustive_exception_table	-	NOT_RECOVERED	no full source-level try/except map
