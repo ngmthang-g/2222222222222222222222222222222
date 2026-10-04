@@ -1,0 +1,75 @@
+{
+  "task": "H03",
+  "status": "VERIFIED_SITE10_USED_SLOT_FULL_BAG_WATCH_WITH_FILTER_RECHECK_IN_NEVER_MODE_AND_EXPLICIT_THRESHOLD_BINDING_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "bag_metric": {
+    "helper": "FarmTab._get_bag_slots",
+    "source": "memory_items.get_bag(hwnd)",
+    "site": 10,
+    "field": "slots",
+    "meaning": "occupied bag slots",
+    "read_failure": null,
+    "ui_failure_behavior": "keep prior displayed value"
+  },
+  "shared_bag": {
+    "get_bag_result": "dict or None",
+    "dict_fields": [
+      "slots",
+      "distinct",
+      "total_qty",
+      "non_bag",
+      "info"
+    ]
+  },
+  "fullness": {
+    "helper": "MI.is_full_bag",
+    "farm_cycle_local_threshold": true,
+    "exact_threshold_numeric": "UNKNOWN",
+    "current_user_configurable_threshold": false,
+    "low_level_read_error_mapping": "UNKNOWN"
+  },
+  "filter_before_town": {
+    "preset_source": "get_pickup_preset_keys",
+    "activity": "train",
+    "worker": "bag_filter.discard_for_activity",
+    "state_during": "Đang lọc đồ",
+    "cancel_aware": true,
+    "result": {
+      "integer": "post-filter occupied slot count",
+      "null": "keep-all/no filter or error/unreadable"
+    },
+    "restore_previous_state_conditionally": true,
+    "separate_from_sell_shop": true
+  },
+  "condition_interaction": {
+    "never": {
+      "on_full": "filter first",
+      "still_full_after_filter": "stay; no automatic town",
+      "freed_enough_after_filter": "continue farm without forced town",
+      "null_filter_result": "no fabricated slot count; no automatic town authorization"
+    },
+    "full_bag_timer": {
+      "legacy_alias": "full_bag",
+      "installs_stop_bag_check": true,
+      "full_condition_ends_wait_early": true,
+      "transition": "return-town path"
+    },
+    "cycle": {
+      "bag_full_is_early_stop": false,
+      "timer_execution": "DEFERRED_H04"
+    }
+  },
+  "unknowns": {
+    "exact_threshold_numeric": "STRONGER_DECOMPILATION_OR_RUNTIME",
+    "is_full_bag_read_error_mapping": "STRONGER_DECOMPILATION_OR_RUNTIME"
+  },
+  "deferred": {
+    "H04": "periodic-town scheduler and loop-minute timing",
+    "later_H": "movement/sell/FSM/runtime parity"
+  },
+  "next_task": "H04 — Train periodic-town scheduler and loop-minute timing audit"
+}
