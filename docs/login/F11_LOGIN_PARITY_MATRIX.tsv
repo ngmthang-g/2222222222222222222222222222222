@@ -1,0 +1,36 @@
+area	contract	status	authority	note
+specimen_archive	TLMTool_2.1.2(4).zip sha256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd	PASS	F11 local recheck	byte-identical to frozen archive
+specimen_exe	TLMTool.dist/TLMTool.exe sha256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22	PASS	Gate A/F01/F11	frozen original
+login_screenshot	sha256 a555bce4054a0d32d19c2377a726c7fa2e6b78c03ce80e8291affb6185f04461 452x1032	PASS	B03/F01/F11	current screenshot is byte-identical
+visual_text_after_login	Chờ / Party / Train / Train LSV / Dồn vàng	PASS	F01 + EXE + F11 user confirmation	internal values wait/party/train/train_lsv/don
+visual_geometry	three Login groups + measured controls	PASS	B03/F01/B14	do not remeasure
+account_rows	Canvas+Scrollbar+rows_inner; logical 100; pitch 35px	PASS	F01/F02	plan may hide rows without deleting data
+account_storage	settings.ini [Settings] accounts; newline rows; pipe fields	PASS_WITH_UNKNOWNS	F02	check token and legacy Có migration unknown
+password	visual mask only; direct/plain persistent value evidence	PASS_WITH_EDGE_UNKNOWN	F03	pipe/newline escaping unknown
+game_path	canonical Thần Long  Mobile.exe + folder resolver	PASS_WITH_MICRO_UNKNOWNS	F04	exact revalidation order unknown
+launcher	CREATE_SUSPENDED -> inject resources.dat -> NtResumeProcess	PASS_WITH_LOW_LEVEL_UNKNOWNS	F05	profile iteration/cwd/stability cleanup details explicit unknown
+hwnd_binding	PID-owned HWND; UnityWndClass/title preference	PASS	F05	25s wait in account launch
+login_input	background click_at + WM_CHAR press_at; no physical cursor movement	PASS	F06	must preserve
+login_form_wait	login1+login2 via PrintWindow; timeout 100s	PASS	F06	covered windows supported
+credential_coordinates	user 613,302; pass 573,362; Login 684,506	PASS	F06	exact
+vao_tro_choi	150-check ceiling; click 684,450	PASS_WITH_DELAY_UNKNOWN	F06	poll delay unknown
+common_active	await up to 30s	PASS	F06	exact
+multi_account	launch sequential + login parallel with semaphore	PASS_WITH_LIMIT_UNKNOWN	F05/F06	MAX_PARALLEL_LOGIN unknown
+captcha_modes	Không / Tool / Proxy	PASS	F07	legacy migration unknown
+proxy_runtime	analysis/documentation only	SCOPE_LOCK	F08 + user lock	do not implement/extend/fix runtime proxy
+scheduler_manual_independence	Bắt đầu independent from schedule checkbox	PASS	F09	exact
+scheduler_event_poll	20s background event-check cadence	PASS	F09	exact
+scheduler_countdown	~1s main-thread UI update	PASS	F09	exact
+scheduler_recurrence	next absolute occurrence; no catch-up; +1 day after trigger	PASS	F09	exact
+post_login_wait	Chờ does nothing	PASS	F10	exact
+post_login_refs	Party dedicated; Train/Train LSV/Dồn vàng generic real tab refs	PASS	F10	exact
+post_login_tab_order	select destination tab before waiting for scan	PASS	F10	hidden tab may not scan
+post_login_generic_poll_interval	1.0s	PASS_NEW_F11	EXE 0x2b808b5 + float 1.0 / same-as-login crossref	resolved from F10 UNKNOWN
+post_login_generic_poll_limit	20 iterations / max 20s	PASS_NEW_F11	EXE around 0x2b808a4 + doc 0x2b8094c	serialized 0,20,1 + explicit max-20s doc
+post_login_generic_match	want.issubset(have)	PASS_NEW_F11	EXE 0x2b808ab	have from target _acc_rows hwnd values
+post_login_final_dispatch	main/UI thread	PASS	F10/F11	do not mutate Tk from background wait
+post_login_running_guard	skip already-running target	PASS	F10	never blindly invert toggle
+post_login_missing_ref	warn + skip	PASS	F10	no fallback invention
+post_login_mixed_success	exact route guard	RUNTIME_ONLY_UNKNOWN	F11	must test original on Windows
+post_login_zero_success	exact route guard	RUNTIME_ONLY_UNKNOWN	F11	must test original on Windows
+party_readiness_expression	exact instruction-level _member_rows set construction	EXPLICIT_UNKNOWN	F11	dedicated Party path verified; do not invent microexpression
