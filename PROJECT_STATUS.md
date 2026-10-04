@@ -193,7 +193,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H06 — VERIFIED_BUILTIN_OR_MANUAL_TREATMENT_ROUTE_WITH_EXACT_TWO_CLICK_POINTS_X4_AND_BOOLEAN_FAILURE_HANDOFF
 - H07 — VERIFIED_4S_MAP87_HP0_RESPAWN_MONITOR_WITH_LATCHED_SINGLE_CLICK_EVENT_DRIVEN_RECOVERY_AND_EXPLICIT_RETURN_BRANCH_UNKNOWN
 - H08 — VERIFIED_2S_MEMORY_VETO_3STRIKE_RECONNECT_WITH_5_ATTEMPT_30S_ACTIVE_BATCHES_INFINITE_RETRY_AND_45S_MEMORY_READY_FAILOPEN_DIRECT_REINJECT_EDGE_UNKNOWN
-- H09 — CURRENT
+- H09 — VERIFIED_KEEP_MODE_TO_TRAIN_DISCARD_PRESETS_WITH_EVENT_DRIVEN_PRETOWN_FILTER_1S_DEFAULT_DISCARD_PACING_AND_SEPARATE_5S_HIDDEN_PICKUP_ENABLE
+- H10 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -254,3 +255,10 @@ The exact disconnect probes are (640,244) RGB(160,145,52) and (702,453) RGB(212,
 Reconnect success invalidates the current PID Reader cache immediately and sets reconnect_ok as a Farm-cycle reset. The post-reconnect memory gate is wait_memory_ready(timeout=45.0, need=3), requiring three consecutive fresh RoleName+MapID reads and failing open on timeout.
 
 FarmTab has a guarded _ensure_injected helper, but H08 does not find direct readable proof of an unconditional reinjection call on the reconnect path, so forced post-reconnect reinjection remains intentionally UNKNOWN. H09 now owns loot/pickup filtering.
+
+
+H09 resolved Train loot filtering. The keep-mode radio is none/weapons/all with labels Không/Chỉ vũ khí/Tất cả and default all. Exact Train mapping is none -> discard_weapons + discard_nonweapon, weapons -> discard_nonweapon, all -> empty/no discard. Weapon classification uses the shared weapon_ids layer; non-weapon equipment filtering remains metadata-dependent.
+
+FarmTab filtering is event-driven through _filter_before_town, not a continuous discard watcher. The shared discard engine uses a default 1.0s pacing parameter, cancellation via stop_check, dbID dedupe and whole-stack packet 100005 payload 4:<dbID>. The filter state is Đang lọc đồ with #8e24aa styling and conditional prior-state restoration.
+
+The separate pickup_no_cankhon option defaults off and is not the keep-mode filter. Its exact original behavior is a 5-second delayed hidden write PICKITEM.IsOn=true through set_auto_fields, replacing the old visible pickup UI click sequence. No recurring 5-second polling or write-readback confirmation is recovered. H10 now owns mount/horse behavior.
