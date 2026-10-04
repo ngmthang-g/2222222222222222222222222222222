@@ -1,0 +1,114 @@
+{
+  "task": "H06",
+  "status": "VERIFIED_BUILTIN_OR_MANUAL_TREATMENT_ROUTE_WITH_EXACT_TWO_CLICK_POINTS_X4_AND_BOOLEAN_FAILURE_HANDOFF",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "config": {
+    "enabled_key": "trist",
+    "enabled_default": false,
+    "destination_key": "heal_map",
+    "visible_default": "Trị liệu Tô Châu"
+  },
+  "destination_ui": {
+    "built_in_separator": "======Có sẵn======",
+    "manual_separator": "=====Thủ công=====",
+    "separator_handler": "_on_heal_sep_select",
+    "manual_source": "saved-coordinate preset names"
+  },
+  "builtins": [
+    {
+      "label": "Trị liệu Đại Lý",
+      "map_id": 2,
+      "tile": [
+        43,
+        178
+      ]
+    },
+    {
+      "label": "Trị liệu Lạc Dương",
+      "map_id": 3,
+      "tile": [
+        255,
+        126
+      ]
+    },
+    {
+      "label": "Trị liệu Tô Châu",
+      "map_id": 4,
+      "tile": [
+        155,
+        252
+      ]
+    },
+    {
+      "label": "Trị liệu Lâu Lan",
+      "map_id": 5,
+      "tile": [
+        294,
+        170
+      ]
+    }
+  ],
+  "worker": {
+    "method": "_heal_at_death",
+    "args": [
+      "hwnd",
+      "stop_check"
+    ],
+    "supports_builtin": true,
+    "supports_manual": true,
+    "builtin_prefix": "Trị liệu ",
+    "movement": "move_character",
+    "movement_coordinate_contract": "H05 tile × 32 pixels",
+    "explicit_failure_cases": [
+      "no selection",
+      "invalid built-in MapID",
+      "missing built-in treatment coordinate",
+      "manual map/coordinate unresolved",
+      "movement failed",
+      "canceled/stopped"
+    ]
+  },
+  "interaction": {
+    "client_points": [
+      [
+        892,
+        474
+      ],
+      [
+        514,
+        424
+      ]
+    ],
+    "repeat_count": 4,
+    "exact_doc": "click 2 điểm x4 lần",
+    "pacing_constant": 0.2,
+    "pacing_parameter_binding": "UNKNOWN",
+    "readiness_pair": [
+      "common",
+      "active"
+    ],
+    "readiness_exact_placement_timeout": "UNKNOWN",
+    "per_click_return_check": "UNKNOWN"
+  },
+  "result": {
+    "success_log": "[Trị liệu] hwnd=... hoàn thành trị liệu tại <destination>",
+    "returns_success_failure_to_farm_cycle": true,
+    "farm_cycle_failure_surface": "trị liệu sau chết thất bại",
+    "full_death_fsm_after_failure": "DEFERRED_H07"
+  },
+  "cancellation": {
+    "farm_callback": "hard_stop",
+    "stale_worker_must_not_continue": true
+  },
+  "automatic_destination_failover": false,
+  "preserved": {
+    "H05_movement": true,
+    "death_monitor_not_decoded": true,
+    "reconnect_not_reopened": true
+  },
+  "next_task": "H07 — Train death-recovery / respawn monitor and recovery FSM audit"
+}
