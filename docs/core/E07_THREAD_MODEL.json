@@ -1,0 +1,79 @@
+{
+  "task": "E07",
+  "status": "VERIFIED_WITH_EXPLICIT_PER-WORKER_DAEMON_AND_JOIN_ORDER_UNKNOWNS",
+  "mechanisms": {
+    "tk_jobs": [
+      "after",
+      "after_cancel"
+    ],
+    "python_threads": [
+      "threading.Thread",
+      "Event",
+      "Lock",
+      "RLock",
+      "Queue"
+    ],
+    "listeners": [
+      "pynput mouse",
+      "pynput keyboard",
+      "ThreadingHTTPServer"
+    ],
+    "external": [
+      "helper processes",
+      "CreateRemoteThread",
+      "Frida guest/server"
+    ]
+  },
+  "main_thread_rule": "worker computes/blocks; Tk mutation returns via root.after",
+  "shell_services": {
+    "cpu_monitor": {
+      "daemon": true,
+      "join_timeout": true
+    },
+    "info_heartbeat": {
+      "tk_after_id": true,
+      "after_cancel": true
+    }
+  },
+  "start_tab": {
+    "input_sync_queue": true,
+    "sync_lock": true,
+    "listener_daemon": true,
+    "preview_background_cache_worker": true,
+    "preview_basic_seconds_approx": 3,
+    "preview_heavy_seconds_approx": 8,
+    "layout_worker_cadence": "UNKNOWN"
+  },
+  "login": {
+    "batch_cancel_event": true,
+    "schedule_cancel_event": true,
+    "launch_lock": true,
+    "account_workers": true,
+    "ui_handoff": true
+  },
+  "party": {
+    "cancel_event": true,
+    "locks": true,
+    "one_thread_per_group": true,
+    "join_timeout": true,
+    "after_party_on_main_thread": true
+  },
+  "feature_tabs": {
+    "per_account_threads": true,
+    "stop_events": true,
+    "generation_or_running_flags": true,
+    "ui_handoff": true
+  },
+  "emulator_remote": {
+    "server": "ThreadingHTTPServer",
+    "daemon": true,
+    "shutdown": true,
+    "server_close": true
+  },
+  "unknowns": [
+    "daemon flag for every worker",
+    "exact timeout for every join",
+    "exact simultaneous global shutdown order"
+  ],
+  "next_task": "E08 — shutdown/reload"
+}
