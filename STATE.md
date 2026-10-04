@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H03 — Train inventory-full detection and full-bag return/filter interaction audit.
+H04 — Train periodic-town scheduler and loop-minute timing audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1325,32 +1325,58 @@ H03 — Train inventory-full detection and full-bag return/filter interaction au
 - docs/train/H02_TOWN_CONDITION_FLOW.md
 - docs/train/H02_TOWN_CONDITION_MODEL.json
 
+## H03 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H03 artifact existed, so no completed Train work was repeated.
+- Re-materialized and re-hashed the frozen specimen before analysis. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- `FarmTab._get_bag_slots` exact original doc says: `Số ô túi đồ đang dùng (Site 10) — None nếu đọc lỗi (giữ giá trị cũ).`
+- Farm bag metric is therefore **occupied Site-10 slot count**, not free slots and not total item quantity.
+- `_get_bag_slots` calls shared `memory_items.get_bag` and reads the returned `slots` field.
+- Shared `get_bag` exact doc says it aggregates Site-10 bag data and returns a dict or None; dict surface contains `slots/distinct/total_qty/non_bag/info`.
+- Read failure at the Farm row/display helper returns None and preserves the prior displayed bag value rather than synthesizing zero.
+- Farm cycle directly contains `MI.is_full_bag`, a local `threshold`, `bag`, `slots`, and nested `stop_bag_check`, proving a dedicated fullness predicate exists.
+- No current Farm UI/settings key for a bag threshold was recovered. The exact numeric FarmTab threshold cannot be safely bound from the readable Nuitka constant stream and remains explicit **STRONGER-DECOMPILATION/RUNTIME UNKNOWN**. No 95/98/100 guess was introduced.
+- Exact `_filter_before_town` doc says it filters according to the Train `Nhặt đồ` radio/preset through shared `bag_filter`, is used for all town/full-bag paths, returns post-filter `slots_after` as int, or None when there is no filter (keep-all) / an error prevents a usable count.
+- `_filter_before_town` temporarily shows `Đang lọc đồ`, calls `discard_for_activity(... activity='train' ...)`, passes the Farm stop predicate, and restores the prior row state only if nobody else changed it.
+- The pre-town discard stage is driven by Train pickup presets and is separate from `sell_equip` / town shop selling.
+- In `never / Không về`, exact logs prove the path: `túi đầy (N ô, Không về) → lọc` → filter → if a readable post-filter result is still full, `lọc xong vẫn đầy (N ô) → ở lại (Không về)`.
+- Therefore a full bag never overrides the user's no-town policy. If filtering frees enough slots, normal farming may continue without a forced town trip; if filtering yields None, no fake post-filter count is invented and no-town still cannot authorize automatic return.
+- H02's `full_bag_timer` + legacy `full_bag` family is used by nested `stop_bag_check`. When `MI.is_full_bag` becomes true, the common wait can end early and the exact runtime log transitions to `N ô) → về thành`.
+- H03 preserves the exact H02 boundary that `cycle` does **not** use the bag-full early-stop branch. Periodic `loop_minutes` scheduling remains H04.
+- Low-level read-error behavior internal to `MI.is_full_bag` itself is not exposed strongly enough by readable static evidence. Its read-failure mapping remains explicit UNKNOWN rather than assuming unreadable=full or unreadable=empty.
+- B05 was cross-checked only after static extraction; no geometry or threshold was inferred from the screenshot.
+
+## H03 FILES
+- docs/tasks/H03.md
+- docs/train/H03_INVENTORY_FULL_STATIC_EVIDENCE.tsv
+- docs/train/H03_INVENTORY_FULL_FLOW.md
+- docs/train/H03_INVENTORY_FULL_MODEL.json
+
 ## BLOCKERS
-None known for H03.
+None known for H04.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01/H02 FarmTab ownership/return-town gating; do not remeasure Train UI without contradictory evidence.
+- Preserve B05 Train visual baseline and H01–H03 verified FarmTab wiring/town/full-bag boundaries.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
 - Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
 - Preserve H01 refresh 5000 ms and autosave 30000 ms.
 - Preserve H02 current return-town values never/full_bag_timer/cycle and default cycle/30.
-- Treat legacy full_bag only as the verified compatibility alias of the full-bag mode; do not add a fourth radio.
-- Preserve lock_town behavior: any selected locked Farm route forces never and disables return-town radios.
-- Do not invent restoration of the pre-lock return-town mode.
-- Do not fold H03 inventory-full threshold logic into H04 periodic timer logic.
+- Preserve H03 bag metric as occupied Site-10 slots; do not reinterpret it as free slots.
+- Do not invent the exact numeric Farm bag-full threshold or MI.is_full_bag read-failure mapping.
+- Keep Train pickup discard filtering separate from sell/shop logic.
+- Do not fold H04 periodic timing into movement/FSM tasks.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H03 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H03 only if still pending.
+3. Check GitHub first for any H04 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H04 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit only inventory-full detection and its interaction with return-town/filter behavior: source of bag-slot count, full threshold, `is_full_bag` call contract, no-town filtering path, full_bag_timer early-stop path, post-filter recheck, and what state/log result causes town vs stay.
-7. Recover exact threshold/default constants and failure semantics where statically possible; keep unreadable/None behavior explicit rather than guessing.
-8. Preserve H02 condition meanings and do not yet decode the periodic loop-minute scheduler; H04 owns timer execution.
+6. Audit only the periodic-town scheduler and common farm waiting loop: parse `loop_minutes`, elapsed/sleep_time behavior, sleep chunk size, cycle-mode timeout, how `full_bag_timer` overlays its early-stop predicate on the same wait, cancellation/reconnect/death exits, and exact state/log transitions when the wait completes normally.
+7. Recover exact timing constants directly from the FarmTab constant stream where safely bindable; keep any unbound timing values UNKNOWN.
+8. Preserve H03 inventory-full semantics and do not yet decode movement/town-route execution; H05+ owns coordinates/movement.
 9. Cross-check B05 only after static extraction; no geometry work is needed.
-10. Persist H03 evidence/report, update STATE.md, and advance to H04 only after verification.
+10. Persist H04 evidence/report, update STATE.md, and advance to H05 only after verification.
