@@ -1,0 +1,62 @@
+key	offset_hex	status	evidence
+open_game_permission	0x2b60371	VERIFIED_STATIC	has_permission/login_tab guard region
+open_game_limit_guard	0x2b603f2	VERIFIED_STATIC	check_account_limit
+open_game_limit_extra_one	0x2b60410	VERIFIED_STATIC	serialized integer 1 adjacent to extra keyword
+open_game_get_exe	0x2b60440	VERIFIED_STATIC	_get_exe_path
+launch_worker	0x2b60472	VERIFIED_STATIC	_launch_worker
+launch_worker_daemon	0x2b60492	VERIFIED_STATIC	daemon thread flag
+proxy_env_overlay	0x2b6049a	VERIFIED_STATIC	_apply_proxy_hook_env
+safe_env_call	0x2b604b1	VERIFIED_STATIC	_make_safe_env
+spawn_inject_call	0x2b604c1	VERIFIED_STATIC	spawn_and_inject
+launch_cwd	0x2b604dd	VERIFIED_STATIC	cwd argument
+launch_env	0x2b604ec	VERIFIED_STATIC	env argument
+launch_timeout_symbol	0x2b604f1	VERIFIED_STATIC	timeout_ms
+launch_timeout_15000	0x2b604e2	VERIFIED_STATIC	serialized integer 15000 in launch-worker block
+launch_fail_log	0x2b60501	VERIFIED_STATIC	[LAUNCH] Inject profile ... FAILED
+launch_exception_log	0x2b60526	VERIFIED_STATIC	[LAUNCH] Exception profile ...
+launch_count_log	0x2b6054e	VERIFIED_STATIC	[LAUNCH] Launched ... windows with inject
+profile_worker	0x2b605dc	VERIFIED_STATIC	_launch_profile_worker
+profile_index_doc	0x2b605f9	VERIFIED_STATIC	Mở game với profile index (1-5).
+profile_spawn_doc	0x2b6064d	VERIFIED_STATIC	Launch 1 instance via suspend+inject.
+profile_success	0x2b60682	VERIFIED_STATIC	✅ Đã mở game profile ...
+profile_inject_failure	0x2b6069f	VERIFIED_STATIC	❌ Inject thất bại: ...
+profile_open_error	0x2b606c4	VERIFIED_STATIC	❌ Lỗi mở game: ...
+proxy_env_enable	0x2b5e11f	VERIFIED_STATIC	TLM_PROXY_ENABLE
+proxy_env_host	0x2b5e13e	VERIFIED_STATIC	TLM_PROXY_HOST + 127.0.0.1 context
+proxy_env_port	0x2b5e14e	VERIFIED_STATIC	TLM_PROXY_PORT
+proxy_env_fail	0x2b5e166	VERIFIED_STATIC	TLM_PROXY_FAIL + closed context
+safe_env_keys	0x2918f54	VERIFIED_STATIC	_SAFE_ENV_KEYS
+safe_env_profile	0x2918f72	VERIFIED_STATIC	TLM_PROFILE
+safe_env_doc	0x2918f7f	VERIFIED_STATIC	minimal Windows env + TLM_PROFILE; prevent Python/VirtualEnv leakage
+resources_payload	0x2919013	VERIFIED_STATIC	resources.dat
+resources_payload_doc	0x2919022	VERIFIED_STATIC	bundled payload path ./data/resources.dat
+find_hwnd_class	0x29190f7	VERIFIED_STATIC	UnityWndClass
+find_hwnd_title	0x2919130	VERIFIED_STATIC	Thần Long
+find_hwnd_doc	0x291913d	VERIFIED_STATIC	prefer UnityWndClass/game title; fallback first visible PID-owned HWND
+find_hwnd_pid	0x2919213	VERIFIED_STATIC	GetWindowThreadProcessId
+find_hwnd_visible	0x2919239	VERIFIED_STATIC	IsWindowVisible
+inject_open_process	0x2919d89	VERIFIED_STATIC	OpenProcess
+inject_alloc	0x2919f72	VERIFIED_STATIC	VirtualAllocEx
+inject_write	0x2919fcf	VERIFIED_STATIC	WriteProcessMemory
+inject_remote_thread	0x291a08c	VERIFIED_STATIC	CreateRemoteThread
+inject_wait	0x2919877	VERIFIED_STATIC	WaitForSingleObject
+create_suspended	0x291a28d	VERIFIED_STATIC	CREATE_SUSPENDED
+inject_popen	0x291a286	VERIFIED_STATIC	Popen
+resume_process	0x291a2e9	VERIFIED_STATIC	NtResumeProcess
+terminate_process	0x291a2fa	VERIFIED_STATIC	TerminateProcess failure-cleanup primitive
+spawn_steps_doc	0x291a30e	VERIFIED_STATIC	Popen suspended → inject DLL → LoadLibraryW thread → wait → resume
+spawn_return_doc	0x291a4aa	VERIFIED_STATIC	returns success,pid,error_msg
+inject_into_pid	0x291abd0	VERIFIED_STATIC	separate existing-process injector
+spawn_and_inject	0x291ac69	VERIFIED_STATIC	spawn_and_inject function
+resize_monitor_doc	0x2b63b42	VERIFIED_STATIC	every second resize only if game window differs from 1366x768
+crash_handler_taskkill	0x2b63be6	PARTIAL_STATIC	taskkill /f /im UnityCrashHandler64.exe cleanup surface
+multi_account_launch_doc	0x2b63cda	VERIFIED_STATIC	LAUNCH TUẦN TỰ + LOGIN SONG SONG
+find_hwnd_launch_one	0x2b6441b	VERIFIED_STATIC	find_main_window_by_pid used by _launch_one_window
+find_hwnd_25s	0x2b64434	VERIFIED_STATIC	failure text: no window after 25s
+launch_one_doc	0x2b6445c	VERIFIED_STATIC	launch one game, wait PID-owned HWND + stability, inside _launch_lock
+forwarder_ready_doc	0x2b645b0	VERIFIED_STATIC	forwarder port must be ready before launching into that network path
+generic_profile_iteration	-	EXPLICIT_UNKNOWN	exact _launch_worker profile-index selection/loop not source-visible
+cwd_derivation	-	EXPLICIT_UNKNOWN	exact expression deriving cwd not recovered
+profile_stability_seconds	-	EXPLICIT_UNKNOWN	original doc says a few seconds; nearby literal 5 not bound without instruction proof
+proxy_enable_encoding	-	DEFERRED_TO_F08	exact string/value encoding for enabled/disabled proxy overlay
+crash_handler_cleanup_timing	-	EXPLICIT_UNKNOWN	exact trigger/timing of taskkill not recovered
