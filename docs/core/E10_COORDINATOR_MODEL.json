@@ -1,0 +1,69 @@
+{
+  "task": "E10",
+  "status": "VERIFIED_DISTRIBUTED_COORDINATOR_WITH_EXPLICIT_NO_GLOBAL_MUTEX_ASSUMPTION",
+  "layers": {
+    "shell": "tab visibility/enabled state, permission/limit snapshots, selected-tab refresh",
+    "start_tab": "quick-command facade, mode coordination, sync control, state mirroring",
+    "feature_tabs": "authoritative FSM/running state, per-account workers, cancellation, all-account control"
+  },
+  "explicit_cross_feature_rule": {
+    "entering_sync_mode": [
+      "stop Farm/Train if running",
+      "stop Daily Trừng Ác if running",
+      "stop Daily Tàng Bảo Đồ if running",
+      "enable layout sync",
+      "enable input sync"
+    ],
+    "leaving_sync_for_auto_manual": [
+      "disable layout sync",
+      "disable input sync"
+    ]
+  },
+  "mirrored_state": {
+    "farm": "_sync_start_tab_btn",
+    "train_lsv": "_sync_start_tab_btn",
+    "donvang": "_sync_start_tab_btn",
+    "daily": "_sync_start_tab_btns",
+    "toiuu": "Start polls/mirrors monitor/running state"
+  },
+  "all_account_surfaces": {
+    "farm": [
+      "_farm_all",
+      "_stop_all"
+    ],
+    "train_lsv": [
+      "_farm_all",
+      "_stop_all"
+    ],
+    "donvang": [
+      "_farm_all",
+      "_stop_all"
+    ],
+    "daily": [
+      "_start_all_accs",
+      "separate punish/treasure toggles"
+    ],
+    "rao": [
+      "_start_all_accs",
+      "_start_all_busy"
+    ],
+    "toiuu": [
+      "_start_all_accs",
+      "_start_all_busy"
+    ],
+    "phoban": [
+      "_stop_all_runs"
+    ]
+  },
+  "cancellation": "owner-local Events/flags/generation; cooperative worker stop",
+  "guards": "runtime permission/account-limit guard remains authoritative",
+  "post_routing": {
+    "login": "_auto_start_after_login / _auto_start_party_after_login",
+    "party": "wait all groups then _after_party_action once"
+  },
+  "refresh_execution_separate": true,
+  "universal_feature_mutex": "NOT_RECOVERED / DO_NOT INVENT",
+  "exact_feature_transition_order": "DEFERRED_TO_FEATURE_GATES",
+  "gate_e_decision": "COMPLETE_STATIC_CORE_EVIDENCE",
+  "next_task": "F01 — Login UI reconstruction"
+}
