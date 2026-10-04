@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H05 — Train coordinates / movement-to-train and return-route execution audit.
+H06 — Train heal / treatment routing and post-death heal interaction audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1379,32 +1379,66 @@ H05 — Train coordinates / movement-to-train and return-route execution audit.
 - docs/train/H04_PERIODIC_TOWN_FLOW.md
 - docs/train/H04_PERIODIC_TOWN_MODEL.json
 
+## H05 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H05 artifact existed, so no completed Train work was repeated.
+- Inspected the frozen inner EXE first; SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Per-account Train target is a **saved-coordinate preset name**. Exact `_preset_to_vars` doc says saved name → `(map_var, x_var, y_var)`; missing preset → `(None,None,None)`.
+- Row `Tới bãi train` resolves the selected `farm_var` preset and calls `_move_acc`; all-account `_move_all` resolves each checked row and runs movement in parallel.
+- Exact `_move_acc` doc confirms the same primitive supports an optional `stop_check` for Farm-cycle cancellation; manual button calls run to completion when no stop callback is supplied.
+- Manual move is explicitly blocked while that HWND is already auto-farming: exact log says `đang farm tự động → bỏ qua thao tác thủ công (dừng farm acc trước)`.
+- Saved Train X/Y are tile coordinates. Active route movement contains exact integer **32**, and near-target live-position conversion contains exact float **32.0**; the movement convention is therefore tile × 32 pixels.
+- FarmTab module directly binds `FARM_NEAR_TILES = 8.0`. Exact near-target doc says accounts already near the Train target skip redundant movement and the `Tới bãi train` state; read error, different map, or unresolved target is fail-open so movement proceeds.
+- Near helper locals expose `dx/dy`, but the exact final metric expression is not safely source-visible. Threshold = 8 tiles is exact; metric expression remains UNKNOWN.
+- Active forward shortcut selection is inside FarmTab: `_move_acc` has `to`, `to_from`, and `_move_truyen_to` surfaces against `TRUYEN_DAI_LY_ROUTES`. Ordinary targets retain the normal `move_character` path.
+- Exact `_move_truyen_to` doc says city→Farm route steps use `move_target` for the **user's selected final Train coordinate**, so shortcut data does not replace the account's saved final spot.
+- Exact `_truyen_move_retry` doc says retry belongs at the route-executor layer above generic `move_character`; this prevents blind primitive requeue after teleport. It uses arrival waiting. Exact retry count remains UNKNOWN.
+- Active route executor surfaces support move/click/drag/pixel-wait/npc_hub/wait/sleep/move_target. Exact local route-wait default is **30s**; interruptible sleep handling uses exact **0.5s** capped chunks.
+- `npc_hub` resolves the current town/map's transmission NPC through `resolve_hub_npc`; if the town has no entry in `TRUYEN_NPC_BY_TOWN`, exact behavior is abort rather than blind click.
+- Exact `_resolve_truyen_back` doc locks return-route identity: prefer **current live MapID**; only fall back to the selected Farm preset when memory read fails; normal map returns None and keeps ordinary movement.
+- `_run_farm_exit` executes the route's `back` branch and verifies exit with `fast_travel.verify_exited_farm`; success requires a fresh current MapID different from the farm map.
+- Live FarmTab return behavior is explicit: if shortcut exit fails and the operation is not canceled, it falls back to walking to the configured destination. Exact logs exist for sell and medicine: `teleport hụt, vẫn ở farm → đi bộ về điểm bán/điểm mua`.
+- `_get_sell_coords` normalizes built-in `SELL_MAP_LIST + SELL_MAP_COORDS`, manual saved coordinates, and `meds_map_var` to `(map_id, tile_x, tile_y)`.
+- Exact `_get_nav_priority` doc says UI order `Phù 1/2/3, Ngựa` is passed into `move_character` for the normal home-bound leg.
+- Generic `fast_travel.py` is **not** the current FarmTab movement owner. Its own exact module status says `run_steps/goto_map DORMANT`; only `fast_hop_to_map` is LIVE through `move_to_npc`, while FarmTab also uses `verify_exited_farm`.
+- Therefore Stage-S reconstruction must preserve FarmTab's local movement helpers rather than replacing them with dormant generic `goto_map`.
+- Active FarmTab **forward** shortcut final failure behavior (plain-walk fallback vs abort) cannot be safely resolved from readable static control flow and remains explicit RUNTIME/STRONGER-DECOMPILE UNKNOWN. Do not import the dormant generic goto_map branch as proof.
+- Ordinary final-move tolerance, long fallback-walk timeout, and exact route-leg retry count also remain UNKNOWN rather than guessed.
+- B05 was cross-checked only after EXE extraction; no geometry was remeasured.
+
+## H05 FILES
+- docs/tasks/H05.md
+- docs/train/H05_TRAIN_MOVEMENT_STATIC_EVIDENCE.tsv
+- docs/train/H05_TRAIN_MOVEMENT_FLOW.md
+- docs/train/H05_TRAIN_MOVEMENT_MODEL.json
+
 ## BLOCKERS
-None known for H05.
+None known for H06.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H04 verified FarmTab wiring/town/full-bag/periodic-timing boundaries.
+- Preserve B05 Train visual baseline and H01–H05 verified Train wiring/town/full-bag/timing/movement contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
 - Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
 - Preserve H01 refresh 5000 ms and autosave 30000 ms.
-- Preserve H02 current return-town values never/full_bag_timer/cycle and default cycle/30.
-- Preserve H03 bag metric as occupied Site-10 slots and its filter/no-town semantics.
+- Preserve H02 current return-town values never/full_bag_timer/cycle and lock_town behavior.
+- Preserve H03 occupied Site-10 bag metric and filter/no-town semantics.
 - Preserve H04 loop_minutes × 60 remaining-cycle timing semantics.
-- Do not invent the exact periodic sleep quantum, clamp expression, clock API, or loop-minute parse range.
-- Do not fold H05 movement/coordinate work into heal/reconnect/FSM tasks.
+- Preserve H05 32 pixels/tile, 8-tile near skip, current-MapID-first return routing, verified back exit, and return walk fallback.
+- Do not replace active FarmTab movement with dormant fast_travel.goto_map.
+- Keep forward shortcut final-failure behavior, route-leg retry count, ordinary move tolerance and long fallback timeout UNKNOWN.
+- Do not fold H06 heal/treatment analysis into death/reconnect FSM tasks beyond direct movement/click interactions.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H05 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H05 only if still pending.
+3. Check GitHub first for any H06 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H06 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Train coordinates and movement routing only: selected per-account Farm preset/manual saved coordinate resolution, near-target skip predicate, move-to-train path, navigation priority ordering, fast-travel/Truyền route use, return-route resolution, arrival verification, and fallback-to-walk behavior.
-7. Recover exact map/coordinate/tolerance/retry/timeout constants where safely bindable; keep any unbound values UNKNOWN.
-8. Preserve H02 lock_town and H04 timing boundaries; do not yet decode heal/death/reconnect behavior beyond movement interactions.
-9. Cross-check B05 only after static extraction; do not remeasure geometry.
-10. Persist H05 evidence/report, update STATE.md, and advance to H06 only after verification.
+6. Audit only Train heal/treatment routing: heal toggle/config, built-in TRAIN_HEAL_COORDS vs manual saved-coordinate resolution, movement to treatment point, exact click sequence/retry/wait behavior, and how _heal_at_death reports success/failure back to the farm cycle.
+7. Recover exact map/coordinate/click/timing constants where safely bindable; keep unbound values UNKNOWN.
+8. Preserve H05 movement conventions and do not yet decode the complete death-recovery monitor/FSM; H07 owns death recovery.
+9. Cross-check B05 only after static extraction; no geometry work is needed.
+10. Persist H06 evidence/report, update STATE.md, and advance to H07 only after verification.
