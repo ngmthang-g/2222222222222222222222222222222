@@ -1,0 +1,91 @@
+{
+  "task": "H07",
+  "status": "VERIFIED_4S_MAP87_HP0_RESPAWN_MONITOR_WITH_LATCHED_SINGLE_CLICK_EVENT_DRIVEN_RECOVERY_AND_EXPLICIT_RETURN_BRANCH_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "config": {
+    "return_to_train_key": "respawn",
+    "label": "Quay lại train khi chết",
+    "default": false
+  },
+  "monitor": {
+    "method": "_diaphu_monitor",
+    "cadence_seconds": 4,
+    "starts_from_farm_session_start": true,
+    "args": [
+      "self",
+      "hwnd",
+      "respawn_event",
+      "stop_event"
+    ],
+    "map_signal": {
+      "map_id": 87,
+      "action": "set respawn_event once per continuous map-87 episode",
+      "latch": "detected",
+      "rearm": "after leaving map 87"
+    },
+    "hp_signal": {
+      "field": "HpPercent",
+      "valid_trigger": "real numeric 0",
+      "unreadable_is_zero": false,
+      "click_client": [
+        792,
+        441
+      ],
+      "clicks_per_latched_zero_episode": 1,
+      "latch": "hp_latched",
+      "reset": "when HP becomes nonzero"
+    }
+  },
+  "recovery": {
+    "event": "respawn_event",
+    "state": "Đang hồi sinh",
+    "readiness_semantic": "MapID 87 is the observable recovery trigger; click success alone is not",
+    "farm_common_active_wait": false,
+    "reconnect_wait_memory_ready_reused_for_death": false,
+    "treatment": {
+      "helper": "_heal_at_death",
+      "config_key": "trist",
+      "cancel_callback": "hard_stop",
+      "failure_surface": "trị liệu sau chết thất bại",
+      "exact_next_branch_after_failure": "UNKNOWN"
+    },
+    "return_to_train": {
+      "enabled_semantic": "reuse H05 current saved Train target/movement path",
+      "disabled_semantic": "do not fabricate an automatic return-to-train request",
+      "exact_disabled_worker_continuation": "UNKNOWN"
+    }
+  },
+  "counter": {
+    "field": "_extra_deaths",
+    "new_row_initial": 0,
+    "display": "Chết: N",
+    "increment_semantic": "one per latched HP-zero death episode",
+    "map87_only_increment": false,
+    "reset_on_same_row_farm_restart": "UNKNOWN"
+  },
+  "safety": {
+    "monitor_cancel": "per-session stop_event / monitor_stop",
+    "generation_snapshot": "gen_snap",
+    "action_cancel": "hard_stop",
+    "window_check": "_hwnd_alive",
+    "reused_hwnd_pid_mismatch_rejected": true,
+    "exact_cleanup_order": "UNKNOWN"
+  },
+  "explicit_unknowns": [
+    "first monitor tick immediate vs after initial 4-second wait",
+    "exact treatment-failure next FSM branch",
+    "exact worker continuation when respawn checkbox is disabled",
+    "death counter reset behavior on same-row Farm restart",
+    "exact monitor-stop/finally cleanup order",
+    "simultaneous death/reconnect arbitration"
+  ],
+  "deferred": {
+    "H08": "reconnect watchdog and reconnect recovery",
+    "later_H": "full runtime parity"
+  },
+  "next_task": "H08 — Train reconnect watchdog / reconnect recovery audit"
+}
