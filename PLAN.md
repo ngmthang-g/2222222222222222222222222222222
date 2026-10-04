@@ -827,7 +827,7 @@ kết quả thực tế
 | F05 launcher | 18m |
 | F06 account login action | 18m |
 | F07 captcha option | 18m |
-| F08 proxy | 18m |
+| F08 proxy — **PHÂN TÍCH/TÀI LIỆU ONLY, KHÔNG PHÁT TRIỂN RUNTIME** | 18m |
 | F09 scheduler | 18m |
 | F10 post-login routing | 18m |
 | F11 parity test | 18m |
@@ -1040,6 +1040,13 @@ Không tự hiển thị tính năng dormant lên UI.
 ---
 
 # 38. GIAI ĐOẠN Q — Proxy/network
+
+> **USER SCOPE LOCK — KHÔNG PHÁT TRIỂN PROXY (2026-10-04).**
+> - Không implement, mở rộng, sửa logic runtime hoặc build mới các chức năng Proxy/network.
+> - Không phát triển `proxy_tab`, `proxy_refresh`, `forwarder`, `forwarder.exe`, `Default.ppx`.
+> - F08 đã hoàn thành ở mức **phân tích/tài liệu bằng chứng** để hiểu EXE gốc; không biến các bằng chứng đó thành task phát triển runtime.
+> - Khi các phần khác tham chiếu Proxy, chỉ được giữ tài liệu/contract hoặc phần tương thích tối thiểu cần để không phá luồng khác; **không phát triển tính năng Proxy** trừ khi người dùng mở lại scope bằng yêu cầu mới.
+> - Không xóa các tài liệu F08 đã có vì chúng là bằng chứng phục vụ đối chiếu/parity.
 
 Các module:
 
