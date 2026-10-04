@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F05 — launcher.
+F06 — account login action.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -762,8 +762,31 @@ F05 — launcher.
 - docs/login/F04_GAME_PATH_FLOW.md
 - docs/login/F04_GAME_PATH_MODEL.json
 
+## F05 VERIFIED RESULTS
+- Generic Open Game is guarded by has_permission(login_tab), check_account_limit(login, extra=1), configured game_dir and _get_exe_path.
+- _open_game dispatches launch work to daemon _launch_worker rather than blocking Tk.
+- Generic launcher uses _make_safe_env, _apply_proxy_hook_env and spawn_and_inject with a recovered 15,000 ms timeout literal.
+- _make_safe_env(tlm_profile:str)->dict keeps Windows essentials + TLM_PROFILE and excludes Python/VirtualEnv leakage.
+- Login proxy overlay exposes TLM_PROXY_ENABLE/HOST/PORT/FAIL with host 127.0.0.1; exact enable encoding remains F08/UNKNOWN.
+- Active launch payload is ./data/resources.dat.
+- spawn_and_inject creates the game with CREATE_SUSPENDED, injects LoadLibraryW via VirtualAllocEx/WriteProcessMemory/CreateRemoteThread, waits, then NtResumeProcess, returning (success,pid,error_msg).
+- inject_into_pid is a separate existing-process helper with double-inject guard.
+- find_main_window_by_pid binds by returned PID, preferring UnityWndClass or title containing Thần Long, then first visible PID-owned window.
+- _launch_one_window serializes game opens under _launch_lock, waits up to 25s for the PID-owned HWND and a stabilization phase, then hands off the HWND.
+- Multi-account contract is LAUNCH TUẦN TỰ + LOGIN SONG SONG; only the launcher half is completed in F05.
+- Forwarder readiness is a launch precondition when used; a dead required port prevents game launch into that network path.
+- _login_resize_monitor checks game-window size every second and only resizes when not 1366x768.
+- Profile-specific launch indices are 1-5 with busy/success/inject-failure/error states.
+- Exact generic profile-iteration policy, cwd derivation, post-HWND stabilization duration, failure-cleanup micro-order and UnityCrashHandler cleanup timing remain explicit UNKNOWN.
+
+## F05 FILES
+- docs/tasks/F05.md
+- docs/login/F05_LAUNCHER_STATIC_EVIDENCE.tsv
+- docs/login/F05_LAUNCHER_FLOW.md
+- docs/login/F05_LAUNCHER_MODEL.json
+
 ## BLOCKERS
-None known for F05.
+None known for F06.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -777,7 +800,7 @@ None known for F05.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F05 only.
-4. Recover Login launcher behavior from the original EXE: _open_game, _launch_worker, _launch_profile_worker, spawn_and_inject, working directory/environment, profile index, DLL injection result handling, window/process detection and launcher UI state.
-5. Keep account credential/click-login sequence deferred to F06 except where launcher readiness hands off to it.
-6. Persist F05 evidence/report and advance to F06 only after verification.
+3. Execute F06 only.
+4. Recover the original account login action after launcher readiness: selected-row parsing, username/password/captcha/proxy tuple, hidden/background input mechanism, username click/type, password click/type, Login click, readiness/pixel checks, retries, online marking, close/retry handling and MAX_PARALLEL_LOGIN coordination.
+5. Keep captcha-specific mode internals deferred to F07 and proxy-selection semantics deferred to F08 except where F06 consumes their already-resolved outputs.
+6. Persist F06 evidence/report and advance to F07 only after verification.
