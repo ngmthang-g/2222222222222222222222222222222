@@ -1,0 +1,25 @@
+key	offset_hex	status	evidence
+party_ui_relayout	0x2b7dadd	VERIFIED_STATIC	_relayout_ready_list; Party UI widget relayout
+party_tk_grid_remove	0x2b7dbd2	VERIFIED_STATIC	grid_remove for ready-account widgets
+party_tk_grid	0x2b7dbdf	VERIFIED_STATIC	grid for ready-account widgets
+party_ready_grid_doc	0x2b7dc10	VERIFIED_STATIC	Sắp lại grid 3 acc/dòng; ẩn acc đã được cụm nào chọn
+party_shared_get_windows	0x2b7dc56	VERIFIED_STATIC	start_tab.get_windows used for discovery/member refresh
+party_resize_symbol	0x2b7f0f1	VERIFIED_STATIC	resize_window in create-team method block
+party_resize_symbol_repeat	0x2b7f100	VERIFIED_STATIC	resize_window call surface
+party_resize_width	0x2b7f10f	VERIFIED_STATIC	encoded small-int l d6 0a = 1366
+party_resize_height	0x2b7f112	VERIFIED_STATIC	encoded small-int l 80 06 = 768
+party_resize_error	0x2b7f115	VERIFIED_STATIC	[Party] resize cửa sổ trưởng nhóm lỗi: ...
+party_create_doc	0x2b7f311	VERIFIED_STATIC	Acc chủ tạo đội bằng click UI (game 1366x768)
+party_click_create_qualname	0x2b81849	VERIFIED_STATIC	PartyTab._click_create_team
+party_click_create_local_lhwnd	0x2b81ed0	VERIFIED_STATIC	lhwnd local/argument in _click_create_team code-object metadata
+party_click_create_resize_local	0x2b81ef8	VERIFIED_STATIC	resize_window local reference in same method metadata
+party_arrange_grid	-	ABSENT_PARTY_OWNERSHIP	No _arrange_grid reference in frozen Party block
+party_move_windows_offset	-	ABSENT_PARTY_OWNERSHIP	No _move_windows_offset reference
+party_auto_tile_windows	-	ABSENT_PARTY_OWNERSHIP	No _auto_tile_windows reference
+party_layout_worker	-	ABSENT_PARTY_OWNERSHIP	No _layout_worker reference
+party_sync_windows_loop	-	ABSENT_PARTY_OWNERSHIP	No _sync_windows_loop reference
+party_grid_cols	-	ABSENT_PARTY_OWNERSHIP	No grid_cols physical-layout state
+party_grid_rows	-	ABSENT_PARTY_OWNERSHIP	No grid_rows physical-layout state
+party_start_arrange_call	-	NOT_RECOVERED	No direct Party call to Start arrangement/tile methods
+party_start_master_mapping	-	NOT_RECOVERED	No evidence group leader is Start master HWND
+resize_shared_semantics	C06	REUSED_VERIFIED_CONTRACT	resize_window uses ShowWindow normal + SetWindowPos with SWP_NOMOVE/SWP_NOACTIVATE/SWP_NOZORDER
