@@ -1,0 +1,118 @@
+{
+  "task": "F05",
+  "status": "VERIFIED_SUSPEND_INJECT_LAUNCHER_WITH_EXPLICIT_GENERAL_PROFILE_ITERATION_AND_CWD_UNKNOWNS",
+  "open_game": {
+    "permission_key": "login_tab",
+    "account_limit_action": "login",
+    "account_limit_extra": 1,
+    "requires_game_dir": true,
+    "exe_resolver": "_get_exe_path",
+    "worker": "_launch_worker",
+    "worker_daemon": true
+  },
+  "generic_worker": {
+    "safe_env": "_make_safe_env",
+    "proxy_overlay": "_apply_proxy_hook_env",
+    "launcher": "spawn_and_inject",
+    "timeout_ms": 15000,
+    "profile_iteration_policy": "UNKNOWN",
+    "logs": [
+      "inject failure",
+      "exception",
+      "launched count"
+    ]
+  },
+  "profile_launch": {
+    "profile_index_range": "1-5",
+    "worker": "_launch_profile_worker",
+    "semantics": "one instance via suspend+inject",
+    "ui": {
+      "busy": "⏳ Mở game profile N",
+      "busy_color": "#1565c0",
+      "success": "✅ Đã mở game profile N",
+      "injection_failure": "❌ Inject thất bại: ...",
+      "open_error": "❌ Lỗi mở game: ..."
+    }
+  },
+  "environment": {
+    "helper_signature": "_make_safe_env(tlm_profile: str) -> dict",
+    "rule": "Windows essentials + TLM_PROFILE only",
+    "reason": "avoid Python/VirtualEnv leakage into Unity",
+    "proxy_keys": [
+      "TLM_PROXY_ENABLE",
+      "TLM_PROXY_HOST",
+      "TLM_PROXY_PORT",
+      "TLM_PROXY_FAIL"
+    ],
+    "proxy_host": "127.0.0.1",
+    "proxy_fail_mode": "closed",
+    "exact_proxy_enable_encoding": "DEFERRED_TO_F08"
+  },
+  "injection": {
+    "payload": "./data/resources.dat",
+    "architecture": "x64 tool -> x64 target",
+    "sequence": [
+      "Popen CREATE_SUSPENDED with cwd/env",
+      "VirtualAllocEx",
+      "WriteProcessMemory(dll_path)",
+      "CreateRemoteThread(LoadLibraryW)",
+      "WaitForSingleObject(thread)",
+      "NtResumeProcess"
+    ],
+    "return": [
+      "success",
+      "pid",
+      "error_msg"
+    ],
+    "existing_process_helper": "inject_into_pid with double-inject guard"
+  },
+  "hwnd_binding": {
+    "helper": "find_main_window_by_pid",
+    "api": [
+      "EnumWindows",
+      "GetWindowThreadProcessId",
+      "IsWindowVisible",
+      "GetClassNameW",
+      "GetWindowTextW"
+    ],
+    "preference": [
+      "UnityWndClass",
+      "title contains Thần Long",
+      "first visible PID-owned HWND"
+    ]
+  },
+  "account_launch_foundation": {
+    "method": "_launch_one_window",
+    "serialized_by": "_launch_lock",
+    "hwnd_timeout_seconds": 25,
+    "stabilization_phase": true,
+    "stabilization_seconds": "UNKNOWN",
+    "result": "hwnd or None"
+  },
+  "multi_account": {
+    "launch": "sequential",
+    "login": "parallel (F06)",
+    "docs": "LAUNCH TUẦN TỰ + LOGIN SONG SONG"
+  },
+  "forwarder_precondition": {
+    "helper": "_ensure_forwarder_alive",
+    "required_when_used": true,
+    "false_means": "do not launch game into dead network path"
+  },
+  "resize_monitor": {
+    "cadence_seconds": 1,
+    "target": [
+      1366,
+      768
+    ],
+    "only_resize_when_size_differs": true
+  },
+  "unknowns": [
+    "generic _launch_worker profile-index selection/iteration",
+    "exact cwd derivation",
+    "exact post-HWND stability duration",
+    "exact failure-cleanup branch ordering",
+    "exact UnityCrashHandler64 cleanup timing"
+  ],
+  "next_task": "F06 — account login action"
+}
