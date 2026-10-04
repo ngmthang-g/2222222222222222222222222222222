@@ -1,0 +1,62 @@
+{
+  "task": "D06",
+  "status": "VERIFIED_WITH_OPAQUE_DATA_ROLES_EXPLICITLY_UNKNOWN",
+  "packaged_data": {
+    "gate_a_count": 23,
+    "opaque_mz_pe_like_invalid": 14,
+    "resources_pe_family": 6,
+    "plain_text_files": [
+      "data/automove_log.txt",
+      "proxy_working.txt"
+    ],
+    "version_proxy_pe": "version.dat"
+  },
+  "config_resource": {
+    "path": "ppx/Default.ppx",
+    "format": "XML",
+    "proxy": "SOCKS5 127.0.0.1:10800",
+    "game_rule": true
+  },
+  "active_payload": {
+    "path": "data/resources.dat",
+    "format": "PE32+ x64 DLL / UPX sections",
+    "name_references": 7,
+    "injected_payload": true
+  },
+  "runtime_config": {
+    "main_settings": "%APPDATA%/TLMTool/settings.ini",
+    "config_contexts": [
+      "InfoTab config.ini alongside script/binary context",
+      "%APPDATA%/TLMTool/config.ini shared central config"
+    ],
+    "login_state": [
+      "login_online.json",
+      "last_login_times.json"
+    ],
+    "android_guest": "/sdcard/TLM/tlm_*.json"
+  },
+  "forwarder_state": [
+    "forwarder_mode.txt",
+    "forwarder_idx.txt",
+    "forwarder_stats.json",
+    "forwarder_pid.txt",
+    "forwarder_advance.txt",
+    "forwarder_targets.txt",
+    "forwarder_pinned_proxy.txt",
+    "forwarder_force_direct.txt",
+    "proxy_alloc.txt",
+    "proxy_alloc.lock",
+    "proxy_bad.txt",
+    "proxy_last_refresh.txt"
+  ],
+  "logs": [
+    "log/tlmtool.log",
+    "tlm_memory.log",
+    "data/automove_log.txt"
+  ],
+  "deferred_js": [
+    "emu_client.js",
+    "ld_remote.js"
+  ],
+  "next_task": "D07 — JS/helper files"
+}
