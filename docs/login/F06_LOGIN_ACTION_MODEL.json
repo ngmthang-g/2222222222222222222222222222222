@@ -14,7 +14,7 @@
     "retry_value": "UNKNOWN",
     "failure_cleanup": "_force_close_window",
     "success": [
-      " _mark_row_online",
+      "_mark_row_online",
       "_record_login_time"
     ]
   },
