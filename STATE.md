@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-D01 — Extract toàn bộ module names.
+D02 — import relationships.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -345,8 +345,28 @@ D01 — Extract toàn bộ module names.
 - Remaining unknowns are explicit and localized.
 - Reconstructed executable runtime parity is deferred to the later implementation/parity stage.
 
+## D01 VERIFIED RESULTS
+- Frozen inner EXE hash rechecked against Gate A.
+- 244 valid exact module markers were recovered from the original EXE.
+- 538 unique module-like `.py` filename references were recovered as supplemental provenance.
+- 32 physical native `.pyd` modules were inventoried from the frozen distribution.
+- Canonical D01 inventory contains 573 rows: 570 accepted unique names + 3 rejected string artifacts.
+- Accepted categories: 42 TLM internal, 225 third-party Python, 265 stdlib references, 32 native extensions, 6 Nuitka hooks.
+- Confidence is explicit: 276 HIGH, 294 MEDIUM; filename-only references are not overclaimed as executed modules.
+- The full row-level inventory is committed as `D01_MODULE_INVENTORY.tsv.gz`; helper EXEs/DLLs/resources are inventoried separately.
+
+## D01 FILES
+- docs/tasks/D01.md
+- docs/modules/D01_MODULE_INVENTORY.tsv.gz
+- docs/modules/D01_MODULE_SUMMARY.json
+- docs/modules/D01_TLM_INTERNAL.json
+- docs/modules/D01_NATIVE_PYD.json
+- docs/modules/D01_NUITKA_HOOKS.json
+- docs/modules/D01_HELPER_FILES.tsv
+- tools/D01_EXTRACT_MODULES.py
+
 ## BLOCKERS
-None known for D01.
+None known for D02.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -357,11 +377,11 @@ None known for D01.
 - Do not begin C08 before C07 is verified.
 
 ## NEXT_ACTION
-On CONTINUE:
+On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute D01 only.
-4. Extract the full original module-name inventory from the frozen TLMTool specimen.
-5. Separate TLM internal modules, Python/stdlib, third-party packages, native extension modules, and helper executables/resources without changing prior Gate A–C baselines.
-6. Persist D01 evidence/report and update PROJECT_STATUS.md.
-7. Advance to D02 only after D01 is verified.
+3. Execute D02 only.
+4. Recover import/dependency relationships among original modules, prioritizing TLM-internal modules.
+5. Separate exact/high-confidence relationship evidence from proximity/name-reference heuristics; do not turn string adjacency into fact.
+6. Persist D02 graph/evidence/report and update PROJECT_STATUS.md.
+7. Advance to D03 only after D02 is verified at the strongest evidence level available.
