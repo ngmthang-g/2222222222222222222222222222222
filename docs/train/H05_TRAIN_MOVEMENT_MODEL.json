@@ -1,0 +1,130 @@
+{
+  "task": "H05",
+  "status": "VERIFIED_SAVED_PRESET_TILE_MOVEMENT_WITH_8_TILE_NEAR_SKIP_AND_LIVE_TRUYEN_RETURN_WALK_FALLBACK",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "train_target": {
+    "selector": "per-row farm_var",
+    "semantic": "saved-coordinate preset name",
+    "resolver": "_preset_to_vars",
+    "resolver_result": [
+      "map_var",
+      "x_var",
+      "y_var"
+    ],
+    "missing_result": [
+      null,
+      null,
+      null
+    ],
+    "tile_coordinates": true,
+    "pixels_per_tile": 32
+  },
+  "manual_move": {
+    "callback": "_move_acc",
+    "manual_while_auto_farming": "skip + log",
+    "stop_check_supported": true,
+    "all_account_worker": "_move_all"
+  },
+  "near_target": {
+    "helper": "_is_near_farm_target",
+    "threshold_tiles": 8,
+    "live_position_fields": [
+      "PosX",
+      "PosY"
+    ],
+    "live_position_pixel_to_tile": 32,
+    "locals": [
+      "dx",
+      "dy"
+    ],
+    "exact_metric_expression": "UNKNOWN",
+    "failure_behavior": "fail-open: return False so movement proceeds"
+  },
+  "forward_shortcut": {
+    "route_table": "TRUYEN_DAI_LY_ROUTES",
+    "direct_key": "to",
+    "borrowed_key": "to_from",
+    "method": "_move_truyen_to",
+    "final_step": "move_target uses user-selected farm map/tile coordinates",
+    "ordinary_no_route": "move_character",
+    "final_shortcut_failure_behavior": "UNKNOWN"
+  },
+  "route_executor": {
+    "leg_retry": "_truyen_move_retry",
+    "retry_layer": "executor above move_character",
+    "retry_count_numeric": "UNKNOWN",
+    "wait_for_arrival": true,
+    "step_handlers": [
+      "move",
+      "click",
+      "drag",
+      "pixel/wait-pixel",
+      "npc_hub",
+      "wait",
+      "sleep",
+      "move_target"
+    ],
+    "wait_default_timeout_seconds": 30,
+    "cancel_sleep_chunk_seconds": 0.5,
+    "npc_resolver": "resolve_hub_npc(current MapID)",
+    "no_town_npc": "abort"
+  },
+  "return_route": {
+    "resolver": "_resolve_truyen_back",
+    "route_identity_priority": [
+      "current live MapID",
+      "selected Farm preset only if memory read fails"
+    ],
+    "normal_map_result": null,
+    "executor": "_run_farm_exit",
+    "back_steps": true,
+    "verifier": "fast_travel.verify_exited_farm",
+    "verified_exit": "fresh current MapID differs from farm map",
+    "verifier_read_failure": "not verified",
+    "shortcut_failure_if_not_canceled": "walk to destination"
+  },
+  "return_destination": {
+    "resolver": "_get_sell_coords",
+    "built_in": "SELL_MAP_LIST + SELL_MAP_COORDS",
+    "manual_saved_preset": true,
+    "medicine_source": "meds_map_var",
+    "normalized_result": [
+      "map_id",
+      "tile_x",
+      "tile_y"
+    ],
+    "home_priority": "_get_nav_priority -> Phù 1/2/3/Ngựa",
+    "final_arrival_wait": true,
+    "ordinary_move_tolerance": "UNKNOWN",
+    "long_walk_timeout": "UNKNOWN"
+  },
+  "fast_travel_boundary": {
+    "generic_goto_map": "DORMANT",
+    "generic_run_steps": "DORMANT",
+    "fast_hop_to_map": "LIVE via move_to_npc",
+    "verify_exited_farm": "LIVE in FarmTab return verification",
+    "active_farm_owner": [
+      "FarmTab._move_truyen_to",
+      "FarmTab._exec_truyen_steps",
+      "FarmTab._resolve_truyen_back",
+      "FarmTab._run_farm_exit"
+    ]
+  },
+  "unknowns": [
+    "exact near-target dx/dy metric expression",
+    "exact route-leg retry count",
+    "active FarmTab forward shortcut final failure fallback vs abort",
+    "ordinary move_character arrival tolerance",
+    "long fallback-walk timeout"
+  ],
+  "preserved": {
+    "H02_lock_town": true,
+    "H03_inventory_full": true,
+    "H04_scheduler": true
+  },
+  "next_task": "H06 — Train heal / treatment routing and post-death heal interaction audit"
+}
