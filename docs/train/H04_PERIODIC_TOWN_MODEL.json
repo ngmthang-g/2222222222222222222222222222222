@@ -1,0 +1,84 @@
+{
+  "task": "H04",
+  "status": "VERIFIED_CYCLE_REMAINDER_WAIT_WITH_60S_MINUTE_CONVERSION_AND_FULL_BAG_EARLY_BREAK_WITH_EXPLICIT_WAIT_QUANTUM_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "scheduler": {
+    "locals": [
+      "cycle_start",
+      "condition",
+      "loop_minutes",
+      "elapsed",
+      "sleep_time"
+    ],
+    "configured_unit": "minutes",
+    "seconds_multiplier": 60,
+    "semantics": "remaining cycle duration after accounting for front-half work",
+    "exact_clamp_expression": "UNKNOWN",
+    "exact_clock_api": "UNKNOWN",
+    "exact_wait_quantum": "UNKNOWN",
+    "loop_minutes_invalid_or_range_behavior": "UNKNOWN"
+  },
+  "modes": {
+    "cycle": {
+      "timer": true,
+      "bag_early_break": false,
+      "normal_expiry": "next outer cycle / periodic town boundary"
+    },
+    "full_bag_timer": {
+      "legacy_alias": "full_bag",
+      "timer": true,
+      "bag_early_break": true,
+      "early_break_predicate": "stop_bag_check -> MI.is_full_bag"
+    },
+    "never": {
+      "timer_may_bound_outer_loop_iteration": true,
+      "timer_authorizes_automatic_town": false,
+      "full_bag_behavior": "H03 filter/stay policy"
+    }
+  },
+  "interrupts": {
+    "user_stop": {
+      "surfaces": [
+        "stop_check",
+        "hard_stop"
+      ],
+      "may_end_before_period": true
+    },
+    "death_respawn": {
+      "monitor_interval_seconds": 4,
+      "event": "respawn_event",
+      "state": "Đang hồi sinh",
+      "detailed_recovery": "DEFERRED"
+    },
+    "disconnect": {
+      "monitor_interval_seconds": 2,
+      "strikes_required": 3,
+      "approximate_detection_seconds": 6,
+      "event": "halt",
+      "state": "Chờ kết nối lại",
+      "reconnect_wait_per_attempt_seconds": 30,
+      "success_event": "reconnect_ok",
+      "effect": "cycle reset"
+    },
+    "post_reconnect_memory_ready": {
+      "helper": "wait_memory_ready",
+      "timeout_seconds": 45,
+      "need": 3
+    }
+  },
+  "unbound_constant_note": {
+    "literal_5_present": true,
+    "scheduler_binding": false,
+    "reason": "Farm module independently documents a 5-second pickup delay; Nuitka module constants are deduplicated"
+  },
+  "preserved": {
+    "H02_modes": true,
+    "H03_inventory_full_semantics": true,
+    "movement_not_decoded": true
+  },
+  "next_task": "H05 — Train coordinates / movement-to-train and return-route execution audit"
+}
