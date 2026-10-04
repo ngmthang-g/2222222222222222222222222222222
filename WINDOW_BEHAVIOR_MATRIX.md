@@ -579,3 +579,31 @@ Explicit unknown:
 - layout auto-disable on manual master change is not proven.
 
 ---
+
+## C19 — Đồng bộ phím chuột
+
+`Đồng bộ phím chuột`
+→ `_toggle_input`
+→ selected master is the input source
+→ mouse/keyboard listeners
+
+Mouse path:
+screen point
+→ master client coordinates
+→ size-aware scaling to each slave client
+→ ordered event processing
+
+Maintenance/safety:
+- input-sync keepalive: 1.5 seconds;
+- stale slave state watchdog: about 10 seconds;
+- changing master while input sync is active disables input sync and releases slave state.
+
+Dedicated paths also exist for scroll, throttled mouse movement, and keyboard press/release.
+
+Explicit unknown:
+- exact key-message format;
+- exact mouse-move throttle interval;
+- exact listener startup timing;
+- exact retry delay/branch details.
+
+---
