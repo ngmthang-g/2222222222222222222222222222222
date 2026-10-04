@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E08 — shutdown/reload.
+E09 — error handling.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -630,8 +630,25 @@ E08 — shutdown/reload.
 - docs/core/E07_THREAD_FLOW.md
 - docs/core/E07_THREAD_MODEL.json
 
+## E08 VERIFIED RESULTS
+- Normal close is driven by Tk/root/widget destruction plus tab-owned <Destroy> save/stop hooks; no main-shell WM_DELETE_WINDOW callback was recovered.
+- Twelve tab/module Destroy hooks were enumerated; exact cross-tab destroy order remains UNKNOWN.
+- Forced heartbeat shutdown uses a confirmation/strike model, waits about 5s on the second blocking state, destroys the GUI and uses os._exit.
+- Forced heartbeat shutdown explicitly leaves the independent forwarder process running.
+- TLMMainApp._rebuild_tab and preview refresh paths are in-process widget/view rebuilds, not process restarts.
+- Start-page Reload is an unstick/input-window recovery command via _unstick_all_cmd / unstick_windows, not a TLMTool restart; exact helper micro-sequence remains UNKNOWN.
+- Login row Reload advances that forwarder proxy, closes that account's tracked game window if present, then immediately logs the account in with the new proxy.
+- Auto-update explicitly confirms, closes all game windows, stops all forwarders, resolves update link, finds/spawns update.exe; external updater replaces files and relaunches TLMTool.
+- Normal user-close global forwarder cleanup remains NOT PROVEN/UNKNOWN.
+
+## E08 FILES
+- docs/tasks/E08.md
+- docs/core/E08_SHUTDOWN_STATIC_EVIDENCE.tsv
+- docs/core/E08_SHUTDOWN_FLOW.md
+- docs/core/E08_SHUTDOWN_MODEL.json
+
 ## BLOCKERS
-None known for E08.
+None known for E09.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -645,7 +662,7 @@ None known for E08.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E08 only.
-4. Recover shutdown/reload behavior: normal widget destruction, per-tab stop/save hooks, root destruction, forced heartbeat exit, refresh/rebuild/reload workers, updater relaunch, and helper-process survival/cleanup boundaries.
-5. Separate in-app tab reload/rebuild from full process restart/update.
-6. Persist E08 evidence/report and advance to E09 only after verification.
+3. Execute E09 only.
+4. Recover error handling: startup exception hooks, try/except boundaries, worker error callbacks, messagebox/log fallback, timeout/hung-window guards, network/JSON/config failures, and fail-open/fail-closed decisions where evidenced.
+5. Keep diagnostic logging separate from user-facing recovery/control flow.
+6. Persist E09 evidence/report and advance to E10 only after verification.
