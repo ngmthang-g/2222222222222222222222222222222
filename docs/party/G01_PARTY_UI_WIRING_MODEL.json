@@ -1,0 +1,126 @@
+{
+  "task": "G01",
+  "status": "VERIFIED_STATIC_UI_WIRING_WITH_STALE_DOC_TOGGLE_CORRECTION",
+  "specimen": {
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module": "party_tab.py",
+    "class": "PartyTab"
+  },
+  "constructor": {
+    "known_inputs": ["parent", "info_tab", "notebook"],
+    "state": [
+      "_running",
+      "_cancel",
+      "_run_lock",
+      "_run_cancels",
+      "_targets_lock",
+      "_refresh_id",
+      "_refreshing",
+      "_closing",
+      "phoban_tab_ref",
+      "farm_tab_ref",
+      "train_lsv_tab_ref",
+      "donvang_tab_ref",
+      "_last_targets",
+      "_member_rows",
+      "_sections",
+      "_sec_team",
+      "_sec_corps",
+      "_saving_enabled"
+    ],
+    "lifecycle": ["_build_ui", "_load_config", "<Destroy> -> _on_destroy", "_start_refresh"]
+  },
+  "visible_ui": {
+    "after_party": {
+      "variable": "_after_party",
+      "type": "StringVar",
+      "choices": [
+        {"label": "Chờ", "value": "wait"},
+        {"label": "Train", "value": "train"},
+        {"label": "Train LSV", "value": "train_lsv"},
+        {"label": "Dồn vàng", "value": "don"},
+        {"label": "Phó bản", "value": "phoban"}
+      ],
+      "persistence_trigger": "trace_add(write) -> save"
+    },
+    "team": {
+      "title": "Cấu hình tổ đội",
+      "ready_label": "Danh sách acc sẵn sàng:",
+      "container": "_team_body"
+    },
+    "groups": {
+      "title": "Cấu hình nhóm",
+      "unit": "Nhóm",
+      "leader_label": "Trưởng nhóm:",
+      "members_per_group": 6,
+      "layout": "2 rows x 3 comboboxes",
+      "add": {
+        "text": "+ Thêm nhóm",
+        "callback": "_add_group_cluster"
+      },
+      "cluster": {
+        "fields": ["leader_lbl", "vars", "join_btn", "join_cancel", "join_running"],
+        "leave": "_leave_group",
+        "remove": "_remove_group",
+        "open_dropdown": "_open_dropdown",
+        "select": "_on_group_selected",
+        "run_single": "_run_single_cluster",
+        "leader_update": "_update_leader_label",
+        "renumber": "_renumber_groups"
+      }
+    },
+    "global_start": {
+      "text": "Bắt đầu",
+      "callback": "_toggle_run"
+    }
+  },
+  "shared_dependencies": {
+    "windows": "start_tab.get_windows",
+    "character_info": "utils.get_character_info / RoleName",
+    "identity": ["bind_window_identity", "unbind_window_identity", "_get_pid_from_hwnd"],
+    "ui_apply": "Tk after from background refresh",
+    "permission": ["permission_guard", "has_permission", "check_account_limit", "has_permission_with_limit"]
+  },
+  "config": {
+    "store": "shared settings.ini / Settings via read_settings/write_settings",
+    "active": [
+      "party_after",
+      "party_groups",
+      "party_group1"
+    ],
+    "compatibility_surfaces": [
+      "party_corps_groups",
+      "party_corps_group1"
+    ],
+    "dormant_compatibility_surfaces": [
+      "party_follow",
+      "party_pick"
+    ],
+    "group_encoding": "JSON member lists"
+  },
+  "ownership_negative": {
+    "dwm_preview": false,
+    "layout_sync": false,
+    "input_sync": false,
+    "physical_input_backend": "not owned by PartyTab"
+  },
+  "g01_correction": {
+    "previous_b04_static_note": ["Theo sau đội trưởng", "Tự nhặt đồ"],
+    "resolution": "STALE/DORMANT MODULE PROSE + COMPATIBILITY KEYS; NOT ACTIVE PARTY UI",
+    "proof": [
+      "no Party BooleanVar for follow/pick",
+      "no active Party build-ui labels for those toggles",
+      "no PartyTab._toggle_follow",
+      "no PartyTab._toggle_pick or _toggle_pickup",
+      "matching real widgets/methods are in PhoBanTab",
+      "B04 screenshot shows no such Party controls"
+    ]
+  },
+  "deferred": {
+    "G02": "HWND discovery, ready-account refresh, stale-window identity, refresh cadence",
+    "G03": "character-state semantics",
+    "later_G": "group creation/invite/run behavior and post-party dispatch details"
+  },
+  "visual_authority": "B04 unchanged except stale static-only toggle note corrected",
+  "next_task": "G02 — Party HWND discovery / ready-account refresh and stale-window identity handling"
+}
