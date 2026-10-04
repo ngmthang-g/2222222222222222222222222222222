@@ -1,0 +1,33 @@
+{
+  "task": "C12",
+  "status": "VERIFIED_WITH_EXPLICIT_RESTORE_DOC_CONFLICT",
+  "button_initial": "Ẩn hết",
+  "hidden_state": "_windows_hidden",
+  "hide": {
+    "method": "_hide_all_game_windows",
+    "target": [
+      -2200,
+      -2200
+    ],
+    "preserves_size": true,
+    "saved_rects": true,
+    "uses_swhide": false,
+    "reason": "keep Unity rendering; PrintWindow/PostMessage background behavior"
+  },
+  "toggle_visible_state": {
+    "button_text": "Hiện hết",
+    "button_color": "#f44336"
+  },
+  "restore": {
+    "method": "_show_all_game_windows",
+    "specific_doc_target": [
+      0,
+      0
+    ],
+    "preserves_size": true,
+    "generic_doc_claim": "old position",
+    "exact_saved_rect_usage": "UNKNOWN / DOC CONFLICT"
+  },
+  "re_layout_resets_hidden_state": true,
+  "next_task": "C13 — Đóng xem"
+}

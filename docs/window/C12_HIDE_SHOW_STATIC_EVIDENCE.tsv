@@ -1,0 +1,21 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+ui_hide_button	0x2bfa069	VERIFIED_STATIC	Ẩn hết
+ui_hide_callback	0x2bfa075	VERIFIED_STATIC	_hide_windows_cmd
+hidden_state	0x2bfb156	VERIFIED_STATIC	_windows_hidden
+show_method	0x2bfb167	VERIFIED_STATIC	_show_all_game_windows
+hide_method	0x2bfb17f	VERIFIED_STATIC	_hide_all_game_windows
+toggle_doc	0x2bfb197	DOC_CONFLICT	push all windows off-screen / return to old position
+no_windows_log	0x2bfb1f5	VERIFIED_STATIC	[Ẩn] Không có cửa sổ game nào
+saved_rects	0x2bfb21d	VERIFIED_STATIC	_saved_window_rects
+get_window_rect	0x2bfb232	VERIFIED_STATIC	GetWindowRect
+swp_nosize	0x2bfb244	VERIFIED_STATIC	SWP_NOSIZE
+show_button_text	0x2bfb254	VERIFIED_STATIC	Hiện hết
+show_button_red	0x2bfb262	VERIFIED_STATIC	#f44336
+hide_log	0x2bfb277	VERIFIED_STATIC	[Ẩn] Đã ẩn ...
+hide_doc	0x2bfb28a	VERIFIED_STATIC	move all game windows to (-2200,-2200), keep size
+background_capture_doc	0x2bfb2dc	VERIFIED_STATIC	PrintWindow + PostMessage still work off-screen
+no_swhide_doc	0x2bfb331	VERIFIED_STATIC	avoid SW_HIDE so Unity does not stop rendering
+show_log	0x2bfb39d	VERIFIED_STATIC	[Ẩn] Đã hiện lại ... cửa sổ game về (0,0)
+show_doc	0x2bfb3d5	VERIFIED_STATIC	move windows to top-left (0,0), keep size
+reset_hidden_doc	0x2bfb427	VERIFIED_STATIC	re-layout resets hidden state
+saved_rect_restore_use	-	EXPLICIT_UNKNOWN	exact branch/use conflicts with generic vs specific docs

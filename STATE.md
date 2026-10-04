@@ -46,6 +46,7 @@ IN_PROGRESS
 - C09 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C10 VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
 - C11 VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
+- C12 VERIFIED_WITH_EXPLICIT_RESTORE_DOC_CONFLICT
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -107,7 +108,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C12 — Ẩn hết.
+C13 — Đóng xem.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -194,8 +195,24 @@ C12 — Ẩn hết.
 - docs/window/C11_STACK_DIAGONAL_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C12 VERIFIED RESULTS
+- Ẩn hết is a real hide/show toggle using _windows_hidden.
+- Hide moves all game windows to (-2200,-2200) and preserves their current size.
+- It deliberately avoids SW_HIDE so Unity keeps rendering and PrintWindow/PostMessage background operation remains usable.
+- _saved_window_rects + GetWindowRect bookkeeping exists.
+- Toggle changes to Hiện hết after hiding.
+- Specific restore log/doc says (0,0), while generic toggle doc says old position; exact saved-rect restore use is preserved as a documentation conflict/UNKNOWN.
+- Any visible re-layout can clear the hidden bookkeeping through _reset_hidden_state.
+
+## C12 FILES
+- docs/tasks/C12.md
+- docs/window/C12_HIDE_SHOW_STATIC_EVIDENCE.tsv
+- docs/window/C12_HIDE_SHOW_FLOW.md
+- docs/window/C12_HIDE_SHOW_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C12.
+None known for C13.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -209,8 +226,8 @@ None known for C12.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C12 only.
-4. Recover Ẩn hết from the original EXE.
-5. Verify saved rects, off-screen target, size preservation, why SW_HIDE is avoided, toggle restore behavior and hidden-state reset interactions.
-6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C12 evidence/report.
-7. Advance to C13 only after C12 is verified.
+3. Execute C13 only.
+4. Recover Đóng xem behavior from the original EXE.
+5. Distinguish closing/hiding preview UI from closing game HWNDs; verify DWM teardown and detached-preview behavior.
+6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C13 evidence/report.
+7. Advance to C14 only after C13 is verified.

@@ -434,3 +434,21 @@ Exact original doc confirms origin (0,0) and +50/+50 per window.
 Explicit unknown: later interaction if Auto tiling is already active.
 
 ---
+
+## C12 — Ẩn hết / Hiện hết
+
+Ẩn hết
+→ _hide_windows_cmd
+→ save rect bookkeeping
+→ move all game HWNDs to (-2200,-2200)
+→ preserve current size
+→ intentionally avoid SW_HIDE
+→ PrintWindow/PostMessage can keep working while Unity continues rendering
+→ toggle becomes Hiện hết
+
+Restore-side specific log/doc says windows return to (0,0) with size preserved, while the generic toggle doc says old position and _saved_window_rects exists.
+Exact saved-rect restore branch is therefore kept as an explicit documentation conflict/UNKNOWN.
+
+Visible re-layout calls _reset_hidden_state and clears the hidden bookkeeping.
+
+---

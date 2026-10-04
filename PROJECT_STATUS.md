@@ -20,8 +20,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C09 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C10 — VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
 - C11 — VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
-- C12 — CURRENT
-- C13 — TODO
+- C12 — VERIFIED_WITH_EXPLICIT_RESTORE_DOC_CONFLICT
+- C13 — CURRENT
 - C14 — TODO
 - C15 — TODO
 - C16 — TODO
@@ -30,7 +30,7 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C12 — Ẩn hết**
+Current task: **C13 — Đóng xem**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
@@ -41,3 +41,5 @@ C09 verified the main preview 1x–5x column selector: runtime default 2x, manua
 C10 verified Xếp gọn as a real move-only multi-HWND action to (0,0), preserving each window's current size and clearing hidden-state bookkeeping.
 
 C11 verified Xếp chéo as a move-only diagonal stack: master at (0,0), then +50 X/+50 Y per window index, preserving each current size.
+
+C12 verified the off-screen hide design: move to (-2200,-2200), preserve size, avoid SW_HIDE to keep Unity rendering. Restore docs conflict between old-position wording and a specific (0,0) path, so that branch remains explicitly unresolved.
