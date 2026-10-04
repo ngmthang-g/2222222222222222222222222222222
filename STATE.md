@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-D04 — TLM internal dependencies.
+D05 — strings theo module.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -406,8 +406,24 @@ D04 — TLM internal dependencies.
 - docs/modules/D03_DIRECT_USAGE.tsv
 - tools/D03_EXTRACT_DEPENDENCIES.py
 
+## D04 VERIFIED RESULTS
+- D02 132-edge internal reference graph was reproduced and preserved as Tier-B static-reference evidence.
+- Stronger Tier-A contextual edges were separated from simple compiled-name adjacency.
+- Key contextual relationships include Start→Daily/Farm coordination, FarmData→Start/DLL injector, MemoryItems→MemoryReader/DLL injector, FastTravel→Forwarder, and emulator input→remote/farm/train/permission integration.
+- Three contextual relationships stronger than the original D02 exact-name edge set are recorded separately rather than silently mutating D02.
+- Internal modules were grouped into shell/orchestration, feature automation, low-level game integration, guard/metadata/support, and emulator layers.
+- Five filename-only internal names remain unable to provide reliable outgoing exact-marker blocks: TLMTool, bag_filter, emu_reader, pixel, proxy_refresh.
+- Exact original Python import syntax remains UNKNOWN.
+
+## D04 FILES
+- docs/tasks/D04.md
+- docs/modules/D04_INTERNAL_DEPENDENCIES.tsv
+- docs/modules/D04_CONTEXTUAL_EDGES.tsv
+- docs/modules/D04_ARCHITECTURE.json
+- tools/D04_BUILD_INTERNAL_GRAPH.py
+
 ## BLOCKERS
-None known for D04.
+None known for D05.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -421,8 +437,9 @@ None known for D04.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute D04 only.
-4. Refine the TLM internal dependency architecture from D02 using module-specific symbols, class/function names, shared-state references and call-context evidence.
-5. Separate directional dependency confidence from mere compiled-name adjacency.
-6. Persist D04 graph/report and update PROJECT_STATUS.md.
-7. Advance to D05 only after D04 is verified.
+3. Execute D05 only.
+4. Map printable strings/constants to each exact-marker TLM internal compiled-module block.
+5. Classify high-signal strings such as UI labels, logs, config keys, API names, URLs/paths and function/class symbols while preserving exact offsets.
+6. Keep filename-only internal modules explicit: no outgoing block can be assigned by this method.
+7. Persist D05 evidence/report and reproducible extractor.
+8. Advance to D06 only after D05 is verified.
