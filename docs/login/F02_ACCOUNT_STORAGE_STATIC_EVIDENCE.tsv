@@ -1,0 +1,54 @@
+key	offset_hex	status	evidence
+accounts_cache	0x2b5e502	VERIFIED_STATIC	_accounts_cache
+save_after_id	0x2b5e513	VERIFIED_STATIC	_save_after_id
+saving_enabled	0x2b5e63d	VERIFIED_STATIC	_saving_enabled
+settings_lock	0x2b5f429	VERIFIED_STATIC	_settings_lock
+read_settings	0x2b5f439	VERIFIED_STATIC	read_settings
+settings_section	0x2b5f448	VERIFIED_STATIC	Settings
+save_lines	0x2b5f452	VERIFIED_STATIC	lines
+save_check	0x2b5f459	VERIFIED_STATIC	check
+save_pipe_separator	0x2b5f460	VERIFIED_STATIC	literal |
+save_user	0x2b5f462	VERIFIED_STATIC	user
+save_pass	0x2b5f468	VERIFIED_STATIC	pass
+save_captcha	0x2b5f46e	VERIFIED_STATIC	captcha
+save_proxy	0x2b5f477	VERIFIED_STATIC	proxy
+save_newline_separator	0x2b5f47e	VERIFIED_STATIC	literal newline
+save_accounts_key	0x2b5f480	VERIFIED_STATIC	accounts
+write_settings	0x2b5f48a	VERIFIED_STATIC	write_settings
+destroy_save_error	0x2b5f49b	VERIFIED_STATIC	[CONFIG] Login save on destroy error:
+sync_cache_doc	0x2b61e9e	VERIFIED_STATIC	widget state -> _accounts_cache plain dicts before save
+hidden_rows	0x2b5f263	VERIFIED_STATIC	_hidden_rows
+cache_username	0x2b62000	VERIFIED_STATIC	username
+cache_password	0x2b6200a	VERIFIED_STATIC	password
+cache_captcha_mode	0x2b62014	VERIFIED_STATIC	captcha_mode
+cache_proxy_env	0x2b62022	VERIFIED_STATIC	proxy_env
+row_limit_method	0x2b6204e	VERIFIED_STATIC	apply_account_row_limit
+row_limit_hidden_fifo	0x2b620dd	VERIFIED_STATIC	plan-decrease hidden rows FIFO preservation
+online_state_path_use	0x2b62d49	VERIFIED_STATIC	ONLINE_STATE_PATH writer block
+online_state_filename	0x2b62d5f	VERIFIED_STATIC	login_online.json
+online_save_doc	0x2b62d9f	VERIFIED_STATIC	write tracking dict to login_online.json
+online_restore_doc	0x2b6331e	VERIFIED_STATIC	restart reads login_online.json; live HWND repaints row
+last_login_filename	0x2b65a33	VERIFIED_STATIC	last_login_times.json
+last_login_load_doc	0x2b65a49	VERIFIED_STATIC	load last login timestamps
+last_login_save_doc	0x2b65a74	VERIFIED_STATIC	save timestamps across sessions
+config_path_symbol	0x2b6708e	VERIFIED_STATIC	CONFIG_PATH
+load_accounts_key	0x2b670db	VERIFIED_STATIC	accounts
+load_pipe_separator	0x2b670e8	VERIFIED_STATIC	literal |
+legacy_captcha_tokens	0x2b670ec	VERIFIED_STATIC	Không / Có / Tool / Proxy compatibility constants
+load_check	0x2b67108	VERIFIED_STATIC	check
+load_username	0x2b6710f	VERIFIED_STATIC	username
+load_password	0x2b67119	VERIFIED_STATIC	password
+load_captcha_mode	0x2b67123	VERIFIED_STATIC	captcha_mode
+load_proxy_env	0x2b67131	VERIFIED_STATIC	proxy_env
+schedule_save_method	0x2b6721a	VERIFIED_STATIC	_save_accounts target from debounced scheduler
+debounce_doc	0x2b6722b	VERIFIED_STATIC	300 ms debounce/coalesce consecutive changes
+sync_accounts_cache_call	0x2b6727a	VERIFIED_STATIC	_sync_accounts_cache
+save_success_text	0x2b6729f	VERIFIED_STATIC	Đã lưu tài khoản
+save_error_text	0x2b672c0	VERIFIED_STATIC	Lỗi lưu
+save_accounts_doc	0x2b672f7	VERIFIED_STATIC	automatically save accounts on change
+module_settings_filename	0x2b6755e	VERIFIED_STATIC	settings.ini
+module_online_filename	0x2b67590	VERIFIED_STATIC	login_online.json
+fixed_100_rows	0x2b67b17	VERIFIED_STATIC	fixed logical account rows = 100
+check_serialized_token	-	EXPLICIT_UNKNOWN	exact persisted text representation of check boolean not recovered
+legacy_co_migration	-	EXPLICIT_UNKNOWN	exact transformation of legacy Có captcha token not source-line visible
+hidden_visible_save_order	-	EXPLICIT_UNKNOWN	exact concatenation statement/order beyond preservation contract not decompiled
