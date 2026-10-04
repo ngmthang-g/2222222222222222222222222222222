@@ -1,0 +1,80 @@
+{
+  "task": "F10",
+  "status": "VERIFIED_STATIC_ROUTING_WITH_20S_READINESS_BOUND_AND_EXPLICIT_PARTIAL_FAILURE_POLL_CADENCE_UNKNOWNS",
+  "source": {
+    "specimen": "TLMTool.dist/TLMTool.exe",
+    "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "visual_cross_check": "supplied Login screenshot"
+  },
+  "setting": {
+    "key": "after_login",
+    "default": "wait",
+    "persisted": true
+  },
+  "modes": {
+    "wait": {
+      "ui": "Chờ",
+      "action": "none"
+    },
+    "party": {
+      "ui": "Party",
+      "ref": "party_tab_ref",
+      "rows": "_member_rows",
+      "running": "_running",
+      "start": "_toggle_run",
+      "helper": "_auto_start_party_after_login"
+    },
+    "train": {
+      "ui": "Train",
+      "ref": "farm_tab_ref",
+      "rows": "_acc_rows",
+      "running": ["_farming", "_farming_acc"],
+      "start": "_toggle_farm"
+    },
+    "train_lsv": {
+      "ui": "Train LSV",
+      "ref": "train_lsv_tab_ref",
+      "rows": "_acc_rows",
+      "running": ["_farming", "_farming_acc"],
+      "start": "_toggle_farm"
+    },
+    "don": {
+      "ui_exe_literal": "Dồn vàng",
+      "ui_screenshot_reading": "Đồn vàng",
+      "visual_text_status": "DISCREPANCY_DEFER_TO_F11",
+      "ref": "donvang_tab_ref",
+      "rows": "_acc_rows",
+      "running": ["_farming", "_farming_acc"],
+      "start": "_toggle_farm"
+    }
+  },
+  "routing": {
+    "generic_helper": "_auto_start_after_login",
+    "sequence": [
+      "resolve destination",
+      "resolve target tab ref",
+      "select target tab",
+      "wait for target-tab scanned HWND rows",
+      "main-thread activation handoff",
+      "skip if already running",
+      "invoke real target start/toggle"
+    ],
+    "readiness_max_seconds": 20,
+    "readiness_reason": "hidden tabs may not scan until selected",
+    "readiness_poll_cadence": "UNKNOWN",
+    "login_row_identity_formula": "UNKNOWN"
+  },
+  "guards": {
+    "missing_ref": "warn and skip",
+    "already_running": "skip; do not invert target toggle",
+    "activation_error": "log and contain to post-login routing"
+  },
+  "batch_integration": {
+    "manual": "normal _open_game_batch -> Login completion -> same route",
+    "scheduled": "F09 schedule -> same _open_game_batch -> same route",
+    "scheduler_after_route": "remains active waiting for later scheduled event",
+    "mixed_or_zero_success_route_condition": "UNKNOWN"
+  },
+  "proxy_runtime_development": "OUT_OF_SCOPE_BY_USER_LOCK",
+  "next_task": "F11 — Login parity test / reconstruction handoff"
+}
