@@ -1,0 +1,49 @@
+key	offset_hex	status	evidence
+proxy_working_name	0x2949aa6	VERIFIED_STATIC	proxy_working.txt
+proxy_alloc_name	0x2949b7b	VERIFIED_STATIC	proxy_alloc.txt
+proxy_bad_name	0x2949b8c	VERIFIED_STATIC	proxy_bad.txt
+forwarder_state_suffix_doc	0x294820e	VERIFIED_STATIC	state filename uses _{IID} suffix for multi-instance
+forwarder_targets_doc	0x2948292	VERIFIED_STATIC	forwarder_targets.txt: one proxied target per line
+pinned_proxy_doc	0x2948374	VERIFIED_STATIC	private pinned proxy file; direct literal; missing file -> round-robin
+target_architecture_doc	0x29483c0	VERIFIED_STATIC	CDN/443 direct; only game server 103.147.34.81 ports 3001/4001 proxied
+parse_proxy_return	0x2948cec	VERIFIED_STATIC	returns host,port,user,password,protocol
+parse_form_hostport_userpass	0x2948dbc	VERIFIED_STATIC	host:port@user:pass
+parse_form_userpass_hostport	0x2948dd8	VERIFIED_STATIC	user:pass@host:port
+parse_form_colon4	0x2948df4	VERIFIED_STATIC	host:port:user:pass
+alloc_file_lock	0x2949c79	VERIFIED_STATIC	cross-process msvcrt lock around proxy_alloc read-modify-write
+alloc_claim_doc	0x29489b0	VERIFIED_STATIC	atomic per-IID claim; skip other claims/bad list; skip_own option
+bad_list_doc	0x2948bd0	VERIFIED_STATIC	shared bad proxy set/cooldown surface
+pinned_only	0x2949281	VERIFIED_STATIC	PINNED-ONLY private proxy route
+pinned_no_fallback	0x2949301	VERIFIED_STATIC	private failure does not fallback; game retries
+forwarder_stats_doc	0x2949565	VERIFIED_STATIC	writes JSON stats for UI
+forwarder_auto_rotate_symbol	0x29496af	VERIFIED_STATIC	ROTATE_INTERVAL / auto-rotate path exists
+forwarder_mode_doc	0x29499a9	VERIFIED_STATIC	standalone proxy/direct mode file
+default_listen_host	0x2949b9d	VERIFIED_STATIC	127.0.0.1
+default_listen_port	0x2949baa	VERIFIED_STATIC	serialized integer 22200
+login_multi_port_mapping	0x2b63d5a	VERIFIED_STATIC	port = 22200 + profile_idx; 22200 default
+login_5min_advance_log	0x2b64133	VERIFIED_STATIC	last login >5 minutes -> advance proxy
+login_5min_keep_log	0x2b64166	VERIFIED_STATIC	last login <5 minutes -> keep proxy
+forwarder_start_doc	0x2b648aa	VERIFIED_STATIC	reuse healthy existing forwarder; block until ready/fail; multi instance independent
+stop_all_doc	0x2b64fb6	VERIFIED_STATIC	kill default + multi instances and remove pinned proxy in worker thread
+mode_write_doc	0x2b65298	VERIFIED_STATIC	mode file is read live; no kill required
+pinned_write_doc	0x2b6537e	VERIFIED_STATIC	private proxy written per IID
+pinned_poll_3s	0x2b653da	VERIFIED_STATIC	forwarder rereads pinned file every 3 seconds
+clear_pin_doc	0x2b65501	VERIFIED_STATIC	clear fixed proxy -> return to round-robin
+ensure_refresh_doc	0x2b6567c	VERIFIED_STATIC	refresh proxy_working.txt when older than 5 minutes
+reset_rotation_doc	0x2b6588a	VERIFIED_STATIC	true refresh resets every idx to 0 and clears allocation/advance state
+proxy_reload_threshold_300	0x2b5e4cd	VERIFIED_SERIALIZED	_proxy_reload_threshold runtime constant = 300 seconds
+stale_30min_doc	0x2b6599a	STALE_DOC	method doc says >=30 minutes; conflicts with runtime 300s and >5/<5 logs
+advance_signal_doc	0x2b65c00	VERIFIED_STATIC	write advance signal then poll idx until it changes
+current_proxy_doc	0x2b65dd3	VERIFIED_STATIC	pinned proxy if present; else idx lookup in proxy_working.txt
+reload_worker_advance	0x2b61168	VERIFIED_STATIC	row reload first advances that forwarder
+reload_worker_relogin	0x2b61215	VERIFIED_STATIC	then closes tracked game and immediately logs in with new proxy
+refresh_pool_doc	0x2b994dd	VERIFIED_STATIC	download -> check -> save live proxies to proxy_working.txt
+refresh_recent_skip	0x2b9961e	VERIFIED_STATIC	lower-level refresh skipped if previous download <60s unless forced
+refresh_working_file	0x2b99b7b	VERIFIED_STATIC	proxy_working.txt
+refresh_last_file	0x2b99b8f	VERIFIED_STATIC	proxy_last_refresh.txt
+refresh_max_check_300	0x2b99d60	VERIFIED_SERIALIZED	MAX_CHECK = 300
+packaged_proxy_working_sha	-	VERIFIED_PACKAGE	SHA256 424e16baba37292d641bb234905b3cb53ae74378a980a1f053aa9abbb8181c34; 131 entries
+bundled_forwarder_sha	-	VERIFIED_PACKAGE	SHA256 7ef5dfa5026b2269bb579954bad29908a0de107fb1288f6c9d4e2325245c847d
+alloc_ttl_value	-	EXPLICIT_UNKNOWN	exact ALLOC_TTL numeric mapping not instruction-verified
+bad_cooldown_value	-	EXPLICIT_UNKNOWN	exact BAD_COOLDOWN/PROXY_COOLDOWN numeric mapping not instruction-verified
+rotate_interval_value	-	EXPLICIT_UNKNOWN	exact forwarder ROTATE_INTERVAL numeric mapping not instruction-verified
