@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F09 — scheduler.
+F10 — post-login routing.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -862,8 +862,30 @@ F09 — scheduler.
 - Do not delete existing F08 evidence; later tasks may reference it only to avoid breaking unrelated flows.
 - Proxy-specific runtime work in future Gate Q is skipped/analysis-only.
 
+## F09 VERIFIED RESULTS
+- Manual Bắt đầu and the schedule checkbox are explicitly independent control paths.
+- Schedule enable starts the worker/countdown without immediately opening games; disable stops the worker/clears countdown and leaves existing game windows untouched.
+- _schedule_cancel Event and _schedule_active state own cooperative scheduler lifetime.
+- Schedule worker checks due events every 20 seconds; countdown UI is updated on the Tk main thread about every second.
+- _next_occurrence uses today if the configured HH:MM is still future, otherwise tomorrow.
+- Original EXE contains an explicit fix for the old late-enable bug: missed times are not executed immediately; each event advances by +1 day after triggering.
+- Scheduled close logs "Đến giờ tắt game (...) — đóng tất cả" and invokes Login close-all semantics; exact internal close/cancel/tracking micro-order remains UNKNOWN.
+- Optional shutdown-after-close shows a topmost 340x150 popup with 60-second countdown; closing/Hủy cancels, confirm/timeout invokes shutdown /s /t 0.
+- Scheduled open reuses _open_game_batch and therefore uses the currently checked Login accounts plus the F05/F06 launch/login pipeline.
+- If a Login batch is already active when open time arrives, the scheduled open is skipped instead of starting a duplicate batch.
+- Scheduler remains active after Login success/failure and continues waiting for the close event.
+- schedule_on/schedule_close/schedule_open/shutdown_after_close are persisted Login config fields.
+- Automatic worker resume on a completely fresh process solely because saved schedule_on=True remains EXPLICIT UNKNOWN.
+- Proxy runtime development remains OUT OF SCOPE under the user scope lock recorded in PLAN.md and STATE.md.
+
+## F09 FILES
+- docs/tasks/F09.md
+- docs/login/F09_SCHEDULER_STATIC_EVIDENCE.tsv
+- docs/login/F09_SCHEDULER_FLOW.md
+- docs/login/F09_SCHEDULER_MODEL.json
+
 ## BLOCKERS
-None known for F09.
+None known for F10.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -877,7 +899,7 @@ None known for F09.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F09 only.
-4. Recover Login scheduler behavior from the original EXE: schedule_on, shutdown_after_close, close/open time controls, schedule worker lifecycle/cancellation, day rollover, close-game action, optional PC shutdown popup/action, scheduled game reopening/login and countdown/status updates.
-5. Keep post-login destination routing deferred to F10 except where the scheduler invokes the already-recovered Login start path.
-6. Persist F09 evidence/report and advance to F10 only after verification.
+3. Execute F10 only.
+4. Recover post-login routing from the original EXE: Chờ / Party / Train / Train LSV / Dồn vàng, tab-selection handoff, wait-for-tab/readiness loops, start-button activation, already-running guards, result/error handling and interaction with scheduled/manual Login completion.
+5. Respect the proxy scope lock: do not develop or extend runtime proxy/network behavior while reconstructing routing.
+6. Persist F10 evidence/report and advance to F11 only after verification.
