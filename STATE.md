@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-D05 — strings theo module.
+D06 — config/data files.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -422,8 +422,23 @@ D05 — strings theo module.
 - docs/modules/D04_ARCHITECTURE.json
 - tools/D04_BUILD_INTERNAL_GRAPH.py
 
+## D05 VERIFIED RESULTS
+- 37 exact-marker TLM compiled-module blocks were mapped from the frozen inner EXE.
+- 273,502 raw printable strings fall inside those block intervals; a reproducible classifier selects 38,901 high-signal rows.
+- High-signal categories include WinAPI/constants, logs/UI text, paths/files, URLs and meaningful symbols.
+- Exact offsets and per-module counts are persisted; representative samples are committed.
+- The unusually large info_tab marker interval is explicitly treated as compiled-block provenance, not literal source-file ownership.
+- Five filename-only internal names remain unassigned because this method requires exact module markers.
+- Full raw/high-signal tables can be reproduced by the committed extractor; original Python source-line ownership is not claimed.
+
+## D05 FILES
+- docs/tasks/D05.md
+- docs/modules/D05_MODULE_STRING_SUMMARY.tsv
+- docs/modules/D05_HIGH_SIGNAL_SAMPLES.tsv
+- tools/D05_EXTRACT_MODULE_STRINGS.py
+
 ## BLOCKERS
-None known for D05.
+None known for D06.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -437,9 +452,8 @@ None known for D05.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute D05 only.
-4. Map printable strings/constants to each exact-marker TLM internal compiled-module block.
-5. Classify high-signal strings such as UI labels, logs, config keys, API names, URLs/paths and function/class symbols while preserving exact offsets.
-6. Keep filename-only internal modules explicit: no outgoing block can be assigned by this method.
-7. Persist D05 evidence/report and reproducible extractor.
-8. Advance to D06 only after D05 is verified.
+3. Execute D06 only.
+4. Inventory configuration and data files from the frozen distribution, including their format/type, consumers/references, persistence role and confidence.
+5. Separate real text/config files from disguised PE/data containers and immutable resources.
+6. Persist D06 evidence/report and reproducible extractor.
+7. Advance to D07 only after D06 is verified.
