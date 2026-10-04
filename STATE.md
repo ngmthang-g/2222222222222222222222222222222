@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H06 — Train heal / treatment routing and post-death heal interaction audit.
+H07 — Train death-recovery / respawn monitor and recovery FSM audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1411,34 +1411,66 @@ H06 — Train heal / treatment routing and post-death heal interaction audit.
 - docs/train/H05_TRAIN_MOVEMENT_FLOW.md
 - docs/train/H05_TRAIN_MOVEMENT_MODEL.json
 
+## H06 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H06 artifact existed, so no completed Train work was repeated.
+- Inspected the exact frozen inner EXE first; SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Train treatment UI/config is locked: `trist_var` / key `trist` controls `Trị liệu sau khi chết`; B05/default load path is OFF. `heal_map_var` / key `heal_map` stores the selected destination; B05 default is `Trị liệu Tô Châu`.
+- Treatment combobox contains built-in and manual sections with exact separators `======Có sẵn======` and `=====Thủ công=====`. Exact `_on_heal_sep_select` doc says selecting a separator jumps to the first real item below it.
+- Frozen `TRAIN_HEAL_COORDS` mapping is now decoded exactly:
+  - Trị liệu Đại Lý → tile (43,178)
+  - Trị liệu Lạc Dương → tile (255,126)
+  - Trị liệu Tô Châu → tile (155,252)
+  - Trị liệu Lâu Lan → tile (294,170)
+- Same farm-data map list binds those cities to MapIDs 2/3/4/5 respectively. Thus B05 default Tô Châu = MapID 4, tile (155,252).
+- Exact `_heal_at_death` doc says: `Trị liệu sau khi chết: di chuyển tới map trị liệu + click 2 điểm x4 lần`, and supports both built-in `TRAIN_HEAL_COORDS` and manual saved coordinates.
+- Built-in branch recognizes prefix `Trị liệu `; manual branch resolves the selected saved-coordinate preset.
+- Explicit treatment failure/skip logs are recovered for: no destination selected, invalid MapID, missing built-in treatment coordinate, manual map/coordinate resolve failure, and movement failure.
+- Treatment movement uses shared `move_character`; H05 tile × 32-pixel movement convention remains authoritative. No treatment-specific movement retry count is recovered.
+- Exact two treatment client click points are **(892,474)** and **(514,424)**.
+- Exact original doc locks the interaction repeat count as **x4**.
+- Same heal constant block contains exact float **0.2**. Because readable Nuitka data does not safely expose whether this is specifically click delay vs pixel-poll pacing, H06 preserves the value but leaves the exact parameter binding UNKNOWN.
+- Same heal block contains the exact `("common","active")` readiness/completion pair. The shared common-active pixel contract is therefore part of the treatment path, but exact placement/timeout and whether the 0.2 belongs to its interval remain UNKNOWN.
+- Exact success log is `[Trị liệu] hwnd=... hoàn thành trị liệu tại <destination>`.
+- Farm-cycle constants directly contain `_heal_at_death`, the composed `hard_stop` callback and exact failure surface `trị liệu sau chết thất bại`. This proves the treatment worker returns/communicates a success/failure result that the Farm recovery caller checks.
+- The complete death-FSM consequence of treatment failure is intentionally deferred to H07; H06 does not invent abort/retry/continue behavior beyond the verified failure handoff.
+- H06 finds no evidence of automatic failover to another treatment city when the selected target is invalid or movement fails.
+- B05 was cross-checked only after static extraction; no geometry was remeasured.
+
+## H06 FILES
+- docs/tasks/H06.md
+- docs/train/H06_TRAIN_HEAL_STATIC_EVIDENCE.tsv
+- docs/train/H06_TRAIN_HEAL_FLOW.md
+- docs/train/H06_TRAIN_HEAL_MODEL.json
+
 ## BLOCKERS
-None known for H06.
+None known for H07.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H05 verified Train wiring/town/full-bag/timing/movement contracts.
+- Preserve B05 Train visual baseline and H01–H06 verified Train wiring/town/full-bag/timing/movement/heal contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
 - Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
 - Preserve H01 refresh 5000 ms and autosave 30000 ms.
-- Preserve H02 current return-town values never/full_bag_timer/cycle and lock_town behavior.
+- Preserve H02 return-town values/lock_town behavior.
 - Preserve H03 occupied Site-10 bag metric and filter/no-town semantics.
 - Preserve H04 loop_minutes × 60 remaining-cycle timing semantics.
-- Preserve H05 32 pixels/tile, 8-tile near skip, current-MapID-first return routing, verified back exit, and return walk fallback.
-- Do not replace active FarmTab movement with dormant fast_travel.goto_map.
-- Keep forward shortcut final-failure behavior, route-leg retry count, ordinary move tolerance and long fallback timeout UNKNOWN.
-- Do not fold H06 heal/treatment analysis into death/reconnect FSM tasks beyond direct movement/click interactions.
+- Preserve H05 movement conventions, 8-tile near skip and current-MapID-first return routing.
+- Preserve H06 built-in treatment map/coordinate table, exact click points (892,474)/(514,424), x4 repeat, and failure handoff.
+- Do not bind H06's 0.2 constant to click delay or wait interval until stronger evidence/runtime parity resolves it.
+- Do not invent exact common.active wait placement/timeout or city failover.
+- H07 may analyze death/respawn FSM, but must not reopen H06 treatment routing unless contradictory evidence appears.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H06 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H06 only if still pending.
+3. Check GitHub first for any H07 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H07 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit only Train heal/treatment routing: heal toggle/config, built-in TRAIN_HEAL_COORDS vs manual saved-coordinate resolution, movement to treatment point, exact click sequence/retry/wait behavior, and how _heal_at_death reports success/failure back to the farm cycle.
-7. Recover exact map/coordinate/click/timing constants where safely bindable; keep unbound values UNKNOWN.
-8. Preserve H05 movement conventions and do not yet decode the complete death-recovery monitor/FSM; H07 owns death recovery.
+6. Audit Train death recovery end-to-end: _diaphu_monitor signals, MapID 87 / HP 0% detection, one-click respawn trigger, latches/debounce, respawn_event consumption in _farm_cycle, window/game readiness after respawn, optional H06 treatment call, return-to-train decision, death counters/state labels, and cancellation/generation safety.
+7. Recover exact monitor cadence, click coordinates, readiness/retry/timeouts where safely bindable; keep unbound values UNKNOWN.
+8. Preserve H06 treatment worker as a called subroutine and do not expand reconnect behavior beyond death-recovery interactions; H08 owns reconnect.
 9. Cross-check B05 only after static extraction; no geometry work is needed.
-10. Persist H06 evidence/report, update STATE.md, and advance to H07 only after verification.
+10. Persist H07 evidence/report, update STATE.md, and advance to H08 only after verification.
