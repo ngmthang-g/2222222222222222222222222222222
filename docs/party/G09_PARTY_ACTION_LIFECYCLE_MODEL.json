@@ -1,0 +1,74 @@
+{
+  "task": "G09",
+  "status": "VERIFIED_CONTROL_WORKER_CANCEL_RESET_LIFECYCLE_WITH_EXPLICIT_SAME_CLUSTER_GLOBAL_SINGLE_COLLISION_AND_LOCK_SCOPE_UNKNOWNS",
+  "resume_check": {
+    "g01_to_g08_complete": true,
+    "g09_preexisting_artifact": false,
+    "continued_from_state_next_action": true
+  },
+  "global": {
+    "button": {
+      "idle": {"text": "Bắt đầu", "color": "BTN_GREEN_PARTY"},
+      "running": {"text": "Dừng lại", "color": "#f44336", "state": "normal"},
+      "stopping": {"text": "Đang dừng...", "color": "#ef6c00", "state": "disabled"}
+    },
+    "toggle": "_toggle_run",
+    "state": "_running",
+    "cancel": "_cancel",
+    "lock": "_run_lock",
+    "child_cancel_tracking": "_run_cancels",
+    "start_validation": {
+      "groups": "get_groups_data",
+      "no_jobs_log": "[Party] Chưa có nhóm nào chọn acc"
+    },
+    "worker": "_run_worker",
+    "parallelism": "one thread per cluster",
+    "cluster_engine": "_run_one_group",
+    "aggregate_locals": ["own_cancels", "threads"],
+    "completion": ["_after_party_action once", "_reset_run_button once"],
+    "external_stop": "PartyTab.stop",
+    "exact_lock_scope": "UNKNOWN",
+    "state_assignment_microorder": "UNKNOWN"
+  },
+  "sleep": {
+    "method": "_sleep",
+    "interruptible": true,
+    "per_cluster_cancel_supported": true,
+    "global_cancel_default": true
+  },
+  "single_cluster": {
+    "button_prefix": "▶ Tạo nhóm ",
+    "callback": "_run_single_cluster",
+    "state_fields": ["join_btn", "join_cancel", "join_running"],
+    "permission_with_limit": true,
+    "duplicate_guard": "join_running",
+    "minimum_members": 2,
+    "running_text": "⏳ Đang vào...",
+    "running_state": "disabled",
+    "worker": "_run_single_worker",
+    "cluster_engine": "_run_one_group",
+    "own_thread": true,
+    "own_cancel": true,
+    "multiple_clusters_parallel": true,
+    "reset": "_reset_single_button",
+    "same_cluster_collision_with_global": "UNKNOWN"
+  },
+  "leave_group": {
+    "button": "Rời nhóm",
+    "callback": "_leave_group",
+    "worker": "_leave_group_worker",
+    "daemon_thread": true,
+    "skips_offline_or_already_outside": true
+  },
+  "structural": {
+    "add": "_add_group_cluster",
+    "remove": "_remove_group",
+    "remove_keeps_at_least_one_cluster": true,
+    "renumber": "_renumber_groups"
+  },
+  "deferred": {
+    "G10": "B0→B3 create-team/invite/leave protocol details",
+    "later_G": "post-party action and final parity"
+  },
+  "next_task": "G10 — Party create-team/invite/leave protocol audit"
+}
