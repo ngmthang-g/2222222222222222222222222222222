@@ -1,0 +1,43 @@
+key	offset_hex	status	evidence
+respawn_var_ui	0x293b727	VERIFIED_STATIC	respawn_var
+respawn_label	0x293b734	REUSED_B05	Quay lại train khi chết
+respawn_config_key	0x2942d09	VERIFIED_STATIC	respawn
+respawn_default_false	0x2942f48	VERIFIED_STATIC	Boolean load path with False fallback adjacent
+row_death_initial	0x293c7d7	VERIFIED_STATIC	Chết: 0
+row_extra_deaths	0x293c90b	VERIFIED_STATIC	_extra_deaths
+monitor_click_import	0x29410f1	VERIFIED_STATIC	click_at
+monitor_hp_field	0x29410fd	VERIFIED_STATIC	HpPercent
+monitor_hp_latched	0x294110e	VERIFIED_STATIC	hp_latched
+monitor_state_diaphu	0x294111a	VERIFIED_STATIC	Về địa phủ
+monitor_hp_log	0x2941141	VERIFIED_STATIC	HP 0% -> click (792,441) hồi sinh
+monitor_death_counter	0x2941173	VERIFIED_STATIC	_extra_deaths in HP-zero branch
+monitor_detected	0x2941184	VERIFIED_STATIC	detected
+monitor_respawn_event	0x2941190	VERIFIED_STATIC	respawn_event
+monitor_clear	0x294119f	VERIFIED_STATIC	clear
+monitor_doc	0x29411a6	VERIFIED_STATIC	4s monitor; MapID87 event; real HP0 single click; detected/hp_latched semantics
+monitor_qualname	0x2943c62	VERIFIED_STATIC	FarmTab._diaphu_monitor
+monitor_locals	0x294499d	VERIFIED_STATIC	self/hwnd/respawn_event/stop_event/detected/hp_latched/click_at/get_character_info/ci/hp_pct/row_d
+farmcycle_start_tracker	0x294170f	VERIFIED_STATIC	_start_extra_track
+farmcycle_death_monitor	0x2941723	VERIFIED_STATIC	_diaphu_monitor
+farmcycle_disconnect_monitor	0x2941734	VERIFIED_STATIC	_disconnect_monitor
+farmcycle_gen_snap	0x2941770	VERIFIED_STATIC	gen_snap
+farmcycle_hwnd_alive	0x294177a	VERIFIED_STATIC	_hwnd_alive
+farmcycle_respawn_state	0x2941787	VERIFIED_STATIC	Đang hồi sinh
+farmcycle_heal_call	0x2941799	REUSED_H06	_heal_at_death
+farmcycle_hard_stop	0x29417a9	VERIFIED_STATIC	hard_stop
+farmcycle_heal_failure	0x29417b4	VERIFIED_STATIC	trị liệu sau chết thất bại
+farmcycle_reconnect_state	0x29417ec	VERIFIED_BOUNDARY	Chờ kết nối lại follows separate reconnect branch
+farmcycle_wait_memory_ready	0x2941820	REUSED_H04	wait_memory_ready
+farmcycle_memory_timeout	0x2941848	REUSED_H04	45.0
+farmcycle_memory_need	0x294185e	REUSED_H04	need=3
+farmcycle_args	0x2944c9f	VERIFIED_STATIC	self/row/hwnd/monitor_stop/reconnect_ok/halt/respawn_event/gen_snap/hard_stop...
+hwnd_alive_doc	0x293de90	VERIFIED_STATIC	window exists + expected bound process + visible; PID mismatch rejects reused HWND
+extra_track_doc	0x29442693	VERIFIED_STATIC	start Farm stats tracking
+extra_track_death_display	0x2944275f	VERIFIED_STATIC	Chết: <N>
+exact_first_monitor_tick	-	EXPLICIT_UNKNOWN	4s cadence exact; immediate-vs-after-first-wait not source-visible
+farm_post_respawn_common_active	-	NOT_RECOVERED	Do not borrow Train-LSV common.active wait
+treatment_failure_next_branch	-	EXPLICIT_UNKNOWN	Failure observed; exact abort/skip/continue FSM consequence not source-visible
+unchecked_respawn_worker_continuation	-	EXPLICIT_UNKNOWN	Return-to-train toggle intent clear; exact unchecked branch outcome not source-visible
+death_counter_restart_reset	-	EXPLICIT_UNKNOWN	New row starts 0; exact stop/start reset on existing row not recovered
+monitor_cleanup_order	-	EXPLICIT_UNKNOWN	monitor_stop/session ownership verified; exact finally ordering not source-visible
+death_reconnect_overlap	-	DEFERRED_H08	Arbitration belongs reconnect audit
