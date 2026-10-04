@@ -1,0 +1,44 @@
+key	offset_hex	status	evidence
+ui_treatment_label	0x293b810	REUSED_B05	Trị liệu sau khi chết
+ui_treatment_default	0x293b861	VERIFIED_STATIC	Trị liệu Tô Châu
+trist_var	0x293b804	VERIFIED_STATIC	trist_var
+heal_map_var	0x293b878	VERIFIED_STATIC	heal_map_var
+heal_sep_builtin	0x293b886	VERIFIED_STATIC	======Có sẵn======
+heal_sep_manual	0x293b8b0	VERIFIED_STATIC	=====Thủ công=====
+heal_coords_symbol	0x293b8d9	VERIFIED_STATIC	TRAIN_HEAL_COORDS
+heal_coord_names	0x293b8ec	VERIFIED_STATIC	_coord_name_list
+heal_combo	0x293b900	VERIFIED_STATIC	heal_map_cb
+heal_sep_doc	0x293ce70	VERIFIED_STATIC	Combobox Trị liệu: chọn separator -> nhảy xuống mục thật đầu tiên
+config_trist	0x2942d22	VERIFIED_STATIC	trist
+config_heal_map	0x2942d49	VERIFIED_STATIC	heal_map
+config_trist_default_false	0x2942f69	VERIFIED_STATIC	trist Boolean fallback False
+builtin_heal_dict	0x2939e80	VERIFIED_STATIC	four treatment labels followed by four tile-coordinate tuples; assigned to TRAIN_HEAL_COORDS
+builtin_daili	0x2939e89	VERIFIED_STATIC	Trị liệu Đại Lý -> (43,178)
+builtin_luoyang	0x2939ea2	VERIFIED_STATIC	Trị liệu Lạc Dương -> (255,126)
+builtin_suzhou	0x2939ebe	VERIFIED_STATIC	Trị liệu Tô Châu -> (155,252)
+builtin_loulan	0x2939ed6	VERIFIED_STATIC	Trị liệu Lâu Lan -> (294,170)
+farm_map_ids	0x2939dd0	VERIFIED_STATIC	FARM_MAP_LIST maps Đại Lý=2, Lạc Dương=3, Tô Châu=4, Lâu Lan=5
+heal_state	0x2940e46	VERIFIED_STATIC	Trị liệu
+heal_log_prefix	0x2940e55	VERIFIED_STATIC	[Trị liệu] hwnd=
+heal_no_selection	0x2940e69	VERIFIED_STATIC	chưa chọn map trị liệu — bỏ qua
+heal_builtin_prefix	0x2940ea5	VERIFIED_STATIC	Trị liệu 
+heal_invalid_map	0x2940eb3	VERIFIED_STATIC	map_id không hợp lệ
+heal_missing_builtin_coord	0x2940ed3	VERIFIED_STATIC	ko có tọa độ cho
+heal_manual_unresolved	0x2940ef6	VERIFIED_STATIC	không resolve được map/tọa độ cho
+heal_move_import	0x2940f22	VERIFIED_STATIC	move_character
+heal_click_import	0x2940f32	VERIFIED_STATIC	click_at
+heal_move_fail	0x2940f3c	VERIFIED_STATIC	di chuyển đến map trị liệu thất bại
+heal_click_1	0x2940f70	VERIFIED_STATIC	(892,474)
+heal_click_2	0x2940f78	VERIFIED_STATIC	(514,424)
+heal_pacing_float	0x2940f80	VERIFIED_UNBOUND_CONSTANT	0.2
+heal_common_active	0x2940f8a	VERIFIED_STATIC	("common","active") readiness/completion pair
+heal_success_log	0x2940f9a	VERIFIED_STATIC	hoàn thành trị liệu tại
+heal_doc	0x2940fbe	VERIFIED_STATIC	Post-death treatment: move to treatment map + click two points x4; supports built-in and saved manual coords
+farmcycle_heal_call	0x2941799	VERIFIED_STATIC	_heal_at_death
+farmcycle_hard_stop	0x29417a9	VERIFIED_STATIC	hard_stop passed through recovery boundary
+farmcycle_heal_failure	0x29417b8	VERIFIED_STATIC	trị liệu sau chết thất bại
+heal_locals	0x294505f	VERIFIED_STATIC	heal_sel/heal_tile_x/heal_tile_y/map_id/_heal_map_name/name/mid/m_sel/move_character/click_at surface
+exact_0_2_binding	-	EXPLICIT_UNKNOWN	Float exists in heal block but call-argument binding is not source-safe
+common_active_exact_placement	-	EXPLICIT_UNKNOWN	Readiness pair exists; before/between/after click placement and timeout not source-safe
+per_click_return_check	-	EXPLICIT_UNKNOWN	Exact handling of each click_at bool return not statically visible
+death_fsm_after_heal_failure	-	DEFERRED_H07	Caller surfaces failure; full recovery consequence belongs H07
