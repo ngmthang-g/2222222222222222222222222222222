@@ -1,0 +1,73 @@
+key	offset_hex	status	evidence
+state_running	0x2b7d0ce	VERIFIED_STATIC	_running
+state_cancel	0x2b7d0ea	VERIFIED_STATIC	_cancel threading.Event
+state_run_lock	0x2b7d0f9	VERIFIED_STATIC	_run_lock threading.Lock
+state_run_cancels	0x2b7d104	VERIFIED_STATIC	_run_cancels
+global_button_text	0x2b7d3b1	VERIFIED_STATIC	Bắt đầu
+global_button_callback	0x2b7d3bf	VERIFIED_STATIC	_toggle_run
+global_button_green	0x2b7d3cc	VERIFIED_STATIC	BTN_GREEN_PARTY
+cluster_join_btn_field	0x2b7e1a6	VERIFIED_STATIC	join_btn
+cluster_join_cancel_field	0x2b7e1b0	VERIFIED_STATIC	join_cancel
+cluster_join_running_field	0x2b7e1bd	VERIFIED_STATIC	join_running
+cluster_delete_text	0x2b7e1cb	VERIFIED_STATIC	✕ Xóa N prefix
+cluster_leave_text	0x2b7e224	VERIFIED_STATIC	Rời nhóm
+cluster_action_text	0x2b7e2f8	VERIFIED_STATIC	▶ Tạo nhóm N prefix
+cluster_action_green	0x2b7e30a	VERIFIED_STATIC	#2e7d32
+remove_group_callback	0x2b7e3b5	VERIFIED_STATIC	_remove_group
+leave_group_callback	0x2b7e3c4	VERIFIED_STATIC	_leave_group
+single_run_callback	0x2b7e3f6	VERIFIED_STATIC	_run_single_cluster
+remove_group_doc	0x2b7e4db	VERIFIED_STATIC	Delete cluster while keeping at least one
+leave_permission_guard	0x2b7e51e	VERIFIED_STATIC	has_permission
+leave_worker	0x2b7e597	VERIFIED_STATIC	_leave_group_worker
+leave_thread_args	0x2b7e5ae	VERIFIED_STATIC	target/args/daemon
+leave_doc	0x2b7e5c4	VERIFIED_STATIC	Rời nhóm runs background; skips already-outside/offline
+single_permission_limit	0x2b7e74f	VERIFIED_STATIC	has_permission_with_limit
+single_permission_scope	0x2b7e787	VERIFIED_STATIC	party_tab
+single_permission_action	0x2b7e792	VERIFIED_STATIC	party
+single_already_running	0x2b7e79e	VERIFIED_STATIC	: đang chạy rồi
+single_members	0x2b7e7af	VERIFIED_STATIC	_group_members
+single_min_members	0x2b7e7bf	VERIFIED_STATIC	: cần ít nhất 2 acc
+single_running_text	0x2b7e7f3	VERIFIED_STATIC	⏳ Đang vào...
+single_running_disabled	0x2b7e7f3	VERIFIED_STATIC	adjacent disabled/text/state tuple
+single_worker	0x2b7e81c	VERIFIED_STATIC	_run_single_worker
+single_doc	0x2b7e830	VERIFIED_STATIC	Single cluster only; independent thread/cancel; multiple clusters parallel
+single_engine	0x2b7e8e8	VERIFIED_STATIC	_run_one_group
+single_cancel_cleanup	0x2b7e8f8	VERIFIED_STATIC	discard adjacent to single-worker engine path
+single_worker_lambda	0x2b7e901	VERIFIED_STATIC	worker completion lambda
+single_worker_doc	0x2b7e930	VERIFIED_STATIC	Background single action reuses _run_one_group
+single_reset	0x2b7e970	VERIFIED_STATIC	_reset_single_button
+global_stopping_text	0x2b7ea81	VERIFIED_STATIC	Đang dừng...
+global_stopping_color	0x2b7ea81	VERIFIED_STATIC	#ef6c00 adjacent
+global_stopping_state	0x2b7ea8a	VERIFIED_STATIC	disabled
+global_get_groups	0x2b7eaa7	VERIFIED_STATIC	get_groups_data
+global_jobs	0x2b7eab8	VERIFIED_STATIC	jobs
+global_no_jobs_log	0x2b7eac5	VERIFIED_STATIC	[Party] Chưa có nhóm nào chọn acc
+global_start_log	0x2b7eaee	VERIFIED_STATIC	[Party] Bắt đầu N cụm — M acc fragments
+global_cancel_clear	0x2b7eb18	VERIFIED_STATIC	clear
+global_running_text	0x2b7eb26	VERIFIED_STATIC	Dừng lại
+global_running_color	0x2b7eb2f	VERIFIED_STATIC	#f44336
+global_running_state	0x2b7eb38	VERIFIED_STATIC	normal
+global_worker	0x2b7eb40	VERIFIED_STATIC	_run_worker
+stop_doc	0x2b7eb7b	VERIFIED_STATIC	Dừng quy trình nếu đang chạy
+sleep_doc	0x2b7ebc4	VERIFIED_STATIC	interruptible sleep; per-cluster cancel, global default
+aggregate_log	0x2b7fca7	VERIFIED_STATIC	[Party] Chạy song song N cụm
+aggregate_own_cancels	0x2b7fcca	VERIFIED_STATIC	own_cancels
+aggregate_threads	0x2b7fcd7	VERIFIED_STATIC	threads
+aggregate_alive	0x2b7fce0	VERIFIED_STATIC	is_alive
+aggregate_join	0x2b7fcec	VERIFIED_STATIC	join
+aggregate_timeout	0x2b7fcff	VERIFIED_STATIC	timeout
+aggregate_after_party	0x2b7fd08	VERIFIED_STATIC	_after_party_action
+aggregate_reset	0x2b7fd1d	VERIFIED_STATIC	_reset_run_button
+aggregate_doc	0x2b7fd30	VERIFIED_STATIC	one thread per cluster; after-party + reset once after all
+qual_single_run	0x2b8166b	VERIFIED_STATIC	PartyTab._run_single_cluster
+qual_single_worker	0x2b81689	VERIFIED_STATIC	PartyTab._run_single_worker
+qual_single_reset	0x2b816a6	VERIFIED_STATIC	PartyTab._reset_single_button
+qual_global_toggle	0x2b8172d	VERIFIED_STATIC	PartyTab._toggle_run
+qual_global_reset	0x2b81743	VERIFIED_STATIC	PartyTab._reset_run_button
+qual_stop	0x2b8175f	VERIFIED_STATIC	PartyTab.stop
+qual_run_worker	0x2b818dc	VERIFIED_STATIC	PartyTab._run_worker
+qual_run_one_group	0x2b818f2	VERIFIED_STATIC	PartyTab._run_one_group
+same_cluster_global_single_collision	-	EXPLICIT_UNKNOWN	Independent single/global architecture proven, but exact same-cluster collision guard not source-visible
+run_lock_scope	-	EXPLICIT_UNKNOWN	_run_lock exists; exact critical section not source-visible
+single_reset_tk_delay	-	EXPLICIT_UNKNOWN	completion lambda/reset proven; exact Tk-after delay/order not independently recovered
+global_state_assignment_microorder	-	EXPLICIT_UNKNOWN	button/worker lifecycle proven; exact _running assignment line order not recovered
