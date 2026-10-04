@@ -40,9 +40,9 @@ IN_PROGRESS
 - C03 VERIFIED_WITH_EXPLICIT_UNKNOWN_PROPERTY_BOOLEANS
 - C04 VERIFIED_WITH_EXPLICIT_UNKNOWN_BOUNDARY_AND_DETACHED_CADENCE
 - C05 VERIFIED_WITH_EXPLICIT_UNKNOWN_AUTO_SELECTION_RULE
-- C06 VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C06 AUDITED_CLOSED_WITH_EXPLICIT_UNKNOWNS
 
-## C06 VERIFIED RESULTS
+## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
 - Inner `TLMTool.dist/TLMTool.exe` hash matches the binary used by C01–C05.
 - Current Xếp-lưới screenshot is byte-identical to the prior Gate-B baseline; UI baseline therefore remains valid.
@@ -84,8 +84,10 @@ IN_PROGRESS
   - worker-cached process count
   - over limit prevents sync
   - `_auto_stop_sync` stops both layout sync and input sync.
+- Re-audit confirmed the earlier C06 evidence with no contradictions.
+- Exact 1.5s cadence recovered in the same binary belongs to input-sync keepalive, NOT layout-worker cadence.
 - Explicit unknowns preserved:
-  - exact grid arithmetic
+  - exact grid arithmetic / final tile-size expression
   - exact grid +/- bounds
   - exact max-window comparator operator
   - exact layout-worker cadence.
@@ -93,6 +95,7 @@ IN_PROGRESS
 
 ## C06 FILES
 - `docs/tasks/C06.md`
+- `docs/tasks/C06_AUDIT.md`
 - `docs/window/C06_LAYOUT_STATIC_EVIDENCE.tsv`
 - `docs/window/C06_LAYOUT_MODEL.md`
 - `docs/window/C06_LAYOUT_MODEL.json`

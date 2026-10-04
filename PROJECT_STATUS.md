@@ -14,7 +14,7 @@ B01–B14: **COMPLETE / VERIFIED**
 - C03 — VERIFIED_WITH_EXPLICIT_UNKNOWN_PROPERTY_BOOLEANS
 - C04 — VERIFIED_WITH_EXPLICIT_UNKNOWN_BOUNDARY_AND_DETACHED_CADENCE
 - C05 — VERIFIED_WITH_EXPLICIT_UNKNOWN_AUTO_SELECTION_RULE
-- C06 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C06 — AUDITED_CLOSED_WITH_EXPLICIT_UNKNOWNS
 - C07 — CURRENT
 - C08 — TODO
 - C09 — TODO
@@ -32,6 +32,6 @@ B01–B14: **COMPLETE / VERIFIED**
 
 Current task: **C07 — Auto**
 
-C06 recovered the common multi-window layout engine from the original EXE: 3×4 persisted grid defaults, master-first ordering, SetWindowPos-based move/resize primitives, stack offsets, worker-backed layout sync and server max-window guard. Exact grid arithmetic/bounds/comparator/cadence remain explicit UNKNOWN.
+C06 was re-audited and closed: the common multi-window layout engine evidence remains consistent. The exact 1.5s value found in the EXE is input-sync keepalive, not layout-worker cadence. Exact grid arithmetic/bounds/comparator/layout cadence remain explicit UNKNOWN rather than guessed.
 
 Preserve Gate A/B baselines unchanged.
