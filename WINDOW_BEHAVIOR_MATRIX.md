@@ -607,3 +607,31 @@ Explicit unknown:
 - exact retry delay/branch details.
 
 ---
+
+## C20 — combined 3-HWND scenario
+
+Locked original screenshot shows three simultaneously tracked identities:
+- 75C.S6 — HP 10%
+- TổngTài.S6 — HP 10% — selected master
+- ThápCa — HP 100%
+
+Combined result:
+- 3 source game HWNDs map to 3 preview items;
+- preview display uses 2 columns (2 + 1 rows);
+- physical game-window layout setting is independently 3 columns × 4 rows;
+- selected master is not the first preview card, proving master order and preview order are separate;
+- physical layout keeps master logical index 0;
+- input synchronization therefore has one master source and two follower targets;
+- refresh preserves surviving preview order;
+- closed HWNDs are removed through discovery/preview maintenance.
+
+Gate-C original/static+visual behavior is coherent across C01–C20.
+
+Deferred to later Windows parity:
+- exact physical grid coordinates/sizes;
+- exact layout-worker cadence;
+- C17 edge-arrow behavior;
+- remaining low-level input timing/details;
+- reconstructed-build live three-HWND run.
+
+---
