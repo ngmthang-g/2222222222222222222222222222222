@@ -1,6 +1,6 @@
 {
   "task": "D01",
-  "status": "VERIFIED_WITH_PROVENANCE_TIERS",
+  "status": "AUDITED_CLOSED_WITH_PROVENANCE_TIERS",
   "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
   "valid_exact_module_markers": 244,
   "source_filename_refs_unique": 538,
@@ -19,5 +19,12 @@
     "MEDIUM": 294,
     "REJECTED": 3
   },
-  "next_task": "D02"
+  "next_task": "D02",
+  "raw_source_filename_ref_candidates": 541,
+  "normalized_source_filename_refs": 538,
+  "collapsed_u_tag_duplicate_pairs": [
+    "ucertifi->certifi",
+    "udll_injector->dll_injector",
+    "ufarm_tab->farm_tab"
+  ]
 }
