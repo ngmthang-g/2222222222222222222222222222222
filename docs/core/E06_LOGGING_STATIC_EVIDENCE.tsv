@@ -1,0 +1,40 @@
+key	offset_hex	status	evidence
+debug_trim_marker	0x290e55e	VERIFIED_STATIC	>>> log trimmed (oldest removed) <<<
+debug_trim_doc	0x290e58b	VERIFIED_STATIC	Drop oldest lines when file exceeds MAX_SIZE, keep newest KEEP_SIZE
+debug_log_dir	0x290e600	VERIFIED_STATIC	log
+debug_log_filename	0x290e61e	VERIFIED_STATIC	tlmtool.log
+debug_start_marker	0x290e69f	VERIFIED_STATIC	=== Start ...
+debug_python_runtime	0x290e6ba	VERIFIED_STATIC	Python 3.10.11 runtime string
+debug_tee_writer	0x290e716	VERIFIED_STATIC	_TeeWriter
+debug_stdout	0x290e722	VERIFIED_STATIC	stdout
+debug_stderr	0x290e72a	VERIFIED_STATIC	stderr
+debug_tee_out	0x290e732	VERIFIED_STATIC	_fl_tee_out
+debug_tee_err	0x290e73f	VERIFIED_STATIC	_fl_tee_err
+debug_atexit	0x290e76f	VERIFIED_STATIC	atexit
+debug_setup_doc	0x290e777	VERIFIED_STATIC	Call once at startup. Tee stdout/stderr -> original + log file
+debug_setup_return_doc	0x290e7b8	VERIFIED_STATIC	Returns log_path and stores tee handles for restore
+debug_end_marker	0x290e808	VERIFIED_STATIC	=== End ...
+debug_module_doc	0x290e814	VERIFIED_STATIC	File Logger - Tee stdout/stderr to append-only session log in log/
+debug_sessions_doc	0x290e85d	VERIFIED_STATIC	Sessions run sequentially in one file log/tlmtool.log
+debug_timestamp_format	0x290e4e0	VERIFIED_STATIC	%H:%M:%S.%f
+debug_max_size_symbol	0x290e522	VERIFIED_STATIC	MAX_SIZE
+debug_keep_size_symbol	0x290e542	VERIFIED_STATIC	KEEP_SIZE
+main_debug_setup	0x28d2504	VERIFIED_STATIC	debug_logger + setup
+main_faulthandler	0x28d2519	VERIFIED_STATIC	faulthandler
+main_crash_file	0x28d252b	VERIFIED_STATIC	crash_fault.log
+main_thread_hook	0x28d257e	VERIFIED_STATIC	main.<locals>._thread_excepthook
+main_log_path	0x28d269c	VERIFIED_STATIC	log_path
+main_thread_exc_prefix	0x28d26af	VERIFIED_STATIC	[THREAD-EXC]
+main_traceback_print	0x28d26e0	VERIFIED_STATIC	traceback / print_exception
+memory_log_filename	0x2b7577b	VERIFIED_STATIC	tlm_memory.log
+memory_log_timestamp	0x2b757be	VERIFIED_STATIC	%Y-%m-%d %H:%M:%S
+memory_log_doc	0x2b757d9	VERIFIED_STATIC	memory diagnostic log beside module; truncate >1MB
+automove_log_filename	0x2c05bb8	VERIFIED_STATIC	automove_log.txt
+automove_watch_path	0x2c05bd9	VERIFIED_STATIC	_watch_log_path
+automove_ping_regex	0x2c05c62	VERIFIED_STATIC	\[pid=(\d+)\] Perf: ping
+automove_watch_prefix	0x2c05caf	VERIFIED_STATIC	[Toiuu watch] hwnd=
+central_max_size_value	-	EXPLICIT_UNKNOWN	exact numeric MAX_SIZE not readable
+central_keep_size_value	-	EXPLICIT_UNKNOWN	exact numeric KEEP_SIZE not readable
+crash_fault_resolved_dir	-	EXPLICIT_UNKNOWN	exact final directory/mode not source-visible
+central_write_serialization	-	NOT_RECOVERED	no explicit debug_logger lock/queue recovered
+partial_write_timestamp_rule	-	EXPLICIT_UNKNOWN	exact formatting of partial stdout/stderr fragments not source-decompiled
