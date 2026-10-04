@@ -728,6 +728,21 @@ F04 — game path.
 - docs/login/F02_ACCOUNT_STORAGE_FLOW.md
 - docs/login/F02_ACCOUNT_STORAGE_MODEL.json
 
+## F03 VERIFIED RESULTS
+- Login credential masking is display-only and uses the Entry show option with a one-character star mask.
+- The show/hide toggle applies to visible rows and rows preserved in _hidden_rows without changing the underlying Entry text.
+- Account cache and persistence carry the credential field directly; no credential encryption/base64/DPAPI/keyring transform was recovered in LoginTab.
+- Selected login rows pass the credential forward as mk/mk_val into the original login sequence.
+- Username normalization has strip evidence; no separate credential-strip evidence was recovered.
+- No explicit credential clipboard path or explicit credential log format was recovered.
+- Delimiter escaping for the pipe/newline account format was not recovered.
+
+## F03 FILES
+- docs/tasks/F03.md
+- docs/login/F03_PASSWORD_STATIC_EVIDENCE.tsv
+- docs/login/F03_PASSWORD_FLOW.md
+- docs/login/F03_PASSWORD_MODEL.json
+
 ## BLOCKERS
 None known for F04.
 
