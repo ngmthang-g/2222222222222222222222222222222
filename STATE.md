@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H08 — Train reconnect watchdog / reconnect recovery audit.
+H09 — Train loot filtering / pickup mode and discard-preset interaction audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1476,12 +1476,52 @@ H08 — Train reconnect watchdog / reconnect recovery audit.
 - docs/train/H07_DEATH_RECOVERY_FLOW.md
 - docs/train/H07_DEATH_RECOVERY_MODEL.json
 
+## H08 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H08 artifact existed, so no completed Train work was repeated.
+- Inspected the exact frozen inner EXE first; SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Reconnect feature is `auto_reconnect_var` / config key `auto_reconnect`, visible label `Tự kết nối lại khi mất mạng`; B05/load fallback is OFF by default.
+- Exact source-level placement of the auto-reconnect gate (caller launch vs monitor entry/loop) is not source-visible enough; semantic behavior remains opt-in.
+- Exact reconnect watchdog is `FarmTab._disconnect_monitor`; locals include `stop_event/reconnect_ok/halt/hwnd/check_pixel/stop_character/wait_pixel/click_at/gen_snap/dc_strikes/conn/dc1/dc2/retry/invalidate_character_cache/_get_pid_from_hwnd`.
+- Exact original watchdog doc locks cadence at **2 seconds** and says it runs in parallel with the Farm loop.
+- Shared connection-memory semantics are exact: `True=connected`, `False=disconnected`, `None=read error`.
+- The monitor uses memory as a **veto**: memory True resets disconnect strikes and prevents false halt; None is ignored and pixel detection decides. The persistent pixel pair is still required before halting.
+- Frozen PIXEL_DATA was decoded directly:
+  - `login.ngatKetNoi1`: point **(640,244)**, RGB **(160,145,52)**, config timeout 5, serialized tolerance False/0.
+  - `login.ngatKetNoi2`: point **(702,453)**, RGB **(212,28,34)**, config timeout 5, serialized tolerance False/0.
+- Exact watchdog doc requires **both** disconnect pixels for **3 consecutive ticks**; at 2s cadence this is ~6s. Transient UI color coincidences therefore do not halt the account.
+- Exact confirmation log is `MAT KET NOI (dialog 3/3) -> dung farm loop, ket noi lai`. Confirmed disconnect sets `halt` and stops the Farm execution path immediately.
+- `_disconnect_monitor` directly uses `stop_character`; the shared movement layer explicitly distinguishes this from `stop_game_auto` because `stop_character` only stops movement. No direct `stop_game_auto` call is recovered in the reconnect monitor.
+- Exact watchdog doc says the disconnect dialog is rechecked before every reconnect click. If the dialog is gone, the click is skipped and the flow still observes active-state recovery.
+- Exact reconnect client click is **(616,455)**.
+- The reconnect block has local `retry` and exact attempt log denominator `/5`, locking **5 visible attempts per reconnect batch**.
+- Each reconnect attempt waits for `common.active` up to **30 seconds**.
+- Frozen `common.active` pixel is decoded as point **(1330,33)**, RGB **(34,8,11)**, default pixel timeout 100, tolerance 5; the reconnect path overrides the wait to its documented 30s/attempt.
+- Exact `wait_pixel` interval/debug argument values for this call are not safely bound and remain UNKNOWN.
+- Exact success log is `kết nối lại THANH CONG`; exact watchdog doc says success sets `reconnect_ok` and resets the Farm cycle.
+- `_disconnect_monitor` locals directly contain `invalidate_character_cache` and current-PID lookup. Shared helper doc explicitly says Reader cache is cleared **immediately when reconnect succeeds**, preventing stale pointer-chain cache for up to 10s after character reload.
+- Exact failed-batch log is `chưa kết nối lại được -> thử lại sau 30s`; exact integer 30 is stored in this branch.
+- Exact watchdog doc says reconnect retries are **infinite**: after a failed 5-attempt batch, wait 30s and try again; never disable the account merely because reconnect has not succeeded.
+- Watchdog only exits when user/session validity ends: stop event/account no longer farming/generation changed or the game window truly dies.
+- Farm cycle has state `Chờ kết nối lại` and waits on `reconnect_ok`; exact Event-wait poll timeout/quantum is not safely bound and remains UNKNOWN.
+- After reconnect success, Farm uses `wait_memory_ready(timeout=45.0, need=3)`.
+- Shared exact memory-ready doc says `common.active` can appear before character memory is ready; valid recovery requires **3 consecutive fresh reads** with clear RoleName + MapID not None, invalidating Reader cache before each sample.
+- `wait_memory_ready` timeout is explicit **fail-open**: after 45s it returns False/logs and the caller may continue; it must never wedge Farm indefinitely.
+- FarmTab has verified guarded `_ensure_injected` for resources.dat, but H08 finds no direct readable proof of an **unconditional post-reconnect reinjection call** between reconnect success and memory-ready. Do not add forced reinjection merely because TCP reconnect occurred; keep this edge UNKNOWN until stronger decompilation/runtime parity.
+- Reconnect-vs-death overlap is partially resolved: once `halt` is asserted, reconnect interrupts current H07/H06 actions through the Farm `hard_stop` boundary, then successful reconnect performs a cycle reset. Exact same-tick death-vs-third-strike ordering before halt remains RUNTIME UNKNOWN.
+- B05 was cross-checked only after static extraction; no geometry was remeasured.
+
+## H08 FILES
+- docs/tasks/H08.md
+- docs/train/H08_RECONNECT_STATIC_EVIDENCE.tsv
+- docs/train/H08_RECONNECT_FLOW.md
+- docs/train/H08_RECONNECT_MODEL.json
+
 ## BLOCKERS
-None known for H08.
+None known for H09.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H07 verified Train wiring/town/full-bag/timing/movement/heal/death contracts.
+- Preserve B05 Train visual baseline and H01–H08 verified Train wiring/town/full-bag/timing/movement/heal/death/reconnect contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
@@ -1492,20 +1532,23 @@ None known for H08.
 - Preserve H04 loop_minutes × 60 remaining-cycle timing semantics.
 - Preserve H05 movement conventions and active FarmTab Truyền ownership.
 - Preserve H06 treatment routing/clicks and unresolved 0.2/common.active microbinding.
-- Preserve H07 4s death monitor, MapID87 recovery event, HP0 single click (792,441), detected/hp latches, and death counter boundary.
-- Do not import Train-LSV's post-respawn common.active wait into FarmTab.
-- Keep exact treatment-failure continuation, respawn-off worker continuation, death-counter restart reset and monitor cleanup ordering UNKNOWN.
-- H08 may analyze reconnect and its interaction with death, but must not reopen H07 monitor semantics unless contradictory evidence appears.
+- Preserve H07 death monitor and recovery event/latch semantics.
+- Preserve H08 2s memory-veto + dual-pixel 3-strike reconnect detection, click (616,455), 5-attempt/30s-active batches, infinite retry, immediate cache invalidation, reconnect_ok reset and 45s/need3 memory-ready fail-open gate.
+- Do not invent direct stop_game_auto behavior in the reconnect monitor.
+- Do not force post-reconnect DLL reinjection until the direct edge is proven.
+- Keep reconnect_ok Event wait quantum, wait_pixel interval/debug args and same-tick death/disconnect ordering UNKNOWN.
+- H09 must focus only loot filtering/pickup mode/discard interaction; do not reopen H03 full-bag threshold or H08 reconnect.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H08 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H08 only if still pending.
+3. Check GitHub first for any H09 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H09 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Train reconnect end-to-end: _disconnect_monitor memory veto, disconnect pixel 3-strike detection, halt signaling, stop-character/auto interaction, exact reconnect click/pixel confirmation sequence, infinite retry policy, common.active waits, reconnect_ok cycle reset, cache invalidation/reinjection/memory-ready gate, and cancellation/window-generation exits.
-7. Recover exact tick cadence, strike count, click coordinates, retry limits/wording and wait timeouts where safely bindable; keep unbound values UNKNOWN.
-8. Resolve only death-vs-reconnect arbitration that is directly evidenced by the reconnect control flow; preserve H07 otherwise.
-9. Cross-check B05 only after static extraction; no geometry work is needed.
-10. Persist H08 evidence/report, update STATE.md, and advance to H09 only after verification.
+6. Audit Train loot/pickup filtering only: pickup_mode values/default, get_pickup_preset_keys, bag_filter activity='train', keep-all/no-discard behavior, weapon-only mode, pickup_no_cankhon worker interaction, discard timing/cancellation/state-label behavior, and any link between pickup mode and pre-town filtering.
+7. Recover exact item/preset identifiers, delays and worker cadence where safely bindable; keep unbound values UNKNOWN.
+8. Preserve H03 full-bag/filter-before-town contract but do not reopen the numeric full threshold.
+9. Do not yet analyze mount actions; H10 owns mount behavior.
+10. Cross-check B05 only after static extraction; no geometry work is needed.
+11. Persist H09 evidence/report, update STATE.md, and advance to H10 only after verification.
