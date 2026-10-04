@@ -1,0 +1,62 @@
+{
+  "task": "E09",
+  "status": "VERIFIED_WITH_EXPLICIT_LOCAL_EXCEPTION_SCOPE_AND_RETRY_TIMING_UNKNOWNS",
+  "global_diagnostics": {
+    "faulthandler": true,
+    "crash_file": "crash_fault.log",
+    "thread_exception_hook": true,
+    "traceback": true
+  },
+  "worker_pattern": {
+    "owner_local": true,
+    "done_error_callbacks": true,
+    "ui_restore_on_main_thread": true
+  },
+  "config": {
+    "local_nonfatal_errors": true,
+    "logged": true,
+    "parse_exceptions": [
+      "ValueError",
+      "TypeError",
+      "AttributeError"
+    ],
+    "per_key_fallbacks": "TAB_OWNED"
+  },
+  "server": {
+    "timeout_status_token_validation": true,
+    "heartbeat_failure_recording": true,
+    "reschedule": true,
+    "staged_escalation": true
+  },
+  "permission": {
+    "runtime_guard": true,
+    "ui_state_not_authoritative": true,
+    "fail_closed_documented": true,
+    "nonpositive_limit_special_semantics": "trial/unlimited allow"
+  },
+  "winapi": {
+    "SendMessageTimeout": true,
+    "SMTO_ABORTIFHUNG": true,
+    "retry_two_on_transient_unity_busy": true,
+    "exact_retry_delay": "UNKNOWN",
+    "skip_failed_slave_to_keep_worker_alive": true
+  },
+  "input_recovery": {
+    "idempotent_block_unblock": true,
+    "stale_watchdog": true
+  },
+  "emulator_remote": {
+    "structured_ok_error": true,
+    "validates": [
+      "token",
+      "action",
+      "emulator identity",
+      "required fields",
+      "config key",
+      "value format"
+    ],
+    "exact_http_status_map": "UNKNOWN"
+  },
+  "exhaustive_try_except_map": "NOT_RECOVERED",
+  "next_task": "E10 — start/stop coordinator"
+}
