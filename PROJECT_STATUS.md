@@ -187,7 +187,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 ## Gate H
 - H01 — VERIFIED_FARMTAB_UI_MODULE_WIRING_WITH_5S_INCREMENTAL_REFRESH_AND_30S_AUTOSAVE
 - H02 — VERIFIED_TOWN_MODE_GATING_WITH_LOCK_TOWN_FORCE_NEVER_AND_LEGACY_FULL_BAG_ALIAS
-- H03 — CURRENT
+- H03 — VERIFIED_SITE10_USED_SLOT_FULL_BAG_WATCH_WITH_FILTER_RECHECK_IN_NEVER_MODE_AND_EXPLICIT_THRESHOLD_BINDING_UNKNOWN
+- H04 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -202,3 +203,10 @@ H02 resolved the current return-town mode contract: never / full_bag_timer / cyc
 Any selected Farm route marked lock_town forces the shared return-town mode to never and disables the return-town radios; no automatic previous-mode restoration was recovered. Navigation priorities remain four readonly unique-choice slots with defaults Phù 1 / Phù 2 / Phù 3 / Ngựa.
 
 H03 now owns inventory-full detection, bag threshold/filter interaction and the full_bag_timer early-stop path. Periodic loop-minute scheduler execution remains H04.
+
+
+H03 resolved Train inventory fullness as an occupied Site-10 slot metric sourced from memory_items.get_bag()['slots']. FarmTab preserves None on read failure rather than inventing zero.
+
+The full-bag decision uses a dedicated MI.is_full_bag predicate with an internal threshold. No current user-facing Farm threshold setting was recovered, and the exact numeric threshold remains intentionally UNKNOWN rather than guessed.
+
+_filter_before_town is driven by the Train pickup preset and shared bag_filter. In never mode a full bag is filtered and, if still full, the account stays because Không về is authoritative. In full_bag_timer/legacy full_bag mode the bag predicate can end the common wait early and transition to town. Periodic timing itself is now H04.
