@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G10 — Party create-team/invite/leave protocol audit.
+G11 — Party post-party action dispatch audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1168,14 +1168,48 @@ G10 — Party create-team/invite/leave protocol audit.
 - docs/party/G09_PARTY_ACTION_LIFECYCLE_FLOW.md
 - docs/party/G09_PARTY_ACTION_LIFECYCLE_MODEL.json
 
+## G10 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; G01–G09 were already complete and no G10 artifact existed, so completed work was not repeated.
+- Rechecked the exact frozen archive/EXE first: archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- `_run_one_group` exact documentation defines the active Party protocol as **B0 → B1 → B2 → B3**, independent per cluster.
+- Target resolution remains name-based config → live `read_own_ids` → current `hwnd_of_pid` → `(name, hwnd, RoleID)`; offline/missing-window selections are skipped. An explicit `chỉ 1 acc online — ...` guard exists before create/burst; its final assembled suffix/source return expression remains UNKNOWN.
+- **B0** writes live auto-accept through `set_auto_fields` with `UTILITIES / AutoAcceptInviteTeam / bool=True`, then reads back via `get_auto_settings` after symbolic `AUTOSET_DELAY`.
+- B0 readback semantics are exact: True = confirmed ON; False = still OFF and logs manual-accept warning; None = unreadable. Write/readback failure never fabricates a positive state.
+- **B1** skips targets already at TeamID 0/0xFFFFFFFF, calls `memory_items.leave_team` for in-team targets, uses interruptible `LEAVE_DELAY`, then waits all targets outside via `_wait_team_state(expect_zero=True)` with `WAIT_LEFT_TIMEOUT`.
+- B1 verification timeout logs `chưa xác nhận thoát hết ... — vẫn tiếp tục`; it does not hard-abort the cluster.
+- Shared TeamID semantics remain unchanged: 0/0xFFFFFFFF = outside team; None = read error and never counts as reached.
+- Shared leave packet is verified from memory_items: channel **200057**, TeamAction **LeaveTeam=4**, payload **`4:<ownRid>`**.
+- **B2** is packet-first and leader-only. `memory_items.create_team` uses channel **200057**, TeamAction **CreateTeam=0**, payload **`"0"`**, then Party waits for a real leader TeamID with symbolic `CREATE_PACKET_TIMEOUT`.
+- If packet-first creation does not establish a real TeamID, Party falls back to `_click_create_team`: resize leader to 1366×768, conditional click (391,683) for `donVang.nguoiChoiGan`, conditional click (34,462) for `donVang.muiTenAnNhiemVu`, then exact tail clicks (27,467) → (154,214) → (127,336).
+- Exact original fallback doc states **every click is 1 second apart** and the sequence is cancellation-aware.
+- Fallback creation waits a real TeamID with symbolic `WAIT_TEAM_TIMEOUT`, retries up to symbolic `CREATE_RETRY`, and uses symbolic `INVITE_DELAY` between attempts. Exact numeric CREATE_RETRY is not safely recoverable and remains UNKNOWN.
+- Exhausted create retries log `TẠO THẤT BẠI — bỏ qua cụm này`; normal B3 is skipped.
+- **B3** uses `_invite_burst`, not the old one-member-at-a-time wait model.
+- Party summary explicitly calls `invite kind='team'`. The shared memory_items invite map is serialized as trade/team/group → `7:1:` / `5:` / `10:`, and invite uses packet **200051**. Active Party team invite is therefore payload **`5:<targetRoleID>`**.
+- B3 sends all `others` in a burst with symbolic `BURST_INVITE_DELAY`, then one shared `_wait_group_same_team` wait using symbolic `GROUP_JOIN_POLL` and `GROUP_JOIN_TIMEOUT`.
+- `_wait_group_same_team` succeeds only when each other account's real TeamID equals the leader's real TeamID; timeout returns a missing-target list; cancellation returns None.
+- Missing members after the first wait are resent **exactly one additional round**, followed by one final shared wait.
+- If members still remain missing after the resend, Party logs names + `_team_snapshot` and advises checking auto-accept/manual popup; `_invite_burst` still finishes True unless canceled.
+- Original B3 doc explicitly contrasts the old fixed **2s/member** strategy with burst spacing `BURST_INVITE_DELAY (~0.5s)`. G10 records ~0.5s as approximate documentation, not as an invented exact assignment.
+- Legacy `_invite_join` remains one invite + fixed symbolic `JOIN_WAIT` without TeamID verification, but it is not the main B3 engine.
+- The direct `Rời nhóm` worker is simpler than B1: resolve live targets → skip offline/already-outside → send leave_team → interruptible LEAVE_DELAY → log XONG. Its readable block has no final aggregate `_wait_team_state`; do not silently add B1's verification wait to that button.
+- Frozen Party module float pool contains exact values `0.3, 0.8, 2.0, 12.0, 0.5, 15.0, 6.0`, but Nuitka's deduplicated blob does not safely bind every float to every symbolic timing name. Those mappings remain UNKNOWN except values tied directly by docs.
+- G09 button/thread/cancel lifecycle was preserved unchanged.
+
+## G10 FILES
+- docs/tasks/G10.md
+- docs/party/G10_PARTY_TEAM_PROTOCOL_STATIC_EVIDENCE.tsv
+- docs/party/G10_PARTY_TEAM_PROTOCOL_FLOW.md
+- docs/party/G10_PARTY_TEAM_PROTOCOL_MODEL.json
+
 ## BLOCKERS
-None known for G10.
+None known for G11.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Preserve G01–G09 Party boundaries and verified lifecycle.
+- Preserve G01–G10 Party boundaries, lifecycle and B0→B3 team protocol.
 - Do not add a Party-local EnumWindows scanner.
 - Do not duplicate Start physical layout, preview/DWM, keyboard-sync or mouse-sync systems inside PartyTab.
 - Keep Party direct check_pixel/click_at actions separate from Start synchronized input.
@@ -1183,9 +1217,12 @@ None known for G10.
 - Do not reactivate dormant party_corps_groups / party_corps_group1 / party_follow / party_pick controls.
 - Do not equate Party leader with Start master HWND.
 - Preserve global parallel-per-cluster execution and separate per-cluster cancel model.
-- Preserve single-cluster own thread/cancel and minimum-2-member guard.
+- Preserve packet-first create on 200057 action 0 before click fallback.
+- Preserve leave packet 200057 action 4 and team invite packet 200051 prefix 5:.
+- Preserve B1 timeout log-and-continue and B3 one-resend-only behavior.
+- Preserve the exact leader create-team 1366×768 fallback coordinates and 1s click gap.
 - Keep exact same-cluster global-vs-single collision rule UNKNOWN until stronger evidence/runtime parity.
-- Preserve the leader create-team 1366×768 resize precondition only for the click-fallback path.
+- Do not bind pooled numeric floats to symbolic Party timing names unless stronger evidence proves the mapping.
 - Do not merge RoleName display identity with RoleID action identity.
 - Do not treat TeamID None/read-error as outside-team success.
 - Do not invent a numeric invalid RoleID sentinel.
@@ -1197,12 +1234,11 @@ None known for G10.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any G10 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute G10 only if still pending.
+3. Check GitHub first for any G11 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute G11 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Recover the Party team protocol used by `_run_one_group` without reopening G09 lifecycle: B0 auto-accept setup/readback, B1 leave-team + wait-until-outside, B2 leader create-team packet-first flow and fixed-coordinate click fallback, B3 burst invite + group TeamID verification/retry.
-7. Recover exact shared memory/action helpers and all statically recoverable constants/timeouts/retry counts/delays; keep any unrecoverable numeric values UNKNOWN instead of guessing.
-8. Audit `_leave_group_worker` protocol in the same task because it shares the leave-team/TeamID state model.
-9. Preserve G03 TeamID semantics: 0/0xFFFFFFFF=no-team, None=read error, real non-sentinel IDs only for same-team success.
-10. Do not change button/thread/cancel wiring from G09.
-11. Persist G10 evidence/report, update STATE.md, and advance only after verification.
+6. Audit Party post-party dispatch without reopening Login F10/F11: exact behavior for wait / phoban / train / train_lsv / don, target-set preservation from the just-finished Party run, notebook-tab selection, hidden-tab refresh/readiness wait, HWND-first then name fallback matching, already-running farm skip, per-account _toggle_single_farm calls, and Phó Bản handoff.
+7. Recover all exact static waits/limits and main-thread/background boundaries; preserve any remaining mixed/partial target edge cases as UNKNOWN instead of guessing.
+8. Determine whether post-party dispatch runs after canceled/failed cluster aggregates or only normal aggregate completion.
+9. Do not change B0→B3 team protocol or G09 lifecycle.
+10. Persist G11 evidence/report, update STATE.md, and advance to Party parity/handoff only after verification.
