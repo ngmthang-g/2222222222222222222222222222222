@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F02 — account storage.
+F03 — password behavior.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
