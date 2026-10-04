@@ -65,13 +65,28 @@ def main() -> None:
         else:
             exact_markers.append(name)
 
-    source_refs = {}
+    raw_source_refs = {}
     for line in lines:
         if not PY_PATH.fullmatch(line):
             continue
         name = module_from_path(line)
         if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_.-]*(?:\.[A-Za-z_][A-Za-z0-9_.-]*)*", name):
-            source_refs.setdefault(name, line.replace("\\", "/"))
+            raw_source_refs.setdefault(name, line.replace("\\", "/"))
+
+    # Nuitka printable constants can expose both an unprefixed filename and an
+    # otherwise identical leading-"u" tagged form. Collapse only an exact
+    # duplicate pair; do not strip "u" globally because legitimate names can
+    # begin with that letter.
+    source_refs = dict(raw_source_refs)
+    collapsed_u_tag_duplicates = []
+    for name in sorted(raw_source_refs):
+        if name.startswith("u") and name[1:] in raw_source_refs:
+            collapsed_u_tag_duplicates.append({
+                "dropped": name,
+                "kept": name[1:],
+                "raw_path": raw_source_refs[name],
+            })
+            source_refs.pop(name, None)
 
     pyd = []
     for path in sorted(dist.rglob("*.pyd")):
@@ -82,6 +97,9 @@ def main() -> None:
         "inner_exe_sha256": sha256,
         "exact_module_markers": sorted(exact_markers),
         "rejected_marker_strings": sorted(rejected_markers),
+        "raw_source_filename_ref_count": len(raw_source_refs),
+        "normalized_source_filename_ref_count": len(source_refs),
+        "collapsed_u_tag_duplicates": collapsed_u_tag_duplicates,
         "source_filename_refs": source_refs,
         "physical_pyd_modules": pyd,
     }
