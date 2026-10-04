@@ -11,7 +11,7 @@ choice_train_lsv_text	0x2b5ecec	VERIFIED_STATIC	Train LSV
 choice_train_lsv_value	0x2b5ecf7	VERIFIED_STATIC	train_lsv
 choice_don_text_exe	0x2b5ed02	VERIFIED_STATIC	compiled EXE literal Dồn vàng
 choice_don_value	0x2b5ed0f	VERIFIED_STATIC	don
-choice_don_text_screenshot	-	VISUAL_EVIDENCE	supplied Login screenshot visually reads Đồn vàng; retain discrepancy for F11
+choice_don_text_final	0x2b66a40	RESOLVED_BY_F11	canonical Dồn vàng; original EXE + F01/B03 + explicit user confirmation
 party_helper_ref	0x2b66997	VERIFIED_STATIC	_auto_start_party_after_login
 farm_tab_ref	0x2b669b6	VERIFIED_STATIC	farm_tab_ref
 train_lsv_tab_ref	0x2b669c4	VERIFIED_STATIC	train_lsv_tab_ref
@@ -53,6 +53,6 @@ save_after_login_key	0x2b67340	VERIFIED_STATIC	after_login in save surface
 helper_qualname	0x2b680f1	VERIFIED_STATIC	LoginTab._auto_start_after_login
 party_helper_qualname	0x2b68113	VERIFIED_STATIC	LoginTab._auto_start_party_after_login
 crossref_readiness_doc	0x2b80902	VERIFIED_STATIC	Party helper says same as login_tab._wait_and_activate; hidden tab may not scan; wait max 20s for HWND readiness
-readiness_poll_cadence	-	EXPLICIT_UNKNOWN	exact sleep/poll cadence within 20s not recovered
-login_row_match_formula	-	EXPLICIT_UNKNOWN	exact count/subset/identity formula inside Login helper not recovered
+readiness_poll_cadence	0x2b808b5	RESOLVED_BY_F11	1.0s; same-as-login cross-reference helper serializes sleep + float 1.0 and max-20s loop
+login_row_match_formula	0x2b808ab	RESOLVED_BY_F11	want.issubset(have); have built from target _acc_rows.get("hwnd") in same-as-login helper
 partial_failure_route_condition	-	EXPLICIT_UNKNOWN	exact mixed-success / zero-success routing trigger not proven
