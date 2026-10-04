@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G11 — Party post-party action dispatch audit.
+G12 — Party parity-test / reconstruction handoff.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1202,14 +1202,45 @@ G11 — Party post-party action dispatch audit.
 - docs/party/G10_PARTY_TEAM_PROTOCOL_FLOW.md
 - docs/party/G10_PARTY_TEAM_PROTOCOL_MODEL.json
 
+## G11 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; G01–G10 were already complete and no G11 artifact existed, so completed work was not repeated.
+- Rechecked the frozen Party implementation first against the locked inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Exact `_after_party_action` documentation locks the mode behavior: `phoban` activates Phó Bản's own process; `train/train_lsv/don` starts per-account farm for the accounts that just partied; `wait` does nothing.
+- Generic mapping is exact: `train → farm_tab_ref / Train`; `train_lsv → train_lsv_tab_ref / Train LSV`; `don → donvang_tab_ref / Dồn vàng`.
+- Missing refs are logged and skipped. Generic dispatch also skips when there are no `acc nào vừa party`.
+- Party owns aggregate target state `_last_targets` guarded by `_targets_lock`. Post-party readiness metadata exposes target iteration variables `nm, hwnd`; the handoff shape is name + Party-HWND, not RoleID/TeamID.
+- Exact reset/merge statement order for `_last_targets` across parallel cluster workers remains UNKNOWN; synchronized aggregate storage is verified.
+- `phoban` is a special whole-tab path, not per-account farm. It requires `phoban_tab_ref`, skips if Phó Bản is already running, and uses dedicated main-thread `_after_phoban_main`.
+- `_after_phoban_main` exact doc says: switch to tab Phó Bản and start its process on the main thread. Notebook selection uses `_select_tab_by_text`, which finds a tab by visible label and selects it.
+- Generic Train/Train LSV/Dồn vàng selects the destination tab first so hidden tabs can begin scanning, then runs `_wait_and_dispatch_after_party` in the background.
+- Exact generic readiness loop is now locked directly in Party: `want.issubset(have)`, where want is the original Party target-HWND set and have is destination `_acc_rows` HWND set; poll every **1.0s**, max **20 polls / 20s**.
+- Background readiness reads row HWND data only and does not mutate Tk widgets; actual dispatch is handed back to main thread through `_after_dispatch_main`.
+- Destination tab must expose `_toggle_single_farm`; if not, Party logs and skips rather than substituting another engine.
+- Matching is exact HWND first, then account-name fallback; direct metadata contains `by_hwnd`, `by_name`, `by_lower`. Original doc explicitly says HWND first, name second to survive stale/different HWND values.
+- A further `_fresh_map` / `khớp sau resolve lại (hwnd mới=...)` fallback exists before final failure. Exact dictionary/source expression for the fresh map remains UNKNOWN.
+- If a target still cannot be mapped, it is skipped individually. Empty destination rows get a hidden/permission diagnostic rather than an invented match.
+- Local `used_hwnd` state proves destination rows are guarded against accidental repeated consumption.
+- Matched rows are checked through `_farming_acc`; already-running accounts are skipped so the generic toggle cannot accidentally turn them off.
+- Successful dispatch uses the **current HWND of the destination row found**, not the possibly stale Party HWND, then invokes the destination tab's real `_toggle_single_farm`.
+- Post-party dispatch is a **global Bắt đầu aggregate** feature. G09's single-cluster `▶ Tạo nhóm N` worker resets its own button and has no independent post-party action.
+- Global `_run_worker` has threads/cancels/join surfaces but no recovered per-cluster results/success aggregation. Static evidence therefore does **not** gate post-party dispatch on all clusters succeeding; ordinary cluster failure does not create an all-success barrier.
+- Exact behavior after explicit global/manual cancellation remains UNKNOWN because a `self._cancel` branch could exist without a separate result local. This is reserved for runtime/stronger-decompile parity testing.
+- Login F10/F11, G09 lifecycle and G10 B0→B3 protocol were not reopened or changed.
+
+## G11 FILES
+- docs/tasks/G11.md
+- docs/party/G11_PARTY_POST_ACTION_STATIC_EVIDENCE.tsv
+- docs/party/G11_PARTY_POST_ACTION_FLOW.md
+- docs/party/G11_PARTY_POST_ACTION_MODEL.json
+
 ## BLOCKERS
-None known for G11.
+None known for G12.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Preserve G01–G10 Party boundaries, lifecycle and B0→B3 team protocol.
+- Preserve G01–G11 Party boundaries, lifecycle, team protocol and post-party routing.
 - Do not add a Party-local EnumWindows scanner.
 - Do not duplicate Start physical layout, preview/DWM, keyboard-sync or mouse-sync systems inside PartyTab.
 - Keep Party direct check_pixel/click_at actions separate from Start synchronized input.
@@ -1217,12 +1248,12 @@ None known for G11.
 - Do not reactivate dormant party_corps_groups / party_corps_group1 / party_follow / party_pick controls.
 - Do not equate Party leader with Start master HWND.
 - Preserve global parallel-per-cluster execution and separate per-cluster cancel model.
-- Preserve packet-first create on 200057 action 0 before click fallback.
-- Preserve leave packet 200057 action 4 and team invite packet 200051 prefix 5:.
-- Preserve B1 timeout log-and-continue and B3 one-resend-only behavior.
-- Preserve the exact leader create-team 1366×768 fallback coordinates and 1s click gap.
-- Keep exact same-cluster global-vs-single collision rule UNKNOWN until stronger evidence/runtime parity.
-- Do not bind pooled numeric floats to symbolic Party timing names unless stronger evidence proves the mapping.
+- Preserve B0→B3 packet-first team protocol exactly as locked in G10.
+- Preserve post-party generic 1s/20s HWND readiness, HWND-first/name-fallback matching, found-row current-HWND toggle and already-running skip.
+- Do not add an all-clusters-success post-party gate; none is recovered.
+- Keep explicit global-cancel post-party behavior UNKNOWN until runtime/stronger evidence.
+- Keep exact same-cluster global-vs-single collision rule UNKNOWN until runtime/stronger evidence.
+- Do not bind pooled numeric floats to symbolic Party timing names without stronger evidence.
 - Do not merge RoleName display identity with RoleID action identity.
 - Do not treat TeamID None/read-error as outside-team success.
 - Do not invent a numeric invalid RoleID sentinel.
@@ -1234,11 +1265,11 @@ None known for G11.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any G11 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute G11 only if still pending.
-5. Inspect the frozen original EXE first.
-6. Audit Party post-party dispatch without reopening Login F10/F11: exact behavior for wait / phoban / train / train_lsv / don, target-set preservation from the just-finished Party run, notebook-tab selection, hidden-tab refresh/readiness wait, HWND-first then name fallback matching, already-running farm skip, per-account _toggle_single_farm calls, and Phó Bản handoff.
-7. Recover all exact static waits/limits and main-thread/background boundaries; preserve any remaining mixed/partial target edge cases as UNKNOWN instead of guessing.
-8. Determine whether post-party dispatch runs after canceled/failed cluster aggregates or only normal aggregate completion.
-9. Do not change B0→B3 team protocol or G09 lifecycle.
-10. Persist G11 evidence/report, update STATE.md, and advance to Party parity/handoff only after verification.
+3. Check GitHub first for any G12 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute G12 only if still pending.
+5. Perform the Party parity-test / reconstruction handoff for G01–G11 without redoing verified forensic work.
+6. Build one authoritative Party parity matrix covering: B04 UI, HWND/PID refresh, RoleName/RoleID/TeamID separation, no Party grid/preview/input-sync ownership, config persistence, global/single action lifecycle, B0→B3 protocol, Rời nhóm, and post-party routing.
+7. Reconcile all known UNKNOWNs and classify each as implementation-safe, runtime-only, or requiring stronger decompilation. Do not silently resolve unknowns.
+8. Include mandatory Windows original-vs-reconstruction runtime cases, especially: same-HWND/new-PID, same-cluster global+single collision, explicit global cancel before aggregate completion, packet-create success/fallback, missing auto-accept, partial B3 join after one resend, hidden destination tab readiness, stale-HWND name fallback, and post-party routing after cluster failure.
+9. Preserve proxy runtime scope lock and do not start Stage S early.
+10. Persist G12 parity/handoff artifacts, update STATE.md, and close Gate G only after verification.
