@@ -12,6 +12,9 @@ IN_PROGRESS
 ## GATE C
 **COMPLETE / STATIC+VISUAL VERIFIED; RECONSTRUCTED WINDOWS PARITY DEFERRED**
 
+## GATE D
+**COMPLETE / VERIFIED STATIC ARCHITECTURE EVIDENCE**
+
 ## COMPLETED
 - A01 VERIFIED
 - A02 VERIFIED
@@ -33,7 +36,7 @@ IN_PROGRESS
 - B10 VERIFIED
 - B11 VERIFIED
 - B12 VERIFIED
-- B13 VERIFIED_WITH_EXPLICIT_UNKNOWN_FONT_POINT_SIZE
+- B13 AUDITED_ROOT_DEFAULT_FONT_9_WITH_EXPLICIT_PER_WIDGET_POINT_SIZE_UNKNOWNS
 - B14 VERIFIED
 - C01 VERIFIED_WITH_EXPLICIT_UNKNOWN_BOOLEAN_FORMULA
 - C02 VERIFIED_WITH_EXPLICIT_UNKNOWN_FALLBACK_FORMAT
@@ -55,6 +58,16 @@ IN_PROGRESS
 - C18 AUDITED_CLOSED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS
 - C19 AUDITED_CLOSED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS
 - C20 AUDITED_CLOSED_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED
+- D01 AUDITED_CLOSED_WITH_PROVENANCE_TIERS
+- D02 VERIFIED_STATIC_REFERENCE_GRAPH_WITH_EXPLICIT_IMPORT_SYNTAX_UNKNOWN
+- D03 VERIFIED_WITH_VERSION_EVIDENCE_TIERS
+- D04 VERIFIED_LAYERED_GRAPH_WITH_CONTEXTUAL_EDGE_TIERS
+- D05 VERIFIED_EXACT_MARKER_BLOCK_MAP_WITH_HEURISTIC_SIGNAL_CLASSIFICATION
+- D06 VERIFIED_WITH_OPAQUE_DATA_ROLES_EXPLICITLY_UNKNOWN
+- D07 VERIFIED_STATIC_HELPER_PROTOCOL_WITH_RUNTIME_EXECUTION_DEFERRED
+- D08 VERIFIED_ARCHITECTURE_HANDOFF_WITH_CONFIDENCE_BOUNDARIES
+- E01 VERIFIED_WITH_EXPLICIT_NORMAL_CLOSE_ORDER_AND_SPLASH_ORDER_UNKNOWNS
+- E02 VERIFIED_WITH_HIGH_CONFIDENCE_POSITION_MODEL_AND_EXPLICIT_STYLE_UNKNOWNS
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -116,7 +129,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E02 — Tk root/window creation.
+E03 — tab loader.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -505,8 +518,29 @@ E02 — Tk root/window creation.
 - docs/core/E01_LIFECYCLE_FLOW.md
 - docs/core/E01_LIFECYCLE_MODEL.json
 
+## E02 VERIFIED RESULTS
+- Root title is `TLMTool`; `250x20` is a transient startup geometry, not the final production size.
+- Root startup attributes include `-topmost=True`, frozen `_MEIPASS` icon resolution for `icon.ico`, and `withdraw` during construction.
+- Root/global default font is statically recovered as the exact tuple `("Segoe UI", 9)` applied via `option_add("*Font", ...)`.
+- This corrects the earlier broad B13 font-size UNKNOWN: root/global size 9 is now verified; explicit per-widget overrides remain unknown where not separately evidenced.
+- ttk.Notebook is packed with fill/expand behavior and exact 5 px outer packing margin; Gate-B raster geometry corroborates the 5 px margin.
+- `TNotebook.Tab` padding and `TNotebook` tabmargins are configured, but exact source list values remain explicit UNKNOWN.
+- `position_window_top_right` uses screen width/height plus exact literals 80, 450 and 10; high-confidence model is w=450, h=screen_height-80, x=max(0,screen_width-w-10), y=0.
+- The exact arithmetic source expression remains not directly recovered; the production screenshot target remains 450×1000 client pixels.
+- Literal `350x450+1621+0` is quarantined as stale/example/unknown-flow and is not allowed to override 12/12 screenshot evidence.
+- No explicit resizable/minsize/maxsize policy was recovered in the main-shell block.
+
+## E02 FILES
+- docs/tasks/E02.md
+- docs/core/E02_ROOT_STATIC_EVIDENCE.tsv
+- docs/core/E02_ROOT_FLOW.md
+- docs/core/E02_ROOT_MODEL.json
+- docs/tasks/B13.md (corrected root/default font evidence)
+- docs/UI_BASELINE_TLM.md (B13 correction)
+- docs/ui/B13_STATIC_STYLE_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for E02.
+None known for E03.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -520,7 +554,8 @@ None known for E02.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E02 only.
-4. Recover Tk root/window creation, initial/final geometry, root visibility/topmost/icon/font/style handling, Notebook container construction and positioning behavior.
-5. Reconcile root metrics with locked Gate-B screenshots; do not treat transient startup geometry as final UI size.
-6. Persist E02 evidence/report and advance to E03 only after verification.
+3. Execute E03 only.
+4. Recover the tab-loader/create_tabs lifecycle from the original EXE.
+5. Verify tab constructor order, visible production tab order, internal key/frame maps, conditional dev/emulator/proxy tab visibility, scroll-wrapper/inner-frame construction where used, and rebuild behavior.
+6. Reconcile with Gate-B 11-tab visible order; do not force dormant/dev tabs into production UI.
+7. Persist E03 evidence/report and advance to E04 only after verification.
