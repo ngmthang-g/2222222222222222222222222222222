@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F04 — game path.
+F05 — launcher.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -743,8 +743,27 @@ F04 — game path.
 - docs/login/F03_PASSWORD_FLOW.md
 - docs/login/F03_PASSWORD_MODEL.json
 
+## F04 VERIFIED RESULTS
+- Canonical Login game executable is exactly "Thần Long  Mobile.exe" with two spaces.
+- Folder selection uses tkinter.filedialog.askdirectory; user selects a directory, not an EXE.
+- _resolve_game_dir returns (resolved_dir | None, note) and documents four recognition cases: selected direct, selected/Game, selected child-inside-Game parent recovery, and one-level child scan prioritizing names containing game.
+- Resolver strips trailing slash/backslash and reports nonexistent/not-found outcomes without requiring a hard-coded install root.
+- Invalid selection uses messagebox.showerror with title "Thư mục game không hợp lệ" and example D:\ThanLongMobile_PC\Game.
+- Success status begins "✅ Đã chọn game thành công:" and reuses/re-packs lbl_game_dir.
+- Valid path recognition enables path-dependent _profile_btns.
+- game_dir appears in both Login load-config and save-config blocks, so the resolved directory participates in persistent Login configuration.
+- _get_exe_path is the launch-facing boundary; Open Game/login/profile paths reject missing directory or missing canonical executable.
+- Profile launch receives a common exe_path plus profile_idx 1-5; no separate per-profile game-install directory contract was recovered.
+- Exact _get_exe_path revalidation microsequence, immediate config-flush timing, and launcher cwd derivation remain UNKNOWN/deferred.
+
+## F04 FILES
+- docs/tasks/F04.md
+- docs/login/F04_GAME_PATH_STATIC_EVIDENCE.tsv
+- docs/login/F04_GAME_PATH_FLOW.md
+- docs/login/F04_GAME_PATH_MODEL.json
+
 ## BLOCKERS
-None known for F04.
+None known for F05.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -758,7 +777,7 @@ None known for F04.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F04 only.
-4. Recover and document the original Login game-directory/path contract.
-5. Separate path resolution/validation from the later launcher task.
-6. Persist F04 evidence/report and advance to F05 only after verification.
+3. Execute F05 only.
+4. Recover Login launcher behavior from the original EXE: _open_game, _launch_worker, _launch_profile_worker, spawn_and_inject, working directory/environment, profile index, DLL injection result handling, window/process detection and launcher UI state.
+5. Keep account credential/click-login sequence deferred to F06 except where launcher readiness hands off to it.
+6. Persist F05 evidence/report and advance to F06 only after verification.
