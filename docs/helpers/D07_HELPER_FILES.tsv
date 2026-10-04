@@ -1,0 +1,10 @@
+path	sha256	format	static_role	runtime_privilege_or_boundary
+TLMTool.dist/emu_client.js	384ccee9a2ddf236db377fca3abd36cbc17df81a94a286551a749a3132d02db1	JavaScript/Frida 17	resident RPC memory reader inside Android game process	runs through guest frida-server
+TLMTool.dist/ld_remote.js	3bd84a2b433ee679b7a049f5aa5cba2e8725d1e09b14d5deb3f42b6bf919edfb	AutoX/Auto.js floaty UI	guest UI + HTTP command client + local/ADB config bridge	overlay permission; network to PC listener
+TLMTool.dist/forwarder.exe	7ef5dfa5026b2269bb579954bad29908a0de107fb1288f6c9d4e2325245c847d	PE32+ x64 Nuitka executable	SOCKS4/SOCKS5/HTTP CONNECT forwarder with proxy selection/runtime files	manifest requireAdministrator
+TLMTool.dist/bootstrap.exe	42c96ffe01718c9d73236040dc6c960964d79461918b53a7a1db9295beb1654c	PE32+ AutoHotkey executable	2-argument delayed file replacement for updater self-update	asInvoker
+TLMTool.dist/update.exe	71811fc915765cfdf0ac8a1b140753fc4d38d3e9050c33986cd8058b852471f0	PE32+ AutoHotkey executable	update downloader/extractor/replacer; relaunches TLMTool	asInvoker
+TLMTool.dist/tools/7z.exe	83967f1b02b43c4efeda302795722c809e0e81b8307de73558d10484d5676a7d	PE32+ x64 console	7-Zip extraction helper	child process of updater
+TLMTool.dist/ppx/ProxifierSetup.exe	db20473361892bef8a3516b7017ea414790edd12ba2ef1b41a7350375c31b4c4	PE32 x86 Delphi installer	third-party Proxifier installer	paired with Default.ppx template
+TLMTool.dist/data/resources.dat	1375240c85abb9c211c66d3e8157a6dbfbc5551aabec465375b68e5301e645d4	PE32+ x64 DLL-format/UPX	active injected game payload	loaded/injected into game process
+TLMTool.dist/version.dat	82432686f47ff4b9b7191221e0479f4f0e51624a2b97ac1e193d6a2564eaefeb	PE32+ x64 DLL-format	version.dll-compatible proxy payload	copied/used by version-proxy path
