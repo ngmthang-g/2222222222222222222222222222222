@@ -1,0 +1,42 @@
+key	offset_hex	status	evidence
+login_init_dll_check	0x2b5e6a9	VERIFIED_STATIC	Login initialization calls _check_dll_status
+dll_status_label	0x2b5e95b	VERIFIED_STATIC	lbl_dll_status
+dll_path_symbol	0x2b5fa41	VERIFIED_STATIC	DLL_PATH
+tool_dll_src_doc	0x2b5fa4c	VERIFIED_STATIC	Trả về đường dẫn DLL đã build trong APPDATA.
+captcha_not_ready	0x2b5fa97	VERIFIED_STATIC	⚠️ Vượt captcha chưa hoạt động
+captcha_ready	0x2b5fae3	VERIFIED_STATIC	✅ Hệ thống vượt captcha sẵn sàng
+dll_hash_worker	0x2b5fb34	VERIFIED_STATIC	_check_dll_hash_worker local hash worker
+dll_hash_md5	0x2b5fba7	VERIFIED_STATIC	hashlib.md5
+config_latest	0x2b5fc0e	VERIFIED_STATIC	Đã cập nhật cấu hình mới nhất
+config_update_needed	0x2b5fc51	VERIFIED_STATIC	Cần cập nhật cấu hình
+single_proxy_missing	0x2b60902	VERIFIED_STATIC	row chooses Proxy but private proxy is missing
+single_mode_doc	0x2b609e7	VERIFIED_STATIC	Tool→proxy thường; Không→direct
+private_proxy_log	0x2b60b3f	VERIFIED_STATIC	DÙNG PROXY RIÊNG
+free_proxy_log	0x2b60b8e	VERIFIED_STATIC	DÙNG PROXY FREE
+single_direct_log	0x2b60bbc	VERIFIED_STATIC	ẩn captcha=Không → direct
+captcha_mode_change_doc	0x2b615b7	VERIFIED_STATIC	Tool→⇄; Proxy→➜; Không→ẩn; user Proxy selection auto-opens editor, config load does not
+proxy_permission_denied	0x2b616cd	VERIFIED_STATIC	Không có quyền nhập proxy — kiểm tra key bản quyền
+private_proxy_popup_title	0x2b61738	VERIFIED_STATIC	Proxy riêng —
+private_proxy_input_hint	0x2b617de	VERIFIED_STATIC	protocol://user:pass@ip:port or user:pass:ip:port
+private_proxy_popup_doc	0x2b61986	VERIFIED_STATIC	private proxy popup stores row['proxy'] and writes pinned
+mode_change_save	0x2b615a6	VERIFIED_STATIC	_schedule_save
+multi_proxy_missing	0x2b64070	VERIFIED_STATIC	Proxy selected but missing value → skip account
+multi_direct_log	0x2b641ae	VERIFIED_STATIC	Ẩn captcha=Không → direct
+multi_login_doc	0x2b63cdb	VERIFIED_STATIC	multi-account launch/login flow surrounding per-row mode routing
+legacy_proxy_mode_key	0x2b670b0	VERIFIED_STATIC	proxy_mode
+legacy_proxy_none	0x2b670bc	VERIFIED_STATIC	none
+legacy_proxy_free	0x2b670ca	VERIFIED_STATIC	free
+legacy_proxy_private	0x2b670d0	VERIFIED_STATIC	private
+legacy_captcha_khong	0x2b670ec	VERIFIED_STATIC	Không
+legacy_captcha_co	0x2b670f4	VERIFIED_STATIC	Có
+current_captcha_tool	0x2b670f9	VERIFIED_STATIC	Tool
+current_captcha_proxy	0x2b670ff	VERIFIED_STATIC	Proxy
+captcha_mode_key	0x2b67123	VERIFIED_STATIC	captcha_mode
+proxy_env_key	0x2b67131	VERIFIED_STATIC	proxy_env
+start_config_source_dat	0x2bfc36c	CROSS_EVIDENCE	version.dat
+start_config_source_dll	0x2bfc379	CROSS_EVIDENCE	version.dll
+start_config_copy	0x2bfcb36	CROSS_EVIDENCE	shutil.copy2 in Start configuration updater
+hard_dll_mode_gate	-	NOT_RECOVERED	no direct evidence red readiness status disables/re-writes per-row captcha mode
+external_captcha_solver_api	-	NOT_RECOVERED	no Login-owned captcha-service URL/requests/OCR/2captcha/selenium surface recovered
+legacy_co_mapping	-	EXPLICIT_UNKNOWN	exact Có→current-mode migration expression not source-visible
+legacy_proxy_mode_mapping	-	EXPLICIT_UNKNOWN	exact legacy none/free/private migration/effect on current row fields not source-visible
