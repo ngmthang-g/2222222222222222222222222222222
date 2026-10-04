@@ -1,0 +1,44 @@
+key	offset_hex	status	evidence
+ui_auto_reconnect_var	0x293b77a	VERIFIED_STATIC	auto_reconnect_var
+config_auto_reconnect	0x2942d12	VERIFIED_STATIC	auto_reconnect
+config_auto_reconnect_load	0x2942f56	VERIFIED_STATIC	auto_reconnect Boolean load surface
+config_auto_reconnect_default	0x2942f4f	VERIFIED_STATIC	serialized False fallback in load block
+monitor_qualname	0x2943ccb	VERIFIED_STATIC	FarmTab._disconnect_monitor
+monitor_locals	0x2944a07	VERIFIED_STATIC	self/row/stop_event/reconnect_ok/halt/hwnd/win32gui/check_pixel/stop_character/wait_pixel/click_at/gen_snap/dc_strikes/conn/dc1/dc2/retry/_d1/_d2/invalidate_character_cache/_get_pid_from_hwnd
+monitor_doc	0x2941c03	VERIFIED_STATIC	2s watchdog, memory veto + dual-pixel 3-strike, guarded reconnect click, common.active 30s/attempt, infinite retry policy
+connected_helper	0x2941a8c	VERIFIED_STATIC	is_connected
+shared_connected_doc	0x2b70e50	VERIFIED_SHARED_STATIC	TCPGame.Instance.tcpClient.Connected; True connected / False disconnected / None read error
+pixel1_key	0x2b97ba8	VERIFIED_PIXEL_STATIC	login.ngatKetNoi1
+pixel1_cfg	0x2b97cf9	VERIFIED_PIXEL_STATIC	region=(640,244), color=(160,145,52), timeout=5, tolerance=False/0
+pixel2_key	0x2b97bb5	VERIFIED_PIXEL_STATIC	login.ngatKetNoi2
+pixel2_cfg	0x2b97d33	VERIFIED_PIXEL_STATIC	region=(702,453), color=(212,28,34), timeout=5, tolerance=False/0
+strike_local	0x2941ad5	VERIFIED_STATIC	dc_strikes
+halt_log	0x2941ae1	VERIFIED_STATIC	MAT KET NOI (dialog 3/3) -> dung farm loop, ket noi lai
+retry_prefix	0x2941b1b	VERIFIED_STATIC	thu ket noi lai (lan
+retry_denominator	0x2941b33	VERIFIED_STATIC	/5)...
+reconnect_click	0x2941b3b	VERIFIED_STATIC	(616,455)
+dialog_missing_log	0x2941b43	VERIFIED_STATIC	khong thay dialog -> bo click, cho active
+wait_pixel_kw	0x2941b6f	VERIFIED_STATIC	window_hwnd/timeout/interval/debug keyword surface
+success_log	0x2941ba0	VERIFIED_STATIC	ket noi lai THANH CONG
+batch_fail_log	0x2941bb9	VERIFIED_STATIC	chua ket noi lai duoc -> thu lai sau 30s
+batch_fail_delay	0x2941be4	VERIFIED_STATIC	integer 30
+monitor_error_log	0x2941be8	VERIFIED_STATIC	disconnect monitor loi:
+common_active_key	0x2b97de4	VERIFIED_PIXEL_STATIC	common.active
+common_active_cfg	0x2b97e72	VERIFIED_PIXEL_STATIC	region=(1330,33), color=(34,8,11), default timeout=100, tolerance=5
+farm_halt	0x29417e6	VERIFIED_STATIC	halt
+farm_wait_state	0x29417ec	VERIFIED_STATIC	Cho ket noi lai
+farm_reconnect_ok	0x2941805	VERIFIED_STATIC	reconnect_ok
+farm_wait_memory_ready	0x2941820	VERIFIED_STATIC	wait_memory_ready
+farm_memory_timeout	0x2941848	VERIFIED_STATIC	45.0
+farm_memory_need	0x2941851	VERIFIED_STATIC	3
+cache_invalidate_local	0x2944ab4	VERIFIED_STATIC	invalidate_character_cache in disconnect monitor locals
+cache_pid_local	0x2944ad0	VERIFIED_STATIC	_get_pid_from_hwnd in disconnect monitor locals
+cache_doc	0x2c4e864	VERIFIED_SHARED_STATIC	Xoa Reader cache cua pid — goi ngay khi reconnect thanh cong
+memory_ready_doc	0x2c4ea66	VERIFIED_SHARED_STATIC	RoleName clear + MapID non-None, consecutive need reads, invalidate each sample, timeout fail-open
+ensure_injected_qualname	0x2943861	VERIFIED_STATIC	FarmTab._ensure_injected
+ensure_injected_doc	0x293e0c6	VERIFIED_STATIC	Inject resources.dat if not already loaded; double-inject guard
+direct_post_reconnect_reinject_edge	-	EXPLICIT_UNKNOWN	No direct _ensure_injected edge proven in readable reconnect constants
+auto_reconnect_gate_location	-	EXPLICIT_UNKNOWN	Semantic option verified; exact caller-vs-monitor gate placement not source-visible
+reconnect_ok_wait_quantum	-	EXPLICIT_UNKNOWN	Event wait timeout keyword present; numeric poll quantum not safely bound
+wait_pixel_interval_debug	-	EXPLICIT_UNKNOWN	Reconnect call exposes keywords but exact values not safely bound
+same_tick_death_disconnect_order	-	EXPLICIT_UNKNOWN	Once halt is set reconnect interrupts hard_stop work; pre-halt same-tick order not recovered
