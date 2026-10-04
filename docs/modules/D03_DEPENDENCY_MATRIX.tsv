@@ -1,0 +1,24 @@
+family	presence	version	version_status	version_evidence	direct_tlm_sources	usage_status	notes
+requests	YES	2.34.2	VERSION_EXACT	EXE 0x2bda6f5	1	DIRECT_TLM_REFERENCE	rao_tab
+urllib3	YES	2.7.0	VERSION_EXACT	EXE 0x2c243b2	1	DIRECT_TLM_REFERENCE	train_lsv_tab
+Pillow/PIL	YES	12.3.0	VERSION_EXACT	EXE 0x28cece8	1	DIRECT_TLM_REFERENCE	emu_farm_tab; 7 native PYD
+cryptography	YES	49.0.0	VERSION_EXACT	EXE 0x28d8b45	0	BUNDLED_TRANSITIVE	_rust.pyd bundled
+idna	YES	3.18	VERSION_EXACT	EXE 0x295f6ef	0	BUNDLED_TRANSITIVE	UTS46 data version 17.0.0 is separate
+certifi	YES	2026.06.17	VERSION_EXACT	EXE 0x28d77be	0	BUNDLED_TRANSITIVE	CA bundle support
+PyAutoGUI	YES	0.9.54	VERSION_EXACT	EXE 0x2bb831f	1	DIRECT_TLM_REFERENCE	debug_logger
+pyperclip	YES	1.11.0	VERSION_EXACT	EXE 0x2bcc73a	2	DIRECT_TLM_REFERENCE	debug_logger; debug_tab
+PyScreeze	YES	1.0.1	VERSION_EXACT	EXE 0x2bd1870	0	BUNDLED_TRANSITIVE	PyAutoGUI chain
+PyTweening	YES	1.2.0	VERSION_EXACT	EXE 0x2bd731f	0	BUNDLED_TRANSITIVE	PyAutoGUI chain
+PyMsgBox	YES	1.0.9	VERSION_EXACT	EXE 0x2bbd113	0	BUNDLED_TRANSITIVE	PyAutoGUI chain
+PyGetWindow	YES	0.0.9	VERSION_EXACT	EXE 0x2bbb871	0	BUNDLED_TRANSITIVE	PyAutoGUI chain
+six	YES	1.17.0	VERSION_EXACT	EXE 0x2bf5db2	0	BUNDLED_TRANSITIVE	compat dependency
+MouseInfo	YES	0.1.3	VERSION_LITERAL_ONLY	EXE 0x2b7c672	0	BUNDLED_TRANSITIVE	no adjacent __version__ recovered
+frida	YES	UNKNOWN	UNKNOWN	module + _frida.pyd	2	DIRECT_TLM_REFERENCE	emu_input; forwarder
+psutil	YES	UNKNOWN	UNKNOWN	module + _psutil_windows.pyd	11	DIRECT_TLM_REFERENCE	process/system inspection
+pynput	YES	UNKNOWN	UNKNOWN	compiled Python modules	3	DIRECT_TLM_REFERENCE	input listeners
+keyboard	YES	UNKNOWN	UNKNOWN	compiled Python module	7	DIRECT_TLM_REFERENCE	hotkey/input logic
+mouse	YES	UNKNOWN	UNKNOWN	compiled Python module	14	DIRECT_TLM_REFERENCE	mouse/input logic
+typing_extensions	YES	UNKNOWN	UNKNOWN	compiled Python refs	2	DIRECT_TLM_REFERENCE	forwarder; train_lsv_tab
+pywin32	YES	3.10.312.0	PE_FILE_PRODUCT_VERSION	pythoncom310.dll etc.	MULTI	DIRECT_TLM_REFERENCE	win32con/api/gui/process/ui
+Brotli	YES	UNKNOWN	UNKNOWN	_brotli.pyd	0	BUNDLED_TRANSITIVE	native extension
+cffi	YES	UNKNOWN	UNKNOWN	_cffi_backend.pyd	0	BUNDLED_TRANSITIVE	native extension
