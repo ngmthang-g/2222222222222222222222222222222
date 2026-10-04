@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F01 — Login UI reconstruction.
+F02 — account storage.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -687,8 +687,31 @@ F01 — Login UI reconstruction.
 - E01–E10 COMPLETE / VERIFIED for static core/lifecycle evidence.
 - Explicit unknowns remain localized and move to later feature/runtime parity gates.
 
+## F01 VERIFIED RESULTS
+- Re-opened the exact user archive and inner TLMTool.exe before using Login screenshot evidence.
+- Current Login screenshot hash matches the Gate-B B03 baseline exactly.
+- Original EXE resolves all three Login group widgets as Tk LabelFrame using Bold.TLabelframe.
+- Game group controls, conditional game-path/captcha-status labels, schedule Checkbutton/readonly Combobox/radio widgets, account Canvas+Scrollbar structure and bottom Bắt đầu button were recovered.
+- Exact after-login source labels/internal values are Chờ/wait, Party/party, Train/train, Train LSV/train_lsv, Dồn vàng/don.
+- B03 screenshot transcription `Đồn văn` was corrected: source label is `Dồn vàng`; right-edge raster clipping hid/misled the final glyph.
+- Header selector is a custom check-glyph Button calling _toggle_all_checks, not an unknown native checkbox.
+- Account rows use custom selector Button + account/password Entry + readonly captcha Combobox + Login Button + proxy/reload Button.
+- Captcha modes are Không / Tool / Proxy; proxy action is Tool→⇄, Proxy→➜, Không→blank gray disabled.
+- Logical account-row capacity is exactly 100. Plan updates may hide/restore rows through _hidden_rows/apply_account_row_limit.
+- Locked screenshot geometry remains authoritative: 17 full rows + partial 18th visible in the viewport, row pitch 35 px, bottom Bắt đầu 410×30.
+- Hidden/conditional lbl_dll_status, lbl_sched_countdown, lbl_proxifier_status and _profile_btns are not assigned invented pixels.
+
+## F01 FILES
+- docs/tasks/F01.md
+- docs/login/F01_LOGIN_UI_STATIC_EVIDENCE.tsv
+- docs/login/F01_LOGIN_UI_GEOMETRY.tsv
+- docs/login/F01_LOGIN_UI_MODEL.json
+- docs/tasks/B03.md (F01 supplement/correction)
+- docs/ui/B03_LOGIN_DEFAULTS.json (resolved screenshot-only unknowns)
+- docs/UI_BASELINE_TLM.md (F01 Login supplement)
+
 ## BLOCKERS
-None known for F01.
+None known for F02.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -702,7 +725,7 @@ None known for F01.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F01 only.
-4. Reconstruct/verify Login-tab UI from original EXE first and Gate-B Login screenshot second.
-5. Recover visible groups, labels, controls, account-table columns/row structure, scrollbar, schedule controls, bottom Start button, and static hidden/conditional widgets without inventing unseen pixels.
-6. Persist F01 evidence/report and advance to F02 only after verification.
+3. Execute F02 only.
+4. Recover Login account storage from the original EXE: settings keys/serialization, fixed 100-row cache, hidden-row interaction, load/save lifecycle, online-state JSON vs persistent account data, and field ordering.
+5. Keep password display/security semantics deferred to F03 except where F02 needs the stored field shape.
+6. Persist F02 evidence/report and advance to F03 only after verification.
