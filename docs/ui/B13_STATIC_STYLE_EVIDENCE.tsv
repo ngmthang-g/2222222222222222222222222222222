@@ -20,3 +20,4 @@ SeaGreen	43129396	6 occurrences	add-button family matching #2E8B57 raster
 #888888	45605202	6 occurrences	secondary gray static text/state
 #f44336	42799594	39 occurrences	stop/sync red family
 #ff9800	42828807	3 occurrences	CPU warning overlay family
+root default font size 9	0x28d0b4d	VERIFIED_STATIC	serialized tuple (Segoe UI, 9) in TLMMainApp; applied via option_add *Font
