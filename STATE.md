@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G06 — Party sync-keyboard relationship audit.
+G07 — Party sync-mouse relationship audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1070,17 +1070,37 @@ G06 — Party sync-keyboard relationship audit.
 - docs/party/G05_PARTY_PREVIEW_FLOW.md
 - docs/party/G05_PARTY_PREVIEW_MODEL.json
 
+## G06 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; G01–G05 were already complete and no G06 artifact existed, so completed work was not repeated.
+- Rechecked the exact frozen archive/EXE first: archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Static scan of the frozen Party implementation range found zero Party keyboard-sync ownership surfaces: no `keyboard`, `pynput`, `keyboard.Listener`, `_on_master_key_press`, `_on_master_key_release`, `input_active`, `_toggle_input`, `_sync_keepalive`, `_sync_locked`, `WM_MY_SYNC_KEY`, `GetForegroundWindow` or keyboard `vk` forwarding state.
+- No Party call/reference to Start `_toggle_input` or Start `input_active` was recovered. Party start/stop/group-leader changes therefore do not directly control Start keyboard synchronization.
+- C19 remains authoritative for shared keyboard sync: Start master HWND → `keyboard.Listener` → press/release handlers → virtual-key path → `WM_MY_SYNC_KEY` to Start-managed slaves.
+- G04's boundary remains intact: Party leader is not Start master. G06 found no keyboard-side assignment that changes this.
+- Party's direct input/action surface is separate: `mouse` is present for shared identity/action infrastructure; `click_at` is present around `0x2b7f0db` / `0x2b7f0e5`, plus check-pixel/resize helpers. These are direct Party target actions, not keyboard event synchronization.
+- Party range contains no `press_at`, `send_key`, `send_keyboard`, `PostMessage`, `SendMessage` or `SendInput` Party-owned keyboard-send path.
+- No Party edge passes a group member HWND list into Start keyboard-sync slave selection. Party group membership must not be treated as the Start keyboard slave set.
+- Start mode/master/max-window input-sync rules from C19/C08 remain unchanged and are not overridden by Party.
+- B04 contains no Party keyboard-sync control; no Party UI baseline change was required.
+- G06 closes the original PLAN's Party `sync keyboard` item with a negative ownership result: keyboard synchronization remains entirely in the shared Start/input subsystem.
+
+## G06 FILES
+- docs/tasks/G06.md
+- docs/party/G06_PARTY_KEYBOARD_SYNC_STATIC_EVIDENCE.tsv
+- docs/party/G06_PARTY_KEYBOARD_SYNC_FLOW.md
+- docs/party/G06_PARTY_KEYBOARD_SYNC_MODEL.json
+
 ## BLOCKERS
-None known for G06.
+None known for G07.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Preserve G01–G05 Party boundaries: UI ownership, HWND/PID identity, RoleName/RoleID/TeamID separation, no Party grid arranger, no Party preview ownership.
+- Preserve G01–G06 Party boundaries: UI ownership, HWND/PID identity, RoleName/RoleID/TeamID separation, no Party grid arranger, no Party preview ownership, no Party keyboard-sync ownership.
 - Do not add a Party-local EnumWindows scanner.
-- Do not duplicate Start physical layout or preview/DWM systems inside PartyTab.
-- Do not derive Party group order from Start preview order.
+- Do not duplicate Start physical layout, preview/DWM or keyboard-sync systems inside PartyTab.
+- Do not derive Party group order or keyboard targets from Start preview/layout state.
 - Do not equate Party leader with Start master HWND without direct new evidence.
 - Preserve the leader create-team 1366×768 resize precondition; do not globalize it.
 - Do not merge RoleName display identity with RoleID action identity.
@@ -1095,11 +1115,11 @@ None known for G06.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any G06 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute G06 only if still pending.
+3. Check GitHub first for any G07 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute G07 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Party's relationship to keyboard synchronization without redoing the Start/window input-sync tasks: search PartyTab for keyboard sync state, keyboard hooks/listeners, key-event forwarding, Start `_toggle_input` / sync references, and any Party-owned key broadcasting.
-7. Distinguish Party direct background UI clicks/actions from synchronized keyboard input.
-8. If Party has no keyboard-sync ownership or call edge, record the negative result explicitly and keep ownership in the shared Start/input subsystem.
-9. Do not infer keyboard sync from Party group size or shared HWND lists.
-10. Persist G06 evidence/report, update STATE.md, and advance to the next original PLAN item only after verification.
+6. Audit Party's relationship to mouse synchronization without redoing C19: search PartyTab for mouse Listener/master event handlers, move/scroll/click broadcast workers, Start `_toggle_input`/input sync references, coordinate-scaling/sync-slave calls, and any Party-owned mouse broadcasting.
+7. Separate Party direct `click_at`/check-pixel action helpers from Start synchronized mouse input.
+8. Determine whether Party group/leader HWNDs are ever passed into Start mouse-sync source/target selection. If no edge exists, record the negative result explicitly.
+9. Do not infer mouse-sync targets from Party group size/member order.
+10. Persist G07 evidence/report, update STATE.md, and advance to the next original PLAN item only after verification.
