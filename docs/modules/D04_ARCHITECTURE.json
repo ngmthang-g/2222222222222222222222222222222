@@ -1,0 +1,93 @@
+{
+  "task": "D04",
+  "status": "VERIFIED_LAYERED_GRAPH_WITH_CONTEXTUAL_EDGE_TIERS",
+  "base_graph": {
+    "edges": 132,
+    "sources": 31,
+    "distinct_targets": 36,
+    "relation_status": "STATIC_REFERENCE_NOT_IMPORT_PROOF"
+  },
+  "top_incoming": {
+    "info_tab": 18,
+    "utils": 18,
+    "pixel": 9,
+    "start_tab": 8,
+    "dll_injector": 8,
+    "permission_guard": 7,
+    "emu_reader": 6,
+    "memory_items": 5,
+    "bag_filter": 5
+  },
+  "top_outgoing": {
+    "party_tab": 12,
+    "don_logic": 11,
+    "farm_data": 11,
+    "debug_logger": 9,
+    "local_token_secret": 9,
+    "toiuu_tab": 9,
+    "phoban_dungeons": 8
+  },
+  "layers": {
+    "shell_orchestration": [
+      "start_tab",
+      "party_tab",
+      "login_tab",
+      "info_tab",
+      "splash"
+    ],
+    "feature_automation": [
+      "farm_tab",
+      "farm_data",
+      "train_lsv_tab",
+      "daily_tab",
+      "donvang_tab",
+      "don_logic",
+      "phoban_tab",
+      "phoban_dungeons",
+      "rao_tab",
+      "toiuu_tab",
+      "proxy_tab"
+    ],
+    "low_level_game_integration": [
+      "memory_reader",
+      "memory_items",
+      "dll_injector",
+      "pixel",
+      "pixel_data",
+      "coordinate_utils",
+      "fast_travel",
+      "forwarder"
+    ],
+    "guard_metadata_support": [
+      "utils",
+      "permission_guard",
+      "item_meta_data",
+      "weapon_ids",
+      "local_token_secret",
+      "bag_filter"
+    ],
+    "emulator": [
+      "emu_input",
+      "emu_reader",
+      "emu_remote",
+      "emu_setup",
+      "emu_chat",
+      "emu_farm_tab",
+      "debug_android_tab"
+    ]
+  },
+  "contextual_edges_added_beyond_base": [
+    "start_tab->farm_tab",
+    "party_tab->permission_guard",
+    "login_tab->memory_items"
+  ],
+  "filename_only_sources": [
+    "TLMTool",
+    "bag_filter",
+    "emu_reader",
+    "pixel",
+    "proxy_refresh"
+  ],
+  "exact_import_syntax": "UNKNOWN",
+  "next_task": "D05 — strings theo module"
+}
