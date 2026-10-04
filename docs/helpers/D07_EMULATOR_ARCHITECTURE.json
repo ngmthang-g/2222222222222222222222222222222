@@ -1,0 +1,70 @@
+{
+  "task": "D07",
+  "status": "VERIFIED_STATIC_HELPER_PROTOCOL_WITH_RUNTIME_EXECUTION_DEFERRED",
+  "emulator": {
+    "memory_path": [
+      "PC emu_reader",
+      "guest frida-server",
+      "emu_client.js",
+      "rpc.exports",
+      "Android game memory"
+    ],
+    "remote_ui_path": [
+      "ld_remote.js",
+      "HTTP JSON",
+      "PC emu_remote listener",
+      "emu_input/emu_reader/emu_manager"
+    ],
+    "listener": {
+      "bind": "0.0.0.0",
+      "default_port": 8765,
+      "default_token": "tlm",
+      "server": "ThreadingHTTPServer"
+    },
+    "identity": "guest IPv4 preferred because LDPlayer clones may share serial/android_id",
+    "adb_state_file": "/sdcard/TLM/tlm_<aid8>.json",
+    "frida_rpc": [
+      "ping",
+      "setBase",
+      "readAll",
+      "validate",
+      "scanRoleId",
+      "scanShape",
+      "bagSlots"
+    ],
+    "overlay_endpoints": [
+      "GET /ping",
+      "GET /maps",
+      "GET /emu_coords?aid=...",
+      "GET /emu_config",
+      "POST /emu_steps",
+      "POST /emu_act",
+      "POST /emu_farm_toggle"
+    ],
+    "server_additional_endpoints": [
+      "GET /emu_status?aid=...",
+      "GET /emu_heal_presets",
+      "POST /emu_goto",
+      "POST /emu_save_coord",
+      "POST /emu_del_coord",
+      "POST /emu_config"
+    ]
+  },
+  "helpers": {
+    "forwarder": "local proxy forwarder; SOCKS4/SOCKS5/HTTP CONNECT; separate process/state files",
+    "bootstrap": "AutoHotkey delayed file replacer used for updater self-replacement",
+    "update": "AutoHotkey updater using Pixeldrain/Google Drive + 7z + bootstrap; relaunches TLMTool",
+    "proxifier": "third-party installer paired with Default.ppx",
+    "sevenzip": "bundled archive extractor",
+    "resources_dat": "active injected x64 DLL-format payload",
+    "version_dat": "version.dll-compatible proxy payload"
+  },
+  "deferred_runtime": [
+    "live Frida attach/injection",
+    "AutoX overlay permission/runtime",
+    "network/firewall route parity",
+    "forwarder timing/throughput",
+    "endpoint exercise coverage"
+  ],
+  "next_task": "D08 — module architecture diagram"
+}
