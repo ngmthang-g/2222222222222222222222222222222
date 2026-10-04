@@ -1,0 +1,33 @@
+owner	state_or_api	status	role
+TLMMainApp	root	VERIFIED_STATIC	Tk root reference
+TLMMainApp	notebook	VERIFIED_STATIC	main ttk.Notebook
+TLMMainApp	_tab_frames	VERIFIED_STATIC	Notebook frame map
+TLMMainApp	_tab_inner	VERIFIED_STATIC	inner content-frame map
+TLMMainApp	_tab_keys	VERIFIED_STATIC	tab identity/key map
+TLMMainApp	_callback_ready	VERIFIED_STATIC	callback readiness state
+TLMMainApp	_current_tab	VERIFIED_STATIC	selected/current tab tracking
+TLMMainApp	_perm_state	VERIFIED_STATIC	last applied permission/UI snapshot
+TLMMainApp	_prev_limit_state	VERIFIED_STATIC	last applied account/window-limit snapshot
+TLMMainApp	cpu_monitor	VERIFIED_STATIC	shell-owned CPU monitor instance
+TLMMainApp	start_tab	VERIFIED_STATIC	StartTab instance reference
+TLMMainApp	*_tab_ref	VERIFIED_STATIC	cross-tab reference wiring
+permission_guard	update_permissions_from_payload	VERIFIED_STATIC	normalize server permission payload
+permission_guard	get_plan_status	VERIFIED_STATIC	shared plan state query
+permission_guard	has_permission	VERIFIED_STATIC	feature permission decision
+permission_guard	has_permission_with_limit	VERIFIED_STATIC	permission plus account/window limit decision
+permission_guard	check_account_limit	VERIFIED_STATIC	shared running-count/limit decision
+permission_guard	is_version_locked	VERIFIED_STATIC	version-lock decision
+permission_guard	is_plan_banned	VERIFIED_STATIC	plan-ban decision
+permission_guard	set_block_notifier	VERIFIED_STATIC	worker/service → GUI notification callback bridge
+permission_guard	permissions/plan_tabs/plan_status/plan_name/plan_cfg	VERIFIED_STATIC	decoded normalized permission/plan fields
+permission_guard	max_windows/running counts	VERIFIED_STATIC	account/window limit fields
+TLMInfoTab	new_version_info	VERIFIED_STATIC	server version/plan/window-limit payload
+TLMInfoTab	server_info	VERIFIED_STATIC	server state
+TLMInfoTab	license_expires_on/current_license_type/license_key	VERIFIED_STATIC	license state
+TLMInfoTab	session_id	VERIFIED_STATIC	server heartbeat/session state
+TLMInfoTab	_heartbeat_running/_heartbeat_after_id/_heartbeat_interval_ms/_in_heartbeat	VERIFIED_STATIC	heartbeat worker/Tk scheduling state
+TLMStartTab	master HWND / caches / preview order / grid / sync / detached state	VERIFIED_PRIOR	multi-window runtime ownership from Gate C
+feature tabs	FSM/account/schedule/runtime state	VERIFIED_ARCHITECTURE	per-feature ownership; not shell-global
+persistent files	settings.ini/config.ini/login/forwarder/proxy/guest JSON	VERIFIED_PRIOR	file-backed state from D06
+permission_guard internals	all private backing globals	PARTIAL	public/shared API and payload fields proven; every private assignment not source-decompiled
+heartbeat mutation order	all field updates	EXPLICIT_UNKNOWN	exact mutation sequence not fully source-visible
