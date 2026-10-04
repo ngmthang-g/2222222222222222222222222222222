@@ -1,0 +1,34 @@
+name_or_pattern	location_scope	evidence_offset_hex	consumer_context	role	persistence
+settings.ini	%APPDATA%/TLMTool	0x2bfdc65	Start settings load/save; grid_cols/grid_rows/detached settings	shared feature/settings INI	PERSISTENT
+settings.ini	shared helper	0x2c4cf2e	RawConfigParser safe read; duplicate keys last-wins	generic settings reader	PERSISTENT
+settings.ini	shared helper	0x2c4d061	atomic temp-file + os.replace write	generic settings writer	PERSISTENT
+config.ini	alongside InfoTab/script/binary context	0x297094f	TLMInfoTab._get_config_path / load/save	Info/license/server config	PERSISTENT
+config.ini	%APPDATA%/TLMTool	0x2c4cdc1	central CONFIG_PATH load helper	central shared config	PERSISTENT
+config.ini	%APPDATA%/TLMTool	0x2c4cebd	central CONFIG_PATH save helper	central shared config	PERSISTENT
+login_online.json	TLMTool runtime data path	0x2b6758f	LoginTab ONLINE_STATE_PATH	tracking currently-online/login state	PERSISTENT_RUNTIME
+login_online.json	LoginTab scheduler	0x2b62d49	JSON dump tracking state	login tracking state	PERSISTENT_RUNTIME
+last_login_times.json	LoginTab runtime	0x2b65a32	login schedule/history	last-login timestamps	PERSISTENT_RUNTIME
+forwarder_mode.txt	tool/runtime dir	0x2949aba	forwarder	proxy/direct mode	PERSISTENT_RUNTIME
+forwarder_idx.txt	tool/runtime dir	0x2949ad0	forwarder/login	selected proxy index	PERSISTENT_RUNTIME
+forwarder_stats.json	tool/runtime dir	0x2949ae5	forwarder/login	forwarder stats/status	PERSISTENT_RUNTIME
+forwarder_pid.txt	tool/runtime dir	0x2949afd	forwarder/login	forwarder process id	PERSISTENT_RUNTIME
+forwarder_advance.txt	tool/runtime dir	0x2949b12	forwarder/login	advance/rotation coordination	PERSISTENT_RUNTIME
+forwarder_targets.txt	tool/runtime dir	0x2949b29	fast_travel/forwarder	preferred target proxies	PERSISTENT_RUNTIME
+forwarder_pinned_proxy.txt	tool/runtime dir	0x2949b42	fast_travel/login	pinned proxy selection	PERSISTENT_RUNTIME
+forwarder_force_direct.txt	tool/runtime dir	0x2949b5e	forwarder	force-direct flag	PERSISTENT_RUNTIME
+proxy_alloc.txt	tool/runtime dir	0x2949b7a	forwarder cross-process allocation	proxy allocation state	PERSISTENT_RUNTIME
+proxy_alloc.lock	tool/runtime dir	0x2949bfb	forwarder file lock	cross-process lock	TRANSIENT
+proxy_bad.txt	tool/runtime dir	0x2949b8b	forwarder	bad proxy list	PERSISTENT_RUNTIME
+proxy_working.txt	distribution/runtime dir	0x2949aa5	forwarder/proxy/login	working proxy pool	PERSISTENT
+proxy_last_refresh.txt	proxy runtime dir	0x2b99b8e	proxy refresh logic	last proxy refresh timestamp/state	PERSISTENT_RUNTIME
+forwarder_pid_2.txt	multi-instance runtime	0x2b65206	LoginTab multi-instance	per-instance PID	PERSISTENT_RUNTIME
+forwarder_mode_2.txt	multi-instance runtime	0x2b652f8	LoginTab multi-instance	per-instance mode	PERSISTENT_RUNTIME
+forwarder_pinned_proxy_2.txt	multi-instance runtime	0x2b654dd	LoginTab multi-instance	per-instance pinned proxy	PERSISTENT_RUNTIME
+forwarder_idx*.txt	multi-instance runtime	0x2b657fa	LoginTab	per-instance proxy index family	PERSISTENT_RUNTIME
+/sdcard/TLM/tlm_*.json	Android guest	0x2933d28	emu_input via ADB	emulator overlay/config JSON	PERSISTENT_GUEST
+tlm_memory.log	tool/runtime log	0x2b7577b	memory_items	memory diagnostic log	LOG
+log/tlmtool.log	tool log dir	0x297313b	debug logging	central session log	LOG
+automove_log.txt	distribution data dir	0x2c05bb8	Toiuu tick watchdog	injected automove/perf log	LOG
+Default.ppx	distribution ppx dir	0x2b600ca	proxy/proxifier setup	Proxifier XML profile	IMMUTABLE_TEMPLATE
+resources.dat	distribution data dir	0x2919013	dll_injector get_default_dll_path	active injected payload PE	IMMUTABLE_PAYLOAD
+version.dat	distribution root	0x2bfc36c	Start version-proxy handling	version.dll-compatible PE proxy	IMMUTABLE_PAYLOAD
