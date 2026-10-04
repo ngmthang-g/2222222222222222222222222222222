@@ -214,5 +214,57 @@ Explicit unknown:
 
 ---
 
-## C05
-TODO — cửa sổ chính.
+## C05 — cửa sổ chính / master HWND
+
+```text
+Danh sách game HWND
+↓
+TLMStartTab._update_master_combobox
+↓
+character-info cache → label Radiobutton
++ fallback "Cửa sổ ..."
+↓
+_hwnd_by_name[label] → HWND
+↓
+user chọn radio / automatic init path
+↓
+hwnd_master
+↓
+HWND affected: master = source/priority window; mọi HWND khác = follower/slave
+↓
+layout:
+  - stack/offset: master index 0
+  - grid: master top-left/index 0
+  - auto tile: master first
+↓
+sync:
+  - mouse/keyboard events originate from master
+  - coordinates transformed toward slave client sizes
+↓
+kết quả: một HWND được dùng làm cửa sổ chính runtime
+```
+
+Manual master change:
+- log `[MASTER] Đã chọn cửa sổ chính: ... (hwnd=...)`
+- if input sync is active, original automatically stops it and unlocks all slaves
+- user must enable input sync again after selecting a new master
+
+Candidate UI:
+- dynamic Radiobuttons
+- rebuild only when HWND list changes
+- `_master_hwnd_cache`, `_master_var`, `_hwnd_by_name`
+- labels use character-info cache with a `Cửa sổ ...` fallback
+
+Runtime/persistence:
+- Start settings block persists grid/detached settings, not a master HWND key
+- `_master_initial_selected` and `_auto_master_and_sync` prove automatic initialization exists
+- exact automatic selection rule remains UNKNOWN
+- exact stale-master replacement/clear rule remains UNKNOWN
+
+Safety:
+- watchdog unlocks slave input blocks after master close/change/exit.
+
+---
+
+## C06
+TODO — bố trí nhiều cửa sổ.

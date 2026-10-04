@@ -1,0 +1,40 @@
+{
+  "task": "C05",
+  "status": "VERIFIED_WITH_EXPLICIT_UNKNOWNS",
+  "master": {
+    "runtime_value": "hwnd_master",
+    "previous_value_state": "_prev_hwnd_master",
+    "ui_variable": "_master_var",
+    "candidate_cache": "_master_hwnd_cache",
+    "label_to_hwnd_map": "_hwnd_by_name",
+    "ui_control": "dynamic Radiobutton list",
+    "candidate_labels_use_character_info_cache": true,
+    "fallback_label_prefix": "Cửa sổ ",
+    "full_fallback_label_format": "UNKNOWN"
+  },
+  "selection": {
+    "manual_callback": "_on_master_change",
+    "change_log_present": true,
+    "auto_initialization_helper": "_auto_master_and_sync",
+    "initial_selection_state": "_master_initial_selected",
+    "exact_automatic_selection_rule": "UNKNOWN",
+    "exact_stale_master_fallback": "UNKNOWN"
+  },
+  "change_safety": {
+    "input_sync_auto_disabled_on_manual_master_change": true,
+    "slaves_unlocked": true,
+    "user_must_reenable_input_sync": true,
+    "layout_sync_auto_disabled_on_master_change": "NOT_PROVEN"
+  },
+  "roles": {
+    "stack_offset_position": 0,
+    "grid_position": "index 0 / top-left",
+    "auto_tile_position": "first",
+    "input_sync_source": true,
+    "other_windows_are_slave_targets": true
+  },
+  "persistence": {
+    "master_key_in_recovered_start_settings": false,
+    "classification": "runtime-derived"
+  }
+}

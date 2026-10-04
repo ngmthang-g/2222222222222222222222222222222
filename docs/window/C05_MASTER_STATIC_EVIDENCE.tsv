@@ -1,0 +1,37 @@
+KEY	OFFSET_DEC	STATUS	EVIDENCE
+state_hwnd_master	46110090	VERIFIED_STATIC	hwnd_master
+state_prev_master	46110103	VERIFIED_STATIC	_prev_hwnd_master
+state_master_var	46110145	VERIFIED_STATIC	_master_var
+init_auto_master_sync	46111352	VERIFIED_STATIC	_auto_master_and_sync referenced during initialization
+ui_master_label	46112530	VERIFIED_STATIC	Cửa sổ chính:
+ui_master_radio_frame	46112584	VERIFIED_STATIC	_master_radio_frame
+move_master_first_doc	46118205	VERIFIED_STATIC	master always first/index 0 in move_windows_offset
+auto_tile_master_first_doc	46121583	VERIFIED_STATIC	master always first in auto tile
+master_hwnd_cache	46124057	VERIFIED_STATIC	_master_hwnd_cache
+master_ci_cache	46124077	VERIFIED_STATIC	ci_cache used in master-list update block
+master_fallback_prefix	46124092	VERIFIED_STATIC	Cửa sổ 
+master_hwnd_by_name	46124127	VERIFIED_STATIC	_hwnd_by_name
+master_radio_buttons	46124167	VERIFIED_STATIC	_master_radio_buttons
+master_change_callback	46124195	VERIFIED_STATIC	_on_master_change
+master_initial_selected	46124295	VERIFIED_STATIC	_master_initial_selected
+master_update_doc	46124321	VERIFIED_STATIC	Update radiobutton list; rebuild only when HWND list changes
+master_change_log	46124551	VERIFIED_STATIC	[MASTER] Đã chọn cửa sổ chính: ... (hwnd=...)
+master_change_doc	46124602	VERIFIED_STATIC	Changing master auto-disables input sync/unlocks slaves; user re-enables after selection
+auto_master_local_hwnd	46124785	VERIFIED_STATIC	hwnd adjacent to auto-master method block
+auto_master_sync_loop_ref	46124791	VERIFIED_STATIC	_sync_windows_loop reference in auto-master method block
+grid_master_first_doc	46125702	VERIFIED_STATIC	master index 0/top-left; others follow
+master_click_handler	46125856	VERIFIED_STATIC	_on_master_click
+master_scroll_handler	46125874	VERIFIED_STATIC	_on_master_scroll
+master_move_handler	46125893	VERIFIED_STATIC	_on_master_move
+master_key_press_handler	46125960	VERIFIED_STATIC	_on_master_key_press
+master_key_release_handler	46125982	VERIFIED_STATIC	_on_master_key_release
+sync_master_to_slave_doc	46126591	VERIFIED_STATIC	Convert master client coordinates to slave by size ratio
+watchdog_master_close_change	46126454	VERIFIED_STATIC	Unlock stale slave blocks after master close/change/exit
+config_grid_cols	46128139	VERIFIED_STATIC	grid_cols
+config_grid_rows	46128156	VERIFIED_STATIC	grid_rows
+config_detached_auto_open	46128181	VERIFIED_STATIC	detached_auto_open
+config_detached_grid	46128203	VERIFIED_STATIC	detached_grid
+master_config_key	-	NOT_RECOVERED	No master key in recovered Start load/save settings block
+auto_selection_rule	-	EXPLICIT_UNKNOWN	_auto_master_and_sync exists, but exact HWND-choice condition not source-visible
+stale_master_fallback	-	EXPLICIT_UNKNOWN	HWND-list rebuild proven; exact replacement/clear rule not source-visible
+master_label_exact_format	-	EXPLICIT_UNKNOWN	Character-info use + fallback prefix proven; full label formatting not source-visible
