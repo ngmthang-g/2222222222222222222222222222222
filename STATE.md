@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F07 — captcha option.
+F08 — proxy.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -808,8 +808,29 @@ F07 — captcha option.
 - docs/login/F06_LOGIN_ACTION_FLOW.md
 - docs/login/F06_LOGIN_ACTION_MODEL.json
 
+## F07 VERIFIED RESULTS
+- Current per-row captcha modes are exactly Không / Tool / Proxy.
+- Runtime mapping is explicit: Không→direct, Tool→ordinary/free-proxy path, Proxy→row-specific private proxy path.
+- Tool path uses the proxy/forwarder helpers and exact runtime log DÙNG PROXY FREE; detailed allocation/rotation remains F08.
+- Proxy path uses row private proxy and exact log DÙNG PROXY RIÊNG; missing private proxy is rejected/skipped rather than silently falling back to the free pool.
+- _on_captcha_mode_change exact contract: Tool→⇄, Proxy→➜, Không→hidden/blank disabled; mode changes schedule account autosave.
+- User-selecting Proxy may auto-open the private-proxy popup; loading saved config must not auto-open it.
+- Private-proxy editor has a permission guard, 440x100 popup, accepted input-hint formats and parse_proxy validation surface.
+- Login initialization calls _check_dll_status; readiness label has red "Vượt captcha chưa hoạt động" and green "Hệ thống vượt captcha sẵn sàng" states.
+- _check_dll_hash_worker uses MD5/freshness logic and can show "Đã cập nhật cấu hình mới nhất" or "Cần cập nhật cấu hình".
+- No hard readiness-status gate over the captcha Combobox/login worker was recovered; do not invent one.
+- No Login-owned external captcha solver/OCR/2captcha/Selenium API surface was recovered.
+- Legacy load surface contains proxy_mode none/free/private plus Không/Có/Tool/Proxy tokens. Exact Có migration and legacy proxy_mode mapping remain UNKNOWN.
+- General proxy pool/forwarder rotation/pinning mechanics remain explicitly deferred to F08.
+
+## F07 FILES
+- docs/tasks/F07.md
+- docs/login/F07_CAPTCHA_STATIC_EVIDENCE.tsv
+- docs/login/F07_CAPTCHA_FLOW.md
+- docs/login/F07_CAPTCHA_MODEL.json
+
 ## BLOCKERS
-None known for F07.
+None known for F08.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -823,7 +844,7 @@ None known for F07.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F07 only.
-4. Recover captcha option behavior from the original EXE: modes Không/Tool/Proxy, per-row UI transitions, DLL/captcha readiness state, normal/free/private proxy relationship, any external captcha helper calls, failure handling and how the resolved mode feeds F06.
-5. Keep general proxy allocation/rotation/pinning internals deferred to F08 except where F07 mode selection directly determines which proxy path is chosen.
-6. Persist F07 evidence/report and advance to F08 only after verification.
+3. Execute F08 only.
+4. Recover proxy behavior from the original EXE: proxy_working.txt/free-pool lifecycle, parse_proxy accepted forms, forwarder port/iid allocation, mode/pinned/index/advance files, private proxy pinning, free proxy rotation, five-minute advance rule, forwarder readiness/start/stop/reuse, proxy refresh thresholds and row reload behavior.
+5. Keep scheduler timing outside proxy-specific retry/rotation behavior deferred to F09, and keep post-login routing deferred to F10.
+6. Persist F08 evidence/report and advance to F09 only after verification.
