@@ -182,3 +182,15 @@ Remaining Party unknowns are preserved in G12 and classified as implementation-s
 
 ## Gate G closure
 G01–G12 are complete for Party static/visual research and reconstruction handoff. Runtime parity and the explicitly classified unknowns remain deferred. The next PLAN phase is H — Train.
+
+
+## Gate H
+- H01 — VERIFIED_FARMTAB_UI_MODULE_WIRING_WITH_5S_INCREMENTAL_REFRESH_AND_30S_AUTOSAVE
+- H02 — CURRENT
+
+H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
+
+H01 intentionally defers return-town semantics, inventory-full, periodic-town timing, movement, heal/death/reconnect, loot, mount, coordinate semantics and the farm FSM to later H tasks.
+
+## Gate H current
+H02 — Train return-town condition and town-panel gating audit.
