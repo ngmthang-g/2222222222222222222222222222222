@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E05 — config management.
+E06 — logging.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -577,8 +577,26 @@ E05 — config management.
 - docs/core/E04_SHARED_STATE.tsv
 - docs/core/E04_SHARED_STATE_MODEL.json
 
+## E05 VERIFIED RESULTS
+- Shared config service exposes CONFIG_PATH/CONFIG_DIR/SETTINGS_PATH plus get/load/save/read/write helpers.
+- Shared central config path is %APPDATA%/TLMTool/config.ini using RawConfigParser and UTF-8 section/key writes.
+- settings.ini safe-read behavior explicitly tolerates duplicate keys with last-wins/no-error semantics.
+- settings.ini writes use temp file + os.replace atomic replacement and dated backup/pruning behavior.
+- _BACKUP_KEEP exists but its exact numeric value remains UNKNOWN.
+- _settings_lock is shared across config-consuming tabs; exact lock class remains UNKNOWN.
+- Feature tabs share the [Settings] section but own typed defaults/fallbacks and JSON-in-INI complex values.
+- InfoTab has a separate config.ini simple-dict ConfigParser contract and is not silently merged with the central APPDATA config helper.
+- Runtime JSON/text state files remain separate from the shared INI service.
+- No global filesystem hot-reload watcher was recovered.
+
+## E05 FILES
+- docs/tasks/E05.md
+- docs/core/E05_CONFIG_STATIC_EVIDENCE.tsv
+- docs/core/E05_CONFIG_FLOW.md
+- docs/core/E05_CONFIG_MODEL.json
+
 ## BLOCKERS
-None known for E05.
+None known for E06.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -592,7 +610,7 @@ None known for E05.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E05 only.
-4. Recover config management: settings/config paths, read/write helpers, parser behavior, defaults/fallbacks, atomic write semantics, section/key ownership and reload propagation.
-5. Separate shell/shared config from tab-owned runtime state files.
-6. Persist E05 evidence/report and advance to E06 only after verification.
+3. Execute E06 only.
+4. Recover logging architecture: debug_logger setup, stdout/stderr tee, tlmtool.log, crash_fault.log/faulthandler, module log prefixes, memory/automove logs, thread-safety and rotation/truncation behavior if recoverable.
+5. Separate diagnostic logging from feature-state persistence.
+6. Persist E06 evidence/report and advance to E07 only after verification.
