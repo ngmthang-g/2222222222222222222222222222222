@@ -711,7 +711,7 @@ F03 — password behavior.
 - docs/UI_BASELINE_TLM.md (F01 Login supplement)
 
 ## BLOCKERS
-None known for F02.
+None known for F03.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
