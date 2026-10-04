@@ -1,0 +1,16 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+preview_order_state	0x2bfe0a4	VERIFIED_STATIC	_preview_order
+move_preview_doc	0x2bfe0b4	VERIFIED_STATIC	◀/▶ moves earlier delta=-1 or later delta=+1; order stored by HWND and refresh preserves it
+move_preview_doc_second_line	0x2bfe125	VERIFIED_STATIC	refresh giữ thứ tự sau mỗi rebuild
+left_arrow_ui	0x2bfe55f	VERIFIED_STATIC	◀ in embedded preview-item builder
+right_arrow_ui	0x2bfe598	VERIFIED_STATIC	▶ in embedded preview-item builder
+move_callback_ref	0x2bfe830	VERIFIED_STATIC	_move_preview_item referenced from refresh-window preview item builder
+move_method_symbol	0x2c007d5	VERIFIED_STATIC	TLMStartTab._move_preview_item
+source_hwnd	0x2bfe09d	VERIFIED_STATIC	src_hwnd adjacent to _preview_order block
+refresh_order_persistence	-	VERIFIED_STATIC	exact original doc says order is stored by HWND and survives refresh/rebuild
+boundary_first_left	-	EXPLICIT_UNKNOWN	exact first-item delta=-1 branch not source-visible
+boundary_last_right	-	EXPLICIT_UNKNOWN	exact last-item delta=+1 branch not source-visible
+new_hwnd_insertion	-	EXPLICIT_UNKNOWN	exact insertion point for newly discovered HWND under existing manual order not recovered
+detached_arrow_controls	-	NOT_RECOVERED	no ◀/▶ control recovered in detached control bar evidence
+detached_order_propagation	-	EXPLICIT_UNKNOWN	whether detached rebuild indirectly consumes _preview_order is not proven
+settings_preview_order	-	NOT_RECOVERED	no preview_order key in recovered Start settings load/save block
