@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H02 — Train return-town condition and town-panel gating audit.
+H03 — Train inventory-full detection and full-bag return/filter interaction audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1293,29 +1293,64 @@ H02 — Train return-town condition and town-panel gating audit.
 - docs/train/H01_TRAIN_UI_WIRING_FLOW.md
 - docs/train/H01_TRAIN_UI_WIRING_MODEL.json
 
+## H02 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H02 artifact existed, so no completed Train work was repeated.
+- Inspected the frozen original EXE first; inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Current return-town radio values are exactly `never / full_bag_timer / cycle`, mapped to `Không về / Khi đầy túi / Theo chu kỳ (phút)`.
+- `town_condition_var` is initialized to `cycle`; `loop_var` is initialized to `30`. This matches the locked B05 screenshot.
+- Exact `_on_town_condition_changed` documentation says only: `Khi chọn điều kiện về thành — lưu config.` No condition-owned town-body visibility transition is recovered.
+- The cycle Spinbox lives in the always-visible condition row, outside the default-hidden lower town body. Switching mode does not clear the retained minute value.
+- Current config persistence uses `town_condition`.
+- H02 resolves H01's deferred `full_bag` surface: `full_bag` is a legacy condition value/compatibility alias, not a fourth active radio or an independent current return-town option.
+- The farm runtime directly groups `full_bag_timer` and legacy `full_bag` in the same two-value bag-enabled condition tuple. The current UI value is `full_bag_timer`; exact source syntax of the load normalization remains an implementation-detail UNKNOWN.
+- Mode boundary is now locked at high level:
+  - `never`: no automatic town return; direct original logs show a full bag can be filtered and, if still full, stays in place because mode is Không về.
+  - `full_bag_timer`: bag-enabled timed mode; bag-full participates in ending the common wait early.
+  - `cycle`: periodic `loop_minutes` mode without the full-bag early-stop branch.
+- Exact bag threshold/filter mechanics are intentionally deferred to H03; exact periodic timing execution remains H04.
+- Exact `_toggle_town_config` documentation says the entire block below the condition row is hidden/shown and is **default hidden**. Button texts are `Hiện cấu hình` / `Ẩn cấu hình`. This visibility is independent of the selected return-town condition.
+- Exact `_update_dungeon_town_lock` documentation says: if **any** account selects a route with `lock_town`, FarmTab forces `Không về thành` and disables the return-town radios.
+- Direct lock-method surfaces include each row's `farm_var`, `_preset_to_vars`, `TRUYEN_DAI_LY_ROUTES`, `lock_town`, `has_dungeon`, `disabled/normal`, and forced `never`.
+- When no selected route is locked, the return-town radios return to `normal`.
+- No previous-condition memory surface was recovered. Therefore no automatic restoration of the pre-lock `cycle/full_bag_timer` selection is statically evidenced; do not invent one.
+- Exact `_is_dungeon_farm` documentation says it is True when an account has selected an old-dungeon / route-`lock_town` Farm map. This is the per-account runtime safety predicate.
+- The lock-town UI method explicitly gates return-town radios; no lock-owned disable edge for the navigation-priority comboboxes was recovered.
+- Navigation priority has four readonly comboboxes. Available options are blank + `Phù 1 / Phù 2 / Phù 3 / Ngựa`; defaults are `Phù 1 / Phù 2 / Phù 3 / Ngựa`.
+- Exact `_on_nav_priority_changed` documentation says each navigation value can be selected only once. Recovered locals `NAV_OPTIONS/idx/var/used/other_var/val/current/available` confirm dynamic exclusion of methods already used by other priority slots while retaining the current selection.
+- B05 was cross-checked only after static extraction. Current screenshot hash still exactly matches `17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53`; no geometry was remeasured.
+
+## H02 FILES
+- docs/tasks/H02.md
+- docs/train/H02_TOWN_CONDITION_STATIC_EVIDENCE.tsv
+- docs/train/H02_TOWN_CONDITION_FLOW.md
+- docs/train/H02_TOWN_CONDITION_MODEL.json
+
 ## BLOCKERS
-None known for H02.
+None known for H03.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01 FarmTab ownership/wiring; do not remeasure Train UI unless contradictory visual evidence appears.
+- Preserve B05 Train visual baseline and H01/H02 FarmTab ownership/return-town gating; do not remeasure Train UI without contradictory evidence.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
 - Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
-- Do not collapse H02 with inventory-full/periodic-town/FSM tasks; keep Train PLAN categories separated.
-- Preserve H01 refresh 5000 ms and autosave 30000 ms unless stronger contradictory evidence appears.
-- Preserve the current Farm config key surfaces; do not reinterpret `full_bag` until H02/H03 resolves it.
+- Preserve H01 refresh 5000 ms and autosave 30000 ms.
+- Preserve H02 current return-town values never/full_bag_timer/cycle and default cycle/30.
+- Treat legacy full_bag only as the verified compatibility alias of the full-bag mode; do not add a fourth radio.
+- Preserve lock_town behavior: any selected locked Farm route forces never and disables return-town radios.
+- Do not invent restoration of the pre-lock return-town mode.
+- Do not fold H03 inventory-full threshold logic into H04 periodic timer logic.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H02 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H02 only if still pending.
+3. Check GitHub first for any H03 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H03 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit only Train return-town condition selection and town-panel gating: exact semantics of `never`, `full_bag_timer`, `cycle`; relationship among `town_condition`, legacy/load `full_bag`, loop minutes and enabled/disabled controls; default-hidden town body; dungeon/lock_town gating; and nav-priority UI availability.
-7. Recover exact UI state transitions caused by `_on_town_condition_changed`, `_update_dungeon_town_lock`, and `_on_nav_priority_changed`.
-8. Do not yet decode bag-full threshold logic or periodic-town timer execution; those are H03/H04.
-9. Cross-check B05 only after static extraction; do not remeasure geometry.
-10. Persist H02 evidence/report, update STATE.md, and advance to H03 only after verification.
+6. Audit only inventory-full detection and its interaction with return-town/filter behavior: source of bag-slot count, full threshold, `is_full_bag` call contract, no-town filtering path, full_bag_timer early-stop path, post-filter recheck, and what state/log result causes town vs stay.
+7. Recover exact threshold/default constants and failure semantics where statically possible; keep unreadable/None behavior explicit rather than guessing.
+8. Preserve H02 condition meanings and do not yet decode the periodic loop-minute scheduler; H04 owns timer execution.
+9. Cross-check B05 only after static extraction; no geometry work is needed.
+10. Persist H03 evidence/report, update STATE.md, and advance to H04 only after verification.
