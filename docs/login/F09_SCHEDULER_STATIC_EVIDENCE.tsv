@@ -1,0 +1,53 @@
+key	offset_hex	status	evidence
+schedule_cancel_event	0x2b5e42c	VERIFIED_STATIC	_schedule_cancel threading Event
+schedule_active_state	0x2b5e43e	VERIFIED_STATIC	_schedule_active
+schedule_on_var	0x2b5e97d	VERIFIED_STATIC	_schedule_on BooleanVar
+schedule_checkbox_text	0x2b5e9d4	VERIFIED_STATIC	Chạy theo lịch (mở/tắt game)
+schedule_toggle_callback	0x2b5e9fa	VERIFIED_STATIC	_toggle_schedule
+close_time_label	0x2b5ea45	VERIFIED_STATIC	Hẹn giờ tắt game:
+close_default_hour	0x2b5eb03	VERIFIED_STATIC	04
+close_default_minute	0x2b5eb91	VERIFIED_STATIC	00
+shutdown_after_close	0x2b5eb95	VERIFIED_STATIC	_shutdown_after_close
+shutdown_checkbox_text	0x2b5ebac	VERIFIED_STATIC	Tắt máy sau khi tắt game
+open_time_label	0x2b5ebe9	VERIFIED_STATIC	Hẹn giờ mở game:
+open_default_minute	0x2b5ec2f	VERIFIED_STATIC	20; locked screenshot establishes 04:20
+countdown_label	0x2b5ed59	VERIFIED_STATIC	lbl_sched_countdown
+schedule_worker	0x2b62668	VERIFIED_STATIC	_schedule_worker
+schedule_worker_doc	0x2b6267a	VERIFIED_STATIC	background schedule check every 20s when enabled
+next_occurrence_doc	0x2b62709	VERIFIED_STATIC	today if not passed, tomorrow if passed
+fmt_remain_doc	0x2b627a8	VERIFIED_STATIC	2h05p / 15p30s / 45s / 1d2h05p examples
+push_countdown_doc	0x2b62830	VERIFIED_STATIC	update countdown label on Tk main thread every second
+schedule_bugfix_doc	0x2b62952	VERIFIED_STATIC	next-event absolute datetime +1 day daily recurrence; fixes immediate catch-up bug
+countdown_close_prefix	0x2b62bdd	VERIFIED_STATIC	Tắt 
+countdown_time_format	0x2b62bf1	VERIFIED_STATIC	%H:%M %d/%m
+countdown_remain_text	0x2b62bfe	VERIFIED_STATIC	 còn 
+countdown_open_prefix	0x2b62c06	VERIFIED_STATIC	Mở 
+countdown_separator	0x2b62c13	VERIFIED_STATIC	 | 
+scheduled_close_log	0x2b62c5e	VERIFIED_STATIC	Đến giờ tắt game (...) — đóng tất cả
+scheduled_open_log	0x2b62c96	VERIFIED_STATIC	Đến giờ mở game (...)
+scheduled_open_busy_skip	0x2b62cb4	VERIFIED_STATIC	bỏ qua: đang có batch login chạy
+shutdown_command_doc	0x2b62dde	VERIFIED_STATIC	shutdown /s /t 0
+shutdown_popup_doc	0x2b62eba	VERIFIED_STATIC	60s confirm/cancel/auto-shutdown behavior
+shutdown_popup_title	0x2b62f8c	VERIFIED_STATIC	⚠️ Tắt máy tính
+shutdown_popup_geometry	0x2b62fa7	VERIFIED_STATIC	340x150
+shutdown_popup_topmost	0x2b62fbe	VERIFIED_STATIC	-topmost
+shutdown_popup_close_protocol	0x2b62fd3	VERIFIED_STATIC	WM_DELETE_WINDOW cancel path
+shutdown_popup_body	0x2b63025	VERIFIED_STATIC	game closed; PC shuts down after 60s
+shutdown_confirm_text	0x2b630e0	VERIFIED_STATIC	Xác nhận tắt máy
+shutdown_cancel_text	0x2b63106	VERIFIED_STATIC	Hủy tắt máy
+shutdown_cancel_log	0x2b63259	VERIFIED_STATIC	Shutdown cancelled by user
+shutdown_cancel_ui	0x2b6327f	VERIFIED_STATIC	Đã hủy tắt máy
+manual_schedule_independence_doc	0x2b63528	VERIFIED_STATIC	Bắt đầu immediate batch is independent from schedule checkbox
+schedule_on_status	0x2b6364c	VERIFIED_STATIC	Đã bật chạy theo lịch — chờ đến giờ mở/tắt game
+start_schedule_worker	0x2b6369f	VERIFIED_STATIC	_start_schedule_worker
+schedule_off_status	0x2b636b9	VERIFIED_STATIC	Đã tắt chạy theo lịch
+schedule_toggle_doc	0x2b636e2	VERIFIED_STATIC	enable worker/countdown; disable worker/clear label; existing windows untouched
+open_game_batch_doc	0x2b63a5d	VERIFIED_STATIC	checked accounts; used by Bắt đầu and scheduler open event
+schedule_persist_on	0x2b67154	VERIFIED_STATIC	schedule_on config load surface
+schedule_persist_close	0x2b671db	VERIFIED_STATIC	schedule_close config key
+schedule_persist_open	0x2b671eb	VERIFIED_STATIC	schedule_open config key
+schedule_persist_shutdown	0x2b671fc	VERIFIED_STATIC	shutdown_after_close config key
+login_result_wait_close_fail	0x2b66fe4	VERIFIED_STATIC	login result text says schedule still waits for close
+login_result_wait_close_success	0x2b67028	VERIFIED_STATIC	login result text says schedule still waits for close
+auto_resume_from_saved_schedule	-	EXPLICIT_UNKNOWN	static evidence does not prove fresh-process worker auto-start solely from saved schedule_on
+scheduled_close_microorder	-	EXPLICIT_UNKNOWN	exact batch-cancel/window-close/tracking cleanup order not source-decompiled
