@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G09 — Party action-button wiring and run/stop lifecycle audit.
+G10 — Party create-team/invite/leave protocol audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1141,22 +1141,51 @@ G09 — Party action-button wiring and run/stop lifecycle audit.
 - docs/party/G08_PARTY_CONFIG_FLOW.md
 - docs/party/G08_PARTY_CONFIG_MODEL.json
 
+## G09 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; G01–G08 were already complete and no G09 artifact existed, so completed work was not repeated.
+- Rechecked the frozen Party implementation first against the same locked inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Bottom Party control is the real global toggle: idle `Bắt đầu` / `BTN_GREEN_PARTY` → `_toggle_run`.
+- Global start validation uses `get_groups_data`; if no selected group has accounts, exact log is `[Party] Chưa có nhóm nào chọn acc`.
+- Global start path contains log fragments `[Party] Bắt đầu N cụm — M acc`, clears the shared cancel Event, changes the bottom button to `Dừng lại` / red `#f44336`, and launches `_run_worker`.
+- Global stop phase is a distinct UI state: `Đang dừng...` / orange `#ef6c00` / disabled. `PartyTab.stop` exact doc says it stops the process if running.
+- Constructor owns `_running`, global `_cancel` Event, `_run_lock`, and `_run_cancels`. Exact `_run_lock` critical-section scope and exact Event-set/assignment micro-order remain explicit UNKNOWN.
+- Party summary explicitly says global Bắt đầu runs groups in parallel with one thread and a separate cancel per cluster.
+- `_run_worker` directly contains `own_cancels`, `threads`, `is_alive`, `join`, `timeout`, `_after_party_action`, and `_reset_run_button`.
+- Exact `_run_worker` doc locks the aggregate lifecycle: one `_run_one_group` thread per cluster; after all settle, execute post-party action once and reset global UI once.
+- `_sleep` exact doc says waits are interruptible: per-cluster cancel when provided, otherwise global cancel by default.
+- Each group cluster action button is `▶ Tạo nhóm N` → `_run_single_cluster`, with state fields `join_btn`, `join_cancel`, `join_running`.
+- Single-cluster launch is permission/account-limit guarded, refuses duplicate invocation when its `join_running` state is active, requires at least 2 selected accounts, then changes its button to `⏳ Đang vào...` / disabled and starts `_run_single_worker`.
+- Exact original doc says the single-cluster action runs only that cluster, independently of the common Bắt đầu button, with its own thread/cancel, and multiple clusters may be launched in parallel.
+- `_run_single_worker` reuses the same `_run_one_group` engine and has a dedicated `_reset_single_button` completion path. Adjacent `discard` evidence shows completed single-run cancel tracking is cleaned up, but exact lock/statement syntax is not claimed.
+- Exact collision rule for running the **same cluster** simultaneously through global Bắt đầu and its single `▶ Tạo nhóm` button remains UNKNOWN from readable static evidence. Architectural independence and different-cluster single-run parallelism are verified.
+- `Rời nhóm` → `_leave_group` → daemon `_leave_group_worker`; exact doc says it runs in background for all cluster members and skips already-outside/offline accounts.
+- `+ Thêm nhóm` / `✕ Xóa N` remain structural/configuration controls, separate from Party run workers; delete keeps at least one cluster.
+- Detailed B0→B3 create/invite/leave protocol was intentionally deferred to G10, per NEXT_ACTION.
+
+## G09 FILES
+- docs/tasks/G09.md
+- docs/party/G09_PARTY_ACTION_LIFECYCLE_STATIC_EVIDENCE.tsv
+- docs/party/G09_PARTY_ACTION_LIFECYCLE_FLOW.md
+- docs/party/G09_PARTY_ACTION_LIFECYCLE_MODEL.json
+
 ## BLOCKERS
-None known for G09.
+None known for G10.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Preserve G01–G08 Party boundaries: UI ownership, HWND/PID identity, RoleName/RoleID/TeamID separation, no Party grid arranger, no Party preview ownership, no Party keyboard-sync ownership, no Party mouse-sync ownership, name-based Party persistence.
+- Preserve G01–G09 Party boundaries and verified lifecycle.
 - Do not add a Party-local EnumWindows scanner.
 - Do not duplicate Start physical layout, preview/DWM, keyboard-sync or mouse-sync systems inside PartyTab.
 - Keep Party direct check_pixel/click_at actions separate from Start synchronized input.
 - Do not persist HWND/PID/RoleID/TeamID in Party config.
-- Do not reactivate party_corps_groups / party_corps_group1 / party_follow / party_pick as active Party UI.
-- Do not derive Party group order or input targets from Start preview/layout state.
-- Do not equate Party leader with Start master HWND without direct new evidence.
-- Preserve the leader create-team 1366×768 resize precondition; do not globalize it.
+- Do not reactivate dormant party_corps_groups / party_corps_group1 / party_follow / party_pick controls.
+- Do not equate Party leader with Start master HWND.
+- Preserve global parallel-per-cluster execution and separate per-cluster cancel model.
+- Preserve single-cluster own thread/cancel and minimum-2-member guard.
+- Keep exact same-cluster global-vs-single collision rule UNKNOWN until stronger evidence/runtime parity.
+- Preserve the leader create-team 1366×768 resize precondition only for the click-fallback path.
 - Do not merge RoleName display identity with RoleID action identity.
 - Do not treat TeamID None/read-error as outside-team success.
 - Do not invent a numeric invalid RoleID sentinel.
@@ -1168,11 +1197,12 @@ None known for G09.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any G09 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute G09 only if still pending.
+3. Check GitHub first for any G10 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute G10 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Party action-button wiring and lifecycle only: bottom Bắt đầu/_toggle_run, per-group action button/_run_single_cluster, Rời nhóm/_leave_group, delete/add structural controls, button running/disabled/red-green state, cancel objects, thread creation, global stop/reset, and whether per-group runs can coexist with global runs.
-7. Keep detailed create-team/invite packet/click sequence in a later dedicated Party action task; G09 should lock control→worker→cancel/reset wiring without prematurely decompiling the full team protocol.
-8. Determine exact relationships among _running, _cancel, _run_lock, _run_cancels, per-group join_running/join_cancel, _reset_run_button and _reset_single_button.
-9. Preserve permission/config boundaries already verified; do not reopen G01/G08.
-10. Persist G09 evidence/report, update STATE.md, and advance to the next Party action task only after verification.
+6. Recover the Party team protocol used by `_run_one_group` without reopening G09 lifecycle: B0 auto-accept setup/readback, B1 leave-team + wait-until-outside, B2 leader create-team packet-first flow and fixed-coordinate click fallback, B3 burst invite + group TeamID verification/retry.
+7. Recover exact shared memory/action helpers and all statically recoverable constants/timeouts/retry counts/delays; keep any unrecoverable numeric values UNKNOWN instead of guessing.
+8. Audit `_leave_group_worker` protocol in the same task because it shares the leave-team/TeamID state model.
+9. Preserve G03 TeamID semantics: 0/0xFFFFFFFF=no-team, None=read error, real non-sentinel IDs only for same-team success.
+10. Do not change button/thread/cancel wiring from G09.
+11. Persist G10 evidence/report, update STATE.md, and advance only after verification.
