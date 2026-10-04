@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-D02 — import relationships.
+D03 — third-party dependencies.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -365,8 +365,24 @@ D02 — import relationships.
 - docs/modules/D01_HELPER_FILES.tsv
 - tools/D01_EXTRACT_MODULES.py
 
+## D02 VERIFIED RESULTS
+- 37 TLM internal modules with exact compiled module markers were eligible as relationship sources.
+- 5 filename-only TLM names remain targets-only for this extraction method: TLMTool, bag_filter, emu_reader, pixel, proxy_refresh.
+- 377 deduplicated static module-reference edges were recovered from compiled module blocks.
+- Target categories: 132 TLM internal, 59 third-party Python, 153 stdlib references, 33 native-extension references.
+- The 132 internal→internal edges span 31 sources and 36 distinct internal targets.
+- `info_tab` and `utils` are the strongest internal reference hubs in this graph.
+- Every edge is explicitly labeled `STATIC_REFERENCE_NOT_IMPORT_PROOF`; exact Python import syntax/order is not fabricated.
+- The internal graph is persisted compressed; the full 377-row evidence table is reproducible with the committed extractor.
+
+## D02 FILES
+- docs/tasks/D02.md
+- docs/modules/D02_RELATIONSHIP_SUMMARY.json
+- docs/modules/D02_INTERNAL_RELATIONSHIPS.tsv.gz
+- tools/D02_EXTRACT_RELATIONSHIPS.py
+
 ## BLOCKERS
-None known for D02.
+None known for D03.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -380,8 +396,8 @@ None known for D02.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute D02 only.
-4. Recover import/dependency relationships among original modules, prioritizing TLM-internal modules.
-5. Separate exact/high-confidence relationship evidence from proximity/name-reference heuristics; do not turn string adjacency into fact.
-6. Persist D02 graph/evidence/report and update PROJECT_STATUS.md.
-7. Advance to D03 only after D02 is verified at the strongest evidence level available.
+3. Execute D03 only.
+4. Inventory third-party dependency families, native extensions, versions where recoverable, and their evidenced roles in TLM.
+5. Separate package-presence evidence from version evidence and from actual TLM usage/reference evidence.
+6. Persist D03 evidence/report and update PROJECT_STATUS.md.
+7. Advance to D04 only after D03 is verified.
