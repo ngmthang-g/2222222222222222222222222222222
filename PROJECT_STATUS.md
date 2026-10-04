@@ -189,7 +189,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H02 — VERIFIED_TOWN_MODE_GATING_WITH_LOCK_TOWN_FORCE_NEVER_AND_LEGACY_FULL_BAG_ALIAS
 - H03 — VERIFIED_SITE10_USED_SLOT_FULL_BAG_WATCH_WITH_FILTER_RECHECK_IN_NEVER_MODE_AND_EXPLICIT_THRESHOLD_BINDING_UNKNOWN
 - H04 — VERIFIED_CYCLE_REMAINDER_WAIT_WITH_60S_MINUTE_CONVERSION_AND_FULL_BAG_EARLY_BREAK_WITH_EXPLICIT_WAIT_QUANTUM_UNKNOWN
-- H05 — CURRENT
+- H05 — VERIFIED_SAVED_PRESET_TILE_MOVEMENT_WITH_8_TILE_NEAR_SKIP_AND_LIVE_TRUYEN_RETURN_WALK_FALLBACK
+- H06 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -218,3 +219,12 @@ H04 resolved the Train periodic scheduler as a remaining-cycle wait derived from
 Normal timeout is a cycle boundary rather than Farm-worker termination. User stop, respawn/death and disconnect/reconnect can interrupt/reset normal cycle progression. The original monitor docs lock 4s death checks, 2s disconnect checks with 3 strikes (~6s), 30s reconnect active-wait attempts, and post-reconnect wait_memory_ready(timeout=45.0, need=3).
 
 Exact scheduler sleep/check quantum, exact clock API, remaining-time clamp expression and loop-minute input clamp remain intentionally UNKNOWN. H05 now owns Train coordinates and movement/return-route execution.
+
+
+H05 resolved Train movement around named saved-coordinate presets, 32 pixels/tile conversion, an exact FARM_NEAR_TILES threshold of 8.0 tiles, active FarmTab Truyền routing, fresh-MapID return verification and walk fallback when the return shortcut fails.
+
+FarmTab's active forward path uses its own _move_truyen_to/_exec_truyen_steps contract with to/to_from route data and user-selected move_target coordinates. Route-aware retry remains above the generic move_character primitive. The active step executor has a 30s default wait timeout and 0.5s cancellation sleep chunks.
+
+Return routing prefers the actual current MapID, only falling back to the selected Farm preset if memory reading fails. Return destinations normalize built-in or manual coordinates and then use the configured Phù 1/2/3/Ngựa home-priority list.
+
+fast_travel.goto_map remains explicitly DORMANT in this frozen build; fast_hop_to_map is live only through move_to_npc, and FarmTab uses verify_exited_farm. Forward shortcut final-failure fallback, route retry count and ordinary move tolerance remain intentionally UNKNOWN. H06 now owns heal/treatment routing.
