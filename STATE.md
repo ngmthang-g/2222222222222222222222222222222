@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E10 — start/stop coordinator.
+F01 — Login UI reconstruction.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -664,8 +664,31 @@ E10 — start/stop coordinator.
 - docs/core/E09_ERROR_FLOW.md
 - docs/core/E09_ERROR_MODEL.json
 
+## E10 VERIFIED RESULTS
+- Start/stop coordination is distributed across TLMMainApp shell state, StartTab quick orchestration and feature-owned FSMs; no universal global feature FSM was recovered.
+- Entering Xếp-lưới explicitly stops active Farm/Train plus Daily Trừng Ác and Tàng Bảo Đồ before enabling layout+input sync.
+- Switching Auto/manual disables both synchronization systems.
+- Start quick commands delegate to feature-tab methods in short threads; feature tabs remain authoritative owners of long-running FSM/workers.
+- Farm/Train LSV/Đồn/Daily expose synchronization helpers that mirror authoritative feature state back to Start buttons.
+- Farm/Train LSV/Đồn have per-account plus all-account start/stop surfaces; Daily keeps separate Trừng Ác/Tàng Bảo Đồ FSMs.
+- Rao/Tối ưu expose _start_all_busy guards; Phó Bản exposes stop-all-run control.
+- Runtime permission/account-limit checks remain authoritative at action time.
+- Login owns post-login routing; Party waits all groups then executes its configured post-party action once.
+- Selected-tab refresh start/stop is UI polling only and is separate from feature execution.
+- Universal 'starting one feature stops all others' behavior was NOT recovered and must not be invented.
+
+## E10 FILES
+- docs/tasks/E10.md
+- docs/core/E10_COORDINATOR_STATIC_EVIDENCE.tsv
+- docs/core/E10_COORDINATOR_FLOW.md
+- docs/core/E10_COORDINATOR_MODEL.json
+
+## GATE E DECISION
+- E01–E10 COMPLETE / VERIFIED for static core/lifecycle evidence.
+- Explicit unknowns remain localized and move to later feature/runtime parity gates.
+
 ## BLOCKERS
-None known for E10.
+None known for F01.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -676,10 +699,10 @@ None known for E10.
 - Do not begin C08 before C07 is verified.
 
 ## NEXT_ACTION
-On CONTINUE / current continuation:
+On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E10 only.
-4. Recover start/stop coordination across shell and feature tabs: mode switches, mutual exclusion, button/state synchronization, all-account starts/stops, cancellation propagation, permission/limit guards, and post-action routing.
-5. Distinguish shell-level coordination from each feature FSM's internal states.
-6. Persist E10 evidence/report and close Gate E only if E01-E10 are coherent.
+3. Execute F01 only.
+4. Reconstruct/verify Login-tab UI from original EXE first and Gate-B Login screenshot second.
+5. Recover visible groups, labels, controls, account-table columns/row structure, scrollbar, schedule controls, bottom Start button, and static hidden/conditional widgets without inventing unseen pixels.
+6. Persist F01 evidence/report and advance to F02 only after verification.
