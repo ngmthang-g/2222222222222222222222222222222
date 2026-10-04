@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F03 — password behavior.
+F04 — game path.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -729,7 +729,7 @@ F03 — password behavior.
 - docs/login/F02_ACCOUNT_STORAGE_MODEL.json
 
 ## BLOCKERS
-None known for F03.
+None known for F04.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
