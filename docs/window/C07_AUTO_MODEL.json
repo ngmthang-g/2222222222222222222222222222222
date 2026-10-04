@@ -1,0 +1,49 @@
+{
+  "task": "C07",
+  "status": "VERIFIED_WITH_EXPLICIT_UNKNOWNS",
+  "mode": {
+    "internal_value": "auto",
+    "visible_label": "Auto",
+    "default": true,
+    "callback": "_on_mode_change",
+    "other_mode": {
+      "internal_value": "sync",
+      "visible_label": "Xếp lưới"
+    }
+  },
+  "auto_transition": {
+    "disables_layout_sync": true,
+    "disables_input_sync": true,
+    "window_source": "get_windows",
+    "reset": {
+      "x": 0,
+      "y": 0,
+      "width": 1366,
+      "height": 768
+    },
+    "error_path": true,
+    "auto_tile_loop_reference": true
+  },
+  "auto_tile": {
+    "state": "auto_tile_active",
+    "timer_id_state": "_auto_tile_id",
+    "toggle": "_toggle_auto_tile",
+    "arranger": "_auto_tile_windows",
+    "loop": "_auto_tile_loop",
+    "interval_seconds": 1,
+    "sort_key_source": "character-info cache RoleName",
+    "master_first": true,
+    "max_window_guard": true,
+    "exact_final_geometry": "UNKNOWN",
+    "exact_active_assignment_timing": "UNKNOWN"
+  },
+  "sync_boundary": {
+    "switch_to_sync_stops": [
+      "Train",
+      "Trừng ác",
+      "Tàng bảo đồ"
+    ],
+    "sync_auto_enables_layout_and_input": true
+  },
+  "next_task": "C08 — Xếp lưới"
+}

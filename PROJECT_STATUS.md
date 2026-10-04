@@ -15,8 +15,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C04 — VERIFIED_WITH_EXPLICIT_UNKNOWN_BOUNDARY_AND_DETACHED_CADENCE
 - C05 — VERIFIED_WITH_EXPLICIT_UNKNOWN_AUTO_SELECTION_RULE
 - C06 — AUDITED_CLOSED_WITH_EXPLICIT_UNKNOWNS
-- C07 — CURRENT
-- C08 — TODO
+- C07 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C08 — CURRENT
 - C09 — TODO
 - C10 — TODO
 - C11 — TODO
@@ -30,8 +30,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C07 — Auto**
+Current task: **C08 — Xếp lưới**
 
-C06 was re-audited and closed: the common multi-window layout engine evidence remains consistent. The exact 1.5s value found in the EXE is input-sync keepalive, not layout-worker cadence. Exact grid arithmetic/bounds/comparator/layout cadence remain explicit UNKNOWN rather than guessed.
+C06 was re-audited and closed. C07 is verified from the original EXE: Auto is the default mode, resets windows to (0,0) 1366×768, repeatedly auto-tiles every 1 second, sorts by RoleName, keeps master first, and uses the max-window guard. Exact final tile arithmetic remains explicit UNKNOWN.
 
 Preserve Gate A/B baselines unchanged.

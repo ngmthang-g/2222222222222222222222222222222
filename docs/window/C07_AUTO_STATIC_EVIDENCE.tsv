@@ -1,0 +1,38 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+archive	-	VERIFIED	SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe	-	VERIFIED	SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+auto_screenshot	-	VERIFIED	SHA256 4f1b126ea4ba0034889545653046f552a226d5f0033d2329a8693342184c28cd; matches Gate-B baseline
+mode_default_auto	0x2bf9955	VERIFIED_STATIC	auto adjacent to mode_var initialization constants
+mode_var	0x2bf995b	VERIFIED_STATIC	mode_var
+mode_auto_ui	0x2bf9cc1	VERIFIED_STATIC	internal auto value + visible Auto label
+mode_sync_ui	0x2bf9cd5	VERIFIED_STATIC	visible Xếp lưới in same build-ui block
+mode_callback	0x2bf9a2f	VERIFIED_STATIC	_on_mode_change
+sync_stops_train	0x2bfac94	VERIFIED_STATIC	[MODE] Chuyển Đồng bộ → dừng Train
+sync_stops_punish	0x2bfad15	VERIFIED_STATIC	[MODE] Chuyển Đồng bộ → dừng Trừng ác
+sync_stops_treasure	0x2bfad79	VERIFIED_STATIC	[MODE] Chuyển Đồng bộ → dừng Tàng bảo đồ
+mode_auto_marker	0x2bfade3	VERIFIED_STATIC	auto
+mode_get_windows	0x2bfade9	VERIFIED_STATIC	get_windows
+auto_width_1366	0x2bfadf6	VERIFIED_STATIC	serialized integer 1366
+auto_height_768	0x2bfadf9	VERIFIED_STATIC	serialized integer 768
+auto_reset_log	0x2bfadfe	VERIFIED_STATIC	[MODE] Chuyển Auto → đã đưa cửa sổ về (0,0) 1366x768
+auto_reset_error	0x2bfae42	VERIFIED_STATIC	[MODE] Lỗi reset cửa sổ
+auto_loop_marker	0x2bfae63	VERIFIED_STATIC	_auto_tile_loop
+mode_change_doc	0x2bfae86	VERIFIED_STATIC	sync auto-enables layout+input; auto/manual disables both
+auto_tile_state	0x2bf9712	VERIFIED_STATIC	auto_tile_active
+auto_tile_id	0x2bf9724	VERIFIED_STATIC	_auto_tile_id
+auto_tile_limit_getter	0x2bfc150	VERIFIED_STATIC	_get_max_windows
+auto_tile_process_count	0x2bfc162	VERIFIED_STATIC	_count_game_processes
+auto_tile_stop_text	0x2bfc17b	VERIFIED_STATIC	Dừng
+auto_tile_windows	0x2bfc18c	VERIFIED_STATIC	_auto_tile_windows
+auto_tile_toggle_doc	0x2bfc1a0	VERIFIED_STATIC	Bật/tắt vòng lặp xếp ngói tự động
+auto_tile_sort_key	0x2bfc1d3	VERIFIED_STATIC	_sort_key
+auto_tile_sort	0x2bfc211	VERIFIED_STATIC	sort/key
+auto_tile_doc	0x2bfc21e	VERIFIED_STATIC	sort by character name; master always first
+auto_tile_ci	0x2bfc2b4	VERIFIED_STATIC	ci
+auto_tile_role_name	0x2bfc2ba	VERIFIED_STATIC	RoleName
+auto_tile_loop_doc	0x2bfc2f8	VERIFIED_STATIC	1-second rearrange loop; only while auto_tile_active=True
+module_default_size_tuple	0x2bffb8c	VERIFIED_STATIC	serialized 1366,768 immediately before resize_window
+auto_active_assignment	-	EXPLICIT_UNKNOWN	exact assignment timing not source-visible
+auto_to_arrange_grid_edge	-	EXPLICIT_UNKNOWN	exact compiled call edge not source-visible
+auto_final_tile_math	-	EXPLICIT_UNKNOWN	exact final x/y/w/h arithmetic not recovered
+limit_comparator	-	EXPLICIT_UNKNOWN	exact source operator not recovered

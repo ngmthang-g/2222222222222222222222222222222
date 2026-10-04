@@ -41,6 +41,7 @@ IN_PROGRESS
 - C04 VERIFIED_WITH_EXPLICIT_UNKNOWN_BOUNDARY_AND_DETACHED_CADENCE
 - C05 VERIFIED_WITH_EXPLICIT_UNKNOWN_AUTO_SELECTION_RULE
 - C06 AUDITED_CLOSED_WITH_EXPLICIT_UNKNOWNS
+- C07 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -102,10 +103,29 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C07 — Auto.
+C08 — Xếp lưới.
+
+## C07 VERIFIED RESULTS
+- Auto is the default Start mode (mode_var = auto).
+- _on_mode_change is the shared mode switch handler.
+- Auto/manual disables both layout sync and input sync.
+- Auto transition resets game windows to (0,0) 1366×768 before/around the Auto tile cycle.
+- Auto tiling uses _auto_tile_windows + _auto_tile_loop.
+- Original EXE documents a 1-second re-arrangement cadence while auto_tile_active=True.
+- Auto tiling sorts using character-info RoleName and keeps master first.
+- Auto tile toggle is wired to _get_max_windows / _count_game_processes.
+- Switching to sync/Xếp-lưới stops active Train, Trừng ác and Tàng bảo đồ.
+- Exact final Auto tile arithmetic and exact max-limit comparator remain explicit UNKNOWN.
+
+## C07 FILES
+- docs/tasks/C07.md
+- docs/window/C07_AUTO_STATIC_EVIDENCE.tsv
+- docs/window/C07_AUTO_FLOW.md
+- docs/window/C07_AUTO_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
 
 ## BLOCKERS
-None known for C07.
+None known for C08.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -116,12 +136,12 @@ None known for C07.
 - Do not begin C08 before C07 is verified.
 
 ## NEXT_ACTION
-On CONTINUE:
-1. Read `PLAN.md`.
-2. Read `STATE.md`.
-3. Execute **C07 only**.
-4. Recover exact Auto-mode switch behavior from the original binary.
-5. Verify the 1366×768 reset path, `_auto_tile_windows`, RoleName ordering, master-first rule, 1-second `_auto_tile_loop`, start/stop conditions and limit integration.
-6. Combine original EXE evidence with the existing Auto screenshot; do not infer behavior from the screenshot alone.
-7. Update `WINDOW_BEHAVIOR_MATRIX.md` and persist C07 evidence/report.
-8. Advance to C08 only after C07 is verified.
+On CONTINUE / current continuation:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Execute C08 only.
+4. Recover exact Xếp-lưới/sync-mode entry behavior from the original binary.
+5. Verify grid controls, automatic layout+input activation, stop conditions, grid-change persistence, master integration and sync-loop behavior.
+6. Combine EXE evidence with the existing Xếp-lưới screenshot; do not infer behavior from screenshot alone.
+7. Update WINDOW_BEHAVIOR_MATRIX.md and persist C08 evidence/report.
+8. Advance to C09 only after C08 is verified.

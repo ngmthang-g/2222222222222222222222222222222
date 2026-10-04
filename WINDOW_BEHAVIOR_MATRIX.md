@@ -328,3 +328,28 @@ Explicit unknowns preserved:
 C07-only evidence (1366×768 Auto reset, RoleName auto-tile, 1-second loop) was observed but intentionally not promoted to C06/C07 completion.
 
 ---
+
+## C07 — Auto
+
+mode_var = auto
+→ _on_mode_change
+→ layout sync OFF + input sync OFF
+→ get game HWNDs
+→ reset each to (0,0) 1366×768
+→ _auto_tile_loop
+→ every 1 second while auto_tile_active=True:
+   _auto_tile_windows → RoleName sort → master first → tile placement
+
+Verified:
+- Auto is the default visible Start mode.
+- Auto transition reset is exactly (0,0) 1366×768.
+- Auto tiling is recurrent; documented cadence is 1 second.
+- sort key uses character-info RoleName.
+- master is always first.
+- Auto tile toggle references the max-window limit subsystem.
+- Auto/manual turns off layout and input synchronization.
+- switching to sync/Xếp-lưới stops active Train, Trừng ác and Tàng bảo đồ.
+
+Explicit unknown: exact final tile arithmetic, exact auto_tile_active assignment timing, exact compiled call edge to the common arranger, exact max-window comparator.
+
+---
