@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E09 — error handling.
+E10 — start/stop coordinator.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -647,8 +647,25 @@ E09 — error handling.
 - docs/core/E08_SHUTDOWN_FLOW.md
 - docs/core/E08_SHUTDOWN_MODEL.json
 
+## E09 VERIFIED RESULTS
+- Process-level diagnostics use faulthandler plus a custom threading.excepthook with traceback logging.
+- Feature workers commonly expose done/error callbacks and restore UI state on the Tk main thread.
+- Config load/save/parse failures are locally caught/logged and do not terminate the main GUI; per-key fallback remains feature-owned.
+- Server startup/heartbeat validates timeout/status/token/decode results, records failures and reschedules rather than crashing on the first failure.
+- Runtime permission_guard is the logic boundary; UI disabled state is only cosmetic. Fail-closed behavior is explicitly documented for sensitive missing/invalid server states, with a special limit<=0 trial/unlimited semantic.
+- Synchronous window messaging uses SendMessageTimeout/SMTO_ABORTIFHUNG; Start input retries a short path two times on transient Unity-busy failure then skips that slave/current action.
+- Input stale-lock watchdog and idempotent unblock recover missing releases/master changes.
+- Emulator remote validates token/action/identity/required fields/config value formats and returns structured ok/error results.
+- Exact retry delay, exact HTTP status mapping for every emulator error, and exhaustive source-level try/except tables remain explicit UNKNOWN/NOT_RECOVERED.
+
+## E09 FILES
+- docs/tasks/E09.md
+- docs/core/E09_ERROR_STATIC_EVIDENCE.tsv
+- docs/core/E09_ERROR_FLOW.md
+- docs/core/E09_ERROR_MODEL.json
+
 ## BLOCKERS
-None known for E09.
+None known for E10.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -662,7 +679,7 @@ None known for E09.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E09 only.
-4. Recover error handling: startup exception hooks, try/except boundaries, worker error callbacks, messagebox/log fallback, timeout/hung-window guards, network/JSON/config failures, and fail-open/fail-closed decisions where evidenced.
-5. Keep diagnostic logging separate from user-facing recovery/control flow.
-6. Persist E09 evidence/report and advance to E10 only after verification.
+3. Execute E10 only.
+4. Recover start/stop coordination across shell and feature tabs: mode switches, mutual exclusion, button/state synchronization, all-account starts/stops, cancellation propagation, permission/limit guards, and post-action routing.
+5. Distinguish shell-level coordination from each feature FSM's internal states.
+6. Persist E10 evidence/report and close Gate E only if E01-E10 are coherent.
