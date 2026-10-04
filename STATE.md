@@ -50,6 +50,7 @@ IN_PROGRESS
 - C13 VERIFIED_WITH_EXPLICIT_POST_CLOSE_UI_UNKNOWN
 - C14 VERIFIED_WITH_EXPLICIT_EMBEDDED_VISIBILITY_UNKNOWN
 - C15 VERIFIED_WITH_EXPLICIT_DIRECT_BUTTON_BINDING_UNKNOWN
+- C16 VERIFIED_WITH_EXPLICIT_POST_CLOSE_REFRESH_UNKNOWN
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -111,7 +112,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C16 — Đóng hết.
+C17 — chuyển preview trái/phải.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -263,8 +264,24 @@ C16 — Đóng hết.
 - docs/window/C15_REFRESH_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C16 VERIFIED RESULTS
+- Preview `Đóng hết` is wired to the original close-all callback and shared game-close utility.
+- The original utility operates on the current game-window HWND list and sends each live game window a normal Windows close request.
+- No force-termination path for the main game executable was recovered in the shared close utility.
+- Lingering Unity crash-handler processes are handled by a separate cleanup path.
+- This is distinct from `Đóng xem` (preview teardown) and `Làm mới` (preview rebuild).
+- Existing discovery/preview maintenance eventually removes stale preview/master state after HWNDs disappear.
+- Exact immediate post-click refresh timing remains explicit UNKNOWN; close-specific confirmation behavior was not recovered.
+
+## C16 FILES
+- docs/tasks/C16.md
+- docs/window/C16_CLOSE_ALL_STATIC_EVIDENCE.tsv
+- docs/window/C16_CLOSE_ALL_FLOW.md
+- docs/window/C16_CLOSE_ALL_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C16.
+None known for C17.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -278,8 +295,8 @@ None known for C16.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C16 only.
-4. Recover `Đóng hết` from the original EXE.
-5. Distinguish preview cleanup from actual game-window close; verify HWND close mechanism, ordering, error/confirmation behavior and post-close preview/cache cleanup.
-6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C16 evidence/report.
-7. Advance to C17 only after C16 is verified.
+3. Execute C17 only.
+4. Recover the preview ◀/▶ ordering controls from the original EXE.
+5. Verify delta semantics, HWND-based order persistence, rebuild interaction, boundary handling and detached-preview relationship.
+6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C17 evidence/report.
+7. Advance to C18 only after C17 is verified.
