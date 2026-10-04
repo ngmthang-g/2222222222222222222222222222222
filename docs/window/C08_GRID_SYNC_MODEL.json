@@ -1,0 +1,53 @@
+{
+  "task": "C08",
+  "status": "VERIFIED_WITH_EXPLICIT_UNKNOWNS",
+  "mode": {
+    "internal_value": "sync",
+    "visible_label": "Xếp lưới",
+    "callback": "_on_mode_change",
+    "auto_enable_layout_sync": true,
+    "auto_enable_input_sync": true
+  },
+  "entry_stops": [
+    "Train",
+    "Trừng ác",
+    "Tàng bảo đồ"
+  ],
+  "grid": {
+    "cols_default": 3,
+    "rows_default": 4,
+    "handlers": [
+      "_decrease_cols",
+      "_increase_cols",
+      "_decrease_rows",
+      "_increase_rows",
+      "_on_grid_change"
+    ],
+    "persisted": true,
+    "exact_bounds": "UNKNOWN",
+    "exact_math": "UNKNOWN"
+  },
+  "layout_sync": {
+    "toggle": "_toggle_layout",
+    "loop": "_sync_windows_loop",
+    "worker": "_layout_worker",
+    "cache": "_refresh_cache",
+    "arranger": "_arrange_grid",
+    "master_first": true,
+    "exact_worker_cadence": "UNKNOWN"
+  },
+  "input_sync": {
+    "toggle": "_toggle_input",
+    "keepalive": "_sync_keepalive",
+    "keepalive_seconds": 1.5,
+    "master_source": true,
+    "slave_targets": true
+  },
+  "limit": {
+    "source": "new_version_info.max_windows",
+    "fallback": 999,
+    "over_limit_stops_layout_and_input": true,
+    "exact_comparator": "UNKNOWN"
+  },
+  "next_task": "C09 — preview columns 1x–5x"
+}

@@ -353,3 +353,27 @@ Verified:
 Explicit unknown: exact final tile arithmetic, exact auto_tile_active assignment timing, exact compiled call edge to the common arranger, exact max-window comparator.
 
 ---
+
+## C08 — Xếp lưới
+
+Xếp lưới / internal sync
+→ _on_mode_change
+→ stop conflicting Train / Trừng ác / Tàng bảo đồ
+→ auto-enable layout sync + input sync
+
+Layout:
+_toggle_layout → _sync_windows_loop / _layout_worker → worker-cached HWNDs → master index 0 → _arrange_grid(current cols/rows)
+
+Input:
+_toggle_input → master input source → slave targets → _sync_keepalive every 1.5 seconds
+
+Grid:
+-/+ column and row handlers → _on_grid_change → update Cột/Hàng labels + persist settings.
+Defaults: 3 columns × 4 rows.
+
+Limit:
+new_version_info.max_windows; over limit blocks sync and _auto_stop_sync disables both layout and input sync.
+
+Explicit unknown: exact +/- bounds, exact layout-worker cadence, exact grid arithmetic, exact limit comparator.
+
+---

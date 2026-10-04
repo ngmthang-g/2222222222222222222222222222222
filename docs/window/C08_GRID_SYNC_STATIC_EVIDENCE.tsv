@@ -1,0 +1,40 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+archive	-	VERIFIED	SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe	-	VERIFIED	SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+grid_screenshot	-	VERIFIED	SHA256 f1573668b94667e85b380326dcb5a4fc1a8cbc723d9cee80e6335c13961c339a; matches Gate-B baseline
+mode_sync_ui	0x2bf9cd5	VERIFIED_STATIC	Xếp lưới visible label in mode row
+mode_callback	0x2bf9a2f	VERIFIED_STATIC	_on_mode_change
+sync_frame	0x2bf9d74	VERIFIED_STATIC	sync_frame
+decrease_cols_ui	0x2bf9dc8	VERIFIED_STATIC	_decrease_cols
+cols_label	0x2bf9e56	VERIFIED_STATIC	Cột:
+increase_cols_ui	0x2bf9e96	VERIFIED_STATIC	_increase_cols
+decrease_rows_ui	0x2bf9ed1	VERIFIED_STATIC	_decrease_rows
+rows_label	0x2bf9ee4	VERIFIED_STATIC	Hàng:
+increase_rows_ui	0x2bf9ef6	VERIFIED_STATIC	_increase_rows
+master_ui	0x2bf9f12	VERIFIED_STATIC	Cửa sổ chính:
+layout_button	0x2bf9f5d	VERIFIED_STATIC	Đồng bộ các cửa sổ
+input_button	0x2bf9fee	VERIFIED_STATIC	Đồng bộ phím chuột
+on_grid_change	0x2bfabfe	VERIFIED_STATIC	_on_grid_change
+grid_change_doc	0x2bfaba8	VERIFIED_STATIC	Cập nhật label cột/hàng
+save_config	0x2bfab9a	VERIFIED_STATIC	_save_config
+sync_stops_train	0x2bfac94	VERIFIED_STATIC	[MODE] Chuyển Đồng bộ → dừng Train
+sync_stops_punish	0x2bfad15	VERIFIED_STATIC	[MODE] Chuyển Đồng bộ → dừng Trừng ác
+sync_stops_treasure	0x2bfad79	VERIFIED_STATIC	[MODE] Chuyển Đồng bộ → dừng Tàng bảo đồ
+mode_change_doc	0x2bfae86	VERIFIED_STATIC	sync auto-enables window+input sync; auto/manual disables both
+input_button_runtime	0x2bfcf0d	VERIFIED_STATIC	Đồng bộ phím chuột
+sync_keepalive	0x2bfd01d	VERIFIED_STATIC	_sync_keepalive
+sync_keepalive_doc	0x2bfd030	VERIFIED_STATIC	Re-block slaves every 1.5s
+stop_sync_loop	0x2bfd086	VERIFIED_STATIC	_stop_sync_loop
+layout_button_runtime	0x2bfd099	VERIFIED_STATIC	Đồng bộ các cửa sổ
+layout_on_log	0x2bfd0e9	VERIFIED_STATIC	[LAYOUT] ON layout_active=... sync_layout_running=...
+layout_worker	0x2bfd11c	VERIFIED_STATIC	_layout_worker
+auto_stop_sync	0x2bfd12c	VERIFIED_STATIC	_auto_stop_sync
+arrange_grid	0x2bfd13d	VERIFIED_STATIC	_arrange_grid
+auto_stop_doc	0x2bfd14c	VERIFIED_STATIC	stops layout sync + input sync when over limit
+refresh_cache_doc	0x2bfd183	VERIFIED_STATIC	worker-thread cached window list
+grid_default_cols	0x2bfdc0e	VERIFIED_STATIC	grid_cols default serialized 3
+grid_default_rows	0x2bfdc1d	VERIFIED_STATIC	grid_rows default serialized 4
+grid_bounds	-	EXPLICIT_UNKNOWN	exact +/- min/max bounds not recovered
+layout_worker_cadence	-	EXPLICIT_UNKNOWN	exact cadence not recovered
+grid_math	-	EXPLICIT_UNKNOWN	exact x/y/w/h arithmetic not recovered
+limit_comparator	-	EXPLICIT_UNKNOWN	exact source comparator not recovered

@@ -16,8 +16,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C05 — VERIFIED_WITH_EXPLICIT_UNKNOWN_AUTO_SELECTION_RULE
 - C06 — AUDITED_CLOSED_WITH_EXPLICIT_UNKNOWNS
 - C07 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
-- C08 — CURRENT
-- C09 — TODO
+- C08 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C09 — CURRENT
 - C10 — TODO
 - C11 — TODO
 - C12 — TODO
@@ -30,8 +30,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C08 — Xếp lưới**
+Current task: **C09 — preview columns 1x–5x**
 
-C06 was re-audited and closed. C07 is verified from the original EXE: Auto is the default mode, resets windows to (0,0) 1366×768, repeatedly auto-tiles every 1 second, sorts by RoleName, keeps master first, and uses the max-window guard. Exact final tile arithmetic remains explicit UNKNOWN.
+C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
 Preserve Gate A/B baselines unchanged.

@@ -42,6 +42,7 @@ IN_PROGRESS
 - C05 VERIFIED_WITH_EXPLICIT_UNKNOWN_AUTO_SELECTION_RULE
 - C06 AUDITED_CLOSED_WITH_EXPLICIT_UNKNOWNS
 - C07 VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C08 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -103,7 +104,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C08 — Xếp lưới.
+C09 — preview columns 1x–5x.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -124,8 +125,26 @@ C08 — Xếp lưới.
 - docs/window/C07_AUTO_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C08 VERIFIED RESULTS
+- Xếp lưới is internal mode value sync and uses _on_mode_change.
+- Entering sync automatically enables layout synchronization and mouse/keyboard synchronization.
+- Active Train, Trừng ác and Tàng bảo đồ are stopped before entering sync.
+- Grid defaults are 3 columns × 4 rows and match the screenshot.
+- Dedicated +/- handlers exist for columns and rows; _on_grid_change updates labels and persists config.
+- Layout path uses _sync_windows_loop / _layout_worker / worker cache / _arrange_grid with master first.
+- Input sync keepalive is explicitly 1.5 seconds.
+- Over-limit path disables both layout and input sync.
+- Exact grid bounds, layout-worker cadence, grid arithmetic and limit comparator remain explicit UNKNOWN.
+
+## C08 FILES
+- docs/tasks/C08.md
+- docs/window/C08_GRID_SYNC_STATIC_EVIDENCE.tsv
+- docs/window/C08_GRID_SYNC_FLOW.md
+- docs/window/C08_GRID_SYNC_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C08.
+None known for C09.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -139,9 +158,9 @@ None known for C08.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C08 only.
-4. Recover exact Xếp-lưới/sync-mode entry behavior from the original binary.
-5. Verify grid controls, automatic layout+input activation, stop conditions, grid-change persistence, master integration and sync-loop behavior.
-6. Combine EXE evidence with the existing Xếp-lưới screenshot; do not infer behavior from screenshot alone.
-7. Update WINDOW_BEHAVIOR_MATRIX.md and persist C08 evidence/report.
-8. Advance to C09 only after C08 is verified.
+3. Execute C09 only.
+4. Recover the 1x–5x preview-column behavior from the original EXE.
+5. Verify manual preview grid state, automatic/manual interaction, preview geometry/rebuild behavior, detached-preview interaction and persistence if any.
+6. Use screenshot geometry only as corroboration.
+7. Update WINDOW_BEHAVIOR_MATRIX.md and persist C09 evidence/report.
+8. Advance to C10 only after C09 is verified.
