@@ -188,8 +188,8 @@ Party is selected without a dotted focus rectangle in this capture, confirming t
 - `+ Thêm nhóm`: `x=18..151, y=586..607`
 - bottom `Bắt đầu`: `x=16..429, y=988..1017`
 
-### Static-only facts not visible in this capture
-The compiled Party module also contains documentation/labels for `Theo sau đội trưởng` and `Tự nhặt đồ`. They are not visibly present here, so no pixel placement is invented.
+### G01 correction
+The later G01 EXE audit determined that the Party module prose mentioning `Theo sau đội trưởng` / `Tự nhặt đồ` is not part of the active PartyTab UI contract in this frozen build. These controls belong to the Phó Bản implementation. Do not add them to Party reconstruction. Party B04 pixel geometry is unchanged.
 
 Behavior remains deferred.
 
