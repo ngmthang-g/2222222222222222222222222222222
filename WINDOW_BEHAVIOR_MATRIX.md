@@ -452,3 +452,17 @@ Exact saved-rect restore branch is therefore kept as an explicit documentation c
 Visible re-layout calls _reset_hidden_state and clears the hidden bookkeeping.
 
 ---
+
+## C13 — Đóng xem
+
+Detached control bar: Đóng xem
+→ _close_detached_preview(user_initiated=True)
+→ close detached preview/DWM overlay resources
+→ does NOT mean close game HWNDs
+
+Refresh is separate: _refresh_detached_preview closes then reopens.
+Hủy tách is a separate visible action and is not merged with Đóng xem.
+
+Explicit unknown: exact user-initiated secondary UI state and exact Hủy tách vs Đóng xem embedded-preview restoration difference.
+
+---

@@ -1,0 +1,19 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+detached_active	0x2bf987f	VERIFIED_STATIC	detached_active
+detached_items	0x2bf9890	VERIFIED_STATIC	detached_items
+detached_bar	0x2bf98a0	VERIFIED_STATIC	_detached_bar
+toggle_detached_doc	0x2bfeb25	VERIFIED_STATIC	Bật/tắt vùng preview tách rời
+detached_refresh	0x2bff0a4	VERIFIED_STATIC	_refresh_detached_preview
+refresh_doc	0x2bff0bf	VERIFIED_STATIC	close then reopen preview to reload window list
+open_detached	0x2bff11a	VERIFIED_STATIC	_open_detached_preview
+cancel_detach_text	0x2bff238	VERIFIED_STATIC	Hủy tách
+close_view_text	0x2bff250	VERIFIED_STATIC	Đóng xem
+control_bar	0x2bff265	VERIFIED_STATIC	_build_detached_control_bar
+detached_loop	0x2bff282	VERIFIED_STATIC	_detached_update_loop
+open_doc	0x2bff299	VERIFIED_STATIC	DWM overlay region x=0,y=768 to bottom; width screen_width-450
+close_doc	0x2bff380	VERIFIED_STATIC	close all detached windows; user_initiated=True when user presses close
+detached_loop_doc	0x2bff400	VERIFIED_STATIC	rebuild if game list changes; independent of Start visibility
+dwm_unregister	0x2bfe21f	VERIFIED_STATIC	DwmUnregisterThumbnail in shared preview teardown
+destroy_dwm_dst	0x2bfe24a	VERIFIED_STATIC	_destroy_dwm_dst_hwnd
+user_branch_details	-	EXPLICIT_UNKNOWN	exact user_initiated secondary state changes not source-visible
+cancel_vs_close_restore	-	EXPLICIT_UNKNOWN	exact embedded preview restore differences not source-visible

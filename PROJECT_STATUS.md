@@ -21,8 +21,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C10 — VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
 - C11 — VERIFIED_WITH_EXPLICIT_CONCURRENCY_UNKNOWN
 - C12 — VERIFIED_WITH_EXPLICIT_RESTORE_DOC_CONFLICT
-- C13 — CURRENT
-- C14 — TODO
+- C13 — VERIFIED_WITH_EXPLICIT_POST_CLOSE_UI_UNKNOWN
+- C14 — CURRENT
 - C15 — TODO
 - C16 — TODO
 - C17 — TODO
@@ -30,7 +30,7 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C13 — Đóng xem**
+Current task: **C14 — Tách rời**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
@@ -43,3 +43,5 @@ C10 verified Xếp gọn as a real move-only multi-HWND action to (0,0), preserv
 C11 verified Xếp chéo as a move-only diagonal stack: master at (0,0), then +50 X/+50 Y per window index, preserving each current size.
 
 C12 verified the off-screen hide design: move to (-2200,-2200), preserve size, avoid SW_HIDE to keep Unity rendering. Restore docs conflict between old-position wording and a specific (0,0) path, so that branch remains explicitly unresolved.
+
+C13 verified Đóng xem as detached-preview teardown, distinct from Hủy tách, refresh, and the later Đóng hết game-window action.

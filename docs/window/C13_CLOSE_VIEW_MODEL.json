@@ -1,0 +1,15 @@
+{
+  "task": "C13",
+  "status": "VERIFIED_WITH_EXPLICIT_POST_CLOSE_UI_UNKNOWN",
+  "button": "Đóng xem",
+  "subsystem": "detached preview",
+  "close_method": "_close_detached_preview",
+  "user_initiated": true,
+  "closes_game_windows": false,
+  "resource_type": "DWM thumbnail destination overlays + detached preview items",
+  "refresh_behavior": "close then reopen",
+  "separate_from_cancel_detach": true,
+  "exact_user_branch_secondary_state": "UNKNOWN",
+  "exact_cancel_vs_close_embedded_restore": "UNKNOWN",
+  "next_task": "C14 — Tách rời"
+}
