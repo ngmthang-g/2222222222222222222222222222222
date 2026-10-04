@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G12 — Party parity-test / reconstruction handoff.
+H01 — Train UI/module wiring audit using the verified B05 baseline.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1233,43 +1233,58 @@ G12 — Party parity-test / reconstruction handoff.
 - docs/party/G11_PARTY_POST_ACTION_FLOW.md
 - docs/party/G11_PARTY_POST_ACTION_MODEL.json
 
+## G12 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; G01–G11 were already complete and no G12 artifact existed, so completed Party work was not repeated.
+- G12 integrated B04 + G01–G11 into one authoritative Party parity/reconstruction handoff without starting Stage S.
+- Gate-G coverage now matches every Party category in PLAN.md: UI, HWND, character state, grid-layout boundary, preview boundary, keyboard-sync boundary, mouse-sync boundary, configuration, action lifecycle/protocol, and parity handoff.
+- B04 remains the visual authority. Party visible structure, 2×3 group slots, dynamic clusters and exact after-party labels remain locked.
+- Runtime identity remains HWND+PID generation; RoleName is display/config identity; RoleID and TeamID are live action state only.
+- Party does not own physical window grid, preview/DWM, keyboard sync or mouse sync. These ownership boundaries remain Start/window responsibilities.
+- Active Party persistence remains name/group based under `party_after`, `party_groups`, `party_group1`; no HWND/PID/RoleID/TeamID persistence is allowed.
+- Global/per-group action lifecycle, B0→B3 packet-first team protocol, direct Rời nhóm behavior and post-party routing were consolidated without changing any verified G09–G11 behavior.
+- Remaining UNKNOWNs were explicitly classified:
+  - IMPLEMENTATION_SAFE: syntax/micro-order details where visible behavior is already bounded.
+  - RUNTIME_ONLY: first refresh tick, same-cluster global+single collision, explicit global-cancel post-party behavior, one-live-account branch.
+  - STRONGER_DECOMPILATION_REQUIRED: invalid RoleID sentinel if any, exact `_run_lock` critical section, exact `_last_targets` reset/merge sequence, numeric `CREATE_RETRY`, and exact numeric bindings for symbolic Party timing constants.
+- No unknown was silently resolved or filled from the pooled float constants.
+- A mandatory **33-case Windows original-vs-reconstruction Party parity matrix** is now defined, including same-HWND/new-PID, packet-create success/fallback, missing auto-accept, B3 resend/missing cases, hidden destination readiness, stale-HWND fallback, ordinary cluster failure and explicit global cancel.
+- Proxy runtime development scope lock remains active.
+- Stage S source reconstruction was **not** started.
+
+## G12 FILES
+- docs/tasks/G12.md
+- docs/party/G12_PARTY_PARITY_MATRIX.tsv
+- docs/party/G12_PARTY_RECONSTRUCTION_HANDOFF.md
+- docs/party/G12_PARTY_MODEL.json
+
+## GATE G DECISION
+- G01–G12 COMPLETE / VERIFIED for Party static+visual research and reconstruction handoff.
+- Party runtime parity is explicitly deferred to the mandatory Windows original-vs-reconstruction matrix.
+- Runtime/decompilation reservations remain preserved and do not justify repeating G01–G11.
+- The next PLAN phase is H — Train.
+
 ## BLOCKERS
-None known for G12.
+None known for H01.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B04 Party pixel geometry unchanged.
+- Preserve Gate B/B05 Train visual baseline; H01 must reuse it instead of remeasuring from scratch.
 - Preserve Gate F Login handoff.
-- Preserve G01–G11 Party boundaries, lifecycle, team protocol and post-party routing.
-- Do not add a Party-local EnumWindows scanner.
-- Do not duplicate Start physical layout, preview/DWM, keyboard-sync or mouse-sync systems inside PartyTab.
-- Keep Party direct check_pixel/click_at actions separate from Start synchronized input.
-- Do not persist HWND/PID/RoleID/TeamID in Party config.
-- Do not reactivate dormant party_corps_groups / party_corps_group1 / party_follow / party_pick controls.
-- Do not equate Party leader with Start master HWND.
-- Preserve global parallel-per-cluster execution and separate per-cluster cancel model.
-- Preserve B0→B3 packet-first team protocol exactly as locked in G10.
-- Preserve post-party generic 1s/20s HWND readiness, HWND-first/name-fallback matching, found-row current-HWND toggle and already-running skip.
-- Do not add an all-clusters-success post-party gate; none is recovered.
-- Keep explicit global-cancel post-party behavior UNKNOWN until runtime/stronger evidence.
-- Keep exact same-cluster global-vs-single collision rule UNKNOWN until runtime/stronger evidence.
-- Do not bind pooled numeric floats to symbolic Party timing names without stronger evidence.
-- Do not merge RoleName display identity with RoleID action identity.
-- Do not treat TeamID None/read-error as outside-team success.
-- Do not invent a numeric invalid RoleID sentinel.
-- Preserve explicit unknowns instead of guessing.
-- Proxy runtime/network development remains locked out.
+- Preserve Gate G Party handoff G01–G12; do not reopen Party without contradictory new evidence.
+- Preserve all Party runtime/decompilation UNKNOWN classifications.
 - Do not start Stage S source reconstruction early.
+- Proxy runtime/network development remains locked out.
+- For Train, follow the original EXE-first workflow and do not import behavior from older external Than Long projects as a substitute for TLM evidence.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any G12 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute G12 only if still pending.
-5. Perform the Party parity-test / reconstruction handoff for G01–G11 without redoing verified forensic work.
-6. Build one authoritative Party parity matrix covering: B04 UI, HWND/PID refresh, RoleName/RoleID/TeamID separation, no Party grid/preview/input-sync ownership, config persistence, global/single action lifecycle, B0→B3 protocol, Rời nhóm, and post-party routing.
-7. Reconcile all known UNKNOWNs and classify each as implementation-safe, runtime-only, or requiring stronger decompilation. Do not silently resolve unknowns.
-8. Include mandatory Windows original-vs-reconstruction runtime cases, especially: same-HWND/new-PID, same-cluster global+single collision, explicit global cancel before aggregate completion, packet-create success/fallback, missing auto-accept, partial B3 join after one resend, hidden destination tab readiness, stale-HWND name fallback, and post-party routing after cluster failure.
-9. Preserve proxy runtime scope lock and do not start Stage S early.
-10. Persist G12 parity/handoff artifacts, update STATE.md, and close Gate G only after verification.
+3. Check GitHub first for any H01 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H01 only if still pending.
+5. Inspect the frozen original EXE first.
+6. Reuse the already-verified B05 Train baseline; do not remeasure/redraw Train UI from screenshots alone.
+7. Audit Train/FarmTab module and UI wiring only: constructor state, visible/hidden section ownership, exact widget→callback bindings, config variables/keys, account-row/control surfaces, shared HWND/character references, and lifecycle hooks.
+8. Do not yet implement or deeply analyze return-town, inventory-full, periodic-town, train coordinates, heal, death recovery, reconnect, loot filtering, mount, saved-coordinate behavior or FSM; those are later H tasks.
+9. Cross-check B05 only after static EXE extraction.
+10. Persist H01 evidence/report, update STATE.md, and advance to H02 only after verification.
