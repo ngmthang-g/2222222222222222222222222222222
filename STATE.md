@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-G03 — Party character-state model.
+G04 — Party grid-layout relationship audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -996,15 +996,50 @@ G03 — Party character-state model.
 - docs/party/G02_PARTY_HWND_FLOW.md
 - docs/party/G02_PARTY_HWND_MODEL.json
 
+## G03 VERIFIED RESULTS
+- Re-read PLAN.md and STATE.md and executed G03 only. G02 HWND discovery/identity was reused, not redone.
+- Re-materialized and inspected the exact user archive/EXE first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Party has three separate identity/state layers: physical HWND+PID generation, display/config RoleName, and live RoleID/TeamID action state.
+- In the frozen Party module, direct `utils.get_character_info` consumption is limited to `RoleName` for the ready/member name layer. No direct Party constants for CurrentHP/MaxHP/HPPercent/Level/MapID/PosX/PosY were recovered.
+- RoleName is sanitized through the `<[^>]+>` path; a temporary `Window ` fallback exists. Exact fallback suffix remains UNKNOWN.
+- RoleID is NOT taken from get_character_info. Party resolves it live through `memory_items.read_own_ids` plus `hwnd_of_pid`.
+- The shared own-ID path exposes records shaped as `(pid, RoleID, Name, Lv)`. Party resolves selected names to `(name, hwnd, rid)`.
+- Name resolution has direct `strip`, exact-name map and lowercase fallback-map surfaces. An absent live name logs `không online — bỏ qua`; a PID without current HWND logs `không tìm thấy cửa sổ — bỏ qua`.
+- Party contains direct diagnostic `[Party] Không đọc được RoleID: ...`. No Party numeric invalid-RoleID sentinel contract was recovered; G03 explicitly does NOT invent `RoleID=0` or another value as invalid.
+- TeamID is read separately via `memory_items.read_team_id(hwnd)`, not from get_character_info.
+- TeamID semantic states are locked:
+  - `0` = known outside/no team;
+  - `0xFFFFFFFF` = known outside/no team;
+  - `None` = read failure / unknown;
+  - other accepted ID = real team.
+- Party explicitly says `None (đọc lỗi) không được coi là đạt`; therefore read failure must never be merged into the successful outside-team state.
+- Same-team verification only accepts equal real TeamIDs after excluding 0 / 0xFFFFFFFF / None.
+- `_team_snapshot` preserves unreadable TeamID as `?` for diagnostics rather than formatting it as 0.
+- Party summary documents `read_team_id` at `RoleData+0xE8`. A separate shared `read_team_leader` helper documents leader RoleID at `RoleData+0xEC`, but Party does not use that helper as its member RoleID source.
+- Party persists member names/config, not live RoleID or TeamID. RoleID and TeamID must be re-resolved/polled live.
+- B04 was cross-checked only after EXE extraction and remains unchanged: it visibly shows names in Comboboxes, not RoleID/TeamID numbers.
+- Team create/invite/action sequencing remains deferred; G03 records state semantics only.
+
+## G03 FILES
+- docs/tasks/G03.md
+- docs/party/G03_PARTY_CHARACTER_STATE_STATIC_EVIDENCE.tsv
+- docs/party/G03_PARTY_CHARACTER_STATE_FLOW.md
+- docs/party/G03_PARTY_CHARACTER_STATE_MODEL.json
+
 ## BLOCKERS
-None known for G03.
+None known for G04.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B04 Party pixel geometry unchanged; G01 only corrected a stale documentation-only control claim.
+- Preserve B04 Party pixel geometry unchanged.
 - Preserve Gate F Login handoff.
-- Do not add Party follow/pick checkboxes; those are not active PartyTab UI in this frozen EXE.
-- Do not move preview/layout/input-sync ownership into PartyTab.
+- Preserve G01 Party UI/control ownership, G02 HWND+PID identity and G03 RoleName/RoleID/TeamID separation.
+- Do not add a Party-local EnumWindows scanner.
+- Do not merge RoleName display identity with RoleID action identity.
+- Do not treat TeamID None/read-error as outside-team success.
+- Do not invent a numeric invalid RoleID sentinel.
+- Do not add Party follow/pick checkboxes; they are not active PartyTab UI in this frozen EXE.
+- Do not move preview/layout/input-sync ownership into PartyTab without new direct evidence.
 - Preserve explicit unknowns instead of guessing.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
@@ -1013,10 +1048,11 @@ None known for G03.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute G03 only.
+3. Execute G04 only.
 4. Inspect the frozen original EXE first.
-5. Recover Party character-state boundaries: fields read from `utils.get_character_info`, display/name identity, RoleID/TeamID sources, invalid/sentinel values, and read-failure behavior.
-6. Reuse G02 HWND+PID generation identity; do not redo window discovery.
-7. Do not implement team create/invite behavior yet.
-8. Cross-check B04 only after static extraction.
-9. Persist G03 evidence/report, update STATE.md, and advance only after verification.
+5. Audit Party's relationship to grid/window arrangement without redoing C06/C07/C08: search PartyTab for shared layout/arrange/move/resize entry points, determine whether Party ever invokes them directly, and if so recover the exact HWND set/order passed.
+6. Separate Party group ordering from physical game-window layout ordering; do not assume the six group Combobox slots imply window positions.
+7. Reuse the already-verified Start/window layout contracts for any shared calls; do not duplicate grid algorithms inside Party.
+8. If no Party-owned or Party-invoked grid action exists, record that negative result explicitly rather than inventing one.
+9. Cross-check B04 only after static extraction; screenshots do not prove physical window arrangement.
+10. Persist G04 evidence/report, update STATE.md, and advance only after verification.
