@@ -1,0 +1,36 @@
+key	offset_hex	status	evidence
+shared_get_character_info	0x2b7dc82	VERIFIED_STATIC	Party calls utils.get_character_info
+sanitize_regex	0x2b7dcdf	VERIFIED_STATIC	<[^>]+>
+char_info_helper	0x2b7dce8	VERIFIED_STATIC	_get_char_info
+sanitize_helper	0x2b7dcf8	VERIFIED_STATIC	_sanitize_name
+display_field_role_name	0x2b7dd0a	VERIFIED_STATIC	RoleName
+display_fallback_prefix	0x2b7dd1a	VERIFIED_STATIC	Window 
+party_hp_fields	-	ABSENT_DIRECT_PARTY_USE	No CurrentHP/MaxHP/HPPercent token in frozen Party range
+party_level_field	-	ABSENT_DIRECT_PARTY_USE	No Level token in frozen Party range
+party_map_position_fields	-	ABSENT_DIRECT_PARTY_USE	No MapID/PosX/PosY token in frozen Party range
+roleid_source	0x2b7ec29	VERIFIED_STATIC	read_own_ids
+roleid_read_error_log	0x2b7ec37	VERIFIED_STATIC	[Party] Không đọc được RoleID:
+name_trim	0x2b7ec64	VERIFIED_STATIC	strip
+name_exact_map	0x2b7ec6c	VERIFIED_STATIC	by_exact
+name_map_setdefault	0x2b7ec76	VERIFIED_STATIC	setdefault
+name_lower_map	0x2b7ec82	VERIFIED_STATIC	by_lower
+offline_skip_log	0x2b7ec8c	VERIFIED_STATIC	không online — bỏ qua
+hwnd_from_pid	0x2b7ecaa	VERIFIED_STATIC	hwnd_of_pid
+missing_window_skip	0x2b7ecb7	VERIFIED_STATIC	không tìm thấy cửa sổ — bỏ qua
+resolved_target_shape	0x2b7ece5	VERIFIED_STATIC	Ten acc -> [(name, hwnd, rid)] cho acc online
+roleid_resolution_doc	0x2b7ed16	VERIFIED_STATIC	RoleID from read_own_ids + hwnd_of_pid
+resolver_offline_doc	0x2b7ed5b	VERIFIED_STATIC	offline/missing-window account skipped + logged
+own_ids_shape	0x2b710e5	VERIFIED_SHARED_STATIC	[(pid, RoleID, Name, Lv)] each game window
+teamid_source	0x2b7eda1	VERIFIED_STATIC	read_team_id
+party_teamid_doc	0x2b7edaf	VERIFIED_STATIC	0=no team, None=read error
+team_snapshot_doc	0x2b7edf6	VERIFIED_STATIC	name=TeamID diagnostics; read error -> ?
+no_team_ids_symbol	0x2b7ef06	VERIFIED_STATIC	NO_TEAM_IDS
+wait_state_doc	0x2b7ef58	VERIFIED_STATIC	outside team means TeamID 0/0xFFFFFFFF; after-create means real team
+wait_state_none_doc	0x2b7efd8	VERIFIED_STATIC	None read error is not considered reached
+same_team_doc	0x2b7f066	VERIFIED_STATIC	two windows same real TeamID excluding 0/0xFFFFFFFF/None
+shared_teamid_doc	0x2b70d3e	VERIFIED_SHARED_STATIC	memory_items: 0/0xFFFFFFFF=no team; None=read error
+leader_roleid_helper_doc	0x2b7094c	SEPARATE_SHARED_HELPER	memory_items has leader RoleID at RoleData+0xEC; Party does not reference read_team_leader here
+party_teamid_offset_doc	0x2b8115c	VERIFIED_STATIC	Party summary says read_team_id uses RoleData+0xE8
+party_teamid_sentinel_doc	0x2b8119a	VERIFIED_STATIC	0/0xFFFFFFFF means outside team
+party_roleid_summary	0x2b811e7	VERIFIED_STATIC	RoleID read from read_own_ids + hwnd_of_pid
+numeric_invalid_roleid_sentinel	-	EXPLICIT_UNKNOWN	No Party NO_ROLE_IDS equivalent / numeric invalid RoleID contract recovered
