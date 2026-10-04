@@ -1,0 +1,62 @@
+{
+  "task": "G04",
+  "status": "VERIFIED_NO_PARTY_GRID_ARRANGER_WITH_LEADER_ONLY_1366x768_RESIZE_PRECONDITION",
+  "repo_resume_check": {
+    "g01_complete": true,
+    "g02_complete": true,
+    "g03_complete": true,
+    "g04_preexisting_artifacts": false,
+    "action": "continued from STATE NEXT_ACTION without repeating completed tasks"
+  },
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "physical_layout_ownership": {
+    "party_owns_arrange_grid": false,
+    "party_owns_move_windows_offset": false,
+    "party_owns_auto_tile_windows": false,
+    "party_owns_layout_worker": false,
+    "party_owns_sync_windows_loop": false,
+    "party_has_grid_cols_rows": false,
+    "authoritative_subsystem": "Start/window subsystem C06/C07/C08"
+  },
+  "shared_start_usage": {
+    "get_windows": true,
+    "purpose": "Party member discovery/refresh",
+    "direct_arrange_or_tile_call": false
+  },
+  "party_ui_grid": {
+    "tk_grid": true,
+    "tk_grid_remove": true,
+    "ready_accounts_per_row": 3,
+    "group_slots": "6 = 2x3 combobox UI",
+    "physical_window_mapping": false
+  },
+  "ordering_boundary": {
+    "party_group_order_is_desktop_window_order": false,
+    "party_leader_is_start_master": false,
+    "evidence_for_mapping": "NOT_RECOVERED"
+  },
+  "direct_geometry_precondition": {
+    "method": "PartyTab._click_create_team",
+    "target": "leader/create-team HWND local lhwnd",
+    "helper": "shared resize_window",
+    "width": 1366,
+    "height": 768,
+    "reason": "fixed-coordinate UI create-team path documented for game 1366x768",
+    "all_party_members_resized": false,
+    "shared_resize_semantics": {
+      "preserve_position": true,
+      "no_activate": true,
+      "no_zorder_change": true,
+      "source": "C06"
+    }
+  },
+  "visual_cross_check": {
+    "authority": "B04",
+    "geometry_changed": false,
+    "physical_desktop_layout_visible_in_b04": false
+  },
+  "next_task": "G05 — Party preview relationship audit"
+}
