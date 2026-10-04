@@ -43,6 +43,7 @@ IN_PROGRESS
 - C06 AUDITED_CLOSED_WITH_EXPLICIT_UNKNOWNS
 - C07 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C08 VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C09 VERIFIED_WITH_EXPLICIT_UNKNOWNS
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -104,7 +105,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C09 — preview columns 1x–5x.
+C10 — Xếp gọn.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -143,8 +144,27 @@ C09 — preview columns 1x–5x.
 - docs/window/C08_GRID_SYNC_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C09 VERIFIED RESULTS
+- Main preview exposes 1x–5x column choices.
+- preview_grid_var default is 2x and matches the screenshot.
+- _set_manual_preview_grid is the real manual-grid callback.
+- _get_preview_columns parses the x-form selection into preview column count.
+- refresh_window_preview_list consumes preview_cols/preview_rows and places items by row/column.
+- Current 2x geometry remains 3 items in 2 columns, outer frame 205×137, visible surface 197×110.
+- Preview order is separate from column count and is preserved by HWND across rebuild.
+- Main preview remains live DWM thumbnails.
+- Detached preview uses separate detached_grid state and persists it; no main preview_grid settings key was recovered.
+- Exact preview_rows arithmetic/manual-flag timing remain explicit UNKNOWN; other column pixel geometries remain runtime-unverified.
+
+## C09 FILES
+- docs/tasks/C09.md
+- docs/window/C09_PREVIEW_COLUMNS_STATIC_EVIDENCE.tsv
+- docs/window/C09_PREVIEW_COLUMNS_FLOW.md
+- docs/window/C09_PREVIEW_COLUMNS_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C09.
+None known for C10.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -158,9 +178,8 @@ None known for C09.
 On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C09 only.
-4. Recover the 1x–5x preview-column behavior from the original EXE.
-5. Verify manual preview grid state, automatic/manual interaction, preview geometry/rebuild behavior, detached-preview interaction and persistence if any.
-6. Use screenshot geometry only as corroboration.
-7. Update WINDOW_BEHAVIOR_MATRIX.md and persist C09 evidence/report.
-8. Advance to C10 only after C09 is verified.
+3. Execute C10 only.
+4. Recover Xếp gọn from the original EXE and confirm its callback → shared move engine → HWND effect.
+5. Verify position, size preservation, master ordering, hidden-state reset and interaction with Auto/sync modes.
+6. Update WINDOW_BEHAVIOR_MATRIX.md and persist C10 evidence/report.
+7. Advance to C11 only after C10 is verified.

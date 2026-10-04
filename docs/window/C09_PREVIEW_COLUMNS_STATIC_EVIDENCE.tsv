@@ -1,0 +1,35 @@
+KEY	OFFSET_HEX	STATUS	EVIDENCE
+main_preview_default	0x2bf975c	VERIFIED_STATIC	preview_grid_var initialized with visible value 2x
+preview_grid_var	0x2bf9760	VERIFIED_STATIC	preview_grid_var
+preview_grid_manual	0x2bf9772	VERIFIED_STATIC	preview_grid_manual
+preview_grid_rows_state	0x2bf9787	VERIFIED_STATIC	_preview_grid_rows
+ui_1x	0x2bfa673	VERIFIED_STATIC	1x
+ui_2x	0x2bfa677	VERIFIED_STATIC	2x
+ui_3x	0x2bfa67b	VERIFIED_STATIC	3x
+ui_4x	0x2bfa67f	VERIFIED_STATIC	4x
+ui_5x	0x2bfa683	VERIFIED_STATIC	5x
+manual_callback	0x2bfa694	VERIFIED_STATIC	_set_manual_preview_grid
+manual_doc	0x2bfe062	VERIFIED_STATIC	Chọn chế độ lưới thủ công cho preview
+preview_order	0x2bfe0a3	VERIFIED_STATIC	_preview_order
+move_preview_doc	0x2bfe0b3	VERIFIED_STATIC	arrow buttons move item delta -1/+1; order persists by HWND across refresh
+get_columns_default	0x2bfe174	VERIFIED_STATIC	2x
+get_columns_replace	0x2bfe178	VERIFIED_STATIC	replace
+get_columns_doc	0x2bfe183	VERIFIED_STATIC	Xác định số cột preview
+refresh_get_columns	0x2bfe347	VERIFIED_STATIC	_get_preview_columns
+refresh_preview_cols	0x2bfe35f	VERIFIED_STATIC	preview_cols
+refresh_preview_rows	0x2bfe373	VERIFIED_STATIC	preview_rows
+grid_columnconfigure	0x2bfe3ee	VERIFIED_STATIC	grid_columnconfigure
+grid_row	0x2bfe4b3	VERIFIED_STATIC	row
+grid_column	0x2bfe4b8	VERIFIED_STATIC	column
+dwm_create	0x2bfe65f	VERIFIED_STATIC	_create_dwm_dst_hwnd
+dwm_register	0x2bfe68d	VERIFIED_STATIC	DwmRegisterThumbnail
+refresh_doc	0x2bfe7f5	VERIFIED_STATIC	Làm mới toàn bộ danh sách preview DWM
+detached_cols_label	0x2bfee6c	VERIFIED_STATIC	Cột
+detached_combobox	0x2bfeeac	VERIFIED_STATIC	Combobox readonly
+detached_cols_state	0x2bfeeed	VERIFIED_STATIC	_detached_cmb_cols
+detached_grid_config	0x2bfdc4f	VERIFIED_STATIC	detached_grid in settings load
+detached_grid_default	0x2bfdc5e	VERIFIED_STATIC	string-like default 3 immediately after detached_grid
+main_preview_grid_config	-	NOT_RECOVERED	no preview_grid key in recovered Start settings block
+preview_rows_formula	-	EXPLICIT_UNKNOWN	exact arithmetic not recovered
+manual_flag_assignment	-	EXPLICIT_UNKNOWN	exact source assignment timing not recovered
+other_column_pixel_geometry	-	UNVERIFIED	requires runtime screenshots for 1x/3x/4x/5x

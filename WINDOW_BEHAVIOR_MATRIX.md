@@ -377,3 +377,28 @@ new_version_info.max_windows; over limit blocks sync and _auto_stop_sync disable
 Explicit unknown: exact +/- bounds, exact layout-worker cadence, exact grid arithmetic, exact limit comparator.
 
 ---
+
+## C09 — preview columns 1x–5x
+
+Cột: 1x / 2x / 3x / 4x / 5x
+→ preview_grid_var (default 2x)
+→ _set_manual_preview_grid
+→ _get_preview_columns
+→ numeric preview_cols
+→ refresh_window_preview_list
+→ preview_rows + row/column placement
+→ live DWM thumbnail frames
+
+Current measured 2x state:
+- 3 preview items
+- 2 columns
+- outer frame 205×137
+- visible thumbnail surface 197×110.
+
+Order control is separate: ◀/▶ updates _preview_order by HWND and refresh preserves that order.
+
+Detached preview uses separate detached_grid state/Combobox and persists it; no main preview_grid config key was recovered.
+
+Explicit unknown: exact preview_rows arithmetic and exact manual-flag assignment timing. Pixel geometry for 1x/3x/4x/5x remains runtime-unverified.
+
+---

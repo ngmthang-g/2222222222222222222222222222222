@@ -17,8 +17,8 @@ B01–B14: **COMPLETE / VERIFIED**
 - C06 — AUDITED_CLOSED_WITH_EXPLICIT_UNKNOWNS
 - C07 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
 - C08 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
-- C09 — CURRENT
-- C10 — TODO
+- C09 — VERIFIED_WITH_EXPLICIT_UNKNOWNS
+- C10 — CURRENT
 - C11 — TODO
 - C12 — TODO
 - C13 — TODO
@@ -30,8 +30,10 @@ B01–B14: **COMPLETE / VERIFIED**
 - C19 — TODO
 - C20 — TODO
 
-Current task: **C09 — preview columns 1x–5x**
+Current task: **C10 — Xếp gọn**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
 Preserve Gate A/B baselines unchanged.
+
+C09 verified the main preview 1x–5x column selector: runtime default 2x, manual callback, numeric column resolver, row/column rebuild and separate persisted detached-grid state.

@@ -1,0 +1,57 @@
+{
+  "task": "C09",
+  "status": "VERIFIED_WITH_EXPLICIT_UNKNOWNS",
+  "main_preview": {
+    "choices": [
+      "1x",
+      "2x",
+      "3x",
+      "4x",
+      "5x"
+    ],
+    "default": "2x",
+    "variable": "preview_grid_var",
+    "manual_state": "preview_grid_manual",
+    "callback": "_set_manual_preview_grid",
+    "columns_resolver": "_get_preview_columns",
+    "persistence": "NOT_RECOVERED"
+  },
+  "rebuild": {
+    "method": "refresh_window_preview_list",
+    "fields": [
+      "preview_cols",
+      "preview_rows",
+      "row",
+      "column"
+    ],
+    "renderer": "DWM live thumbnails",
+    "current_2x_geometry": {
+      "items": 3,
+      "columns": 2,
+      "outer_frame_px": [
+        205,
+        137
+      ],
+      "visible_surface_px": [
+        197,
+        110
+      ]
+    },
+    "exact_rows_formula": "UNKNOWN"
+  },
+  "ordering": {
+    "method": "_move_preview_item",
+    "deltas": [
+      -1,
+      1
+    ],
+    "persistent_across_rebuild_by": "HWND"
+  },
+  "detached_preview": {
+    "separate_state": "detached_grid",
+    "control": "readonly Combobox",
+    "persisted": true,
+    "recovered_default": "3"
+  },
+  "next_task": "C10 — Xếp gọn"
+}
