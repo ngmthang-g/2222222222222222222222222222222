@@ -162,7 +162,7 @@ Các hàng chức năng đang thấy gồm:
 - Tới LSV
 - Tới chỗ train
 - Rời LSV
-- Đồn vàng
+- Dồn vàng
 - Tới nơi nhận
 - Tới chỗ bán
 - Tới nơi train
@@ -235,7 +235,7 @@ Phải tái tạo các phần nhìn thấy:
   - Party
   - Train
   - Train LSV
-  - Đồn vàng
+  - Dồn vàng
 
 ### Cấu hình tài khoản
 
