@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F06 — account login action.
+F07 — captcha option.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -785,8 +785,31 @@ F06 — account login action.
 - docs/login/F05_LAUNCHER_FLOW.md
 - docs/login/F05_LAUNCHER_MODEL.json
 
+## F06 VERIFIED RESULTS
+- Checked rows are parsed as (row_idx, tk, mk, captcha_mode, proxy); missing username/password is rejected before normal login.
+- Row login is asynchronous through _single_login_worker and uses a retry loop bounded by MAX_LOGIN_RETRIES; exact numeric retry value remains UNKNOWN.
+- Login mouse actions use background/window-relative click_at through the DLL sync/PostMessage path, so the physical cursor does not move.
+- Username/password text uses press_at with WM_CHAR/Unity activation and does not require user physical keyboard focus.
+- Readiness is detected with PrintWindow so covered game windows can still be checked.
+- login.login1 + login.login2 must both match; login-form timeout is exactly 100s.
+- login.update popup is detected and closed at exact coordinate (630,457).
+- Exact credential sequence: username click (613,302) → type tk → password click (573,362) → type mk → Login click (684,506).
+- login.vaoTroChoi wait has strong static evidence for a 150-check ceiling, followed by click at (684,450); exact poll delay remains UNKNOWN.
+- Step 8 awaits common.active with exact timeout 30s and cancellation/window-validity guards.
+- On success the worker calls _mark_row_online and _record_login_time; online runtime state and last-login history are updated through the already recovered stores.
+- Failed retry attempts use _force_close_window before another launch/login attempt.
+- Multi-account behavior keeps F05 launch serialization but allows login-click workers to run in parallel under Semaphore(MAX_PARALLEL_LOGIN); exact semaphore limit remains UNKNOWN.
+- The monitor waits for all login threads before aggregating results and resetting overall Login UI.
+- Captcha internals remain F07; proxy policy remains F08; post-login routing remains F10.
+
+## F06 FILES
+- docs/tasks/F06.md
+- docs/login/F06_LOGIN_ACTION_STATIC_EVIDENCE.tsv
+- docs/login/F06_LOGIN_ACTION_FLOW.md
+- docs/login/F06_LOGIN_ACTION_MODEL.json
+
 ## BLOCKERS
-None known for F06.
+None known for F07.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -800,7 +823,7 @@ None known for F06.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F06 only.
-4. Recover the original account login action after launcher readiness: selected-row parsing, username/password/captcha/proxy tuple, hidden/background input mechanism, username click/type, password click/type, Login click, readiness/pixel checks, retries, online marking, close/retry handling and MAX_PARALLEL_LOGIN coordination.
-5. Keep captcha-specific mode internals deferred to F07 and proxy-selection semantics deferred to F08 except where F06 consumes their already-resolved outputs.
-6. Persist F06 evidence/report and advance to F07 only after verification.
+3. Execute F07 only.
+4. Recover captcha option behavior from the original EXE: modes Không/Tool/Proxy, per-row UI transitions, DLL/captcha readiness state, normal/free/private proxy relationship, any external captcha helper calls, failure handling and how the resolved mode feeds F06.
+5. Keep general proxy allocation/rotation/pinning internals deferred to F08 except where F07 mode selection directly determines which proxy path is chosen.
+6. Persist F07 evidence/report and advance to F08 only after verification.
