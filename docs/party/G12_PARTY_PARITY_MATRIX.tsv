@@ -1,0 +1,77 @@
+area	contract	status	authority	unknown_class_or_note
+visual	B04 Party geometry and visible controls	PASS	B04/G01	locked
+visual	after-party choices Chờ/Train/Train LSV/Dồn vàng/Phó bản	PASS	G01	locked
+visual	Party follow/pick active controls	NO	G01	stale/dormant prose/config only
+hwnd	source start_tab.get_windows	PASS	G02	shared Start cache
+hwnd	Party refresh interval 3000ms	PASS	G02	exact
+hwnd	HWND+PID generation identity	PASS	G02	locked
+hwnd	same HWND/new PID removes old member	PASS	G02	mandatory runtime parity
+hwnd	first refresh tick immediate vs delayed	UNKNOWN	G02	RUNTIME_ONLY
+hwnd	Tk-after apply exact delay	UNKNOWN	G02	IMPLEMENTATION_SAFE
+hwnd	Window fallback exact suffix	UNKNOWN	G02	IMPLEMENTATION_SAFE
+identity	RoleName display/config identity	PASS	G03	locked
+identity	RoleID live source read_own_ids + hwnd_of_pid	PASS	G03	locked
+identity	TeamID live source read_team_id	PASS	G03	locked
+identity	TeamID 0/0xFFFFFFFF=no-team; None=read error	PASS	G03	locked
+identity	numeric invalid RoleID sentinel	UNKNOWN	G03	STRONGER_DECOMPILATION_REQUIRED
+layout	Party owns physical grid/tile engine	NO	G04	Start-owned
+layout	Party leader == Start master	NO_EVIDENCE	G04	must remain independent
+layout	leader create fallback resize 1366x768 only	PASS	G04	locked
+preview	Party owns DWM preview	NO	G05	Start-owned
+keyboard	Party owns keyboard sync	NO	G06	Start-owned
+mouse_sync	Party owns mouse sync	NO	G07	Start-owned
+mouse_action	Party owns direct targeted check_pixel/click_at	PASS	G07	separate from sync
+config	backend settings.ini/Settings shared helpers	PASS	G08	locked
+config	party_after default wait and five allowed modes	PASS	G08	locked
+config	party_groups current JSON schema num+members	PASS	G08	locked
+config	party_group1 legacy first-group mirror	PASS	G08	locked
+config	ensure_ascii=False	PASS	G08	locked
+config	persist HWND/PID/RoleID/TeamID	NO	G08	runtime-only identity
+config	dormant party_corps*/party_follow/party_pick active UI	NO	G08	must not reactivate
+config	_saving_enabled exact flip timing	UNKNOWN	G08	IMPLEMENTATION_SAFE
+config	current-vs-legacy exact branch syntax	UNKNOWN	G08	IMPLEMENTATION_SAFE
+config	malformed JSON exact exception syntax	UNKNOWN	G08	IMPLEMENTATION_SAFE / runtime if exact parity desired
+config	legacy cleanup exact del/pop syntax	UNKNOWN	G08	IMPLEMENTATION_SAFE
+global_run	Bắt đầu green -> Dừng lại red -> Đang dừng orange-disabled	PASS	G09	locked
+global_run	one cluster thread + cancel per group	PASS	G09	locked
+global_run	post-party once + reset once after aggregate	PASS	G09	locked
+global_run	_run_lock exact critical section	UNKNOWN	G09	STRONGER_DECOMPILATION_REQUIRED
+global_run	state assignment microorder	UNKNOWN	G09	IMPLEMENTATION_SAFE
+single_run	minimum 2 members; own thread/cancel; shared _run_one_group	PASS	G09	locked
+single_run	distinct clusters may run parallel	PASS	G09	locked
+single_run	same cluster global+single collision rule	UNKNOWN	G09	RUNTIME_ONLY
+leave_button	Rời nhóm daemon worker; skip offline/outside	PASS	G09/G10	locked
+B0	AutoAcceptInviteTeam=True write + readback	PASS	G10	locked
+B0	False/None readback warns rather than fabricate success	PASS	G10	locked
+B1	leave packet 200057 action4 payload 4:<ownRid>	PASS	G10	locked
+B1	wait outside TeamID; timeout logs and continues	PASS	G10	locked
+B2	create packet-first 200057 action0 payload 0	PASS	G10	locked
+B2	click fallback exact 1366x768 coordinates and 1s gap	PASS	G10	locked
+B2	exact CREATE_RETRY numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+B3	team invite packet 200051 payload 5:<RoleID>	PASS	G10	locked
+B3	burst + one shared wait + exactly one resend	PASS	G10	locked
+B3	burst delay documented ~0.5s	PASS_APPROX	G10	do not promote to exact assignment
+timing	AUTOSET_DELAY exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	LEAVE_DELAY exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	WAIT_LEFT_TIMEOUT exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	TEAMID_POLL exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	CREATE_PACKET_TIMEOUT exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	WAIT_TEAM_TIMEOUT exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	INVITE_DELAY exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	GROUP_JOIN_POLL exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	GROUP_JOIN_TIMEOUT exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+timing	BURST_INVITE_DELAY exact numeric	UNKNOWN	G10	STRONGER_DECOMPILATION_REQUIRED
+post_action	wait no-op	PASS	G11	locked
+post_action	phoban whole-tab main-thread handoff	PASS	G11	locked
+post_action	train/train_lsv/don per just-partied account	PASS	G11	locked
+post_action	hidden destination select-before-wait	PASS	G11	locked
+post_action	readiness want.issubset(have), 1s, max20s	PASS	G11	locked
+post_action	HWND first -> name/lower -> fresh resolution	PASS	G11	locked
+post_action	use destination row current HWND	PASS	G11	locked
+post_action	already-running _farming_acc skip	PASS	G11	locked
+post_action	_last_targets reset/merge exact statement sequence	UNKNOWN	G11	STRONGER_DECOMPILATION_REQUIRED
+post_action	fresh_map exact dictionary expression	UNKNOWN	G11	IMPLEMENTATION_SAFE
+post_action	all-clusters-success gate	NO	G11	ordinary failure does not create such a recovered gate
+post_action	explicit global cancel suppresses/allows post-action	UNKNOWN	G11	RUNTIME_ONLY
+runtime_edge	only one live selected account exact user-visible branch	UNKNOWN	G10	RUNTIME_ONLY
+gate	Party static research/reconstruction handoff	CLOSED	G12	Stage S not started
