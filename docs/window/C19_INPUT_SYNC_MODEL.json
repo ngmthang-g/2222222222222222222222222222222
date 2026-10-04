@@ -1,6 +1,6 @@
 {
   "task": "C19",
-  "status": "VERIFIED_WITH_EXPLICIT_UNKNOWNS",
+  "status": "VERIFIED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS",
   "control": "Đồng bộ phím chuột",
   "source": "selected master game window",
   "mouse_sync": true,
