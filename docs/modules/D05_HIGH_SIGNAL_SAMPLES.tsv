@@ -1,0 +1,66 @@
+module	offset_hex	category	string
+coordinate_utils	0x28d8361	LOG_UI	[CPU Monitor] psutil not installed - skip
+coordinate_utils	0x28d81d3	SYMBOL	is_game_process
+cpu_monitor	0x28d8b38	SYMBOL	__version__
+daily_tab	0x290d018	LOG_UI	Bat/tat HTTP listener cho remote tren may (AutoX/APK).
+daily_tab	0x290d434	API_CONST	WindowFromPoint
+debug_android_tab	0x290e777	PATH_FILE	Call once at startup. Tee stdout/stderr -> original + log file.
+debug_android_tab	0x290e6ba	UI_TEXT	python: 3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]
+debug_logger	0x2910edb	API_CONST	GetForegroundWindow
+debug_logger	0x2910f2c	API_CONST	GetWindowThreadProcessId
+debug_tab	0x29190af	API_CONST	EnumWindows
+debug_tab	0x2919239	API_CONST	IsWindowVisible
+dll_injector	0x291af10	API_CONST	WM_AUTOMOVE_STOP_TOKEN
+dll_injector	0x291cc9c	API_CONST	IsWindow
+don_logic	0x2929d54	API_CONST	IsWindow
+don_logic	0x29237e2	LOG_UI	[Farm] hwnd=
+donvang_tab	0x2930e13	UI_TEXT	Chat-link goto primitive (pure UI, no inject).
+donvang_tab	0x2930d43	UI_TEXT	Di chuyen acc tren serial toi (map, tile_x, tile_y) bang chat-link.
+emu_chat	0x293116c	LOG_UI	Doc [EmuFarm], fallback [TrainLD] cu (migrate).
+emu_farm_tab	0x2932a67	SYMBOL	lbl_train_preset
+emu_input	0x29341a3	LOG_UI	Tim instance. Tra list candidates [{addr, RoleID, RoleName, ...}].
+emu_input	0x29346fe	PATH_FILE	Dict giong utils.get_character_info: RoleName/RoleID/Level/MapID/
+emu_remote	0x2938955	URL	http://
+emu_remote	0x293899f	PATH_FILE	Copy tam file JS, thay __PC_BASE__ bang http://<lan_ip>:<remote_port>.
+emu_setup	0x2939721	UI_TEXT	ng: from farm_data import (...)
+farm_data	0x293de75	API_CONST	IsWindow
+farm_data	0x293c2a4	LOG_UI	[Farm] hwnd=
+farm_tab	0x294695b	LOG_UI	move_target), xong verify MapID == dest b
+fast_travel	0x2948d9b	URL	http://host:port
+fast_travel	0x29499a8	PATH_FILE	forwarder_mode.txt (proxy/direct).
+forwarder	0x294ae58	API_CONST	ProcessMatchOptions
+forwarder	0x294d01d	API_CONST	ProcessTarget
+info_tab	0x297617d	SYMBOL	update_link
+info_tab	0x2975ccb	SYMBOL	plan_update_callback
+item_meta_data	0x2b5d273	API_CONST	WM_MY_SYNC_CLICK
+item_meta_data	0x2b5d2d8	API_CONST	WM_MY_SYNC_KEY
+local_token_secret	0x2b5e294	API_CONST	WM_CLOSE
+local_token_secret	0x2b5e2f5	API_CONST	OpenProcess
+login_tab	0x2b709de	API_CONST	OpenProcess
+login_tab	0x2b70ab1	API_CONST	ReadProcessMemory
+memory_items	0x2b75a0c	API_CONST	EnumProcessModulesEx
+memory_items	0x2b75bd3	API_CONST	CloseHandle
+memory_reader	0x2b7890f	API_CONST	WM_MY_SYNC_CLICK
+memory_reader	0x2b79599	API_CONST	WM_MY_SYNC_WHEEL
+party_tab	0x2b8468c	LOG_UI	[Permission]
+permission_guard	0x2b85334	LOG_UI	ng HP
+phoban_dungeons	0x2b8de6d	API_CONST	IsWindow
+phoban_dungeons	0x2b8de88	API_CONST	GetWindowRect
+phoban_tab	0x2b9441a	API_CONST	GetWindowDC
+phoban_tab	0x2b94466	API_CONST	CreateCompatibleBitmap
+pixel_data	0x2b99ba8	URL	https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=protocolipport&format=text&country=vn
+pixel_data	0x2b99c27	URL	https://raw.githubusercontent.com/ProxyScrape/free-proxy-list/refs/heads/main/proxies/countries/vn/data.txt
+proxy_tab	0x2b9d3aa	URL	http://mail.python.org/pipermail/python-dev/2012-June/120787.html.
+rao_tab	0x2bda6cb	URL	https://requests.readthedocs.io
+rao_tab	0x2bd9fdf	SYMBOL	bind_window_identity
+splash	0x2bf8e7c	API_CONST	EnumWindows
+splash	0x2bf9027	API_CONST	GetWindowPlacement
+start_tab	0x2c00e36	API_CONST	SM_CXSCREEN
+start_tab	0x2c010f0	API_CONST	SWP_NOACTIVATE
+toiuu_tab	0x2c0a844	API_CONST	IsWindow
+toiuu_tab	0x2c0858c	LOG_UI	[TrainLSV] hwnd=
+train_lsv_tab	0x2c190e7	URL	https://docs.python.org/3/library/inspect.html#inspect.get_annotations
+utils	0x2c538f8	SYMBOL	window_title
+utils	0x2c53906	SYMBOL	window_hwnd
+weapon_ids	0x2c5fd29	API_CONST	WM_CLOSE
+weapon_ids	0x2c5fd8f	API_CONST	WM_SHOWWINDOW
