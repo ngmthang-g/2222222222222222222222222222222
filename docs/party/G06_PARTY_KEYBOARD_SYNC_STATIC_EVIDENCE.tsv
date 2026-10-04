@@ -1,0 +1,29 @@
+key	offset_hex	status	evidence
+party_region_start	0x2b7d066	VERIFIED_STATIC	.party_tab implementation/constants region
+party_mouse_symbol	0x2b7daa3	VERIFIED_STATIC	mouse symbol used by Party shared identity/action infrastructure
+party_click_at_1	0x2b7f0db	VERIFIED_STATIC	click_at direct Party action helper
+party_click_at_2	0x2b7f0e5	VERIFIED_STATIC	click_at call surface
+party_keyboard	-	ABSENT_PARTY_OWNERSHIP	0 occurrences in Party implementation range
+party_pynput	-	ABSENT_PARTY_OWNERSHIP	0 occurrences
+party_keyboard_listener	-	ABSENT_PARTY_OWNERSHIP	No keyboard.Listener
+party_key_press_handler	-	ABSENT_PARTY_OWNERSHIP	No _on_master_key_press
+party_key_release_handler	-	ABSENT_PARTY_OWNERSHIP	No _on_master_key_release
+party_input_active	-	ABSENT_PARTY_OWNERSHIP	No input_active
+party_toggle_input	-	ABSENT_PARTY_OWNERSHIP	No _toggle_input
+party_sync_keepalive	-	ABSENT_PARTY_OWNERSHIP	No _sync_keepalive
+party_sync_locked	-	ABSENT_PARTY_OWNERSHIP	No _sync_locked/_sync_locked_guard
+party_key_custom_msg	-	ABSENT_PARTY_OWNERSHIP	No WM_MY_SYNC_KEY
+party_keyboard_foreground	-	ABSENT_PARTY_OWNERSHIP	No GetForegroundWindow keyboard path
+party_keyboard_vk	-	ABSENT_PARTY_OWNERSHIP	No vk key-forwarding state
+party_press_at	-	ABSENT_PARTY_OWNERSHIP	No press_at
+party_postmessage	-	ABSENT_PARTY_OWNERSHIP	No PostMessage
+party_sendmessage	-	ABSENT_PARTY_OWNERSHIP	No SendMessage
+party_sendinput	-	ABSENT_PARTY_OWNERSHIP	No SendInput
+party_start_toggle_input_call	-	NOT_RECOVERED	No Party call/reference to Start _toggle_input
+party_start_input_active_read	-	NOT_RECOVERED	No Party read/reference to Start input_active
+start_keyboard_listener	0x2bfd2a6	REUSED_C19_CONTRACT	keyboard.Listener belongs to TLMStartTab
+start_key_press	0x2bfd2b0	REUSED_C19_CONTRACT	_on_master_key_press
+start_key_release	0x2bfd2c6	REUSED_C19_CONTRACT	_on_master_key_release
+start_keyboard_foreground	0x2bfd936	REUSED_C19_CONTRACT	GetForegroundWindow
+start_keyboard_vk	0x2bfd94c	REUSED_C19_CONTRACT	vk
+start_keyboard_custom_msg	0x2bfd950	REUSED_C19_CONTRACT	WM_MY_SYNC_KEY
