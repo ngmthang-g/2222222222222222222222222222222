@@ -1,0 +1,72 @@
+{
+  "task": "F11",
+  "status": "VERIFIED_LOGIN_GATE_HANDOFF_WITH_1S_HWND_SUBSET_READINESS_AND_RUNTIME_ONLY_MIXED_ZERO_SUCCESS_UNKNOWN",
+  "integrity": {
+    "archive": {
+      "name": "TLMTool_2.1.2(4).zip",
+      "sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+      "matches_frozen": true
+    },
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "login_screenshot": {
+      "name": "TLMTool_4dw2sgi7mQ(4).png",
+      "sha256": "a555bce4054a0d32d19c2377a726c7fa2e6b78c03ce80e8291affb6185f04461",
+      "raster": [452, 1032],
+      "matches_b03_f01": true
+    }
+  },
+  "canonical_after_login": [
+    {"ui": "Chờ", "value": "wait"},
+    {"ui": "Party", "value": "party"},
+    {"ui": "Train", "value": "train"},
+    {"ui": "Train LSV", "value": "train_lsv"},
+    {"ui": "Dồn vàng", "value": "don"}
+  ],
+  "f10_resolutions": {
+    "generic_readiness": {
+      "poll_seconds": 1.0,
+      "max_polls": 20,
+      "max_wait_seconds": 20,
+      "have_source": "_acc_rows.get('hwnd')",
+      "predicate": "want.issubset(have)",
+      "final_dispatch": "main Tk thread",
+      "evidence": {
+        "range_constants_0_20_1_near": "0x2b808a4",
+        "issubset": "0x2b808ab",
+        "sleep": "0x2b808b5",
+        "float_1_0_near": "0x2b808bd",
+        "same_as_login_doc_near": "0x2b8094c"
+      }
+    },
+    "canonical_don_label": {
+      "value": "Dồn vàng",
+      "basis": [
+        "original EXE",
+        "F01/B03 frozen model",
+        "explicit user confirmation in F11 turn"
+      ]
+    }
+  },
+  "routing_signature": {
+    "_auto_start_after_login": {
+      "explicit_result_args": false,
+      "locals_static_shape": ["self", "mode", "tab", "_TAB_TEXT", "_wait_and_activate"]
+    },
+    "_auto_start_party_after_login": {
+      "explicit_result_args": false,
+      "locals_static_shape": ["self", "tab", "_wait_and_activate"]
+    },
+    "completion": {
+      "success_total_metadata": true,
+      "auto_start_call_surface": true
+    }
+  },
+  "runtime_only_unknowns": [
+    "exact mixed-success routing guard",
+    "exact zero-success routing guard",
+    "Party dedicated readiness-set instruction-level expression"
+  ],
+  "proxy_runtime_development": "OUT_OF_SCOPE_BY_USER_LOCK",
+  "login_gate": "CLOSED_FOR_RESEARCH_READY_FOR_LATER_STAGE_S_RECONSTRUCTION",
+  "next_task": "G01 — Party module/UI wiring audit using existing B04 baseline"
+}
