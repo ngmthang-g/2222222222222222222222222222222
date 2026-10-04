@@ -855,6 +855,13 @@ F09 — scheduler.
 - docs/login/F08_PROXY_FLOW.md
 - docs/login/F08_PROXY_MODEL.json
 
+## USER SCOPE LOCK — PROXY
+- User explicitly requested on 2026-10-04: **không phát triển phần Proxy**.
+- F08 remains retained as analysis/documentation evidence only.
+- Do not implement/extend/fix runtime proxy/network features or create new proxy behavior unless the user explicitly reopens that scope.
+- Do not delete existing F08 evidence; later tasks may reference it only to avoid breaking unrelated flows.
+- Proxy-specific runtime work in future Gate Q is skipped/analysis-only.
+
 ## BLOCKERS
 None known for F09.
 
