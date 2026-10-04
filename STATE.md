@@ -743,7 +743,7 @@ None known for F04.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F03 only.
-4. Recover Login password behavior from the original EXE: Entry masking/unmasking, in-memory value handling, persisted representation and login-use path.
-5. Distinguish visual masking from the stored representation; do not infer encryption from the UI.
-6. Persist F03 evidence/report and advance to F04 only after verification.
+3. Execute F04 only.
+4. Recover and document the original Login game-directory/path contract.
+5. Separate path resolution/validation from the later launcher task.
+6. Persist F04 evidence/report and advance to F05 only after verification.
