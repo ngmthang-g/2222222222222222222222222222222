@@ -710,6 +710,24 @@ F03 — password behavior.
 - docs/ui/B03_LOGIN_DEFAULTS.json (resolved screenshot-only unknowns)
 - docs/UI_BASELINE_TLM.md (F01 Login supplement)
 
+## F02 VERIFIED RESULTS
+- Login account rows persist in the shared settings.ini [Settings] / accounts entry.
+- Rows are newline-delimited; row fields are pipe-delimited.
+- Save-side field order is check, user, pass, captcha, proxy.
+- Normalized cache fields are check, username, password, captcha_mode, proxy_env.
+- _accounts_cache is the plain-dict persistence model synchronized from widgets before save.
+- The model has 100 logical rows; plan-limited rows are preserved in _hidden_rows.
+- Autosave is debounced by 300 ms; <Destroy> provides a separate final-save path.
+- login_online.json is runtime live-window/session state, not the account list.
+- last_login_times.json is separate login-history state.
+- Exact serialized check token and exact legacy Có migration mapping remain UNKNOWN.
+
+## F02 FILES
+- docs/tasks/F02.md
+- docs/login/F02_ACCOUNT_STORAGE_STATIC_EVIDENCE.tsv
+- docs/login/F02_ACCOUNT_STORAGE_FLOW.md
+- docs/login/F02_ACCOUNT_STORAGE_MODEL.json
+
 ## BLOCKERS
 None known for F03.
 
