@@ -1,0 +1,151 @@
+flowchart TB
+
+classDef shell fill:#eef,stroke:#446;
+classDef feature fill:#efe,stroke:#464;
+classDef support fill:#ffe,stroke:#884;
+classDef low fill:#fee,stroke:#844;
+classDef helper fill:#eef7ff,stroke:#357;
+classDef data fill:#f7f7f7,stroke:#777;
+classDef guest fill:#f3e8ff,stroke:#735;
+
+subgraph SHELL["Shell / orchestration"]
+  START[start_tab]:::shell
+  PARTY[party_tab]:::shell
+  LOGIN[login_tab]:::shell
+  INFO[info_tab]:::shell
+  SPLASH[splash]:::shell
+end
+
+subgraph FEATURES["Feature automation"]
+  FARM[farm_tab + farm_data]:::feature
+  LSV[train_lsv_tab]:::feature
+  DAILY[daily_tab]:::feature
+  DON[donvang_tab + don_logic]:::feature
+  PB[phoban_tab + phoban_dungeons]:::feature
+  RAO[rao_tab]:::feature
+  OPT[toiuu_tab]:::feature
+  PROXYTAB[proxy_tab]:::feature
+end
+
+subgraph SUPPORT["Shared support / guards"]
+  UTILS[utils]:::support
+  PERM[permission_guard]:::support
+  META[item_meta_data + weapon_ids + bag_filter]:::support
+  SECRET[local_token_secret]:::support
+end
+
+subgraph LOW["Low-level PC game integration"]
+  MEM[memory_reader + memory_items]:::low
+  INJ[dll_injector]:::low
+  PIX[pixel + pixel_data]:::low
+  COORD[coordinate_utils]:::low
+  FAST[fast_travel + forwarder module]:::low
+end
+
+GAME[(Thần Long PC game HWND/process)]:::helper
+RES[data/resources.dat
+injected x64 payload]:::helper
+VER[version.dat
+version.dll-compatible proxy]:::helper
+
+START --> FARM
+START --> DAILY
+START -. Tier B .-> INFO
+PARTY -. Tier B .-> FARM
+PARTY -. Tier B .-> DAILY
+PARTY -. Tier B .-> PB
+LOGIN --> MEM
+FARM --> INJ
+FARM --> MEM
+DAILY -. Tier B .-> UTILS
+DON -. Tier B .-> MEM
+PB -. Tier B .-> PIX
+LSV -. Tier B .-> INFO
+RAO -. Tier B .-> INFO
+OPT -. Tier B .-> INJ
+
+FARM --> PERM
+PARTY --> PERM
+MEM --> COORD
+MEM --> INJ
+INJ ==> RES
+MEM ==> GAME
+PIX ==> GAME
+COORD ==> GAME
+RES ==> GAME
+VER -. payload .-> GAME
+
+subgraph EMU["Emulator subsystem"]
+  EINPUT[emu_input]:::guest
+  EREADER[emu_reader / manager]:::guest
+  EREMOTE[emu_remote]:::guest
+  ESETUP[emu_setup]:::guest
+  ECHAT[emu_chat]:::guest
+  EFARM[emu_farm_tab]:::guest
+  EDEBUG[debug_android_tab]:::guest
+  FRIDA[guest frida-server]:::helper
+  EMUJS[emu_client.js
+Frida RPC]:::helper
+  LDJS[ld_remote.js
+AutoX floaty]:::helper
+  AGAME[(Android game process)]:::helper
+  GUESTCFG[/sdcard/TLM/tlm_*.json]:::data
+end
+
+EINPUT --> EREMOTE
+EINPUT --> FARM
+EINPUT --> LSV
+EINPUT --> PERM
+EREADER ==> FRIDA
+FRIDA ==> EMUJS
+EMUJS ==> AGAME
+LDJS ==> EREMOTE
+LDJS -. ADB/file .-> GUESTCFG
+EREADER -. ADB/file .-> GUESTCFG
+EREMOTE --> EINPUT
+
+subgraph PROXY["Proxy/network helpers"]
+  FWD[forwarder.exe]:::helper
+  PPX[Default.ppx + Proxifier]:::helper
+  PSTATE[forwarder*.txt/json
+proxy*.txt/lock]:::data
+end
+
+LOGIN --> FWD
+PROXYTAB --> FWD
+FAST --> FWD
+FWD ==> PPX
+PSTATE -. data .-> FWD
+PPX ==> GAME
+
+subgraph UPDATE["Update helpers"]
+  UPD[update.exe]:::helper
+  Z7[tools/7z.exe]:::helper
+  BOOT[bootstrap.exe]:::helper
+end
+
+INFO --> UPD
+UPD ==> Z7
+UPD ==> BOOT
+
+subgraph DATA["Config / state"]
+  SETTINGS[%APPDATA%/TLMTool/settings.ini]:::data
+  CONFIG[config.ini contexts]:::data
+  LOGINSTATE[login_online.json
+last_login_times.json]:::data
+  LOGS[tlmtool.log / tlm_memory.log
+automove_log.txt]:::data
+  OPAQUE[14 opaque MZ/PE-like .dat
+roles UNKNOWN]:::data
+end
+
+SETTINGS -. data .-> START
+SETTINGS -. data .-> FEATURES
+CONFIG -. data .-> INFO
+LOGINSTATE -. data .-> LOGIN
+LOGS -. data .-> FEATURES
+
+%% Edge legend:
+%% --> Tier-A/contextual or strong directional evidence
+%% -.-> Tier-B/static reference or data association
+%% ==> Explicit protocol/helper/runtime boundary
