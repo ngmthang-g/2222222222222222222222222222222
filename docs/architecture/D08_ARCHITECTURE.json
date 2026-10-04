@@ -1,0 +1,97 @@
+{
+  "task": "D08",
+  "status": "VERIFIED_ARCHITECTURE_HANDOFF_WITH_CONFIDENCE_BOUNDARIES",
+  "gate_d": {
+    "accepted_names": 570,
+    "static_reference_edges": 377,
+    "internal_edges": 132,
+    "exact_marker_blocks": 37,
+    "helper_protocols": true,
+    "config_data_map": true
+  },
+  "layers": {
+    "shell_orchestration": [
+      "start_tab",
+      "party_tab",
+      "login_tab",
+      "info_tab",
+      "splash"
+    ],
+    "feature_automation": [
+      "farm_tab",
+      "farm_data",
+      "train_lsv_tab",
+      "daily_tab",
+      "donvang_tab",
+      "don_logic",
+      "phoban_tab",
+      "phoban_dungeons",
+      "rao_tab",
+      "toiuu_tab",
+      "proxy_tab"
+    ],
+    "support_guards": [
+      "utils",
+      "permission_guard",
+      "item_meta_data",
+      "weapon_ids",
+      "local_token_secret",
+      "bag_filter"
+    ],
+    "low_level_pc": [
+      "memory_reader",
+      "memory_items",
+      "dll_injector",
+      "pixel",
+      "pixel_data",
+      "coordinate_utils",
+      "fast_travel",
+      "forwarder"
+    ],
+    "emulator": [
+      "emu_input",
+      "emu_reader",
+      "emu_remote",
+      "emu_setup",
+      "emu_chat",
+      "emu_farm_tab",
+      "debug_android_tab"
+    ]
+  },
+  "explicit_boundaries": {
+    "pc_game": [
+      "memory/process/window path",
+      "resources.dat injected payload",
+      "version.dat proxy"
+    ],
+    "emulator": [
+      "frida-server + emu_client.js RPC",
+      "ld_remote.js + emu_remote HTTP",
+      "ADB guest JSON"
+    ],
+    "proxy": [
+      "forwarder.exe",
+      "Default.ppx",
+      "Proxifier"
+    ],
+    "update": [
+      "update.exe",
+      "tools/7z.exe",
+      "bootstrap.exe"
+    ]
+  },
+  "confidence": {
+    "tier_a": "contextual/directional evidence",
+    "tier_b": "static compiled-module reference; not import proof",
+    "protocol": "explicit RPC/HTTP/ADB/helper relationship",
+    "data": "persistence/resource relationship"
+  },
+  "carried_unknowns": [
+    "exact original Python import syntax",
+    "outgoing graph for filename-only internal modules",
+    "selected runtime timing and behavior",
+    "live helper/emulator runtime parity"
+  ],
+  "gate_d_decision": "COMPLETE_VERIFIED_STATIC_ARCHITECTURE_EVIDENCE",
+  "next_task": "E01 — Main application lifecycle"
+}
