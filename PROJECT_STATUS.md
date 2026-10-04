@@ -28,9 +28,9 @@ B01–B14: **COMPLETE / VERIFIED**
 - C17 — VERIFIED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS
 - C18 — VERIFIED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS
 - C19 — VERIFIED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS
-- C20 — CURRENT
+- C20 — VERIFIED_ORIGINAL_STATIC_VISUAL_WITH_RECONSTRUCTION_RUNTIME_PARITY_DEFERRED
 
-Current task: **C20 — test đồng thời 3 HWND như ảnh**
+Current task: **D01 — Extract toàn bộ module names**
 
 C06 was re-audited and closed. C07 Auto and C08 Xếp-lưới are now verified from the original EXE. Auto resets to (0,0) 1366×768 and re-tiles every 1 second; Xếp-lưới auto-enables layout+input sync, uses 3×4 defaults, and input keepalive re-blocks slaves every 1.5 seconds. Exact grid arithmetic/bounds/layout cadence remain explicit UNKNOWN.
 
@@ -57,3 +57,16 @@ C17 verified the embedded preview ordering controls: left moves one logical posi
 C18 verified the layout synchronization subsystem: real toggle state, worker-maintained grid application from cached HWNDs, master-first placement, mode integration, and max-window stop policy. Worker cadence and exact stop ordering remain explicit unknowns.
 
 C19 verified the input synchronization subsystem: master-originated mouse/keyboard events, size-aware coordinate scaling, ordered event handling, 1.5-second keepalive, stale-state watchdog, and master-change safety. Several low-level timing/payload details remain explicit unknowns.
+
+## Gate C closure
+C01–C20 are complete for the original executable/static/screenshot evidence. The locked three-HWND screenshot is coherent with the recovered discovery, master, preview-order, layout and synchronization models. Exact reconstructed-build Windows parity is explicitly deferred to the later implementation/parity stage.
+
+## Gate D
+- D01 — CURRENT
+- D02 — TODO
+- D03 — TODO
+- D04 — TODO
+- D05 — TODO
+- D06 — TODO
+- D07 — TODO
+- D08 — TODO
