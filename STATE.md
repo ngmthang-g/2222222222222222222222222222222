@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-F11 — Login parity test / reconstruction handoff.
+G01 — Party module/UI wiring audit using the verified B04 baseline.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -889,18 +889,18 @@ F11 — Login parity test / reconstruction handoff.
 - Cross-checked the supplied Login screenshot against the EXE before recording UI behavior.
 - `Sau khi login` modes are persisted under `after_login`; default/fallback is `wait`.
 - Internal mode mapping is: Chờ→wait, Party→party, Train→train, Train LSV→train_lsv, compiled EXE Dồn vàng→don.
-- The supplied screenshot visually reads `Đồn vàng` while the frozen EXE contains literal `Dồn vàng`; this text discrepancy is preserved for F11 instead of being silently normalized.
+- Canonical visible text is `Dồn vàng` / internal `don`. F01/B03 and the frozen EXE agree; the user explicitly reconfirmed `Dồn vàng` during F11.
 - `LoginTab._auto_start_after_login` is the generic routing coordinator. Exact original documentation says it waits for the target tab to scan the just-logged windows and then activates that tab's real Bắt đầu path; Chờ does nothing.
 - Party has a dedicated helper `_auto_start_party_after_login` using `party_tab_ref`, `_member_rows`, `_running`, and `_toggle_run`.
 - Train / Train LSV / Dồn vàng use `farm_tab_ref` / `train_lsv_tab_ref` / `donvang_tab_ref`, scan `_acc_rows`, guard `_farming` / `_farming_acc`, and invoke the real `_toggle_farm`.
 - Target tab selection happens before readiness waiting because hidden tabs may not scan while hidden.
-- A separate original Party helper explicitly cross-references `login_tab._wait_and_activate` and states a maximum 20-second wait for sufficient HWND scan readiness. Exact poll cadence remains UNKNOWN.
+- A separate original helper explicitly cross-references `login_tab._wait_and_activate`; F11 resolved the generic wait as 1.0s polling, at most 20 polls / 20s, with `want.issubset(have)` over target `_acc_rows.get("hwnd")` values.
 - Generic and Party helpers contain nested main-thread/UI handoff surfaces; final tab/start mutation is not performed blindly from the background wait path.
 - Missing tab refs produce warning/skip behavior.
 - Already-running target automation is skipped so the toggle is not accidentally inverted/stopped.
 - Routing errors are logged locally: tab-switch and auto-start failures do not redefine the completed credential-login result.
 - F09 scheduled open and manual Login both reuse `_open_game_batch`; both therefore feed the same post-login routing layer after normal Login completion.
-- Exact Login helper HWND identity/count formula and exact mixed-success/zero-success routing trigger remain explicit UNKNOWN for F11.
+- F11 resolved the generic Login helper HWND readiness predicate/cadence. Exact mixed-success/zero-success routing guard remains runtime-only UNKNOWN.
 
 ## F10 FILES
 - docs/tasks/F10.md
@@ -908,24 +908,61 @@ F11 — Login parity test / reconstruction handoff.
 - docs/login/F10_POST_LOGIN_FLOW.md
 - docs/login/F10_POST_LOGIN_MODEL.json
 
+## F11 VERIFIED RESULTS
+- Re-read PLAN.md and STATE.md; F11 was the only current task and F01–F10 were not redone.
+- Current uploaded `TLMTool_2.1.2(4).zip` SHA-256 is `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, byte-identical to the frozen archive already used by F01/Gate A.
+- Inner `TLMTool.dist/TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Current Login screenshot `TLMTool_4dw2sgi7mQ(4).png` is SHA-256 `a555bce4054a0d32d19c2377a726c7fa2e6b78c03ce80e8291affb6185f04461`, byte-identical to B03/F01; no UI remeasurement was needed.
+- Final canonical label is **Dồn vàng** with internal mode `don`. PLAN.md was corrected from stale `Đồn vàng` occurrences to `Dồn vàng`.
+- F11 audited F01–F10 as one Login handoff and found no contradiction requiring earlier task redo.
+- New static evidence resolves the generic post-login readiness loop:
+  - original same-as-`login_tab._wait_and_activate` helper serializes range constants 0/20/1;
+  - `issubset` at frozen EXE file offset about `0x2b808ab`;
+  - `sleep` at about `0x2b808b5`;
+  - serialized float 1.0 immediately follows;
+  - explicit documentation says hidden destination tab must be selected then waited on for at most 20s and reads target `_acc_rows.get("hwnd")`.
+- Generic Train / Train LSV / Dồn vàng readiness contract is therefore: select tab → once per second build `have` HWND set → ready when `want.issubset(have)` → maximum 20 polls / 20 seconds → final dispatch on main Tk thread.
+- Original login_tab metadata shows `_auto_start_after_login` has no explicit success/results parameter; the completion layer owns success/total aggregation and invokes the routing surface separately.
+- Exact branch guard for mixed-success and zero-success batches cannot be proven from the static specimen. It remains a runtime-only parity case, not an invented rule.
+- Party remains a dedicated `_member_rows` / `_running` / `_toggle_run` path; its exact instruction-level readiness-set construction remains explicit UNKNOWN.
+- Proxy runtime development remains OUT OF SCOPE.
+- Login research gate F01–F11 is now closed for research and ready for later Stage-S reconstruction; Stage S is not started early.
+
+## F11 FILES
+- docs/tasks/F11.md
+- docs/login/F11_LOGIN_PARITY_MATRIX.tsv
+- docs/login/F11_LOGIN_RECONSTRUCTION_HANDOFF.md
+- docs/login/F11_LOGIN_MODEL.json
+- docs/tasks/F10.md (F11 resolution note only)
+- docs/login/F10_POST_LOGIN_STATIC_EVIDENCE.tsv (resolved readiness rows only)
+- docs/login/F10_POST_LOGIN_MODEL.json (resolved handoff fields only)
+- PLAN.md (canonical Dồn vàng wording correction)
+
+## GATE F DECISION
+- F01–F11 COMPLETE / VERIFIED for Login static+visual research handoff.
+- Generic post-login HWND readiness is locked to 1.0s polling, max 20s, set-subset readiness.
+- Mixed-success / zero-success route guard remains runtime-only and is explicitly reserved for later Windows original-vs-reconstruction parity testing.
+- Proxy runtime implementation remains excluded by user scope lock.
+
 ## BLOCKERS
-None known for F11.
+None known for G01.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve Gate B visual contract unchanged.
-- Preserve C01–C06 explicit unknowns.
-- Do not invent the exact C06 grid formula from constants 450/40.
-- Do not treat C07 cross-task evidence as full C07 verification until C07 is executed.
-- Do not begin C08 before C07 is verified.
+- Preserve Gate B/B04 Party visual baseline; G01 must reuse it, not remeasure from scratch.
+- Preserve Gate F Login handoff; do not reopen F01–F11 without contradictory new evidence.
+- Preserve explicit unknowns instead of guessing.
+- Proxy runtime/network development remains locked out.
+- Do not start Stage S source reconstruction early; continue the planned Party research tasks first.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute F11 only.
-4. Perform Login parity-test / reconstruction handoff for F01–F10 without redoing verified forensic work.
-5. Reconcile the visible `Đồn vàng` screenshot text against the frozen EXE literal `Dồn vàng` by parity evidence; do not guess.
-6. Verify post-login routing boundaries that remain unknown from F10: exact 20s polling cadence, exact target-row readiness/match condition, and mixed-success/zero-success routing trigger.
-7. Respect the proxy scope lock: do not develop or extend runtime proxy/network behavior.
-8. Persist F11 evidence/report and advance only after verification.
+3. Execute G01 only.
+4. Reuse the already-verified B04 Party baseline; do not redraw/re-measure Party UI from screenshots alone.
+5. Inspect the frozen original EXE first and audit Party module/UI wiring: Party tab construction, visible controls, exact state variables, widget → callback bindings, config keys, and references into shared HWND/preview/sync infrastructure.
+6. Cross-check EXE evidence against the supplied Party screenshot only after static extraction.
+7. Do not implement behavior from later G tasks yet; G01 is the Party UI/control-wiring handoff.
+8. Respect the Proxy scope lock and all existing Gate A/B/F evidence.
+9. Persist G01 evidence/report, update STATE.md, and advance to the next Party task only after verification.
