@@ -1,0 +1,53 @@
+key	offset_hex	status	evidence
+keep_modes	0x28d6f48	VERIFIED_STATIC	KEEP_MODES = none,weapons,all
+keep_mode_labels	0x28d6f94	VERIFIED_STATIC	KEEP_MODE_LABELS maps none->Không, weapons->Chỉ vũ khí, all->Tất cả
+keep_preset_keys	0x28d6fac	VERIFIED_STATIC	KEEP_PRESET_KEYS mapping encoded after mode labels
+keep_none_mapping	0x28d6fbd	VERIFIED_STATIC	none -> discard_weapons + discard_nonweapon
+keep_weapons_mapping	0x28d6fe3	VERIFIED_STATIC	weapons -> discard_nonweapon
+keep_all_mapping	0x28d6ff6	VERIFIED_STATIC	all -> []
+keep_default	0x28d6ffc	VERIFIED_STATIC	KEEP_MODE_DEFAULT = all
+keys_for_keep_mode	0x28d7010	VERIFIED_STATIC	shared activity/mode -> preset-key resolver
+farm_wrapper_import	0x293a92e	VERIFIED_STATIC	keys_for_keep_mode
+farm_wrapper_var	0x293a942	VERIFIED_STATIC	pickup_mode_var
+farm_wrapper_doc	0x293a953	VERIFIED_STATIC	Radio Nhặt đồ -> preset keys bag_filter(train); [] = không vứt gì
+ui_no_cankhon_var	0x293b7b7	VERIFIED_STATIC	pickup_no_cankhon_var
+ui_no_cankhon_label	0x293b7ce	REUSED_B05	Nhặt đồ không dùng hồ lô (càn khôn hồ)
+ui_keep_default	0x293b944	VERIFIED_STATIC	KEEP_MODE_DEFAULT used by UI
+ui_keep_labels	0x293b957	VERIFIED_STATIC	KEEP_MODE_LABELS used by UI
+config_pickup_no_cankhon	0x2942d29	VERIFIED_STATIC	pickup_no_cankhon
+config_pickup_mode	0x2942d3c	VERIFIED_STATIC	pickup_mode
+load_pickup_no_cankhon	0x2942f73	VERIFIED_STATIC	pickup_no_cankhon Boolean load surface, False fallback
+load_keep_modes_validation	0x2942f86	VERIFIED_STATIC	KEEP_MODES load validation surface
+bag_filter_doc_default_safe	0x28d6570	VERIFIED_STATIC	empty rules -> zero, no scan/no packet
+bag_filter_doc_optin	0x28d65c0	VERIFIED_STATIC	presets opt-in by key
+bag_filter_doc_merge	0x28d6640	VERIFIED_STATIC	OR rules, dedupe dbID, one send pass
+bag_rule_match_weapons	0x28d67e9	VERIFIED_STATIC	match_weapons=True uses weapon_ids and explicitly permits weapon discard
+bag_rule_allow_weapons	0x28d686a	VERIFIED_STATIC	weapons default protected unless explicitly allowed
+bag_discard_packet_doc	0x28d696f	VERIFIED_STATIC	whole stack packet 100005 "4:dbID"
+shared_weapon_ids	0x2b6a663	VERIFIED_SHARED_STATIC	weapon_ids / is_weapon
+shared_nonweapon_types	0x2b6a6a9	VERIFIED_SHARED_STATIC	NON_WEAPON_EQUIP_TYPES
+metadata_warning	0x28d5ed0	VERIFIED_STATIC	without meta, non-weapon filtering drops out; weapon ID filtering remains
+discard_items_doc	0x28d6349	VERIFIED_STATIC	returns total/ok/fail/skipped/stopped/targets; stop_check can stop early
+discard_for_activity_doc	0x28d648f	VERIFIED_STATIC	keys None/[] -> KHONG vut gi; extra_rules optional
+discard_items_defaults	0x28d7024	VERIFIED_STATIC	delay=1.0, stop_check=None, on_progress=None, dry_run=False
+discard_activity_defaults	0x28d7033	VERIFIED_STATIC	keys=None, extra_rules=None, delay=1.0, stop_check=None, on_progress=None, dry_run=False
+filter_keys	0x29413fa	VERIFIED_STATIC	get_pickup_preset_keys
+filter_module	0x2941412	VERIFIED_STATIC	bag_filter
+filter_state	0x2941420	VERIFIED_STATIC	_state / Đang lọc đồ
+filter_worker	0x294143b	VERIFIED_STATIC	discard_for_activity
+filter_activity	0x2941451	VERIFIED_STATIC	train
+filter_stop	0x2941460	VERIFIED_STATIC	stop_check
+filter_doc	0x294149c	VERIFIED_STATIC	pickup radio train filter shared by all town/full-bag paths
+filter_none_semantic	0x2941523	VERIFIED_STATIC	slots_after int or None (= Tất cả/no filter/error)
+filter_state_style	0x293a800	VERIFIED_STATIC	Đang lọc đồ -> #8e24aa in STATE_STYLE
+pickup_helper_call	0x29418ad	VERIFIED_STATIC	_farm_cycle references _pickup_no_cankhon
+pickup_helper_constant	0x293ff51	VERIFIED_STATIC	Nhặt helper block begins
+pickup_setter	0x293ff68	VERIFIED_STATIC	memory_items.set_auto_fields
+pickup_section	0x293ff7d	VERIFIED_STATIC	PICKITEM
+pickup_key	0x293ff86	VERIFIED_STATIC	IsOn
+pickup_type	0x293ff8b	VERIFIED_STATIC	bool
+pickup_doc	0x293ff94	VERIFIED_STATIC	sleep 5s then hidden PICKITEM.IsOn=true; no old manual click sequence
+farm_continuous_discard_loop	-	NOT_RECOVERED	FarmTab method inventory has no _discard_loop
+pickup_write_readback	-	NOT_RECOVERED	No direct get_auto_settings/readback helper in pickup helper block
+pickup_thread_microorder	-	EXPLICIT_UNKNOWN	One delayed write behavior verified; exact thread/inline dispatch relative to buff worker not source-safe
+numeric_full_threshold	-	PRESERVED_H03_UNKNOWN	Not reopened in H09
