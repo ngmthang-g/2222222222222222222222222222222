@@ -1,0 +1,50 @@
+{
+  "task": "G05",
+  "status": "VERIFIED_NO_PARTY_PREVIEW_OWNERSHIP_OR_DIRECT_PREVIEW_CALL_EDGE",
+  "resume_check": {
+    "g01_to_g04_complete": true,
+    "g05_preexisting_artifact": false,
+    "continued_from_state_next_action": true
+  },
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "party_region": {
+      "start": "0x2b7d066",
+      "methods_start": "0x2b8133b",
+      "methods_end": "0x2b819d9",
+      "module_marker": "0x2b81b28"
+    }
+  },
+  "party_preview_ownership": {
+    "owns_preview": false,
+    "owns_dwm_thumbnail": false,
+    "owns_destination_hwnd": false,
+    "owns_preview_reposition": false,
+    "owns_preview_activation": false,
+    "owns_detached_preview": false,
+    "owns_preview_order": false,
+    "owns_preview_columns": false
+  },
+  "party_start_dependency": {
+    "start_tab_get_windows": true,
+    "purpose": "member/window discovery refresh",
+    "direct_preview_control_call": false
+  },
+  "shared_start_contracts": {
+    "embedded_preview": "C03",
+    "preview_columns": "C09",
+    "detached_preview": "C14"
+  },
+  "identity_boundary": {
+    "same_game_hwnd_can_be_consumed_by_both_subsystems": true,
+    "shared_preview_item_object": false,
+    "party_group_order_depends_on_preview_order": false
+  },
+  "visual_cross_check": {
+    "authority": "B04",
+    "party_preview_geometry_added": false,
+    "baseline_changed": false
+  },
+  "next_task": "G06 — Party sync-keyboard relationship audit"
+}
