@@ -1,0 +1,44 @@
+key	offset_hex	status	evidence
+login_game_dir_state	0x2b5e3f0	VERIFIED_STATIC	_game_dir StringVar state
+game_exe_name_symbol	0x2b5f4e8	VERIFIED_STATIC	GAME_EXE_NAME
+game_exe_name_value	0x2b676f9	VERIFIED_STATIC	Thần Long  Mobile.exe
+resolver_rstrip	0x2b5f4f7	VERIFIED_STATIC	rstrip
+resolver_slash_chars	0x2b5f501	VERIFIED_STATIC	\/ trailing-separator set
+resolver_selected_game_join	0x2b5f505	VERIFIED_STATIC	join + game constants
+resolver_note_game_child	0x2b5f51c	VERIFIED_STATIC	tự nhận diện thư mục Game bên trong
+resolver_note_parent	0x2b5f557	VERIFIED_STATIC	tự lùi về thư mục cha chứa game
+resolver_sort	0x2b5f581	VERIFIED_STATIC	sorted + resolver lambda
+resolver_note_child	0x2b5f5bf	VERIFIED_STATIC	tự nhận diện thư mục con
+resolver_terminal_failure	0x2b5f5fc	VERIFIED_STATIC	không tìm thấy ... trong thư mục đã chọn
+resolver_doc	0x2b5f61a	VERIFIED_STATIC	Tự nhận diện thư mục game đúng từ thư mục người dùng chọn
+resolver_return_doc	0x2b5f674	VERIFIED_STATIC	(resolved_dir | None, note)
+resolver_direct_case	0x2b5f6a4	VERIFIED_STATIC	selected contains exe -> use selected
+resolver_selected_game_case	0x2b5f6db	VERIFIED_STATIC	selected/Game contains exe -> use selected/Game
+resolver_parent_case	0x2b5f748	VERIFIED_STATIC	selected child inside Game -> step back to parent with exe
+resolver_child_scan_case	0x2b5f7c7	VERIFIED_STATIC	scan one child level; prioritize names containing game
+status_helper_doc	0x2b5f855	VERIFIED_STATIC	show/repack game-path label if hidden
+folder_dialog	0x2b5f8b0	VERIFIED_STATIC	askdirectory symbol
+folder_dialog_title	0x2b5f8c1	VERIFIED_STATIC	Chọn thư mục chứa Thần Long Mobile
+select_calls_resolver	0x2b5f8f6	VERIFIED_STATIC	_resolve_game_dir
+select_calls_status	0x2b5f909	VERIFIED_STATIC	_show_game_dir_status
+invalid_showerror	0x2b5f932	VERIFIED_STATIC	messagebox.showerror
+invalid_title	0x2b5f93e	VERIFIED_STATIC	Thư mục game không hợp lệ
+invalid_selected_label	0x2b5f964	VERIFIED_STATIC	Đã chọn:
+invalid_requirement	0x2b5f974	VERIFIED_STATIC	Cần thư mục chứa
+invalid_example	0x2b5f991	VERIFIED_STATIC	D:\ThanLongMobile_PC\Game
+success_status	0x2b5f9c0	VERIFIED_STATIC	✅ Đã chọn game thành công:
+profile_buttons_state	0x2b5fa15	VERIFIED_STATIC	_profile_btns + normal state in success block
+reresolve_note	0x2b5fa25	PARTIAL_STATIC	(tự nhận diện lại) supports path re-recognition fallback
+open_game_missing_dir	0x2b6041f	VERIFIED_STATIC	❌ Chưa chọn thư mục game
+get_exe_path_call	0x2b60440	VERIFIED_STATIC	_get_exe_path
+open_game_missing_exe	0x2b6044e	VERIFIED_STATIC	❌ Không tìm thấy ... trong:
+profile_missing_path	0x2b6057b	VERIFIED_STATIC	⚠️ Chưa chọn thư mục game hoặc thiếu exe
+profile_worker_doc	0x2b605f5	VERIFIED_STATIC	Mở game với profile index (1-5).
+profile_spawn_doc	0x2b6064e	VERIFIED_STATIC	Launch 1 instance via suspend+inject.
+load_game_dir_key	0x2b670a2	VERIFIED_STATIC	game_dir in _load_config block
+save_game_dir_key	0x2b67336	VERIFIED_STATIC	game_dir in save-config block
+select_method	0x2b6774d	VERIFIED_STATIC	LoginTab._select_game_dir
+get_exe_method	0x2b67768	VERIFIED_STATIC	LoginTab._get_exe_path
+config_flush_timing	-	EXPLICIT_UNKNOWN	exact disk-write instant after successful selection not recovered
+get_exe_microsequence	-	EXPLICIT_UNKNOWN	exact source-level revalidation branch order not decompiled
+cwd_derivation	-	DEFERRED_TO_F05	exact derivation of launcher cwd from exe_path
