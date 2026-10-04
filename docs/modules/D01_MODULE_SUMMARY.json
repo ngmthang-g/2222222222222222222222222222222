@@ -1,0 +1,23 @@
+{
+  "task": "D01",
+  "status": "VERIFIED_WITH_PROVENANCE_TIERS",
+  "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+  "valid_exact_module_markers": 244,
+  "source_filename_refs_unique": 538,
+  "native_pyd_files": 32,
+  "accepted_unique_names": 570,
+  "rejected_artifacts": 3,
+  "counts_by_category": {
+    "TLM_INTERNAL": 42,
+    "THIRD_PARTY_PYTHON": 225,
+    "PYTHON_STDLIB_REFERENCE": 265,
+    "NATIVE_EXTENSION_PYD": 32,
+    "NUITKA_HOOK": 6
+  },
+  "confidence": {
+    "HIGH": 276,
+    "MEDIUM": 294,
+    "REJECTED": 3
+  },
+  "next_task": "D02"
+}
