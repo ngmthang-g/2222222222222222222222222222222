@@ -188,7 +188,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H01 — VERIFIED_FARMTAB_UI_MODULE_WIRING_WITH_5S_INCREMENTAL_REFRESH_AND_30S_AUTOSAVE
 - H02 — VERIFIED_TOWN_MODE_GATING_WITH_LOCK_TOWN_FORCE_NEVER_AND_LEGACY_FULL_BAG_ALIAS
 - H03 — VERIFIED_SITE10_USED_SLOT_FULL_BAG_WATCH_WITH_FILTER_RECHECK_IN_NEVER_MODE_AND_EXPLICIT_THRESHOLD_BINDING_UNKNOWN
-- H04 — CURRENT
+- H04 — VERIFIED_CYCLE_REMAINDER_WAIT_WITH_60S_MINUTE_CONVERSION_AND_FULL_BAG_EARLY_BREAK_WITH_EXPLICIT_WAIT_QUANTUM_UNKNOWN
+- H05 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -210,3 +211,10 @@ H03 resolved Train inventory fullness as an occupied Site-10 slot metric sourced
 The full-bag decision uses a dedicated MI.is_full_bag predicate with an internal threshold. No current user-facing Farm threshold setting was recovered, and the exact numeric threshold remains intentionally UNKNOWN rather than guessed.
 
 _filter_before_town is driven by the Train pickup preset and shared bag_filter. In never mode a full bag is filtered and, if still full, the account stays because Không về is authoritative. In full_bag_timer/legacy full_bag mode the bag predicate can end the common wait early and transition to town. Periodic timing itself is now H04.
+
+
+H04 resolved the Train periodic scheduler as a remaining-cycle wait derived from loop_minutes × 60 seconds after accounting for elapsed front-half cycle work. cycle uses the normal timeout; full_bag_timer/legacy full_bag overlays the H03 bag-full predicate as an early break on the same timed wait.
+
+Normal timeout is a cycle boundary rather than Farm-worker termination. User stop, respawn/death and disconnect/reconnect can interrupt/reset normal cycle progression. The original monitor docs lock 4s death checks, 2s disconnect checks with 3 strikes (~6s), 30s reconnect active-wait attempts, and post-reconnect wait_memory_ready(timeout=45.0, need=3).
+
+Exact scheduler sleep/check quantum, exact clock API, remaining-time clamp expression and loop-minute input clamp remain intentionally UNKNOWN. H05 now owns Train coordinates and movement/return-route execution.
