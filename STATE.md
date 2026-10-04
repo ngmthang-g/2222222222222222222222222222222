@@ -116,7 +116,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-E01 — Main application lifecycle.
+E02 — Tk root/window creation.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -488,8 +488,25 @@ E01 — Main application lifecycle.
 - D01–D08 COMPLETE / VERIFIED for static architecture evidence.
 - Remaining uncertainty is explicit and moves to later implementation/runtime gates.
 
+## E01 VERIFIED RESULTS
+- Main shell class is TLMMainApp with a normal GUI lifecycle plus a special --forwarder branch.
+- Startup diagnostics include debug logger, faulthandler crash logging and a custom threading exception hook.
+- A Windows named mutex TLMTool_SingleInstance enforces single-instance behavior.
+- Tk root, TLMMainApp, splash close contract and mainloop are all recovered; exact micro-order of app/splash construction remains explicit UNKNOWN.
+- TLMMainApp constructs the potential tab set, starts CPU monitoring, binds NotebookTabChanged and installs permission/plan/limit lifecycle hooks.
+- TLMInfoTab participates in startup service behavior: startup server call, plan/license/permission update and heartbeat.
+- Selected-tab refresh loops are coordinated centrally.
+- Normal cleanup is driven through Tk/widget Destroy handlers; exact cross-tab destroy order remains UNKNOWN.
+- Heartbeat-enforced forced quit destroys the GUI then uses os._exit to terminate despite non-daemon workers; that path intentionally leaves forwarder child process running.
+
+## E01 FILES
+- docs/tasks/E01.md
+- docs/core/E01_LIFECYCLE_STATIC_EVIDENCE.tsv
+- docs/core/E01_LIFECYCLE_FLOW.md
+- docs/core/E01_LIFECYCLE_MODEL.json
+
 ## BLOCKERS
-None known for E01.
+None known for E02.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -503,7 +520,7 @@ None known for E01.
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute E01 only.
-4. Recover the main application lifecycle from the original EXE: process entry, startup ordering, main Tk application creation, splash/license/update/init hooks, tab construction, background worker startup and shutdown path.
-5. Distinguish TLMTool shell lifecycle from helper process lifecycles.
-6. Persist E01 evidence/report and advance to E02 only after verification.
+3. Execute E02 only.
+4. Recover Tk root/window creation, initial/final geometry, root visibility/topmost/icon/font/style handling, Notebook container construction and positioning behavior.
+5. Reconcile root metrics with locked Gate-B screenshots; do not treat transient startup geometry as final UI size.
+6. Persist E02 evidence/report and advance to E03 only after verification.
