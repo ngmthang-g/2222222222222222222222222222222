@@ -53,6 +53,7 @@ IN_PROGRESS
 - C16 VERIFIED_WITH_EXPLICIT_POST_CLOSE_REFRESH_UNKNOWN
 - C17 VERIFIED_WITH_EXPLICIT_BOUNDARY_AND_DETACHED_ORDER_UNKNOWNS
 - C18 VERIFIED_WITH_EXPLICIT_WORKER_CADENCE_AND_INITIAL_STATE_UNKNOWNS
+- C19 VERIFIED_WITH_EXPLICIT_PAYLOAD_AND_STARTUP_TIMING_UNKNOWNS
 
 ## C06 AUDITED / CLOSED RESULTS
 - Rechecked the exact user-provided `TLMTool_2.1.2(3).zip`: SHA-256 matches the Gate-A frozen archive, so no forensic baseline was redone.
@@ -114,7 +115,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-C19 — đồng bộ phím chuột.
+C20 — test đồng thời 3 HWND như ảnh.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -305,8 +306,26 @@ C19 — đồng bộ phím chuột.
 - docs/window/C18_LAYOUT_SYNC_MODEL.json
 - WINDOW_BEHAVIOR_MATRIX.md
 
+## C19 VERIFIED RESULTS
+- `Đồng bộ phím chuột` is a real persistent input-synchronization subsystem.
+- The selected master window is the event source; other game windows are targets.
+- Mouse coordinates are converted to master-client coordinates and scaled to each target client size.
+- Click processing is ordered; scroll and mouse-move have dedicated paths, with move throttling.
+- Input-sync keepalive is exactly 1.5 seconds.
+- Stale target state is released by a watchdog at about 10 seconds.
+- Changing master while input sync is active turns input sync off and releases target state.
+- Keyboard press/release uses a dedicated synchronization path.
+- Exact key-message format, move-throttle interval, listener startup timing and retry delay remain explicit UNKNOWN.
+
+## C19 FILES
+- docs/tasks/C19.md
+- docs/window/C19_INPUT_SYNC_STATIC_EVIDENCE.tsv
+- docs/window/C19_INPUT_SYNC_FLOW.md
+- docs/window/C19_INPUT_SYNC_MODEL.json
+- WINDOW_BEHAVIOR_MATRIX.md
+
 ## BLOCKERS
-None known for C19.
+None known for C20.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
@@ -317,12 +336,12 @@ None known for C19.
 - Do not begin C08 before C07 is verified.
 
 ## NEXT_ACTION
-On CONTINUE:
+On CONTINUE / current continuation:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Execute C19 only.
-4. Recover the keyboard/mouse synchronization subsystem from the original EXE.
-5. Verify master event capture, slave targeting, coordinate scaling, block/unblock lifecycle, keepalive, watchdog, key and mouse paths.
-6. Keep C18 layout synchronization logic separate.
-7. Update WINDOW_BEHAVIOR_MATRIX.md and persist C19 evidence/report.
-8. Advance to C20 only after C19 is verified.
+3. Execute C20 only.
+4. Validate the combined 3-HWND scenario against the original EXE evidence and the locked three-preview screenshot.
+5. Check discovery/mapping, master selection, three live previews, layout behavior, preview ordering, refresh lifecycle, and separation of layout sync vs input sync.
+6. Record what is statically verified versus what still requires a real Windows runtime parity test.
+7. Update WINDOW_BEHAVIOR_MATRIX.md and persist C20 evidence/report.
+8. Close Gate C only if all C01–C20 evidence is coherent.
