@@ -192,7 +192,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H05 — VERIFIED_SAVED_PRESET_TILE_MOVEMENT_WITH_8_TILE_NEAR_SKIP_AND_LIVE_TRUYEN_RETURN_WALK_FALLBACK
 - H06 — VERIFIED_BUILTIN_OR_MANUAL_TREATMENT_ROUTE_WITH_EXACT_TWO_CLICK_POINTS_X4_AND_BOOLEAN_FAILURE_HANDOFF
 - H07 — VERIFIED_4S_MAP87_HP0_RESPAWN_MONITOR_WITH_LATCHED_SINGLE_CLICK_EVENT_DRIVEN_RECOVERY_AND_EXPLICIT_RETURN_BRANCH_UNKNOWN
-- H08 — CURRENT
+- H08 — VERIFIED_2S_MEMORY_VETO_3STRIKE_RECONNECT_WITH_5_ATTEMPT_30S_ACTIVE_BATCHES_INFINITE_RETRY_AND_45S_MEMORY_READY_FAILOPEN_DIRECT_REINJECT_EDGE_UNKNOWN
+- H09 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -244,3 +245,12 @@ H07 resolved Train death recovery around FarmTab._diaphu_monitor. The monitor ru
 Farm recovery enters the Đang hồi sinh state and may call the H06 treatment worker through hard_stop. The return-to-train option is the respawn setting, default off; when enabled it must reuse the H05 current saved Train target/movement path. Exact worker continuation when respawn is off and exact FSM consequence after treatment failure remain intentionally UNKNOWN.
 
 The row death counter starts at Chết: 0 and the HP-zero monitor branch owns _extra_deaths, supporting one count per latched HP-zero episode. Death-counter reset on same-row restart remains runtime-only. Farm does not inherit Train-LSV's post-respawn common.active wait; the 45s/need3 memory-ready gate remains reconnect-specific. H08 now owns reconnect and death/reconnect overlap.
+
+
+H08 resolved the Train reconnect watchdog. auto_reconnect is opt-in/default False. The watchdog runs at 2-second cadence, uses TCPGame connected memory as a false-positive veto, and requires both frozen login disconnect pixel probes for 3 consecutive ticks (~6s) before asserting halt.
+
+The exact disconnect probes are (640,244) RGB(160,145,52) and (702,453) RGB(212,28,34). Each reconnect attempt re-confirms the dialog before clicking exact client point (616,455), then waits common.active up to 30s. There are 5 visible attempts per batch; a failed batch waits 30s and repeats indefinitely rather than disabling the Farm account.
+
+Reconnect success invalidates the current PID Reader cache immediately and sets reconnect_ok as a Farm-cycle reset. The post-reconnect memory gate is wait_memory_ready(timeout=45.0, need=3), requiring three consecutive fresh RoleName+MapID reads and failing open on timeout.
+
+FarmTab has a guarded _ensure_injected helper, but H08 does not find direct readable proof of an unconditional reinjection call on the reconnect path, so forced post-reconnect reinjection remains intentionally UNKNOWN. H09 now owns loot/pickup filtering.
