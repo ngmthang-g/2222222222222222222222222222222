@@ -1,0 +1,91 @@
+key	offset_hex	status	evidence
+module_marker	0x2b7d066	VERIFIED_STATIC	.party_tab
+party_class_init	0x2b8133b	VERIFIED_STATIC	PartyTab.__init__
+state_running	0x2b7d0ce	VERIFIED_STATIC	_running
+state_cancel	0x2b7d0ea	VERIFIED_STATIC	_cancel / threading Event surface
+state_run_lock	0x2b7d0f9	VERIFIED_STATIC	_run_lock
+state_run_cancels	0x2b7d104	VERIFIED_STATIC	_run_cancels
+state_targets_lock	0x2b7d112	VERIFIED_STATIC	_targets_lock
+state_refresh_id	0x2b7d121	VERIFIED_STATIC	_refresh_id
+state_refreshing	0x2b7d12e	VERIFIED_STATIC	_refreshing
+state_closing	0x2b7d13b	VERIFIED_STATIC	_closing
+ref_phoban	0x2b7d145	VERIFIED_STATIC	phoban_tab_ref
+ref_farm	0x2b7d155	VERIFIED_STATIC	farm_tab_ref
+ref_train_lsv	0x2b7d163	VERIFIED_STATIC	train_lsv_tab_ref
+ref_donvang	0x2b7d176	VERIFIED_STATIC	donvang_tab_ref
+state_last_targets	0x2b7d187	VERIFIED_STATIC	_last_targets
+state_member_rows	0x2b7d196	VERIFIED_STATIC	_member_rows
+state_sections	0x2b7d1a4	VERIFIED_STATIC	_sections
+state_sec_team	0x2b7d1af	VERIFIED_STATIC	_sec_team
+state_sec_corps	0x2b7d1ba	VERIFIED_STATIC	_sec_corps
+lifecycle_build	0x2b7d322	VERIFIED_STATIC	_build_ui
+lifecycle_load	0x2b7d32d	VERIFIED_STATIC	_load_config
+lifecycle_destroy_bind	0x2b7d341	VERIFIED_STATIC	<Destroy> -> _on_destroy
+lifecycle_start_refresh	0x2b7d359	VERIFIED_STATIC	_start_refresh
+global_start_text	0x2b7d3b1	VERIFIED_STATIC	Bắt đầu
+global_start_callback	0x2b7d3bf	VERIFIED_STATIC	_toggle_run
+after_party_frame	0x2b7d496	VERIFIED_STATIC	Sau khi party
+after_party_var	0x2b7d507	VERIFIED_STATIC	_after_party
+after_party_trace	0x2b7d515	VERIFIED_STATIC	trace_add write -> build-ui lambda/persistence
+after_party_wait	0x2b7d5b9	VERIFIED_STATIC	Chờ / wait
+after_party_train	0x2b7d5ed	VERIFIED_STATIC	Train / train
+after_party_train_lsv	0x2b7d609	VERIFIED_STATIC	Train LSV / train_lsv
+after_party_don	0x2b7d61f	VERIFIED_STATIC	Dồn vàng / don
+after_party_phoban	0x2b7d631	VERIFIED_STATIC	Phó bản / phoban
+team_frame	0x2b7d654	VERIFIED_STATIC	Cấu hình tổ đội
+ready_label	0x2b7d683	VERIFIED_STATIC	Danh sách acc sẵn sàng:
+ready_body	0x2b7d6c7	VERIFIED_STATIC	_team_body
+group_build	0x2b7d6df	VERIFIED_STATIC	_build_section
+group_frame_title	0x2b7d6f1	VERIFIED_STATIC	Cấu hình nhóm
+group_unit	0x2b7d706	VERIFIED_STATIC	Nhóm
+leader_label	0x2b7d70d	VERIFIED_STATIC	Trưởng nhóm:
+add_group_text	0x2b7d71f	VERIFIED_STATIC	+ Thêm nhóm
+team_kind	0x2b7d72e	VERIFIED_STATIC	team
+team_accept_field	0x2b7d734	VERIFIED_STATIC	AutoAcceptInviteTeam
+cfg_groups	0x2b7d7bd	VERIFIED_STATIC	party_groups
+cfg_group1	0x2b7d7cc	VERIFIED_STATIC	party_group1
+add_group_callback	0x2b7da0d	VERIFIED_STATIC	_add_group_cluster
+cluster_empty_leader	0x2b7e141	VERIFIED_STATIC	(chưa chọn)
+cluster_delete_text	0x2b7e1cb	VERIFIED_STATIC	✕ Xóa ... prefix
+cluster_leave_text	0x2b7e22f	VERIFIED_STATIC	Rời nhóm
+cluster_cols_symbol	0x2b7e246	VERIFIED_STATIC	COLS_PER_ROW
+cluster_max_members_symbol	0x2b7e273	VERIFIED_STATIC	MAX_GROUP_MEMBERS
+cluster_combo_style	0x2b7e288	VERIFIED_STATIC	White.TCombobox
+cluster_combo_open_event	0x2b7e2c5	VERIFIED_STATIC	<Button-1>
+cluster_combo_selected_event	0x2b7e2d1	VERIFIED_STATIC	<<ComboboxSelected>>
+cluster_action_text	0x2b7e2f8	VERIFIED_STATIC	▶ Tạo nhóm ...
+cluster_remove_callback	0x2b7e3b5	VERIFIED_STATIC	_remove_group
+cluster_leave_callback	0x2b7e3c4	VERIFIED_STATIC	_leave_group
+cluster_dropdown_callback	0x2b7e3d2	VERIFIED_STATIC	_open_dropdown
+cluster_selection_callback	0x2b7e3e2	VERIFIED_STATIC	_on_group_selected
+cluster_run_callback	0x2b7e3f6	VERIFIED_STATIC	_run_single_cluster
+cluster_leader_update	0x2b7e477	VERIFIED_STATIC	_update_leader_label
+cluster_renumber	0x2b7e4c9	VERIFIED_STATIC	_renumber_groups
+shared_start_tab	0x2b7dc49	VERIFIED_STATIC	start_tab
+shared_get_windows	0x2b7dc56	VERIFIED_STATIC	get_windows
+shared_get_character_info	0x2b7dc82	VERIFIED_STATIC	utils.get_character_info
+shared_role_name	0x2b7dd0a	VERIFIED_STATIC	RoleName
+shared_bind_identity	0x2b7daac	VERIFIED_STATIC	bind_window_identity
+shared_unbind_identity	0x2b7db40	VERIFIED_STATIC	unbind_window_identity
+refresh_worker	0x2b7de7c	VERIFIED_STATIC	PartyTab._refresh_acc_list.<locals>._worker
+refresh_ui_apply	0x2b7ded9	VERIFIED_STATIC	worker.<locals>._apply
+refresh_main_after	0x2b7df16	VERIFIED_STATIC	Tk after
+permission_guard	0x2b7e04b	VERIFIED_STATIC	permission_guard
+permission_has	0x2b7e05f	VERIFIED_STATIC	has_permission
+permission_limit	0x2b7e06f	VERIFIED_STATIC	check_account_limit
+permission_key	0x2b7e0ab	VERIFIED_STATIC	party_tab
+permission_with_limit	0x2b7e74f	VERIFIED_STATIC	has_permission_with_limit
+permission_action	0x2b7e792	VERIFIED_STATIC	party
+config_settings	0x2b80a82	VERIFIED_STATIC	Settings
+config_party_after	0x2b80a8e	VERIFIED_STATIC	party_after
+config_json_load	0x2b80ac8	VERIFIED_STATIC	json.loads
+config_write_party_after	0x2b80b16	VERIFIED_STATIC	party_after
+config_corps_groups	0x2b80b3f	COMPATIBILITY_SURFACE	party_corps_groups
+config_corps_group1	0x2b80b53	COMPATIBILITY_SURFACE	party_corps_group1
+config_follow	0x2b80b67	DORMANT_COMPATIBILITY_SURFACE	party_follow; no active Party UI toggle method/widget recovered
+config_pick	0x2b80b75	DORMANT_COMPATIBILITY_SURFACE	party_pick; no active Party UI toggle method/widget recovered
+config_write	0x2b80b81	VERIFIED_STATIC	write_settings
+stale_doc_follow_pick	0x2b80e58	STALE_DOC_ONLY	module prose mentions follow/pick but active PartyTab build/method surface does not contain corresponding widgets/callbacks
+preview_dwm	-	ABSENT_IN_PARTY_MODULE_OWNERSHIP	no DwmRegisterThumbnail/preview/thumbnail surface in Party module range
+layout_sync	-	ABSENT_IN_PARTY_MODULE_OWNERSHIP	no _toggle_layout in Party module range
+input_sync	-	ABSENT_IN_PARTY_MODULE_OWNERSHIP	no _toggle_input/sync keyboard/mouse/PostMessage/SendInput surface in Party module range
