@@ -1,0 +1,5 @@
+edge_style	tier	meaning	claim_boundary
+solid arrow	A / contextual	strong directional use from symbols/docs/shared-state context	not exact original Python import syntax
+dashed arrow	B / static reference	source compiled-module block contains target name	STATIC_REFERENCE_NOT_IMPORT_PROOF
+thick arrow	PROTOCOL	explicit RPC/HTTP/ADB/helper/runtime boundary	protocol/process relationship, not Python import
+dotted/data arrow	DATA	persistent config/resource relationship	file/data association only
