@@ -1,0 +1,48 @@
+key	offset_hex	status	evidence
+central_config_path_symbol	0x2c4cd2a	VERIFIED_STATIC	CONFIG_PATH
+central_config_load_doc	0x2c4cdc1	VERIFIED_STATIC	Load central config from %APPDATA%/TLMTool/config.ini (compiled doc shows captured user path)
+central_config_dir	0x2c4ce0e	VERIFIED_STATIC	CONFIG_DIR + mkdir(parents=True, exist_ok=True)
+central_config_save_doc	0x2c4cebd	VERIFIED_STATIC	Save values to central config at %APPDATA%/TLMTool/config.ini
+central_config_parser	0x2c4cd6a	VERIFIED_STATIC	RawConfigParser
+central_config_add_section	0x2c4ce3a	VERIFIED_STATIC	add_section
+central_config_set	0x2c4ce75	VERIFIED_STATIC	set
+settings_path	0x2c4cf1f	VERIFIED_STATIC	SETTINGS_PATH
+settings_safe_read_doc	0x2c4cf2e	VERIFIED_STATIC	RawConfigParser duplicate keys last-wins/no error
+settings_ctrl_regex	0x2c4cf84	VERIFIED_STATIC	control-character regex [\x00-\x1f\x7f]
+settings_tempfile	0x2c4cfae	VERIFIED_STATIC	tempfile.mkstemp
+settings_tmp_suffix	0x2c4cfc1	VERIFIED_STATIC	.tmp
+settings_fdopen	0x2c4cfd6	VERIFIED_STATIC	fdopen
+settings_replace	0x2c4cfde	VERIFIED_STATIC	replace
+settings_backup_date	0x2c4cff3	VERIFIED_STATIC	%Y%m%d
+settings_backup_glob	0x2c4d02f	VERIFIED_STATIC	settings.*.ini
+settings_backup_keep	0x2c4d03f	VERIFIED_STATIC	_BACKUP_KEEP symbol; numeric value unknown
+settings_copy2	0x2c4d01a	VERIFIED_STATIC	shutil.copy2
+settings_atomic_doc	0x2c4d061	VERIFIED_STATIC	Atomic write settings.ini: temp file then os.replace
+shared_settings_lock	0x2c52e6c	VERIFIED_STATIC	_settings_lock shared utility symbol
+shared_utils_config_surface	0x2c52e33	VERIFIED_STATIC	get_config_path/load_config/save_config/read_settings/write_settings
+start_section	0x2bfdbf9	VERIFIED_STATIC	Settings
+start_grid_cols	0x2bfdc0d	VERIFIED_STATIC	grid_cols
+start_grid_rows	0x2bfdc1c	VERIFIED_STATIC	grid_rows
+start_detached_auto_open	0x2bfdc37	VERIFIED_STATIC	detached_auto_open
+start_detached_grid	0x2bfdc4e	VERIFIED_STATIC	detached_grid
+daily_section	0x2909976	VERIFIED_STATIC	Settings
+daily_example_key	0x2909982	VERIFIED_STATIC	daily_punish_duration
+login_section	0x2b5f447	VERIFIED_STATIC	Settings
+login_account_fields	0x2b5f451	VERIFIED_STATIC	lines/check/user/pass/captcha/proxy/accounts
+party_section	0x2b80a82	VERIFIED_STATIC	Settings
+party_after	0x2b80a8e	VERIFIED_STATIC	party_after
+party_groups	0x2b80b3f	VERIFIED_STATIC	party_corps_groups
+phoban_section	0x2b905be	VERIFIED_STATIC	Settings
+phoban_pickup	0x2b905ca	VERIFIED_STATIC	phoban_pickup
+phoban_groups	0x2b906a3	VERIFIED_STATIC	phoban_groups + JSON loads/dumps
+toiuu_section	0x2c03ac7	VERIFIED_STATIC	Settings
+toiuu_monitor_open	0x2c03ad1	VERIFIED_STATIC	toiuu_monitor_open
+toiuu_running	0x2c03c82	VERIFIED_STATIC	toiuu_running JSON state
+info_config_filename	0x297094f	VERIFIED_STATIC	config.ini
+info_config_path_doc	0x297095b	VERIFIED_STATIC	Return config.ini path alongside this script
+info_config_parser	0x2970998	VERIFIED_STATIC	ConfigParser
+info_load_doc	0x29709d0	VERIFIED_STATIC	Load config.ini as a simple dict
+info_save_doc	0x2970a2e	VERIFIED_STATIC	Save config dict back to config.ini
+backup_keep_value	-	EXPLICIT_UNKNOWN	exact numeric _BACKUP_KEEP not readable
+settings_lock_type	-	EXPLICIT_UNKNOWN	exact concrete lock type/constructor not source-visible
+global_hot_reload	-	NOT_RECOVERED	no central filesystem watcher/reload event recovered
