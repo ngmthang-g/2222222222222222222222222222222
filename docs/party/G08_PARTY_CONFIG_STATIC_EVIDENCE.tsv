@@ -1,0 +1,49 @@
+key	offset_hex	status	evidence
+saving_gate	0x2b7d311	VERIFIED_STATIC	_saving_enabled
+load_config_entry	0x2b7d32d	VERIFIED_STATIC	_load_config constructor lifecycle
+after_party_var	0x2b7d507	VERIFIED_STATIC	_after_party
+after_party_trace	0x2b7d515	VERIFIED_STATIC	trace_add
+after_party_trace_mode	0x2b7d520	VERIFIED_STATIC	write
+active_cfg_groups	0x2b7d7bd	VERIFIED_STATIC	party_groups
+active_cfg_group1	0x2b7d7cc	VERIFIED_STATIC	party_group1
+section_cfg_groups_param	0x2b7d85e	VERIFIED_STATIC	cfg_groups
+section_cfg_group1_param	0x2b7d86a	VERIFIED_STATIC	cfg_group1
+section_save_surface	0x2b7d87c	VERIFIED_STATIC	_save_config in active build-section block
+group_data_doc	0x2b7e9d7	VERIFIED_STATIC	full saved clusters = [{'num': n, 'members': [...]}, ...]
+legacy_group1_doc	0x2b7ea2b	VERIFIED_STATIC	Group1 selected names excluding blank/duplicate; old compatibility
+config_path	0x2b80a51	VERIFIED_STATIC	CONFIG_PATH
+settings_lock	0x2b80a5e	VERIFIED_STATIC	_settings_lock
+read_settings	0x2b80a6e	VERIFIED_STATIC	read_settings
+settings_section	0x2b80a82	VERIFIED_STATIC	Settings
+party_after_load_key	0x2b80a8e	VERIFIED_STATIC	party_after
+party_after_default	0x2b80a9b	VERIFIED_STATIC	wait
+party_after_allowed_tuple	0x2b80aa1	VERIFIED_STATIC	serialized tuple of five values: wait/train/train_lsv/don/phoban
+json_loads	0x2b80ad0	VERIFIED_STATIC	json.loads
+json_empty_default	0x2b80ad7	VERIFIED_STATIC	[]
+load_members_field	0x2b80add	VERIFIED_STATIC	members
+config_dir	0x2b80af1	VERIFIED_STATIC	CONFIG_DIR
+makedirs	0x2b80afd	VERIFIED_STATIC	makedirs
+exist_ok	0x2b80b0c	VERIFIED_STATIC	exist_ok
+party_after_save_key	0x2b80b16	VERIFIED_STATIC	party_after
+json_dumps	0x2b80b23	VERIFIED_STATIC	json.dumps
+json_ensure_ascii	0x2b80b2f	VERIFIED_STATIC	ensure_ascii
+json_ensure_ascii_false	0x2b80b2b	VERIFIED_STATIC	serialized False adjacent to dumps keyword structure
+dormant_corps_groups	0x2b80b3f	DORMANT_COMPATIBILITY_CLEANUP	party_corps_groups
+dormant_corps_group1	0x2b80b53	DORMANT_COMPATIBILITY_CLEANUP	party_corps_group1
+dormant_follow	0x2b80b67	DORMANT_COMPATIBILITY_CLEANUP	party_follow
+dormant_pick	0x2b80b75	DORMANT_COMPATIBILITY_CLEANUP	party_pick
+write_settings	0x2b80b81	VERIFIED_STATIC	write_settings
+save_error	0x2b80b91	VERIFIED_STATIC	[PARTY] Save error:
+party_config_doc	0x2b80dcc	VERIFIED_STATIC	settings.ini via read/write_settings
+party_config_keys_doc	0x2b80e12	VERIFIED_STATIC	party_groups / party_group1 + party_after
+load_method	0x2b819c2	VERIFIED_STATIC	PartyTab._load_config
+save_method	0x2b819d9	VERIFIED_STATIC	PartyTab._save_config
+load_locals	0x2b82121	VERIFIED_STATIC	cfg,val,sec,raw_groups,groups_data,parsed,legacy,g1,gd,data,members,var,nm,have,miss
+save_locals	0x2b82501	VERIFIED_STATIC	self,args,cfg,sec,groups_data,_k
+corps_literal_count	-	VERIFIED_STATIC	each party_corps_groups/group1 literal occurs once in frozen EXE
+follow_pick_literal_count	-	VERIFIED_STATIC	each party_follow/party_pick literal occurs once in frozen EXE
+runtime_hwnd_pid_roleid_teamid_keys	-	ABSENT_CONFIG_SURFACE	No Party persistence field/key for HWND/PID/RoleID/TeamID
+exact_saving_gate_enable_timing	-	EXPLICIT_UNKNOWN	Flag exists; exact instruction-level enable moment not source-visible
+exact_legacy_precedence_expression	-	EXPLICIT_UNKNOWN	Current+legacy paths proven; exact source Boolean branch not recovered verbatim
+exact_legacy_cleanup_statement	-	EXPLICIT_UNKNOWN	Four-key tuple + save local _k proven; exact del/pop syntax not recovered
+malformed_json_exact_branch	-	EXPLICIT_UNKNOWN	Safe/default surfaces exist; exact exception branch not source-visible
