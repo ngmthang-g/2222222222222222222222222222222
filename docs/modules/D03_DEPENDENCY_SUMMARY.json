@@ -1,0 +1,58 @@
+{
+  "task": "D03",
+  "status": "VERIFIED_WITH_VERSION_EVIDENCE_TIERS",
+  "exact_package_versions": {
+    "requests": "2.34.2",
+    "urllib3": "2.7.0",
+    "Pillow/PIL": "12.3.0",
+    "cryptography": "49.0.0",
+    "idna": "3.18",
+    "certifi": "2026.06.17",
+    "PyAutoGUI": "0.9.54",
+    "pyperclip": "1.11.0",
+    "PyScreeze": "1.0.1",
+    "PyTweening": "1.2.0",
+    "PyMsgBox": "1.0.9",
+    "PyGetWindow": "0.0.9",
+    "six": "1.17.0"
+  },
+  "lower_confidence_version_literals": {
+    "MouseInfo": "0.1.3"
+  },
+  "pywin32_pe_version": "3.10.312.0",
+  "native_pyd": {
+    "total": 32,
+    "cpython_runtime": 16,
+    "third_party": 16
+  },
+  "direct_reference_source_counts": {
+    "requests": 1,
+    "urllib3": 1,
+    "frida": 2,
+    "psutil": 11,
+    "PIL": 1,
+    "pynput": 3,
+    "pyautogui": 1,
+    "pyperclip": 2,
+    "keyboard": 7,
+    "mouse": 14,
+    "typing_extensions": 2,
+    "win32con": 14,
+    "win32api": 2,
+    "win32gui": 18,
+    "win32process": 4,
+    "win32ui": 1
+  },
+  "direct_relation_status": "STATIC_REFERENCE_NOT_IMPORT_PROOF",
+  "unknown_versions": [
+    "frida",
+    "psutil",
+    "pynput",
+    "keyboard",
+    "mouse",
+    "typing_extensions",
+    "Brotli",
+    "cffi"
+  ],
+  "next_task": "D04 — TLM internal dependencies"
+}
