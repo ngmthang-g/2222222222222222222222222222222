@@ -1,0 +1,101 @@
+{
+  "task": "G11",
+  "status": "VERIFIED_POST_PARTY_MAIN_THREAD_ROUTING_WITH_20S_HWND_READINESS_NAME_FALLBACK_AND_EXPLICIT_GLOBAL_CANCEL_GATE_UNKNOWN",
+  "resume_check": {
+    "g01_to_g10_complete": true,
+    "g11_preexisting_artifact": false,
+    "continued_from_state_next_action": true
+  },
+  "modes": {
+    "wait": {
+      "action": "none"
+    },
+    "phoban": {
+      "ref": "phoban_tab_ref",
+      "label": "Phó bản",
+      "per_account_dispatch": false,
+      "already_running": "skip",
+      "main_thread": true,
+      "action": "select Phó Bản notebook tab and start its own process"
+    },
+    "train": {
+      "ref": "farm_tab_ref",
+      "label": "Train",
+      "per_account_dispatch": true
+    },
+    "train_lsv": {
+      "ref": "train_lsv_tab_ref",
+      "label": "Train LSV",
+      "per_account_dispatch": true
+    },
+    "don": {
+      "ref": "donvang_tab_ref",
+      "label": "Dồn vàng",
+      "per_account_dispatch": true
+    }
+  },
+  "target_set": {
+    "store": "_last_targets",
+    "lock": "_targets_lock",
+    "semantic": "accounts just handled by the completed global Party aggregate",
+    "handoff_shape": ["name", "party_hwnd"],
+    "role_id_in_handoff": false,
+    "team_id_in_handoff": false,
+    "exact_reset_merge_microorder": "UNKNOWN"
+  },
+  "notebook": {
+    "helper": "_select_tab_by_text",
+    "lookup": "visible tab text",
+    "select_before_generic_readiness_wait": true
+  },
+  "generic_readiness": {
+    "worker": "_wait_and_dispatch_after_party",
+    "thread": "background",
+    "want": "target Party HWND set",
+    "have": "destination _acc_rows HWND set",
+    "predicate": "want.issubset(have)",
+    "poll_seconds": 1.0,
+    "max_polls": 20,
+    "max_wait_seconds": 20,
+    "ui_widget_mutation_in_worker": false,
+    "dispatch_after_wait": "_after_dispatch_main on main Tk thread"
+  },
+  "generic_dispatch": {
+    "required_method": "_toggle_single_farm",
+    "rows": "_acc_rows",
+    "matching_order": [
+      "exact HWND",
+      "name / lowercase-name",
+      "fresh re-resolution"
+    ],
+    "fresh_map_exact_expression": "UNKNOWN",
+    "use_found_row_current_hwnd": true,
+    "used_hwnd_guard": true,
+    "missing_target": "skip individually",
+    "already_running_state": "_farming_acc",
+    "already_running": "skip",
+    "toggle": "_toggle_single_farm"
+  },
+  "aggregate_semantics": {
+    "global_only": true,
+    "single_cluster_button_runs_post_action": false,
+    "per_cluster_result_collection": false,
+    "all_clusters_success_gate": false,
+    "ordinary_cluster_failure_blocks_post_action": false,
+    "explicit_global_cancel_post_action": "UNKNOWN"
+  },
+  "main_thread_boundaries": [
+    "notebook selection",
+    "Phó Bản activation",
+    "destination _toggle_single_farm"
+  ],
+  "background_boundaries": [
+    "generic destination row-HWND readiness polling"
+  ],
+  "preserved": {
+    "login_F10_F11_not_reopened": true,
+    "G09_lifecycle_not_changed": true,
+    "G10_team_protocol_not_changed": true
+  },
+  "next_task": "G12 — Party parity-test / reconstruction handoff"
+}
