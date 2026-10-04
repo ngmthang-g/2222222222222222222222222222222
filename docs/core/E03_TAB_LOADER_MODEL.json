@@ -1,0 +1,82 @@
+{
+  "task": "E03",
+  "status": "VERIFIED_WITH_CONDITIONAL_VISIBILITY_AND_LAZY_BUILD_MODEL",
+  "helper": "TLMMainApp.create_tabs.<locals>._new_tab",
+  "potential_order": [
+    "▶",
+    "Login",
+    "Party",
+    "Train",
+    "Train LSV",
+    "Train LD",
+    "Phó Bản",
+    "Daily",
+    "Đồn",
+    "Rao",
+    "Tối ưu",
+    "ℹ",
+    "Proxy",
+    "🔎",
+    "🔍"
+  ],
+  "gate_b_visible_order": [
+    "▶",
+    "Login",
+    "Party",
+    "Train",
+    "Train LSV",
+    "Phó Bản",
+    "Daily",
+    "Đồn",
+    "Rao",
+    "Tối ưu",
+    "i"
+  ],
+  "info_always_visible": true,
+  "hidden_selected_fallback": "Info",
+  "dev_tabs": [
+    "Proxy",
+    "🔎 Debug",
+    "🔍 Debug Android"
+  ],
+  "conditional_tabs": [
+    "Train LD",
+    "Đồn",
+    "Rao",
+    "Tối ưu"
+  ],
+  "lazy_build": {
+    "enabled": true,
+    "doc": "Chỉ build 1 lần khi tab chưa có nội dung.",
+    "rebuild_method": "_rebuild_tab"
+  },
+  "scroll_wrapper": {
+    "method": "_make_scrollable",
+    "components": [
+      "Canvas",
+      "vertical Scrollbar",
+      "create_window",
+      "scrollregion",
+      "MouseWheel bind/unbind"
+    ],
+    "per_tab_exact_flags": "UNKNOWN WHERE NOT DIRECTLY RECOVERED"
+  },
+  "refresh_lifecycle": {
+    "on_change": "stop old refresh; start new refresh immediately",
+    "initial": "only selected tab polls after build",
+    "methods": [
+      "_on_tab_changed",
+      "_selected_tab_key",
+      "_sync_tab_refresh",
+      "_set_tab_refresh",
+      "_sync_initial_refresh"
+    ]
+  },
+  "permission_account_limit": {
+    "hide_show": true,
+    "child_state_toggle_without_destroy": true,
+    "version_or_plan_block": "Info-only fallback"
+  },
+  "exact_constructor_micro_order": "CONTEXTUAL_NOT_FULLY_SOURCE_DECOMPILED",
+  "next_task": "E04 — shared state"
+}
