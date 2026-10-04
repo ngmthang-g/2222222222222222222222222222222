@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H09 — Train loot filtering / pickup mode and discard-preset interaction audit.
+H10 — Train mount actions / horse interaction audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1516,12 +1516,47 @@ H09 — Train loot filtering / pickup mode and discard-preset interaction audit.
 - docs/train/H08_RECONNECT_FLOW.md
 - docs/train/H08_RECONNECT_MODEL.json
 
+## H09 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H09 artifact existed, so no completed Train work was repeated.
+- Inspected the frozen original EXE first; inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Exact shared keep modes are `none / weapons / all`, visible labels `Không / Chỉ vũ khí / Tất cả`, with exact default `KEEP_MODE_DEFAULT='all'`. B05's selected `Tất cả` matches the frozen default.
+- Exact keep-mode→Train preset mapping is now locked:
+  - `none → ['discard_weapons','discard_nonweapon']`
+  - `weapons → ['discard_nonweapon']`
+  - `all → []`
+- The mode is a **keep/filter policy**, not the actual pickup enable switch. `none` must not be reconstructed as “delete every item category in the bag”; the Train mapping only activates its weapon/non-weapon-equipment discard presets.
+- Weapon classification uses the shared `weapon_ids.is_weapon` layer. Shared bag-filter rule docs say weapons are protected by default and only explicit `match_weapons=True` / `discard_weapons` may target them.
+- Non-weapon filtering depends on item metadata / `NON_WEAPON_EQUIP_TYPES`; the frozen warning explicitly says non-weapon filtering drops out if metadata is missing. Do not replace this with a naive “not weapon ID = discard everything” rule.
+- `FarmTab.get_pickup_preset_keys` is the bridge from current `pickup_mode` to shared `keys_for_keep_mode('train', mode)`. Exact Farm wrapper doc says `[] = không vứt gì`.
+- Shared `discard_for_activity` exact docs lock: keys None/[] = no discard; empty rules = zero result, no scan and no item packet; multiple active presets are OR-combined and targets deduplicated by dbID in one send pass.
+- Shared discard primitive exact doc says whole stack is abandoned via packet **100005** payload **`4:<dbID>`**.
+- Frozen shared defaults bind `discard_items` and `discard_for_activity` to **delay=1.0s** with stop/progress/dry-run defaults. Farm `_filter_before_town` passes activity `train`, keys and stop_check and has no recovered Farm-specific delay override, so the active pre-town filter uses the shared 1.0s discard pacing parameter.
+- Shared discard is cancellation-aware through `stop_check` and returns structured `total/ok/fail/skipped/stopped/targets`.
+- Normal FarmTab has **no continuous `_discard_loop` method**. Loot filtering is event-driven through `_filter_before_town`; do not copy the separate 10-second continuous discard watcher from another tab into FarmTab.
+- Exact `_filter_before_town` doc says it uses Train's Nhặt đồ radio/preset for every town/full-bag path, returns post-filter `slots_after` int or None for `Tất cả`/error, shows `Đang lọc đồ`, then restores the prior state only if nobody changed it.
+- Frozen `STATE_STYLE` binds `Đang lọc đồ` to foreground **#8e24aa**.
+- H03's None/no-filter/error semantics and full-bag behavior are preserved unchanged; H09 does not reopen the numeric full threshold.
+- Separate checkbox `Nhặt đồ không dùng hồ lô (càn khôn hồ)` is config `pickup_no_cankhon`, default False.
+- Exact `_pickup_no_cankhon` doc says: **sleep 5s then write hidden `PICKITEM.IsOn=true`**, replacing the old visible UI click/tick/confirm sequence.
+- Direct helper constants lock `memory_items.set_auto_fields`, section `PICKITEM`, key `IsOn`, type `bool`, value True.
+- This no-Càn-Khôn feature is independent of `pickup_mode`: it enables game pickup; the keep-mode radio determines later discard behavior.
+- No recurring 5-second pickup polling loop is recovered; the safe contract is one delayed enable write per helper invocation.
+- No direct readback confirmation helper is recovered for `PICKITEM.IsOn`; unlike Party auto-accept, do not claim the original confirms the setting after writing.
+- Exact pickup-helper threading/inline dispatch micro-order and setter-result handling remain implementation/runtime UNKNOWN.
+- B05 was cross-checked only after static extraction; no geometry was remeasured.
+
+## H09 FILES
+- docs/tasks/H09.md
+- docs/train/H09_LOOT_FILTER_STATIC_EVIDENCE.tsv
+- docs/train/H09_LOOT_FILTER_FLOW.md
+- docs/train/H09_LOOT_FILTER_MODEL.json
+
 ## BLOCKERS
-None known for H09.
+None known for H10.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H08 verified Train wiring/town/full-bag/timing/movement/heal/death/reconnect contracts.
+- Preserve B05 Train visual baseline and H01–H09 verified Train wiring/town/full-bag/timing/movement/heal/death/reconnect/loot-filter contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
@@ -1533,22 +1568,23 @@ None known for H09.
 - Preserve H05 movement conventions and active FarmTab Truyền ownership.
 - Preserve H06 treatment routing/clicks and unresolved 0.2/common.active microbinding.
 - Preserve H07 death monitor and recovery event/latch semantics.
-- Preserve H08 2s memory-veto + dual-pixel 3-strike reconnect detection, click (616,455), 5-attempt/30s-active batches, infinite retry, immediate cache invalidation, reconnect_ok reset and 45s/need3 memory-ready fail-open gate.
-- Do not invent direct stop_game_auto behavior in the reconnect monitor.
-- Do not force post-reconnect DLL reinjection until the direct edge is proven.
-- Keep reconnect_ok Event wait quantum, wait_pixel interval/debug args and same-tick death/disconnect ordering UNKNOWN.
-- H09 must focus only loot filtering/pickup mode/discard interaction; do not reopen H03 full-bag threshold or H08 reconnect.
+- Preserve H08 reconnect watchdog/recovery contract.
+- Preserve H09 exact keep modes/default/preset mapping, metadata-based weapon/nonweapon classification, 1.0s shared discard pacing, event-driven Farm filtering and separate 5s PICKITEM.IsOn hidden enable.
+- Do not add a continuous Farm discard watcher.
+- Do not reinterpret pickup_mode as the actual pickup-enable switch.
+- Do not invent PICKITEM write readback confirmation or recurring 5-second polling.
+- H10 must focus only mount/horse actions and their interaction with navigation priority/movement; do not reopen H09 filtering.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H09 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H09 only if still pending.
+3. Check GitHub first for any H10 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H10 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Train loot/pickup filtering only: pickup_mode values/default, get_pickup_preset_keys, bag_filter activity='train', keep-all/no-discard behavior, weapon-only mode, pickup_no_cankhon worker interaction, discard timing/cancellation/state-label behavior, and any link between pickup mode and pre-town filtering.
-7. Recover exact item/preset identifiers, delays and worker cadence where safely bindable; keep unbound values UNKNOWN.
-8. Preserve H03 full-bag/filter-before-town contract but do not reopen the numeric full threshold.
-9. Do not yet analyze mount actions; H10 owns mount behavior.
+6. Audit only Train mount/horse behavior: how the `Ngựa` navigation-priority option maps into movement, any mount/dismount click or internal action surfaces, mount-state detection, when horse is attempted/skipped, retries/timeouts, and how route/movement fallbacks interact with mount choice.
+7. Recover exact coordinates/keys/delays/retry counts where safely bindable; keep unbound values UNKNOWN.
+8. Preserve H05 movement/Truyền routing and H09 loot-filter boundaries.
+9. Do not yet analyze saved-coordinate persistence beyond any mount-specific dependency; H11 owns saved coordinates.
 10. Cross-check B05 only after static extraction; no geometry work is needed.
-11. Persist H09 evidence/report, update STATE.md, and advance to H10 only after verification.
+11. Persist H10 evidence/report, update STATE.md, and advance to H11 only after verification.
