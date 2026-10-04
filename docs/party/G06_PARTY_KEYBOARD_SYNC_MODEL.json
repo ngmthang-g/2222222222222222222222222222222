@@ -1,0 +1,48 @@
+{
+  "task": "G06",
+  "status": "VERIFIED_NO_PARTY_KEYBOARD_SYNC_OWNERSHIP_OR_START_INPUT_SYNC_CALL_EDGE",
+  "resume_check": {
+    "g01_to_g05_complete": true,
+    "g06_preexisting_artifact": false,
+    "continued_from_state_next_action": true
+  },
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "party_keyboard_sync": {
+    "owns_keyboard_listener": false,
+    "owns_key_press_release_handlers": false,
+    "owns_input_active": false,
+    "owns_toggle_input": false,
+    "owns_sync_keepalive": false,
+    "owns_key_message_protocol": false,
+    "calls_start_toggle_input": false,
+    "reads_start_input_active": false,
+    "owns_press_at_or_key_sender": false
+  },
+  "party_direct_input": {
+    "mouse_symbol_present": true,
+    "click_at_present": true,
+    "purpose": "direct Party action/identity path, not keyboard synchronization"
+  },
+  "shared_start_keyboard_contract": {
+    "authority": "C19",
+    "source": "selected Start master HWND",
+    "listener": "keyboard.Listener",
+    "handlers": ["_on_master_key_press", "_on_master_key_release"],
+    "message": "WM_MY_SYNC_KEY",
+    "payload": "UNKNOWN per C19"
+  },
+  "ownership_boundaries": {
+    "party_leader_is_start_master": false,
+    "party_group_is_keyboard_slave_set": false,
+    "party_start_stop_controls_keyboard_sync": false
+  },
+  "visual_cross_check": {
+    "authority": "B04",
+    "keyboard_sync_control_on_party_ui": false,
+    "baseline_changed": false
+  },
+  "next_task": "G07 — Party sync-mouse relationship audit"
+}
