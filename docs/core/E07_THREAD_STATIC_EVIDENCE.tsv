@@ -1,0 +1,39 @@
+key	offset_hex	status	evidence
+cpu_monitor_thread	0x28d83a6	VERIFIED_STATIC	threading.Thread target _check_loop
+cpu_monitor_daemon	0x28d83c5	VERIFIED_STATIC	daemon
+cpu_monitor_join	0x28d83d4	VERIFIED_STATIC	join + timeout
+start_sync_lock	0x2bf96a9	VERIFIED_STATIC	Lock / _sync_locked_guard
+start_sync_queue	0x2bf96d9	VERIFIED_STATIC	Queue / _sync_q
+start_sync_worker_state	0x2bf96e9	VERIFIED_STATIC	_sync_worker_started
+start_preview_worker_state	0x2bf9866	VERIFIED_STATIC	_preview_worker_started
+start_mouse_listener	0x2bfd316	VERIFIED_STATIC	mouse.Listener
+start_listener_daemon	0x2bfd376	VERIFIED_STATIC	daemon
+start_sync_queue_put	0x2bfd4bd	VERIFIED_STATIC	put into sync queue
+start_sync_worker	0x2bfd4c2	VERIFIED_STATIC	_sync_worker
+start_sync_task_done	0x2bfd4e2	VERIFIED_STATIC	task_done
+start_preview_worker_doc	0x2bfdede	VERIFIED_STATIC	background enum windows + basic char info ~3s; no Tk
+start_preview_heavy_doc	0x2bfdf70	VERIFIED_STATIC	heavy memory refresh ~8s
+login_event	0x2b5e416	VERIFIED_STATIC	Event / _batch_cancel
+login_schedule_event	0x2b5e42c	VERIFIED_STATIC	_schedule_cancel
+login_launch_lock	0x2b5e450	VERIFIED_STATIC	Lock / _launch_lock
+login_schedule_worker	0x2b62668	VERIFIED_STATIC	_schedule_worker
+login_main_thread_countdown	0x2b62852	VERIFIED_STATIC	countdown UI pushed on main thread
+party_event	0x2b7d0e3	VERIFIED_STATIC	Event / _cancel
+party_run_lock	0x2b7d0f3	VERIFIED_STATIC	Lock / _run_lock
+party_targets_lock	0x2b7d112	VERIFIED_STATIC	_targets_lock
+party_parallel_doc	0x2b7fd30	VERIFIED_STATIC	one thread per group, wait all then after-party/reset
+party_join	0x2b7fcec	VERIFIED_STATIC	join + timeout
+daily_per_acc_doc	0x29061ca	VERIFIED_STATIC	per-account thread
+daily_main_thread_marshal	0x29066f7	VERIFIED_STATIC	Tk main thread via after(0)
+daily_stop_event	0x29068a5	VERIFIED_STATIC	stop_event cancellation
+farm_main_thread_marshal	0x2942b50	VERIFIED_STATIC	Tk main thread via after(0)
+farm_thread_collection	0x293aa8d	VERIFIED_STATIC	_farm_threads
+emu_http_server	0x2937d49	VERIFIED_STATIC	ThreadingHTTPServer
+emu_http_daemon	0x2937dbb	VERIFIED_STATIC	daemon
+emu_http_shutdown	0x2937e0a	VERIFIED_STATIC	shutdown / server_close
+info_heartbeat_after_id	0x297074b	VERIFIED_STATIC	_heartbeat_after_id
+info_heartbeat_cancel	0x297106a	VERIFIED_STATIC	after_cancel
+native_remote_thread	0x291a08c	VERIFIED_STATIC	CreateRemoteThread; separate native category
+all_worker_daemon_policy	-	EXPLICIT_UNKNOWN	mixed daemon/non-daemon evidence
+all_join_timeout_values	-	EXPLICIT_UNKNOWN	exact timeout varies / not all readable
+global_stop_order	-	EXPLICIT_UNKNOWN	exact simultaneous shutdown order not recovered
