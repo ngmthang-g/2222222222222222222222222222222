@@ -1,0 +1,69 @@
+key	offset_hex	status	evidence
+preset_to_vars_doc	0x293cd26	VERIFIED_STATIC	Saved coordinate name -> (map_var,x_var,y_var), None triple if absent
+row_farm_var	0x293cb40	VERIFIED_STATIC	farm_var
+row_go_move	0x293cbe5	VERIFIED_STATIC	_move_acc row movement entry
+manual_farm_guard	0x293e90e	VERIFIED_STATIC	_is_acc_farming
+manual_farm_guard_log	0x293e91f	VERIFIED_STATIC	[Tới] hwnd=... đang farm tự động -> bỏ qua thao tác thủ công
+move_acc_inject	0x293e986	VERIFIED_STATIC	_ensure_injected
+move_acc_route_direct	0x293e9a1	VERIFIED_STATIC	to
+move_acc_route_borrow	0x293e9a7	VERIFIED_STATIC	to_from
+move_acc_truyen	0x293e9b4	VERIFIED_STATIC	_move_truyen_to
+move_acc_doc	0x293e9db	VERIFIED_STATIC	Move to selected coordinate; stop_check supports Farm cycle
+tile_to_pixel_int32	0x293e1d8	VERIFIED_STATIC	integer 32 in route leg movement block
+move_retry_arrival	0x293e1dc	VERIFIED_STATIC	wait_for_arrival
+move_retry_doc	0x293e23a	VERIFIED_STATIC	Route-aware executor retries move_character leg; primitive itself stays generic
+exec_move	0x293e3e0	VERIFIED_STATIC	move
+exec_retry	0x293e3e6	VERIFIED_STATIC	_truyen_move_retry
+exec_click	0x293e3fa	VERIFIED_STATIC	click
+exec_drag	0x293e459	VERIFIED_STATIC	drag
+exec_npc_hub	0x293e4b0	VERIFIED_STATIC	npc_hub
+exec_current_map	0x293e520	VERIFIED_STATIC	MapID
+exec_resolve_hub	0x293e527	VERIFIED_STATIC	resolve_hub_npc
+exec_no_npc_log	0x293e547	VERIFIED_STATIC	Town has no transmission NPC -> abort
+exec_move_to_npc	0x293e585	VERIFIED_STATIC	move_to_npc
+exec_wait	0x293e602	VERIFIED_STATIC	wait
+exec_wait_timeout	0x293e608	VERIFIED_STATIC	default timeout integer 30
+exec_sleep	0x293e622	VERIFIED_STATIC	sleep
+exec_sleep_chunk	0x293e634	VERIFIED_STATIC	float 0.5 next to time/min cancellation loop
+exec_doc	0x293e65d	VERIFIED_STATIC	Sequential steps; False on fail/stop
+forward_tag	0x293e713	VERIFIED_STATIC	Tới-Truyền
+forward_move_target	0x293e73c	VERIFIED_STATIC	move_target
+forward_doc	0x293e7ab	VERIFIED_STATIC	City->Farm route; move_target resolves to user coordinate
+back_resolve_doc	0x293e805	VERIFIED_STATIC	Return branch per current Truyền map; current MapID first, preset fallback on memory-read failure
+get_sell_coords_doc	0x293ebf4	VERIFIED_STATIC	Built-in SELL_MAP coords or manual saved preset -> (map_id,tile_x,tile_y)
+run_exit_exec	0x293eea2	VERIFIED_STATIC	_exec_truyen_steps
+run_exit_back	0x293eeb6	VERIFIED_STATIC	back
+run_exit_verify	0x293eed2	VERIFIED_STATIC	verify_exited_farm
+run_exit_doc	0x293eefb	VERIFIED_STATIC	Execute back + verify exit; if failure caller may walk unless stopped
+sellpoint_get_coords	0x293f0fb	VERIFIED_STATIC	_get_sell_coords
+sellpoint_run_exit	0x293f10d	VERIFIED_STATIC	_run_farm_exit
+sellpoint_nav_priority	0x293f11d	VERIFIED_STATIC	_get_nav_priority
+sellpoint_fallback_log	0x293f130	VERIFIED_STATIC	teleport hụt, vẫn ở farm -> đi bộ về điểm bán
+sellpoint_arrival	0x293f173	VERIFIED_STATIC	wait_for_arrival
+sellpoint_stop	0x293f185	VERIFIED_STATIC	stop_check
+sellpoint_home_priority	0x293f191	VERIFIED_STATIC	home_priority
+sellpoint_doc	0x293f1a1	VERIFIED_STATIC	Move to sell point with Truyền return branch; return True if arrived
+meds_fallback_log	0x293fc11	VERIFIED_STATIC	[Mua thuốc] teleport hụt, vẫn ở farm -> đi bộ về điểm mua
+nav_priority_doc	0x2941091	VERIFIED_STATIC	UI Phù1/2/3/Ngựa list passed to move_character
+near_posx	0x294161c	VERIFIED_STATIC	PosX
+near_pixel_scale	0x2941624	VERIFIED_STATIC	float 32.0
+near_posy	0x294162f	VERIFIED_STATIC	PosY
+near_doc	0x2941638	VERIFIED_STATIC	Near Train target skips redundant move; fail-open on read/map/target failure
+near_threshold_value	0x294334b	VERIFIED_STATIC	serialized double 8.0
+near_threshold_name	0x2943355	VERIFIED_STATIC	FARM_NEAR_TILES
+near_locals	0x2945300	VERIFIED_STATIC	row/tiles/mv/xv/yv/map_sel/map_id/name/mid/tx/ty/get_character_info/ci/dx/dy
+move_acc_locals	0x29452c0	VERIFIED_STATIC	map_var/x_var/y_var/map_sel/map_id/tile_x/tile_y/truyen/_steps/_ref/ok surfaces
+move_all_locals	0x2945350	VERIFIED_STATIC	rows/threads/row/mv/xv/yv surfaces
+fast_find_route_doc	0x29466f5	VERIFIED_FAST_STATIC	find route from cur_map to dest_map
+fast_hop_doc	0x294682e	VERIFIED_FAST_STATIC	fast_hop_to_map teleport-only helper
+fast_back_doc	0x2946a28	VERIFIED_FAST_STATIC	find_fast_back contract
+fast_verify_doc	0x2946b5d	VERIFIED_FAST_STATIC	Fresh MapID must differ from farm_map
+fast_goto_doc	0x2946e60	VERIFIED_FAST_STATIC	generic goto_map doctrine
+fast_module_doc	0x29476d6	VERIFIED_FAST_STATIC	fast_travel module status
+fast_goto_dormant	0x2947714	VERIFIED_FAST_STATIC	run_steps/goto_map DORMANT
+fast_hop_live	0x2947788	VERIFIED_FAST_STATIC	fast_hop_to_map LIVE via move_to_npc
+exact_near_metric	-	EXPLICIT_UNKNOWN	8-tile threshold exact; final dx/dy combination not safely source-visible
+exact_route_retry_count	-	EXPLICIT_UNKNOWN	retries parameter proven; numeric value not safely bound
+forward_shortcut_final_failure	-	EXPLICIT_UNKNOWN	Active FarmTab final plain-walk fallback vs abort not statically resolved
+ordinary_move_tolerance	-	EXPLICIT_UNKNOWN	Not safely bound from active FarmTab path
+fallback_walk_long_timeout	-	EXPLICIT_UNKNOWN	Doc says long timeout; numeric value not safely bound
