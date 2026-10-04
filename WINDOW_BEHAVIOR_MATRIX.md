@@ -511,3 +511,20 @@ Explicit unknown:
 - whether manual refresh forces a new worker-memory read.
 
 ---
+
+
+## C16 — Đóng hết
+
+`Đóng hết` → preview close callback → shared game-close utility.
+
+Verified from the original EXE:
+- operates on the current game-window HWND list;
+- validates each live window;
+- sends the normal Windows close request to each game window;
+- lingering Unity crash-handler processes are cleaned separately;
+- this is distinct from preview teardown and preview refresh;
+- once game HWNDs disappear, existing discovery/preview maintenance removes stale preview/master state.
+
+Explicit unknown: exact immediate refresh timing and any unrecovered confirmation wrapper.
+
+---
