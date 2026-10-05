@@ -234,22 +234,35 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 - I08 — VERIFIED
 - I09 — VERIFIED
 - I10 — VERIFIED
-- I11 — VERIFIED_ALL_ROWS_BULK_PARALLEL_COMMANDS_WITH_COOPERATIVE_GENERATION_SAFE_FSM
-- I12 — NEXT
+- I11 — VERIFIED
+- I12 — CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED
 
-I10 locks TrainLSV saved-coordinate persistence and per-account Train preset selection.
+Final TrainLSV parity matrix:
+- 80 total rows
+- 24 STATIC_VERIFIED
+- 3 RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE
+- 53 RUNTIME_ENV_REQUIRED
+- 0 BLOCKED.
 
-I11 locks all-account commands and the TrainLSV start/stop FSM. _checked_rows means every current TrainLSV account row; there are no row selection checkboxes. The visible bulk bar remains exactly Tới LSV / Tới chỗ train / Đánh / Rời LSV, dispatched off the Tk thread and processed in parallel per account.
+The exact frozen archive, inner EXE, TrainLSV module chunk, B06 and packaged runtime helper log were revalidated before closure. All 44 I01-I11 artifacts were re-inspected and no contradiction required reopening an earlier task.
 
-Bulk Đánh is the manual _farm_acc path: memory/internal StartAutoFight only, not the full automation FSM. It skips an account already running full automatic Farm. Full Farm instead uses per-account _farm_cycle workers tracked through _farming_acc/_farm_threads with row _gen and gen_snap generation safety.
+Packaged runtime evidence remains primitive-scoped only:
+- AutoMove queued 16,040
+- StartAutoPath 15,993
+- StopAutoPath 2,027
+- AutoFight_Main 8,511
+- action4 22,734 raw / 22,732 spts.
 
-Row play UI is frozen as inactive ▶ green, active serialized ASCII II red, and draining … orange through _stopping_play. Global START acts only on inactive rows; global STOP acts only on active rows. Stop is cooperative: stop state/generation invalidation is observed by _check_stop, worker threads drain, and _wait_farm_stop joins/finalizes partial or complete stop.
+There is no correlated top-level TrainLSV trace in the packaged helper log, so end-to-end runtime parity is not claimed.
 
-A complete stop resets Bắt đầu / green / normal. A distinct no-window cleanup path uses Đang dừng... / orange / disabled while workers drain. This special cleanup visual is not generalized to every normal stop.
+A 53-scenario Windows/live-game test plan now covers the remaining I02-I11 runtime edges. Unexecuted scenarios remain UNVERIFIED, never PASS.
 
-StartTab mirrors the same TrainLsvTab FSM. Local stopped caption Bắt đầu maps to StartTab Train LSV. The full TrainLSV cycle is intentionally move-to-train -> fight -> repeat and does not import ordinary Train sell/medicine/return-town scheduling.
+**Gate I closure**
+CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED
 
-No correlated top-level I11 runtime trace exists in the packaged helper log; generic movement/fight records remain primitive-only evidence.
+Phase I research may hand off. Stage S remains locked and TrainLSV runtime parity must still be executed later before claiming full functional parity.
 
-## Gate I current
-I12 — Train LSV parity/runtime matrix and Gate I closure.
+## Phase J — Phó Bản
+Current task: **J01 — party formation audit**.
+
+Phase-J research must use the frozen TLMTool 2.1.2 Phó Bản implementation as authority and must not import dungeon logic from older/external Than Long projects.
