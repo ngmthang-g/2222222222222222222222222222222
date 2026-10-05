@@ -226,19 +226,22 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 ## Gate I
 - I01 — VERIFIED_TRAINLSV_TAB_WIRING_WITH_5S_INCREMENTAL_REFRESH_30S_AUTOSAVE_DYNAMIC_COORDS_FIXED_DA_MINH_CHAU_ROW_AND_STARTTAB_MIRROR
 - I02 — VERIFIED_MAP3_GATE_ENTRY_WITH_EXACT_LSV_ZONE_SET_FLOOR_PREMOVE_TABLES_AND_30S_COMMON_ACTIVE_GATE_POST_GATE_VERIFY_EXPLICIT_UNKNOWN
-- I03 — NEXT
+- I03 — VERIFIED_SAVED_PRESET_TO_ENSURE_LSV_THEN_DIRECT_MOVE_CHARACTER_WITH_32PX_TILE_CONVERSION_WAIT_FOR_ARRIVAL_AND_NO_LSV_8_TILE_SKIP
+- I04 — NEXT
 
-I01 identifies the active Train LSV implementation as dedicated `train_lsv_tab.py / TrainLsvTab`, with its own `[TrainLSV]` settings section, 30-second config autosave, 5-second incremental account refresh, dynamic saved-coordinate rows, fixed Dạ Minh Châu schedule row, LSV-specific account actions and StartTab forwarding/mirroring.
+I01 identifies the active Train LSV implementation as dedicated train_lsv_tab.py / TrainLsvTab, with its own [TrainLSV] settings section, 30-second config autosave, 5-second incremental account refresh, dynamic saved-coordinate rows, fixed Dạ Minh Châu schedule row, LSV-specific account actions and StartTab forwarding/mirroring.
 
-A stronger constant-chunk decode subsequently resolved I01's prior Dạ Minh Châu screenshot reservation: `_add_buff_row` clean defaults are key `1`, 0 minutes, 5 seconds, and `_build_ui` creates the fixed Dạ Minh Châu row with `fixed=True`.
+A stronger constant-chunk decode resolved I01's Dạ Minh Châu defaults: key 1, 0 minutes, 5 seconds; the fixed row is created with fixed=True.
 
-I02 recovers the actual LSV entry/premove contract from the frozen TrainLsvTab chunk. Normal `Tới LSV` first moves to normal Lạc Dương MapID 3 at tile (232,190), then uses exact clicks (891,473) and (480,605). The server-side hub is MapID 10000. Exact LSV target IDs are 10014–10017 for Tần Hoàng Địa Cung floors 1–4 and 10004/10005/10007 for Phàm Liên Trại/Thanh Liên Trại/Khô Vinh Đạo.
+I02 recovers the actual LSV entry/premove contract. Normal Tới LSV moves to normal Lạc Dương MapID 3 at tile (232,190), then clicks (891,473) and (480,605). The LSV hub is MapID 10000. Exact floor/flat IDs and waypoint tables, portal/PK click handling, and _wait_active(timeout=30, click_if_stuck=False) are locked.
 
-I02 also locks the full LSV zone set, floor order `[10000,10014,10015,10016,10017]`, exact floor/flat waypoint tables, the 10000→10014 portal action at (609,450) x3 with 0.5s spacing, flat-map PK warning click (617,454), and `_wait_active(timeout=30, click_if_stuck=False)`. The stuck-active recovery is (609,450) x2 with 1s spacing. Movement directly reuses shared `move_character`, while final saved-coordinate movement is deliberately deferred to I03.
+I03 recovers the final Tới chỗ train path. The selected saved preset is resolved first, then I02 _ensure_in_lsv performs map/floor premove, then _move_acc performs the exact final direct movement. _move_acc requires injection, resolves a numeric MapID, validates tile X/Y, converts tile coordinates by x32 to pixels and calls shared move_character with wait_for_arrival=True and the caller stop_check.
 
-The packaged runtime helper log was checked only after static extraction and contains no correlated top-level `Tới LSV` trace. I02 therefore remains static-verified rather than end-to-end runtime-verified.
+TrainLsvTab does not contain ordinary Train H05's explicit 8-tile near-target pre-skip: there is no _is_near helper, PosX/PosY sample or dx/dy distance state in the final helper. There is also no extra common.active/MapID verification after the final move. Arrival timeout is logged as “tiếp tục tác vụ” rather than an unconditional fatal abort.
+
+Packaged runtime logs contain only generic movement primitives and no correlated top-level Tới chỗ train records, so I03 remains static-verified rather than runtime-parity verified.
 
 B06 remains the visual authority and is not remeasured unless new EXE evidence contradicts it.
 
 ## Gate I current
-I03 — Train LSV final train-point / “Tới chỗ train” movement audit.
+I04 — Train LSV Rời LSV / leave-LSV behavior audit.
