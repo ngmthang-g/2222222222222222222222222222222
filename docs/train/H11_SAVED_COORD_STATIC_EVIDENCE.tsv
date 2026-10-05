@@ -1,0 +1,64 @@
+key	offset_hex	status	evidence
+coord_header	0x293ba63	VERIFIED_STATIC	_coord_hdr
+coord_body	0x293bb49	VERIFIED_STATIC	_coord_body
+coord_add_button	0x293bb66	REUSED_B05	+ Thêm tọa độ
+coord_add_callback	0x293bb7b	VERIFIED_STATIC	_add_coord_row
+coord_toggle_text_hide	0x293bb8c	REUSED_B05	Ẩn danh sách tọa độ
+coord_toggle_callback	0x293bba8	VERIFIED_STATIC	_toggle_coord_list
+coord_builder_defaults	0x29436a2	VERIFIED_STATIC	qualname prefix nnnn => four None defaults
+coord_builder_locals	0x2944248	VERIFIED_STATIC	self/name/map_val/x_val/y_val/existing/row_frame/name_var/old_name/ent_name/map_var/map_menu/x_var/y_var/_auto_save/_on_name_changed/row_dict/btn_sell/btn_train/btn_del
+coord_default_prefix	0x293d297	VERIFIED_STATIC	Tọa độ 
+coord_generated_existing	0x294426b	VERIFIED_STATIC	existing local in add-row builder
+coord_button_sell	0x293d416	VERIFIED_STATIC	Bán
+coord_button_train	0x293d41a	VERIFIED_STATIC	Train
+coord_button_delete	0x293d422	VERIFIED_STATIC	✕
+coord_delete_color	0x293d426	VERIFIED_STATIC	#c62828
+coord_auto_save_nested	0x293d335	VERIFIED_STATIC	_auto_save
+coord_rename_nested	0x293d3d0	VERIFIED_STATIC	_on_name_changed
+coord_rename_doc	0x293d370	VERIFIED_STATIC	Đổi tên preset -> cập nhật ngay combobox acc + đổi lựa chọn đang dùng tên cũ
+coord_schedule_save	0x293d42f	VERIFIED_STATIC	_schedule_save_all_coords
+coord_refresh_combos	0x293d44a	VERIFIED_STATIC	_refresh_acc_combo_values
+coord_add_doc	0x293d465	VERIFIED_STATIC	Thêm một dòng tọa độ mới vào danh sách
+coord_map_select	0x293d49b	VERIFIED_STATIC	_on_map_select
+coord_apply_all	0x293d4bf	VERIFIED_STATIC	_apply_coord_to_all
+coord_remove	0x293d4da	VERIFIED_STATIC	_remove_coord_row
+coord_refresh_doc	0x293d509	VERIFIED_STATIC	refresh Bán/Farm combobox options on add/delete/rename; rename_map rewrites current old-name selection
+coord_remove_doc	0x293d60c	VERIFIED_STATIC	Xóa một dòng tọa độ khỏi danh sách
+coord_save_doc	0x293d644	VERIFIED_STATIC	Lưu tất cả tọa độ xuống config
+coord_toggle_show_text	0x293d14d	VERIFIED_STATIC	Hiện danh sách tọa độ
+coord_toggle_hide_text	0x293d19d	VERIFIED_STATIC	Ẩn danh sách tọa độ
+coord_toggle_doc	0x293d1ba	VERIFIED_STATIC	Hide/show coordinate header+body; toolbar always visible
+preset_to_vars_doc	0x293cd22	REUSED_H05	Saved preset name -> map_var/x_var/y_var; None triple if absent
+apply_all_doc	0x293cd90	VERIFIED_STATIC	Apply saved coordinate by name to all account comboboxes; target sell/farm
+map_sep_doc	0x293ce22	VERIFIED_STATIC	Selecting ===== separator jumps to real map immediately below
+save_section	0x2942c76	VERIFIED_STATIC	Farm
+save_acc_prefix	0x2942d65	VERIFIED_STATIC	acc_
+save_acc_sell_suffix	0x2942d6b	VERIFIED_STATIC	_sell
+save_acc_farm_suffix	0x2942d72	VERIFIED_STATIC	_farm
+save_map_id_helper	0x2942d7b	VERIFIED_STATIC	coord_id_for_name
+save_coord_prefix	0x2942da3	VERIFIED_STATIC	coord_
+save_coord_index_local	0x2942dfc	VERIFIED_STATIC	_n
+save_unknown_map_log	0x2942db1	VERIFIED_STATIC	unknown map row -> skip, do not save
+load_coords_call	0x2942f9f	VERIFIED_STATIC	_load_coords
+load_acc_option_case	0x2943046	VERIFIED_STATIC	optionxform surface in account-selection load
+load_acc_cname	0x294305b	VERIFIED_STATIC	cname
+load_acc_doc	0x2943062	VERIFIED_STATIC	load saved coordinate selection by character name; set only when preset still exists
+load_coord_parser	0x294312d	VERIFIED_STATIC	parse_coord_value
+load_coord_id_to_name	0x2943140	VERIFIED_STATIC	coord_name_for_id
+load_retired_mapid_log	0x2943179	VERIFIED_STATIC	retired map_id -> skip
+load_retired_mapname_log	0x29431b8	VERIFIED_STATIC	retired map display -> skip / recreate coordinate
+load_coords_doc	0x294322a	VERIFIED_STATIC	Load saved coordinates from config and create dynamic rows
+load_coords_locals	0x2945212	VERIFIED_STATIC	self/cfg/sect/coord_keys/parse_coord_value/coord_name_for_id/key/val/parsed/name/mid/x_v/y_v/map_v/parts
+save_config_locals	0x2945907	VERIFIED_STATIC	self/args/cfg/cf/.../row/cname/_cid/_n/name/mid/x_v/y_v
+shared_parse_split	0x2c4d098	VERIFIED_SHARED_STATIC	split with literal pipe delimiter
+shared_parse_doc	0x2c4d0de	VERIFIED_SHARED_STATIC	Parse new coord config line -> (preset, mid:int, x, y) or None
+shared_id_to_name_doc	0x2c4d145	VERIFIED_SHARED_STATIC	mid -> current display name or None
+shared_name_to_id_doc	0x2c4d237	VERIFIED_SHARED_STATIC	display name -> map_id or None; used on save
+coord_numeric_validator	-	NOT_RECOVERED	add_coord locals contain no _only_digits/vcmd equivalent; do not invent range/clamp
+coord_list_visibility_config_key	-	NOT_RECOVERED	Farm save/load key surface has no coordinate-list visibility key
+coord_save_delay	-	EXPLICIT_UNKNOWN	Autosave hooks verified; no coordinate-specific debounce constant safely bound
+scroll_debounce_30ms	0x29404c8	SEPARATE_FEATURE	30ms exact debounce belongs scrollregion geometry only, not coordinate persistence
+delete_active_selection_microflow	-	EXPLICIT_UNKNOWN	Option list refresh verified; exact immediate selected-value clearing after delete not source-visible
+load_sort_lambda_expression	-	EXPLICIT_UNKNOWN	ordered coord_keys/lambda surface exists; exact source expression not safely recovered
+new_row_map_xy_defaults	-	EXPLICIT_UNKNOWN	builder args default None; exact no-arg map/X/Y UI fallback not safely bound
+coord_row_max	-	NOT_RECOVERED	No MAX_COORDS/fixed row cap found
