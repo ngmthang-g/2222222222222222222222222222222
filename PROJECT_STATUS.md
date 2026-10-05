@@ -232,21 +232,20 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 - I06 — VERIFIED_KEEP_MODE_ALIAS_TO_SHARED_BAG_FILTER_WITH_10S_FULL_BAG_WATCH_PER_ACCOUNT_DISCARD_WORKER_AND_NO_DIRECT_PICKITEM_ENABLE_FULL_BAG_THRESHOLD_NUMERIC_EXPLICIT_UNKNOWN
 - I07 — VERIFIED_OPT_IN_HP50_GATE_FIXED_MAP10000_163_237_SHARED_MOVE_AND_TWO_POINT_X4_TREATMENT_WITH_LEGACY_HEAL_MAP_IGNORED_CLICK_PACING_REPEAT_CALL_SHAPE_AND_EXACT_CANCEL_CHECKPOINTS_UNKNOWN
 - I08 — VERIFIED_2S_MEMORY_VETO_DUAL_PIXEL_3STRIKE_RECONNECT_WITH_5_ATTEMPT_30S_ACTIVE_BATCHES_INFINITE_RETRY_EXACT_5S_RECONNECT_EVENT_WAIT_AND_45S_3READ_MEMORY_GATE_DIRECT_REINJECT_EDGE_UNKNOWN
-- I09 — NEXT
+- I09 — VERIFIED_4S_MAP10000_AND_REAL_HP0_MONITOR_WITH_SINGLE_RESPAWN_CLICK_DEATH_COUNTER_LATCHES_COMMON_ACTIVE_RECOVERY_EVENT_AND_OPT_IN_RETURN_EXACT_LATCH_RESET_ACTIVE_WAIT_AND_RESPAWN_FALSE_CONTINUATION_UNKNOWN
+- I10 — NEXT
 
-I01-I07 lock Train LSV module/config wiring, entry/premove, final train-point movement, leave behavior, timed-key schedule, bag-full keep/discard filtering and treatment.
+I01-I08 lock Train LSV module/config wiring, entry/premove, final train-point movement, leave behavior, timed-key schedule, bag-full keep/discard filtering, treatment and reconnect recovery.
 
-I08 locks TrainLSV reconnect behavior independently from ordinary Train. Auto reconnect defaults off; the watchdog runs every 2 seconds, uses TCPGame connected state as a false-positive veto/reset, requires both disconnect pixels for 3 consecutive ticks, and uses exact reconnect click (616,455).
+I09 locks TrainLSV death/recovery behavior independently from ordinary Train. `respawn` defaults false. The per-account death monitor starts from Farm start and polls every 4 seconds. A real numeric HP=0 sends exactly one client respawn click at (792,441) for the latched zero-HP episode and owns the `_extra_deaths` death counter event.
 
-Reconnect is processed in 5-attempt batches. Every attempt re-checks the dialog before clicking and waits up to 30 seconds for common.active. Failed batches wait 30 seconds and retry indefinitely while the session/window remains valid. Success invalidates the current PID's Reader cache and sets reconnect_ok as a cycle-reset signal.
+MapID 10000 is the TrainLSV recovery-hub signal. A separate `detected` latch plus `respawn_event` prevents one continuous hub episode from becoming repeated recovery starts. TrainLSV additionally waits for shared `common.active` after recovery; its death-monitor-specific timeout/interval remain unknown.
 
-TrainLSV additionally binds an exact `reconnect_ok.wait(timeout=5)` Farm-cycle wait. After success it calls `wait_memory_ready(timeout=45, need=3)`; inherited shared interval is 1.0 second and timeout is fail-open.
+The recovery state is `Về Lạc Dương LSV` (#1565c0). TrainLsvTab contains neither ordinary Train `Đang hồi sinh` nor `Về địa phủ`. If automatic return is enabled, the frozen target boundary is the existing selected I02/I03 TrainLSV path; no death-only hard-coded train coordinate is recovered. Exact `respawn=False` worker continuation and latch-reset/event-clear micro-order remain explicit unknowns.
 
-Direct frozen pixel_data decoding during I08 corrected both disconnect-probe tolerances to **5**. The earlier H08 artifact value 0 was minimally corrected; coordinates/RGB/timeouts and all other H08 behavior remain unchanged.
+I09 also preserves I07 treatment reuse and I08 halt arbitration. No correlated top-level death/recovery trace exists in the packaged helper log, so I09 remains static-verified/runtime-environment-required.
 
-No unconditional post-reconnect DLL reinjection edge is proven. No correlated top-level reconnect trace exists in the packaged helper log, so I08 remains static-verified/runtime-environment-required.
-
-B06 remains the visual authority and is not remeasured unless new EXE evidence contradicts it.
+B06 was cross-checked only after EXE analysis; its hash remains `9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29`, with respawn/treatment visibly unchecked.
 
 ## Gate I current
-I09 — Train LSV death handling audit.
+I10 — Train LSV coordinate management / saved-coordinate persistence audit.
