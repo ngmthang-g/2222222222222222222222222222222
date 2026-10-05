@@ -1758,29 +1758,62 @@ H13 — Train all-account command orchestration audit.
 ## GATE H
 **CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED**
 
+## I01 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no I01 artifacts existed, so completed Gate H work was not repeated.
+- Inspected and re-hashed the frozen original EXE first. Inner `TLMTool.dist/TLMTool.exe` SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Active Train LSV implementation is a dedicated compiled `train_lsv_tab.py` module with class `TrainLsvTab`, not ordinary `farm_tab.py` under another caption. Exact embedded description: `Train LSV Tab - Cấu hình farm liên server (LSV) với danh sách acc.`
+- Constructor/lifecycle surface is now locked: `_build_ui → _load_config → <Destroy>/_save_on_destroy → _start_refresh → _autosave_loop`.
+- Top module state surfaces include `_farming, _acc_rows, _refresh_id, _region_child_count, _scroll_after, _rows_window, _importing, _farm_threads, _autosave_id, _map_lookup, _map_values, _map_names, _coord_rows, _saving_enabled`. Constructor also exposes `info_tab` and `notebook` references.
+- Train LSV uses the shared settings backend with its own `[TrainLSV]` section in TLMTool `settings.ini`. Direct key families are `respawn, auto_reconnect, trist, heal_map, pickup_mode, buff_*, acc_*_train, coord_*`.
+- Exact LSV autosave documentation is **30 seconds**: `Tự lưu config mỗi 30 giây — đảm bảo không mất dữ liệu dù quên thao tác.`
+- Frozen top UI wiring is independently verified inside the LSV module: `Cấu hình Train LSV`; Quay lại train khi chết; Tự kết nối lại khi mất mạng; Trị liệu sau khi chết tại Lạc Dương LSV; Nhặt đồ; and `Dùng thủ công châu, đan dược (2x, 4x...)`.
+- Direct Tk variable surfaces are `respawn_var, auto_reconnect_var, trist_var, heal_map_var, pickup_mode_var`. LSV directly references the shared pickup-mode constant family; deep discard execution remains deferred to I06 rather than copied from ordinary Train by assumption.
+- The large bottom Train LSV control is its own green `Bắt đầu` button bound to `TrainLsvTab._toggle_farm`. Full LSV FSM semantics remain deferred to I11.
+- Saved-coordinate wiring is now locked: dynamic `_coord_rows`; `+ Thêm tọa độ → _add_coord_row`; hide/show through `_toggle_coord_list`; helpers `_coord_name_list/_preset_to_vars/_apply_coord_to_all/_refresh_acc_combo_values/_remove_coord_row/_schedule_save_all_coords/_load_coords`; per-account selection persists under `acc_*_train`.
+- The module's embedded LSV map label set is independently recovered as Tần Hoàng Địa Cung Tầng 1–4, Phàm Liên Trại, Thanh Liên Trại and Khô Vinh Đạo. MapID/coordinate execution semantics remain I10.
+- Manual schedule wiring is now locked through `_buff_rows/_add_buff_row/_remove_buff_row/_get_buff_keys/_load_buffs`. The dedicated fixed `_da_minh_chau_row` is **Dạ Minh Châu**, has no delete button and is always active according to exact frozen documentation. Allowed key list is **F1–F10 + 1,2,3**.
+- B06 visually shows Dạ Minh Châu key `1` and `0 phút 5 giây`, but I01 preserves B06's existing warning: those values may be persisted runtime config, not clean-package defaults. They were not promoted into hardcoded defaults.
+- Train LSV account discovery directly consumes shared `start_tab.get_windows()`; it does not own a second HWND enumerator. Its own row projection uses PID identity binding, character/bag reads, `load_acc_config`, permission scope `trainlsv_tab`, and LSV-specific action callbacks.
+- Exact refresh architecture is independently verified: window/character memory reads happen in a BACKGROUND worker, only apply to Tk on the main thread, and apply `_add_or_update_row → _remove_stale_rows(active_hwnds) → _reapply_permission_state → _request_scroll_update`.
+- Exact LSV refresh cadence is **5 seconds incremental**, with dedicated `_start_refresh/_stop_refresh/_schedule_refresh/_refresh_acc_list` lifecycle. Frozen docs explicitly say start when the tab is selected and stop when switched away.
+- Row action wiring directly references `_toggle_single_farm, _ensure_in_lsv, _move_acc, _move_lsv, _farm_acc, _leave_lsv`. I01 does not yet assign deep navigation semantics to those symbols.
+- All-account visible bar is exactly `Tới LSV | Tới chỗ train | Đánh | Rời LSV`, mapped to `_move_lsv_all / _move_all / _farm_all / _leave_lsv_all`. The UI block directly binds these bulk actions through `threading.Thread(... daemon ...).start()`, keeping them off Tk. Target/conflict/wait semantics remain I11.
+- StartTab integration is real and two-way. TrainLsvTab owns `start_tab_ref/_sync_start_tab_btn`; StartTab has Train LSV quick controls and exact docs that bulk LSV actions run in a worker thread and the Train LSV toggle updates both StartTab and TrainLsvTab. StartTab is a forwarding/mirror surface, not a separate LSV engine.
+- Only after EXE extraction, B06 was cross-checked. The current supplied Train LSV image SHA-256 is `9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29`, byte-identical to the locked B06 baseline. No geometry was remeasured and no behavior was inferred solely from the screenshot.
+
+## I01 FILES
+- docs/tasks/I01.md
+- docs/train_lsv/I01_LSV_UI_WIRING_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I01_LSV_UI_WIRING_FLOW.md
+- docs/train_lsv/I01_LSV_UI_WIRING_MODEL.json
+
 ## BLOCKERS
-None for starting Phase I research. The unresolved H15 runtime matrix requires a Windows + live-game environment later, but it does not block continuing the PLAN's static/research phases.
+None known for I02.
 
 ## DO_NOT_TOUCH
-- Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H14 verified Train contracts.
-- Preserve H15 runtime-evidence scope: packaged automove_log proves only the primitive actually logged; do not infer top-level button/FSM success from primitive lines.
-- Preserve H15 matrix classifications. Never silently upgrade `RUNTIME_ENV_REQUIRED` to verified without executing/observing the exact Windows scenario.
-- Preserve Gate F Login and Gate G Party handoffs.
+- Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
+- Preserve H15 runtime evidence classifications; do not use helper-log primitive execution to claim LSV runtime success.
 - Proxy runtime/network development remains locked out.
-- Do not start Stage S reconstruction early.
-- Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
-- Train runtime parity remains deferred; H15's 35-scenario Windows plan is the authority when that environment becomes available.
-- Phase I must use the frozen TLM 2.1.2 EXE as authority and B06 only as the visual cross-check, exactly as Train used B05.
+- Do not start Stage S source reconstruction early.
+- Use frozen TLM 2.1.2 TrainLsvTab as the LSV authority; do not substitute ordinary Train logic unless the LSV module directly shares a helper/constant.
+- Preserve I01 dedicated `train_lsv_tab.py / TrainLsvTab` ownership.
+- Preserve I01 constructor lifecycle, `[TrainLSV]` config key families, exact 30s autosave and 5s incremental background refresh/main-thread apply.
+- Preserve I01 dynamic coordinate-row wiring and separate I10 deep coordinate semantics.
+- Preserve I01 Dạ Minh Châu fixed-row semantics and keep key=1/0m5s clean-default status UNKNOWN.
+- Preserve I01 all-account wiring and daemon outer dispatch while deferring command/FSM semantics to I11.
+- Preserve I01 StartTab forwarding/mirror relationship.
+- Do not reopen B06 geometry unless new EXE evidence directly contradicts it.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I01 artifacts/commits; if already complete and verified, do not redo them.
-4. Start Phase I with **I01 — Train LSV module/UI/config wiring audit** only.
-5. Inspect the frozen original EXE first. Identify the active Train LSV module/class, constructor lifecycle, top-level state fields, config section/key families, account-refresh ownership/cadence, saved-coordinate row wiring, mount-schedule row wiring, bottom global button/action wiring, and shared-tab references.
-6. Cross-check B06 Train LSV screenshot only after static extraction; do not infer behavior solely from the screenshot and do not remeasure geometry unless EXE evidence contradicts B06.
-7. Separate active Train LSV behavior from stale/dormant strings. Do not import ordinary Train H-phase behavior unless the frozen Train LSV module directly calls/reuses the same shared helper.
-8. Keep deep LSV navigation/Lạc Dương entry/leave semantics, item pickup, treatment, reconnect/death handling, coordinate semantics, all-account commands and runtime parity deferred to later I tasks.
-9. Persist I01 evidence/report, update STATE.md, and advance only to I02 after I01 verification.
+3. Check GitHub first for any I02 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **I02 — Train LSV entry / ensure-in-LSV and Lạc Dương LSV navigation audit** only.
+5. Inspect the frozen original EXE first.
+6. Audit `_ensure_in_lsv`, `_move_lsv`, `_wait_active` and the entry/navigation primitives they call: how LSV presence is detected, how a character gets to Lạc Dương/LSV, exact UI/memory/pixel/packet surfaces, mount behavior around entry, readiness checks, retries/timeouts and cancellation.
+7. Determine the authoritative LSV map/zone identifiers only where directly bindable. Keep unknown IDs/conditions UNKNOWN rather than inferring from names.
+8. Separate `Tới LSV` (entry/ensure) from I03 `Tới chỗ train` coordinate movement and I04 `Rời LSV`.
+9. Reuse H/shared movement/mount helpers only when TrainLsvTab directly calls them; document that edge rather than copying H semantics wholesale.
+10. Search the packaged runtime trace for LSV-entry primitives only after static extraction. Any trace line without top-level Train LSV correlation must remain primitive-level evidence.
+11. Persist I02 evidence/report, update STATE.md, and advance only to I03 after I02 verification.
