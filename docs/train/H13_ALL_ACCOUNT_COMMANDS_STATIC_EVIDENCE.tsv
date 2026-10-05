@@ -1,0 +1,47 @@
+key	offset_hex	status	evidence
+ui_all_label	0x293be04	VERIFIED_STATIC	Điều khiển tất cả:
+ui_sell_button	0x293be90	VERIFIED_STATIC	Bán đồ / btn_sell_all
+ui_move_button	0x293beaa	VERIFIED_STATIC	Tới bãi train / btn_move_all
+ui_farm_button	0x293beca	VERIFIED_STATIC	Đánh / btn_farm_all
+ui_threading	0x293bf88	VERIFIED_STATIC	threading
+ui_thread_class	0x293bf93	VERIFIED_STATIC	Thread
+ui_goto_worker	0x293bf9b	VERIFIED_STATIC	_goto_sell_all
+ui_thread_target	0x293bfad	VERIFIED_STATIC	target
+ui_thread_daemon	0x293bfb5	VERIFIED_STATIC	daemon
+ui_thread_start	0x293bfbd	VERIFIED_STATIC	start
+ui_sell_worker	0x293bfc4	VERIFIED_STATIC	_sell_all
+ui_move_worker	0x293bfcf	VERIFIED_STATIC	_move_all
+ui_farm_worker	0x293bfda	VERIFIED_STATIC	_farm_all
+checked_rows_doc	0x293db05	VERIFIED_STATIC	Tất cả acc trong danh sách (thao tác hàng loạt áp dụng cho mọi acc)
+move_all_threads_surface	0x293fdfd	VERIFIED_STATIC	_checked_rows + _threads immediately before _move_all doc
+move_all_doc	0x293fe0c	VERIFIED_STATIC	Di chuyển các acc được tick tới tọa độ đã cấu hình — song song
+farm_acc_log	0x293fe62	VERIFIED_STATIC	[Đánh] hwnd=
+farm_acc_start_auto	0x293fe74	VERIFIED_STATIC	start_auto_train
+farm_acc_doc	0x293fe98	VERIFIED_STATIC	StartAutoFight Train by memory; no click
+stop_all_stop_acc_ref	0x2940044	VERIFIED_STATIC	_stop_acc
+stop_all_doc	0x294004f	VERIFIED_STATIC	Dừng các acc được tick — song song
+farm_all_doc	0x294007d	VERIFIED_STATIC	Farm các acc được tick — song song
+farm_all_sell_guard_surface	0x29400ab	VERIFIED_STATIC	_stopping_sell
+farm_all_sell_guard_log	0x29400bb	VERIFIED_STATIC	đang bán/chờ dừng → bỏ qua (bấm Dừng bán trước)
+sell_all_doc	0x29400ff	VERIFIED_STATIC	Bán đồ các acc được tick — song song
+goto_sell_all_doc	0x2940131	VERIFIED_STATIC	Tất cả acc tới điểm bán rồi dừng, KHÔNG bán — song song
+buy_meds_all_acc_ref	0x294018f	VERIFIED_STATIC	_buy_meds_acc
+buy_meds_all_doc	0x294019e	VERIFIED_STATIC	Mua thuốc các acc được tick — song song
+move_manual_farm_guard	0x293e723	VERIFIED_STATIC	đang farm tự động → bỏ qua thao tác thủ công (dừng farm acc trước)
+goto_sell_helper_doc	0x293f192	VERIFIED_STATIC	move to sell point shared by real sell and Tới bán đồ; return True if arrived
+goto_sell_acc_doc	0x293f4c8	VERIFIED_STATIC	Tới bán: same return route, stop at sell point, no shop/no sale
+buy_meds_all_rows_locals	0x29448f4	VERIFIED_STATIC	rows
+buy_meds_all_threads_locals	0x29448fa	VERIFIED_STATIC	_threads
+buy_meds_all_row_local	0x2944904	VERIFIED_STATIC	row
+move_all_rows_locals	0x2945323	VERIFIED_STATIC	rows
+move_all_threads_locals	0x2945329	VERIFIED_STATIC	_threads
+move_all_row_local	0x2945333	VERIFIED_STATIC	row
+stop_all_rows_locals	0x2945b1d	VERIFIED_STATIC	rows
+stop_all_threads_locals	0x2945b23	VERIFIED_STATIC	_threads
+stop_all_row_local	0x2945b2d	VERIFIED_STATIC	row
+inner_worker_daemon_flags	-	EXPLICIT_UNKNOWN	Outer visible-button daemon is verified; child daemon flags not safely bound
+inner_join_policy	-	EXPLICIT_UNKNOWN	Parallel/thread collections verified; exact join/wait policy not safely recovered
+inner_join_timeouts	-	EXPLICIT_UNKNOWN	No timeout value safely bound for H13 all-command child waits
+sell_all_direct_child_entry	-	EXPLICIT_UNKNOWN	Exact _sell_acc vs _toggle_sell dispatch not safely source-visible
+command_permission_recheck	-	EXPLICIT_UNKNOWN	Row permission UI guard verified; internal all-command recheck not proven
+screenshot_hash	-	VERIFIED_CROSSCHECK	B05 screenshot remains 17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53
