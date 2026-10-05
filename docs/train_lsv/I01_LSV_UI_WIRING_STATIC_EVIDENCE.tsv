@@ -130,4 +130,6 @@ starttab_leave_lsv	0x2bfa481	VERIFIED_STATIC	Rời LSV
 starttab_action_doc	0x2bfba6c	VERIFIED_STATIC	Bulk Train LSV Tới LSV/Rời LSV actions run in thread
 starttab_toggle_doc	0x2bfbada	VERIFIED_STATIC	Toggle Train LSV and update button text on StartTab + TrainLsvTab
 screenshot_hash	-	VERIFIED_CROSSCHECK	Current Train LSV screenshot is byte-identical to B06: 9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29
-screenshot_fixed_key_time_defaults	-	EXPLICIT_UNKNOWN	Visible key=1 / 0m5s may be persisted runtime config, not proven clean-package defaults
+buff_row_defaults	0x2c0f051	VERIFIED_STATIC	_add_buff_row exact defaults (False,'1','0','5',False)
+fixed_buff_build_call	0x2c07ea5	VERIFIED_STATIC	_build_ui calls _add_buff_row with fixed=True
+screenshot_fixed_key_time_defaults	-	RESOLVED_STATIC	Fixed Dạ Minh Châu clean code defaults are key=1, 0m5s; screenshot matches
