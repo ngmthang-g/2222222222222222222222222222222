@@ -228,19 +228,20 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 - I02 — VERIFIED_MAP3_GATE_ENTRY_WITH_EXACT_LSV_ZONE_SET_FLOOR_PREMOVE_TABLES_AND_30S_COMMON_ACTIVE_GATE_POST_GATE_VERIFY_EXPLICIT_UNKNOWN
 - I03 — VERIFIED_SAVED_PRESET_TO_ENSURE_LSV_THEN_DIRECT_MOVE_CHARACTER_WITH_32PX_TILE_CONVERSION_WAIT_FOR_ARRIVAL_AND_NO_LSV_8_TILE_SKIP
 - I04 — VERIFIED_HUB10000_ONLY_EXIT_WITH_SHARED_GATE_MOVE_TWO_EXIT_CLICKS_AND_NO_POST_EXIT_MAP_ACTIVE_VERIFICATION_WAIT_FLAG_VALUE_AND_CLICK_PACING_EXPLICIT_UNKNOWN
-- I05 — NEXT
+- I05 — VERIFIED_FIXED_DA_MINH_CHAU_IMMEDIATE_DISMOUNT_AND_PER_ACCOUNT_GENERATION_GUARDED_TIMED_KEY_WORKER_USING_DLL_SYNC_INPUT_EXACT_MULTIROW_DEADLINE_ZERO_INTERVAL_REPEAT_CALL_KWARGS_AND_FIXED_CONFIG_INDEX_UNKNOWN
+- I06 — NEXT
 
-I01 identifies the active Train LSV implementation as dedicated train_lsv_tab.py / TrainLsvTab, with its own [TrainLSV] settings section, 30-second config autosave, 5-second incremental account refresh, dynamic saved-coordinate rows, fixed Dạ Minh Châu schedule row, LSV-specific account actions and StartTab forwarding/mirroring.
+I01-I04 lock Train LSV module/config wiring, LSV entry/premove, final train-point movement, and the per-account Rời LSV primitive.
 
-I02 locks actual LSV entry/premove: normal Lạc Dương MapID 3 entry, hub MapID 10000, exact LSV floor/flat IDs and waypoints, portal/PK clicks, and common.active readiness handling.
+I05 locks the timed-key schedule. Normal added rows default disabled/key 1/0m5s and are removable; fixed Dạ Minh Châu is always active/no-delete with key 1/0m5s. Farm start sends one immediate Dạ Minh Châu activation after the exact dismount path, while a dedicated per-account repeating worker services the configured timed rows.
 
-I03 locks Tới chỗ train as selected preset -> I02 ensure/premove -> direct _move_acc. Final movement resolves/validates MapID, converts tile coordinates by x32, then calls shared move_character with arrival waiting keyword and caller stop callback. TrainLsvTab has no copy of ordinary Train's explicit 8-tile near-target pre-skip.
+The immediate send is `press_single_key_dll(hwnd,key,delay=0,sync=True)` through the project's targeted hidden-window DLL key path. The repeating worker owns `buff_stop/buff_thread` and a generation barrier so an old Farm session cannot keep sending keys after stop/restart.
 
-I04 locks the per-account Rời LSV helper. It only proceeds when current MapID is exactly 10000; floor/flat LSV maps are not normalized and are skipped. From hub 10000 it moves to tile (236,190), then uses exact clicks (887,475) followed by (478,427). A failed gate move stops the normal click path. The helper has no direct stop_check argument and performs no fresh MapID/common.active verification after the exit clicks. The explicit wait_for_arrival keyword exists, but its loaded boolean value and exact click-pacing timing remain explicit static unknowns.
+Persistence is `buff_<n>=enabled|key|minutes|seconds`. Exact multi-row deadline reset/order, zero-interval policy, repeating call options, fixed-row persisted index/migration and worker daemon/join micro-order remain explicit unknowns rather than guessed behavior.
 
-Packaged runtime helper logs contain no correlated top-level I02/I03/I04 LSV action traces, so these tasks remain static-verified rather than end-to-end runtime-parity verified.
+No correlated Dạ Minh/[Buff] record exists in the packaged movement helper log, so I05 remains static-verified rather than runtime-parity verified.
 
 B06 remains the visual authority and is not remeasured unless new EXE evidence contradicts it.
 
 ## Gate I current
-I05 — Train LSV Dạ Minh Châu / manual timed-key schedule execution audit.
+I06 — Train LSV item pickup/filter execution audit.
