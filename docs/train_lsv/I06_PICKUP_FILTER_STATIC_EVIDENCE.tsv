@@ -1,0 +1,63 @@
+key	offset_hex	status	evidence
+trainlsv_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab size=37904 constants=1201
+pickup_ui_label	0x2c07d64	VERIFIED_STATIC	Nhặt đồ:
+pickup_default_symbol	0x2c07d9e	VERIFIED_STATIC	PICKUP_MODE_DEFAULT
+pickup_var	0x2c07db3	VERIFIED_STATIC	pickup_mode_var
+pickup_labels_symbol	0x2c07dc4	VERIFIED_STATIC	PICKUP_MODE_LABELS
+get_bag_slots_import	0x2c0be35	VERIFIED_STATIC	memory_items
+get_bag_slots_helper	0x2c0be43	VERIFIED_STATIC	get_bag
+get_bag_slots_field	0x2c0be4c	VERIFIED_STATIC_DECODE	('slots',0)
+get_bag_slots_doc	0x2c0be57	VERIFIED_STATIC	occupied Site-10 slots; None on read failure
+discard_bag_filter	0x2c0e09f	VERIFIED_STATIC	bag_filter
+discard_poll_symbol	0x2c0e0ab	VERIFIED_STATIC	DISCARD_POLL
+discard_full_symbol	0x2c0e0bd	VERIFIED_STATIC	FULL_BAG_THRESHOLD
+discard_get_keys	0x2c0e0d1	VERIFIED_STATIC	get_pickup_preset_keys
+discard_steady_symbol	0x2c0e0e9	VERIFIED_STATIC	DISCARD_STEADY_STATES
+discard_temp_state	0x2c0e100	VERIFIED_STATIC	Đang lọc đồ
+discard_shared_call	0x2c0e117	VERIFIED_STATIC	discard_for_activity
+discard_activity	0x2c0e12d	VERIFIED_STATIC	train
+discard_kwargs	0x2c0e161	VERIFIED_STATIC_DECODE	(keys,stop_check)
+discard_error_log	0x2c0e175	VERIFIED_STATIC	[Nhặt đồ] hwnd= ... vứt lỗi
+discard_total	0x2c0e1a0	VERIFIED_STATIC_DECODE	(total,)
+discard_full_log	0x2c0e1a9	VERIFIED_STATIC	túi đầy (
+discard_ok	0x2c0e1cb	VERIFIED_STATIC_DECODE	(ok,)
+discard_fail	0x2c0e1db	VERIFIED_STATIC_DECODE	(fail,)
+discard_doc	0x2c0e1e3	VERIFIED_STATIC	poll slots every 10s; mode semantics; purple state then restore
+pickup_config_key	0x2c0e5c5	VERIFIED_STATIC	pickup_mode
+pickup_modes_symbol	0x2c0e6d3	VERIFIED_STATIC	PICKUP_MODES
+pickup_preset_symbol	0x2c0e708	VERIFIED_STATIC	PICKUP_PRESET_KEYS
+pickup_mapping_doc	0x2c0e71c	VERIFIED_STATIC	pickup radio -> bag_filter preset keys; [] = no discard
+keep_import_tuple	0x2c0ec57	VERIFIED_STATIC_DECODE	(KEEP_MODES,KEEP_MODE_LABELS,KEEP_PRESET_KEYS,KEEP_MODE_DEFAULT)
+discard_poll_value	0x2c0f5f4	STRONG_STATIC_BINDING	10.0 serialized immediately with discard worker class constants
+discard_steady_value	0x2c0f5fd	STRONG_STATIC_BINDING	{'Đang train LSV'} serialized immediately with discard worker
+discard_qualname	0x2c0f610	VERIFIED_STATIC	TrainLsvTab._discard_loop
+pickup_getter_qualname	0x2c0f6d3	VERIFIED_STATIC	TrainLsvTab.get_pickup_preset_keys
+discard_locals	0x2c0fed0	STRONG_STATIC_MAPPING	self/hwnd/stop_event/stop_check/BF/MI/_bag/_slots/keys/row/prev/res/e
+farm_cycle_locals	0x2c101df	STRONG_STATIC_MAPPING	gen_snap/buff_stop/buff_thread/discard_stop present
+state_style	0x2c0ed4c	VERIFIED_STATIC_DECODE	Đang lọc đồ -> #8e24aa
+bagfilter_chunk	0x28d5db3	VERIFIED_STATIC_DECODE	.bag_filter size=5162 constants=145
+bagfilter_discard_result_zero	0x28d6278	VERIFIED_STATIC_DECODE	zero result dict total/ok/fail/skipped/stopped/targets
+bagfilter_action4	0x28d6322	VERIFIED_STATIC_DECODE	action 4
+bagfilter_discard_doc	0x28d6345	VERIFIED_STATIC	discard_items result/stop/dry-run contract
+bagfilter_activity_doc	0x28d648f	VERIFIED_STATIC	keys None/[] -> KHONG vut gi
+bagfilter_engine_doc	0x28d6532	VERIFIED_STATIC	OR merge/dedupe/default no discard/packet 100005 4:dbID
+bagfilter_train	0x28d6eba	VERIFIED_STATIC	train
+bagfilter_nonweapon	0x28d6ec1	VERIFIED_STATIC	discard_nonweapon
+bagfilter_weapon_rule	0x28d6ee4	VERIFIED_STATIC_DECODE	discard_weapons with match_weapons=True
+keep_modes	0x28d6f31	VERIFIED_STATIC_DECODE	(none,weapons,all)
+keep_labels	0x28d6f53	VERIFIED_STATIC_DECODE	((none,Không),(weapons,Chỉ vũ khí),(all,Tất cả))
+keep_mapping	0x28d6fa5	VERIFIED_STATIC_DECODE	none->[discard_weapons,discard_nonweapon]; weapons->[discard_nonweapon]; all->[]
+keep_default	0x28d6ffd	VERIFIED_STATIC	KEEP_MODE_DEFAULT='all'
+discard_items_defaults	0x28d7024	VERIFIED_STATIC_DECODE	(1.0,None,None,False)
+discard_activity_defaults	0x28d7032	VERIFIED_STATIC_DECODE	(None,None,1.0,None,None,False)
+discard_activity_qualname	0x28d7042	VERIFIED_STATIC	discard_for_activity
+pickitem_constant	-	NOT_RECOVERED	full TrainLsvTab decode contains no PICKITEM
+ison_constant	-	NOT_RECOVERED	full TrainLsvTab decode contains no IsOn
+set_auto_fields_constant	-	NOT_RECOVERED	full TrainLsvTab decode contains no set_auto_fields
+full_bag_threshold_value	-	EXPLICIT_UNKNOWN	FULL_BAG_THRESHOLD symbol verified; numeric value not safely bound
+runtime_top_nhat_do	-	NOT_RECOVERED	0 [Nhặt đồ] lines in packaged automove_log
+runtime_top_filter_state	-	NOT_RECOVERED	0 Đang lọc đồ lines in packaged automove_log
+runtime_pickitem	-	NOT_RECOVERED	0 PICKITEM / IsOn=true lines in packaged automove_log
+runtime_action4_raw	-	RUNTIME_PRIMITIVE_ONLY	22,734 raw action=4 occurrences
+runtime_action4_spts	-	RUNTIME_PRIMITIVE_ONLY	22,732 ItemAction spts sent action=4 occurrences
+runtime_action4_pids	-	RUNTIME_PRIMITIVE_ONLY	prior H15 parser found action=4 records across 49 PID-tagged processes
