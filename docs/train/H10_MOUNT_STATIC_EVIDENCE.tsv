@@ -1,0 +1,46 @@
+key	offset_hex	status	evidence
+nav_horse_ui	0x293b185	REUSED_H02	Navigation priority options include Ngựa
+nav_priority_doc	0x29410c7	REUSED_H05	_get_nav_priority returns Phù1/2/3, Ngựa list to move_character
+move_horse_constant	0x2c5010d	VERIFIED_STATIC	Ngựa appears in move_character home-priority block before teleport-hotkey log/path
+move_stop_sentinel	0x2c50115	VERIFIED_STATIC	Stop sentinel adjacent to Ngựa in home-priority block
+move_home_log	0x2c5012b	VERIFIED_STATIC	Về thành: thử ... -> bấm phím ...
+move_key_helper	0x2c50153	VERIFIED_STATIC	press_single_key_dll
+move_transfer_pixel1	0x2c50192	VERIFIED_STATIC	common.dichChuyen1
+move_transfer_pixel2	0x2c501a9	VERIFIED_STATIC	common.dichChuyen2
+ensure_qual_local1	0x2c4eca4	VERIFIED_STATIC	ensure_mounted local _stopped
+ensure_qual_local2	0x2c4ecd5	VERIFIED_STATIC	ensure_mounted local _fresh_riding
+ensure_qual_local3	0x2c4ed09	VERIFIED_STATIC	ensure_mounted local _send_mount
+ensure_stop_auto_log	0x2c4ed5b	VERIFIED_STATIC	[Mount] stop-auto failure still try mount
+ensure_float_1_5	0x2c4ed96	VERIFIED_UNBOUND_CONSTANT	serialized double 1.5 inside ensure_mounted block
+ensure_has_mount	0x2c4eda0	VERIFIED_STATIC	has_mount surface
+ensure_mount_fail_log	0x2c4edac	VERIFIED_STATIC	mount command failure log
+ensure_doc	0x2c4edbc	VERIFIED_STATIC	memory+packet no pixel/click; IsRiding fastpath; optional stop auto; SendToggleRideState; sleep 3s; fresh verify
+ensure_sleep3_text	0x2c4eef9	VERIFIED_STATIC	exact doc phrase sleep 3s
+ensure_teleport_flag_doc	0x2c4efdb	VERIFIED_STATIC	stop_auto_first False after teleport to avoid redundant stop
+ensure_isriding	0x2c4f0c1	VERIFIED_STATIC	IsRiding
+ensure_toggle_mount	0x2c4f0cd	VERIFIED_STATIC	toggle_mount
+remount_helper	0x2c4f0f1	VERIFIED_STATIC	_remount_requeue
+remount_stop_autopath	0x2c4f115	VERIFIED_STATIC	stop_autopath
+remount_ensure	0x2c4f144	VERIFIED_STATIC	ensure_mounted
+remount_queue	0x2c4f173	VERIFIED_STATIC	queue_autopath
+remount_doc	0x2c4f1bd	VERIFIED_STATIC	lost ride -> stop autopath -> mount memory+packet -> requeue; stop=False/continue=True semantics
+move_has_mount	0x2c50398	VERIFIED_STATIC	move_character HasMount surface
+move_remount_count	0x2c503a4	VERIFIED_STATIC	remount_count
+move_max_remount	0x2c503b2	VERIFIED_STATIC	max_remount local surface
+move_remount_helper	0x2c503d2	VERIFIED_STATIC	_remount_requeue called from move_character
+toggle_mount_expr	0x2b70e10	VERIFIED_STATIC	Game.SendToggleRideState(Game.CurrentMountSlot)
+read_mount_cached	0x2b70ed1	VERIFIED_STATIC	read_mount_cached
+has_mount_doc	0x2b70ee6	VERIFIED_STATIC	HasMount = Site2 equipped mount; 1/0/None; distinct from IsRiding
+mount_cache_float	0x2b77681	VERIFIED_STATIC	serialized double 30.0 preceding MOUNT_CACHE_TTL
+mount_cache_name	0x2b7768a	VERIFIED_STATIC	MOUNT_CACHE_TTL
+memory_isriding	0x2b77b51	VERIFIED_STATIC	IsRiding field
+memory_hasmount	0x2b77b5b	VERIFIED_STATIC	HasMount field
+memory_mountitemid	0x2b77b65	VERIFIED_STATIC	MountItemID field
+npc_same_map_doc	0x2c50e32	VERIFIED_STATIC	same-map known NPC pos -> move_character mounted approach
+npc_game_fallback_doc	0x2c50f0b	VERIFIED_STATIC	different map/NPC not spawned -> game fallback, no horse
+npc_mount_error_log	0x2c50d5f	VERIFIED_STATIC	mount before goto error is ignored
+home_horse_branch_exact_source	-	EXPLICIT_UNKNOWN	Architecture supports horse fallback boundary; exact Stop-sentinel source syntax not instruction-visible
+ensure_1_5_binding	-	EXPLICIT_UNKNOWN	1.5 constant exact, call/parameter binding not source-safe
+has_mount_zero_none_microflow	-	EXPLICIT_UNKNOWN	HasMount contract proven; exact branch/log wording in ensure_mounted not source-visible
+max_remount_numeric	-	EXPLICIT_UNKNOWN	max_remount surface proven, numeric value not safely bound
+train_dismount_routine	-	NOT_RECOVERED	No active Train/shared movement dismount helper in current path
