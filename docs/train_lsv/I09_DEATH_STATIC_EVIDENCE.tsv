@@ -1,0 +1,53 @@
+key	offset_hex	status	evidence
+trainlsv_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab size=37904 constants=1201
+ui_respawn_var	0x2c07c40	VERIFIED_STATIC	respawn_var
+ui_respawn_label	0x2c07c5a	VERIFIED_STATIC	Quay lại train khi chết
+row_death_text	0x2c08b32	VERIFIED_STATIC	Chết: 0
+row_extra_deaths	0x2c08c4b	VERIFIED_STATIC	_extra_deaths
+monitor_stop_event	0x2c0cfa6	VERIFIED_STATIC	stop_event
+monitor_is_set	0x2c0cfb2	VERIFIED_STATIC	is_set
+monitor_cadence	0x2c0cfba	VERIFIED_STATIC_DECODE	(4,)
+monitor_hp_field	0x2c0cfbe	VERIFIED_STATIC_DECODE	(HpPercent,)
+monitor_hp_latch	0x2c0cfcb	VERIFIED_STATIC	hp_latched
+monitor_recovery_state	0x2c0cfd7	VERIFIED_STATIC	Về Lạc Dương LSV
+monitor_log_prefix	0x2c0cfef	VERIFIED_STATIC	[HP Monitor] hwnd=
+monitor_hp0_log	0x2c0d003	VERIFIED_STATIC	HP 0% -> click (792,441) hồi sinh
+monitor_respawn_click	0x2c0d02b	VERIFIED_STATIC_DECODE	(792,441)
+monitor_extra_deaths	0x2c0d033	VERIFIED_STATIC_DECODE	(_extra_deaths,0)
+monitor_detected_latch	0x2c0d046	VERIFIED_STATIC	detected
+monitor_map10000_log	0x2c0d050	VERIFIED_STATIC	phát hiện ở map 10000 -> xử lý hồi sinh
+monitor_respawn_event	0x2c0d085	VERIFIED_STATIC	respawn_event
+monitor_active_success	0x2c0d094	VERIFIED_STATIC	common.active sau hồi sinh OK
+monitor_clear	0x2c0d0b6	STRONG_STATIC	clear surface in death-monitor constant block
+monitor_doc	0x2c0d0bd	VERIFIED_STATIC	4s monitor from Farm start; MapID10000 sets recovery event + active wait; real HP0 clicks once; watch during movement/heal
+tracker_death_label	0x2c0d421	VERIFIED_STATIC	Chết:
+tracker_doc	0x2c0d449	VERIFIED_STATIC	combined tracker includes Chết count
+farm_event	0x2c0d680	VERIFIED_STATIC	Event
+farm_monitor_call	0x2c0d687	VERIFIED_STATIC	_diaphu_monitor
+farm_preheal_log	0x2c0d6d8	VERIFIED_STATIC	HP <50 at cycle start -> treatment first
+farm_heal_helper	0x2c0d70d	VERIFIED_STATIC	_heal_at_death
+farm_move_state	0x2c0d71d	VERIFIED_STATIC	Tới bãi LSV
+farm_train_state	0x2c0d78c	VERIFIED_STATIC	Đang train LSV
+farm_map10000_recovery	0x2c0d7ad	VERIFIED_STATIC	đang ở map 10000 -> xử lý hồi sinh
+farm_doc	0x2c0d8db	VERIFIED_STATIC	per-account LSV loop: go train point -> farm -> repeat
+config_respawn_key	0x2c0e59b	VERIFIED_STATIC	respawn
+config_respawn_default	0x2c0e6aa	VERIFIED_STATIC_DECODE	(respawn,False)
+state_style	0x2c0ed4c	VERIFIED_STATIC_DECODE	Về Lạc Dương LSV -> #1565c0
+monitor_qualname	0x2c0f543	VERIFIED_STATIC	TrainLsvTab._diaphu_monitor
+monitor_locals	0x2c0fe54	STRONG_STATIC_MAPPING	self/hwnd/respawn_event/stop_event/detected/hp_latched/click_at/get_character_info/ci/hp_pct/row_d/wait_pixel
+farm_cycle_locals	0x2c101df	STRONG_STATIC_MAPPING	self/row/hwnd/monitor_stop/reconnect_ok/halt/respawn_event/gen_snap/stop/ci/hp0/fm/fx/fy/buff_stop/buff_thread/discard_stop/ok/wait_memory_ready/slept
+common_active_key	0x2c0b74c	REUSED_TRAINLSV_STATIC	(common,active)
+common_active_pixel	0x2b97e72	REUSED_SHARED_STATIC	point(1330,33), RGB(34,8,11), tolerance5
+state_dang_hoi_sinh	-	NOT_RECOVERED	no Đang hồi sinh constant in full TrainLsvTab chunk
+state_ve_dia_phu	-	NOT_RECOVERED	no Về địa phủ constant in full TrainLsvTab chunk
+respawn_false_continuation	-	EXPLICIT_UNKNOWN	UI/config semantic verified; exact unchecked Farm branch not instruction-bound
+hp_latch_reset	-	EXPLICIT_UNKNOWN	hp_latched + one-click behavior verified; exact reset statement not instruction-bound
+map_latch_reset	-	EXPLICIT_UNKNOWN	detected/event/clear surfaces verified; exact reset/clear ordering not instruction-bound
+active_wait_timeout	-	EXPLICIT_UNKNOWN	post-recovery wait_pixel/common.active verified; monitor-specific timeout/interval/debug not bound
+runtime_hp_monitor	-	NOT_RECOVERED	0 [HP Monitor] lines in packaged automove_log
+runtime_respawn_click	-	NOT_RECOVERED	0 792,441 / 792, 441 lines
+runtime_hp0	-	NOT_RECOVERED	0 HP 0% lines
+runtime_respawn_event	-	NOT_RECOVERED	0 respawn_event lines
+runtime_recovery_state	-	NOT_RECOVERED	0 Về Lạc Dương LSV lines
+runtime_active_after_respawn	-	NOT_RECOVERED	0 common.active sau hồi sinh OK lines
+b06_hash	-	VISUAL_VERIFIED	9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29; respawn/treatment unchecked
