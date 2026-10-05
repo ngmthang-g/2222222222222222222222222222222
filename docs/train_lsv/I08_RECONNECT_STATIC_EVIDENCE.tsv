@@ -1,0 +1,55 @@
+key	offset_hex	status	evidence
+trainlsv_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab size=37904 constants=1201
+ui_auto_reconnect_var	0x2c07cbc	VERIFIED_STATIC	auto_reconnect_var
+ui_auto_reconnect_label	0x2c07cd0	VERIFIED_STATIC	Tự kết nối lại khi mất mạng
+farm_disconnect_monitor	0x2c0d698	VERIFIED_STATIC	_disconnect_monitor
+farm_halt	0x2c0d7a7	VERIFIED_STATIC	halt
+farm_wait_state	0x2c0d7e1	VERIFIED_STATIC	Chờ kết nối lại
+farm_reconnect_ok	0x2c0d805	VERIFIED_STATIC	reconnect_ok
+farm_reconnect_wait	0x2c0d813	VERIFIED_STATIC	wait
+farm_reconnect_wait_value	0x2c0d819	VERIFIED_STATIC_DECODE	(5,)
+farm_reconnect_wait_kw	0x2c0d81d	VERIFIED_STATIC_DECODE	(timeout,)
+farm_wait_memory_ready	0x2c0d873	VERIFIED_STATIC	wait_memory_ready
+farm_memory_ready_args	0x2c0d89b	VERIFIED_STATIC_DECODE	(45.0,3)
+farm_memory_ready_kw	0x2c0d8a8	VERIFIED_STATIC_DECODE	(timeout,need)
+monitor_window_alive	0x2c0d994	VERIFIED_STATIC	_is_window_alive
+monitor_shared_helpers	0x2c0d9a6	VERIFIED_STATIC_DECODE	(check_pixel,stop_character)
+monitor_poll_value	0x2c0d9cb	VERIFIED_STATIC_DECODE	(2,)
+monitor_window_dead	0x2c0d9cf	VERIFIED_STATIC	window missing/process changed -> stop monitor
+monitor_connected	0x2c0da2a	VERIFIED_STATIC	is_connected
+monitor_pixel1_key	0x2c0da38	VERIFIED_STATIC_DECODE	(login,ngatKetNoi1)
+monitor_pixel2_key	0x2c0da4e	VERIFIED_STATIC_DECODE	(login,ngatKetNoi2)
+monitor_strikes	0x2c0da64	VERIFIED_STATIC	dc_strikes
+monitor_halt_log	0x2c0da70	VERIFIED_STATIC	MAT KET NOI (dialog 3/3) -> halt/reconnect
+monitor_retry_range	0x2c0dab3	VERIFIED_STATIC_DECODE	range(0,5,1)
+monitor_retry_log	0x2c0daba	VERIFIED_STATIC	thử kết nối lại lần ... /5
+monitor_click	0x2c0dae4	VERIFIED_STATIC_DECODE	(616,455)
+monitor_dialog_missing	0x2c0daec	VERIFIED_STATIC	dialog missing -> skip click, wait active
+monitor_success	0x2c0db20	VERIFIED_STATIC	kết nối lại thành công
+monitor_cache_helpers	0x2c0db41	VERIFIED_STATIC_DECODE	(invalidate_character_cache,_get_pid_from_hwnd)
+monitor_cache_invalidate	0x2c0db73	VERIFIED_STATIC	invalidate_character_cache
+monitor_batch_fail	0x2c0db8f	VERIFIED_STATIC	remain Chờ kết nối lại / retry after 30s
+monitor_batch_delay	0x2c0dbef	VERIFIED_STATIC_DECODE	(30,)
+monitor_error	0x2c0dbf3	VERIFIED_STATIC	disconnect monitor lỗi:
+monitor_doc	0x2c0dc05	VERIFIED_STATIC	2s memory-veto dual-pixel 3-strike; guarded click; active 30s; infinite retry/exit conditions
+config_auto_reconnect	0x2c0e5a4	VERIFIED_STATIC	auto_reconnect
+config_auto_reconnect_default	0x2c0e6b6	VERIFIED_STATIC_DECODE	(auto_reconnect,False)
+state_style	0x2c0ed4c	VERIFIED_STATIC_DECODE	Mất kết nối -> #b71c1c
+monitor_qualname	0x2c0f5d3	VERIFIED_STATIC	TrainLsvTab._disconnect_monitor
+monitor_locals	0x2c0ff24	STRONG_STATIC_MAPPING	full watchdog local surface including reconnect/cache helpers
+pixel1_key	0x2b97ba8	VERIFIED_SHARED_STATIC	login.ngatKetNoi1
+pixel1_cfg	0x2b97cf9	VERIFIED_SHARED_STATIC	region(640,244), RGB(160,145,52), timeout5, tolerance5
+pixel2_key	0x2b97bb5	VERIFIED_SHARED_STATIC	login.ngatKetNoi2
+pixel2_cfg	0x2b97d33	VERIFIED_SHARED_STATIC	region(702,453), RGB(212,28,34), timeout5, tolerance5
+common_active_key	0x2b97de4	VERIFIED_SHARED_STATIC	common.active
+common_active_cfg	0x2b97e72	VERIFIED_SHARED_STATIC	region(1330,33), RGB(34,8,11), timeout100, tolerance5
+connected_doc	0x2b70e50	VERIFIED_SHARED_STATIC	TCPGame connected True/False/None tri-state
+cache_doc	0x2c4e864	VERIFIED_SHARED_STATIC	invalidate Reader cache immediately after reconnect success
+memory_ready_doc	0x2c4ea66	VERIFIED_SHARED_STATIC	need consecutive clear RoleName + MapID not None; invalidate each sample; timeout fail-open
+memory_ready_defaults	0x2c53722	VERIFIED_SHARED_STATIC_DECODE	(45.0,3,1.0)
+stop_character_doc	0x2c4ffc4	VERIFIED_SHARED_STATIC	stop_character is movement stop, distinct from stop-game-auto
+auto_reconnect_gate_location	-	EXPLICIT_UNKNOWN	exact caller/monitor placement not source-bound
+wait_pixel_interval_debug	-	EXPLICIT_UNKNOWN	30s attempt window verified; exact interval/debug args not bound
+post_reconnect_reinject	-	EXPLICIT_UNKNOWN	no direct unconditional _ensure_injected edge proven
+runtime_reconnect	-	NOT_RECOVERED	0 correlated reconnect/common.active/MemReady lines in packaged automove_log
+h08_pixel_tolerance_correction	-	CORRECTION_REQUIRED	direct frozen pixel_data decode gives tolerance5 for both probes; earlier H08 artifact recorded 0
