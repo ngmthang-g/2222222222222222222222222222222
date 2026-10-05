@@ -1,0 +1,120 @@
+{
+  "task": "H13",
+  "status": "VERIFIED_ALL_ROW_FANOUT_WITH_DAEMON_UI_DISPATCH_PARALLEL_COMMANDS_AND_EXPLICIT_INNER_WAIT_UNKNOWNS",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "target_set": {
+    "helper": "_checked_rows",
+    "exact_semantic": "all current Train account rows",
+    "per_row_selection_checkbox": false,
+    "legacy_phrase_acc_duoc_tick": "STALE_WORDING"
+  },
+  "visible_buttons": [
+    {
+      "label": "Tới bán đồ",
+      "worker": "_goto_sell_all",
+      "semantic": "parallel move-only to sell point; never sell"
+    },
+    {
+      "label": "Bán đồ",
+      "worker": "_sell_all",
+      "semantic": "parallel sell path"
+    },
+    {
+      "label": "Tới bãi train",
+      "worker": "_move_all",
+      "semantic": "parallel manual move to configured Train destination"
+    },
+    {
+      "label": "Đánh",
+      "worker": "_farm_all",
+      "semantic": "parallel manual StartAutoFight Train; not global Farm FSM"
+    }
+  ],
+  "ui_dispatch": {
+    "mechanism": "threading.Thread",
+    "target": "per-button all-account worker",
+    "daemon": true,
+    "start": true,
+    "tk_waits_for_completion": false
+  },
+  "commands": {
+    "move_all": {
+      "doc_parallel": true,
+      "local_thread_collection": [
+        "rows",
+        "_threads",
+        "row"
+      ],
+      "active_auto_farm_manual_move_behavior": "skip row; user must stop Farm first",
+      "child_primitive_family": "_move_acc / H05 movement"
+    },
+    "farm_all": {
+      "doc_parallel": true,
+      "semantic": "manual Fight/StartAutoFight Train",
+      "sell_conflict_guard": "selling or waiting sell-stop -> skip row",
+      "full_farm_fsm": false
+    },
+    "sell_all": {
+      "doc_parallel": true,
+      "sell_lifecycle_separate": true,
+      "direct_child_entry": "UNKNOWN (_sell_acc vs _toggle_sell not safely bound)"
+    },
+    "goto_sell_all": {
+      "doc_parallel": true,
+      "semantic": "move to sell point then stop; do not open shop or sell"
+    },
+    "stop_all": {
+      "doc_parallel": true,
+      "local_thread_collection": [
+        "rows",
+        "_threads",
+        "row"
+      ],
+      "direct_helper_surface": "_stop_acc",
+      "full_global_fsm": "DEFERRED_H14"
+    },
+    "buy_meds_all": {
+      "visible_in_b05_all_bar": false,
+      "doc_parallel": true,
+      "local_thread_collection": [
+        "rows",
+        "_threads",
+        "row"
+      ],
+      "direct_helper_surface": "_buy_meds_acc"
+    }
+  },
+  "thread_certainty": {
+    "outer_visible_button_daemon": true,
+    "inner_parallelism": true,
+    "inner_daemon_flags": "UNKNOWN",
+    "child_join_policy": "UNKNOWN",
+    "child_join_timeouts": "UNKNOWN"
+  },
+  "permission": {
+    "row_ui_guard": [
+      "has_permission",
+      "check_account_limit",
+      "farm_tab"
+    ],
+    "checked_rows_filters_permission": "NOT_PROVEN",
+    "command_side_recheck": "UNKNOWN"
+  },
+  "error_skip": {
+    "move_while_full_farm": "skip",
+    "fight_while_selling_or_stopping_sell": "skip",
+    "aggregate_success_result": "NOT_RECOVERED",
+    "child_exception_propagation": "UNKNOWN"
+  },
+  "visual": {
+    "authority": "B05",
+    "screenshot_hash_matches": true,
+    "account_selection_checkbox_present": false,
+    "geometry_remeasured": false
+  },
+  "next_task": "H14 — Train global Bắt đầu/Dừng Farm FSM audit"
+}
