@@ -196,7 +196,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H09 — VERIFIED_KEEP_MODE_TO_TRAIN_DISCARD_PRESETS_WITH_EVENT_DRIVEN_PRETOWN_FILTER_1S_DEFAULT_DISCARD_PACING_AND_SEPARATE_5S_HIDDEN_PICKUP_ENABLE
 - H10 — VERIFIED_MEMORY_PACKET_MOUNT_WITH_ISRiding_FASTPATH_3S_VERIFY_AND_AUTOPATH_REMOUNT_REQUEUE_HOME_PRIORITY_HORSE_SENTINEL_RETRY_LIMIT_UNKNOWN
 - H11 — VERIFIED_SEQUENTIAL_COORD_KEYS_PIPE_SCHEMA_LIVE_RENAME_PROPAGATION_WITH_UI_ONLY_LIST_VISIBILITY_AND_EXPLICIT_SAVE_SCHEDULER_DELAY_UNKNOWN
-- H12 — CURRENT
+- H12 — VERIFIED_PID_BOUND_INCREMENTAL_ROW_MODEL_WITH_5S_BACKGROUND_REFRESH_MAIN_THREAD_APPLY_POSITIVE_DELTA_EXTRA_TRACKING_AND_GENERATION_GUARDS
+- H13 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -278,3 +279,10 @@ H11 resolved Train saved-coordinate persistence/edit behavior. Saved rows are dy
 Renaming a preset immediately propagates to live account Sell/Farm combobox selections, and add/delete/rename refreshes all option lists. Per-character selections persist by name through `acc_<character>_sell/farm` and are restored only if the preset still exists.
 
 Coordinate-list hide/show is UI-only and not persisted; B05 locks the fresh state as visible. Edit autosave hooks exist, but no coordinate-specific debounce constant is safely bindable—the exact 30ms debounce elsewhere belongs only to scrollregion geometry. H12 now owns per-account runtime row identity/data/state tracking.
+
+
+H12 resolved Train per-account runtime rows. Rows are bound to HWND + PID snapshots, updated incrementally rather than rebuilt, and stale/reused HWND identities are torn down safely. The active refresh remains 5 seconds: window/character/bag reads happen in the background and Tk changes are applied on the main thread.
+
+The row model now locks live RoleName/MapID/Site-10 bag data, Farm-session money/EXP/death tracking, positive-only BoundMoney/EXP accumulation, exact state colors, _farming_acc active membership, _gen stale-worker generation semantics and separate _sell_active/_sell_stop_event lifecycle state.
+
+A frozen tracker sentence still says "refresh 3s", but it conflicts with the exact active 5000ms Farm refresh and no separate tracker bag poller exists; the 3s phrase is retained as stale documentation. There is also no per-row account-selection checkbox: _checked_rows explicitly means all account rows. H13 now owns all-account command orchestration.
