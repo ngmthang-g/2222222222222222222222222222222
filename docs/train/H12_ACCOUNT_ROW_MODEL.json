@@ -1,0 +1,192 @@
+{
+  "task": "H12",
+  "status": "VERIFIED_PID_BOUND_INCREMENTAL_ROW_MODEL_WITH_5S_BACKGROUND_REFRESH_MAIN_THREAD_APPLY_POSITIVE_DELTA_EXTRA_TRACKING_AND_GENERATION_GUARDS",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "identity": {
+    "primary": [
+      "hwnd",
+      "bound pid snapshot"
+    ],
+    "add_update": "_add_or_update_row",
+    "pid_reader": "_pid_of",
+    "bind": "bind_window_identity",
+    "unbind": "unbind_window_identity",
+    "reused_hwnd_behavior": "destroy/recreate old row when PID changes",
+    "runtime_guard": "_hwnd_alive",
+    "runtime_guard_checks": [
+      "IsWindow",
+      "IsWindowVisible",
+      "current PID == expected PID when expected PID exists"
+    ]
+  },
+  "refresh": {
+    "interval_ms": 5000,
+    "discovery": "start_tab.get_windows",
+    "background_reads": [
+      "window list",
+      "character info",
+      "Site-10 bag slots"
+    ],
+    "main_thread_apply": true,
+    "apply_actions": [
+      "_add_or_update_row",
+      "_remove_stale_rows",
+      "_reapply_permission_state",
+      "_request_scroll_update"
+    ],
+    "update_existing_in_place": true,
+    "transient_read_failure": "preserve row/prior sampled values"
+  },
+  "visible_row": {
+    "play_button": "▶",
+    "initial_state": "Đã dừng",
+    "state_dot": "⬤",
+    "fields": [
+      "character name",
+      "Sell preset combobox",
+      "Train preset combobox",
+      "live MapID",
+      "per-row action buttons",
+      "combined extra tracker"
+    ],
+    "per_row_selection_checkbox": false
+  },
+  "row_runtime_fields": [
+    "_bag_slots",
+    "_extra_start",
+    "_extra_bm",
+    "_extra_last_bm",
+    "_extra_earned",
+    "_extra_exp",
+    "_extra_last_exp",
+    "_extra_exp_gained",
+    "_extra_deaths",
+    "_sell_active",
+    "_sell_stop_event",
+    "_state",
+    "_gen",
+    "_combos"
+  ],
+  "live_data": {
+    "role_name": {
+      "source": "RoleName",
+      "sanitizer": "remove <...> HTML tags",
+      "exact_fallback_name": "UNKNOWN"
+    },
+    "map_id": {
+      "source": "MapID",
+      "semantic": "current live character map, separate from saved destination preset"
+    },
+    "bag_slots": {
+      "source": "Site 10 occupied slots",
+      "read_failure": null,
+      "failure_behavior": "keep previous row value"
+    }
+  },
+  "extra_tracking": {
+    "start_helper": "_start_extra_track",
+    "baseline_source": "first normal background refresh, not synchronous Tk-thread memory read",
+    "money": {
+      "source": "BoundMoney",
+      "accumulator": "_extra_earned",
+      "rule": "positive deltas only; negative spend does not subtract session earned total"
+    },
+    "exp": {
+      "source": "Exp",
+      "accumulator": "_extra_exp_gained",
+      "rule": "positive deltas only"
+    },
+    "deaths": {
+      "field": "_extra_deaths",
+      "source": "H07 latched real-HP0 death episodes"
+    },
+    "initial_components": [
+      "0h:00p",
+      "Túi: ?",
+      "Chết: 0",
+      "Vàng: 0,00",
+      "0,00 vàng/h",
+      "0 exp/h"
+    ],
+    "running_format": "elapsed | Túi | Chết | Vàng earned | vàng/h | exp/h",
+    "total_exp_visible": false,
+    "rate_denominator_seconds_per_hour": 3600,
+    "rate_type": "whole-session average",
+    "embedded_doc_refresh_seconds": 3,
+    "embedded_doc_refresh_status": "STALE",
+    "effective_memory_sample_seconds": 5
+  },
+  "formatting": {
+    "fmt_vn": "raw gold /10000, 4 decimal digits, dot thousands/comma decimal, divmod no float carry",
+    "fmt_vn_float": "scaled float, 4 decimals truncated",
+    "fmt_vn_float2": "2 decimals rounded",
+    "fmt_vn_int": "integer dot-thousands"
+  },
+  "states": {
+    "canonical_field": "_state",
+    "main_thread_scheduler": "_schedule_state_label -> after(0) -> _apply_state_label",
+    "default_fg": "#555555",
+    "mapping": {
+      "Đã dừng": "#555555",
+      "Về bán đồ": "#1565c0",
+      "Bán đồ": "#1565c0",
+      "Mua thuốc": "#555555",
+      "Trị liệu": "#555555",
+      "Tới bãi train": "#1565c0",
+      "Đang train": "#2e7d32",
+      "Về địa phủ": "#c62828",
+      "Đang hồi sinh": "#e65100",
+      "Đang lọc đồ": "#8e24aa",
+      "Mất kết nối": "#b71c1c"
+    }
+  },
+  "lifecycle": {
+    "farming_membership": "_farming_acc",
+    "stopping_play": "do not flip play button/start a new cycle until current cycle actually exits",
+    "generation": {
+      "field": "_gen",
+      "semantic": "invalidate stale worker/monitor threads across Farm start/stop generations",
+      "exact_increment_statements": "UNKNOWN"
+    },
+    "selling": {
+      "active": "_sell_active",
+      "stop_event": "_sell_stop_event",
+      "separate_from_farming": true
+    }
+  },
+  "permissions": {
+    "new_row_guard": [
+      "has_permission",
+      "check_account_limit",
+      "farm_tab"
+    ],
+    "heartbeat_reapply": true,
+    "enabled_combobox_state": "readonly",
+    "disabled_row_controls": true
+  },
+  "stale_cleanup": {
+    "helper": "_remove_stale_rows",
+    "source": "active_hwnds from background discovery",
+    "closed_window": "remove row",
+    "reused_pid": "replace row identity",
+    "unbind_identity": true,
+    "active_farm_teardown_has_stop_wait_surfaces": true,
+    "exact_join_finally_order": "UNKNOWN"
+  },
+  "all_row_selection": {
+    "helper": "_checked_rows",
+    "exact_semantic": "all accounts in the list",
+    "user_checkbox_selection": false,
+    "orchestration": "DEFERRED_H13"
+  },
+  "preserved": {
+    "H11_saved_preset_linkage": true,
+    "H10_mount": true,
+    "H08_reconnect": true
+  },
+  "next_task": "H13 — Train all-account command orchestration audit"
+}
