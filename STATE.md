@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H12 — Train per-account runtime row data / identity / state tracking audit.
+H13 — Train all-account command orchestration audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1620,41 +1620,96 @@ H12 — Train per-account runtime row data / identity / state tracking audit.
 - docs/train/H11_SAVED_COORD_FLOW.md
 - docs/train/H11_SAVED_COORD_MODEL.json
 
+## H12 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H12 artifact existed, so no completed Train work was repeated.
+- Re-extracted/re-hashed the frozen specimen; inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Farm account-row identity is **HWND + bound PID snapshot**, not HWND alone. `_add_or_update_row` uses `_pid_of`, `bind_window_identity`, `unbind_window_identity`.
+- Exact PID-reuse log says the same HWND changing process means the old window is gone and a new row must be created. This prevents old runtime state from being inherited by a newly reused numeric HWND.
+- Exact `_hwnd_alive` doc requires the HWND to exist, remain visible and still belong to the expected PID; PID mismatch means HWND reuse and returns False.
+- Exact `_add_or_update_row` doc locks incremental behavior: create only when missing, otherwise update the existing row and **preserve map/x/y/preset selections**.
+- Character info and Site-10 bag-slot count are normally pre-read in a background worker; `ci=None` is only a fallback-read path. Bag None means preserve the old row value.
+- Active account refresh remains exact **5000ms**. Exact refresh doc says window list + character memory are read in BACKGROUND and only applied to UI on the Tk main thread.
+- Refresh apply path is directly `_add_or_update_row → _remove_stale_rows(active_hwnds) → _reapply_permission_state → scroll update → schedule next refresh`.
+- Exact state-label scheduler doc says every worker/monitor state update is marshaled back to Tk with **after(0)**; direct cross-thread Tk access can silently kill the process.
+- Recovered visible populated-row model: `▶` play button, name, Sell/Train preset comboboxes, `⬤` state dot, state label, live MapID, row action buttons, and a combined third-line extra tracker.
+- New-row state is exactly `Đã dừng`.
+- Row internal runtime surfaces include `_bag_slots`, money/EXP baseline+delta fields, `_extra_deaths`, `_sell_active`, `_sell_stop_event`, `_state`, `_gen`, and control-combo fields.
+- Character RoleName is sanitized by removing HTML tags with `<[^>]+>` before display. A Window fallback surface exists; its exact fallback text composition remains UNKNOWN.
+- Live `MapID` is updated independently from H11's selected destination preset; do not confuse current map with target-map config.
+- H03 Site-10 occupied-slot behavior is now placed into the row model: refresh None keeps the prior `_bag_slots`.
+- Exact `_start_extra_track` doc says Farm starts with a time marker and money/EXP baseline is taken from the **first background refresh**, specifically to avoid memory reads on the Tk main thread.
+- Exact tracker doc locks BoundMoney as **positive-delta accumulation**: selling adds earned gold; spending on medicine does not subtract from session earned-gold total.
+- EXP is also accumulated only from positive deltas.
+- New-row extra text surfaces are exactly `0h:00p | Túi: ? | Chết: 0 | Vàng: 0,00 | 0,00 vàng/h | 0 exp/h` as components joined by the tracker separator.
+- Exact running tracker example is `1h:30p | Túi: 98 | Chết: 3 | Vàng: 5.000,01 | 3.333,33 vàng/h | 12.345.678 exp/h`; total EXP earned is internally tracked but currently hidden from this line.
+- Exact rate denominator surface is **3600 seconds/hour**; money/h and EXP/h are whole-session averages, not rolling-window rates.
+- Formatting helpers are locked: raw gold /10000 with Vietnamese separators, 4-decimal raw/scaled formatters, 2-decimal rounded money-rate formatter, and dot-thousands integer EXP formatter.
+- Important frozen-binary correction: tracker prose still says bag updates every `refresh 3s`, but the same active FarmTab explicitly schedules the account refresh every **5 seconds**, and no separate Farm bag/extra poller is recovered. Therefore the current effective memory-sample cadence is **5s** and the embedded 3s sentence is stale documentation.
+- Exact `STATE_STYLE` mapping is now locked:
+  - Đã dừng #555555
+  - Về bán đồ #1565c0
+  - Bán đồ #1565c0
+  - Mua thuốc #555555
+  - Trị liệu #555555
+  - Tới bãi train #1565c0
+  - Đang train #2e7d32
+  - Về địa phủ #c62828
+  - Đang hồi sinh #e65100
+  - Đang lọc đồ #8e24aa
+  - Mất kết nối #b71c1c
+  - unknown state fallback #555555.
+- `_state` is the row's canonical runtime state; the Tk labels/dot are the main-thread UI projection.
+- `_farming_acc` is the authoritative set of HWNDs with active Farm cycles. Exact play-button doc says rows in `_stopping_play` remain in orange `…` until the old cycle really exits, preventing early button flip/new overlapping cycle.
+- `_gen` is a Farm-session generation guard. Exact buff/reconnect docs say old threads exit when account leaves Farm or generation changes after user stop/start. Exact source increment statements remain UNKNOWN.
+- `_sell_active` and `_sell_stop_event` are separate row-local sell lifecycle state, not aliases of `_farming_acc`.
+- There is **no per-row selection checkbox** in the Train account list. Exact `_checked_rows` doc says it returns **all accounts in the list**; all-account command execution itself remains H13.
+- Permission/account-limit state is re-applied continuously. Exact heartbeat doc says double guard `has_permission + check_account_limit`; enabled Comboboxes use `readonly`, denied rows are disabled.
+- Exact `_remove_stale_rows` doc says it removes rows for closed windows from the background-provided `active_hwnds`; locals also expose old/current PID and bind/unbind identity surfaces. Safe contract: closed/reused-PID rows are torn down incrementally, and active stale Farm work participates in stop/wait cleanup. Exact join/finally order remains UNKNOWN.
+- Transient character/bag memory failures preserve row/session state rather than deleting/resetting the row.
+- B05 was cross-checked only after static extraction; screenshot hash remains `17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53`; populated-row geometry was not invented from the empty capture.
+
+## H12 FILES
+- docs/tasks/H12.md
+- docs/train/H12_ACCOUNT_ROW_STATIC_EVIDENCE.tsv
+- docs/train/H12_ACCOUNT_ROW_FLOW.md
+- docs/train/H12_ACCOUNT_ROW_MODEL.json
+
 ## BLOCKERS
-None known for H12.
+None known for H13.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H11 verified Train contracts.
+- Preserve B05 Train visual baseline and H01–H12 verified Train contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
 - Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
-- Preserve H01 refresh 5000 ms and autosave 30000 ms.
+- Preserve H01 active refresh 5000ms and autosave 30000ms.
 - Preserve H02 return-town values/lock_town behavior.
 - Preserve H03 occupied Site-10 bag metric and filter/no-town semantics.
 - Preserve H04 loop_minutes × 60 remaining-cycle timing semantics.
-- Preserve H05 movement conventions and active FarmTab Truyền ownership.
-- Preserve H06 treatment routing/clicks and unresolved 0.2/common.active microbinding.
+- Preserve H05 active Farm movement/Truyền ownership.
+- Preserve H06 treatment routing/clicks.
 - Preserve H07 death monitor/recovery semantics.
 - Preserve H08 reconnect watchdog/recovery semantics.
 - Preserve H09 loot/pickup filtering contract.
 - Preserve H10 memory+packet mount/remount contract.
-- Preserve H11 coord_<n> + preset|map_id|x|y persistence, live rename propagation, name-based per-account selections and UI-only coordinate-list visibility.
-- Do not invent coordinate X/Y validation/ranges or a saved-coordinate row limit.
-- Keep exact no-arg map/X/Y defaults, coordinate save delay, load sort source syntax and delete-current-selection microflow UNKNOWN.
-- H12 must focus on per-account runtime row identity/data/state only; do not reopen saved-coordinate persistence except where row selection fields reference H11 names.
+- Preserve H11 saved-coordinate persistence/name linkage.
+- Preserve H12 HWND+PID row identity, 5s background refresh/main-thread apply, positive-delta tracker, exact state colors, _farming_acc/_gen/_sell lifecycle separation and no per-row checkbox.
+- Treat H12's embedded tracker “refresh 3s” phrase as stale documentation; do not change the active H01 5000ms refresh.
+- Keep exact generation increment statements, stale teardown join/finally order and fallback character-name composition UNKNOWN.
+- H13 must analyze only all-account command orchestration; do not re-audit per-row data or start/stop global FSM beyond command fan-out boundaries.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H12 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H12 only if still pending.
+3. Check GitHub first for any H13 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H13 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit only Train per-account runtime row data and identity: HWND/PID generation binding, RoleName/MapID/bag-slot refresh, row widget/state fields, checked/enabled state, _farming_acc/_sell_active/_gen lifecycle fields, extra tracking (time/bag/deaths/money/exp), stale-window/PID-reuse handling, and main-thread update boundaries.
-7. Recover exact formatting/update cadences/state-color mappings where safely bindable; keep unbound values UNKNOWN.
-8. Preserve H11 Sell/Farm preset-name selection linkage but do not re-audit coordinate persistence.
-9. Do not analyze all-account command orchestration yet; H13 owns all-account commands.
-10. Cross-check B05 only after static extraction; do not invent populated-row geometry from the empty screenshot.
-11. Persist H12 evidence/report, update STATE.md, and advance to H13 only after verification.
+6. Audit only Train all-account command orchestration: exact semantics of _checked_rows (all rows), Tới bán đồ/Bán đồ/Tới bãi train/Đánh fan-out, per-command thread creation/join behavior, permission/runtime skips, sell-active/farm-active conflict guards, stop-all behavior exposed by those command paths, and whether command completion waits or fire-and-forgets.
+7. Recover exact parallelism, daemon flags, command-state/button interactions and error/skip behavior where safely bindable; keep unbound values UNKNOWN.
+8. Preserve H12 row identity/lifecycle and H11 name-based preset resolution.
+9. Do not fully audit the global Bắt đầu/Dừng Farm FSM yet; H14 owns global start/stop FSM.
+10. Cross-check B05 only after static extraction; no geometry work is needed.
+11. Persist H13 evidence/report, update STATE.md, and advance to H14 only after verification.
