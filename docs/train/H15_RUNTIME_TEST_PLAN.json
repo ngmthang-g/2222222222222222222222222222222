@@ -1,0 +1,361 @@
+{
+  "task": "H15",
+  "goal": "Verify original-vs-reconstruction Train behavior on Windows without redesigning tests.",
+  "frozen_specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "train_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53",
+    "packaged_runtime_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500"
+  },
+  "required_environment": {
+    "os": "Windows x64",
+    "original_exe": "exact frozen TLMTool.dist/TLMTool.exe",
+    "game": "live Than Long client compatible with specimen",
+    "accounts": "prefer 3 test accounts so partial-stop and all-account fan-out can be observed",
+    "proxy_scope": "do not enable/develop Proxy; user scope lock remains in force",
+    "capture": [
+      "screen recording with visible TLMTool and game windows when possible",
+      "before/after screenshots for UI transitions",
+      "copy data/automove_log.txt before and after each scenario",
+      "record HWND and PID for each client"
+    ]
+  },
+  "powershell_prep": [
+    "Get-FileHash .\\TLMTool.dist\\TLMTool.exe -Algorithm SHA256",
+    "New-Item -ItemType Directory -Force .\\H15-captures | Out-Null",
+    "Copy-Item .\\TLMTool.dist\\data\\automove_log.txt .\\H15-captures\\automove_before.txt -ErrorAction SilentlyContinue",
+    "Get-Process | Where-Object {$_.MainWindowTitle -ne ''} | Select-Object Id,ProcessName,MainWindowHandle,MainWindowTitle | Out-File .\\H15-captures\\windows_before.txt"
+  ],
+  "per_test_record": [
+    "test id",
+    "wall-clock start/end time",
+    "account/character and HWND/PID",
+    "initial Train settings",
+    "exact button clicked",
+    "button text/color/state transitions",
+    "row state text and play-button transitions",
+    "game movement/map/bag/HP observations",
+    "automove_log delta",
+    "unexpected dialogs/errors",
+    "result against original contract"
+  ],
+  "scenarios": [
+    {
+      "id": "W01",
+      "name": "global start with 3 idle rows",
+      "observe": [
+        "only non-farming rows start",
+        "FarmTab Dừng lại red",
+        "row II red",
+        "StartTab active sync"
+      ]
+    },
+    {
+      "id": "W02",
+      "name": "global stop during active movement",
+      "observe": [
+        "stopping intermediate if shown",
+        "no premature Bắt đầu",
+        "workers cease before final reset"
+      ]
+    },
+    {
+      "id": "W03",
+      "name": "single start then partial stop",
+      "observe": [
+        "one row starts",
+        "other rows stay idle",
+        "stop row shows … until exit",
+        "global remains active if another row runs"
+      ]
+    },
+    {
+      "id": "W04",
+      "name": "last-account stop via row button",
+      "observe": [
+        "same all-stop workflow",
+        "final Bắt đầu only after drain"
+      ]
+    },
+    {
+      "id": "W05",
+      "name": "rapid stop then restart attempt",
+      "observe": [
+        "no overlapping old/new cycle",
+        "stopping sentinel blocks early restart",
+        "no stale monitor clicks"
+      ]
+    },
+    {
+      "id": "W06",
+      "name": "all Tới bán đồ",
+      "observe": [
+        "all eligible rows move in parallel",
+        "no shop opened",
+        "no item sold"
+      ]
+    },
+    {
+      "id": "W07",
+      "name": "all Bán đồ",
+      "observe": [
+        "parallel sell",
+        "inventory decreases",
+        "gold increases",
+        "sell lifecycle separate from Farm"
+      ]
+    },
+    {
+      "id": "W08",
+      "name": "all Tới bãi train with one full-Farm row",
+      "observe": [
+        "idle rows move",
+        "running Farm row skipped"
+      ]
+    },
+    {
+      "id": "W09",
+      "name": "all Đánh with one selling row",
+      "observe": [
+        "eligible rows start auto fight",
+        "selling/stopping-sell row skipped"
+      ]
+    },
+    {
+      "id": "W10",
+      "name": "town mode lock_town route",
+      "observe": [
+        "town condition forced to Không về and controls disabled while route requires lock"
+      ]
+    },
+    {
+      "id": "W11",
+      "name": "full-bag threshold sweep",
+      "observe": [
+        "increment occupied Site-10 slots one by one",
+        "record exact first trigger occupancy",
+        "test read failure separately"
+      ]
+    },
+    {
+      "id": "W12",
+      "name": "Không về plus full bag",
+      "observe": [
+        "filter executes",
+        "if still full no town return"
+      ]
+    },
+    {
+      "id": "W13",
+      "name": "short periodic cycle",
+      "observe": [
+        "next boundary uses loop_minutes*60 minus elapsed front-half work",
+        "record timestamps"
+      ]
+    },
+    {
+      "id": "W14",
+      "name": "same-map movement near/far",
+      "observe": [
+        "near target skips unnecessary route",
+        "far target mounts/autopaths",
+        "arrival completion"
+      ]
+    },
+    {
+      "id": "W15",
+      "name": "cross-map Truyền success",
+      "observe": [
+        "route steps",
+        "fresh MapID exit verification",
+        "destination movement"
+      ]
+    },
+    {
+      "id": "W16",
+      "name": "cross-map forced shortcut failure",
+      "observe": [
+        "record exact retry count/final fallback-or-abort"
+      ]
+    },
+    {
+      "id": "W17",
+      "name": "treatment built-in",
+      "observe": [
+        "route to configured heal map",
+        "two exact interaction points repeated x4",
+        "success return"
+      ]
+    },
+    {
+      "id": "W18",
+      "name": "treatment failure",
+      "observe": [
+        "missing/invalid target or movement failure",
+        "record exact Farm continuation"
+      ]
+    },
+    {
+      "id": "W19",
+      "name": "death HP0 latch",
+      "observe": [
+        "one respawn click at 792,441 per continuous HP0 episode",
+        "one death increment",
+        "rearm after nonzero HP"
+      ]
+    },
+    {
+      "id": "W20",
+      "name": "MapID 87 death recovery",
+      "observe": [
+        "single recovery event per continuous stay",
+        "state progression",
+        "return behavior with respawn on/off"
+      ]
+    },
+    {
+      "id": "W21",
+      "name": "controlled disconnect",
+      "observe": [
+        "~2s checks",
+        "3-strike confirmation",
+        "click 616,455",
+        "up to 5x30s attempts",
+        "30s batch retry"
+      ]
+    },
+    {
+      "id": "W22",
+      "name": "reconnect success",
+      "observe": [
+        "cache/memory readiness behavior",
+        "3 consecutive RoleName+MapID samples",
+        "45s fail-open boundary if induced"
+      ]
+    },
+    {
+      "id": "W23",
+      "name": "hidden pickup",
+      "observe": [
+        "PICKITEM IsOn remains false before delay",
+        "becomes true at/after ~5s",
+        "no recurring polling required"
+      ]
+    },
+    {
+      "id": "W24",
+      "name": "loot keep modes",
+      "observe": [
+        "none drops configured weapon+nonweapon equipment",
+        "weapons protects weapon",
+        "all drops nothing",
+        "metadata-missing edge"
+      ]
+    },
+    {
+      "id": "W25",
+      "name": "mount states",
+      "observe": [
+        "already-riding immediate",
+        "dismounted toggle then ~3s verification",
+        "no-mount/read-error behavior"
+      ]
+    },
+    {
+      "id": "W26",
+      "name": "mid-route dismount",
+      "observe": [
+        "stop_autopath",
+        "mount",
+        "queue_autopath",
+        "record max-remount behavior if reproducible"
+      ]
+    },
+    {
+      "id": "W27",
+      "name": "coordinate persistence",
+      "observe": [
+        "coord_1..coord_12 numeric order after restart",
+        "rename propagates live selections",
+        "deleted/stale choice ignored"
+      ]
+    },
+    {
+      "id": "W28",
+      "name": "5s row refresh",
+      "observe": [
+        "incremental update",
+        "preserve selected presets",
+        "transient memory failure keeps old bag value"
+      ]
+    },
+    {
+      "id": "W29",
+      "name": "session tracker",
+      "observe": [
+        "positive-only BoundMoney/EXP",
+        "spending does not subtract earned total",
+        "whole-session per-hour rates",
+        "death count"
+      ]
+    },
+    {
+      "id": "W30",
+      "name": "HWND/PID reuse",
+      "observe": [
+        "old row state not inherited by new process sharing numeric HWND",
+        "identity rebind"
+      ]
+    },
+    {
+      "id": "W31",
+      "name": "permission/account limit denied row",
+      "observe": [
+        "controls disabled",
+        "single Farm start blocked",
+        "no hidden worker start"
+      ]
+    },
+    {
+      "id": "W32",
+      "name": "full Farm cycle",
+      "observe": [
+        "sell",
+        "medicine",
+        "move",
+        "farm",
+        "wait in expected order",
+        "state labels align"
+      ]
+    },
+    {
+      "id": "W33",
+      "name": "resize monitor",
+      "observe": [
+        "non-1366x768 corrected while Farm",
+        "no repeated resize when already correct",
+        "monitor stops with row"
+      ]
+    },
+    {
+      "id": "W34",
+      "name": "actual sell completion",
+      "observe": [
+        "known sellable item count before/after",
+        "shop open",
+        "sale command completes",
+        "BoundMoney positive delta"
+      ]
+    },
+    {
+      "id": "W35",
+      "name": "StartTab/FarmTab command source",
+      "observe": [
+        "start from StartTab then stop from FarmTab and reverse",
+        "both controls remain state-synchronized"
+      ]
+    }
+  ],
+  "result_rule": "Do not mark a scenario runtime-parity PASS unless the exact original behavior is observed. Primitive log evidence alone cannot upgrade a top-level scenario.",
+  "current_environment_result": "RUNTIME_ENV_REQUIRED for W01-W35; not executable in the current Linux analysis environment."
+}
