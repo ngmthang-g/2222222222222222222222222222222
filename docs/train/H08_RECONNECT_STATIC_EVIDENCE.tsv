@@ -9,9 +9,9 @@ monitor_doc	0x2941c03	VERIFIED_STATIC	2s watchdog, memory veto + dual-pixel 3-st
 connected_helper	0x2941a8c	VERIFIED_STATIC	is_connected
 shared_connected_doc	0x2b70e50	VERIFIED_SHARED_STATIC	TCPGame.Instance.tcpClient.Connected; True connected / False disconnected / None read error
 pixel1_key	0x2b97ba8	VERIFIED_PIXEL_STATIC	login.ngatKetNoi1
-pixel1_cfg	0x2b97cf9	VERIFIED_PIXEL_STATIC	region=(640,244), color=(160,145,52), timeout=5, tolerance=False/0
+pixel1_cfg	0x2b97cf9	VERIFIED_PIXEL_STATIC	region=(640,244), color=(160,145,52), timeout=5, tolerance=5
 pixel2_key	0x2b97bb5	VERIFIED_PIXEL_STATIC	login.ngatKetNoi2
-pixel2_cfg	0x2b97d33	VERIFIED_PIXEL_STATIC	region=(702,453), color=(212,28,34), timeout=5, tolerance=False/0
+pixel2_cfg	0x2b97d33	VERIFIED_PIXEL_STATIC	region=(702,453), color=(212,28,34), timeout=5, tolerance=5
 strike_local	0x2941ad5	VERIFIED_STATIC	dc_strikes
 halt_log	0x2941ae1	VERIFIED_STATIC	MAT KET NOI (dialog 3/3) -> dung farm loop, ket noi lai
 retry_prefix	0x2941b1b	VERIFIED_STATIC	thu ket noi lai (lan
@@ -42,3 +42,4 @@ auto_reconnect_gate_location	-	EXPLICIT_UNKNOWN	Semantic option verified; exact 
 reconnect_ok_wait_quantum	-	EXPLICIT_UNKNOWN	Event wait timeout keyword present; numeric poll quantum not safely bound
 wait_pixel_interval_debug	-	EXPLICIT_UNKNOWN	Reconnect call exposes keywords but exact values not safely bound
 same_tick_death_disconnect_order	-	EXPLICIT_UNKNOWN	Once halt is set reconnect interrupts hard_stop work; pre-halt same-tick order not recovered
+pixel_tolerance_correction	-	CORRECTED_STATIC	I08 full frozen pixel_data decode confirms both disconnect probe tolerances are 5; prior 0 value was parser/error artifact
