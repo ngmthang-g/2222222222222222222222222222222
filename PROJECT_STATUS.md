@@ -230,25 +230,18 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 - I04 — VERIFIED_HUB10000_ONLY_EXIT_WITH_SHARED_GATE_MOVE_TWO_EXIT_CLICKS_AND_NO_POST_EXIT_MAP_ACTIVE_VERIFICATION_WAIT_FLAG_VALUE_AND_CLICK_PACING_EXPLICIT_UNKNOWN
 - I05 — VERIFIED_FIXED_DA_MINH_CHAU_IMMEDIATE_DISMOUNT_AND_PER_ACCOUNT_GENERATION_GUARDED_TIMED_KEY_WORKER_USING_DLL_SYNC_INPUT_EXACT_MULTIROW_DEADLINE_ZERO_INTERVAL_REPEAT_CALL_KWARGS_AND_FIXED_CONFIG_INDEX_UNKNOWN
 - I06 — VERIFIED_KEEP_MODE_ALIAS_TO_SHARED_BAG_FILTER_WITH_10S_FULL_BAG_WATCH_PER_ACCOUNT_DISCARD_WORKER_AND_NO_DIRECT_PICKITEM_ENABLE_FULL_BAG_THRESHOLD_NUMERIC_EXPLICIT_UNKNOWN
-- I07 — NEXT
+- I07 — VERIFIED_OPT_IN_HP50_GATE_FIXED_MAP10000_163_237_SHARED_MOVE_AND_TWO_POINT_X4_TREATMENT_WITH_LEGACY_HEAL_MAP_IGNORED_CLICK_PACING_REPEAT_CALL_SHAPE_AND_EXACT_CANCEL_CHECKPOINTS_UNKNOWN
+- I08 — NEXT
 
-I01-I04 lock Train LSV module/config wiring, LSV entry/premove, final train-point movement, and per-account leave-LSV behavior.
+I01-I06 lock Train LSV module/config wiring, entry/premove, final train-point movement, leave behavior, timed-key schedule and bag-full keep/discard filtering.
 
-I05 locks the Dạ Minh Châu/timed-key subsystem, including the fixed row, immediate Farm-start trigger, dismount path, targeted hidden-window key delivery, per-account repeating schedule worker and session-generation barrier.
+I07 locks the treatment primitive. TrainLSV treatment is opt-in with clean `trist=False`. The active helper ignores legacy `heal_map_var` and always uses fixed MapID 10000 at tile (163,237). Its internal HP gate skips readable HP >=50%, heals readable HP <50%, and still heals when HP cannot be read.
 
-I06 locks the item keep/discard subsystem. TrainLSV's `Nhặt đồ` radio aliases the shared keep-mode contract:
-- Không -> discard weapon + nonweapon presets
-- Chỉ vũ khí -> discard nonweapon
-- Tất cả -> empty preset list / discard nothing
-with default `Tất cả`.
+Treatment reuses shared movement, aborts the normal click path on movement failure, then uses state `Trị liệu` and exact points (892,474) and (514,424) with frozen x4 behavior. No post-treatment HP verification or treatment-specific common.active wait is recovered. Effective click pacing, exact x4 source-call shape and exact stop_check checkpoints remain explicit unknowns rather than being copied from ordinary Train H06.
 
-The per-account discard watcher samples occupied Site-10 slots every 10 seconds and only runs the shared `bag_filter.discard_for_activity` on the full-bag side of `FULL_BAG_THRESHOLD`. The numeric threshold remains explicitly unknown. While discarding, the row temporarily shows `Đang lọc đồ` in purple, then restores prior state. Shared discard pacing remains 1.0s and the low-level destructive primitive is whole-stack action 4 / packet 100005 `4:dbID`.
-
-The complete TrainLsvTab constant set contains no `PICKITEM`, `IsOn` or `set_auto_fields` path, so no direct TrainLSV hidden auto-pick enable is recovered. Ordinary Train H09's hidden pickup toggle must not be imported by analogy.
-
-Existing packaged logs runtime-evidence the low-level action-4 primitive, but contain no correlated TrainLSV pickup/filter trigger, so I06 is static-verified at the top-level action boundary.
+No correlated treatment record exists in the packaged movement helper log, so I07 remains static-verified/runtime-environment-required.
 
 B06 remains the visual authority and is not remeasured unless new EXE evidence contradicts it.
 
 ## Gate I current
-I07 — Train LSV treatment routing/execution audit.
+I08 — Train LSV reconnect watchdog/recovery audit.
