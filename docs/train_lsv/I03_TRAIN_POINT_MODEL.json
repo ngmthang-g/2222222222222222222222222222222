@@ -1,0 +1,139 @@
+{
+  "task": "I03",
+  "status": "VERIFIED_SAVED_PRESET_TO_ENSURE_LSV_THEN_DIRECT_MOVE_CHARACTER_WITH_32PX_TILE_CONVERSION_WAIT_FOR_ARRIVAL_AND_NO_LSV_8_TILE_SKIP",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "decoded_chunk": {
+    "name": ".train_lsv_tab",
+    "file_offset": "0x2c07798",
+    "part_size_bytes": 37904,
+    "constant_count": 1201
+  },
+  "selected_preset": {
+    "row_var": "farm_var",
+    "resolver": "_preset_to_vars",
+    "result": [
+      "map_var",
+      "x_var",
+      "y_var"
+    ],
+    "missing_result": [
+      null,
+      null,
+      null
+    ],
+    "invalid_ui_log": "chưa chọn tọa độ Farm hợp lệ"
+  },
+  "orchestration": {
+    "manual_row_sequence": [
+      "_preset_to_vars",
+      "_ensure_in_lsv(farm_map=selected map)",
+      "_move_acc(final saved coordinate)"
+    ],
+    "i02_owns": "LSV entry/floor/flat-map premove",
+    "i03_owns": "final exact saved train-point movement",
+    "all_account_semantics": "DEFERRED_I11"
+  },
+  "move_acc": {
+    "helper": "_move_acc",
+    "doc_semantic": "direct movement, no intermediate station",
+    "injection_guard": "_ensure_injected",
+    "injection_failure": "skip final move",
+    "shared_helper": "move_character",
+    "locals": [
+      "self",
+      "hwnd",
+      "map_var",
+      "x_var",
+      "y_var",
+      "stop_check",
+      "_hp",
+      "move_character",
+      "map_sel",
+      "map_id",
+      "name",
+      "mid",
+      "tile_x",
+      "tile_y",
+      "pixel_x",
+      "pixel_y",
+      "ok"
+    ],
+    "map_validation": {
+      "module_lookup_surfaces": [
+        "_map_lookup",
+        "FARM_MAP_LIST",
+        "_MAP_LIST",
+        "_map_values",
+        "_map_names"
+      ],
+      "no_map_log": "bỏ qua: ko có bản đồ",
+      "invalid_map_log": "bỏ qua: map_id không hợp lệ",
+      "exact_label_id_resolution_expression": "UNKNOWN"
+    },
+    "coordinate_validation": {
+      "strip_surface": true,
+      "invalid_log": "bỏ qua: tọa độ ko hợp lệ",
+      "coordinate_unit": "tile",
+      "pixels_per_tile": 32,
+      "pixel_formula": [
+        "tile_x*32",
+        "tile_y*32"
+      ]
+    },
+    "call_options": {
+      "wait_for_arrival": true,
+      "stop_check": "caller supplied",
+      "lsv_specific_timeout_argument": false,
+      "exact_timeout": "SHARED_MOVE_CHARACTER_OWNED"
+    },
+    "completion": {
+      "success_log_prefix": "[Tới] Hoàn thành hwnd=",
+      "timeout_log": "chưa đến nơi sau timeout (...) — tiếp tục tác vụ",
+      "timeout_semantic": "non-fatal/continue task at this TrainLSV layer",
+      "exact_python_return_value": "UNKNOWN"
+    }
+  },
+  "near_target": {
+    "trainlsv_specific_skip": false,
+    "h05_8_tile_rule_reused": false,
+    "module_evidence": {
+      "is_near_symbol": false,
+      "posx": false,
+      "posy": false,
+      "distance_locals": false
+    },
+    "shared_move_character_exact_arrival_behavior": "PRESERVED_SHARED_HELPER"
+  },
+  "post_final_move": {
+    "extra_wait_active": false,
+    "extra_common_active_probe": false,
+    "extra_character_mapid_read": false,
+    "arrival_owned_by": "move_character(wait_for_arrival=True)"
+  },
+  "farm_cycle_edge": {
+    "state_label": "Tới bãi LSV",
+    "ensure_keywords": [
+      "stop_check",
+      "farm_map"
+    ],
+    "sequence": "I02 premove then I03 final move",
+    "deeper_cycle": "DEFERRED"
+  },
+  "runtime_evidence": {
+    "packaged_automove_log_checked": true,
+    "generic_auto_move_present": true,
+    "correlated_toi_logs": 0,
+    "correlated_trainlsv_logs": 0,
+    "classification": "STATIC_VERIFIED"
+  },
+  "explicit_unknowns": [
+    "exact Python source expression resolving selected map label/value to map_id",
+    "exact shared move_character arrival timeout numeric value at this call",
+    "exact Python return value from _move_acc after success/timeout",
+    "all-account _move_all target/thread/conflict semantics (I11)"
+  ],
+  "next_task": "I04 — Train LSV leave-LSV / Rời LSV behavior audit"
+}
