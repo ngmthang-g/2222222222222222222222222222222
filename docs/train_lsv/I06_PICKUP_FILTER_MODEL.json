@@ -1,0 +1,155 @@
+{
+  "task": "I06",
+  "status": "VERIFIED_KEEP_MODE_ALIAS_TO_SHARED_BAG_FILTER_WITH_10S_FULL_BAG_WATCH_PER_ACCOUNT_DISCARD_WORKER_AND_NO_DIRECT_PICKITEM_ENABLE_FULL_BAG_THRESHOLD_NUMERIC_EXPLICIT_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "trainlsv_chunk": {
+    "offset": "0x2c07798",
+    "part_size_bytes": 37904,
+    "constant_count": 1201
+  },
+  "bag_filter_chunk": {
+    "offset": "0x28d5db3",
+    "part_size_bytes": 5162,
+    "constant_count": 145
+  },
+  "pickup_policy": {
+    "values": [
+      "none",
+      "weapons",
+      "all"
+    ],
+    "labels": {
+      "none": "Không",
+      "weapons": "Chỉ vũ khí",
+      "all": "Tất cả"
+    },
+    "default": "all",
+    "preset_keys": {
+      "none": [
+        "discard_weapons",
+        "discard_nonweapon"
+      ],
+      "weapons": [
+        "discard_nonweapon"
+      ],
+      "all": []
+    },
+    "ui_semantic": "keep/discard policy, not direct pickup enable"
+  },
+  "bag_metric": {
+    "helper": "memory_items.get_bag",
+    "field": "slots",
+    "site": 10,
+    "meaning": "occupied bag slots",
+    "read_failure": "no destructive decision from unreadable sample"
+  },
+  "discard_watch": {
+    "helper": "_discard_loop",
+    "poll_seconds": 10,
+    "full_bag_symbol": "FULL_BAG_THRESHOLD",
+    "full_bag_threshold_numeric": "UNKNOWN",
+    "steady_states": [
+      "Đang train LSV"
+    ],
+    "temporary_state": "Đang lọc đồ",
+    "temporary_state_color": "#8e24aa",
+    "restore_previous_state": true,
+    "locals": [
+      "self",
+      "hwnd",
+      "stop_event",
+      "stop_check",
+      "BF",
+      "MI",
+      "_bag",
+      "_slots",
+      "keys",
+      "row",
+      "prev",
+      "res",
+      "e"
+    ]
+  },
+  "shared_discard": {
+    "helper": "bag_filter.discard_for_activity",
+    "activity": "train",
+    "trainlsv_explicit_kwargs": [
+      "keys",
+      "stop_check"
+    ],
+    "inherited_defaults": {
+      "extra_rules": null,
+      "delay": 1,
+      "on_progress": null,
+      "dry_run": false
+    },
+    "result_keys": [
+      "total",
+      "ok",
+      "fail",
+      "skipped",
+      "stopped",
+      "targets"
+    ],
+    "low_level": {
+      "action": 4,
+      "packet_opcode": 100005,
+      "payload": "4:dbID",
+      "whole_stack": true
+    }
+  },
+  "presets": {
+    "discard_nonweapon": "discard non-weapon items under shared filter rules",
+    "discard_weapons": "explicit match_weapons=True preset"
+  },
+  "lifecycle": {
+    "per_account_hwnd": true,
+    "farm_cycle_stop_event": "discard_stop",
+    "farm_cycle_also_has": [
+      "gen_snap",
+      "buff_stop",
+      "buff_thread"
+    ],
+    "exact_discard_thread_handle": "NOT_RETAINED_IN_RECOVERED_FARM_LOCALS",
+    "daemon_flag": "UNKNOWN",
+    "join_timeout_order": "UNKNOWN",
+    "exact_generation_check_inside_discard_loop": "UNKNOWN"
+  },
+  "direct_pickitem_enable": {
+    "recovered": false,
+    "searched_constants": [
+      "PICKITEM",
+      "IsOn",
+      "set_auto_fields",
+      "PickRanger",
+      "IsFilterItem"
+    ],
+    "ordinary_train_h09_imported": false
+  },
+  "runtime_evidence": {
+    "top_level_markers": {
+      "nhat_do": 0,
+      "dang_loc_do": 0,
+      "discard_for_activity": 0,
+      "pickitem": 0,
+      "ison_true": 0
+    },
+    "action4_raw_count": 22734,
+    "action4_spts_count": 22732,
+    "action4_pid_tagged_processes": 49,
+    "primitive_classification": "RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE",
+    "trainlsv_trigger_classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "numeric FULL_BAG_THRESHOLD",
+    "exact native comparator instruction around FULL_BAG_THRESHOLD",
+    "exact use point of DISCARD_STEADY_STATES as eligibility gate vs restore guard",
+    "discard worker daemon/join micro-order",
+    "exact generation predicate inside _discard_loop",
+    "top-level runtime correlation of action=4 records to TrainLSV"
+  ],
+  "next_task": "I07 — Train LSV treatment routing/execution audit"
+}
