@@ -37,7 +37,7 @@
           52
         ],
         "cfg_timeout": 5,
-        "tolerance": 0
+        "tolerance": 5
       },
       {
         "key": "login.ngatKetNoi2",
@@ -51,7 +51,7 @@
           34
         ],
         "cfg_timeout": 5,
-        "tolerance": 0
+        "tolerance": 5
       }
     ],
     "both_pixels_required": true,
@@ -148,5 +148,8 @@
     "H05_movement": true,
     "H04_scheduler": true
   },
-  "next_task": "H09 — Train loot filtering / pickup mode and discard-preset interaction audit"
+  "next_task": "H09 — Train loot filtering / pickup mode and discard-preset interaction audit",
+  "correction": {
+    "disconnect_pixel_tolerance": "Direct frozen pixel_data decode confirms tolerance=5 for both disconnect probes; prior artifact value 0 was corrected during I08."
+  }
 }
