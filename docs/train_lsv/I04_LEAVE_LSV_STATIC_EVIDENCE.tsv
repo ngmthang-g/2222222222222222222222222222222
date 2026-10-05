@@ -1,0 +1,27 @@
+key	offset_hex	status	evidence
+module_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab; size=37904; constants=1201
+leave_start_log	0x2c0b8cb	VERIFIED_STATIC	[Rời LSV] Bắt đầu hwnd=
+leave_hwnd_log	0x2c0b8eb	VERIFIED_STATIC	[Rời LSV] hwnd=
+leave_current_map_log	0x2c0b8fe	VERIFIED_STATIC	map hiện tại
+leave_non10000_skip	0x2c0b912	VERIFIED_STATIC	không phải 10000 → bỏ qua
+leave_wait_keyword	0x2c0b935	VERIFIED_STATIC_DECODE	(wait_for_arrival,)
+leave_gate_failure	0x2c0b949	VERIFIED_STATIC	di chuyển tới cổng thất bại
+leave_click_1	0x2c0b971	VERIFIED_STATIC_DECODE	(887,475)
+leave_click_2	0x2c0b979	VERIFIED_STATIC_DECODE	(478,427)
+leave_success_log	0x2c0b981	VERIFIED_STATIC	[Rời LSV] Hoàn thành hwnd=
+leave_doc	0x2c0b9a1	VERIFIED_STATIC	map10000 -> move to (236,190), click (887,475), then (478,427)
+hub_map_constant	0x2c0ae52	REUSED_I02_STATIC_DECODE	10000
+hub_pixel_x	0x2c0ae55	REUSED_I02_STATIC_DECODE	7552 = 236*32
+hub_pixel_y	0x2c0ae58	REUSED_I02_STATIC_DECODE	6080 = 190*32
+leave_qualname	0x2c0f28a	VERIFIED_STATIC	TrainLsvTab._leave_lsv
+leave_locals	0x2c103fc	STRONG_STATIC_MAPPING	self/hwnd/_hp/move_character/click_at/time/ci/current_map/ok
+leave_stop_check	-	NOT_RECOVERED	no stop_check/stop_event in leave local/signature surface
+leave_ensure_injected	-	NOT_RECOVERED	no _ensure_injected surface in leave block/locals
+leave_floor_normalization	-	NOT_RECOVERED	no _ensure_in_lsv/floor/flat table surface in leave helper
+leave_post_map_read	-	NOT_RECOVERED	no second get_character_info/MapID local after clicks
+leave_post_active_wait	-	NOT_RECOVERED	no _wait_active/wait_pixel/common.active in leave helper
+leave_wait_boolean	-	EXPLICIT_UNKNOWN	wait_for_arrival keyword tuple verified; loaded boolean value not bound by constant-only decode
+leave_click_pacing	-	EXPLICIT_UNKNOWN	time local exists; exact sleep value/order not instruction-bound
+runtime_leave_log	-	NOT_RECOVERED	0 correlated [Rời LSV]/Rời LSV lines in packaged automove_log
+runtime_exit_clicks	-	NOT_RECOVERED	0 correlated 887,475 / 478,427 click records in packaged automove_log
+runtime_generic_movement	-	RUNTIME_PRIMITIVE_ONLY	generic AutoMove/AutoPath exists but is not correlated to I04
