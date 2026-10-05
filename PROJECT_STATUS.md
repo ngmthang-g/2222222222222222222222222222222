@@ -225,13 +225,20 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 
 ## Gate I
 - I01 — VERIFIED_TRAINLSV_TAB_WIRING_WITH_5S_INCREMENTAL_REFRESH_30S_AUTOSAVE_DYNAMIC_COORDS_FIXED_DA_MINH_CHAU_ROW_AND_STARTTAB_MIRROR
-- I02 — NEXT
+- I02 — VERIFIED_MAP3_GATE_ENTRY_WITH_EXACT_LSV_ZONE_SET_FLOOR_PREMOVE_TABLES_AND_30S_COMMON_ACTIVE_GATE_POST_GATE_VERIFY_EXPLICIT_UNKNOWN
+- I03 — NEXT
 
 I01 identifies the active Train LSV implementation as dedicated `train_lsv_tab.py / TrainLsvTab`, with its own `[TrainLSV]` settings section, 30-second config autosave, 5-second incremental account refresh, dynamic saved-coordinate rows, fixed Dạ Minh Châu schedule row, LSV-specific account actions and StartTab forwarding/mirroring.
 
-The all-account bar is `Tới LSV | Tới chỗ train | Đánh | Rời LSV` with daemon worker dispatch, while the bottom green `Bắt đầu` is the dedicated TrainLsvTab automation toggle. Deep entry, train-point, leave, schedule, pickup, treatment, reconnect, death, coordinate, command/FSM and runtime semantics remain split into I02–I12.
+A stronger constant-chunk decode subsequently resolved I01's prior Dạ Minh Châu screenshot reservation: `_add_buff_row` clean defaults are key `1`, 0 minutes, 5 seconds, and `_build_ui` creates the fixed Dạ Minh Châu row with `fixed=True`.
 
-B06 remains the visual authority and was cross-checked only after static extraction; the current screenshot hash remains `9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29`.
+I02 recovers the actual LSV entry/premove contract from the frozen TrainLsvTab chunk. Normal `Tới LSV` first moves to normal Lạc Dương MapID 3 at tile (232,190), then uses exact clicks (891,473) and (480,605). The server-side hub is MapID 10000. Exact LSV target IDs are 10014–10017 for Tần Hoàng Địa Cung floors 1–4 and 10004/10005/10007 for Phàm Liên Trại/Thanh Liên Trại/Khô Vinh Đạo.
+
+I02 also locks the full LSV zone set, floor order `[10000,10014,10015,10016,10017]`, exact floor/flat waypoint tables, the 10000→10014 portal action at (609,450) x3 with 0.5s spacing, flat-map PK warning click (617,454), and `_wait_active(timeout=30, click_if_stuck=False)`. The stuck-active recovery is (609,450) x2 with 1s spacing. Movement directly reuses shared `move_character`, while final saved-coordinate movement is deliberately deferred to I03.
+
+The packaged runtime helper log was checked only after static extraction and contains no correlated top-level `Tới LSV` trace. I02 therefore remains static-verified rather than end-to-end runtime-verified.
+
+B06 remains the visual authority and is not remeasured unless new EXE evidence contradicts it.
 
 ## Gate I current
-I02 — Train LSV entry / ensure-in-LSV and Lạc Dương LSV navigation audit.
+I03 — Train LSV final train-point / “Tới chỗ train” movement audit.
