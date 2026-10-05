@@ -229,19 +229,26 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 - I03 — VERIFIED_SAVED_PRESET_TO_ENSURE_LSV_THEN_DIRECT_MOVE_CHARACTER_WITH_32PX_TILE_CONVERSION_WAIT_FOR_ARRIVAL_AND_NO_LSV_8_TILE_SKIP
 - I04 — VERIFIED_HUB10000_ONLY_EXIT_WITH_SHARED_GATE_MOVE_TWO_EXIT_CLICKS_AND_NO_POST_EXIT_MAP_ACTIVE_VERIFICATION_WAIT_FLAG_VALUE_AND_CLICK_PACING_EXPLICIT_UNKNOWN
 - I05 — VERIFIED_FIXED_DA_MINH_CHAU_IMMEDIATE_DISMOUNT_AND_PER_ACCOUNT_GENERATION_GUARDED_TIMED_KEY_WORKER_USING_DLL_SYNC_INPUT_EXACT_MULTIROW_DEADLINE_ZERO_INTERVAL_REPEAT_CALL_KWARGS_AND_FIXED_CONFIG_INDEX_UNKNOWN
-- I06 — NEXT
+- I06 — VERIFIED_KEEP_MODE_ALIAS_TO_SHARED_BAG_FILTER_WITH_10S_FULL_BAG_WATCH_PER_ACCOUNT_DISCARD_WORKER_AND_NO_DIRECT_PICKITEM_ENABLE_FULL_BAG_THRESHOLD_NUMERIC_EXPLICIT_UNKNOWN
+- I07 — NEXT
 
-I01-I04 lock Train LSV module/config wiring, LSV entry/premove, final train-point movement, and the per-account Rời LSV primitive.
+I01-I04 lock Train LSV module/config wiring, LSV entry/premove, final train-point movement, and per-account leave-LSV behavior.
 
-I05 locks the timed-key schedule. Normal added rows default disabled/key 1/0m5s and are removable; fixed Dạ Minh Châu is always active/no-delete with key 1/0m5s. Farm start sends one immediate Dạ Minh Châu activation after the exact dismount path, while a dedicated per-account repeating worker services the configured timed rows.
+I05 locks the Dạ Minh Châu/timed-key subsystem, including the fixed row, immediate Farm-start trigger, dismount path, targeted hidden-window key delivery, per-account repeating schedule worker and session-generation barrier.
 
-The immediate send is `press_single_key_dll(hwnd,key,delay=0,sync=True)` through the project's targeted hidden-window DLL key path. The repeating worker owns `buff_stop/buff_thread` and a generation barrier so an old Farm session cannot keep sending keys after stop/restart.
+I06 locks the item keep/discard subsystem. TrainLSV's `Nhặt đồ` radio aliases the shared keep-mode contract:
+- Không -> discard weapon + nonweapon presets
+- Chỉ vũ khí -> discard nonweapon
+- Tất cả -> empty preset list / discard nothing
+with default `Tất cả`.
 
-Persistence is `buff_<n>=enabled|key|minutes|seconds`. Exact multi-row deadline reset/order, zero-interval policy, repeating call options, fixed-row persisted index/migration and worker daemon/join micro-order remain explicit unknowns rather than guessed behavior.
+The per-account discard watcher samples occupied Site-10 slots every 10 seconds and only runs the shared `bag_filter.discard_for_activity` on the full-bag side of `FULL_BAG_THRESHOLD`. The numeric threshold remains explicitly unknown. While discarding, the row temporarily shows `Đang lọc đồ` in purple, then restores prior state. Shared discard pacing remains 1.0s and the low-level destructive primitive is whole-stack action 4 / packet 100005 `4:dbID`.
 
-No correlated Dạ Minh/[Buff] record exists in the packaged movement helper log, so I05 remains static-verified rather than runtime-parity verified.
+The complete TrainLsvTab constant set contains no `PICKITEM`, `IsOn` or `set_auto_fields` path, so no direct TrainLSV hidden auto-pick enable is recovered. Ordinary Train H09's hidden pickup toggle must not be imported by analogy.
+
+Existing packaged logs runtime-evidence the low-level action-4 primitive, but contain no correlated TrainLSV pickup/filter trigger, so I06 is static-verified at the top-level action boundary.
 
 B06 remains the visual authority and is not remeasured unless new EXE evidence contradicts it.
 
 ## Gate I current
-I06 — Train LSV item pickup/filter execution audit.
+I07 — Train LSV treatment routing/execution audit.
