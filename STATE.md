@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H10 — Train mount actions / horse interaction audit.
+H11 — Train saved-coordinate persistence / edit / per-account selection audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1551,12 +1551,44 @@ H10 — Train mount actions / horse interaction audit.
 - docs/train/H09_LOOT_FILTER_FLOW.md
 - docs/train/H09_LOOT_FILTER_MODEL.json
 
+## H10 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H10 artifact existed, so no completed Train work was repeated.
+- Inspected the exact frozen inner EXE first; SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- H02/H05 home priority remains `Phù 1 / Phù 2 / Phù 3 / Ngựa`; `_get_nav_priority` passes that ordered list into shared `move_character`.
+- Frozen `move_character` home-priority block directly contains `Ngựa`, an internal `Stop` sentinel surface, the `Về thành: thử ... → bấm phím ...` log, `press_single_key_dll`, and transfer-dialog probes. Static architecture supports `Ngựa` as the boundary/fallback to normal mounted/autopath movement rather than a fabricated horse hotkey. Exact source syntax around the Stop sentinel remains UNKNOWN.
+- Current live mount helper is `ensure_mounted`. Exact original doc says it ensures riding **entirely by memory + packet, no pixel/click**.
+- Exact riding fast path: read `IsRiding`; if `==1`, return True immediately.
+- Equipped mount state is separate: shared `HasMount/MountItemID/read_mount_cached/has_mount`; exact doc says HasMount scans Site 2 equipment and returns 1/0/None, explicitly different from IsRiding.
+- Frozen memory-reader constant binds **MOUNT_CACHE_TTL = 30.0 seconds** for equipped-mount caching.
+- `ensure_mounted` optionally stops game auto first through `set_auto_mode(None)`; exact logs prove stop-auto failure/error does **not** hard-abort the mount attempt.
+- Exact doc says callers may pass `stop_auto_first=False` after teleport because UI/game state reset makes an extra stop unnecessary.
+- An exact **1.5** float is serialized in the ensure_mounted block between stop-auto diagnostics and mount-action surfaces. Its precise call/parameter binding is not instruction-visible enough and remains UNKNOWN.
+- Active mount command is internal `memory_items.toggle_mount` with frozen expression **`Game.SendToggleRideState(Game.CurrentMountSlot)`**.
+- Exact ensure_mounted doc locks: send mount action → **sleep 3 seconds** → fresh-memory/cache-invalidated `IsRiding` verification.
+- Exact return contract: True if already riding or newly mounted; False if failed/stopped. No internal multi-send retry loop is recovered inside one ensure_mounted invocation.
+- `has_mount` is consulted in the ensure block, but exact HasMount=0/None source branch/log wording is not safely visible; do not invent it.
+- Exact `_remount_requeue` doc locks mid-route recovery: **stop_autopath → mount again via memory+packet → queue_autopath again**. It explicitly replaces the old pixel-click/manual-Reader remount cluster.
+- `_remount_requeue` returns False only when stopped mid-way; otherwise it lets the outer movement poll continue, while stop/requeue/remount errors are logged.
+- Live `move_character` directly owns `HasMount`, `remount_count`, `max_remount`, and calls `_remount_requeue`; exact numeric `max_remount` cannot be safely bound and remains STRONGER-DECOMPILATION/RUNTIME UNKNOWN.
+- No active Train/shared-movement dismount routine or pixel/click dismount sequence is recovered. Teleport/game transitions may naturally clear IsRiding; the movement layer remounts when needed.
+- Exact `move_to_npc` doc says same-map + known NPC position uses mounted `move_character` with arrival polling; different-map/NPC-not-spawn fallback uses game-native logic **without horse**.
+- Exact `mount trước goto lỗi (bỏ qua)` log proves mount preparation error is non-fatal in the NPC helper and higher-level fallback may still continue.
+- H05 Truyền routing remains authoritative. H10 only layers mounted ordinary movement/remount beneath route legs; active FarmTab movement was not replaced.
+- H09 loot filtering was not reopened.
+- B05 was cross-checked only after static extraction; no geometry was remeasured.
+
+## H10 FILES
+- docs/tasks/H10.md
+- docs/train/H10_MOUNT_STATIC_EVIDENCE.tsv
+- docs/train/H10_MOUNT_FLOW.md
+- docs/train/H10_MOUNT_MODEL.json
+
 ## BLOCKERS
-None known for H10.
+None known for H11.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H09 verified Train wiring/town/full-bag/timing/movement/heal/death/reconnect/loot-filter contracts.
+- Preserve B05 Train visual baseline and H01–H10 verified Train wiring/town/full-bag/timing/movement/heal/death/reconnect/loot/mount contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
@@ -1567,24 +1599,24 @@ None known for H10.
 - Preserve H04 loop_minutes × 60 remaining-cycle timing semantics.
 - Preserve H05 movement conventions and active FarmTab Truyền ownership.
 - Preserve H06 treatment routing/clicks and unresolved 0.2/common.active microbinding.
-- Preserve H07 death monitor and recovery event/latch semantics.
-- Preserve H08 reconnect watchdog/recovery contract.
-- Preserve H09 exact keep modes/default/preset mapping, metadata-based weapon/nonweapon classification, 1.0s shared discard pacing, event-driven Farm filtering and separate 5s PICKITEM.IsOn hidden enable.
-- Do not add a continuous Farm discard watcher.
-- Do not reinterpret pickup_mode as the actual pickup-enable switch.
-- Do not invent PICKITEM write readback confirmation or recurring 5-second polling.
-- H10 must focus only mount/horse actions and their interaction with navigation priority/movement; do not reopen H09 filtering.
+- Preserve H07 death monitor/recovery semantics.
+- Preserve H08 reconnect watchdog/recovery semantics.
+- Preserve H09 loot/pickup filtering contract.
+- Preserve H10 memory+packet mount design, HasMount vs IsRiding separation, 30s mount cache, 3s verify wait, remount/requeue sequence and no active pixel-click mount path.
+- Do not invent a horse hotkey for the `Ngựa` priority option.
+- Keep exact Stop-sentinel source syntax, 1.5 constant binding, HasMount=0/None microflow and max_remount numeric UNKNOWN.
+- Do not add a Train dismount routine without evidence.
+- H11 must focus only saved-coordinate persistence/edit/selection; do not reopen H10 mount behavior.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H10 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H10 only if still pending.
+3. Check GitHub first for any H11 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H11 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit only Train mount/horse behavior: how the `Ngựa` navigation-priority option maps into movement, any mount/dismount click or internal action surfaces, mount-state detection, when horse is attempted/skipped, retries/timeouts, and how route/movement fallbacks interact with mount choice.
-7. Recover exact coordinates/keys/delays/retry counts where safely bindable; keep unbound values UNKNOWN.
-8. Preserve H05 movement/Truyền routing and H09 loot-filter boundaries.
-9. Do not yet analyze saved-coordinate persistence beyond any mount-specific dependency; H11 owns saved coordinates.
-10. Cross-check B05 only after static extraction; no geometry work is needed.
-11. Persist H10 evidence/report, update STATE.md, and advance to H11 only after verification.
+6. Audit Train saved-coordinate persistence/edit behavior only: coord row schema, generated/default names, add/remove/rename, map selection, X/Y validation and save debounce, show/hide list state if persisted, config key naming/order, import/load behavior, and how per-account sell/farm combobox selections follow rename/delete.
+7. Recover exact limits/defaults/debounce intervals/key schemas where safely bindable; keep unbound values UNKNOWN.
+8. Preserve H05 live preset-name→map/x/y movement resolution and H10 mount behavior; do not analyze per-account runtime row data beyond coordinate-selection linkage because H12 owns per-account data.
+9. Cross-check B05 only after static extraction; do not remeasure geometry.
+10. Persist H11 evidence/report, update STATE.md, and advance to H12 only after verification.
