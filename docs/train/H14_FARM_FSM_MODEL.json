@@ -1,0 +1,158 @@
+{
+  "task": "H14",
+  "status": "VERIFIED_COOPERATIVE_MULTI_ACCOUNT_FSM_WITH_PER_ROW_STOPPING_SENTINEL_JOINED_DRAIN_AND_UI_MIRROR_EXPLICIT_UNKNOWNS",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "state_owners": {
+    "global": "_farming",
+    "per_account": "_farming_acc",
+    "worker_collection": "_farm_threads",
+    "stopping_rows": "_stopping_play",
+    "generation": "row._gen"
+  },
+  "global_button": {
+    "stopped": {
+      "text": "Bắt đầu",
+      "bg": "#388e3c",
+      "state": "normal"
+    },
+    "running": {
+      "text": "Dừng lại",
+      "bg": "#f44336"
+    },
+    "explicit_drain_surface": {
+      "text": "Đang dừng...",
+      "bg": "#ef6c00",
+      "state": "disabled",
+      "ordinary_stop_coverage": "UNKNOWN"
+    }
+  },
+  "global_toggle": {
+    "helper": "_toggle_farm",
+    "start_direction": "only accounts not already farming",
+    "stop_direction": "only accounts currently farming",
+    "target_universe": "current Train rows",
+    "exact_global_permission_recheck": "UNKNOWN"
+  },
+  "single_toggle": {
+    "helper": "_toggle_single_farm",
+    "permission_guard": [
+      "has_permission_with_limit",
+      "farm_tab",
+      "farm"
+    ],
+    "last_account_stop": "enters global all-stop workflow",
+    "start_surfaces": [
+      "_farm_cycle",
+      "_resize_monitor",
+      "_refresh_play_buttons"
+    ],
+    "exact_mutation_order": "UNKNOWN"
+  },
+  "row_play_button": {
+    "source": "_refresh_play_buttons based on _farming_acc",
+    "active": {
+      "text": "II",
+      "bg": "#f44336"
+    },
+    "inactive": {
+      "text": "▶",
+      "bg": "#388e3c"
+    },
+    "stopping": {
+      "text": "…",
+      "bg": "#ef6c00",
+      "state": "disabled"
+    },
+    "stopping_rule": "skip normal refresh until old cycle actually exits"
+  },
+  "cycle": {
+    "helper": "_farm_cycle",
+    "doc_sequence": [
+      "bán đồ",
+      "mua thuốc",
+      "tới",
+      "farm",
+      "chờ chu kỳ"
+    ],
+    "session_locals": [
+      "monitor_stop",
+      "reconnect_ok",
+      "halt",
+      "respawn_event",
+      "gen_snap",
+      "hard_stop",
+      "buff_stop",
+      "cycle_start",
+      "buff_thread"
+    ],
+    "stop_model": "cooperative"
+  },
+  "wait": {
+    "helper": "_wait_farm_stop",
+    "join": true,
+    "has_remaining_true": "cleanup stopped workers only; keep global running/Dừng state",
+    "has_remaining_false": "after drain reset global button to Bắt đầu/#388e3c/normal",
+    "join_timeout": "UNKNOWN",
+    "inner_thread_daemon_flags": "UNKNOWN"
+  },
+  "cancellation": {
+    "force_thread_kill": false,
+    "helpers": [
+      "_check_stop",
+      "_is_acc_farming"
+    ],
+    "other_guards": [
+      "generation",
+      "HWND/PID validity",
+      "hard_stop/halt where relevant"
+    ]
+  },
+  "generation": {
+    "semantic": "old monitor/buff/reconnect workers exit when account stops or generation changes",
+    "doc_binds_change_to": "user stop/start",
+    "exact_assignment_statements": "UNKNOWN",
+    "exact_order_vs_membership": "UNKNOWN"
+  },
+  "state_label": {
+    "canonical": "row._state",
+    "stopped_text": "Đã dừng",
+    "exact_reset_statement_order": "UNKNOWN"
+  },
+  "starttab_sync": {
+    "helper": "_sync_start_tab_btn",
+    "local_surface": [
+      "text",
+      "bg",
+      "state",
+      "st",
+      "_upd"
+    ],
+    "wrapper": "TLMStartTab._toggle_farm_cmd",
+    "starttab_stopped_label": "Train",
+    "farmtab_stopped_label": "Bắt đầu",
+    "running_label": "Dừng lại",
+    "running_bg": "#f44336",
+    "semantic": "synchronized running/stopped state; stopped captions are intentionally not identical"
+  },
+  "preserved": {
+    "H13_manual_fight_separate_from_full_fsm": true,
+    "H12_membership_identity": true,
+    "H07_death_subfsm": true,
+    "H08_reconnect_subfsm": true
+  },
+  "unknowns": [
+    "exact _farming assignment statements",
+    "exact _farming_acc/_stopping_play/_gen/widget mutation order",
+    "exact _gen increment statements",
+    "daemon flag of each full-Farm worker",
+    "join timeout value/policy",
+    "whether every ordinary global stop shows Đang dừng... orange intermediate state",
+    "exact row Đã dừng state-label reset statement timing",
+    "exact in-function permission recheck/filter inside global _toggle_farm"
+  ],
+  "next_task": "H15 — Train runtime parity verification"
+}
