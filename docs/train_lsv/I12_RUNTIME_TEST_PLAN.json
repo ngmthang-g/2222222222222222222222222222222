@@ -1,0 +1,995 @@
+{
+  "task": "I12",
+  "environment": {
+    "required": [
+      "Windows",
+      "frozen original TLMTool 2.1.2",
+      "live Than Long game client",
+      "at least one controllable test account"
+    ],
+    "preferred": [
+      "2-3 simultaneous game windows",
+      "ability to control HP/inventory/connectivity/map position",
+      "screen+log capture",
+      "settings.ini snapshot before/after"
+    ],
+    "rule": "Record actual original behavior first. Do not use rebuilt/source behavior as authority."
+  },
+  "evidence_capture": [
+    "timestamped screen recording",
+    "original TLMTool UI/log output",
+    "game MapID/HP/inventory memory read where available",
+    "settings.ini before/after",
+    "packaged helper log or additional controlled trace if produced"
+  ],
+  "verdicts": [
+    "PASS_ORIGINAL_CONTRACT",
+    "FAIL_CONTRADICTS_STATIC_CONTRACT",
+    "UNVERIFIED_ENV_NOT_AVAILABLE"
+  ],
+  "tests": [
+    {
+      "id": "T01",
+      "area": "I01 visual/defaults",
+      "pre": [
+        "Windows",
+        "launch frozen TLMTool 2.1.2",
+        "no saved TrainLSV config"
+      ],
+      "steps": [
+        "Open Train LSV tab",
+        "Compare stopped/default state to B06"
+      ],
+      "expect": [
+        "Bắt đầu green",
+        "respawn/reconnect/treatment unchecked",
+        "Nhặt đồ=Tất cả",
+        "Dạ Minh Châu active key1 0m5s",
+        "four bulk buttons only"
+      ],
+      "resolves": [
+        "visual parity/defaults"
+      ]
+    },
+    {
+      "id": "T02",
+      "area": "I02 normal entry",
+      "pre": [
+        "character on normal Lạc Dương MapID3"
+      ],
+      "steps": [
+        "Invoke per-account Tới LSV",
+        "Record movement and clicks"
+      ],
+      "expect": [
+        "move to tile232,190",
+        "click 891,473 then 480,605",
+        "enter LSV workflow"
+      ],
+      "resolves": [
+        "entry click pacing",
+        "actual transition success"
+      ]
+    },
+    {
+      "id": "T03",
+      "area": "I02 already inside",
+      "pre": [
+        "character already in recognized LSV zone"
+      ],
+      "steps": [
+        "Invoke Tới LSV"
+      ],
+      "expect": [
+        "uses inside-LSV normalization toward hub/gate path",
+        "does not replay normal Map3 entry clicks"
+      ],
+      "resolves": [
+        "already-inside runtime path"
+      ]
+    },
+    {
+      "id": "T04",
+      "area": "I02 floors",
+      "pre": [
+        "access to 10000,10014,10015,10016,10017"
+      ],
+      "steps": [
+        "Request each reachable target floor from adjacent/current floors",
+        "Record waypoint/portal behavior"
+      ],
+      "expect": [
+        "follows frozen floor order and waypoints",
+        "10000->10014 portal uses click609,450 x3"
+      ],
+      "resolves": [
+        "floor edge runtime parity"
+      ]
+    },
+    {
+      "id": "T05",
+      "area": "I02 flat maps",
+      "pre": [
+        "access to 10004/10005/10007",
+        "PK warning can be triggered"
+      ],
+      "steps": [
+        "Request each flat map",
+        "Trigger common.canhBaoPK where possible"
+      ],
+      "expect": [
+        "uses frozen flat waypoint",
+        "handles PK warning without wrong-map drift"
+      ],
+      "resolves": [
+        "0.3/0.5 timing placement",
+        "flat-map polling"
+      ]
+    },
+    {
+      "id": "T06",
+      "area": "I02 active wait",
+      "pre": [
+        "force delayed common.active and stuck portal case"
+      ],
+      "steps": [
+        "Exercise _wait_active normal and click_if_stuck path",
+        "Measure polling"
+      ],
+      "expect": [
+        "30s default timeout boundary",
+        "stuck path clicks609,450 x2 at1s then continues waiting"
+      ],
+      "resolves": [
+        "wait_pixel interval/debug",
+        "stuck recovery runtime"
+      ]
+    },
+    {
+      "id": "T07",
+      "area": "I03 final point",
+      "pre": [
+        "valid saved preset"
+      ],
+      "steps": [
+        "Invoke Tới chỗ train",
+        "Capture final movement"
+      ],
+      "expect": [
+        "preset resolve -> ensure LSV -> direct move",
+        "X/Y converted x32",
+        "waits for arrival"
+      ],
+      "resolves": [
+        "shared arrival timeout actual value",
+        "map resolver runtime behavior"
+      ]
+    },
+    {
+      "id": "T08",
+      "area": "I03 validation",
+      "pre": [
+        "prepare missing preset, invalid map, invalid X/Y"
+      ],
+      "steps": [
+        "Invoke Tới chỗ train for each bad case"
+      ],
+      "expect": [
+        "logs correct skip reason",
+        "no unintended move"
+      ],
+      "resolves": [
+        "return-value/validation edge behavior"
+      ]
+    },
+    {
+      "id": "T09",
+      "area": "I03 timeout",
+      "pre": [
+        "make target unreachable or block AutoPath"
+      ],
+      "steps": [
+        "Invoke final move until shared arrival timeout"
+      ],
+      "expect": [
+        "logs timeout and continues task rather than hard-stopping whole Farm"
+      ],
+      "resolves": [
+        "timeout continuation runtime semantics"
+      ]
+    },
+    {
+      "id": "T10",
+      "area": "I04 leave hub",
+      "pre": [
+        "character on MapID10000"
+      ],
+      "steps": [
+        "Invoke Rời LSV",
+        "Record move/click timing and resulting map"
+      ],
+      "expect": [
+        "move to tile236,190",
+        "click887,475 then478,427",
+        "sequence completes"
+      ],
+      "resolves": [
+        "wait_for_arrival boolean",
+        "click pacing",
+        "actual exit map"
+      ]
+    },
+    {
+      "id": "T11",
+      "area": "I04 leave nonhub",
+      "pre": [
+        "character on floor/flat LSV map"
+      ],
+      "steps": [
+        "Invoke Rời LSV"
+      ],
+      "expect": [
+        "skips because current map !=10000",
+        "does not normalize floors first"
+      ],
+      "resolves": [
+        "nonhub skip runtime parity"
+      ]
+    },
+    {
+      "id": "T12",
+      "area": "I05 DMC not riding",
+      "pre": [
+        "Farm start",
+        "IsRiding=0"
+      ],
+      "steps": [
+        "Start full Farm"
+      ],
+      "expect": [
+        "one immediate Dạ Minh key send",
+        "no dismount clicks"
+      ],
+      "resolves": [
+        "one-shot ordering"
+      ]
+    },
+    {
+      "id": "T13",
+      "area": "I05 DMC riding",
+      "pre": [
+        "Farm start",
+        "IsRiding=1",
+        "exercise nguaActive false/true"
+      ],
+      "steps": [
+        "Start full Farm and capture click/key sequence"
+      ],
+      "expect": [
+        "conditional1306,340 only when required",
+        "906,688 dismount",
+        "then hidden key send"
+      ],
+      "resolves": [
+        "dismount branch runtime"
+      ]
+    },
+    {
+      "id": "T14",
+      "area": "I05 repeat one row",
+      "pre": [
+        "enable one dynamic buff row with short interval"
+      ],
+      "steps": [
+        "Start Farm",
+        "observe multiple firings"
+      ],
+      "expect": [
+        "one worker targets correct HWND",
+        "fires configured key at repeat interval"
+      ],
+      "resolves": [
+        "repeat call kwargs/effective timing"
+      ]
+    },
+    {
+      "id": "T15",
+      "area": "I05 multi-row scheduling",
+      "pre": [
+        "enable 2-3 rows with overlapping deadlines"
+      ],
+      "steps": [
+        "Run long enough for simultaneous/near-simultaneous due times"
+      ],
+      "expect": [
+        "no dropped or duplicate unintended sends"
+      ],
+      "resolves": [
+        "multi-row deadline initialization/reset/order"
+      ]
+    },
+    {
+      "id": "T16",
+      "area": "I05 zero/malformed interval",
+      "pre": [
+        "construct zero/empty/malformed values through UI/config where possible"
+      ],
+      "steps": [
+        "Load/start Farm"
+      ],
+      "expect": [
+        "observe exact skip/clamp/fallback without busy-loop"
+      ],
+      "resolves": [
+        "zero/invalid interval policy",
+        "load fallback binding"
+      ]
+    },
+    {
+      "id": "T17",
+      "area": "I05 stale buff worker",
+      "pre": [
+        "short repeat interval"
+      ],
+      "steps": [
+        "Start Farm",
+        "stop",
+        "immediately restart same account"
+      ],
+      "expect": [
+        "old generation stops sending",
+        "only new session sends"
+      ],
+      "resolves": [
+        "generation guard",
+        "thread stop/join microbehavior"
+      ]
+    },
+    {
+      "id": "T18",
+      "area": "I06 full threshold",
+      "pre": [
+        "controlled inventory near full"
+      ],
+      "steps": [
+        "Vary occupied Site10 slot count around trigger boundary",
+        "wait >10s per level"
+      ],
+      "expect": [
+        "discard begins only at exact threshold side"
+      ],
+      "resolves": [
+        "numeric FULL_BAG_THRESHOLD",
+        "comparator"
+      ]
+    },
+    {
+      "id": "T19",
+      "area": "I06 keep modes",
+      "pre": [
+        "inventory with weapon and nonweapon disposable items"
+      ],
+      "steps": [
+        "Test Không",
+        "Test Chỉ vũ khí",
+        "Test Tất cả"
+      ],
+      "expect": [
+        "none discards weapon+nonweapon per rules",
+        "weapons discards nonweapon only",
+        "all sends no discard"
+      ],
+      "resolves": [
+        "top-level keep/discard runtime parity"
+      ]
+    },
+    {
+      "id": "T20",
+      "area": "I06 discard cancellation/state",
+      "pre": [
+        "enough targets for multi-item discard"
+      ],
+      "steps": [
+        "Trigger full-bag filtering",
+        "stop Farm during discard"
+      ],
+      "expect": [
+        "Đang lọc đồ purple during pass",
+        "stop_check halts safely",
+        "previous state restored"
+      ],
+      "resolves": [
+        "steady-state gate use",
+        "discard worker lifecycle"
+      ]
+    },
+    {
+      "id": "T21",
+      "area": "I07 HP>=50",
+      "pre": [
+        "trist enabled",
+        "readable HP>=50"
+      ],
+      "steps": [
+        "Invoke treatment path"
+      ],
+      "expect": [
+        "treatment skipped",
+        "no treatment move/clicks"
+      ],
+      "resolves": [
+        "HP gate branch"
+      ]
+    },
+    {
+      "id": "T22",
+      "area": "I07 HP<50",
+      "pre": [
+        "trist enabled",
+        "readable HP<50"
+      ],
+      "steps": [
+        "Invoke treatment path"
+      ],
+      "expect": [
+        "move to Map10000 tile163,237",
+        "click892,474 and514,424 with x4 behavior"
+      ],
+      "resolves": [
+        "repeat call shape",
+        "click pacing"
+      ]
+    },
+    {
+      "id": "T23",
+      "area": "I07 unreadable HP",
+      "pre": [
+        "force character HP read failure",
+        "trist enabled"
+      ],
+      "steps": [
+        "Invoke treatment"
+      ],
+      "expect": [
+        "treatment still runs"
+      ],
+      "resolves": [
+        "fail-open heal branch"
+      ]
+    },
+    {
+      "id": "T24",
+      "area": "I07 treatment cancellation",
+      "pre": [
+        "treatment in progress"
+      ],
+      "steps": [
+        "Stop Farm during movement and during click phase"
+      ],
+      "expect": [
+        "observe exact cancellation checkpoints without unsafe continuation"
+      ],
+      "resolves": [
+        "stop_check pass-through/checkpoints"
+      ]
+    },
+    {
+      "id": "T25",
+      "area": "I08 memory veto",
+      "pre": [
+        "auto_reconnect enabled",
+        "pixels can be made to match while TCPGame Connected=True"
+      ],
+      "steps": [
+        "Hold both pixel matches for >=3 ticks"
+      ],
+      "expect": [
+        "connected=True resets/vetoes disconnect strikes",
+        "no reconnect click"
+      ],
+      "resolves": [
+        "memory veto runtime"
+      ]
+    },
+    {
+      "id": "T26",
+      "area": "I08 3-strike detect",
+      "pre": [
+        "auto_reconnect enabled",
+        "real disconnect dialog present"
+      ],
+      "steps": [
+        "Observe 2s ticks until three consecutive matches"
+      ],
+      "expect": [
+        "halt only at 3/3",
+        "about6s confirmation",
+        "movement stop occurs"
+      ],
+      "resolves": [
+        "strike counter and state setter ordering"
+      ]
+    },
+    {
+      "id": "T27",
+      "area": "I08 guarded click",
+      "pre": [
+        "disconnect detected then dialog disappears before an attempt"
+      ],
+      "steps": [
+        "Let reconnect worker reach click point"
+      ],
+      "expect": [
+        "616,455 is not clicked when dialog absent",
+        "still checks common.active"
+      ],
+      "resolves": [
+        "dialog recheck branch"
+      ]
+    },
+    {
+      "id": "T28",
+      "area": "I08 failed batches",
+      "pre": [
+        "server/unavailable state prevents reconnect"
+      ],
+      "steps": [
+        "Observe one full batch then next"
+      ],
+      "expect": [
+        "5 attempts",
+        "30s common.active window each",
+        "after batch wait30s",
+        "retry continues without disabling account"
+      ],
+      "resolves": [
+        "infinite retry runtime"
+      ]
+    },
+    {
+      "id": "T29",
+      "area": "I08 success/memory ready",
+      "pre": [
+        "reconnect succeeds and memory becomes ready gradually"
+      ],
+      "steps": [
+        "Capture success through Farm reset"
+      ],
+      "expect": [
+        "cache invalidated",
+        "reconnect_ok set",
+        "Event wait loop responsive",
+        "3 consecutive ready reads with 1s sampling"
+      ],
+      "resolves": [
+        "post-success ordering"
+      ]
+    },
+    {
+      "id": "T30",
+      "area": "I08 memory-ready timeout",
+      "pre": [
+        "common.active succeeds but RoleName/MapID stays unavailable >45s"
+      ],
+      "steps": [
+        "Observe recovery"
+      ],
+      "expect": [
+        "wait_memory_ready returns/logs failure then Farm continues fail-open"
+      ],
+      "resolves": [
+        "45s fail-open behavior",
+        "reinjection observation"
+      ]
+    },
+    {
+      "id": "T31",
+      "area": "I09 HP0 latch/count",
+      "pre": [
+        "Farm active",
+        "cause real character death"
+      ],
+      "steps": [
+        "Keep HP0 visible across multiple 4s polls"
+      ],
+      "expect": [
+        "single click792,441",
+        "single death count increment",
+        "no repeated spam"
+      ],
+      "resolves": [
+        "hp_latched reset and death-count reset policy"
+      ]
+    },
+    {
+      "id": "T32",
+      "area": "I09 Map10000 recovery",
+      "pre": [
+        "death causes recovery to hub10000"
+      ],
+      "steps": [
+        "Observe monitor and common.active"
+      ],
+      "expect": [
+        "one recovery episode via detected/respawn_event",
+        "waits for active",
+        "does not retrigger each 4s"
+      ],
+      "resolves": [
+        "detected reset/event clear",
+        "death active-wait timeout"
+      ]
+    },
+    {
+      "id": "T33",
+      "area": "I09 respawn enabled",
+      "pre": [
+        "respawn=True",
+        "saved TrainLSV preset",
+        "optional trist on"
+      ],
+      "steps": [
+        "Die and recover"
+      ],
+      "expect": [
+        "returns using selected I02/I03 target",
+        "honors treatment checkpoint when applicable"
+      ],
+      "resolves": [
+        "exact treatment/return ordering"
+      ]
+    },
+    {
+      "id": "T34",
+      "area": "I09 respawn disabled",
+      "pre": [
+        "respawn=False"
+      ],
+      "steps": [
+        "Die and recover"
+      ],
+      "expect": [
+        "record exact worker behavior after recovery without assuming return"
+      ],
+      "resolves": [
+        "respawn=False continuation"
+      ]
+    },
+    {
+      "id": "T35",
+      "area": "I09 death/reconnect race",
+      "pre": [
+        "engineered death and disconnect in same timing window"
+      ],
+      "steps": [
+        "Repeat race multiple times"
+      ],
+      "expect": [
+        "once halt is asserted reconnect path dominates",
+        "record pre-halt ordering"
+      ],
+      "resolves": [
+        "same-window arbitration"
+      ]
+    },
+    {
+      "id": "T36",
+      "area": "I10 basic persistence",
+      "pre": [
+        "create multiple coordinate rows"
+      ],
+      "steps": [
+        "Edit names/maps/X/Y",
+        "save/restart"
+      ],
+      "expect": [
+        "coord_* records restore in numeric row order",
+        "X/Y remain tile values"
+      ],
+      "resolves": [
+        "first coord index",
+        "sort-lambda behavior"
+      ]
+    },
+    {
+      "id": "T37",
+      "area": "I10 rename propagation",
+      "pre": [
+        "multiple accounts select same preset"
+      ],
+      "steps": [
+        "Rename preset"
+      ],
+      "expect": [
+        "all combo option lists refresh",
+        "old live selections become new name",
+        "persisted selection follows"
+      ],
+      "resolves": [
+        "rename-save ordering"
+      ]
+    },
+    {
+      "id": "T38",
+      "area": "I10 stale map",
+      "pre": [
+        "edit config to retired/unknown MapID and legacy map name"
+      ],
+      "steps": [
+        "Restart/load"
+      ],
+      "expect": [
+        "invalid rows skipped",
+        "no fuzzy remap"
+      ],
+      "resolves": [
+        "legacy compatibility branch"
+      ]
+    },
+    {
+      "id": "T39",
+      "area": "I10 duplicate names",
+      "pre": [
+        "attempt to create/rename two rows to identical name"
+      ],
+      "steps": [
+        "Select duplicate from an account and invoke Tới chỗ train"
+      ],
+      "expect": [
+        "record whether duplicate is rejected or which row resolves"
+      ],
+      "resolves": [
+        "duplicate prevention/winner"
+      ]
+    },
+    {
+      "id": "T40",
+      "area": "I10 delete selected preset",
+      "pre": [
+        "account currently selects preset"
+      ],
+      "steps": [
+        "Delete that preset"
+      ],
+      "expect": [
+        "record immediate combo variable behavior and persistence"
+      ],
+      "resolves": [
+        "active-selection deletion microflow"
+      ]
+    },
+    {
+      "id": "T41",
+      "area": "I10 save scheduler",
+      "pre": [
+        "instrument settings.ini timestamps"
+      ],
+      "steps": [
+        "Edit coordinate field repeatedly without waiting30s"
+      ],
+      "expect": [
+        "measure scheduled save delay/coalescing separate from periodic autosave"
+      ],
+      "resolves": [
+        "save scheduler mechanism"
+      ]
+    },
+    {
+      "id": "T42",
+      "area": "I11 bulk parallel",
+      "pre": [
+        "2-3 game windows"
+      ],
+      "steps": [
+        "Run each of four visible bulk commands"
+      ],
+      "expect": [
+        "all current rows targeted",
+        "UI remains responsive",
+        "per-account operations overlap"
+      ],
+      "resolves": [
+        "inner child thread daemon/join behavior",
+        "bulk completion ordering"
+      ]
+    },
+    {
+      "id": "T43",
+      "area": "I11 manual Fight conflict",
+      "pre": [
+        "one account full Farm active, another inactive"
+      ],
+      "steps": [
+        "Press bulk Đánh"
+      ],
+      "expect": [
+        "active Farm account skipped",
+        "inactive account receives manual StartAutoFight only"
+      ],
+      "resolves": [
+        "manual Fight top-level runtime"
+      ]
+    },
+    {
+      "id": "T44",
+      "area": "I11 mixed global START",
+      "pre": [
+        "3 accounts with one already full-Farm active"
+      ],
+      "steps": [
+        "Press large global start/toggle"
+      ],
+      "expect": [
+        "starts only inactive rows",
+        "already-active row not restarted"
+      ],
+      "resolves": [
+        "global targeting",
+        "extra permission precheck"
+      ]
+    },
+    {
+      "id": "T45",
+      "area": "I11 partial stop",
+      "pre": [
+        ">=2 active Farm accounts"
+      ],
+      "steps": [
+        "Stop one account with row button"
+      ],
+      "expect": [
+        "row shows … while draining",
+        "other account continues",
+        "global state remains running"
+      ],
+      "resolves": [
+        "partial has_remaining path",
+        "join micro-order"
+      ]
+    },
+    {
+      "id": "T46",
+      "area": "I11 full/last stop",
+      "pre": [
+        "one remaining active account"
+      ],
+      "steps": [
+        "Stop final account"
+      ],
+      "expect": [
+        "worker drains",
+        "global button returns Bắt đầu green normal",
+        "StartTab mirrors stopped state"
+      ],
+      "resolves": [
+        "last-account global-stop transition",
+        "final state setter order"
+      ]
+    },
+    {
+      "id": "T47",
+      "area": "I11 rapid generation restart",
+      "pre": [
+        "long-running movement/subaction"
+      ],
+      "steps": [
+        "Stop and immediately restart same account repeatedly"
+      ],
+      "expect": [
+        "old worker performs no action after new generation owns row"
+      ],
+      "resolves": [
+        "exact generation safety under race"
+      ]
+    },
+    {
+      "id": "T48",
+      "area": "I11 stale-window cleanup",
+      "pre": [
+        "multiple Farm accounts active"
+      ],
+      "steps": [
+        "Close all game windows unexpectedly"
+      ],
+      "expect": [
+        "automatic stop",
+        "Đang dừng... orange disabled",
+        "workers drain",
+        "final reset"
+      ],
+      "resolves": [
+        "special cleanup runtime"
+      ]
+    },
+    {
+      "id": "T49",
+      "area": "I11 StartTab mirror",
+      "pre": [
+        "TrainLSV visible and StartTab controls available"
+      ],
+      "steps": [
+        "Toggle from TrainLSV",
+        "toggle from StartTab",
+        "stop from row"
+      ],
+      "expect": [
+        "both surfaces remain synchronized in text/color/state"
+      ],
+      "resolves": [
+        "two-way mirror timing"
+      ]
+    },
+    {
+      "id": "T50",
+      "area": "I11 resize monitor",
+      "pre": [
+        "active Farm account window not1366x768"
+      ],
+      "steps": [
+        "Resize manually several times"
+      ],
+      "expect": [
+        "monitor corrects mismatch about every1s",
+        "does not resize when already correct",
+        "stops with row Farm"
+      ],
+      "resolves": [
+        "resize lifecycle"
+      ]
+    },
+    {
+      "id": "T51",
+      "area": "I11 permission",
+      "pre": [
+        "environment where TrainLSV permission/account limit denies new start"
+      ],
+      "steps": [
+        "Try row start and global start; also stop already-running account"
+      ],
+      "expect": [
+        "new start denied correctly",
+        "stop remains available",
+        "record global wrapper behavior"
+      ],
+      "resolves": [
+        "global extra permission guard"
+      ]
+    },
+    {
+      "id": "T52",
+      "area": "I11 move/leave while Farm active",
+      "pre": [
+        "full Farm active"
+      ],
+      "steps": [
+        "Press bulk Tới LSV, Tới chỗ train and Rời LSV separately"
+      ],
+      "expect": [
+        "record whether each command skips, overlaps, cancels or runs"
+      ],
+      "resolves": [
+        "unproven active-Farm conflict rules"
+      ]
+    },
+    {
+      "id": "T53",
+      "area": "I11 multi-account stress",
+      "pre": [
+        "3+ game windows"
+      ],
+      "steps": [
+        "Start all full Farm",
+        "exercise buff/filter/reconnect/death on different accounts",
+        "stop subsets"
+      ],
+      "expect": [
+        "no cross-HWND actions",
+        "no stale threads",
+        "remaining accounts continue correctly"
+      ],
+      "resolves": [
+        "aggregate concurrency and rollback semantics"
+      ]
+    }
+  ]
+}
