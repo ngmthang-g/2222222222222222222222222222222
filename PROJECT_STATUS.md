@@ -221,3 +221,17 @@ A 35-scenario Windows test plan now covers global/single Farm start-stop, partia
 This closure means the Train subsystem no longer needs to be re-researched before later reconstruction. It does **not** claim that the original Windows tool has been fully runtime-tested in the current Linux environment. H15's Windows matrix remains mandatory before any final Train runtime-parity claim.
 
 Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning with I01 module/UI/config wiring audit.
+
+
+## Gate I
+- I01 — VERIFIED_TRAINLSV_TAB_WIRING_WITH_5S_INCREMENTAL_REFRESH_30S_AUTOSAVE_DYNAMIC_COORDS_FIXED_DA_MINH_CHAU_ROW_AND_STARTTAB_MIRROR
+- I02 — NEXT
+
+I01 identifies the active Train LSV implementation as dedicated `train_lsv_tab.py / TrainLsvTab`, with its own `[TrainLSV]` settings section, 30-second config autosave, 5-second incremental account refresh, dynamic saved-coordinate rows, fixed Dạ Minh Châu schedule row, LSV-specific account actions and StartTab forwarding/mirroring.
+
+The all-account bar is `Tới LSV | Tới chỗ train | Đánh | Rời LSV` with daemon worker dispatch, while the bottom green `Bắt đầu` is the dedicated TrainLsvTab automation toggle. Deep entry, train-point, leave, schedule, pickup, treatment, reconnect, death, coordinate, command/FSM and runtime semantics remain split into I02–I12.
+
+B06 remains the visual authority and was cross-checked only after static extraction; the current screenshot hash remains `9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29`.
+
+## Gate I current
+I02 — Train LSV entry / ensure-in-LSV and Lạc Dương LSV navigation audit.
