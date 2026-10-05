@@ -1,0 +1,89 @@
+key	offset_hex	status	evidence
+row_pid_helper	0x293c258	VERIFIED_STATIC	_pid_of
+row_bind_identity	0x293c278	VERIFIED_STATIC	bind_window_identity
+row_pid_change_log	0x293c2a4	VERIFIED_STATIC	[Farm] hwnd=... đổi process (pid old -> new) — tạo lại row mới
+row_unbind_identity	0x293c318	VERIFIED_STATIC	unbind_window_identity
+row_char_info	0x293c359	VERIFIED_STATIC	_get_char_info
+row_char_name	0x293c369	VERIFIED_STATIC	_get_char_name
+row_name_label	0x293c379	VERIFIED_STATIC	lbl_name
+row_load_acc_config	0x293c391	VERIFIED_STATIC	load_acc_config
+row_map_field	0x293c3b0	VERIFIED_STATIC	MapID
+row_map_label	0x293c3b7	VERIFIED_STATIC	lbl_map_id
+row_extra_label	0x293c3c7	VERIFIED_STATIC	lbl_extra
+row_bag_cache	0x293c3d2	VERIFIED_STATIC	_bag_slots
+row_extra_start	0x293c3e0	VERIFIED_STATIC	_extra_start
+row_bound_money	0x293c3f0	VERIFIED_STATIC	BoundMoney
+row_extra_bm	0x293c3fe	VERIFIED_STATIC	_extra_bm
+row_extra_last_bm	0x293c414	VERIFIED_STATIC	_extra_last_bm
+row_extra_earned	0x293c424	VERIFIED_STATIC	_extra_earned
+row_exp	0x293c45a	VERIFIED_STATIC	Exp
+row_extra_exp	0x293c461	VERIFIED_STATIC	_extra_exp
+row_extra_last_exp	0x293c479	VERIFIED_STATIC	_extra_last_exp
+row_extra_exp_gained	0x293c48a	VERIFIED_STATIC	_extra_exp_gained
+row_format_extra	0x293c4c7	VERIFIED_STATIC	_format_extra_track
+row_play_button	0x293c567	VERIFIED_STATIC	▶
+row_state_dot	0x293c6c7	VERIFIED_STATIC	⬤
+row_initial_state	0x293c710	VERIFIED_STATIC	Đã dừng
+row_extra_initial_time	0x293c7bc	VERIFIED_STATIC	0h:00p
+row_extra_initial_bag	0x293c7cf	VERIFIED_STATIC	Túi: ?
+row_extra_initial_deaths	0x293c7d7	VERIFIED_STATIC	Chết: 0
+row_extra_initial_gold	0x293c7e2	VERIFIED_STATIC	Vàng: 0,00
+row_extra_initial_gold_rate	0x293c7ef	VERIFIED_STATIC	0,00 vàng/h
+row_extra_initial_exp_rate	0x293c7fd	VERIFIED_STATIC	0 exp/h
+row_permission_guard	0x293c82f	VERIFIED_STATIC	permission_guard
+row_runtime_fields	0x293c8ae	VERIFIED_STATIC	btn_play/lbl_state/lbl_dot/_combos/btn_move/btn_farm/btn_sell/btn_goto/_extra_start/_extra_deaths/_sell_active/_sell_stop_event/_state/_gen
+row_add_update_doc	0x293c96c	VERIFIED_STATIC	Incremental add/update; ci and bag pre-read in background; preserve map/x/y; None bag keeps old
+row_disable_no_permission	0x293cc8a	VERIFIED_STATIC	Disable newly-created row without farm_tab permission
+remove_stale_doc	0x293d90f	VERIFIED_STATIC	Remove rows for closed windows; active_hwnds passed from background
+permission_heartbeat_doc	0x293da6e	VERIFIED_STATIC	Reapply row permission each heartbeat; double guard has_permission + check_account_limit
+checked_rows_doc	0x293db05	VERIFIED_STATIC	_checked_rows returns all accounts in list
+single_farm_doc	0x293dc51	VERIFIED_STATIC	Per-row start/stop; last account stop transitions global stop
+play_sync_doc	0x293dd79	VERIFIED_STATIC	Play button mirrors _farming_acc; skip _stopping_play until cycle exits
+hwnd_alive_doc	0x293de90	VERIFIED_STATIC	Window exists + visible + bound PID matches; reused HWND rejected
+pid_read_doc	0x293dfc6	VERIFIED_STATIC	Current PID for hwnd, None on read failure
+row_ownership_doc	0x293e007	VERIFIED_STATIC	True if hwnd still belongs to row PID snapshot
+bag_helper_doc	0x29401e5	REUSED_H03	Site-10 used slots; None read error keeps old
+sanitize_doc	0x2940255	VERIFIED_STATIC	Remove HTML tags from character name
+refresh_doc	0x2940696	VERIFIED_STATIC	Background window+char memory read; main-thread UI apply; incremental add/update/remove
+refresh_apply	0x29407a0	VERIFIED_STATIC	_refresh_acc_list worker _apply
+refresh_add_update	0x29407dc	VERIFIED_STATIC	_add_or_update_row
+refresh_remove_stale	0x2940801	VERIFIED_STATIC	_remove_stale_rows
+refresh_active_hwnds	0x2940817	VERIFIED_STATIC	active_hwnds
+refresh_permission	0x2940825	VERIFIED_STATIC	_reapply_permission_state
+refresh_scroll	0x2940840	VERIFIED_STATIC	_request_scroll_update
+refresh_schedule	0x294087f	VERIFIED_STATIC	_schedule_refresh
+refresh_5s_doc	0x294090c	VERIFIED_STATIC	Tự động refresh danh sách mỗi 5 giây (incremental)
+state_style_dead	0x293a777	VERIFIED_STATIC	Đã dừng -> #555555
+state_style_return_sell	0x293a784	VERIFIED_STATIC	Về bán đồ -> #1565c0
+state_style_sell	0x293a795	VERIFIED_STATIC	Bán đồ -> #1565c0
+state_style_buy_meds	0x293a7a1	VERIFIED_STATIC	Mua thuốc -> #555555
+state_style_heal	0x293a7ae	VERIFIED_STATIC	Trị liệu -> #555555
+state_style_move_train	0x293a7bc	VERIFIED_STATIC	Tới bãi train -> #1565c0
+state_style_training	0x293a7ce	VERIFIED_STATIC	Đang train -> #2e7d32
+state_style_diaphu	0x293a7db	VERIFIED_STATIC	Về địa phủ -> #c62828
+state_style_respawn	0x293a7ee	VERIFIED_STATIC	Đang hồi sinh -> #e65100
+state_style_filter	0x293a800	VERIFIED_STATIC	Đang lọc đồ -> #8e24aa
+state_style_disconnect	0x293a813	VERIFIED_STATIC	Mất kết nối -> #b71c1c
+state_default_style	0x293a8de	VERIFIED_STATIC	STATE_DEFAULT_STYLE fg #555555
+apply_state_doc	0x2942326	VERIFIED_STATIC	Apply dot+label color; unknown state -> default gray
+fmt_vn_doc	0x29423fe	VERIFIED_STATIC	Raw gold /10000, dot thousands/comma decimals, 4 digits, divmod no float carry
+fmt_vn_float_doc	0x29424c8	VERIFIED_STATIC	Scaled float, 4 decimals, truncate
+fmt_vn_float2_doc	0x294259f	VERIFIED_STATIC	2 decimals, rounded
+fmt_vn_int_doc	0x2942622	VERIFIED_STATIC	Integer dot thousands for EXP/exp-h
+extra_start_doc	0x2942693	VERIFIED_STATIC	Start tracking time + BoundMoney/EXP baseline from first refresh, no main-thread memory read
+extra_rate_3600	0x294274f	VERIFIED_STATIC	serialized 3600 seconds/hour immediately before rate-format surface
+extra_format_doc	0x29427a3	VERIFIED_STATIC	Elapsed | bag | deaths | gold | gold/h | exp/h; positive deltas; total EXP hidden
+extra_doc_stale_3s	0x29427a3	STALE_DOC	Tracker text says bag each refresh 3s, contradicts active exact 5s refresh loop
+state_schedule_doc	0x2942aa7	VERIFIED_STATIC	State label safe from other threads
+state_main_thread_doc	0x2942b30	VERIFIED_STATIC	Marshal _apply_state_label to Tk main thread via after(0); direct cross-thread Tk can kill process
+buff_gen_doc	0x294211d	VERIFIED_STATIC	row/gen worker exits if account stops or gen changes; stale session guard
+disconnect_gen_doc	0x2941c03	VERIFIED_STATIC	watchdog exits on stop_event/_farming_acc/gen change/window death
+add_row_locals	0x2944309	VERIFIED_STATIC	self/hwnd/title/bag_slots/row/cur_pid/old_pid/... name/map_id/exp/frame/widgets...
+row_widget_locals	0x29443ab	VERIFIED_STATIC	btn_play/body/row1/lbl_name/sell_var/farm_var/cb_sell/cb_farm/row2/lbl_dot/lbl_state/lbl_map_id/buttons/row3/lbl_extra
+row_permission_locals	0x29444b6	VERIFIED_STATIC	has_permission/check_account_limit/row_enabled/row_allowed
+remove_stale_locals	0x2945773	VERIFIED_STATIC	active_hwnds/get_windows/unbind_window_identity/remaining/row/old_pid/cur_pid/bind_window_identity/threads
+refresh_worker_locals	0x2945d18	VERIFIED_STATIC	get_windows/wins/infos/hwnd/title/_apply
+exact_gen_increment_statements	-	EXPLICIT_UNKNOWN	Generation semantics verified; exact increment source statements not recovered
+stale_teardown_join_order	-	EXPLICIT_UNKNOWN	Stop/wait surfaces verified; exact join/finally order not source-visible
+fallback_character_name_exact	-	EXPLICIT_UNKNOWN	Window fallback surface exists; exact composition not needed/recovered
+per_row_selection_checkbox	-	NOT_RECOVERED	No Checkbutton/BooleanVar in Train account-row schema; _checked_rows means all rows
