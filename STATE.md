@@ -1942,30 +1942,61 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I06_PICKUP_FILTER_FLOW.md
 - docs/train_lsv/I06_PICKUP_FILTER_MODEL.json
 
+## I07 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly and performed the GitHub-first continuity check. No I07 artifacts existed; I01-I06 were already complete and were not repeated.
+- Rechecked the frozen original first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- TrainLSV treatment authority remains `.train_lsv_tab` at offset `0x2c07798`, size 37904, 1201 constants.
+- Treatment is opt-in. UI/config variable is `trist_var`; exact config default is `trist=False`.
+- `heal_map_var` and config key `heal_map` still exist for compatibility, with clean UI value `10000`, but the active frozen `_heal_at_death` doc explicitly says the treatment map is **fixed 10000** and does **not** depend on `heal_map_var`. Do not import ordinary Train H06's four-city treatment selector.
+- Exact HP gate inside `_heal_at_death`: readable `HpPercent >= 50` → skip treatment; readable `HpPercent < 50` → run treatment; unreadable HP → still run treatment.
+- This HP gate is owned by the helper itself, not only by callers. The Farm cycle also has explicit pre-train treatment log `% < 50% lúc bắt đầu → trị liệu trước` followed by `_heal_at_death`.
+- Exact fixed treatment coordinates are `TRAIN_HEAL_COORDS = {'10000': (163,237)}`: MapID **10000**, tile **(163,237)**.
+- Because the helper directly reuses the already-frozen shared `move_character` pixel contract, the derived shared movement target is **(5216,7584)** = tile ×32. The pixel pair is derived from the shared movement contract, not separately serialized.
+- `_heal_at_death` local model is `self, hwnd, stop_check, ci, hp_pct, map_id, coords, heal_tile_x, heal_tile_y, move_character, click_at, ok`.
+- The helper directly uses shared `move_character`; exact failure log is `di chuyển đến map trị liệu thất bại`. A failed move aborts the normal treatment-click completion path.
+- `stop_check` is an explicit treatment argument/API surface, proving cooperative cancellation intent. Exact pass-through/checkpoint placement inside movement/click execution remains UNKNOWN rather than imported from ordinary Train.
+- Active treatment state is exact `Trị liệu`; TrainLSV style table maps it to `#555555`. No `prev` state local is recovered, so no helper-owned previous-state restoration is proven.
+- Exact treatment click coordinates are **(892,474)** and **(514,424)**. Exact frozen doc says the two points are used **x4 lần**.
+- The treatment local tuple contains no explicit Python loop variable `_`, unlike I02's floor loop metadata. This strongly suggests the x4 behavior is delegated to the click helper's repeat/count mechanism, but exact source call shape is not byte-for-byte recovered and remains STRONG_STATIC/UNKNOWN.
+- Shared frozen `mouse.click_at` default delay is 0.5s, but TrainLSV treatment does not independently bind whether it accepts that default or overrides pacing. Effective treatment click delay/order remains UNKNOWN.
+- Ordinary Train H06's 0.2 pacing must **not** be imported: TrainLsvTab has no 0.2 float constant.
+- No post-treatment HP verification is recovered: `_heal_at_death` has no second character-info/HP local and no wait-until-HP-target loop.
+- No treatment-specific `_wait_active/wait_pixel/common.active` surface exists. Do not add a post-treatment active-screen wait.
+- Completion log is `hoàn thành trị liệu tại map ...` after the successful movement/click sequence. Exact Python return values for skip/failure/success remain UNKNOWN.
+- Death-trigger orchestration remains deferred to I09; I07 only locks the treatment primitive and the Farm-start pre-heal caller edge.
+- Only after static extraction, packaged `automove_log.txt` was searched for treatment markers, tile and click coordinates; all returned zero correlated treatment lines. I07 is **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED**.
+
+## I07 FILES
+- docs/tasks/I07.md
+- docs/train_lsv/I07_TREATMENT_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I07_TREATMENT_FLOW.md
+- docs/train_lsv/I07_TREATMENT_MODEL.json
+
 ## BLOCKERS
-None known for I07.
+None known for I08.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve I01-I05 contracts unchanged.
+- Preserve I01-I06 contracts unchanged.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
-- Preserve I06 exact keep-mode values/labels/default/mapping and the semantic that `Tất cả` means keep all / discard none.
-- Preserve I06 10-second occupied Site-10 bag polling, shared `discard_for_activity(activity='train', keys=..., stop_check=...)`, inherited 1.0s destructive discard pacing and action-4 whole-stack primitive.
-- Preserve I06 temporary `Đang lọc đồ` purple state and previous-state restoration.
-- Preserve I06 no-direct-PICKITEM finding. Do not copy ordinary H09 hidden pickup enable into TrainLSV.
-- Preserve I06 runtime-evidence scope: generic action=4 logs prove only the primitive, not TrainLSV causation.
-- Preserve I06 UNKNOWN boundaries: numeric `FULL_BAG_THRESHOLD`, exact threshold comparator instruction, exact use point of `DISCARD_STEADY_STATES`, discard-worker daemon/join micro-order and exact generation predicate.
+- Preserve I07 `trist=False` clean default and fixed treatment destination MapID 10000 / tile (163,237).
+- Preserve I07 rule that active treatment ignores legacy `heal_map_var`; do not import H06's multi-city selector.
+- Preserve I07 internal HP gate: >=50 skip, <50 heal, unreadable HP still heal.
+- Preserve I07 shared-movement failure gate, `Trị liệu` state, exact click points (892,474)/(514,424) and exact x4 treatment behavior.
+- Preserve I07 no-post-treatment-HP-check and no-treatment-specific common.active wait.
+- Preserve I07 UNKNOWN boundaries: effective click pacing, exact x4 source call shape, exact stop_check pass-through/checkpoints, branch return values, and exact active-state setter micro-order.
+- Do not copy H06's 0.2 click pacing into TrainLSV.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I07 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **I07 — Train LSV treatment routing/execution audit** only.
+3. Check GitHub first for any I08 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **I08 — Train LSV reconnect watchdog/recovery audit** only.
 5. Inspect the frozen original EXE first.
-6. Audit `trist_var`, `_heal_at_death`, exact HP gate, fixed treatment map/coordinate, shared movement call/options, exact click sequence/repeat count/pacing, state-label transitions, stop/cancellation behavior and success/failure handling.
-7. Resolve the relationship between legacy `heal_map_var` config and the active frozen treatment destination only where directly proven; do not import ordinary Train H06's four-town heal selector if TrainLSV overrides it.
-8. Keep reconnect I08, death handling I09, coordinate management I10 and all-account/FSM I11 deferred.
-9. Search packaged runtime traces only after static extraction and keep primitive-level evidence scoped.
-10. Persist I07 evidence/report, update STATE.md, and advance only to I08 after I07 verification.
+6. Audit `auto_reconnect_var`, `_disconnect_monitor`, memory connected-veto path, exact disconnect pixels/strike count/poll cadence, reconnect click, retry batching, active wait, cache invalidation, memory-ready wait, halt/reconnect_ok signaling and cancellation.
+7. Determine exactly which reconnect semantics are shared with ordinary H08 and which are independently serialized in TrainLsvTab; do not copy H08 merely by similarity.
+8. Keep death handling I09, coordinates I10 and all-account/FSM I11 deferred.
+9. Search packaged runtime traces only after static extraction and scope primitive-level evidence correctly.
+10. Persist I08 evidence/report, update STATE.md, and advance only to I09 after I08 verification.
