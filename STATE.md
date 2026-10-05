@@ -2111,32 +2111,63 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I11_ALL_FSM_FLOW.md
 - docs/train_lsv/I11_ALL_FSM_MODEL.json
 
+## I12 VERIFIED RESULTS
+- GitHub-first continuity check passed. No I12 artifacts existed; I01-I11 were already complete and were not redone.
+- Re-materialized/re-hashed the frozen specimen before final parity classification. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size 47,450,112 bytes.
+- TrainLSV marker remains `.train_lsv_tab` at `0x2c07798`. B06 remains `9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29`.
+- Re-inspected all **44** existing Phase-I artifacts before matrix construction: 11 task docs, 11 flow docs, 11 model JSON files and 11 static-evidence TSV files. No contradiction required reopening I01-I11.
+- Packaged runtime helper log remains exact SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, size 15,741,058 bytes, 387,238 lines.
+- Existing runtime primitive counts were re-derived line-by-line from the exact frozen log: AutoMove queued **16,040** / 87 PID-tagged processes; StartAutoPath **15,993** / 85; StopAutoPath **2,027** / 12; AutoFight_Main **8,511** / 91; mount-toggle Lua primitive **1,579** / 28; ItemAction spts action=4 **22,732** / 49; raw action=4 **22,734**; action=3 **206** / 8.
+- The packaged helper log contains **0 correlated top-level TrainLSV traces** for TrainLSV navigation/FSM, Dạ Minh/Buff, Nhặt đồ/filter state, treatment, reconnect, HP monitor/recovery and coordinate-management markers. Absence is not evidence the feature never ran.
+- Runtime evidence scope remains strict: generic movement/fight/action4 records prove only the low-level primitive directly logged, never the top-level TrainLSV caller/button/Farm generation.
+- Final parity matrix contains **80 rows**:
+  - **24 STATIC_VERIFIED**
+  - **3 RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE**
+  - **53 RUNTIME_ENV_REQUIRED**
+  - **0 BLOCKED**.
+- The 3 existing-runtime rows are deliberately limited to shared movement/AutoPath primitive execution, action-4 discard primitive execution and AutoFight primitive execution.
+- All unresolved I02-I11 micro-details were preserved as runtime-environment-required instead of guessed. Major deferred edges include LSV transition timing, leave wait flag/pacing, schedule deadline/zero interval behavior, numeric FULL_BAG_THRESHOLD, treatment pacing/cancel checkpoints, reconnect live timing/reinjection, death latch/reset/respawn-false behavior, coordinate duplicate/delete/save timing, and all-account thread/join/generation race details.
+- Built an explicit Windows + live-game runtime test plan with **53 scenarios** covering I02-I11: entry/floors/flat maps, final point, leave, Dạ Minh schedule, bag threshold/keep modes, treatment, reconnect, death recovery, coordinate persistence, bulk commands, start/stop, generation safety, StartTab mirroring and 3+ account stress.
+- Runtime verdict vocabulary is fixed as `PASS_ORIGINAL_CONTRACT`, `FAIL_CONTRADICTS_STATIC_CONTRACT`, or `UNVERIFIED_ENV_NOT_AVAILABLE`. An unexecuted scenario is never PASS.
+- B06 was visually cross-checked only after static evidence and remains consistent with the locked stopped/default TrainLSV UI. No geometry was remeasured.
+- Gate I decision is now **CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED**.
+- Gate I closure means the static/visual contracts are sufficient for later reconstruction handoff and Phase-J research may begin. It does **not** claim original Windows/live-game end-to-end TrainLSV parity has been executed.
+- Any later original-runtime contradiction must update only the narrow affected contract with captured evidence; do not silently reopen or rewrite unrelated I01-I11 findings.
+
+## I12 FILES
+- docs/tasks/I12.md
+- docs/train_lsv/I12_EXISTING_RUNTIME_EVIDENCE.tsv
+- docs/train_lsv/I12_RUNTIME_PARITY_MATRIX.tsv
+- docs/train_lsv/I12_RUNTIME_PARITY_REPORT.md
+- docs/train_lsv/I12_RUNTIME_TEST_PLAN.json
+- docs/train_lsv/I12_GATE_I.md
+
+## GATE I
+**CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED**
+
 ## BLOCKERS
-None known for I12.
+None known for starting Phase J research. The 53 runtime-required TrainLSV scenarios remain mandatory later for end-to-end parity but do not block continuing the PLAN's static/research phases.
 
 ## DO_NOT_TOUCH
-- Preserve I01-I10 contracts, Gate A baseline and closed Gate F/G/H handoffs.
-- Proxy runtime/network development remains locked out. Do not start Stage S early.
-- Preserve _checked_rows = all current TrainLSV rows; do not add checkboxes.
-- Preserve four visible bulk actions only; do not add a fifth visible Stop-all button.
-- Preserve bulk Đánh as manual memory StartAutoFight and separate it from full _farm_cycle.
-- Preserve manual Fight skip for accounts already running full Farm.
-- Preserve _farming_acc/_farm_threads/_gen generation-safe per-account lifecycle and cooperative stop.
-- Preserve row states ▶ green / II red / … orange and _stopping_play refresh protection.
-- Preserve global START-only-inactive / STOP-only-active behavior and partial/full drain semantics.
-- Preserve no-window cleanup orange disabled state as a special proven path, not a universal normal-stop UI.
-- Preserve StartTab mirror mapping Bắt đầu -> Train LSV.
-- Preserve I11 UNKNOWN boundaries: inner child-thread daemon/join policy, global extra permission precheck, active-Farm conflict rules for move/leave bulk commands, exact _gen mutations, ordinary stop transient button UI, join timeout/order, final state setter ordering and aggregate rollback behavior.
+- Preserve Gate A forensic baseline and closed Gate F/G/H/I research handoffs.
+- Preserve all I01-I11 frozen TrainLSV contracts and I12 matrix classifications.
+- Never silently upgrade a `RUNTIME_ENV_REQUIRED` I12 row without exact original Windows/live-game execution/observation.
+- Preserve runtime-log scope: generic AutoMove/AutoFight/action4 records prove only the primitive actually logged.
+- Preserve B06 as visual evidence only, never behavioral proof.
+- Preserve corrected disconnect-pixel tolerance 5.
+- Preserve no-direct-PICKITEM TrainLSV finding, no ordinary-Train 8-tile pre-skip, no ordinary-Train sell/medicine/return-town cycle and all other negative/absence contracts.
+- Proxy runtime/network development remains locked out.
+- Do not start Stage S source reconstruction early.
+- Phase J must use frozen TLMTool 2.1.2 as authority. Do not import phó-bản logic from older/external Than Long projects as a substitute for TLM evidence.
 
 ## NEXT_ACTION
 On CONTINUE:
-1. Read PLAN.md and STATE.md.
-2. Check GitHub first for any I12 artifacts/commits; if already complete and verified, do not redo them.
-3. Execute I12 — Train LSV parity/runtime matrix and Gate I closure only.
-4. Inspect the frozen original EXE and all I01-I11 artifacts first; do not reopen settled contracts without contradictory evidence.
-5. Build a parity matrix separating STATIC_VERIFIED, RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE and RUNTIME_ENV_REQUIRED.
-6. Reuse packaged automove_log only for the exact primitive it directly logs; do not infer top-level TrainLSV causation from generic movement/item/fight records.
-7. Produce a concrete Windows + live-game runtime test plan covering I02-I11 unknown/runtime-only edges, including LSV entry/floors, final train point, leave, Dạ Minh schedule, bag-full discard, treatment, reconnect, death recovery, coordinate persistence, bulk commands and start/stop generation safety.
-8. Cross-check B06 only as visual evidence.
-9. Close Gate I for static/visual research handoff only if the matrix has no unresolved static blocker; keep end-to-end runtime parity explicitly deferred where environment is required.
-10. Persist I12 artifacts, update STATE.md and PROJECT_STATUS.md, then advance only to Phase J if Gate I is legitimately closed.
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any J01 artifacts/commits; if already complete and verified, do not redo them.
+4. Start **J01 — Phó Bản party-formation audit** only, following the first Phase-J PLAN concern.
+5. Inspect the frozen original EXE first. Identify the active Phó Bản module/class, constructor/UI wiring and the exact party-formation surfaces needed to understand how dungeon participants/groups are formed.
+6. Separate party formation from later J tasks: leader, followers, schedule, dungeon list, run counts, status machine, drop/loot settings, Nga My buff, multiple groups, start/stop, failure/recovery and runtime tests.
+7. Use the Phó Bản screenshot baseline only after static extraction; do not infer behavior solely from UI text.
+8. Do not reuse dungeon automation logic from older user projects. TLMTool 2.1.2 is the authority.
+9. Persist J01 evidence/report and update STATE.md. Advance only to J02 after J01 verification.
