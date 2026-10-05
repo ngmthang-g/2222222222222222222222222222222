@@ -1,0 +1,122 @@
+{
+  "task": "I07",
+  "status": "VERIFIED_OPT_IN_HP50_GATE_FIXED_MAP10000_163_237_SHARED_MOVE_AND_TWO_POINT_X4_TREATMENT_WITH_LEGACY_HEAL_MAP_IGNORED_CLICK_PACING_REPEAT_CALL_SHAPE_AND_EXACT_CANCEL_CHECKPOINTS_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "trainlsv_chunk": {
+    "offset": "0x2c07798",
+    "part_size_bytes": 37904,
+    "constant_count": 1201
+  },
+  "enable": {
+    "ui_var": "trist_var",
+    "config_key": "trist",
+    "clean_default": false,
+    "label": "Trị liệu sau khi chết tại Lạc Dương LSV"
+  },
+  "legacy_heal_map": {
+    "var": "heal_map_var",
+    "config_key": "heal_map",
+    "clean_ui_value": "10000",
+    "active_destination_selector": false,
+    "frozen_doc": "fixed 10000; independent of heal_map_var"
+  },
+  "hp_gate": {
+    "field": "HpPercent",
+    "threshold_percent": 50,
+    "readable_ge_50": "skip treatment",
+    "readable_lt_50": "run treatment",
+    "unreadable": "run treatment",
+    "owned_inside_helper": true
+  },
+  "treatment_destination": {
+    "constant": "TRAIN_HEAL_COORDS",
+    "map_id": 10000,
+    "tile": [
+      163,
+      237
+    ],
+    "derived_shared_pixel": [
+      5216,
+      7584
+    ],
+    "pixel_derivation": "tile*32 using already-frozen shared move_character contract"
+  },
+  "helper": {
+    "name": "_heal_at_death",
+    "locals": [
+      "self",
+      "hwnd",
+      "stop_check",
+      "ci",
+      "hp_pct",
+      "map_id",
+      "coords",
+      "heal_tile_x",
+      "heal_tile_y",
+      "move_character",
+      "click_at",
+      "ok"
+    ],
+    "shared_move_helper": "move_character",
+    "movement_failure_log": "di chuyển đến map trị liệu thất bại",
+    "stop_check_argument": true,
+    "exact_stop_check_pass_through": "UNKNOWN",
+    "exact_branch_return_values": "UNKNOWN"
+  },
+  "state": {
+    "active_label": "Trị liệu",
+    "color": "#555555",
+    "previous_state_local": false,
+    "self_restore_previous_state": "NOT_RECOVERED"
+  },
+  "clicks": {
+    "points": [
+      [
+        892,
+        474
+      ],
+      [
+        514,
+        424
+      ]
+    ],
+    "repeat_behavior": "two treatment points x4",
+    "repeat_count": 4,
+    "explicit_python_loop_local": false,
+    "source_call_shape": "STRONG_STATIC_NOT_SOURCE_RECOVERED",
+    "effective_delay_seconds": "UNKNOWN",
+    "shared_click_at_default_delay_seconds": 0.5,
+    "ordinary_h06_0_2_imported": false
+  },
+  "post_treatment": {
+    "hp_reread": false,
+    "hp_target_verification": false,
+    "wait_active": false,
+    "common_active": false,
+    "completion_log": "hoàn thành trị liệu tại map "
+  },
+  "caller_edges": {
+    "farm_start_preheal_log": "% < 50% lúc bắt đầu → trị liệu trước",
+    "farm_start_calls_helper": true,
+    "death_recovery": "DEFERRED_I09"
+  },
+  "runtime_evidence": {
+    "packaged_log_checked": true,
+    "treatment_marker_count": 0,
+    "treatment_tile_count": 0,
+    "click1_count": 0,
+    "click2_count": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "effective click_at delay/pacing in treatment",
+    "exact source form implementing x4 repeat",
+    "exact stop_check propagation/checkpoints",
+    "exact Python return values for skip/failure/success",
+    "exact active-state setter call ordering relative to movement success"
+  ],
+  "next_task": "I08 — Train LSV reconnect watchdog/recovery audit"
+}
