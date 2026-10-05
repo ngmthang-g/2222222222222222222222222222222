@@ -1828,30 +1828,58 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I02_LSV_ENTRY_FLOW.md
 - docs/train_lsv/I02_LSV_ENTRY_MODEL.json
 
+## I03 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly and performed the GitHub-first continuity check. No I03 artifacts existed; the latest completed work was I02, so earlier I work was not redone.
+- Re-materialized the exact supplied TLMTool_2.1.2 archive and re-hashed it before analysis. Archive SHA-256 remains c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; inner TLMTool.exe SHA-256 remains 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22.
+- The directly decoded .train_lsv_tab Nuitka chunk remains well-formed at offset 0x2c07798 with encoded part size 37904 bytes and 1201 top-level constants.
+- Manual row Tới chỗ train starts from the selected farm_var saved-coordinate preset. The row callback directly references _preset_to_vars; an invalid/missing preset logs “chưa chọn tọa độ Farm hợp lệ” and does not enter the final movement path.
+- The valid row callback surface is now locked as preset resolution -> _ensure_in_lsv(... farm_map=...) -> _move_acc(...). This preserves I02 as map/floor premove and I03 as the final saved-coordinate move.
+- Exact _move_acc documentation says it moves directly to the selected coordinate with no intermediate station. It accepts a stop_check callback for Farm-cycle cancellation; manual None/no-stop semantics run the move fully.
+- _move_acc first calls _ensure_injected. Exact failure text is “bỏ qua: chưa inject được DLL”; no alternate pixel movement path is recovered for that failure.
+- The final movement helper directly imports/uses shared move_character. Its decoded local surface is self/hwnd/map_var/x_var/y_var/stop_check/_hp/move_character/map_sel/map_id/name/mid/tile_x/tile_y/pixel_x/pixel_y/ok.
+- Map selection is resolved/validated into a numeric MapID before movement. Exact validation logs are “bỏ qua: ko có bản đồ” and “bỏ qua: map_id không hợp lệ”. Module-level lookup ownership remains _map_lookup backed by shared FARM_MAP_LIST plus local _MAP_LIST/_map_values/_map_names. The exact Python label-vs-ID expression remains UNKNOWN.
+- Saved X/Y are tile coordinates. The final movement block has strip normalization, tile_x/tile_y and pixel_x/pixel_y locals plus exact integer 32, so final movement converts to pixels with x32. Invalid coordinates log “bỏ qua: tọa độ ko hợp lệ”.
+- Exact move_character keyword tuple is (wait_for_arrival, stop_check). Therefore final LSV movement requests arrival waiting and directly propagates the caller cancellation callback. There is no TrainLSV-specific timeout argument; exact arrival timeout remains owned by shared move_character.
+- I03 explicitly checked ordinary Train H05's 8-tile skip. TrainLsvTab contains no _is_near helper, no PosX/PosY constants, no distance/near-target documentation and no dx/dy/current-position locals in _move_acc. Therefore H05's explicit 8-tile pre-skip is NOT part of TrainLsvTab._move_acc and must not be copied into LSV reconstruction.
+- This does not redefine shared move_character: that shared helper may still naturally recognize exact arrival. I03 only proves there is no separate TrainLSV 8-tile pre-check.
+- After the final shared move, _move_acc has no _wait_active/wait_pixel/common.active/get_character_info or second MapID-read surface. Final point completion relies on move_character(wait_for_arrival=True); I02's common.active wait is limited to LSV map/floor transitions.
+- Success log prefix is “[Tới] Hoàn thành hwnd=”. Timeout text is “chưa đến nơi sau timeout (...) — tiếp tục tác vụ”. Thus an arrival timeout at this TrainLSV layer is logged as continue-task behavior, not an unconditional fatal Farm-cycle abort. The exact Python return value remains UNKNOWN.
+- Farm-cycle constants preserve state “Tới bãi LSV” and adjacent ensure keywords (stop_check, farm_map), consistent with the I02 premove -> I03 final move pipeline.
+- All-account Tới chỗ train remains I11. I03 locks only the reusable per-account _move_acc primitive and does not invent _move_all target/thread/conflict/join behavior.
+- Only after static extraction, packaged automove_log.txt was searched. Generic AutoMove/StartAutoPath/StopAutoPath primitives exist, but there are zero correlated lines for “[Tới] Bắt đầu”, “[Tới] hwnd=”, “[TrainLSV]” or “Tới chỗ train”. I03 is STATIC_VERIFIED, not end-to-end runtime-verified.
+
+## I03 FILES
+- docs/tasks/I03.md
+- docs/train_lsv/I03_TRAIN_POINT_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I03_TRAIN_POINT_FLOW.md
+- docs/train_lsv/I03_TRAIN_POINT_MODEL.json
+
 ## BLOCKERS
-None known for I03.
+None known for I04.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve H15 runtime evidence classifications; generic helper-log movement records do not prove top-level LSV entry success.
+- Preserve H15 runtime evidence classifications; generic movement helper logs do not prove top-level Train LSV command success.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
-- Use frozen TLM 2.1.2 `TrainLsvTab` as authority. Do not import ordinary Train logic unless the LSV module directly shares a helper/constant.
-- Preserve I01 module/UI/config wiring, exact 30s autosave, 5s refresh, StartTab forwarding/mirror, and the now-resolved fixed Dạ Minh Châu clean defaults **key 1 / 0m5s**.
-- Preserve I02 authoritative LSV IDs, normal Map3 entry coordinates/clicks, full/special LSV sets, floor/flat waypoint tables, shared move_character edge, portal/PK click points and `_wait_active(timeout=30, click_if_stuck=False)` contract.
-- Preserve I02 UNKNOWN boundaries: exact placement of the 1s normal-entry pacing constant; exact binding of the post-entry integer 3; exact 0.3/0.5 flat-branch timing calls; exact wait_pixel interval/debug; and instruction-level map-poll micro-order.
-- Do not fabricate post-gate MapID/common.active verification inside `_move_lsv`; its decoded local/call surface does not contain it.
-- Keep I03 final target-coordinate movement separate from I02 entry/premove and I04 leave-LSV.
+- Use frozen TLM 2.1.2 TrainLsvTab as authority. Do not import ordinary Train logic unless TrainLsvTab directly shares a helper/constant.
+- Preserve I01 module/UI/config wiring, exact 30s autosave, 5s refresh and resolved Dạ Minh Châu clean defaults key 1 / 0m5s.
+- Preserve I02 authoritative LSV IDs, Map3 entry, floor/flat premove tables, portal/PK clicks and _wait_active contract.
+- Preserve I03 preset -> I02 ensure -> direct _move_acc final sequence, injection guard, map/coordinate validation, tile x32 conversion, wait_for_arrival=True and direct stop_check propagation.
+- Do not add H05's 8-tile near-target skip to Train LSV. TrainLsvTab does not contain that pre-check.
+- Do not add an extra common.active/MapID verification after _move_acc; the frozen final helper relies on shared arrival waiting.
+- Preserve I03 UNKNOWN boundaries: exact label-vs-ID resolver expression, shared move_character timeout numeric value, exact _move_acc return value, and all-account _move_all semantics deferred to I11.
+- Keep I04 Rời LSV separate from I02 entry and I03 final train-point movement.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I03 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **I03 — Train LSV final train-point / “Tới chỗ train” movement audit** only.
+3. Check GitHub first for any I04 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute I04 — Train LSV Rời LSV / leave-LSV behavior audit only.
 5. Inspect the frozen original EXE first.
-6. Audit `_move_acc` and the final movement path after I02 premove: selected saved-coordinate resolver, exact map/MapID validation, tile→pixel conversion, relationship to `_ensure_in_lsv`, stop_check propagation, movement/arrival completion and failure logging.
-7. Determine whether the final path has a near-target skip, direct `move_character`, additional MapID checks, timeouts or readiness waits only where directly bound by TrainLsvTab. Do not copy H05's 8-tile near-target rule unless the LSV module itself proves it.
-8. Keep `Tới LSV` entry/premove frozen from I02 and keep `Rời LSV` deferred to I04.
-9. Search packaged runtime traces only after static extraction; generic AutoMove primitives remain primitive-level unless correlated to the LSV train-point action.
-10. Persist I03 evidence/report, update STATE.md, and advance only to I04 after I03 verification.
+6. Audit _leave_lsv: accepted starting maps, exact movement target, wait_for_arrival behavior, exit click sequence, timing/pacing constants, success/failure/skip semantics, stop/cancellation support, and whether exit is verified with MapID/common.active after clicks.
+7. Determine whether Rời LSV works only from MapID 10000 or includes floor/flat normalization before leaving; bind only what TrainLsvTab proves.
+8. Separate Rời LSV from I02 Tới LSV and I03 final train-point movement. Do not mix all-account _leave_lsv_all orchestration into I04; I11 owns bulk semantics.
+9. Search packaged runtime traces only after static extraction; generic AutoMove records remain primitive-level unless correlated to Rời LSV.
+10. Persist I04 evidence/report, update STATE.md, and advance only to I05 after I04 verification.
