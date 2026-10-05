@@ -2016,32 +2016,62 @@ H13 — Train all-account command orchestration audit.
   - docs/train/H08_RECONNECT_STATIC_EVIDENCE.tsv
 - This is a narrow evidence correction only; H08 cadence, coordinates, RGB, timeout, 3-strike logic, reconnect batching and recovery semantics were not reopened.
 
+## I09 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly and performed the GitHub-first continuity check. No I09 artifacts existed; I01-I08 were already complete and were not repeated.
+- Re-materialized/re-hashed the frozen specimen before B06/runtime cross-check. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- TrainLSV death/recovery authority remains the decoded `.train_lsv_tab` chunk at file offset `0x2c07798`, encoded size 37904, 1201 constants.
+- Return-to-train setting is `respawn_var` / config key `respawn` / label `Quay lại train khi chết`; exact clean config tuple is `('respawn', False)`. Automatic return is OFF by default.
+- Exact monitor is `TrainLsvTab._diaphu_monitor`; strongly mapped locals are `self, hwnd, respawn_event, stop_event, detected, hp_latched, click_at, get_character_info, ci, hp_pct, row_d, wait_pixel`.
+- Exact monitor documentation says it runs **every 4 seconds from the beginning of Farm**, combining MapID-10000 recovery detection and real HP-zero detection. It explicitly watches during movement/heal and is not armed only after reaching the train spot.
+- Real numeric `HpPercent == 0` triggers exact client click **(792,441)** **one time** for that latched zero episode. Unreadable/None HP is not documented as zero.
+- Dedicated `hp_latched` plus exact “hồi sinh 1 lần” behavior locks a one-shot zero-HP latch and forbids repeated click spam every 4 seconds. Exact latch-reset statement remains UNKNOWN.
+- A new row starts with `Chết: 0` and owns `_extra_deaths`. Exact tuple `('_extra_deaths',0)` sits directly in the HP-zero branch beside the respawn click. Death-counter ownership therefore belongs to the latched HP-zero handling path; repeated zero samples must not continuously increment. Exact reset on Farm restart remains UNKNOWN.
+- MapID **10000** is the TrainLSV recovery-hub signal, not ordinary Train MapID 87. Dedicated local `detected`, `respawn_event`, recovery log and event-clear surface establish a second latch around one continuous 10000 episode. Exact `detected` reset / `respawn_event.clear()` statement order remains UNKNOWN.
+- TrainLSV's death monitor directly owns `wait_pixel` and exact success text `common.active sau hồi sinh OK`; monitor documentation explicitly says the MapID10000 recovery path waits for active. Shared `common.active` remains point **(1330,33)**, RGB **(34,8,11)**, tolerance **5**.
+- Death-monitor-specific active-wait timeout/interval/debug are not independently bound. Do not copy I08's 30-second reconnect timeout or I02's active-wait timeout by analogy.
+- Recovery state is exact `Về Lạc Dương LSV`, style `#1565c0`. The full TrainLsvTab constants contain **no** `Đang hồi sinh` and no `Về địa phủ`; ordinary Train H07 state names must not be imported.
+- `_farm_cycle` owns `respawn_event` and exact log `đang ở map 10000 → xử lý hồi sinh`, proving the event changes Farm-cycle control rather than being diagnostic only.
+- Farm-cycle locals retain selected target `fm/fx/fy`, normal `Tới bãi LSV` state and the already-frozen I02/I03 premove/final-move path. No death-only hard-coded Train LSV coordinate is recovered.
+- `respawn_var` is therefore the automatic-return enable switch. When return is enabled, reconstruction must reuse the account's selected I02/I03 Train LSV target path. The exact Farm-worker behavior when `respawn=False` remains EXPLICIT UNKNOWN rather than guessed.
+- Treatment remains independent through `trist_var` and the I07 `_heal_at_death` primitive. The same Farm cycle contains the recovery branch plus the exact pre-train marker `% < 50% lúc bắt đầu → trị liệu trước` before `Tới bãi LSV`. Recovery must not invent a separate treatment implementation. Exact inline-death-branch versus next-cycle-top treatment call order remains UNKNOWN.
+- Safe recovery sequence is: HP0 one-shot respawn click → observe recovery hub MapID10000 → raise recovery event → wait common.active → Farm cycle leaves normal train work → honor optional I07 treatment → if auto return enabled reuse I02/I03 selected target → resume normal train loop. Exact statement-level ordering inside the recovery branch remains native-control-flow UNKNOWN.
+- Monitor stop is controlled by `stop_event`; exact doc says stop does not depend on `respawn_event`, avoiding deadlock on that event.
+- I08 arbitration remains separate: once reconnect `halt` is asserted, reconnect recovery takes over. Same-scheduling-window ordering before halt when death and disconnect become visible together remains UNKNOWN.
+- Only after static extraction, B06 was re-hashed at `9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29`; respawn and treatment checkboxes remain visibly unchecked. No geometry was remeasured.
+- Only after static extraction, packaged `automove_log.txt` was searched for HP-monitor, 792/441, HP0, respawn_event, recovery-state and post-respawn-active markers; no correlated top-level death/recovery trace was recovered. I09 remains **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED**.
+
+## I09 FILES
+- docs/tasks/I09.md
+- docs/train_lsv/I09_DEATH_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I09_DEATH_FLOW.md
+- docs/train_lsv/I09_DEATH_MODEL.json
+
 ## BLOCKERS
-None known for I09.
+None known for I10.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve I01-I07 contracts unchanged.
+- Preserve I01-I08 contracts unchanged.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
-- Preserve corrected disconnect-pixel tolerance **5** in both H08 and I08.
-- Preserve I08 auto_reconnect default False, 2s cadence, tri-state memory veto, dual-pixel 3-strike confirmation, exact reconnect click (616,455), five attempts per batch, 30s active wait and 30s failed-batch delay.
-- Preserve I08 infinite retry while session/window valid; reconnect failure must not disable the account.
-- Preserve I08 cache invalidation on success and `reconnect_ok` cycle-reset signaling.
-- Preserve exact TrainLSV `reconnect_ok.wait(timeout=5)`.
-- Preserve I08 `wait_memory_ready(timeout=45, need=3)` with inherited 1.0s sample interval and fail-open timeout.
-- Preserve I08 no-proven-forced-reinjection boundary.
-- Preserve I08 UNKNOWN boundaries: source placement of auto_reconnect gate, wait_pixel interval/debug, exact stop_character call microdetails, monitor exception micro-order, same-window death/disconnect arbitration, and exact Mất kết nối setter ordering.
+- Preserve I09 `respawn=False` clean default and monitor start-from-Farm-start behavior.
+- Preserve exact I09 4-second cadence, real numeric HP0 signal, one-shot **(792,441)** respawn click, HP latch, death-counter ownership and MapID10000 recovery event.
+- Preserve TrainLSV-specific recovery state `Về Lạc Dương LSV`; do not import ordinary Train `Đang hồi sinh` / `Về địa phủ`.
+- Preserve I09 post-recovery `common.active` wait but keep monitor-specific timeout/interval/debug UNKNOWN.
+- Preserve automatic return through the selected I02/I03 TrainLSV target only; do not invent a death-only coordinate.
+- Preserve I09 treatment reuse of I07 and avoid duplicate/new treatment logic.
+- Preserve I09 UNKNOWN boundaries: initial poll micro-order, hp_latched reset statement, detected/event-clear order, death active-wait args, exact respawn=False worker continuation, inline-vs-next-cycle treatment/return order, Farm-restart death-counter reset and same-window pre-halt death/reconnect ordering.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I09 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **I09 — Train LSV death handling audit** only.
+3. Check GitHub first for any I10 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **I10 — Train LSV coordinate management / saved-coordinate persistence audit** only.
 5. Inspect the frozen original EXE first.
-6. Audit `_diaphu_monitor`, HP-zero and MapID-10000 death/recovery detection, respawn-event latching, exact respawn click(s), monitor cadence, extra-death counter ownership, `respawn_var` behavior, treatment interaction and return-to-train sequencing.
-7. Determine how I08 `halt`/reconnect arbitration interrupts death/recovery work only where TrainLsvTab directly proves it; keep same-scheduling-window ordering UNKNOWN if not bound.
-8. Keep coordinates I10 and all-account/FSM I11 deferred.
-9. Search packaged runtime traces only after static extraction and scope primitive-level evidence correctly.
-10. Persist I09 evidence/report, update STATE.md, and advance only to I10 after I09 verification.
+6. Audit `_coord_rows`, `_add_coord_row`, `_remove_coord_row`, `_load_coords`, `_schedule_save_all_coords`, `_preset_to_vars`, `coord_id_for_name`, map-name/MapID normalization, X/Y persistence, row rename propagation and per-account `acc_*_train` references.
+7. Bind exact `coord_<n>` serialization format, ordering/index behavior, unknown-map handling, duplicate-name behavior and whether coordinate edits autosave immediately/debounced only where directly proven.
+8. Reconcile I10 management semantics with I03 movement: saved X/Y remain tile coordinates and final movement converts ×32. Do not reopen I02/I03 path semantics.
+9. Keep all-account commands/FSM I11 and runtime parity I12 deferred.
+10. Cross-check B06 only after static extraction; do not remeasure geometry unless EXE evidence contradicts the locked baseline.
+11. Persist I10 evidence/report, update STATE.md, and advance only to I11 after I10 verification.
