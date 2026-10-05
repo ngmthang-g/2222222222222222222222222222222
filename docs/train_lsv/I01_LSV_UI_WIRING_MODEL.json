@@ -1,0 +1,251 @@
+{
+  "task": "I01",
+  "status": "VERIFIED_TRAINLSV_TAB_WIRING_WITH_5S_INCREMENTAL_REFRESH_30S_AUTOSAVE_DYNAMIC_COORDS_FIXED_DA_MINH_CHAU_ROW_AND_STARTTAB_MIRROR",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b06_screenshot_sha256": "9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29"
+  },
+  "module": {
+    "file": "train_lsv_tab.py",
+    "class": "TrainLsvTab",
+    "description": "Train LSV Tab - Cấu hình farm liên server (LSV) với danh sách acc.",
+    "dedicated_module": true
+  },
+  "constructor": {
+    "shared_surfaces": [
+      "info_tab",
+      "notebook"
+    ],
+    "top_state_fields": [
+      "_farming",
+      "_acc_rows",
+      "_refresh_id",
+      "_region_child_count",
+      "_scroll_after",
+      "_rows_window",
+      "_importing",
+      "_farm_threads",
+      "_autosave_id",
+      "_map_lookup",
+      "_map_values",
+      "_map_names",
+      "_coord_rows",
+      "_saving_enabled"
+    ],
+    "lifecycle": [
+      "_build_ui",
+      "_load_config",
+      "<Destroy>->_save_on_destroy",
+      "_start_refresh",
+      "_autosave_loop"
+    ]
+  },
+  "config": {
+    "backend": "shared read_settings/write_settings",
+    "path": "%APPDATA%/TLMTool/settings.ini",
+    "section": "TrainLSV",
+    "key_families": [
+      "respawn",
+      "auto_reconnect",
+      "trist",
+      "heal_map",
+      "pickup_mode",
+      "buff_*",
+      "acc_*_train",
+      "coord_*"
+    ],
+    "autosave_seconds": 30,
+    "methods": [
+      "_save_config",
+      "_load_config",
+      "_load_buffs",
+      "_load_coords",
+      "load_acc_config",
+      "_save_on_destroy"
+    ]
+  },
+  "ui": {
+    "top_group": "Cấu hình Train LSV",
+    "vars": [
+      "respawn_var",
+      "auto_reconnect_var",
+      "trist_var",
+      "heal_map_var",
+      "pickup_mode_var"
+    ],
+    "bottom_toggle": {
+      "text": "Bắt đầu",
+      "bg": "#388e3c",
+      "callback": "_toggle_farm"
+    },
+    "all_account": [
+      {
+        "label": "Tới LSV",
+        "worker": "_move_lsv_all"
+      },
+      {
+        "label": "Tới chỗ train",
+        "worker": "_move_all"
+      },
+      {
+        "label": "Đánh",
+        "worker": "_farm_all"
+      },
+      {
+        "label": "Rời LSV",
+        "worker": "_leave_lsv_all"
+      }
+    ],
+    "all_action_outer_thread": {
+      "mechanism": "threading.Thread",
+      "daemon": true
+    }
+  },
+  "refresh": {
+    "discovery": "start_tab.get_windows",
+    "interval_seconds": 5,
+    "background_reads": [
+      "window list",
+      "character info",
+      "bag slots"
+    ],
+    "main_thread_apply": [
+      "_add_or_update_row",
+      "_remove_stale_rows",
+      "_reapply_permission_state",
+      "_request_scroll_update"
+    ],
+    "lifecycle": [
+      "_start_refresh",
+      "_stop_refresh",
+      "_schedule_refresh",
+      "_refresh_acc_list"
+    ],
+    "incremental": true
+  },
+  "coordinates": {
+    "store": "_coord_rows",
+    "ui_columns": [
+      "Tên",
+      "Map",
+      "X",
+      "Y",
+      "Áp dụng",
+      "Xóa"
+    ],
+    "helpers": [
+      "_add_coord_row",
+      "_toggle_coord_list",
+      "_coord_name_list",
+      "_preset_to_vars",
+      "_apply_coord_to_all",
+      "_refresh_acc_combo_values",
+      "_remove_coord_row",
+      "_schedule_save_all_coords",
+      "_load_coords"
+    ],
+    "maps": [
+      "Tần Hoàng Địa Cung Tầng 1",
+      "Tần Hoàng Địa Cung Tầng 2",
+      "Tần Hoàng Địa Cung Tầng 3",
+      "Tần Hoàng Địa Cung Tầng 4",
+      "Phàm Liên Trại",
+      "Thanh Liên Trại",
+      "Khô Vinh Đạo"
+    ],
+    "deep_semantics": "DEFERRED_I10"
+  },
+  "manual_schedule": {
+    "store": "_buff_rows",
+    "fixed_row": "_da_minh_chau_row",
+    "fixed_name": "Dạ Minh Châu",
+    "fixed_always_active": true,
+    "fixed_has_delete": false,
+    "keys": [
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "F10",
+      "1",
+      "2",
+      "3"
+    ],
+    "row_fields": [
+      "enabled_var",
+      "key_var",
+      "min_var",
+      "sec_var",
+      "fixed"
+    ],
+    "helpers": [
+      "_add_buff_row",
+      "_remove_buff_row",
+      "_get_buff_keys",
+      "_load_buffs"
+    ],
+    "config_family": "buff_*",
+    "screenshot_key_duration_are_clean_defaults": "UNKNOWN",
+    "execution": "DEFERRED_I05"
+  },
+  "account_rows": {
+    "store": "_acc_rows",
+    "header": [
+      "Nhân vật",
+      "Tọa độ Train"
+    ],
+    "pid_identity_binding": true,
+    "row_actions": [
+      "_toggle_single_farm",
+      "_ensure_in_lsv",
+      "_move_acc",
+      "_move_lsv",
+      "_farm_acc",
+      "_leave_lsv"
+    ],
+    "permission_scope": "trainlsv_tab",
+    "deep_action_semantics": "DEFERRED"
+  },
+  "shared_tabs": {
+    "start_tab_discovery": true,
+    "start_tab_ref": true,
+    "sync_helper": "_sync_start_tab_btn",
+    "starttab_quick_controls": [
+      "Train LSV",
+      "Tới LSV",
+      "Tới chỗ train",
+      "Rời LSV",
+      "Cấu hình"
+    ],
+    "starttab_is_forwarding_surface": true,
+    "constructor_surfaces": [
+      "info_tab",
+      "notebook"
+    ]
+  },
+  "visual": {
+    "authority": "B06",
+    "screenshot_hash_matches": true,
+    "geometry_remeasured": false
+  },
+  "deferred": {
+    "I02": "LSV entry / ensure-in-LSV and Lạc Dương LSV navigation",
+    "I03": "train-point movement",
+    "I04": "leave LSV",
+    "I05": "Dạ Minh Châu/manual schedule execution",
+    "I06": "pickup/filter",
+    "I07": "treatment",
+    "I08": "reconnect",
+    "I09": "death handling",
+    "I10": "coordinate semantics/persistence",
+    "I11": "all-account commands/FSM",
+    "I12": "parity/runtime classification"
+  },
+  "next_task": "I02 — Train LSV entry / ensure-in-LSV and Lạc Dương LSV navigation audit"
+}
