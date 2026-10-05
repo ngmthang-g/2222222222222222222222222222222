@@ -1,0 +1,48 @@
+key	offset_hex	status	evidence
+module_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab; part_size=37904; constants=1201
+constructor_map_lookup	0x2c0787f	VERIFIED_STATIC	_map_lookup
+constructor_farm_map_list	0x2c0788c	VERIFIED_STATIC	FARM_MAP_LIST
+constructor_local_map_list	0x2c0789b	VERIFIED_STATIC	_MAP_LIST
+constructor_map_values	0x2c078a6	VERIFIED_STATIC	_map_values
+constructor_map_names	0x2c078b3	VERIFIED_STATIC	_map_names
+row_preset_resolver	0x2c08e47	VERIFIED_STATIC	_preset_to_vars
+row_farm_var	0x2c08e58	VERIFIED_STATIC_DECODE	farm_var
+row_invalid_preset	0x2c08e71	VERIFIED_STATIC	chưa chọn tọa độ Farm hợp lệ
+row_ensure_lsv	0x2c08f32	VERIFIED_STATIC	_ensure_in_lsv
+row_ensure_map_var	0x2c08f42	STRONG_STATIC_MAPPING	mv
+row_ensure_farm_map_kw	0x2c08f46	VERIFIED_STATIC_DECODE	farm_map keyword
+row_final_move	0x2c08f52	VERIFIED_STATIC	_move_acc
+row_final_x_var	0x2c08f5d	STRONG_STATIC_MAPPING	xv
+row_final_y_var	0x2c08f61	STRONG_STATIC_MAPPING	yv
+move_start_log	0x2c0ab33	VERIFIED_STATIC	[Tới] Bắt đầu hwnd=
+move_injection_guard	0x2c0ab4f	VERIFIED_STATIC	_ensure_injected
+move_injection_failure	0x2c0ab70	VERIFIED_STATIC	bỏ qua: chưa inject được DLL
+move_shared_import	0x2c0ab96	VERIFIED_STATIC_DECODE	(move_character,)
+move_shared_helper	0x2c0aba8	VERIFIED_STATIC	move_character
+move_no_map	0x2c0abb8	VERIFIED_STATIC	bỏ qua: ko có bản đồ
+move_invalid_map	0x2c0abd7	VERIFIED_STATIC	bỏ qua: map_id không hợp lệ
+move_strip	0x2c0abfc	VERIFIED_STATIC	strip
+move_invalid_coords	0x2c0ac03	VERIFIED_STATIC	bỏ qua: tọa độ ko hợp lệ
+move_pixels_per_tile	0x2c0ac29	VERIFIED_STATIC_DECODE	32
+move_kwargs	0x2c0ac2b	VERIFIED_STATIC_DECODE	(wait_for_arrival, stop_check)
+move_success_log	0x2c0ac4b	VERIFIED_STATIC	[Tới] Hoàn thành hwnd=
+move_timeout_log	0x2c0ac71	VERIFIED_STATIC	chưa đến nơi sau timeout (
+move_timeout_continue	0x2c0ac93	VERIFIED_STATIC	) — tiếp tục tác vụ
+move_doc	0x2c0acb1	VERIFIED_STATIC	direct selected-coordinate movement; stop_check cancellation; manual None runs full movement
+lsv_map_table	0x2c0eb5b	REUSED_I02	local LSV label->MapID list
+move_acc_locals	0x2c10514	STRONG_STATIC_MAPPING	self/hwnd/map_var/x_var/y_var/stop_check/_hp/move_character/map_sel/map_id/name/mid/tile_x/tile_y/pixel_x/pixel_y/ok
+farm_cycle_state	0x2c0d71d	VERIFIED_STATIC	Tới bãi LSV
+farm_cycle_ensure_kwargs	0x2c0d72d	VERIFIED_STATIC_DECODE	(stop_check, farm_map)
+module_near_helper	-	NOT_RECOVERED	no _is_near symbol in decoded TrainLsvTab module
+module_posx	-	NOT_RECOVERED	no PosX constant in decoded TrainLsvTab module
+module_posy	-	NOT_RECOVERED	no PosY constant in decoded TrainLsvTab module
+move_acc_extra_active_wait	-	NOT_RECOVERED	_move_acc block/locals have no _wait_active/wait_pixel/common.active/get_character_info
+move_acc_specific_timeout	-	NOT_RECOVERED	no timeout keyword/value in _move_acc; timeout owned by shared move_character
+runtime_toi_start	-	NOT_RECOVERED	0 packaged automove_log lines with [Tới] Bắt đầu
+runtime_toi_hwnd	-	NOT_RECOVERED	0 packaged automove_log lines with [Tới] hwnd=
+runtime_trainlsv	-	NOT_RECOVERED	0 packaged automove_log lines with [TrainLSV]
+runtime_toi_train_label	-	NOT_RECOVERED	0 packaged automove_log lines with Tới chỗ train
+runtime_generic_movement	-	RUNTIME_PRIMITIVE_ONLY	AutoMove/StartAutoPath/StopAutoPath records exist but cannot be correlated to I03
+map_resolution_expression	-	EXPLICIT_UNKNOWN	map_sel/map_id/name/mid locals prove resolution/validation, exact source expression not instruction-bound
+shared_arrival_timeout	-	EXPLICIT_UNKNOWN	move_character called wait_for_arrival=True without I03 timeout argument
+move_acc_return_value	-	EXPLICIT_UNKNOWN	logs bind success/continue semantics; exact Python return value not recovered
