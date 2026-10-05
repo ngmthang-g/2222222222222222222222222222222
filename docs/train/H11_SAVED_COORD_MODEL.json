@@ -1,0 +1,110 @@
+{
+  "task": "H11",
+  "status": "VERIFIED_SEQUENTIAL_COORD_KEYS_PIPE_SCHEMA_LIVE_RENAME_PROPAGATION_WITH_UI_ONLY_LIST_VISIBILITY_AND_EXPLICIT_SAVE_SCHEDULER_DELAY_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "coordinate_row": {
+    "builder": "_add_coord_row",
+    "args": [
+      "name",
+      "map_val",
+      "x_val",
+      "y_val"
+    ],
+    "arg_defaults": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "fields": [
+      "name_var",
+      "map_var",
+      "x_var",
+      "y_var"
+    ],
+    "actions": [
+      "Bán",
+      "Train",
+      "✕"
+    ],
+    "generated_name": {
+      "prefix": "Tọa độ ",
+      "numbering_starts_at": 1,
+      "collision_aware": true,
+      "exact_loop_syntax": "UNKNOWN"
+    },
+    "max_rows": "NOT_RECOVERED",
+    "no_arg_map_xy_defaults": "UNKNOWN"
+  },
+  "editing": {
+    "rename_helper": "_on_name_changed",
+    "autosave_helper": "_auto_save",
+    "save_scheduler": "_schedule_save_all_coords",
+    "exact_save_delay_ms": "UNKNOWN",
+    "unrelated_scroll_debounce_ms": 30,
+    "numeric_entry_validator": "NOT_RECOVERED",
+    "map_separator_behavior": "jump to next real map"
+  },
+  "persistence": {
+    "section": "Farm",
+    "key_family": "coord_<n>",
+    "ordering": "sequential current-row index; preserve numeric row order",
+    "value_schema": "preset_name|map_id|x|y",
+    "parser": "parse_coord_value",
+    "parser_return": "(preset, mid:int, x, y) or None",
+    "map_save_resolver": "coord_id_for_name",
+    "map_load_resolver": "coord_name_for_id",
+    "unknown_map_save": "skip",
+    "retired_map_load": "skip",
+    "persistent_coord_uuid": false,
+    "exact_load_sort_lambda": "UNKNOWN"
+  },
+  "live_selection": {
+    "preset_identity": "display preset name",
+    "apply_to_all": {
+      "sell": "_apply_coord_to_all(..., target='sell')",
+      "farm": "_apply_coord_to_all(..., target='farm')"
+    },
+    "refresh_helper": "_refresh_acc_combo_values",
+    "rename_map_semantic": "old selected preset name is immediately replaced by new name",
+    "add_delete_refresh_options": true,
+    "delete_current_selection_microflow": "UNKNOWN"
+  },
+  "per_account_persistence": {
+    "keys": [
+      "acc_<character>_sell",
+      "acc_<character>_farm"
+    ],
+    "load_helper": "load_acc_config",
+    "stale_preset_on_load": "ignore unless preset still exists",
+    "exact_character_key_normalization": "UNKNOWN"
+  },
+  "list_visibility": {
+    "helper": "_toggle_coord_list",
+    "hides": [
+      "coordinate header",
+      "coordinate body"
+    ],
+    "toolbar_always_visible": true,
+    "default_visible": true,
+    "persisted": false
+  },
+  "load_safety": {
+    "surfaces": [
+      "_importing",
+      "_saving_enabled"
+    ],
+    "semantic": "config-load row creation must not corrupt/rewrite config mid-load",
+    "exact_guard_flip_order": "UNKNOWN"
+  },
+  "preserved": {
+    "H05_live_preset_resolution": true,
+    "H10_mount_behavior": true,
+    "H01_periodic_config_autosave_ms": 30000
+  },
+  "next_task": "H12 — Train per-account runtime row data / identity / state tracking audit"
+}
