@@ -191,8 +191,16 @@
       "_load_buffs"
     ],
     "config_family": "buff_*",
-    "screenshot_key_duration_are_clean_defaults": "UNKNOWN",
-    "execution": "DEFERRED_I05"
+    "screenshot_key_duration_are_clean_defaults": true,
+    "execution": "DEFERRED_I05",
+    "clean_defaults": {
+      "enabled": false,
+      "key": "1",
+      "minutes": "0",
+      "seconds": "5",
+      "fixed": false
+    },
+    "fixed_build_call": "_add_buff_row(fixed=True)"
   },
   "account_rows": {
     "store": "_acc_rows",
