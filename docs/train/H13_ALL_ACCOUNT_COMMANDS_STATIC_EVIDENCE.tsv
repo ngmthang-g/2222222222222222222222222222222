@@ -27,9 +27,9 @@ sell_all_doc	0x29400ff	VERIFIED_STATIC	Bán đồ các acc được tick — son
 goto_sell_all_doc	0x2940131	VERIFIED_STATIC	Tất cả acc tới điểm bán rồi dừng, KHÔNG bán — song song
 buy_meds_all_acc_ref	0x294018f	VERIFIED_STATIC	_buy_meds_acc
 buy_meds_all_doc	0x294019e	VERIFIED_STATIC	Mua thuốc các acc được tick — song song
-move_manual_farm_guard	0x293e723	VERIFIED_STATIC	đang farm tự động → bỏ qua thao tác thủ công (dừng farm acc trước)
-goto_sell_helper_doc	0x293f192	VERIFIED_STATIC	move to sell point shared by real sell and Tới bán đồ; return True if arrived
-goto_sell_acc_doc	0x293f4c8	VERIFIED_STATIC	Tới bán: same return route, stop at sell point, no shop/no sale
+move_manual_farm_guard	0x293e92e	VERIFIED_STATIC	đang farm tự động → bỏ qua thao tác thủ công (dừng farm acc trước)
+goto_sell_helper_doc	0x293f1a0	VERIFIED_STATIC	move to sell point shared by real sell and Tới bán đồ; return True if arrived
+goto_sell_acc_doc	0x293f978	VERIFIED_STATIC	Tới bán: same return route, stop at sell point, no shop/no sale
 buy_meds_all_rows_locals	0x29448f4	VERIFIED_STATIC	rows
 buy_meds_all_threads_locals	0x29448fa	VERIFIED_STATIC	_threads
 buy_meds_all_row_local	0x2944904	VERIFIED_STATIC	row
