@@ -1,0 +1,214 @@
+{
+  "task": "I05",
+  "status": "VERIFIED_FIXED_DA_MINH_CHAU_IMMEDIATE_DISMOUNT_AND_PER_ACCOUNT_GENERATION_GUARDED_TIMED_KEY_WORKER_USING_DLL_SYNC_INPUT_EXACT_MULTIROW_DEADLINE_ZERO_INTERVAL_REPEAT_CALL_KWARGS_AND_FIXED_CONFIG_INDEX_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "trainlsv_chunk": {
+    "name": ".train_lsv_tab",
+    "file_offset": "0x2c07798",
+    "part_size_bytes": 37904,
+    "constant_count": 1201
+  },
+  "schedule_ui": {
+    "store": "_buff_rows",
+    "fixed_row": "_da_minh_chau_row",
+    "allowed_keys": [
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "F10",
+      "1",
+      "2",
+      "3"
+    ],
+    "clean_add_defaults": {
+      "enabled": false,
+      "key": "1",
+      "minutes": "0",
+      "seconds": "5",
+      "fixed": false
+    },
+    "fixed_row_contract": {
+      "build_call": "_add_buff_row(fixed=True)",
+      "name": "Dạ Minh Châu",
+      "always_active": true,
+      "delete_button": false,
+      "clean_key": "1",
+      "clean_minutes": "0",
+      "clean_seconds": "5"
+    },
+    "dynamic_row": {
+      "enabled_checkbox": true,
+      "removable": true,
+      "fields": [
+        "enabled_var",
+        "key_var",
+        "min_var",
+        "sec_var",
+        "fixed"
+      ]
+    },
+    "time_input": {
+      "digit_validator": "_only_digits",
+      "tk_substitution": "%P",
+      "isdigit_surface": true,
+      "exact_blank_expression": "UNKNOWN"
+    }
+  },
+  "da_minh_chau_one_shot": {
+    "helper": "_trigger_da_minh_chau",
+    "semantic": "send Dạ Minh Châu key once at account Farm start",
+    "execution_modes": {
+      "wait_false": "separate thread / non-blocking mode",
+      "wait_true": "synchronous Farm-cycle mode, sequential before movement"
+    },
+    "exact_signature_default_for_wait": "UNKNOWN",
+    "dismount": {
+      "state_field": "IsRiding",
+      "not_riding": "skip dismount",
+      "riding": true,
+      "pixel_key": "common.nguaActive",
+      "conditional_click": [
+        1306,
+        340
+      ],
+      "down_mount_click": [
+        906,
+        688
+      ],
+      "down_mount_delay": 0,
+      "removed_clicks": [
+        [
+          1131,
+          121
+        ],
+        [
+          1073,
+          123
+        ]
+      ]
+    },
+    "dispatch": {
+      "helper": "keyboard.press_single_key_dll",
+      "target": "account hwnd",
+      "key": "fixed row key",
+      "delay": 0,
+      "sync": true
+    }
+  },
+  "keyboard_transport": {
+    "module": ".keyboard",
+    "chunk_offset": "0x2b5cda3",
+    "part_size_bytes": 4556,
+    "constant_count": 152,
+    "transport": "PostMessage + WM_MY_SYNC_KEY + version.dll hook",
+    "physical_keyboard": false,
+    "helper_defaults": {
+      "delay": 0.02,
+      "count": 1,
+      "pre_delay_range": [
+        0.1,
+        1
+      ],
+      "hold": null,
+      "hold_range": [
+        0.1,
+        0.5
+      ],
+      "sync": false,
+      "retries": 0,
+      "retry_delay": 0.3
+    }
+  },
+  "repeating_worker": {
+    "helper": "_buff_loop",
+    "scope": "one worker per farming account hwnd; shared tab schedule configuration",
+    "locals": [
+      "self",
+      "hwnd",
+      "stop_event",
+      "row",
+      "gen",
+      "press_single_key_dll",
+      "waited_any",
+      "rd",
+      "key",
+      "mins",
+      "secs",
+      "interval",
+      "deadline",
+      "e"
+    ],
+    "row_inputs": [
+      "enabled",
+      "key",
+      "minutes",
+      "seconds"
+    ],
+    "timing_model": "interval + deadline",
+    "key_transport": "press_single_key_dll",
+    "one_thread_per_buff_row": false,
+    "multirow_deadline_algorithm": "UNKNOWN",
+    "interval_source_expression": "STRONG_STATIC_MINUTES_SECONDS_DERIVED; exact arithmetic expression not instruction-bound",
+    "zero_or_invalid_interval_policy": "UNKNOWN",
+    "repeat_call_kwargs": {
+      "delay": "UNKNOWN",
+      "sync": "UNKNOWN",
+      "retries": "UNKNOWN"
+    }
+  },
+  "lifecycle": {
+    "farm_cycle_locals": [
+      "gen_snap",
+      "buff_stop",
+      "buff_thread",
+      "discard_stop"
+    ],
+    "stop_event": "buff_stop",
+    "generation_guard": true,
+    "stale_worker_behavior": "exit when account leaves Farm or generation changes",
+    "daemon_flag": "UNKNOWN",
+    "join_timeout_order": "UNKNOWN"
+  },
+  "persistence": {
+    "section": "TrainLSV",
+    "family": "buff_*",
+    "serialized_fields": [
+      "enabled",
+      "key",
+      "minutes",
+      "seconds"
+    ],
+    "separator": "|",
+    "schema": "buff_<n>=enabled|key|minutes|seconds",
+    "loader": "_load_buffs sorted buff_* + split('|') + _add_buff_row",
+    "fixed_row_index": "UNKNOWN",
+    "load_literal_30_binding": "UNKNOWN"
+  },
+  "runtime_evidence": {
+    "packaged_automove_log_checked": true,
+    "da_minh_lines": 0,
+    "buff_lines": 0,
+    "press_single_key_dll_lines": 0,
+    "wm_my_sync_key_lines": 0,
+    "classification": "STATIC_VERIFIED"
+  },
+  "explicit_unknowns": [
+    "exact multi-row deadline initialization/reset/order",
+    "exact zero/empty/malformed interval behavior",
+    "exact repeating _buff_loop delay/sync/retry kwargs",
+    "exact fixed Dạ Minh Châu buff_<n> persistence index/migration branch",
+    "exact buff_thread daemon/join timeout/order",
+    "exact Python default argument for _trigger_da_minh_chau wait mode",
+    "exact blank-string acceptance expression in _only_digits"
+  ],
+  "next_task": "I06 — Train LSV item pickup/filter execution audit"
+}
