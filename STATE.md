@@ -1854,32 +1854,60 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I03_TRAIN_POINT_FLOW.md
 - docs/train_lsv/I03_TRAIN_POINT_MODEL.json
 
+## I04 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly and performed the GitHub-first continuity check. No I04 artifacts existed; I01–I03 were already complete and were not repeated.
+- Rechecked the frozen original first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.exe` SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- The decoded `.train_lsv_tab` chunk remains the authority at file offset `0x2c07798`, encoded size 37904 bytes, 1201 top-level constants.
+- Exact `_leave_lsv` contract is now locked: it only proceeds when the character's current MapID is **10000**. Exact frozen text for every other map is `không phải 10000 → bỏ qua`.
+- Therefore manual/per-account `Rời LSV` does **not** normalize characters from 10014–10017 or 10004/10005/10007 back to the hub before leaving. Floor/flat maps are skipped by this helper.
+- Exact exit-gate destination is the LSV hub MapID **10000**, tile **(236,190)**, pixel **(7552,6080)**. This is the same serialized hub-gate target already locked in I02.
+- `_leave_lsv` directly reuses shared `move_character`. Its strongly mapped local surface is `self, hwnd, _hp, move_character, click_at, time, ci, current_map, ok`.
+- The movement result is checked through `ok`. Exact failure text is `di chuyển tới cổng thất bại`; the normal two-click exit sequence is not continued on that failure branch.
+- Exact frozen keyword tuple `(wait_for_arrival,)` proves that `_leave_lsv` explicitly supplies/overrides the shared movement wait-for-arrival option. The constant-only decode does not safely bind the loaded boolean value, so **True vs False remains explicit UNKNOWN** rather than guessed.
+- Exact exit-click order is locked as **(887,475)** then **(478,427)**.
+- The leave locals include `time`, so pacing exists in the helper, but its constant block introduces no leave-specific numeric timing literal. Exact sleep interval(s) and exact before/between/after placement remain UNKNOWN. Do not copy the normal Tới-LSV 1-second timing merely by analogy.
+- `_leave_lsv` has no `stop_check/stop_event` parameter in its decoded local/signature surface. Unlike I02/I03 movement helpers, no TrainLSV cancellation callback is directly passed into this leave helper.
+- The leave block does not expose `_ensure_injected`; I04 therefore does not add an explicit pre-injection step. Any injection/resource behavior inside shared helpers remains shared-helper-owned.
+- There is no post-exit verification inside `_leave_lsv`: no second `get_character_info`, no fresh MapID read, no `_wait_active`, no `wait_pixel`, and no `common.active`. Exact success log is `[Rời LSV] Hoàn thành hwnd=` after the move/click sequence.
+- Three static outcomes are now locked: non-10000 → skip; 10000 + gate move failure → log failure/no normal exit clicks; 10000 + gate move success → click (887,475), then (478,427), then completion log. Exact Python return values remain UNKNOWN.
+- `_leave_lsv` does not call `_ensure_in_lsv`, `TRAIN_FLOOR_ORDER`, or `TRAIN_FLAT_WAYPOINTS`. I02 entry/premove and I03 final train-point movement remain separate and unchanged.
+- All-account `_leave_lsv_all` orchestration remains deferred to I11. I04 locks only the per-account primitive.
+- Only after static extraction, packaged `automove_log.txt` was searched for `[Rời LSV]`, `Rời LSV`, and the two exit-click coordinates. No correlated top-level leave trace was recovered. Generic movement records remain primitive-level evidence only.
+- I04 classification is **STATIC_VERIFIED**, not end-to-end runtime parity.
+
+## I04 FILES
+- docs/tasks/I04.md
+- docs/train_lsv/I04_LEAVE_LSV_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I04_LEAVE_LSV_FLOW.md
+- docs/train_lsv/I04_LEAVE_LSV_MODEL.json
+
 ## BLOCKERS
-None known for I04.
+None known for I05.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve H15 runtime evidence classifications; generic movement helper logs do not prove top-level Train LSV command success.
+- Preserve H15 runtime-evidence classifications; generic AutoMove/AutoPath traces do not prove top-level Train LSV actions.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
-- Use frozen TLM 2.1.2 TrainLsvTab as authority. Do not import ordinary Train logic unless TrainLsvTab directly shares a helper/constant.
-- Preserve I01 module/UI/config wiring, exact 30s autosave, 5s refresh and resolved Dạ Minh Châu clean defaults key 1 / 0m5s.
-- Preserve I02 authoritative LSV IDs, Map3 entry, floor/flat premove tables, portal/PK clicks and _wait_active contract.
-- Preserve I03 preset -> I02 ensure -> direct _move_acc final sequence, injection guard, map/coordinate validation, tile x32 conversion, wait_for_arrival=True and direct stop_check propagation.
-- Do not add H05's 8-tile near-target skip to Train LSV. TrainLsvTab does not contain that pre-check.
-- Do not add an extra common.active/MapID verification after _move_acc; the frozen final helper relies on shared arrival waiting.
-- Preserve I03 UNKNOWN boundaries: exact label-vs-ID resolver expression, shared move_character timeout numeric value, exact _move_acc return value, and all-account _move_all semantics deferred to I11.
-- Keep I04 Rời LSV separate from I02 entry and I03 final train-point movement.
+- Use frozen TLM 2.1.2 `TrainLsvTab` as authority; do not import ordinary Train logic unless the LSV module directly reuses a shared helper.
+- Preserve I01 module/UI/config wiring, 30s autosave, 5s refresh and resolved fixed Dạ Minh Châu clean defaults key 1 / 0m5s.
+- Preserve I02 Map3 entry, LSV IDs, floor/flat premove tables, portal/PK handling and `_wait_active` contract.
+- Preserve I03 preset -> I02 ensure -> direct `_move_acc`, x32 tile conversion, wait_for_arrival keyword, direct stop_check propagation and absence of an LSV-specific 8-tile pre-skip.
+- Preserve I04 hub-only leave behavior: only MapID 10000 proceeds; floor/flat maps are skipped rather than normalized.
+- Preserve I04 gate target 10000/(236,190), exact exit clicks (887,475) -> (478,427), move-result failure gate, absence of direct stop_check, absence of explicit injection guard, and absence of post-exit MapID/common.active verification.
+- Preserve I04 UNKNOWN boundaries: boolean value of the explicit wait_for_arrival keyword, exact click pacing/sleep placement, exact branch return values, and all-account `_leave_lsv_all` orchestration deferred to I11.
+- Do not infer exit success from the completion log as a verified destination-map change; the frozen helper does not perform that verification.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I04 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute I04 — Train LSV Rời LSV / leave-LSV behavior audit only.
+3. Check GitHub first for any I05 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **I05 — Train LSV Dạ Minh Châu / manual timed-key schedule execution audit** only.
 5. Inspect the frozen original EXE first.
-6. Audit _leave_lsv: accepted starting maps, exact movement target, wait_for_arrival behavior, exit click sequence, timing/pacing constants, success/failure/skip semantics, stop/cancellation support, and whether exit is verified with MapID/common.active after clicks.
-7. Determine whether Rời LSV works only from MapID 10000 or includes floor/flat normalization before leaving; bind only what TrainLsvTab proves.
-8. Separate Rời LSV from I02 Tới LSV and I03 final train-point movement. Do not mix all-account _leave_lsv_all orchestration into I04; I11 owns bulk semantics.
-9. Search packaged runtime traces only after static extraction; generic AutoMove records remain primitive-level unless correlated to Rời LSV.
-10. Persist I04 evidence/report, update STATE.md, and advance only to I05 after I04 verification.
+6. Audit the fixed `_da_minh_chau_row`, dynamic `_buff_rows`, schedule parsing, next-fire/elapsed timing, key dispatch mechanism, per-account/all-account scope, whether keys are sent by hidden/internal/window input, row enable rules, fixed-row special handling, and cancellation/thread lifecycle.
+7. Bind exact clean defaults already resolved in I01: fixed row key=1, minutes=0, seconds=5. Do not re-open them unless new EXE evidence contradicts the decoded defaults.
+8. Determine how additional user-added rows differ from fixed Dạ Minh Châu, including enabled checkbox, remove behavior, config persistence and zero/invalid interval handling.
+9. Keep pickup/filter deferred to I06 and do not mix Farm FSM/all-account orchestration beyond the schedule worker boundary; I11 owns the broader command/FSM layer.
+10. Search packaged runtime traces only after static extraction; generic key/click/helper records are not enough unless correlated to TrainLSV schedule execution.
+11. Persist I05 evidence/report, update STATE.md, and advance only to I06 after I05 verification.
