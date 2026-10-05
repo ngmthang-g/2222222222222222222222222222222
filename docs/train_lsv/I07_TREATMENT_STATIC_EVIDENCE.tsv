@@ -1,0 +1,44 @@
+key	offset_hex	status	evidence
+trainlsv_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab size=37904 constants=1201
+trist_var	0x2c07d02	VERIFIED_STATIC	trist_var
+trist_label	0x2c07d0d	VERIFIED_STATIC	Trị liệu sau khi chết tại Lạc Dương LSV
+heal_map_clean_value	0x2c07d4d	VERIFIED_STATIC_DECODE	('10000',)
+heal_map_var	0x2c07d56	VERIFIED_STATIC	heal_map_var
+hp_field_default_surface	0x2c0cd29	VERIFIED_STATIC_DECODE	('HpPercent',100)
+hp_100_constant	0x2c0cd38	VERIFIED_STATIC_DECODE	100
+hp_threshold	0x2c0cd3a	VERIFIED_STATIC_DECODE	50
+heal_log_prefix	0x2c0cd3c	VERIFIED_STATIC	[Trị liệu] hwnd=
+heal_hp_log	0x2c0cd52	VERIFIED_STATIC	HP
+heal_skip_ge50	0x2c0cd58	VERIFIED_STATIC	% ≥ 50% → bỏ qua trị liệu
+heal_run_lt50	0x2c0cd7d	VERIFIED_STATIC	% < 50% → thực hiện trị liệu
+heal_on_unreadable	0x2c0cda5	VERIFIED_STATIC	không đọc được HP → vẫn trị liệu
+heal_coords_symbol	0x2c0cdd8	VERIFIED_STATIC	TRAIN_HEAL_COORDS
+heal_coords_local	0x2c0cdeb	VERIFIED_STATIC_DECODE	('10000',(163,237))
+heal_move_failure	0x2c0cdfc	VERIFIED_STATIC	di chuyển đến map trị liệu thất bại
+heal_state	0x2c0ce2f	VERIFIED_STATIC	Trị liệu
+heal_click_1	0x2c0ce3d	VERIFIED_STATIC_DECODE	(892,474)
+heal_click_2	0x2c0ce45	VERIFIED_STATIC_DECODE	(514,424)
+heal_complete	0x2c0ce4d	VERIFIED_STATIC	hoàn thành trị liệu tại map
+heal_doc	0x2c0ce74	VERIFIED_STATIC	fixed map10000 (163,237), two points x4, ignores heal_map_var, HP<50 only
+farm_preheal_log	0x2c0d6d8	VERIFIED_STATIC	% < 50% lúc bắt đầu → trị liệu trước
+farm_heal_call	0x2c0d70d	VERIFIED_STATIC	_heal_at_death
+config_trist_key	0x2c0e5b4	VERIFIED_STATIC	trist
+config_heal_map_key	0x2c0e5bb	VERIFIED_STATIC	heal_map
+config_trist_default	0x2c0e6c9	VERIFIED_STATIC_DECODE	('trist',False)
+config_heal_map_load	0x2c0e6e1	VERIFIED_STATIC_DECODE	('heal_map',)
+heal_coords_global	0x2c0ec46	VERIFIED_STATIC_DECODE	{'10000':(163,237)}
+state_style	0x2c0ed4c	VERIFIED_STATIC_DECODE	Trị liệu -> #555555
+heal_qualname	0x2c0f527	VERIFIED_STATIC	TrainLsvTab._heal_at_death
+heal_locals	0x2c10350	STRONG_STATIC_MAPPING	self/hwnd/stop_check/ci/hp_pct/map_id/coords/heal_tile_x/heal_tile_y/move_character/click_at/ok
+heal_pixel_x	-	DERIVED_SHARED_CONTRACT	163*32=5216 from shared move_character pixel contract
+heal_pixel_y	-	DERIVED_SHARED_CONTRACT	237*32=7584 from shared move_character pixel contract
+heal_loop_local	-	NOT_RECOVERED	no explicit '_' loop target in _heal_at_death local tuple
+heal_post_hp_read	-	NOT_RECOVERED	no second ci/hp local in helper
+heal_post_active_wait	-	NOT_RECOVERED	no _wait_active/wait_pixel/common.active in helper local surface
+heal_click_delay	-	EXPLICIT_UNKNOWN	shared click_at default is 0.5s; TrainLSV treatment override not bound
+heal_repeat_call_shape	-	STRONG_STATIC_UNKNOWN	x4 exact; count-helper vs equivalent source shape not byte-for-byte recovered
+heal_cancel_checkpoints	-	EXPLICIT_UNKNOWN	stop_check argument verified; exact pass-through/recheck points not bound
+runtime_heal_marker	-	NOT_RECOVERED	0 [Trị liệu]/Trị liệu lines in packaged automove_log
+runtime_heal_tile	-	NOT_RECOVERED	0 163,237 treatment-coordinate lines
+runtime_heal_click1	-	NOT_RECOVERED	0 892,474 lines
+runtime_heal_click2	-	NOT_RECOVERED	0 514,424 lines
