@@ -2046,32 +2046,54 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I09_DEATH_FLOW.md
 - docs/train_lsv/I09_DEATH_MODEL.json
 
+## I10 VERIFIED RESULTS
+- GitHub-first continuity check passed. I10 did not exist; I01-I09 were already complete and were not redone.
+- Frozen archive/EXE hashes remain unchanged.
+- TrainLSV uses dynamic coordinate rows with name/map/X/Y plus Train apply and delete. There is no coordinate Sell action.
+- _add_coord_row has four None defaults. It contains generated-name prefix "Tọa độ " and current-name awareness; exact generated suffix/start remains UNKNOWN.
+- Current TrainLSV map list remains the seven LSV maps already locked by I02.
+- TrainLsvTab contains no FarmTab-style map separator handler or ===== literal.
+- Coordinates persist in [TrainLSV] under coord_* keys. Save uses coord_id_for_name; unknown map rows are skipped.
+- Shared parse_coord_value locks value schema preset_name|map_id|x|y and treats the last three pipe fields as map ID, X, Y. Map ID is normalized to int.
+- _load_coords sorts coord keys, parses them, maps MapID back to a current display name and recreates dynamic rows. Retired numeric/legacy map values are skipped rather than guessed.
+- Exact first coord numeric suffix and exact sort-lambda source remain UNKNOWN.
+- Preset identity is the display name. Rename propagates immediately to all account Train comboboxes and current old-name selections.
+- Add/delete also refresh account Train combobox options. Exact selected-value behavior after deleting the active preset remains UNKNOWN.
+- No manual duplicate-name rejection surface is recovered; exact duplicate resolver winner remains UNKNOWN.
+- _apply_coord_to_all applies the preset name to every account Train combobox.
+- Per-account saved selection uses the acc_..._train key family. load_acc_config restores it only when the preset still exists.
+- Coordinate edits are save-wired through _auto_save, _on_name_changed and _schedule_save_all_coords. Exact scheduler delay/thread/debounce mechanism remains UNKNOWN.
+- _importing/_saving_enabled provide load/save guard surfaces; exact flip order remains UNKNOWN.
+- I01 periodic config autosave remains exactly 30 seconds.
+- I03 remains authoritative for execution: saved X/Y are tile coordinates and final movement converts by x32.
+- B06 hash remains 9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29. Coordinate area is visible and empty in that capture; no geometry was remeasured.
+- Packaged automove_log contains no correlated coordinate-management trace. I10 is STATIC_VERIFIED / RUNTIME_ENV_REQUIRED for persistence microbehavior.
+
+## I10 FILES
+- docs/tasks/I10.md
+- docs/train_lsv/I10_COORDS_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I10_COORDS_FLOW.md
+- docs/train_lsv/I10_COORDS_MODEL.json
+
 ## BLOCKERS
-None known for I10.
+None known for I11.
 
 ## DO_NOT_TOUCH
-- Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve I01-I08 contracts unchanged.
-- Proxy runtime/network development remains locked out.
-- Do not start Stage S source reconstruction early.
-- Preserve I09 `respawn=False` clean default and monitor start-from-Farm-start behavior.
-- Preserve exact I09 4-second cadence, real numeric HP0 signal, one-shot **(792,441)** respawn click, HP latch, death-counter ownership and MapID10000 recovery event.
-- Preserve TrainLSV-specific recovery state `Về Lạc Dương LSV`; do not import ordinary Train `Đang hồi sinh` / `Về địa phủ`.
-- Preserve I09 post-recovery `common.active` wait but keep monitor-specific timeout/interval/debug UNKNOWN.
-- Preserve automatic return through the selected I02/I03 TrainLSV target only; do not invent a death-only coordinate.
-- Preserve I09 treatment reuse of I07 and avoid duplicate/new treatment logic.
-- Preserve I09 UNKNOWN boundaries: initial poll micro-order, hp_latched reset statement, detected/event-clear order, death active-wait args, exact respawn=False worker continuation, inline-vs-next-cycle treatment/return order, Farm-restart death-counter reset and same-window pre-halt death/reconnect ordering.
+- Preserve I01-I09 contracts, Gate A baseline and closed Gate F/G/H handoffs.
+- Proxy runtime/network development remains locked out. Do not start Stage S early.
+- Preserve Train-only coordinate actions; do not add ordinary Train Sell-coordinate behavior or map-separator behavior.
+- Preserve TrainLSV coord key family and preset_name|map_id|x|y schema, stale-map skip behavior, name-based selection and rename propagation.
+- Preserve per-account acc_*_train persistence and I03 tile-to-pixel execution boundary.
+- Keep UNKNOWN: generated-name numbering, first coord index, exact sort lambda, duplicate resolution, active-selection deletion microflow, save scheduler mechanism, load/save guard micro-order and character-key escaping.
 
 ## NEXT_ACTION
 On CONTINUE:
-1. Read PLAN.md.
-2. Read STATE.md.
-3. Check GitHub first for any I10 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **I10 — Train LSV coordinate management / saved-coordinate persistence audit** only.
-5. Inspect the frozen original EXE first.
-6. Audit `_coord_rows`, `_add_coord_row`, `_remove_coord_row`, `_load_coords`, `_schedule_save_all_coords`, `_preset_to_vars`, `coord_id_for_name`, map-name/MapID normalization, X/Y persistence, row rename propagation and per-account `acc_*_train` references.
-7. Bind exact `coord_<n>` serialization format, ordering/index behavior, unknown-map handling, duplicate-name behavior and whether coordinate edits autosave immediately/debounced only where directly proven.
-8. Reconcile I10 management semantics with I03 movement: saved X/Y remain tile coordinates and final movement converts ×32. Do not reopen I02/I03 path semantics.
-9. Keep all-account commands/FSM I11 and runtime parity I12 deferred.
-10. Cross-check B06 only after static extraction; do not remeasure geometry unless EXE evidence contradicts the locked baseline.
-11. Persist I10 evidence/report, update STATE.md, and advance only to I11 after I10 verification.
+1. Read PLAN.md and STATE.md.
+2. Check GitHub first for I11 artifacts; do not redo completed work.
+3. Execute I11 — Train LSV all-account commands / start-stop/FSM orchestration only.
+4. Inspect the frozen EXE first.
+5. Audit _checked_rows, _move_lsv_all, _move_all, _farm_all, _leave_lsv_all, _stop_all, _toggle_farm, _toggle_single_farm, _wait_farm_stop, _farm_threads, _farming_acc, _gen, _stopping_play, _refresh_play_buttons and _sync_start_tab_btn.
+6. Bind target-row semantics, parallelism, conflict/skip rules, global/single start-stop, button states, cooperative cancellation, generation safety and StartTab mirroring only where TrainLsvTab proves them.
+7. Reuse I02-I10 primitives only at directly wired edges; do not import H13/H14 ordinary Train behavior by similarity.
+8. Keep I12 runtime parity deferred.
+9. Persist I11 evidence/report, update STATE.md and advance only after I11 verification.
