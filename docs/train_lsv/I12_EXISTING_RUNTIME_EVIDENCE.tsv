@@ -1,0 +1,26 @@
+category	signal	metric	value	classification	scope_note
+archive	TLMTool_2.1.2(5).zip	SHA256	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd	SPECIMEN_AUTHORITY	Frozen supplied archive
+inner_exe	TLMTool.dist/TLMTool.exe	SHA256	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22	SPECIMEN_AUTHORITY	47,450,112-byte Nuitka Windows GUI executable
+trainlsv_chunk	.train_lsv_tab	offset/size/constants	0x2c07798 / 37904 / 1201	STATIC_AUTHORITY	Direct decoded TrainLSV constant chunk
+b06	TLMTool_f3mEgGoLlz(5).png	SHA256	9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29	VISUAL_AUTHORITY	452x1032 Train LSV stopped/default screenshot
+automove_log	data/automove_log.txt	SHA256	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500	RUNTIME_SOURCE	15,741,058 bytes; 387,238 lines
+movement	AutoMove queued	line count	16040	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	87 PID-tagged processes; generic primitive only
+movement	StartAutoPath called	line count	15993	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	85 PID-tagged processes; generic primitive only
+movement	StopAutoPath called	line count	2027	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	12 PID-tagged processes; generic primitive only
+fight	AutoFight_Main	line count	8511	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	91 PID-tagged processes; generic primitive only
+mount	Game.SendToggleRideState(Game.CurrentMountSlot)	line count	1579	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	28 PID-tagged processes; shared primitive, not top-level TrainLSV proof
+discard	ItemAction spts sent action=4	line count	22732	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	49 PID-tagged processes; low-level discard/item-action primitive
+discard	action=4	raw substring line count	22734	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	Includes two additional non-spts action=4 lines
+item_action	action=3	line count	206	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	8 PID-tagged processes; not promoted to TrainLSV contract
+top_level	[TrainLSV]	line count	0	NO_CORRELATED_TOP_LEVEL_TRACE	Absence is not proof feature never ran
+top_level	Tới LSV	line count	0	NO_CORRELATED_TOP_LEVEL_TRACE	No direct top-level TrainLSV navigation trace
+top_level	Tới chỗ train	line count	0	NO_CORRELATED_TOP_LEVEL_TRACE	No direct top-level final-point trace
+top_level	Rời LSV	line count	0	NO_CORRELATED_TOP_LEVEL_TRACE	No direct top-level leave trace
+top_level	[Đánh]	line count	0	NO_CORRELATED_TOP_LEVEL_TRACE	No direct manual Fight trace
+top_level	Bắt đầu farm acc / Dừng farm acc	line count	0 / 0	NO_CORRELATED_TOP_LEVEL_TRACE	No direct per-account FSM trace
+schedule	[Dạ Minh Châu] / [Buff]	line count	0 / 0	NO_CORRELATED_TOP_LEVEL_TRACE	No direct timed-key trace
+filter	[Nhặt đồ] / Đang lọc đồ	line count	0 / 0	NO_CORRELATED_TOP_LEVEL_TRACE	Action=4 exists but cannot be causally assigned to TrainLSV
+treatment	[Trị liệu]	line count	0	NO_CORRELATED_TOP_LEVEL_TRACE	No treatment trace
+reconnect	MAT KET NOI / Chờ kết nối lại	line count	0 / 0	NO_CORRELATED_TOP_LEVEL_TRACE	No reconnect trace
+death	[HP Monitor] / Về Lạc Dương LSV	line count	0 / 0	NO_CORRELATED_TOP_LEVEL_TRACE	No death/recovery trace
+coords	coord_	line count	0	NO_CORRELATED_TOP_LEVEL_TRACE	No config-coordinate trace in helper log
