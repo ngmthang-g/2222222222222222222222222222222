@@ -1909,31 +1909,63 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I05_BUFF_SCHEDULE_FLOW.md
 - docs/train_lsv/I05_BUFF_SCHEDULE_MODEL.json
 
+## I06 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly and performed the GitHub-first continuity check. No I06 artifacts existed; I01-I05 were already complete and were not repeated.
+- Rechecked the frozen original first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- TrainLSV authority remains `.train_lsv_tab` at file offset `0x2c07798`, size 37904, 1201 constants. Shared filtering authority was independently decoded from `.bag_filter` at `0x28d5db3`, size 5162, 145 constants.
+- The TrainLSV `Nhặt đồ` radio is a keep/discard policy. It is backed by `pickup_mode_var/PICKUP_MODE_DEFAULT/PICKUP_MODE_LABELS/PICKUP_MODES/PICKUP_PRESET_KEYS/get_pickup_preset_keys` and aliases the shared bag-filter keep-mode contract.
+- Exact shared modes/labels/default are: `none=Không`, `weapons=Chỉ vũ khí`, `all=Tất cả`, default `all`.
+- Exact preset-key mapping is locked: `none -> [discard_weapons, discard_nonweapon]`; `weapons -> [discard_nonweapon]`; `all -> []`.
+- Therefore TrainLSV default `Tất cả` means **keep everything / discard nothing**, not “enable pickup of all items”.
+- Shared `discard_for_activity` exact docs say `None/[] -> KHONG vut gi`; empty rules return zero without scanning/touching game or sending packets.
+- Train activity provides `discard_nonweapon` plus explicit `discard_weapons` with `match_weapons=True`. Shared filter OR-merges selected rules, deduplicates by dbID and performs one discard pass.
+- Low-level discard path is exact: shared `discard_items` uses `abandon_item`, action **4**, whole-stack packet `100005 "4:dbID"`, and returns `total/ok/fail/skipped/stopped/targets`.
+- TrainLSV `_discard_loop` calls shared `discard_for_activity` with activity `train` and exact kwargs `keys, stop_check`. It does not override the shared delay/dry-run defaults.
+- Shared `discard_for_activity` defaults decode as `keys=None, extra_rules=None, delay=1.0, stop_check=None, on_progress=None, dry_run=False`. Effective TrainLSV discard pacing therefore inherits **1.0s** and real destructive mode.
+- TrainLSV bag metric is occupied Site-10 slots. `_get_bag_slots` calls `memory_items.get_bag` and reads `slots`; exact doc says “Số ô túi đồ đang dùng (Site 10)” and returns None on read failure.
+- Exact discard watcher cadence is **10 seconds**. Frozen worker doc independently says “đọc slots mỗi 10s, chỉ vứt khi túi đầy.”
+- `_discard_loop` directly references `FULL_BAG_THRESHOLD`, but the numeric threshold is **not safely bound** by current static evidence. Do not guess 98/100/etc and do not import ordinary H03's also-unresolved threshold.
+- Safe full-bag boundary: live occupied `slots` are threshold-gated; only the “full” side runs a discard pass. Unreadable bag samples are not evidence of full and must not trigger destructive discard.
+- Temporary state is exact: `Đang lọc đồ`, style `#8e24aa`. Worker locals contain `row, prev`; exact doc says show purple while discarding then restore the previous state.
+- Serialized discard steady-state set is exactly `{'Đang train LSV'}`. Its exact native placement as eligibility gate vs restoration guard remains unbound; do not invent extra state branches.
+- Worker error/result surfaces are exact: `[Nhặt đồ] hwnd=... vứt lỗi: ...`, slot-count “túi đầy (...)”, total discarded, and separate fail count.
+- `_discard_loop` local surface is account-targeted: `self, hwnd, stop_event, stop_check, BF, MI, _bag, _slots, keys, row, prev, res, e`.
+- Farm-cycle locals contain dedicated `discard_stop` alongside `gen_snap/buff_stop/buff_thread`; the discard watcher belongs to the per-account Farm session. Exact discard-thread handle retention, daemon/join micro-order and exact generation predicate inside the discard loop remain UNKNOWN.
+- Full decoded TrainLsvTab constants contain **no** `PICKITEM`, `IsOn`, `set_auto_fields`, `PickRanger` or `IsFilterItem`. I06 therefore finds **no direct TrainLSV hidden auto-pick enable** analogous to ordinary Train H09. Do not import H09's `PICKITEM.IsOn=true` path into TrainLSV without later direct evidence.
+- Only after static extraction, packaged automove_log was searched. Top-level `[Nhặt đồ]`, `Đang lọc đồ`, `discard_for_activity`, `PICKITEM` and `IsOn=true` markers were absent.
+- Existing runtime log does contain action-4 item primitives: **22,734** raw `action=4` occurrences and **22,732** `ItemAction spts sent action=4` occurrences; prior H15 parsing found action-4 records across **49 PID-tagged processes**.
+- Runtime classification remains scoped: action-4 primitive execution is runtime-evidenced, but there is no top-level correlation proving those records came from TrainLSV's bag-full watcher. TrainLSV I06 trigger remains STATIC_VERIFIED / runtime-environment-required.
+
+## I06 FILES
+- docs/tasks/I06.md
+- docs/train_lsv/I06_PICKUP_FILTER_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I06_PICKUP_FILTER_FLOW.md
+- docs/train_lsv/I06_PICKUP_FILTER_MODEL.json
+
 ## BLOCKERS
-None known for I06.
+None known for I07.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve I01-I04 contracts unchanged.
+- Preserve I01-I05 contracts unchanged.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
-- Preserve I05 fixed Dạ Minh defaults **key 1 / 0m5s**, always-active/no-delete UI, and dynamic-row default disabled/key1/0m5s/removable.
-- Preserve I05 immediate one-shot trigger, exact dismount points **(1306,340)** and **(906,688)**, and removal of old points **(1131,121)/(1073,123)**.
-- Preserve I05 one-shot call `press_single_key_dll(hwnd,key,delay=0,sync=True)` and targeted hidden-window transport.
-- Preserve I05 per-account repeating worker, dedicated `buff_stop/buff_thread`, generation barrier, and `buff_<n>=enabled|key|minutes|seconds` persistence.
-- Preserve I05 UNKNOWN boundaries: exact multi-row deadline/reset order, zero/invalid interval policy, repeating call options, fixed-row persisted index/migration, worker daemon/join micro-order, and exact trigger-wait signature default.
-- Do not import ordinary FarmTab buff-worker details as proof for TrainLSV.
+- Preserve I06 exact keep-mode values/labels/default/mapping and the semantic that `Tất cả` means keep all / discard none.
+- Preserve I06 10-second occupied Site-10 bag polling, shared `discard_for_activity(activity='train', keys=..., stop_check=...)`, inherited 1.0s destructive discard pacing and action-4 whole-stack primitive.
+- Preserve I06 temporary `Đang lọc đồ` purple state and previous-state restoration.
+- Preserve I06 no-direct-PICKITEM finding. Do not copy ordinary H09 hidden pickup enable into TrainLSV.
+- Preserve I06 runtime-evidence scope: generic action=4 logs prove only the primitive, not TrainLSV causation.
+- Preserve I06 UNKNOWN boundaries: numeric `FULL_BAG_THRESHOLD`, exact threshold comparator instruction, exact use point of `DISCARD_STEADY_STATES`, discard-worker daemon/join micro-order and exact generation predicate.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I06 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **I06 — Train LSV item pickup/filter execution audit** only.
+3. Check GitHub first for any I07 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **I07 — Train LSV treatment routing/execution audit** only.
 5. Inspect the frozen original EXE first.
-6. Audit `pickup_mode_var`, `PICKUP_MODE_DEFAULT/PICKUP_MODE_LABELS/PICKUP_PRESET_KEYS`, `get_pickup_preset_keys`, `_discard_loop`, shared bag-filter execution, bag-slot cadence/trigger, full-bag condition, keep/discard mappings, state transitions and error handling.
-7. Determine whether TrainLSV directly enables hidden pickup or only owns discard/filter logic; do not import ordinary Train H09 behavior without direct TrainLsv evidence.
-8. Bind `discard_stop`, per-account/session lifecycle and generation relationship only where directly proven.
-9. Keep treatment I07, reconnect I08, death I09, coordinates I10 and all-account/FSM I11 deferred.
-10. Search packaged runtime evidence only after static extraction and keep primitive-level evidence scoped.
-11. Persist I06 evidence/report, update STATE.md, and advance only to I07 after I06 verification.
+6. Audit `trist_var`, `_heal_at_death`, exact HP gate, fixed treatment map/coordinate, shared movement call/options, exact click sequence/repeat count/pacing, state-label transitions, stop/cancellation behavior and success/failure handling.
+7. Resolve the relationship between legacy `heal_map_var` config and the active frozen treatment destination only where directly proven; do not import ordinary Train H06's four-town heal selector if TrainLSV overrides it.
+8. Keep reconnect I08, death handling I09, coordinate management I10 and all-account/FSM I11 deferred.
+9. Search packaged runtime traces only after static extraction and keep primitive-level evidence scoped.
+10. Persist I07 evidence/report, update STATE.md, and advance only to I08 after I07 verification.
