@@ -1731,43 +1731,56 @@ H13 — Train all-account command orchestration audit.
 - docs/train/H14_FARM_FSM_FLOW.md
 - docs/train/H14_FARM_FSM_MODEL.json
 
+## H15 VERIFIED / CLASSIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H15 artifacts existed, so H01–H14 were not repeated.
+- Re-extracted/re-hashed the exact supplied frozen specimen before classifying runtime evidence. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Re-hashed the supplied Train screenshot; it remains byte-identical to B05, SHA-256 `17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53`. This is valid live visual evidence only for the stopped/default Train UI.
+- Audited the supplied package for pre-existing runtime evidence and discovered `TLMTool.dist/data/automove_log.txt`: SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes, 387,238 lines, extracted/archive mtime 2026-10-01 20:13:16 UTC.
+- The packaged trace directly contains actual low-level helper execution: 16,040 `AutoMove queued`, 15,993 `StartAutoPath called`, 2,027 `StopAutoPath called`, 8,511 `AutoFight_Main` records, 1,579 `Game.SendToggleRideState(Game.CurrentMountSlot)`, 114 `Game.GoTo(...)`, 114 `GUI.FindUI('NPCShop')`, and 22,732 `ItemAction ... action=4 dbID=...` records.
+- PID-tagged trace breadth is also material: AutoMove appears across 87 PID-tagged processes, StartAutoPath 85, AutoFight_Main 91, mount toggle 28, Game.GoTo 11, and action=4 item operations across 49 parseable PID-tagged processes.
+- H15 explicitly limits what that trace proves. It verifies those **primitive executions**, not which top-level Train button/Farm generation triggered them, not successful arrival, not full sell completion, and not the complete H14 FSM.
+- No literal `PICKITEM/IsOn=true`, `RequestSellItem/200036`, or direct Train reconnect-success labels were found in the packaged helper log. H15 does not treat absence from this log as proof that those features never executed.
+- The Train runtime parity matrix now contains **45 cases**: 8 `RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE`, 34 `RUNTIME_ENV_REQUIRED`, and 3 `STATIC_VERIFIED`. No user-visible case is currently classified `BLOCKED`.
+- Existing runtime evidence directly covers only limited scopes: stopped UI rendering; AutoMove/AutoPath primitive execution; AutoFight primitive execution; mount-toggle command execution; Game.GoTo; action=4 item primitive; and NPCShop probe execution.
+- End-to-end Windows runtime verification remains required for global/single Farm start-stop transitions, partial/last-account stop, orange stopping states, active StartTab/FarmTab synchronization, all-account fan-out, full-bag threshold, periodic timing, movement arrival/Truyền fallback, treatment, death, reconnect, hidden pickup write, keep-mode filtering, remount verification, coordinate persistence, 5s row refresh, tracker arithmetic, HWND/PID reuse, permission denial, full Farm-cycle ordering, stale-generation cancellation, resize monitor and actual sale completion.
+- H15 produced an exact Windows test plan with 35 runnable scenarios, specimen hash checks, PowerShell preparation commands, required per-test observations and no dependency on redesigning the test matrix later.
+- Gate H is now **CLOSED FOR STATIC/VISUAL RESEARCH AND RECONSTRUCTION HANDOFF**, matching the Gate F/G project pattern. This does **not** mean end-to-end Train runtime parity has been achieved; Windows original-vs-reconstruction parity remains deferred and mandatory before a final Train runtime-parity claim.
+- Stage S source reconstruction has not started and remains out of scope at this point.
+
+## H15 FILES
+- docs/tasks/H15.md
+- docs/train/H15_EXISTING_RUNTIME_EVIDENCE.tsv
+- docs/train/H15_RUNTIME_PARITY_MATRIX.tsv
+- docs/train/H15_RUNTIME_PARITY_REPORT.md
+- docs/train/H15_RUNTIME_TEST_PLAN.json
+- docs/train/H15_GATE_H.md
+
+## GATE H
+**CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED**
+
 ## BLOCKERS
-- H15 is runtime parity verification. The current Linux analysis environment cannot execute this Windows TLMTool EXE or attach it to a live Than Long game client. H15 can still first audit all existing runtime evidence/logs and define the exact runtime test matrix; any checks that require launching the original Windows tool/game must be marked RUNTIME_ENV_REQUIRED rather than guessed.
+None for starting Phase I research. The unresolved H15 runtime matrix requires a Windows + live-game environment later, but it does not block continuing the PLAN's static/research phases.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
 - Preserve B05 Train visual baseline and H01–H14 verified Train contracts.
-- Preserve Gate F Login handoff and Gate G Party handoff.
-- Do not start Stage S source reconstruction early.
+- Preserve H15 runtime-evidence scope: packaged automove_log proves only the primitive actually logged; do not infer top-level button/FSM success from primitive lines.
+- Preserve H15 matrix classifications. Never silently upgrade `RUNTIME_ENV_REQUIRED` to verified without executing/observing the exact Windows scenario.
+- Preserve Gate F Login and Gate G Party handoffs.
 - Proxy runtime/network development remains locked out.
+- Do not start Stage S reconstruction early.
 - Do not import behavior from older external Than Long projects as a substitute for frozen TLM evidence.
-- Preserve H01 active refresh 5000ms and autosave 30000ms.
-- Preserve H02 return-town values/lock_town behavior.
-- Preserve H03 occupied Site-10 bag metric and filter/no-town semantics.
-- Preserve H04 loop_minutes × 60 remaining-cycle timing semantics.
-- Preserve H05 active Farm movement/Truyền ownership.
-- Preserve H06 treatment routing/clicks.
-- Preserve H07 death monitor/recovery semantics.
-- Preserve H08 reconnect watchdog/recovery semantics.
-- Preserve H09 loot/pickup filtering contract.
-- Preserve H10 memory+packet mount/remount contract.
-- Preserve H11 saved-coordinate persistence/name linkage.
-- Preserve H12 HWND+PID row identity, 5s background refresh/main-thread apply, positive-delta tracker, exact state colors, _farming_acc/_gen/_sell lifecycle separation and no per-row checkbox.
-- Preserve H13 current `_checked_rows = all rows`, manual all-account fan-out, move/Fight conflict skips, move-only Tới bán đồ, and separation between manual `Đánh` and full Farm FSM.
-- Preserve H14 global-vs-per-account-vs-thread state separation; global direction semantics; last-row stop behavior; `_stopping_play` anti-overlap sentinel; exact row button text/colors; cooperative join-based drain; partial-stop keep-running behavior; final Bắt đầu reset; generation session barrier; and StartTab/FarmTab state synchronization.
-- Preserve H14 UNKNOWN boundaries: exact worker daemon flags, join timeout, exact `_gen` assignments, exact membership/gen/widget mutation order, exact global internal permission recheck, exact ordinary-stop orange-drain caption coverage, and exact `Đã dừng` state-label reset statement order.
-- H15 must verify/runtime-classify the assembled Train behavior only; do not start Stage S reconstruction in H15.
+- Train runtime parity remains deferred; H15's 35-scenario Windows plan is the authority when that environment becomes available.
+- Phase I must use the frozen TLM 2.1.2 EXE as authority and B06 only as the visual cross-check, exactly as Train used B05.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H15 artifacts/commits; if already complete and verified/classified, do not redo them.
-4. Execute H15 only if still pending.
-5. Inspect the frozen original EXE and all existing H01–H14 evidence first; do not infer runtime behavior from screenshots alone.
-6. Build a Train runtime parity matrix covering: UI start/stop; per-row start/stop; last-account stop; all-account manual commands; town conditions/full-bag/cycle; movement/Truyền; heal/death/reconnect; pickup/filter; mount/remount; saved coordinates; row refresh/tracker; Farm session worker lifecycle; StartTab/FarmTab synchronization; window close/PID reuse; permission/account-limit behavior.
-7. For each case classify `STATIC_VERIFIED`, `RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE`, `RUNTIME_ENV_REQUIRED`, or `BLOCKED`. Never mark runtime parity from static inference.
-8. Search the repo/current supplied files for existing logs, screenshots, reports, or test evidence before requiring new runtime work.
-9. Any check requiring actually launching the original Windows TLMTool/game in the current environment must remain `RUNTIME_ENV_REQUIRED`; do not fabricate success.
-10. Record exact commands/observations needed for unresolved Windows runtime cases so they can later be executed without redesigning the test plan.
-11. Persist H15 matrix/report, update STATE.md, and only then decide Gate H completion versus remaining runtime blockers.
+3. Check GitHub first for any I01 artifacts/commits; if already complete and verified, do not redo them.
+4. Start Phase I with **I01 — Train LSV module/UI/config wiring audit** only.
+5. Inspect the frozen original EXE first. Identify the active Train LSV module/class, constructor lifecycle, top-level state fields, config section/key families, account-refresh ownership/cadence, saved-coordinate row wiring, mount-schedule row wiring, bottom global button/action wiring, and shared-tab references.
+6. Cross-check B06 Train LSV screenshot only after static extraction; do not infer behavior solely from the screenshot and do not remeasure geometry unless EXE evidence contradicts B06.
+7. Separate active Train LSV behavior from stale/dormant strings. Do not import ordinary Train H-phase behavior unless the frozen Train LSV module directly calls/reuses the same shared helper.
+8. Keep deep LSV navigation/Lạc Dương entry/leave semantics, item pickup, treatment, reconnect/death handling, coordinate semantics, all-account commands and runtime parity deferred to later I tasks.
+9. Persist I01 evidence/report, update STATE.md, and advance only to I02 after I01 verification.
