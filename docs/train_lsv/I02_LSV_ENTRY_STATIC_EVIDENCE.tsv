@@ -1,0 +1,57 @@
+key	offset_hex	status	evidence
+module_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab; part_size=37904; constants=1201
+move_lsv_doc	0x2c0af3e	VERIFIED_STATIC	Map3 (232,190) then clicks (891,473),(480,605); already 10000/10014-10017 -> map10000 (236,190)
+move_lsv_inside_set	0x2c0ae09	VERIFIED_STATIC_DECODE	{10000,10014,10015,10016,10017}
+move_lsv_map_field	0x2c0ae1a	VERIFIED_STATIC_DECODE	('MapID',0)
+move_lsv_hub_tile_log	0x2c0ae35	VERIFIED_STATIC	move (236,190)
+move_lsv_hub_map	0x2c0ae52	VERIFIED_STATIC_DECODE	10000
+move_lsv_hub_pixel_x	0x2c0ae55	VERIFIED_STATIC_DECODE	7552 = 236*32
+move_lsv_hub_pixel_y	0x2c0ae58	VERIFIED_STATIC_DECODE	6080 = 190*32
+move_lsv_world_pixel_x	0x2c0aef1	VERIFIED_STATIC_DECODE	7424 = 232*32
+move_lsv_sleep_surface	0x2c0af23	VERIFIED_STATIC	time.sleep attribute surface
+move_lsv_one_second	0x2c0af2a	VERIFIED_STATIC_DECODE	(1,) one-argument constant in gate-click block
+move_lsv_click_1	0x2c0af2d	VERIFIED_STATIC_DECODE	(891,473)
+move_lsv_click_2	0x2c0af34	VERIFIED_STATIC_DECODE	(480,605)
+move_lsv_locals	0x2c105cc	STRONG_STATIC_MAPPING	self/hwnd/stop_check/_hp/move_character/click_at/time/LSV_MAP_IDS/ci/current_map/ok
+ensure_full_lsv_set	0x2c0b0db	VERIFIED_STATIC_DECODE	{10000,10004,10005,10007,10014,10015,10016,10017}
+ensure_move_helpers	0x2c0b0f5	VERIFIED_STATIC_DECODE	move_character/get_character_info
+floor_order_symbol	0x2c0b11b	VERIFIED_STATIC	TRAIN_FLOOR_ORDER
+compat_floor_target	0x2c0b12e	VERIFIED_STATIC_DECODE	10014
+flat_waypoints_symbol	0x2c0b131	VERIFIED_STATIC	TRAIN_FLAT_WAYPOINTS
+flat_pk_pixel	0x2c0b1d4	VERIFIED_STATIC	common.canhBaoPK
+flat_pk_click_doc	0x2c0b1e7	VERIFIED_STATIC	click (617,454)
+flat_branch_0_3	0x2c0b21f	VERIFIED_STATIC_DECODE	0.3 branch constant; exact argument binding unknown
+flat_pk_click_point	0x2c0b228	VERIFIED_STATIC_DECODE	(617,454)
+flat_branch_0_5	0x2c0b230	VERIFIED_STATIC_DECODE	(0.5,) branch constant; exact argument binding unknown
+flat_final_map_failure	0x2c0b248	VERIFIED_STATIC	logs actual vs desired map then failure
+flat_wait_active	0x2c0b28c	VERIFIED_STATIC	_wait_active
+outside_cluster_log	0x2c0b30e	VERIFIED_STATIC	outside LSV -> Tới LSV
+outside_cluster_stop_kw	0x2c0b334	VERIFIED_STATIC_DECODE	stop_check keyword tuple
+outside_cluster_3_constant	0x2c0b342	STRONG_STATIC	(3,) immediately in post-entry block; exact call binding unknown
+unknown_map_fallback	0x2c0b346	VERIFIED_STATIC	unknown map treated as 10000
+already_high_enough	0x2c0b368	VERIFIED_STATIC	already enough floor -> move direct to destination
+floor_waypoints_symbol	0x2c0b3a9	VERIFIED_STATIC	TRAIN_FLOOR_WAYPOINTS
+floor_portal_doc	0x2c0b445	VERIFIED_STATIC	click (609,450) 3 times, 0.5s apart
+floor_portal_range	0x2c0b46d	VERIFIED_STATIC_DECODE	range(0,3,1)
+floor_portal_interval	0x2c0b474	VERIFIED_STATIC_DECODE	0.5
+floor_portal_point	0x2c0b47d	VERIFIED_STATIC_DECODE	(609,450)
+ensure_doc	0x2c0b4d4	VERIFIED_STATIC	floor premove 10014-10017; 10000->10014 click; later steps move/map-change; caller final move
+wait_active_pixel_module	0x2c0b72b	VERIFIED_STATIC	pixel module
+wait_active_wait_pixel	0x2c0b732	VERIFIED_STATIC_DECODE	wait_pixel
+wait_active_key	0x2c0b74c	VERIFIED_STATIC_DECODE	common.active
+wait_active_kwargs	0x2c0b75e	VERIFIED_STATIC_DECODE	window_hwnd/timeout/interval/debug
+wait_active_stuck_doc	0x2c0b790	VERIFIED_STATIC	if active not seen: click (609,450) twice, 1s apart
+wait_active_doc	0x2c0b7cd	VERIFIED_STATIC	wait common.active; click_if_stuck semantics
+wait_active_defaults	0x2c0f26b	VERIFIED_STATIC_DECODE	(timeout=30, click_if_stuck=False)
+wait_active_qualname	0x2c0f270	VERIFIED_STATIC	TrainLsvTab._wait_active
+ensure_locals	0x2c10005	STRONG_STATIC_MAPPING	full _ensure_in_lsv local surface incl farm_map/LSV_MAP_IDS/floor indexes/click callbacks
+wait_active_locals	0x2c10ad2	STRONG_STATIC_MAPPING	self/hwnd/timeout/click_if_stuck/wait_pixel/click_at/time/check_pixel/waited/clicked
+map_selector_table	0x2c0eb5b	VERIFIED_STATIC_DECODE	10014-10017 and 10004/10005/10007 exact label->MapID table
+floor_waypoint_table	0x2c0ecdf	VERIFIED_STATIC_DECODE	[(10000,10014,258,470,T),(10014,10015,26,215,F),(10015,10016,95,90,F),(10016,10017,132,224,F)]
+floor_order_table	0x2c0ed1a	VERIFIED_STATIC_DECODE	[10000,10014,10015,10016,10017]
+flat_waypoint_table	0x2c0ed2b	VERIFIED_STATIC_DECODE	{10004:(37,264),10005:(487,257),10007:(256,36)}
+common_active_definition	-	REUSED_H08	point(1330,33), RGB(34,8,11), tolerance5
+move_shared_mount_edge	-	REUSED_H10	move_character uses memory/packet mount/remount contract
+runtime_toi_lsv_log	-	NOT_RECOVERED	packaged automove_log has no correlated [Tới LSV] entry trace
+move_lsv_sleep_microorder	-	EXPLICIT_UNKNOWN	1s constant belongs to gate-click block; exact statement placement not instruction-bound
+wait_active_interval_debug	-	EXPLICIT_UNKNOWN	kwargs names verified; exact interval/debug argument values not bound
