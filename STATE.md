@@ -1698,12 +1698,45 @@ H13 — Train all-account command orchestration audit.
 - docs/train/H13_ALL_ACCOUNT_COMMANDS_FLOW.md
 - docs/train/H13_ALL_ACCOUNT_COMMANDS_MODEL.json
 
+## H14 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H14 artifact existed, so H01–H13 were not repeated.
+- Re-extracted and re-hashed the frozen uploaded specimen before using the screenshots. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Farm has three distinct lifecycle state surfaces: global `_farming`, per-account authoritative membership `_farming_acc`, and worker collection `_farm_threads`. Do not collapse them into one boolean; per-account membership can differ from old-thread liveness during cooperative stop/drain.
+- Frozen FarmTab bottom-button construction is exactly `Bắt đầu` with background **#388e3c**, command `_toggle_farm`, matching B05.
+- Exact `_toggle_farm` documentation locks global direction semantics: when stopped/start direction, only start accounts **not already Farm**; when running/stop direction, only stop accounts **currently Farm**. Already-correct rows are skipped.
+- Active Farm projection is exactly `Dừng lại` with **#f44336**. The StartTab Farm wrapper independently contains the same active label/color.
+- Exact `_toggle_single_farm` documentation locks per-row Farm start/stop and says stopping the **last** Farm account transitions into the same global all-stop workflow as the large Bắt đầu/Dừng button.
+- Per-row start has a direct `has_permission_with_limit / farm_tab / farm` permission surface. The exact additional permission recheck/filter inside global `_toggle_farm` itself is not statically source-bound and remains UNKNOWN.
+- `_stopping_play` is now locked as the anti-overlap stop sentinel. Its exact frozen UI is orange **#ef6c00** text `…`; normal play refresh deliberately skips those rows because the old cycle has not actually exited yet. This prevents a stopped/restarted row from launching an overlapping Farm session.
+- Exact stable row play projection is now locked: row in `_farming_acc` → red **#f44336** text ASCII `II`; row not in `_farming_acc` → green **#388e3c** text `▶`; row in `_stopping_play` stays orange `…` until actual cycle exit.
+- The source doc visually calls the active icon `||`, while the frozen serialized button constant is ASCII `II`. Stage-S must preserve the frozen constant unless later runtime evidence proves a font/icon substitution.
+- Starting a full Farm account directly references `_farm_cycle`, `_resize_monitor`, and `_refresh_play_buttons`. This confirms the large/single Farm FSM starts the full automatic session, not H13's manual one-shot `Đánh/start_auto_train`.
+- Exact `_resize_monitor` documentation locks a 1-second check cadence and only resizes game windows when not 1366×768; when associated with a row, it exits when that Farm account stops.
+- Exact `_farm_cycle` documentation remains `bán đồ → mua thuốc → tới → farm → chờ chu kỳ`. Its current session surfaces include `monitor_stop/reconnect_ok/halt/respawn_event/gen_snap/hard_stop/buff_stop/cycle_start/buff_thread`, placing H07/H08 subworkers inside one Farm generation.
+- Stop is cooperative, not forceful thread termination. Frozen `_check_stop` documentation says a stop request means the active operation must exit; `_is_acc_farming` checks specific account membership. H07/H08 guards remain authoritative for generation/HWND/hard-stop cancellation.
+- `_wait_farm_stop` directly contains `join` and exact documentation that it waits for Farm thread exit. `has_remaining=True` cleans up stopped workers while keeping the global Farm/Dừng state; `has_remaining=False` performs the all-stopped reset.
+- Exact final all-stopped FarmTab reset is `Bắt đầu` + **#388e3c** + `normal`, and it happens on the no-remaining wait/cleanup branch rather than being treated as complete at the initial stop request.
+- Therefore partial row stop is locked: stop/drain that row, but if another Farm row remains the large button must remain in running/Dừng state. Last-row stop must flow into the global no-remaining reset.
+- A real orange global drain UI surface exists in Farm cleanup: `Đang dừng...` + **#ef6c00** + `disabled` + `_sync_start_tab_btn` + `_wait_farm_stop`. It is directly bound to stale/closed-row cleanup. Static evidence does **not** safely prove that every ordinary user global-stop click always displays that exact intermediate caption, so ordinary-click coverage remains UNKNOWN.
+- Exact buff documentation now binds generation changes to **user stop/start**: stale worker exits when account ends Farm or `gen` changes. Exact `_gen` increment/assignment statement placement and ordering versus membership/widget mutations remain UNKNOWN.
+- Row button reset timing is exact enough to say `_stopping_play` preserves `…` until cycle exit and then normal refresh returns `▶`. Exact source ordering for the canonical row state label `Đã dừng` relative to cycle-finally/join remains UNKNOWN.
+- `_sync_start_tab_btn` exact documentation says FarmTab synchronizes the StartTab Farm control whenever Farm state changes. Its frozen local surface contains `text/bg/state/st/_upd`, and StartTab's own `_toggle_farm_cmd` says it updates both StartTab and FarmTab controls.
+- Important UI correction: synchronized Farm **state** does not mean identical stopped captions. Frozen StartTab builder stopped label is `Train`; FarmTab stopped label is `Bắt đầu`. The supplied screenshots show the same. Running state projects red `Dừng lại`.
+- Exact daemon flags for each full-Farm worker, exact child join timeout/no-timeout policy, exact `_farming` assignment statements, exact membership/stopping/gen/widget mutation order, global-toggle internal permission recheck, ordinary-click use of `Đang dừng...`, and exact `Đã dừng` label-reset ordering remain explicit UNKNOWNs.
+- Only after the EXE audit, B05 was re-hashed. The supplied Train screenshot remains byte-identical to the existing baseline, SHA-256 `17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53`; no geometry was remeasured.
+
+## H14 FILES
+- docs/tasks/H14.md
+- docs/train/H14_FARM_FSM_STATIC_EVIDENCE.tsv
+- docs/train/H14_FARM_FSM_FLOW.md
+- docs/train/H14_FARM_FSM_MODEL.json
+
 ## BLOCKERS
-None known for H14.
+- H15 is runtime parity verification. The current Linux analysis environment cannot execute this Windows TLMTool EXE or attach it to a live Than Long game client. H15 can still first audit all existing runtime evidence/logs and define the exact runtime test matrix; any checks that require launching the original Windows tool/game must be marked RUNTIME_ENV_REQUIRED rather than guessed.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H13 verified Train contracts.
+- Preserve B05 Train visual baseline and H01–H14 verified Train contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
@@ -1720,23 +1753,21 @@ None known for H14.
 - Preserve H10 memory+packet mount/remount contract.
 - Preserve H11 saved-coordinate persistence/name linkage.
 - Preserve H12 HWND+PID row identity, 5s background refresh/main-thread apply, positive-delta tracker, exact state colors, _farming_acc/_gen/_sell lifecycle separation and no per-row checkbox.
-- Treat H12's embedded tracker “refresh 3s” phrase as stale documentation; do not change the active H01 5000ms refresh.
-- Keep exact generation increment statements, stale teardown join/finally order and fallback character-name composition UNKNOWN until stronger evidence binds them.
-- Preserve H13 current `_checked_rows = all rows`, the four visible manual all-account command mappings, outer daemon UI dispatch, parallel fan-out, move/Fight conflict skips, move-only Tới bán đồ semantics, and the separation between manual `Đánh` and the global `Bắt đầu` Farm FSM.
-- Preserve H13 UNKNOWN boundaries: exact inner child daemon flags, join/wait policy/timeouts, exact sell-all child entry, and all-command permission recheck.
-- H14 must analyze only the global Bắt đầu/Dừng Farm FSM; do not re-audit H13 manual fan-out and do not perform H15 runtime verification early.
+- Preserve H13 current `_checked_rows = all rows`, manual all-account fan-out, move/Fight conflict skips, move-only Tới bán đồ, and separation between manual `Đánh` and full Farm FSM.
+- Preserve H14 global-vs-per-account-vs-thread state separation; global direction semantics; last-row stop behavior; `_stopping_play` anti-overlap sentinel; exact row button text/colors; cooperative join-based drain; partial-stop keep-running behavior; final Bắt đầu reset; generation session barrier; and StartTab/FarmTab state synchronization.
+- Preserve H14 UNKNOWN boundaries: exact worker daemon flags, join timeout, exact `_gen` assignments, exact membership/gen/widget mutation order, exact global internal permission recheck, exact ordinary-stop orange-drain caption coverage, and exact `Đã dừng` state-label reset statement order.
+- H15 must verify/runtime-classify the assembled Train behavior only; do not start Stage S reconstruction in H15.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H14 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H14 only if still pending.
-5. Inspect the frozen original EXE first.
-6. Audit only the Train global `Bắt đầu/Dừng` Farm FSM: `_toggle_farm`, `_toggle_single_farm`, `_farming`, `_farming_acc`, `_farm_threads`, `_stopping_play`, `_gen`, `_wait_farm_stop`, `_refresh_play_buttons`, `_sync_start_tab_btn`, and their relationship to `_farm_cycle`.
-7. Recover exact transitions where safely bindable: which rows start, which active rows stop, per-account start/stop and last-account behavior, large-button and per-row play-button text/color transitions, worker/thread creation, daemon/join/wait behavior, stop-event/hard-stop boundaries, generation changes, and exact timing of UI/state reset.
-8. Preserve H13 manual command semantics; never merge `Đánh` with the large `Bắt đầu` Farm cycle.
-9. Keep any unbound transition/order/timeout UNKNOWN rather than guessing.
-10. Do not run full Train runtime parity verification yet; H15 owns runtime verification.
-11. Cross-check B05 only after static EXE extraction; no geometry work is needed unless new evidence contradicts B05.
-12. Persist H14 evidence/report, update STATE.md, and advance to H15 only after H14 verification.
+3. Check GitHub first for any H15 artifacts/commits; if already complete and verified/classified, do not redo them.
+4. Execute H15 only if still pending.
+5. Inspect the frozen original EXE and all existing H01–H14 evidence first; do not infer runtime behavior from screenshots alone.
+6. Build a Train runtime parity matrix covering: UI start/stop; per-row start/stop; last-account stop; all-account manual commands; town conditions/full-bag/cycle; movement/Truyền; heal/death/reconnect; pickup/filter; mount/remount; saved coordinates; row refresh/tracker; Farm session worker lifecycle; StartTab/FarmTab synchronization; window close/PID reuse; permission/account-limit behavior.
+7. For each case classify `STATIC_VERIFIED`, `RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE`, `RUNTIME_ENV_REQUIRED`, or `BLOCKED`. Never mark runtime parity from static inference.
+8. Search the repo/current supplied files for existing logs, screenshots, reports, or test evidence before requiring new runtime work.
+9. Any check requiring actually launching the original Windows TLMTool/game in the current environment must remain `RUNTIME_ENV_REQUIRED`; do not fabricate success.
+10. Record exact commands/observations needed for unresolved Windows runtime cases so they can later be executed without redesigning the test plan.
+11. Persist H15 matrix/report, update STATE.md, and only then decide Gate H completion versus remaining runtime blockers.
