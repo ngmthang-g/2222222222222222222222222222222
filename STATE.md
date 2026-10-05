@@ -1674,12 +1674,36 @@ H13 — Train all-account command orchestration audit.
 - docs/train/H12_ACCOUNT_ROW_FLOW.md
 - docs/train/H12_ACCOUNT_ROW_MODEL.json
 
+## H13 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H13 artifact existed, so H01–H12 were not repeated.
+- Re-extracted/re-hashed the uploaded frozen specimen before using the screenshots. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Exact `_checked_rows` documentation now locks the current all-account target set as **all accounts in the Train list**. There is no per-row selection checkbox; older all-command docstrings saying “acc được tick” are stale wording and must not recreate checkbox semantics.
+- The visible Train all-account bar remains `Tới bán đồ | Bán đồ | Tới bãi train | Đánh`, mapped respectively to `_goto_sell_all / _sell_all / _move_all / _farm_all`.
+- The frozen `_build_ui` surface binds these visible commands to `threading.Thread(target=..., daemon=True).start()`. Therefore the Tk click path launches an outer daemon worker and does not synchronously block the Tk thread until the whole multi-account operation completes.
+- `_move_all` is explicitly parallel and owns a recovered per-row thread collection surface `rows/_threads/row`. The per-account movement guard exactly says an account already in automatic Farm is skipped for manual movement; H13 does not invent implicit stop-before-move.
+- The visible `Đánh` command is the manual/one-shot Fight path: `_farm_acc` calls `start_auto_train` / StartAutoFight Train through memory/internal behavior with no game-UI click. It is **not** the large green `Bắt đầu` full Farm FSM.
+- `_farm_all` is explicitly parallel. A row that is selling or still waiting for sell-stop is skipped with the frozen warning to stop selling first; H13 does not auto-cancel selling or race Fight against selling.
+- `_sell_all` is explicitly parallel and must preserve H12's independent `_sell_active/_sell_stop_event` lifecycle. Exact child entry (`_sell_acc` versus `_toggle_sell`) is not safely source-visible and remains UNKNOWN.
+- `_goto_sell_all` is explicitly a parallel **move-only test**: use the same route to the sell point (including the Truyền return branch where applicable), then stop; do **not** open the shop and do **not** sell.
+- `_stop_all` is explicitly parallel, has a direct `_stop_acc` surface, and owns a recovered `rows/_threads/row` collection. H13 only locks this stop fan-out boundary; the complete global Bắt đầu/Dừng FSM is H14.
+- Internal `_buy_meds_all` also uses the same parallel all-row pattern with a recovered `rows/_threads/row` collection and `_buy_meds_acc`; it is not added as a new visible Train button.
+- Exact inner per-account daemon flags, child join/wait policy, join timeouts, and exact child-thread implementation for every all-command are not safely bound by the current static evidence and remain UNKNOWN. Do not invent a barrier or arbitrary timeout.
+- H12 permission/account-limit gating remains authoritative for row UI. Whether each all-command performs an additional internal permission recheck is not proven and remains UNKNOWN.
+- Command-specific safe skips are now locked: manual move while full Farm is active → skip; manual Fight while selling/stopping sell → skip. No aggregate transaction/rollback model was recovered; per-row failure must not be turned into an invented global rollback.
+- Only after the frozen EXE audit, B05 was cross-checked. The supplied Train screenshot is byte-identical to the existing baseline, SHA-256 `17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53`; it confirms the four-button all-account bar, no account-selection checkbox, and the separate large green `Bắt đầu`. No geometry was remeasured.
+
+## H13 FILES
+- docs/tasks/H13.md
+- docs/train/H13_ALL_ACCOUNT_COMMANDS_STATIC_EVIDENCE.tsv
+- docs/train/H13_ALL_ACCOUNT_COMMANDS_FLOW.md
+- docs/train/H13_ALL_ACCOUNT_COMMANDS_MODEL.json
+
 ## BLOCKERS
-None known for H13.
+None known for H14.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H12 verified Train contracts.
+- Preserve B05 Train visual baseline and H01–H13 verified Train contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
@@ -1697,19 +1721,22 @@ None known for H13.
 - Preserve H11 saved-coordinate persistence/name linkage.
 - Preserve H12 HWND+PID row identity, 5s background refresh/main-thread apply, positive-delta tracker, exact state colors, _farming_acc/_gen/_sell lifecycle separation and no per-row checkbox.
 - Treat H12's embedded tracker “refresh 3s” phrase as stale documentation; do not change the active H01 5000ms refresh.
-- Keep exact generation increment statements, stale teardown join/finally order and fallback character-name composition UNKNOWN.
-- H13 must analyze only all-account command orchestration; do not re-audit per-row data or start/stop global FSM beyond command fan-out boundaries.
+- Keep exact generation increment statements, stale teardown join/finally order and fallback character-name composition UNKNOWN until stronger evidence binds them.
+- Preserve H13 current `_checked_rows = all rows`, the four visible manual all-account command mappings, outer daemon UI dispatch, parallel fan-out, move/Fight conflict skips, move-only Tới bán đồ semantics, and the separation between manual `Đánh` and the global `Bắt đầu` Farm FSM.
+- Preserve H13 UNKNOWN boundaries: exact inner child daemon flags, join/wait policy/timeouts, exact sell-all child entry, and all-command permission recheck.
+- H14 must analyze only the global Bắt đầu/Dừng Farm FSM; do not re-audit H13 manual fan-out and do not perform H15 runtime verification early.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H13 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H13 only if still pending.
+3. Check GitHub first for any H14 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H14 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit only Train all-account command orchestration: exact semantics of _checked_rows (all rows), Tới bán đồ/Bán đồ/Tới bãi train/Đánh fan-out, per-command thread creation/join behavior, permission/runtime skips, sell-active/farm-active conflict guards, stop-all behavior exposed by those command paths, and whether command completion waits or fire-and-forgets.
-7. Recover exact parallelism, daemon flags, command-state/button interactions and error/skip behavior where safely bindable; keep unbound values UNKNOWN.
-8. Preserve H12 row identity/lifecycle and H11 name-based preset resolution.
-9. Do not fully audit the global Bắt đầu/Dừng Farm FSM yet; H14 owns global start/stop FSM.
-10. Cross-check B05 only after static extraction; no geometry work is needed.
-11. Persist H13 evidence/report, update STATE.md, and advance to H14 only after verification.
+6. Audit only the Train global `Bắt đầu/Dừng` Farm FSM: `_toggle_farm`, `_toggle_single_farm`, `_farming`, `_farming_acc`, `_farm_threads`, `_stopping_play`, `_gen`, `_wait_farm_stop`, `_refresh_play_buttons`, `_sync_start_tab_btn`, and their relationship to `_farm_cycle`.
+7. Recover exact transitions where safely bindable: which rows start, which active rows stop, per-account start/stop and last-account behavior, large-button and per-row play-button text/color transitions, worker/thread creation, daemon/join/wait behavior, stop-event/hard-stop boundaries, generation changes, and exact timing of UI/state reset.
+8. Preserve H13 manual command semantics; never merge `Đánh` with the large `Bắt đầu` Farm cycle.
+9. Keep any unbound transition/order/timeout UNKNOWN rather than guessing.
+10. Do not run full Train runtime parity verification yet; H15 owns runtime verification.
+11. Cross-check B05 only after static EXE extraction; no geometry work is needed unless new evidence contradicts B05.
+12. Persist H14 evidence/report, update STATE.md, and advance to H15 only after H14 verification.
