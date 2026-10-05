@@ -1,0 +1,133 @@
+key	offset_hex	status	evidence
+module_region_start	0x2c07798	VERIFIED_STATIC	.train_lsv_tab region starts
+constructor_info_tab	0x2c077ad	VERIFIED_STATIC	info_tab surface
+constructor_notebook	0x2c077b7	VERIFIED_STATIC	notebook surface
+state_farming	0x2c07802	VERIFIED_STATIC	_farming
+state_acc_rows	0x2c0780c	VERIFIED_STATIC	_acc_rows
+state_refresh_id	0x2c07817	VERIFIED_STATIC	_refresh_id
+state_region_child_count	0x2c07824	VERIFIED_STATIC	_region_child_count
+state_scroll_after	0x2c07839	VERIFIED_STATIC	_scroll_after
+state_rows_window	0x2c07848	VERIFIED_STATIC	_rows_window
+state_importing	0x2c07856	VERIFIED_STATIC	_importing
+state_farm_threads	0x2c07862	VERIFIED_STATIC	_farm_threads
+state_autosave_id	0x2c07871	VERIFIED_STATIC	_autosave_id
+state_map_lookup	0x2c0787f	VERIFIED_STATIC	_map_lookup
+state_map_values	0x2c078a6	VERIFIED_STATIC	_map_values
+state_map_names	0x2c078b3	VERIFIED_STATIC	_map_names
+state_coord_rows	0x2c079c6	VERIFIED_STATIC	_coord_rows
+state_saving_enabled	0x2c079d3	VERIFIED_STATIC	_saving_enabled
+constructor_build	0x2c079e4	VERIFIED_STATIC	_build_ui
+constructor_load	0x2c079ef	VERIFIED_STATIC	_load_config
+constructor_destroy_event	0x2c07a03	VERIFIED_STATIC	<Destroy>
+constructor_destroy_save	0x2c07a0e	VERIFIED_STATIC	_save_on_destroy
+constructor_start_refresh	0x2c07a20	VERIFIED_STATIC	_start_refresh
+constructor_autosave	0x2c07a30	VERIFIED_STATIC	_autosave_loop
+bottom_start_text	0x2c07a88	VERIFIED_STATIC	Bắt đầu
+bottom_start_callback	0x2c07a96	VERIFIED_STATIC	_toggle_farm
+bottom_start_green	0x2c07aa4	VERIFIED_STATIC	#388e3c
+ui_group	0x2c07b5e	VERIFIED_STATIC	Cấu hình Train LSV
+ui_respawn	0x2c07c5a	VERIFIED_STATIC	Quay lại train khi chết
+ui_reconnect	0x2c07cd0	VERIFIED_STATIC	Tự kết nối lại khi mất mạng
+ui_heal	0x2c07d0d	VERIFIED_STATIC	Trị liệu sau khi chết tại Lạc Dương LSV
+ui_pickup_label	0x2c07d64	VERIFIED_STATIC	Nhặt đồ:
+pickup_default_surface	0x2c07d9c	VERIFIED_STATIC	PICKUP_MODE_DEFAULT
+pickup_labels_surface	0x2c07dc4	VERIFIED_STATIC	PICKUP_MODE_LABELS
+ui_manual_schedule_label	0x2c07e21	VERIFIED_STATIC	Dùng thủ công châu, đan dược (2x, 4x...):
+buff_rows	0x2c07e8a	VERIFIED_STATIC	_buff_rows
+buff_add	0x2c07e96	VERIFIED_STATIC	_add_buff_row
+fixed_da_minh_chau_row	0x2c07eb1	VERIFIED_STATIC	_da_minh_chau_row
+ui_add_buff	0x2c07ec4	VERIFIED_STATIC	+ Thêm
+coord_group	0x2c07f35	VERIFIED_STATIC	Cấu hình tọa độ lưu sẵn
+coord_add	0x2c08072	VERIFIED_STATIC	+ Thêm tọa độ / _add_coord_row adjacent
+coord_toggle	0x2c08097	VERIFIED_STATIC	Ẩn danh sách tọa độ / _toggle_coord_list adjacent
+account_group	0x2c080e4	VERIFIED_STATIC	Danh sách tài khoản
+account_headers	0x2c08156	VERIFIED_STATIC	Nhân vật / Tọa độ Train
+all_controls_label	0x2c08345	VERIFIED_STATIC	Điều khiển tất cả:
+all_to_lsv	0x2c0838e	VERIFIED_STATIC	Tới LSV
+all_to_lsv_purple	0x2c0839f	VERIFIED_STATIC	#8e24aa
+all_to_train	0x2c083cb	VERIFIED_STATIC	Tới chỗ train
+all_fight	0x2c083ec	VERIFIED_STATIC	Đánh
+all_leave	0x2c08402	VERIFIED_STATIC	Rời LSV
+all_threading	0x2c0846e	VERIFIED_STATIC	threading
+all_thread_class	0x2c08479	VERIFIED_STATIC	Thread
+all_move_lsv_worker	0x2c08481	VERIFIED_STATIC	_move_lsv_all
+all_thread_daemon	0x2c0849a	VERIFIED_STATIC	daemon
+all_thread_start	0x2c084a2	VERIFIED_STATIC	start
+all_move_worker	0x2c084a9	VERIFIED_STATIC	_move_all
+all_farm_worker	0x2c084b4	VERIFIED_STATIC	_farm_all
+all_leave_worker	0x2c084bf	VERIFIED_STATIC	_leave_lsv_all
+autosave_doc	0x2c084d6	VERIFIED_STATIC	Tự lưu config mỗi 30 giây — đảm bảo không mất dữ liệu dù quên thao tác.
+pid_bind	0x2c08560	VERIFIED_STATIC	bind_window_identity
+row_farming_membership	0x2c085f4	VERIFIED_STATIC	_farming_acc
+pid_unbind	0x2c08604	VERIFIED_STATIC	unbind_window_identity
+row_load_config	0x2c08685	VERIFIED_STATIC	load_acc_config
+row_coord_combo	0x2c088da	VERIFIED_STATIC	_coord_name_list
+row_toggle	0x2c08e06	VERIFIED_STATIC	_toggle_single_farm
+row_ensure_lsv	0x2c08f32	VERIFIED_STATIC	_ensure_in_lsv
+row_move	0x2c08f52	VERIFIED_STATIC	_move_acc
+row_move_lsv	0x2c08f65	VERIFIED_STATIC	_move_lsv
+row_fight	0x2c08f70	VERIFIED_STATIC	_farm_acc
+row_leave	0x2c08f7b	VERIFIED_STATIC	_leave_lsv
+row_permission_scope	0x2c08bd7	VERIFIED_STATIC	trainlsv_tab
+buff_hotkey_doc	0x2c097cd	VERIFIED_STATIC	Danh sách phím tắt: F1-F10 + 1,2,3.
+fixed_buff_name	0x2c09819	VERIFIED_STATIC	Dạ Minh Châu
+buff_key_label	0x2c0986d	VERIFIED_STATIC	Phím:
+buff_time_label	0x2c09946	VERIFIED_STATIC	Thời gian:
+buff_seconds_label	0x2c099da	VERIFIED_STATIC	giây
+fixed_buff_doc	0x2c09a6f	VERIFIED_STATIC	fixed=True: Dạ Minh Châu fixed/no delete/always active
+shared_start_tab	0x2c09b64	VERIFIED_STATIC	start_tab
+shared_get_windows	0x2c09b71	VERIFIED_STATIC	get_windows
+refresh_doc	0x2c0c313	VERIFIED_STATIC	Incremental add/update/remove; memory reads background; UI apply main thread
+refresh_add_update	0x2c0c45d	VERIFIED_STATIC	_add_or_update_row
+refresh_remove_stale	0x2c0c482	VERIFIED_STATIC	_remove_stale_rows
+refresh_permission	0x2c0c4a6	VERIFIED_STATIC	_reapply_permission_state
+refresh_scroll	0x2c0c4c1	VERIFIED_STATIC	_request_scroll_update
+refresh_start_doc	0x2c0c513	VERIFIED_STATIC	Bắt đầu refresh loop — gọi khi tab được chọn.
+refresh_stop_doc	0x2c0c551	VERIFIED_STATIC	Dừng refresh loop — gọi khi tab bị chuyển đi.
+refresh_5s_doc	0x2c0c58b	VERIFIED_STATIC	Tự động refresh danh sách mỗi 5 giây (incremental).
+start_tab_ref	0x2c0c5cc	VERIFIED_STATIC	start_tab_ref
+sync_start_tab	0x2c0c5e1	VERIFIED_STATIC	TrainLsvTab._sync_start_tab_btn local _upd
+config_dir	0x2c0e55a	VERIFIED_STATIC	CONFIG_DIR
+config_section	0x2c0e591	VERIFIED_STATIC	TrainLSV
+config_respawn	0x2c0e59b	VERIFIED_STATIC	respawn
+config_reconnect	0x2c0e5a4	VERIFIED_STATIC	auto_reconnect
+config_trist	0x2c0e5b4	VERIFIED_STATIC	trist
+config_heal	0x2c0e5bb	VERIFIED_STATIC	heal_map
+config_pickup	0x2c0e5c5	VERIFIED_STATIC	pickup_mode
+config_buff_prefix	0x2c0e5e0	VERIFIED_STATIC	buff_
+config_account_prefix	0x2c0e5f4	VERIFIED_STATIC	acc_
+config_account_train_suffix	0x2c0e5fa	VERIFIED_STATIC	_train
+config_coord_prefix	0x2c0e62c	VERIFIED_STATIC	coord_
+config_write	0x2c0e689	VERIFIED_STATIC	write_settings
+config_pickup_shared_doc	0x2c0e71c	VERIFIED_STATIC	Pickup radio maps to shared bag_filter preset keys; [] means discard nothing
+load_buffs_doc	0x2c0e813	VERIFIED_STATIC	Load buff rows từ config.
+load_acc_doc	0x2c0e841	VERIFIED_STATIC	Load selected Train coordinate by character name only if preset still exists
+load_coords_doc	0x2c0ea07	VERIFIED_STATIC	Load saved coords from config and recreate dynamic rows
+module_description	0x2c0ea4d	VERIFIED_STATIC	Train LSV Tab - Cấu hình farm liên server (LSV) với danh sách acc.
+settings_file	0x2c0eb40	VERIFIED_STATIC	settings.ini
+map_tqh1	0x2c0eb5b	VERIFIED_STATIC	Tần Hoàng Địa Cung Tầng 1
+map_tqh2	0x2c0eb82	VERIFIED_STATIC	Tần Hoàng Địa Cung Tầng 2
+map_tqh3	0x2c0ebaa	VERIFIED_STATIC	Tần Hoàng Địa Cung Tầng 3
+map_tqh4	0x2c0ebd2	VERIFIED_STATIC	Tần Hoàng Địa Cung Tầng 4
+map_pham_lien	0x2c0ebfa	VERIFIED_STATIC	Phàm Liên Trại
+map_thanh_lien	0x2c0ec13	VERIFIED_STATIC	Thanh Liên Trại
+map_kho_vinh	0x2c0ec2c	VERIFIED_STATIC	Khô Vinh Đạo
+class_name	0x2c0ee4f	VERIFIED_STATIC	TrainLsvTab
+method_start_refresh	0x2c0f44d	VERIFIED_STATIC	TrainLsvTab._start_refresh
+method_stop_refresh	0x2c0f478	VERIFIED_STATIC	TrainLsvTab._stop_refresh
+method_schedule_refresh	0x2c0f493	VERIFIED_STATIC	TrainLsvTab._schedule_refresh
+method_sync_starttab	0x2c0f4b2	VERIFIED_STATIC	TrainLsvTab._sync_start_tab_btn
+method_toggle_farm	0x2c0f4d3	VERIFIED_STATIC	TrainLsvTab._toggle_farm
+method_save_config	0x2c0f69f	VERIFIED_STATIC	TrainLsvTab._save_config
+method_load_config	0x2c0f6b9	VERIFIED_STATIC	TrainLsvTab._load_config
+method_save_destroy	0x2c0f747	VERIFIED_STATIC	TrainLsvTab._save_on_destroy
+source_filename	0x2c0f765	VERIFIED_STATIC	train_lsv_tab.py
+module_marker	0x2c0f8f7	VERIFIED_STATIC	<module train_lsv_tab>
+starttab_quick_label	0x2bfa413	VERIFIED_STATIC	Train LSV
+starttab_toggle	0x2bfa41e	VERIFIED_STATIC	_toggle_train_lsv_cmd
+starttab_to_lsv	0x2bfa435	VERIFIED_STATIC	Tới LSV
+starttab_leave_lsv	0x2bfa481	VERIFIED_STATIC	Rời LSV
+starttab_action_doc	0x2bfba6c	VERIFIED_STATIC	Bulk Train LSV Tới LSV/Rời LSV actions run in thread
+starttab_toggle_doc	0x2bfbada	VERIFIED_STATIC	Toggle Train LSV and update button text on StartTab + TrainLsvTab
+screenshot_hash	-	VERIFIED_CROSSCHECK	Current Train LSV screenshot is byte-identical to B06: 9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29
+screenshot_fixed_key_time_defaults	-	EXPLICIT_UNKNOWN	Visible key=1 / 0m5s may be persisted runtime config, not proven clean-package defaults
