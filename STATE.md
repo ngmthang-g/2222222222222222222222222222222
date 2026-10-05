@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H11 — Train saved-coordinate persistence / edit / per-account selection audit.
+H12 — Train per-account runtime row data / identity / state tracking audit.
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -1583,12 +1583,49 @@ H11 — Train saved-coordinate persistence / edit / per-account selection audit.
 - docs/train/H10_MOUNT_FLOW.md
 - docs/train/H10_MOUNT_MODEL.json
 
+## H11 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly. GitHub was checked first; no H11 artifact existed, so no completed Train work was repeated.
+- Re-hashed and inspected the exact frozen inner EXE first; SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- `FarmTab._add_coord_row` has four optional inputs `name/map_val/x_val/y_val` with four None defaults and owns row-local `name_var/map_var/x_var/y_var` plus `Bán/Train/✕` action buttons.
+- B05 row schema remains `Tên | Map | X | Y | Áp dụng hết | Xóa`; no coordinate-row geometry was invented from the empty capture.
+- Add-row constants directly contain prefix `Tọa độ `, local `existing`, and the initial positive index surface. Safe contract: absent explicit name → collision-aware numbered `Tọa độ N` generation beginning at 1.
+- No fixed `MAX_COORDS`/hard saved-coordinate row cap is recovered; the row list is dynamic.
+- Exact no-argument initial map/X/Y UI fallback cannot be safely bound from the readable constant stream and remains UNKNOWN.
+- Unlike the immediately preceding buff-row builder, the coordinate-row builder has no recovered `_only_digits/vcmd` numeric-validation locals. Shared `parse_coord_value` explicitly normalizes `mid:int` but returns x/y as coordinate fields. H11 therefore does not invent a coordinate Entry clamp/range.
+- `_on_map_select` exact doc says choosing a `=====` separator auto-jumps to the next real map entry, preventing separator text from becoming a final map selection.
+- Save-side `coord_id_for_name` maps display map name → MapID. Exact Farm warning says an unknown map row is **skipped and not saved**, never assigned a guessed ID.
+- Coordinate persistence uses shared settings section `Farm`, save prefix `coord_`, sequential index local `_n`, and current-row `name/mid/x_v/y_v` surfaces.
+- Current config record contract is a sequential `coord_<n>` key family with a four-field pipe value: `preset_name|map_id|x|y`.
+- Shared parser exact doc says `Parse 1 dòng coord config mới. Trả (preset, mid:int, x, y) hoặc None.`; direct constant surface contains `split('|')`.
+- Exact `_load_coords` doc says saved coordinates are loaded from config and recreated as dynamic rows. Recovered locals include `coord_keys/parse_coord_value/coord_name_for_id/key/val/parsed/name/mid/x_v/y_v/map_v/parts`.
+- Save-side sequential numbering and load-side ordered `coord_keys`/lambda surface preserve coordinate row ordering. Exact source expression of the sort lambda remains UNKNOWN; Stage-S must preserve numeric row order rather than unsafe lexical `coord_10 < coord_2` behavior.
+- Retired/unknown MapID/display names are explicitly skipped on load; H11 does not fuzzy-remap stale maps.
+- Exact rename doc says changing a preset name **immediately updates account comboboxes and any current selection using the old name**.
+- Exact `_refresh_acc_combo_values` doc covers add/delete/rename and locks `rename_map={old:new}` selected-value migration.
+- Exact immediate Tk-variable behavior when deleting the currently selected preset is not source-visible enough and remains RUNTIME/STRONGER-DECOMPILE UNKNOWN; do not auto-select an unrelated preset.
+- Exact `_apply_coord_to_all` doc says coordinate application is **name-based**: target `sell` → all Sell comboboxes, target `farm` → all Train comboboxes.
+- Per-account config save surface directly exposes `acc_`, `_sell`, `_farm`, and current character-name local `cname`; concrete key family is `acc_<character>_sell/farm`.
+- Exact `load_acc_config` doc says saved coordinate choices are loaded by character name and applied **only if the preset name still exists**; stale saved selection is ignored instead of recreating a missing coordinate.
+- Exact `_toggle_coord_list` doc says it hides/shows only coordinate header+body while toolbar always remains visible.
+- No coordinate-list-visible/hidden config key is recovered in Farm save/load surfaces. Thus coordinate list visibility is **UI-only, not persisted**; B05 locks the fresh default as visible with button `Ẩn danh sách tọa độ`.
+- Saved-coordinate edit hooks `_auto_save`, `_on_name_changed`, and `_schedule_save_all_coords` are verified.
+- No coordinate-specific debounce/delay constant can be safely bound. The exact **30ms** debounce elsewhere in FarmTab belongs only to scrollregion geometry and must not be copied into coordinate persistence.
+- H01's independent **30000ms** config autosave remains the safety net.
+- Constructor/load surfaces `_importing` and `_saving_enabled` remain verified; exact guard-flip statement ordering during dynamic coordinate load is implementation-safe UNKNOWN, but config loading must not corrupt/rewrite itself mid-load.
+- H05 live preset-name→map/x/y movement resolution and H10 mount behavior remain unchanged.
+
+## H11 FILES
+- docs/tasks/H11.md
+- docs/train/H11_SAVED_COORD_STATIC_EVIDENCE.tsv
+- docs/train/H11_SAVED_COORD_FLOW.md
+- docs/train/H11_SAVED_COORD_MODEL.json
+
 ## BLOCKERS
-None known for H11.
+None known for H12.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline unchanged.
-- Preserve B05 Train visual baseline and H01–H10 verified Train wiring/town/full-bag/timing/movement/heal/death/reconnect/loot/mount contracts.
+- Preserve B05 Train visual baseline and H01–H11 verified Train contracts.
 - Preserve Gate F Login handoff and Gate G Party handoff.
 - Do not start Stage S source reconstruction early.
 - Proxy runtime/network development remains locked out.
@@ -1602,21 +1639,22 @@ None known for H11.
 - Preserve H07 death monitor/recovery semantics.
 - Preserve H08 reconnect watchdog/recovery semantics.
 - Preserve H09 loot/pickup filtering contract.
-- Preserve H10 memory+packet mount design, HasMount vs IsRiding separation, 30s mount cache, 3s verify wait, remount/requeue sequence and no active pixel-click mount path.
-- Do not invent a horse hotkey for the `Ngựa` priority option.
-- Keep exact Stop-sentinel source syntax, 1.5 constant binding, HasMount=0/None microflow and max_remount numeric UNKNOWN.
-- Do not add a Train dismount routine without evidence.
-- H11 must focus only saved-coordinate persistence/edit/selection; do not reopen H10 mount behavior.
+- Preserve H10 memory+packet mount/remount contract.
+- Preserve H11 coord_<n> + preset|map_id|x|y persistence, live rename propagation, name-based per-account selections and UI-only coordinate-list visibility.
+- Do not invent coordinate X/Y validation/ranges or a saved-coordinate row limit.
+- Keep exact no-arg map/X/Y defaults, coordinate save delay, load sort source syntax and delete-current-selection microflow UNKNOWN.
+- H12 must focus on per-account runtime row identity/data/state only; do not reopen saved-coordinate persistence except where row selection fields reference H11 names.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any H11 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute H11 only if still pending.
+3. Check GitHub first for any H12 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute H12 only if still pending.
 5. Inspect the frozen original EXE first.
-6. Audit Train saved-coordinate persistence/edit behavior only: coord row schema, generated/default names, add/remove/rename, map selection, X/Y validation and save debounce, show/hide list state if persisted, config key naming/order, import/load behavior, and how per-account sell/farm combobox selections follow rename/delete.
-7. Recover exact limits/defaults/debounce intervals/key schemas where safely bindable; keep unbound values UNKNOWN.
-8. Preserve H05 live preset-name→map/x/y movement resolution and H10 mount behavior; do not analyze per-account runtime row data beyond coordinate-selection linkage because H12 owns per-account data.
-9. Cross-check B05 only after static extraction; do not remeasure geometry.
-10. Persist H11 evidence/report, update STATE.md, and advance to H12 only after verification.
+6. Audit only Train per-account runtime row data and identity: HWND/PID generation binding, RoleName/MapID/bag-slot refresh, row widget/state fields, checked/enabled state, _farming_acc/_sell_active/_gen lifecycle fields, extra tracking (time/bag/deaths/money/exp), stale-window/PID-reuse handling, and main-thread update boundaries.
+7. Recover exact formatting/update cadences/state-color mappings where safely bindable; keep unbound values UNKNOWN.
+8. Preserve H11 Sell/Farm preset-name selection linkage but do not re-audit coordinate persistence.
+9. Do not analyze all-account command orchestration yet; H13 owns all-account commands.
+10. Cross-check B05 only after static extraction; do not invent populated-row geometry from the empty screenshot.
+11. Persist H12 evidence/report, update STATE.md, and advance to H13 only after verification.
