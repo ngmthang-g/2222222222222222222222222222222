@@ -1,0 +1,19 @@
+key	value	evidence	classification	note
+specimen_archive	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd	exact supplied TLMTool_2.1.2 archive	STATIC_VERIFIED	frozen specimen
+specimen_exe	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22	TLMTool.dist/TLMTool.exe PE32+ x86-64	STATIC_VERIFIED	frozen specimen
+train_screenshot	17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53	452x1032 live Train capture; stopped/default UI	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	user-supplied screenshot; visual state only
+start_screenshot	4f1b126ea4ba0034889545653046f552a226d5f0033d2329a8693342184c28cd	452x1032 StartTab Auto capture; stopped quick Farm label Train	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	B14/user capture; visual state only
+automove_log	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500	15,741,058 bytes; 387,238 lines; archived mtime 2026-10-01 20:13:16 UTC	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	bundled in frozen archive; trace is not self-version-labeled per line
+automove_queued	16040	AutoMove queued records	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	87 distinct pid-tagged processes observed
+start_autopath	15993	StartAutoPath called records	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	85 distinct pid-tagged processes observed
+stop_autopath	2027	StopAutoPath called records	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	12 distinct pid-tagged processes observed
+autofight_main	8511	Lua executions referencing AutoFight_Main	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	91 distinct pid-tagged processes observed; proves invocation primitive, not Train FSM trigger
+toggle_ride	1579	Game.SendToggleRideState(Game.CurrentMountSlot)	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	28 distinct pid-tagged processes observed
+game_goto	114	Lua Game.GoTo(...) records	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	11 distinct pid-tagged processes observed
+npcshop_probe	114	GUI.FindUI('NPCShop') records	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	1 pid-tagged process; proves shop probe execution only
+item_action4	22732	ItemAction spts sent action=4 dbID=...	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	49 distinct pid-tagged processes among parseable lines; matches H09 whole-stack action=4 primitive
+item_action3	206	ItemAction spts sent action=3 dbID=...	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	8 distinct pid-tagged processes; included for trace inventory, not used to infer Train behavior
+network_sendpacket	1426	Network.SendPacket(...) records	RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE	mostly Party opcodes 200051/200057; not evidence for Train sell/discard
+missing_pickitem	0	no literal PICKITEM / IsOn=true record recovered from packaged trace	STATIC_VERIFIED	absence in this log is not proof the feature never executed
+missing_sell_packet	0	no literal RequestSellItem / 200036 record recovered from packaged trace	STATIC_VERIFIED	NPCShop probe exists, sale completion remains runtime-unverified
+missing_reconnect_labels	0	no direct reconnect-success/MAT KET NOI Train labels recovered from packaged trace	STATIC_VERIFIED	reconnect end-to-end remains Windows-runtime required
