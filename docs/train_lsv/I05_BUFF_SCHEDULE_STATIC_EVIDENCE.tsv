@@ -1,0 +1,89 @@
+key	offset_hex	status	evidence
+trainlsv_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab size=37904 constants=1201
+buff_body	0x2c07e72	VERIFIED_STATIC	_buff_body
+buff_rows	0x2c07e8a	VERIFIED_STATIC	_buff_rows
+add_buff_row	0x2c07e96	VERIFIED_STATIC	_add_buff_row
+fixed_build_args	0x2c07ea5	VERIFIED_STATIC_DECODE	(True,)
+fixed_build_kw	0x2c07ea8	VERIFIED_STATIC_DECODE	(fixed,)
+fixed_row_store	0x2c07eb1	VERIFIED_STATIC	_da_minh_chau_row
+buff_key_range	0x2c097cd	VERIFIED_STATIC_DECODE	range(1,11) + F + 1,2,3
+buff_key_doc	0x2c097dc	VERIFIED_STATIC	F1-F10 + 1,2,3
+fixed_name	0x2c0981f	VERIFIED_STATIC	Dạ Minh Châu
+get_buff_keys	0x2c0985d	VERIFIED_STATIC	_get_buff_keys
+only_digits	0x2c09903	VERIFIED_STATIC	_only_digits
+only_digits_qualname	0x2c09911	VERIFIED_STATIC	TrainLsvTab._add_buff_row.<locals>._only_digits
+tk_validate_substitution	0x2c09942	VERIFIED_STATIC	%P
+buff_save	0x2c09a05	VERIFIED_STATIC	_buff_save
+buff_save_qualname	0x2c09a11	VERIFIED_STATIC	TrainLsvTab._add_buff_row.<locals>._buff_save
+row_enabled_var	0x2c09a40	VERIFIED_STATIC	enabled_var
+row_key_var	0x2c09a4d	VERIFIED_STATIC	key_var
+row_min_var	0x2c09a56	VERIFIED_STATIC	min_var
+row_sec_var	0x2c09a5f	VERIFIED_STATIC	sec_var
+row_fixed	0x2c09a68	VERIFIED_STATIC	fixed
+fixed_row_doc	0x2c09a6f	VERIFIED_STATIC	fixed=True -> Dạ Minh Châu label/no delete/always active
+isdigit	0x2c09b31	VERIFIED_STATIC	isdigit
+remove_buff_row	0x2c09b3a	VERIFIED_STATIC	_remove_buff_row
+remove_buff_doc	0x2c09b4c	VERIFIED_STATIC	Xóa một dòng buff.
+trigger_nested_run	0x2c0a130	VERIFIED_STATIC	_run
+trigger_nested_qualname	0x2c0a136	VERIFIED_STATIC	TrainLsvTab._trigger_da_minh_chau.<locals>._run
+trigger_doc	0x2c0a167	VERIFIED_STATIC	one-shot at Farm start; wait modes; exact dismount policy; removed old clicks
+trigger_utils	0x2c0a44d	VERIFIED_STATIC	utils
+trigger_char_pixel_imports	0x2c0a454	VERIFIED_STATIC_DECODE	get_character_info/check_pixel
+trigger_isriding	0x2c0a4ae	VERIFIED_STATIC_DECODE	(IsRiding,0)
+trigger_mount_pixel	0x2c0a4bc	VERIFIED_STATIC_DECODE	(common,nguaActive)
+trigger_window_kw	0x2c0a4d2	VERIFIED_STATIC_DECODE	(window_hwnd,)
+trigger_dismount_log	0x2c0a4e1	VERIFIED_STATIC	[Dạ Minh Châu] hwnd=
+trigger_click_conditional	0x2c0a52d	VERIFIED_STATIC_DECODE	(1306,340)
+trigger_click_kwargs	0x2c0a535	VERIFIED_STATIC_DECODE	(window_hwnd,count,delay)
+trigger_click_down_mount	0x2c0a552	VERIFIED_STATIC_DECODE	(906,688)
+trigger_send_log	0x2c0a578	VERIFIED_STATIC	gửi phím
+trigger_keyboard_module	0x2c0a59d	VERIFIED_STATIC	keyboard
+trigger_press_helper	0x2c0a5a7	VERIFIED_STATIC	press_single_key_dll
+trigger_press_values	0x2c0a5bd	VERIFIED_STATIC_DECODE	(0,True)
+trigger_press_kwargs	0x2c0a5c2	VERIFIED_STATIC_DECODE	(delay,sync)
+farm_trigger	0x2c0d62e	VERIFIED_STATIC	_trigger_da_minh_chau
+farm_trigger_wait_kw	0x2c0d645	VERIFIED_STATIC_DECODE	(wait,)
+farm_dmc_disabled_log	0x2c0d65b	VERIFIED_STATIC	Dạ Minh Châu tắt → bỏ qua
+farm_event	0x2c0d680	VERIFIED_STATIC	Event
+farm_buff_loop	0x2c0d771	VERIFIED_STATIC	_buff_loop
+farm_buff_stop	0x2c0d7fa	VERIFIED_STATIC	buff_stop
+buff_press_import	0x2c0e341	VERIFIED_STATIC_DECODE	(press_single_key_dll,)
+buff_error_log	0x2c0e359	VERIFIED_STATIC	[Buff] hwnd= / lỗi gửi phím
+buff_waited_any	0x2c0e380	VERIFIED_STATIC	waited_any
+buff_doc	0x2c0e38c	VERIFIED_STATIC	repeat each buff row; row/gen exits on Farm stop/gen change
+save_buff_prefix_tuple	0x2c0e5de	VERIFIED_STATIC_DECODE	(buff_,)
+save_cf	0x2c0e5e7	STRONG_STATIC_MAPPING	cf
+save_separator	0x2c0e5eb	VERIFIED_STATIC	|
+save_buff_prefix	0x2c0e5ed	VERIFIED_STATIC	buff_
+load_sorted	0x2c0e7a2	VERIFIED_STATIC	sorted
+load_lambda	0x2c0e7aa	VERIFIED_STATIC	TrainLsvTab._load_buffs.<locals>.<lambda>
+load_split	0x2c0e7dc	VERIFIED_STATIC	split
+load_separator	0x2c0e7e3	VERIFIED_STATIC_DECODE	(|,)
+load_true_literal	0x2c0e7e7	STRONG_STATIC	True
+load_30_literal	0x2c0e7ed	STRONG_STATIC	30; exact fallback field binding unknown
+load_row_kwargs	0x2c0e7f1	VERIFIED_STATIC_DECODE	(enabled,key,minutes,seconds)
+load_buffs_doc	0x2c0e813	VERIFIED_STATIC	Load buff rows từ config.
+add_buff_defaults	0x2c0f051	VERIFIED_STATIC_DECODE	(False,'1','0','5',False)
+add_buff_qualname	0x2c0f05b	VERIFIED_STATIC	TrainLsvTab._add_buff_row
+trigger_qualname	0x2c0f138	VERIFIED_STATIC	TrainLsvTab._trigger_da_minh_chau
+buff_loop_qualname	0x2c0f62b	VERIFIED_STATIC	TrainLsvTab._buff_loop
+buff_loop_locals	0x2c0fce4	STRONG_STATIC_MAPPING	self/hwnd/stop_event/row/gen/press_single_key_dll/waited_any/rd/key/mins/secs/interval/deadline/e
+farm_cycle_locals	0x2c101df	STRONG_STATIC_MAPPING	... gen_snap/buff_stop/buff_thread/discard_stop ...
+load_buffs_locals	0x2c10444	STRONG_STATIC_MAPPING	self/cfg/sect/buff_keys/key/val/parts/enabled/k/m/s
+save_config_locals	0x2c108c5	STRONG_STATIC_MAPPING	self/... cfg/cf/k/i/rd/en/m/s/...
+keyboard_chunk	0x2b5cda3	VERIFIED_STATIC_DECODE	.keyboard size=4556 constants=152
+keyboard_postmessage	0x2b5d2c5	VERIFIED_STATIC	PostMessage
+keyboard_sync_message	0x2b5d2d8	VERIFIED_STATIC	WM_MY_SYNC_KEY
+keyboard_press_doc	0x2b5d311	VERIFIED_STATIC	DLL sync protocol/version.dll hook/targeted key transport
+keyboard_module_doc	0x2b5da23	VERIFIED_STATIC	press_single_key_dll is DLL-backed sync protocol
+keyboard_press_defaults	0x2b5dd3d	VERIFIED_STATIC_DECODE	(0.02,1,(0.1,1.0),None,(0.1,0.5),False,0,0.3)
+keyboard_press_name	0x2b5dd7f	VERIFIED_STATIC	press_single_key_dll
+runtime_dmc	-	NOT_RECOVERED	0 Dạ Minh lines in packaged automove_log
+runtime_buff	-	NOT_RECOVERED	0 [Buff] lines in packaged automove_log
+runtime_press_helper	-	NOT_RECOVERED	0 press_single_key_dll lines in packaged automove_log
+runtime_sync_message	-	NOT_RECOVERED	0 WM_MY_SYNC_KEY lines in packaged automove_log
+multirow_deadline_algorithm	-	EXPLICIT_UNKNOWN	interval/deadline locals verified; exact initialization/reset/order not instruction-bound
+zero_interval_policy	-	EXPLICIT_UNKNOWN	exact skip/clamp/fallback behavior not statically bound
+repeat_call_kwargs	-	EXPLICIT_UNKNOWN	press_single_key_dll use verified; delay/sync/retry overrides not bound in TrainLsv _buff_loop
+fixed_config_index	-	EXPLICIT_UNKNOWN	buff_* schema verified; fixed Dạ Minh exact persisted index/migration branch not bound
+buff_thread_lifecycle_microorder	-	EXPLICIT_UNKNOWN	buff_stop/buff_thread verified; daemon/join timeout/order not bound
