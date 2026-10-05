@@ -1,0 +1,85 @@
+{
+  "task": "I04",
+  "status": "VERIFIED_HUB10000_ONLY_EXIT_WITH_SHARED_GATE_MOVE_TWO_EXIT_CLICKS_AND_NO_POST_EXIT_MAP_ACTIVE_VERIFICATION_WAIT_FLAG_VALUE_AND_CLICK_PACING_EXPLICIT_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "decoded_chunk": {
+    "name": ".train_lsv_tab",
+    "file_offset": "0x2c07798",
+    "part_size_bytes": 37904,
+    "constant_count": 1201
+  },
+  "leave_lsv": {
+    "method": "_leave_lsv",
+    "accepted_start_map": 10000,
+    "other_maps": "skip",
+    "normal_exit_target": {
+      "map_id": 10000,
+      "tile": [
+        236,
+        190
+      ],
+      "pixel": [
+        7552,
+        6080
+      ]
+    },
+    "shared_move_helper": "move_character",
+    "movement_result_local": "ok",
+    "move_failure_log": "di chuyển tới cổng thất bại",
+    "wait_for_arrival": {
+      "keyword_explicitly_present": true,
+      "boolean_value": "UNKNOWN"
+    },
+    "clicks": [
+      [
+        887,
+        475
+      ],
+      [
+        478,
+        427
+      ]
+    ],
+    "click_order": "VERIFIED",
+    "pacing": {
+      "time_local_present": true,
+      "exact_sleep_interval": "UNKNOWN",
+      "exact_sleep_placement": "UNKNOWN"
+    },
+    "stop_check_parameter": false,
+    "explicit_injection_guard": false,
+    "post_exit_verification": {
+      "fresh_mapid_read": false,
+      "wait_active": false,
+      "common_active": false
+    },
+    "success_log_prefix": "[Rời LSV] Hoàn thành hwnd=",
+    "branch_return_values": "UNKNOWN"
+  },
+  "normalization": {
+    "ensure_in_lsv_called": false,
+    "floor_order_used": false,
+    "flat_waypoints_used": false,
+    "floor_or_flat_start_behavior": "skip because current map != 10000"
+  },
+  "all_account": {
+    "helper": "_leave_lsv_all",
+    "deep_orchestration": "DEFERRED_I11"
+  },
+  "runtime_evidence": {
+    "packaged_log_checked": true,
+    "correlated_leave_log": false,
+    "generic_movement_not_promoted": true,
+    "classification": "STATIC_VERIFIED"
+  },
+  "explicit_unknowns": [
+    "exact boolean value supplied to wait_for_arrival in _leave_lsv",
+    "exact sleep interval and placement between/after exit clicks",
+    "exact Python return values of skip/failure/success branches",
+    "bulk _leave_lsv_all target/thread/conflict/join semantics (I11)"
+  ],
+  "next_task": "I05 — Train LSV Dạ Minh Châu / manual schedule execution audit"
+}
