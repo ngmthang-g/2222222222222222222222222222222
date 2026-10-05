@@ -1972,31 +1972,76 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I07_TREATMENT_FLOW.md
 - docs/train_lsv/I07_TREATMENT_MODEL.json
 
+## I08 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly and performed the GitHub-first continuity check. No I08 artifacts existed; I01-I07 were already complete and were not repeated.
+- Rechecked the frozen original first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- TrainLSV reconnect authority remains `.train_lsv_tab` at offset `0x2c07798`, encoded size 37904, 1201 constants.
+- Auto reconnect is opt-in and clean default is **False**: `auto_reconnect_var`, label `Tự kết nối lại khi mất mạng`, config key `auto_reconnect`, exact fallback `('auto_reconnect', False)`. Exact source placement of the gate remains UNKNOWN.
+- Exact watchdog is `TrainLsvTab._disconnect_monitor`, running in parallel with Farm at **2-second cadence**.
+- TrainLSV independently serializes the memory-veto design: shared TCPGame connected probe is tri-state; True resets disconnect strikes and vetoes false positives, None is unresolved/read-error and lets pixels decide, False still does not bypass the persistent pixel-dialog requirement.
+- Exact disconnect probes from frozen `.pixel_data`:
+  - `login.ngatKetNoi1`: point **(640,244)**, RGB **(160,145,52)**, timeout **5**, tolerance **5**.
+  - `login.ngatKetNoi2`: point **(702,453)**, RGB **(212,28,34)**, timeout **5**, tolerance **5**.
+- Both pixels must match for **3 consecutive 2-second ticks**, about 6 seconds, before halt. Positive memory-connected state resets the strike chain.
+- Window/process identity is also a monitor exit guard: missing window or changed process identity stops the disconnect monitor rather than reconnecting the wrong HWND.
+- Confirmed 3/3 disconnect signals `halt` and directly uses shared `stop_character`, which remains a movement-stop surface rather than a global stop-all-game-auto operation.
+- Before every reconnect click, the monitor re-confirms the disconnect dialog. If the dialog has disappeared, it skips the click and still observes recovery.
+- Exact reconnect click is **(616,455)**.
+- Exact reconnect batch is **5 attempts**, independently serialized by `range(0,5,1)` and `/5` logging.
+- Each attempt waits up to **30 seconds** for shared `common.active`.
+- Frozen `common.active` is point **(1330,33)**, RGB **(34,8,11)**, tolerance **5**. Exact wait_pixel interval/debug kwargs remain UNKNOWN.
+- On reconnect success, the monitor invalidates the character Reader cache for the current PID and sets `reconnect_ok`; exact docs define this as a Farm-cycle reset rather than continuation of the interrupted sub-action.
+- TrainLSV has an exact stronger Farm-cycle event-wait contract than previously recovered ordinary Train: `reconnect_ok.wait(timeout=5)`, bound by adjacent `wait`, `(5,)`, and `('timeout',)` constants.
+- If all 5 attempts fail, exact behavior is remain in `Chờ kết nối lại`, wait **30 seconds**, and retry another batch indefinitely while the Farm session/window remains valid. Failure does not disable the account.
+- After `reconnect_ok`, TrainLSV calls shared `wait_memory_ready(timeout=45.0, need=3)`.
+- Shared helper clean defaults are `(45.0,3,1.0)`; because TrainLSV overrides timeout/need only, effective memory-ready sample interval is **1.0 second**.
+- Memory readiness requires **3 consecutive** fresh valid reads with clear RoleName and non-None MapID; each sample invalidates cache first. Timeout at 45s is explicitly fail-open so Farm is not permanently wedged.
+- No direct unconditional post-reconnect `_ensure_injected` edge is proven in the readable TrainLSV reconnect path. Do not add forced reinjection solely because TCP reconnect occurred.
+- TrainLSV state table contains `Mất kết nối → #b71c1c`; the Farm recovery branch explicitly uses `Chờ kết nối lại`. Exact setter ordering for `Mất kết nối` remains UNKNOWN.
+- Exact monitor error prefix is `disconnect monitor lỗi: `; exception-to-next-iteration micro-order remains UNKNOWN.
+- Only after static extraction, packaged `automove_log.txt` was searched for reconnect/common.active/MemReady markers and exact click coordinates; no correlated top-level reconnect trace was recovered. I08 is **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED**.
+- I08 also uncovered a direct frozen-data correction: both disconnect pixel tolerances are **5**, not 0. The earlier H08 task/model/static-evidence artifacts were minimally corrected for consistency; all other H08 reconnect contracts remain unchanged.
+
+## I08 FILES
+- docs/tasks/I08.md
+- docs/train_lsv/I08_RECONNECT_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I08_RECONNECT_FLOW.md
+- docs/train_lsv/I08_RECONNECT_MODEL.json
+
+## I08 CROSS-PHASE CORRECTION
+- Corrected ordinary Train H08 disconnect-probe tolerance from prior artifact value 0 to the directly decoded frozen value **5** for both `login.ngatKetNoi1` and `login.ngatKetNoi2`.
+- Updated:
+  - docs/tasks/H08.md
+  - docs/train/H08_RECONNECT_MODEL.json
+  - docs/train/H08_RECONNECT_STATIC_EVIDENCE.tsv
+- This is a narrow evidence correction only; H08 cadence, coordinates, RGB, timeout, 3-strike logic, reconnect batching and recovery semantics were not reopened.
+
 ## BLOCKERS
-None known for I08.
+None known for I09.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve I01-I06 contracts unchanged.
+- Preserve I01-I07 contracts unchanged.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
-- Preserve I07 `trist=False` clean default and fixed treatment destination MapID 10000 / tile (163,237).
-- Preserve I07 rule that active treatment ignores legacy `heal_map_var`; do not import H06's multi-city selector.
-- Preserve I07 internal HP gate: >=50 skip, <50 heal, unreadable HP still heal.
-- Preserve I07 shared-movement failure gate, `Trị liệu` state, exact click points (892,474)/(514,424) and exact x4 treatment behavior.
-- Preserve I07 no-post-treatment-HP-check and no-treatment-specific common.active wait.
-- Preserve I07 UNKNOWN boundaries: effective click pacing, exact x4 source call shape, exact stop_check pass-through/checkpoints, branch return values, and exact active-state setter micro-order.
-- Do not copy H06's 0.2 click pacing into TrainLSV.
+- Preserve corrected disconnect-pixel tolerance **5** in both H08 and I08.
+- Preserve I08 auto_reconnect default False, 2s cadence, tri-state memory veto, dual-pixel 3-strike confirmation, exact reconnect click (616,455), five attempts per batch, 30s active wait and 30s failed-batch delay.
+- Preserve I08 infinite retry while session/window valid; reconnect failure must not disable the account.
+- Preserve I08 cache invalidation on success and `reconnect_ok` cycle-reset signaling.
+- Preserve exact TrainLSV `reconnect_ok.wait(timeout=5)`.
+- Preserve I08 `wait_memory_ready(timeout=45, need=3)` with inherited 1.0s sample interval and fail-open timeout.
+- Preserve I08 no-proven-forced-reinjection boundary.
+- Preserve I08 UNKNOWN boundaries: source placement of auto_reconnect gate, wait_pixel interval/debug, exact stop_character call microdetails, monitor exception micro-order, same-window death/disconnect arbitration, and exact Mất kết nối setter ordering.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I08 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **I08 — Train LSV reconnect watchdog/recovery audit** only.
+3. Check GitHub first for any I09 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **I09 — Train LSV death handling audit** only.
 5. Inspect the frozen original EXE first.
-6. Audit `auto_reconnect_var`, `_disconnect_monitor`, memory connected-veto path, exact disconnect pixels/strike count/poll cadence, reconnect click, retry batching, active wait, cache invalidation, memory-ready wait, halt/reconnect_ok signaling and cancellation.
-7. Determine exactly which reconnect semantics are shared with ordinary H08 and which are independently serialized in TrainLsvTab; do not copy H08 merely by similarity.
-8. Keep death handling I09, coordinates I10 and all-account/FSM I11 deferred.
+6. Audit `_diaphu_monitor`, HP-zero and MapID-10000 death/recovery detection, respawn-event latching, exact respawn click(s), monitor cadence, extra-death counter ownership, `respawn_var` behavior, treatment interaction and return-to-train sequencing.
+7. Determine how I08 `halt`/reconnect arbitration interrupts death/recovery work only where TrainLsvTab directly proves it; keep same-scheduling-window ordering UNKNOWN if not bound.
+8. Keep coordinates I10 and all-account/FSM I11 deferred.
 9. Search packaged runtime traces only after static extraction and scope primitive-level evidence correctly.
-10. Persist I08 evidence/report, update STATE.md, and advance only to I09 after I08 verification.
+10. Persist I09 evidence/report, update STATE.md, and advance only to I10 after I09 verification.
