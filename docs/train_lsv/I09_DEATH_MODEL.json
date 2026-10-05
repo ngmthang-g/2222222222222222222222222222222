@@ -1,0 +1,152 @@
+{
+  "task": "I09",
+  "status": "VERIFIED_4S_MAP10000_AND_REAL_HP0_MONITOR_WITH_SINGLE_RESPAWN_CLICK_DEATH_COUNTER_LATCHES_COMMON_ACTIVE_RECOVERY_EVENT_AND_OPT_IN_RETURN_EXACT_LATCH_RESET_ACTIVE_WAIT_AND_RESPAWN_FALSE_CONTINUATION_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b06_sha256": "9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29"
+  },
+  "config": {
+    "var": "respawn_var",
+    "key": "respawn",
+    "label": "Quay lại train khi chết",
+    "clean_default": false,
+    "semantic": "automatic return to selected Train LSV target after death/recovery",
+    "false_branch_exact_worker_continuation": "UNKNOWN"
+  },
+  "monitor": {
+    "method": "_diaphu_monitor",
+    "starts_from_farm_start": true,
+    "cadence_seconds": 4,
+    "locals": [
+      "self",
+      "hwnd",
+      "respawn_event",
+      "stop_event",
+      "detected",
+      "hp_latched",
+      "click_at",
+      "get_character_info",
+      "ci",
+      "hp_pct",
+      "row_d",
+      "wait_pixel"
+    ],
+    "hp_signal": {
+      "field": "HpPercent",
+      "condition": "real numeric 0%",
+      "unreadable_is_zero": false,
+      "respawn_click": [
+        792,
+        441
+      ],
+      "clicks_per_latched_episode": 1,
+      "latch": "hp_latched",
+      "exact_latch_reset": "UNKNOWN"
+    },
+    "map_signal": {
+      "map_id": 10000,
+      "meaning": "Lạc Dương LSV recovery hub",
+      "latch": "detected",
+      "event": "respawn_event",
+      "event_clear_surface": true,
+      "exact_latch_reset_and_event_clear_order": "UNKNOWN"
+    },
+    "active_wait": {
+      "helper": "wait_pixel",
+      "key": "common.active",
+      "point": [
+        1330,
+        33
+      ],
+      "rgb": [
+        34,
+        8,
+        11
+      ],
+      "tolerance": 5,
+      "success_log": "common.active sau hồi sinh OK",
+      "exact_timeout": "UNKNOWN",
+      "exact_interval_debug": "UNKNOWN"
+    },
+    "stop": {
+      "stop_event": true,
+      "independent_of_respawn_event": true,
+      "first_poll_microorder": "UNKNOWN"
+    }
+  },
+  "death_counter": {
+    "initial_text": "Chết: 0",
+    "field": "_extra_deaths",
+    "hp_branch_default_tuple": [
+      "_extra_deaths",
+      0
+    ],
+    "increment_event": "latched real HP-zero episode",
+    "map10000_only_increment": "NOT_RECOVERED",
+    "reset_on_each_farm_restart": "UNKNOWN"
+  },
+  "state": {
+    "recovery_label": "Về Lạc Dương LSV",
+    "recovery_color": "#1565c0",
+    "ordinary_train_states_not_present": [
+      "Đang hồi sinh",
+      "Về địa phủ"
+    ]
+  },
+  "farm_cycle": {
+    "owns_event": "respawn_event",
+    "recovery_log": "đang ở map 10000 → xử lý hồi sinh",
+    "selected_target_locals": [
+      "fm",
+      "fx",
+      "fy"
+    ],
+    "normal_move_state": "Tới bãi LSV",
+    "return_pipeline": [
+      "I02 _ensure_in_lsv",
+      "I03 _move_acc"
+    ],
+    "death_only_hardcoded_train_coordinate": false,
+    "exact_recovery_control_flow": "UNKNOWN"
+  },
+  "treatment": {
+    "option": "trist_var",
+    "helper": "_heal_at_death",
+    "frozen_primitive": "I07",
+    "destination_map": 10000,
+    "pretrain_hp_gate_marker": "% < 50% lúc bắt đầu → trị liệu trước",
+    "exact_inline_vs_next_cycle_order": "UNKNOWN"
+  },
+  "reconnect_arbitration": {
+    "halt": "I08 halt",
+    "once_halt_asserted": "reconnect recovery takes over",
+    "same_window_pre_halt_order": "UNKNOWN"
+  },
+  "visual": {
+    "b06_respawn_unchecked": true,
+    "b06_treatment_unchecked": true,
+    "geometry_remeasured": false
+  },
+  "runtime_evidence": {
+    "packaged_log_checked": true,
+    "correlated_hp_monitor": 0,
+    "correlated_respawn_click": 0,
+    "correlated_hp0": 0,
+    "correlated_respawn_event": 0,
+    "correlated_recovery_state": 0,
+    "correlated_active_after_respawn": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "immediate-first-read vs initial 4-second wait",
+    "exact hp_latched reset statement",
+    "exact detected reset and respawn_event.clear ordering",
+    "death-monitor common.active timeout/interval/debug",
+    "exact respawn=False Farm-worker continuation",
+    "inline versus next-cycle treatment/return statement order",
+    "death counter reset on Farm restart",
+    "same-scheduling-window death/reconnect ordering before halt"
+  ],
+  "next_task": "I10 — Train LSV coordinate management / saved-coordinate persistence audit"
+}
