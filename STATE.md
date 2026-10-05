@@ -1787,33 +1787,71 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I01_LSV_UI_WIRING_FLOW.md
 - docs/train_lsv/I01_LSV_UI_WIRING_MODEL.json
 
+## I01 CORRECTION / STRONGER STATIC RESOLUTION
+- A stronger direct decode of the frozen `.train_lsv_tab` Nuitka constant chunk resolved I01's previous B06 reservation about the fixed Dạ Minh Châu row.
+- `TrainLsvTab._add_buff_row` exact defaults are now statically decoded as `(enabled=False, key='1', minutes='0', seconds='5', fixed=False)`.
+- `_build_ui` calls `_add_buff_row(fixed=True)` for `_da_minh_chau_row`.
+- Therefore the fixed Dạ Minh Châu row's clean code defaults are now locked as **key 1, 0 minutes, 5 seconds**; `fixed=True` then forces its always-active/no-delete presentation.
+- This is frozen-EXE evidence, not an inference from the screenshot. I01 task/model/evidence files were updated accordingly.
+
+## I02 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly and performed the user's requested GitHub-first continuity check. No I02 artifacts existed and the latest completed work was I01, so no completed work was redone.
+- Inspected the frozen original EXE first. A direct decode of the well-formed Nuitka `.train_lsv_tab` constant chunk at file offset `0x2c07798` recovered **1201** top-level constants from a **37904-byte** encoded part.
+- Authoritative Train LSV map labels/IDs are now locked: Tần Hoàng Địa Cung Tầng 1/2/3/4 = **10014/10015/10016/10017**; Phàm Liên Trại = **10004**; Thanh Liên Trại = **10005**; Khô Vinh Đạo = **10007**. Lạc Dương LSV/server hub is **10000**; normal-world Lạc Dương used for entry is MapID **3**.
+- Exact full LSV-zone set used by `_ensure_in_lsv` is `{10000,10004,10005,10007,10014,10015,10016,10017}`.
+- `_move_lsv` has a smaller special already-inside set `{10000,10014,10015,10016,10017}`. For those maps it calls shared `move_character` to MapID 10000, tile **(236,190)** / pixel **(7552,6080)** and skips normal-world gate clicks.
+- Normal `Tới LSV` path calls shared `move_character` to normal Lạc Dương MapID **3**, tile **(232,190)** / pixel **(7424,6080)**, then uses exact entry clicks **(891,473)** and **(480,605)**. A **1-second** pacing constant is statically bound to this click block, but its exact statement placement between/after the clicks remains UNKNOWN.
+- `_move_lsv` directly owns `stop_check`, current MapID and movement-result `ok`; movement failure is explicit. Its recovered local surface contains no `_wait_active` and no second post-click character-info sample, so I02 does **not** invent post-gate MapID/common.active verification inside `_move_lsv`.
+- Both `_move_lsv` and `_ensure_in_lsv` directly reuse shared `move_character`. Therefore H10's shared memory/packet mount/remount primitive applies at that edge; no I02-specific horse hotkey/pixel mount helper was recovered. Ordinary Train return-town/Truyền logic is not imported.
+- `_ensure_in_lsv` is now locked as a **premove/normalization** step before the caller's final saved-coordinate movement. `farm_map=None` compatibility targets **10014**. Final `Tới chỗ train` movement remains I03.
+- Exact floor order is `[10000,10014,10015,10016,10017]`.
+- Exact floor waypoint table is:
+  - `(10000,10014,258,470,True)`
+  - `(10014,10015,26,215,False)`
+  - `(10015,10016,95,90,False)`
+  - `(10016,10017,132,224,False)`.
+- Floor climb is sequential. Exact 10000→10014 portal action is click **(609,450)** exactly **3 times**, **0.5s** apart. Higher-floor transitions require movement/map-change readiness but their table flag says no extra portal click.
+- If a requested floor is not found in the floor order, the frozen path falls back to **10014**. If already at or above the requested floor index, the frozen branch says it is already high enough and does not replay lower-floor transitions.
+- Exact flat-map waypoint table is: **10004→(37,264)**, **10005→(487,257)**, **10007→(256,36)**. If already on the selected flat map, no premove is required; otherwise the branch moves/observes MapID and requires the final MapID to equal the requested flat map.
+- Flat-map entry directly checks shared pixel `common.canhBaoPK`; when shown it clicks exact point **(617,454)**. The branch contains exact numeric constants **0.3** and **0.5**, but their precise call/argument placement is not instruction-bound and remains UNKNOWN.
+- When outside the full LSV set, exact frozen log semantics are “ngoài cụm LSV → Tới LSV”. The post-entry normalization block has a one-argument integer **3** constant, but its exact call binding remains STRONG_STATIC_BUT_NOT_INSTRUCTION_BOUND. An unrecognized map after normalization is explicitly reasoned as **10000**.
+- `_wait_active` exact decoded defaults are now locked as `timeout=30, click_if_stuck=False`.
+- `_wait_active` waits shared `common.active`. Reusing the already-frozen shared pixel definition: point **(1330,33)**, RGB **(34,8,11)**, tolerance **5**. TrainLsvTab exposes `window_hwnd/timeout/interval/debug` kwargs to `wait_pixel`; exact interval/debug values remain UNKNOWN.
+- With `click_if_stuck=True`, exact frozen recovery is click **(609,450)** exactly **2 times**, **1 second** apart, then continue waiting for `common.active`.
+- Important cancellation boundary: `_wait_active` has no `stop_check/stop_event` parameter in its decoded signature/local surface. Movement/premove are stop-check aware, but a bounded active wait itself is not directly passed the TrainLSV stop callback.
+- No arbitrary I02-specific retry loop was recovered. The fixed 3-click portal burst and optional 2-click stuck recovery are the only exact retry-like entry behaviors here; any retry inside shared `move_character` remains owned by that shared helper.
+- Only after static extraction, the packaged `automove_log.txt` was searched for correlated `Tới LSV`, entry-click, common.active, Địa Cung and PK-warning evidence. No top-level/correlated Train LSV entry trace was recovered. Generic AutoMove/AutoPath lines remain primitive-level evidence only; I02 is static-verified, not end-to-end runtime-verified.
+
+## I02 FILES
+- docs/tasks/I02.md
+- docs/train_lsv/I02_LSV_ENTRY_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I02_LSV_ENTRY_FLOW.md
+- docs/train_lsv/I02_LSV_ENTRY_MODEL.json
+
 ## BLOCKERS
-None known for I02.
+None known for I03.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve H15 runtime evidence classifications; do not use helper-log primitive execution to claim LSV runtime success.
+- Preserve H15 runtime evidence classifications; generic helper-log movement records do not prove top-level LSV entry success.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
-- Use frozen TLM 2.1.2 TrainLsvTab as the LSV authority; do not substitute ordinary Train logic unless the LSV module directly shares a helper/constant.
-- Preserve I01 dedicated `train_lsv_tab.py / TrainLsvTab` ownership.
-- Preserve I01 constructor lifecycle, `[TrainLSV]` config key families, exact 30s autosave and 5s incremental background refresh/main-thread apply.
-- Preserve I01 dynamic coordinate-row wiring and separate I10 deep coordinate semantics.
-- Preserve I01 Dạ Minh Châu fixed-row semantics and keep key=1/0m5s clean-default status UNKNOWN.
-- Preserve I01 all-account wiring and daemon outer dispatch while deferring command/FSM semantics to I11.
-- Preserve I01 StartTab forwarding/mirror relationship.
-- Do not reopen B06 geometry unless new EXE evidence directly contradicts it.
+- Use frozen TLM 2.1.2 `TrainLsvTab` as authority. Do not import ordinary Train logic unless the LSV module directly shares a helper/constant.
+- Preserve I01 module/UI/config wiring, exact 30s autosave, 5s refresh, StartTab forwarding/mirror, and the now-resolved fixed Dạ Minh Châu clean defaults **key 1 / 0m5s**.
+- Preserve I02 authoritative LSV IDs, normal Map3 entry coordinates/clicks, full/special LSV sets, floor/flat waypoint tables, shared move_character edge, portal/PK click points and `_wait_active(timeout=30, click_if_stuck=False)` contract.
+- Preserve I02 UNKNOWN boundaries: exact placement of the 1s normal-entry pacing constant; exact binding of the post-entry integer 3; exact 0.3/0.5 flat-branch timing calls; exact wait_pixel interval/debug; and instruction-level map-poll micro-order.
+- Do not fabricate post-gate MapID/common.active verification inside `_move_lsv`; its decoded local/call surface does not contain it.
+- Keep I03 final target-coordinate movement separate from I02 entry/premove and I04 leave-LSV.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I02 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **I02 — Train LSV entry / ensure-in-LSV and Lạc Dương LSV navigation audit** only.
+3. Check GitHub first for any I03 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **I03 — Train LSV final train-point / “Tới chỗ train” movement audit** only.
 5. Inspect the frozen original EXE first.
-6. Audit `_ensure_in_lsv`, `_move_lsv`, `_wait_active` and the entry/navigation primitives they call: how LSV presence is detected, how a character gets to Lạc Dương/LSV, exact UI/memory/pixel/packet surfaces, mount behavior around entry, readiness checks, retries/timeouts and cancellation.
-7. Determine the authoritative LSV map/zone identifiers only where directly bindable. Keep unknown IDs/conditions UNKNOWN rather than inferring from names.
-8. Separate `Tới LSV` (entry/ensure) from I03 `Tới chỗ train` coordinate movement and I04 `Rời LSV`.
-9. Reuse H/shared movement/mount helpers only when TrainLsvTab directly calls them; document that edge rather than copying H semantics wholesale.
-10. Search the packaged runtime trace for LSV-entry primitives only after static extraction. Any trace line without top-level Train LSV correlation must remain primitive-level evidence.
-11. Persist I02 evidence/report, update STATE.md, and advance only to I03 after I02 verification.
+6. Audit `_move_acc` and the final movement path after I02 premove: selected saved-coordinate resolver, exact map/MapID validation, tile→pixel conversion, relationship to `_ensure_in_lsv`, stop_check propagation, movement/arrival completion and failure logging.
+7. Determine whether the final path has a near-target skip, direct `move_character`, additional MapID checks, timeouts or readiness waits only where directly bound by TrainLsvTab. Do not copy H05's 8-tile near-target rule unless the LSV module itself proves it.
+8. Keep `Tới LSV` entry/premove frozen from I02 and keep `Rời LSV` deferred to I04.
+9. Search packaged runtime traces only after static extraction; generic AutoMove primitives remain primitive-level unless correlated to the LSV train-point action.
+10. Persist I03 evidence/report, update STATE.md, and advance only to I04 after I03 verification.
