@@ -1,0 +1,100 @@
+key	offset_hex	status	evidence
+trainlsv_chunk	0x2c07798	VERIFIED_STATIC_DECODE	.train_lsv_tab marker; data at 0x2c077ab; size 37904; constants 1201
+global_button_initial	0x2c07a89	VERIFIED_STATIC	Bắt đầu
+global_button_green	0x2c07aa5	VERIFIED_STATIC	#388e3c
+bulk_bar	0x2c08348	VERIFIED_STATIC	Điều khiển tất cả:
+bulk_toi_lsv	0x2c08395	VERIFIED_STATIC	Tới LSV
+bulk_toi_train	0x2c083cc	VERIFIED_STATIC	Tới chỗ train
+bulk_fight	0x2c083ed	VERIFIED_STATIC	Đánh
+bulk_leave	0x2c08403	VERIFIED_STATIC	Rời LSV
+bulk_outer_thread	0x2c0846f	VERIFIED_STATIC	threading / Thread / target / daemon / start beside four bulk methods
+checked_rows_doc	0x2c09e54	VERIFIED_STATIC	all accounts in list; bulk applies to every account
+stopping_flag	0x2c09ea8	VERIFIED_STATIC	_stopping_play
+stopping_symbol	0x2c09eba	VERIFIED_STATIC	…
+stopping_orange	0x2c09ebf	VERIFIED_STATIC	#ef6c00
+single_stop_log	0x2c09ee0	VERIFIED_STATIC	[TrainLSV] Dừng farm acc hwnd=
+single_start_permission	0x2c09f03	VERIFIED_STATIC	has_permission_with_limit
+single_permission_scope	0x2c09f3b	VERIFIED_STATIC	trainlsv_tab
+single_permission_feature	0x2c09f49	VERIFIED_STATIC	trainlsv
+single_permission_denied	0x2c09f56	VERIFIED_STATIC	license denied log
+running_text_1	0x2c09f89	VERIFIED_STATIC	Dừng lại
+running_red_1	0x2c09f97	VERIFIED_STATIC	#f44336
+running_text_2	0x2c09fa2	VERIFIED_STATIC	Dừng lại
+running_red_2	0x2c09fb0	VERIFIED_STATIC	#f44336
+farm_cycle_ref	0x2c09fc2	VERIFIED_STATIC	_farm_cycle
+single_start_log	0x2c09ff7	VERIFIED_STATIC	[TrainLSV] Bắt đầu farm acc hwnd=
+single_toggle_doc	0x2c0a036	VERIFIED_STATIC	single account start/stop; last account stop enters global-stop workflow
+row_active_text	0x2c0a779	VERIFIED_STATIC_DECODE	ASCII II
+row_active_red	0x2c0a77d	VERIFIED_STATIC	#f44336
+row_inactive_text	0x2c0a788	VERIFIED_STATIC_DECODE	▶
+row_inactive_green	0x2c0a78d	VERIFIED_STATIC	#388e3c
+refresh_play_doc	0x2c0a796	VERIFIED_STATIC	active from _farming_acc; skip _stopping_play sentinel
+stop_acc_doc	0x2c0bab2	VERIFIED_STATIC	stop character + turn off personal farm flag
+bulk_empty_log	0x2c0baf4	VERIFIED_STATIC	[TrainLSV] Không có acc nào được chọn
+move_all_doc	0x2c0bb2e	VERIFIED_STATIC	configured-coordinate bulk move in parallel
+move_lsv_all_doc	0x2c0bb84	VERIFIED_STATIC	bulk Tới LSV parallel, one account per thread
+leave_lsv_all_doc	0x2c0bbd0	VERIFIED_STATIC	bulk Rời LSV parallel, one account per thread
+manual_fight_guard	0x2c0bc3d	VERIFIED_STATIC	manual Fight skips account already in automated Farm
+farm_acc_start	0x2c0bca0	VERIFIED_STATIC	[TrainLSV] Bắt đầu hwnd=
+farm_acc_helper	0x2c0bcc5	VERIFIED_STATIC	start_auto_train
+farm_acc_doc	0x2c0bd06	VERIFIED_STATIC	memory StartAutoFight Train; no click
+stop_all_doc	0x2c0bdc6	VERIFIED_STATIC	bulk stop in parallel
+farm_all_doc	0x2c0bdf4	VERIFIED_STATIC	bulk manual farm/fight in parallel
+sync_start_qualname	0x2c0c5e2	VERIFIED_STATIC	TrainLsvTab._sync_start_tab_btn
+sync_start_doc	0x2c0c611	VERIFIED_STATIC	StartTab button mirrors TrainLSV; local Bắt đầu maps to StartTab Train LSV
+global_stop_count	0x2c0c741	VERIFIED_STATIC	[TrainLSV] Đang dừng <N> acc...
+global_no_active	0x2c0c766	VERIFIED_STATIC	no account currently farming
+global_stop_ack	0x2c0c793	VERIFIED_STATIC	stop accepted; wait for current sub-cycle
+global_no_rows	0x2c0c7eb	VERIFIED_STATIC	no account rows
+global_all_running	0x2c0c81e	VERIFIED_STATIC	all accounts already farming; no extra start
+global_start_log	0x2c0c861	VERIFIED_STATIC	[TrainLSV] Bắt đầu farm <N> acc
+global_start_skip_suffix	0x2c0c880	VERIFIED_STATIC	bỏ qua acc đang chạy
+global_toggle_doc	0x2c0c8a2	VERIFIED_STATIC	START only nonfarming rows; STOP only farming rows
+resize_doc	0x2c0ca21	VERIFIED_STATIC	1-second size monitor, 1366x768 only if mismatch, row-aware exit
+join_symbol	0x2c0cb25	VERIFIED_STATIC	join
+wait_stop_qualname	0x2c0cb2c	VERIFIED_STATIC	TrainLsvTab._wait_farm_stop
+partial_stop_log	0x2c0cb5d	VERIFIED_STATIC	selected accounts stopped; remaining continue
+full_stop_log	0x2c0cbb7	VERIFIED_STATIC	all Farm stopped
+full_stop_button	0x2c0cbdd	VERIFIED_STATIC	Bắt đầu
+full_stop_green	0x2c0cbeb	VERIFIED_STATIC	#388e3c
+wait_stop_doc	0x2c0cbfc	VERIFIED_STATIC	join/drain worker threads; has_remaining controls partial/full UI finalization
+auto_no_windows	0x2c09bad	VERIFIED_STATIC	no game windows -> automatic Farm stop
+auto_stop_text	0x2c09bf9	VERIFIED_STATIC	Đang dừng...
+auto_stop_orange	0x2c09c0a	VERIFIED_STATIC	#ef6c00
+auto_stop_disabled	0x2c09c13	VERIFIED_STATIC	disabled
+cycle_state	0x2c0d78d	VERIFIED_STATIC	Đang train LSV
+cycle_doc	0x2c0d8dc	VERIFIED_STATIC	move to TrainLSV point -> farm -> repeat; no sell/medicine/return-town cycle
+check_stop_doc	0x2c0e4d1	VERIFIED_STATIC	cooperative stop check returns True -> exit immediately
+is_acc_doc	0x2c0e51e	VERIFIED_STATIC	check whether specific account remains farming
+qual_checked	0x2c0f0fd	VERIFIED_STATIC	TrainLsvTab._checked_rows
+qual_toggle_single	0x2c0a0fd	VERIFIED_STATIC	TrainLsvTab._toggle_single_farm
+qual_refresh_play	0x2c0f194	VERIFIED_STATIC	TrainLsvTab._refresh_play_buttons
+qual_stop_acc	0x2c0f2a3	VERIFIED_STATIC	TrainLsvTab._stop_acc
+qual_move_all	0x2c0f2ba	VERIFIED_STATIC	TrainLsvTab._move_all
+qual_move_lsv_all	0x2c0f2d1	VERIFIED_STATIC	TrainLsvTab._move_lsv_all
+qual_leave_all	0x2c0f2ec	VERIFIED_STATIC	TrainLsvTab._leave_lsv_all
+qual_farm_acc	0x2c0f308	VERIFIED_STATIC	TrainLsvTab._farm_acc
+qual_stop_all	0x2c0f32a	VERIFIED_STATIC	TrainLsvTab._stop_all
+qual_farm_all	0x2c0f341	VERIFIED_STATIC	TrainLsvTab._farm_all
+qual_toggle_global	0x2c0f4d4	VERIFIED_STATIC	TrainLsvTab._toggle_farm
+qual_check_stop	0x2c0f66a	VERIFIED_STATIC	TrainLsvTab._check_stop
+qual_is_acc	0x2c0f683	VERIFIED_STATIC	TrainLsvTab._is_acc_farming
+farm_all_locals	0x2c0f501	STRONG_STATIC_MAPPING	self/_hp/rows/_threads/row/wt
+move_all_locals	0x2c0f8e2	STRONG_STATIC_MAPPING	self/_hp/rows/_threads/row/mv/xv/yv/wt
+generic_bulk_locals	0x2c0fcec	STRONG_STATIC_MAPPING	self/rows/_threads/row/wt; reusable by bulk helpers
+sync_locals	0x2c109cd	STRONG_STATIC_MAPPING	self/text/bg/state/st/_upd
+global_toggle_locals	0x2c109ea	STRONG_STATIC_MAPPING	self/stopping/row/threads/_hp/targets/wt/art
+single_toggle_locals	0x2c10a1e	STRONG_STATIC_MAPPING	self/hwnd/row/remaining/threads/_hp/wt/art
+wait_stop_locals	0x2c10b3b	STRONG_STATIC_MAPPING	self/threads/has_remaining/wt
+check_stop_locals	0x2c0e840	STRONG_STATIC_MAPPING	self/row/halt/gen_snap/hwnd plus cycle closure over same values
+runtime_trainlsv_markers	-	NOT_RECOVERED	0 correlated top-level TrainLSV/FSM markers in packaged automove_log
+runtime_autofight	-	RUNTIME_PRIMITIVE_ONLY	AutoFight_Main=8511
+runtime_automove	-	RUNTIME_PRIMITIVE_ONLY	AutoMove queued=16040
+runtime_startpath	-	RUNTIME_PRIMITIVE_ONLY	StartAutoPath called=15993
+runtime_stoppath	-	RUNTIME_PRIMITIVE_ONLY	StopAutoPath called=2027
+inner_child_thread_daemon_join	-	EXPLICIT_UNKNOWN	parallel child workers verified; exact daemon/join policy not instruction-bound
+global_extra_permission	-	EXPLICIT_UNKNOWN	single-account start permission guard verified; separate global precheck not bound
+move_leave_conflicts	-	EXPLICIT_UNKNOWN	manual Fight auto-Farm skip verified; equivalent skip for bulk move/leave not independently proven
+generation_mutation_order	-	EXPLICIT_UNKNOWN	gen/gen_snap barrier verified; exact increment/assignment statements not recovered
+normal_stop_transient_ui	-	EXPLICIT_UNKNOWN	orange disabled state is proven for no-window cleanup, not every ordinary user stop
+join_timeout	-	EXPLICIT_UNKNOWN	join/drain verified; timeout microbehavior not bound
