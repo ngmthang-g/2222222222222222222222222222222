@@ -1,0 +1,239 @@
+{
+  "task": "I02",
+  "status": "VERIFIED_MAP3_GATE_ENTRY_WITH_EXACT_LSV_ZONE_SET_FLOOR_PREMOVE_TABLES_AND_30S_COMMON_ACTIVE_GATE_POST_GATE_VERIFY_EXPLICIT_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "decoded_chunk": {
+    "name": ".train_lsv_tab",
+    "file_offset": "0x2c07798",
+    "part_size_bytes": 37904,
+    "constant_count": 1201
+  },
+  "maps": {
+    "normal_lac_duong": 3,
+    "lsv_hub": 10000,
+    "labels": {
+      "Tần Hoàng Địa Cung Tầng 1": 10014,
+      "Tần Hoàng Địa Cung Tầng 2": 10015,
+      "Tần Hoàng Địa Cung Tầng 3": 10016,
+      "Tần Hoàng Địa Cung Tầng 4": 10017,
+      "Phàm Liên Trại": 10004,
+      "Thanh Liên Trại": 10005,
+      "Khô Vinh Đạo": 10007
+    },
+    "ensure_lsv_zone_set": [
+      10000,
+      10004,
+      10005,
+      10007,
+      10014,
+      10015,
+      10016,
+      10017
+    ],
+    "move_lsv_already_inside_set": [
+      10000,
+      10014,
+      10015,
+      10016,
+      10017
+    ]
+  },
+  "move_lsv": {
+    "method": "_move_lsv",
+    "normal_entry": {
+      "map_id": 3,
+      "tile": [
+        232,
+        190
+      ],
+      "pixel": [
+        7424,
+        6080
+      ],
+      "clicks": [
+        [
+          891,
+          473
+        ],
+        [
+          480,
+          605
+        ]
+      ],
+      "sleep_constant_seconds": 1,
+      "exact_sleep_statement_order": "UNKNOWN"
+    },
+    "already_inside": {
+      "target_map_id": 10000,
+      "tile": [
+        236,
+        190
+      ],
+      "pixel": [
+        7552,
+        6080
+      ],
+      "gate_clicks": false
+    },
+    "shared_move_helper": "move_character",
+    "stop_check": true,
+    "explicit_retry_loop": false,
+    "post_gate_map_verification_inside_helper": false,
+    "post_gate_active_wait_inside_helper": false
+  },
+  "shared_mount_edge": {
+    "direct_move_character_reuse": true,
+    "inherited_contract": "H10 shared memory/packet mount/remount path",
+    "lsv_specific_mount_helper_in_i02": false,
+    "da_minh_chau_dismount": "DEFERRED_I05"
+  },
+  "ensure_in_lsv": {
+    "method": "_ensure_in_lsv",
+    "purpose": "premove/normalize to requested LSV map or floor before final saved-coordinate movement",
+    "farm_map_none_compat_target": 10014,
+    "outside_cluster_action": "call Tới LSV with stop_check",
+    "post_entry_one_arg_constant_3": {
+      "value": 3,
+      "exact_binding": "STRONG_STATIC_BUT_NOT_INSTRUCTION_BOUND"
+    },
+    "unknown_map_reasoning_fallback": 10000,
+    "flat_waypoints": {
+      "10004": [
+        37,
+        264
+      ],
+      "10005": [
+        487,
+        257
+      ],
+      "10007": [
+        256,
+        36
+      ]
+    },
+    "flat_pk_warning": {
+      "pixel_key": "common.canhBaoPK",
+      "click": [
+        617,
+        454
+      ],
+      "branch_numeric_constants": [
+        0.3,
+        0.5
+      ],
+      "exact_timing_binding": "UNKNOWN"
+    },
+    "floor_order": [
+      10000,
+      10014,
+      10015,
+      10016,
+      10017
+    ],
+    "floor_waypoints": [
+      {
+        "from": 10000,
+        "to": 10014,
+        "tile": [
+          258,
+          470
+        ],
+        "need_click": true
+      },
+      {
+        "from": 10014,
+        "to": 10015,
+        "tile": [
+          26,
+          215
+        ],
+        "need_click": false
+      },
+      {
+        "from": 10015,
+        "to": 10016,
+        "tile": [
+          95,
+          90
+        ],
+        "need_click": false
+      },
+      {
+        "from": 10016,
+        "to": 10017,
+        "tile": [
+          132,
+          224
+        ],
+        "need_click": false
+      }
+    ],
+    "portal_10000_to_10014": {
+      "click": [
+        609,
+        450
+      ],
+      "count": 3,
+      "interval_seconds": 0.5
+    },
+    "invalid_floor_target_fallback": 10014,
+    "final_saved_coordinate_move": "DEFERRED_I03"
+  },
+  "wait_active": {
+    "method": "_wait_active",
+    "defaults": {
+      "timeout_seconds": 30,
+      "click_if_stuck": false
+    },
+    "pixel_key": "common.active",
+    "shared_pixel": {
+      "point": [
+        1330,
+        33
+      ],
+      "rgb": [
+        34,
+        8,
+        11
+      ],
+      "tolerance": 5,
+      "authority": "REUSED_H08_SHARED_PIXEL"
+    },
+    "wait_pixel_kwargs_surface": [
+      "window_hwnd",
+      "timeout",
+      "interval",
+      "debug"
+    ],
+    "exact_interval": "UNKNOWN",
+    "exact_debug": "UNKNOWN",
+    "stuck_recovery": {
+      "enabled_only_when_click_if_stuck_true": true,
+      "click": [
+        609,
+        450
+      ],
+      "count": 2,
+      "interval_seconds": 1,
+      "then_continue_wait": true
+    },
+    "stop_check_parameter": false
+  },
+  "runtime_evidence": {
+    "packaged_automove_log_checked": true,
+    "correlated_top_level_entry_trace": false,
+    "generic_movement_trace_not_promoted": true
+  },
+  "explicit_unknowns": [
+    "exact placement of the 1-second _move_lsv click pacing constant",
+    "post-gate MapID/common.active verification does not exist inside _move_lsv; caller timing after click remains caller-owned",
+    "exact binding of the one-argument integer 3 constant in _ensure_in_lsv post-entry normalization",
+    "exact argument placement of 0.3/0.5 constants in flat-map PK/map polling branch",
+    "exact wait_pixel interval/debug values in _wait_active",
+    "instruction-level micro-order of map-change polling/callback calls"
+  ],
+  "next_task": "I03 — Train LSV final train-point / Tới chỗ train movement audit"
+}
