@@ -1,0 +1,68 @@
+key	offset_hex	status	evidence
+state_global_farming	0x293aa2d	VERIFIED_STATIC	_farming field exists in FarmTab init
+state_worker_collection	0x293aa8d	VERIFIED_STATIC	_farm_threads field exists in FarmTab init
+button_initial_text	0x293acd1	VERIFIED_STATIC	Bắt đầu
+button_initial_callback	0x293acdf	VERIFIED_STATIC	_toggle_farm
+button_initial_green	0x293aced	VERIFIED_STATIC	#388e3c
+row_single_toggle	0x293cae6	VERIFIED_STATIC	_toggle_single_farm
+per_account_membership	0x293c308	REUSED_H12	_farming_acc
+stopping_play_surface	0x293db59	VERIFIED_STATIC	_stopping_play
+stopping_play_text	0x293db6b	VERIFIED_STATIC	…
+stopping_play_orange	0x293db70	VERIFIED_STATIC	#ef6c00
+single_permission_helper	0x293db87	VERIFIED_STATIC	has_permission_with_limit
+single_permission_scope	0x293dbbf	VERIFIED_STATIC	farm_tab
+single_permission_action	0x293dbc9	VERIFIED_STATIC	farm
+active_global_text_1	0x293dbd1	VERIFIED_STATIC	Dừng lại
+active_global_red_1	0x293dbdf	VERIFIED_STATIC	#f44336
+active_global_text_2	0x293dbea	VERIFIED_STATIC	Dừng lại
+active_global_red_2	0x293dbf8	VERIFIED_STATIC	#f44336
+single_cycle_surface	0x293dc1b	VERIFIED_STATIC	_farm_cycle
+single_resize_surface	0x293dc29	VERIFIED_STATIC	_resize_monitor
+single_refresh_play	0x293dc3a	VERIFIED_STATIC	_refresh_play_buttons
+single_toggle_doc	0x293dc51	VERIFIED_STATIC	Per-row start/stop; last account stop enters global stop workflow
+row_active_text	0x293dd5c	VERIFIED_STATIC	ASCII II active play-button constant
+row_active_red	0x293dd60	VERIFIED_STATIC	#f44336
+row_inactive_text	0x293dd6b	VERIFIED_STATIC	▶
+row_inactive_green	0x293dd70	VERIFIED_STATIC	#388e3c
+play_sync_doc	0x293dd79	VERIFIED_STATIC	Play buttons mirror _farming_acc; skip _stopping_play until cycle exits
+global_drain_text	0x293d8b2	VERIFIED_STATIC	Đang dừng...
+global_drain_orange	0x293d8c3	VERIFIED_STATIC	#ef6c00
+global_drain_disabled	0x293d8cc	VERIFIED_STATIC	disabled
+global_drain_sync	0x293d8e9	VERIFIED_STATIC	_sync_start_tab_btn
+global_drain_wait	0x293d8fe	VERIFIED_STATIC	_wait_farm_stop
+sync_doc	0x294098b	VERIFIED_STATIC	Sync StartTab Farm control whenever Farm state changes
+global_toggle_doc	0x2940a53	VERIFIED_STATIC	Large button: start only non-farming rows; stop only currently-farming rows
+resize_doc	0x2940bc0	VERIFIED_STATIC	1-second 1366x768 resize monitor; row monitor exits when account stops Farm
+wait_join	0x2940cc5	VERIFIED_STATIC	join
+wait_lambda	0x2940ccb	VERIFIED_STATIC	FarmTab._wait_farm_stop.<locals>.<lambda>
+wait_final_text	0x2940cf8	VERIFIED_STATIC	Bắt đầu
+wait_final_green	0x2940d06	VERIFIED_STATIC	#388e3c
+wait_final_normal	0x2940d0f	VERIFIED_STATIC	normal
+wait_doc	0x2940d17	VERIFIED_STATIC	Wait Farm thread exit; remaining keeps Dừng state; none remaining resets Bắt đầu
+cycle_start_extra	0x294170f	REUSED_H12_H07	_start_extra_track at Farm-cycle session start surface
+cycle_monitor_death	0x2941723	REUSED_H07	_diaphu_monitor
+cycle_monitor_disconnect	0x2941734	REUSED_H08	_disconnect_monitor
+cycle_gen_snap	0x2941770	VERIFIED_STATIC	gen_snap
+cycle_hard_stop	0x29417a9	VERIFIED_STATIC	hard_stop
+cycle_buff_stop	0x29417db	VERIFIED_STATIC	buff_stop
+cycle_gen_field	0x2941a02	VERIFIED_STATIC	_gen in Farm-cycle constant surface
+cycle_doc	0x2941a08	VERIFIED_STATIC	Per-account Farm loop: sell -> medicine -> move -> farm -> cycle wait
+gen_restart_doc	0x294211d	VERIFIED_STATIC	Buff worker exits when account stops or gen changes from user stop/start
+check_stop_doc	0x2942256	VERIFIED_STATIC	_check_stop: stop request means exit immediately
+is_acc_farm_doc	0x29422a3	VERIFIED_STATIC	_is_acc_farming checks one account Farm state
+sync_locals_tuple	0x2945b36	STRONG_STATIC_MAPPING	self/text/bg/state/st/_upd local surface matches _sync_start_tab_btn
+global_toggle_locals	0x2945b59	STRONG_STATIC_MAPPING	self/stopping/row/threads/_hp/targets/... local surface matches global toggle orchestration
+single_toggle_locals	0x2945bc5	STRONG_STATIC_MAPPING	self/hwnd/row/remaining/threads/_hp/... local surface matches per-row toggle
+wait_locals_tuple	0x2945cf6	STRONG_STATIC_MAPPING	self/threads/has_remaining/t local surface matches _wait_farm_stop
+starttab_initial_train	0x2bfa30f	VERIFIED_STATIC	StartTab quick Farm button stopped label Train
+starttab_toggle_symbol	0x2bfa316	VERIFIED_STATIC	_toggle_farm_cmd
+starttab_toggle_doc	0x2bfb908	VERIFIED_STATIC	StartTab toggles Farm and updates StartTab + FarmTab button text
+starttab_active_text	0x2bfb9af	VERIFIED_STATIC	Dừng lại
+starttab_active_red	0x2bfb9bd	VERIFIED_STATIC	#f44336
+gen_exact_assignment	-	EXPLICIT_UNKNOWN	Generation change semantic verified, exact assignment/increment source line not recovered
+worker_daemon_policy	-	EXPLICIT_UNKNOWN	Farm worker creation surfaces verified; per-worker daemon flag not safely bound
+wait_join_timeout	-	EXPLICIT_UNKNOWN	join verified; exact timeout/no-timeout not safely bound
+ordinary_stop_drain_caption	-	EXPLICIT_UNKNOWN	Orange Đang dừng state exists in cleanup, but ordinary global-click coverage not statically proven
+global_toggle_permission_recheck	-	EXPLICIT_UNKNOWN	Single-row permission guard verified; exact global internal recheck/filter not source-bound
+state_label_stop_order	-	EXPLICIT_UNKNOWN	Đã dừng canonical state known; exact reset statement relative to cycle finally/join not recovered
+screenshot_hash	-	VERIFIED_CROSSCHECK	B05 screenshot remains 17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53
