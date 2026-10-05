@@ -195,7 +195,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H08 — VERIFIED_2S_MEMORY_VETO_3STRIKE_RECONNECT_WITH_5_ATTEMPT_30S_ACTIVE_BATCHES_INFINITE_RETRY_AND_45S_MEMORY_READY_FAILOPEN_DIRECT_REINJECT_EDGE_UNKNOWN
 - H09 — VERIFIED_KEEP_MODE_TO_TRAIN_DISCARD_PRESETS_WITH_EVENT_DRIVEN_PRETOWN_FILTER_1S_DEFAULT_DISCARD_PACING_AND_SEPARATE_5S_HIDDEN_PICKUP_ENABLE
 - H10 — VERIFIED_MEMORY_PACKET_MOUNT_WITH_ISRiding_FASTPATH_3S_VERIFY_AND_AUTOPATH_REMOUNT_REQUEUE_HOME_PRIORITY_HORSE_SENTINEL_RETRY_LIMIT_UNKNOWN
-- H11 — CURRENT
+- H11 — VERIFIED_SEQUENTIAL_COORD_KEYS_PIPE_SCHEMA_LIVE_RENAME_PROPAGATION_WITH_UI_ONLY_LIST_VISIBILITY_AND_EXPLICIT_SAVE_SCHEDULER_DELAY_UNKNOWN
+- H12 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -270,3 +271,10 @@ H10 resolved Train mount behavior. The navigation-priority value Ngựa is the b
 The live mount engine is ensure_mounted: IsRiding==1 is an immediate success, HasMount is a separate Site-2 equipped-mount signal cached for 30s, normal mount activation uses Game.SendToggleRideState(Game.CurrentMountSlot), then waits exactly 3s and verifies fresh IsRiding. Optional stop-auto-first is fail-open; a 1.5 constant exists in the ensure block but its exact binding remains UNKNOWN.
 
 Mid-route mount loss uses _remount_requeue: stop_autopath -> ensure_mounted -> queue_autopath. move_character tracks remount_count/max_remount, but the exact numeric max remains intentionally UNKNOWN. Same-map NPC approach uses mounted move_character; cross-map/NPC-not-spawn game fallback is explicitly non-horse. H11 now owns saved-coordinate persistence/edit/selection.
+
+
+H11 resolved Train saved-coordinate persistence/edit behavior. Saved rows are dynamic name/map/X/Y records with Bán/Train/✕ actions, generated collision-aware `Tọa độ N` names, and no recovered hard row limit. The current Farm settings schema is sequential `coord_<n>` keys with four-field pipe values `preset_name|map_id|x|y`; unknown/retired maps are skipped rather than guessed.
+
+Renaming a preset immediately propagates to live account Sell/Farm combobox selections, and add/delete/rename refreshes all option lists. Per-character selections persist by name through `acc_<character>_sell/farm` and are restored only if the preset still exists.
+
+Coordinate-list hide/show is UI-only and not persisted; B05 locks the fresh state as visible. Edit autosave hooks exist, but no coordinate-specific debounce constant is safely bindable—the exact 30ms debounce elsewhere belongs only to scrollregion geometry. H12 now owns per-account runtime row identity/data/state tracking.
