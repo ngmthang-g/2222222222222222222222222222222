@@ -224,28 +224,25 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 
 
 ## Gate I
-- I01 — VERIFIED_TRAINLSV_TAB_WIRING_WITH_5S_INCREMENTAL_REFRESH_30S_AUTOSAVE_DYNAMIC_COORDS_FIXED_DA_MINH_CHAU_ROW_AND_STARTTAB_MIRROR
-- I02 — VERIFIED_MAP3_GATE_ENTRY_WITH_EXACT_LSV_ZONE_SET_FLOOR_PREMOVE_TABLES_AND_30S_COMMON_ACTIVE_GATE_POST_GATE_VERIFY_EXPLICIT_UNKNOWN
-- I03 — VERIFIED_SAVED_PRESET_TO_ENSURE_LSV_THEN_DIRECT_MOVE_CHARACTER_WITH_32PX_TILE_CONVERSION_WAIT_FOR_ARRIVAL_AND_NO_LSV_8_TILE_SKIP
-- I04 — VERIFIED_HUB10000_ONLY_EXIT_WITH_SHARED_GATE_MOVE_TWO_EXIT_CLICKS_AND_NO_POST_EXIT_MAP_ACTIVE_VERIFICATION_WAIT_FLAG_VALUE_AND_CLICK_PACING_EXPLICIT_UNKNOWN
-- I05 — VERIFIED_FIXED_DA_MINH_CHAU_IMMEDIATE_DISMOUNT_AND_PER_ACCOUNT_GENERATION_GUARDED_TIMED_KEY_WORKER_USING_DLL_SYNC_INPUT_EXACT_MULTIROW_DEADLINE_ZERO_INTERVAL_REPEAT_CALL_KWARGS_AND_FIXED_CONFIG_INDEX_UNKNOWN
-- I06 — VERIFIED_KEEP_MODE_ALIAS_TO_SHARED_BAG_FILTER_WITH_10S_FULL_BAG_WATCH_PER_ACCOUNT_DISCARD_WORKER_AND_NO_DIRECT_PICKITEM_ENABLE_FULL_BAG_THRESHOLD_NUMERIC_EXPLICIT_UNKNOWN
-- I07 — VERIFIED_OPT_IN_HP50_GATE_FIXED_MAP10000_163_237_SHARED_MOVE_AND_TWO_POINT_X4_TREATMENT_WITH_LEGACY_HEAL_MAP_IGNORED_CLICK_PACING_REPEAT_CALL_SHAPE_AND_EXACT_CANCEL_CHECKPOINTS_UNKNOWN
-- I08 — VERIFIED_2S_MEMORY_VETO_DUAL_PIXEL_3STRIKE_RECONNECT_WITH_5_ATTEMPT_30S_ACTIVE_BATCHES_INFINITE_RETRY_EXACT_5S_RECONNECT_EVENT_WAIT_AND_45S_3READ_MEMORY_GATE_DIRECT_REINJECT_EDGE_UNKNOWN
-- I09 — VERIFIED_4S_MAP10000_AND_REAL_HP0_MONITOR_WITH_SINGLE_RESPAWN_CLICK_DEATH_COUNTER_LATCHES_COMMON_ACTIVE_RECOVERY_EVENT_AND_OPT_IN_RETURN_EXACT_LATCH_RESET_ACTIVE_WAIT_AND_RESPAWN_FALSE_CONTINUATION_UNKNOWN
-- I10 — NEXT
+- I01 — VERIFIED
+- I02 — VERIFIED
+- I03 — VERIFIED
+- I04 — VERIFIED
+- I05 — VERIFIED
+- I06 — VERIFIED
+- I07 — VERIFIED
+- I08 — VERIFIED
+- I09 — VERIFIED
+- I10 — VERIFIED_NAME_BASED_DYNAMIC_COORDS_WITH_MAPID_PIPE_SCHEMA_AND_ACC_TRAIN_PERSISTENCE
+- I11 — NEXT
 
-I01-I08 lock Train LSV module/config wiring, entry/premove, final train-point movement, leave behavior, timed-key schedule, bag-full keep/discard filtering, treatment and reconnect recovery.
+I10 locks TrainLSV saved-coordinate persistence. Rows are name/map/X/Y with Train-only apply and delete actions. The TrainLSV settings section stores a coord key family using preset name, MapID, X and Y separated by pipes. Save normalizes map name to MapID and skips unknown maps; load resolves MapID back to the current display map and skips stale maps.
 
-I09 locks TrainLSV death/recovery behavior independently from ordinary Train. `respawn` defaults false. The per-account death monitor starts from Farm start and polls every 4 seconds. A real numeric HP=0 sends exactly one client respawn click at (792,441) for the latched zero-HP episode and owns the `_extra_deaths` death counter event.
+Preset name is the live selection identity. Rename propagates immediately to account Train selections. Account selections persist through the acc_*_train family and are loaded only when the preset still exists. Saved X/Y remain tile coordinates; I03 owns the x32 runtime conversion.
 
-MapID 10000 is the TrainLSV recovery-hub signal. A separate `detected` latch plus `respawn_event` prevents one continuous hub episode from becoming repeated recovery starts. TrainLSV additionally waits for shared `common.active` after recovery; its death-monitor-specific timeout/interval remain unknown.
+TrainLsvTab has no ordinary-Train Sell coordinate action and no map-separator handler. Exact generated-name numbering, first coord index, duplicate-name winner and coordinate-save scheduling remain explicit unknowns.
 
-The recovery state is `Về Lạc Dương LSV` (#1565c0). TrainLsvTab contains neither ordinary Train `Đang hồi sinh` nor `Về địa phủ`. If automatic return is enabled, the frozen target boundary is the existing selected I02/I03 TrainLSV path; no death-only hard-coded train coordinate is recovered. Exact `respawn=False` worker continuation and latch-reset/event-clear micro-order remain explicit unknowns.
-
-I09 also preserves I07 treatment reuse and I08 halt arbitration. No correlated top-level death/recovery trace exists in the packaged helper log, so I09 remains static-verified/runtime-environment-required.
-
-B06 was cross-checked only after EXE analysis; its hash remains `9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29`, with respawn/treatment visibly unchecked.
+B06 remains consistent. No correlated coordinate-management runtime trace was recovered.
 
 ## Gate I current
-I10 — Train LSV coordinate management / saved-coordinate persistence audit.
+I11 — Train LSV all-account commands / start-stop FSM orchestration audit.
