@@ -1,0 +1,89 @@
+{
+  "task": "H10",
+  "status": "VERIFIED_MEMORY_PACKET_MOUNT_WITH_ISRiding_FASTPATH_3S_VERIFY_AND_AUTOPATH_REMOUNT_REQUEUE_HOME_PRIORITY_HORSE_SENTINEL_RETRY_LIMIT_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b05_screenshot_sha256": "17d98f6b6a263daa5857224d100355379672eae7bd7c72794323f31417d8bc53"
+  },
+  "home_priority": {
+    "values": [
+      "Phù 1",
+      "Phù 2",
+      "Phù 3",
+      "Ngựa"
+    ],
+    "source": "_get_nav_priority -> move_character",
+    "horse_semantic": "stop further phù-style home attempts and use normal mounted/autopath movement",
+    "dedicated_horse_hotkey": false,
+    "exact_Stop_sentinel_source": "UNKNOWN"
+  },
+  "mount_state": {
+    "riding_field": "IsRiding",
+    "riding_success_value": 1,
+    "equipped_fields": [
+      "HasMount",
+      "MountItemID"
+    ],
+    "has_mount_source": "Site 2 in RoleData.Items",
+    "has_mount_values": {
+      "one": "equipped mount",
+      "zero": "no equipped mount",
+      "none": "read error"
+    },
+    "mount_cache_ttl_seconds": 30
+  },
+  "ensure_mounted": {
+    "method": "ensure_mounted",
+    "current_path": "memory + internal packet/Lua, no pixel/click",
+    "fastpath": "IsRiding == 1 -> True",
+    "optional_stop_auto_first": true,
+    "stop_auto_failure": "log but still attempt mount",
+    "special_after_teleport": "stop_auto_first=False to avoid redundant stop",
+    "exact_unbound_constant_1_5": 1.5,
+    "internal_command": "Game.SendToggleRideState(Game.CurrentMountSlot)",
+    "post_toggle_wait_seconds": 3,
+    "verify": "fresh IsRiding after cache invalidation",
+    "return": "True if already/newly riding; False if failed/stopped",
+    "internal_multi_send_retry_loop": false,
+    "exact_has_mount_zero_none_branch": "UNKNOWN"
+  },
+  "remount": {
+    "method": "_remount_requeue",
+    "sequence": [
+      "stop_autopath",
+      "ensure_mounted",
+      "queue_autopath",
+      "continue movement poll"
+    ],
+    "replaces_old_pixel_click_remount": true,
+    "move_character_surfaces": [
+      "HasMount",
+      "remount_count",
+      "max_remount"
+    ],
+    "max_remount_numeric": "UNKNOWN",
+    "stop_requested": "False to caller/break poll",
+    "otherwise": "continue polling"
+  },
+  "dismount": {
+    "active_train_specific_routine": false
+  },
+  "npc_interaction": {
+    "same_map_known_position": "move_character mounted approach",
+    "different_map_or_missing_npc": "game-native fallback without horse",
+    "mount_before_goto_error": "non-fatal/logged and fallback may continue"
+  },
+  "preserved": {
+    "H05_movement_and_truyen": true,
+    "H09_loot_filter": true
+  },
+  "explicit_unknowns": [
+    "exact source syntax of home-priority Stop sentinel",
+    "exact binding of ensure_mounted 1.5 constant",
+    "exact HasMount=0/None branch/log wording",
+    "numeric max_remount",
+    "per-caller no-mount plain-walk/failure microflow"
+  ],
+  "next_task": "H11 — Train saved-coordinate persistence / edit / per-account selection audit"
+}
