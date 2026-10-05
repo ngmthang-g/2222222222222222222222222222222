@@ -1881,33 +1881,59 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I04_LEAVE_LSV_FLOW.md
 - docs/train_lsv/I04_LEAVE_LSV_MODEL.json
 
+## I05 VERIFIED RESULTS
+- Followed PLAN.md/STATE.md exactly and checked GitHub first. No I05 artifacts existed; I01-I04 were already complete and were not repeated.
+- Frozen TrainLSV authority remains `.train_lsv_tab` at offset `0x2c07798`, encoded size 37904 bytes, 1201 constants. The project's own `.keyboard` helper was independently decoded from the same frozen EXE.
+- Schedule UI is shared TrainLSV configuration through `_buff_rows/_add_buff_row/_remove_buff_row/_get_buff_keys/_load_buffs`; allowed keys are exactly **F1-F10 + 1,2,3**.
+- Exact clean `_add_buff_row` defaults are **enabled=False, key=1, minutes=0, seconds=5, fixed=False**. User-added rows therefore start disabled and are removable.
+- The fixed Dạ Minh Châu row is created with `fixed=True`: always active, no delete button, clean key **1**, clean time **0 phút 5 giây**.
+- Time fields are digit-constrained through `_only_digits`, `%P`, and `isdigit`. Exact blank-string handling remains UNKNOWN.
+- `_trigger_da_minh_chau` sends Dạ Minh Châu once when Farm starts for an account. The frozen doc distinguishes asynchronous `wait=False` mode and synchronous Farm-cycle `wait=True` mode.
+- One-shot Dạ Minh Châu reads `IsRiding`. If already not riding, no dismount is needed. If riding, the frozen path uses exact points **(1306,340)** when the horse-toggle surface is not active, then **(906,688)** to dismount. The old points **(1131,121)/(1073,123)** are explicitly absent from this frozen path.
+- Exact one-shot key call is `press_single_key_dll(hwnd,key,delay=0,sync=True)`.
+- The frozen keyboard helper proves this is targeted hidden-window key delivery through the project's DLL synchronization message path, not physical/global keyboard control.
+- Repeating worker is `_buff_loop`; its exact local surface includes `hwnd, stop_event, row, gen, press_single_key_dll, rd, key, mins, secs, interval, deadline`.
+- Architecture is one repeating schedule worker per farming account HWND, using the shared TrainLSV row configuration. The worker internally services configured rows; no separate timer thread per buff row is recovered.
+- Farm-cycle owns dedicated `buff_stop` and `buff_thread`, separate from the discard worker.
+- Exact generation guard is locked: old schedule worker exits when the account leaves Farm or the generation changes after stop/restart, preventing stale-session key sends.
+- Repeating worker uses key/minute/second values and an `interval/deadline` model. Exact multi-row deadline/reset ordering remains UNKNOWN.
+- Exact zero/empty/malformed interval policy remains UNKNOWN; it is not guessed.
+- Repeating worker definitely uses `press_single_key_dll`, but TrainLsv evidence does not independently bind the one-shot's delay/sync options to that repeating call. Repeating call options remain UNKNOWN.
+- Persistence is safely locked as `buff_<n>=enabled|key|minutes|seconds`; `_load_buffs` sorts `buff_*`, splits on `|`, and recreates rows with those four fields.
+- Exact persisted index/migration rule for the fixed Dạ Minh Châu row remains UNKNOWN.
+- Only after static extraction, packaged `automove_log.txt` was searched for Dạ Minh/[Buff]/keyboard schedule markers; no correlated schedule trace was found. I05 therefore remains **STATIC_VERIFIED**, not runtime-parity verified.
+
+## I05 FILES
+- docs/tasks/I05.md
+- docs/train_lsv/I05_BUFF_SCHEDULE_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I05_BUFF_SCHEDULE_FLOW.md
+- docs/train_lsv/I05_BUFF_SCHEDULE_MODEL.json
+
 ## BLOCKERS
-None known for I05.
+None known for I06.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A forensic baseline and closed Gate F/G/H research handoffs.
-- Preserve H15 runtime-evidence classifications; generic AutoMove/AutoPath traces do not prove top-level Train LSV actions.
+- Preserve I01-I04 contracts unchanged.
 - Proxy runtime/network development remains locked out.
 - Do not start Stage S source reconstruction early.
-- Use frozen TLM 2.1.2 `TrainLsvTab` as authority; do not import ordinary Train logic unless the LSV module directly reuses a shared helper.
-- Preserve I01 module/UI/config wiring, 30s autosave, 5s refresh and resolved fixed Dạ Minh Châu clean defaults key 1 / 0m5s.
-- Preserve I02 Map3 entry, LSV IDs, floor/flat premove tables, portal/PK handling and `_wait_active` contract.
-- Preserve I03 preset -> I02 ensure -> direct `_move_acc`, x32 tile conversion, wait_for_arrival keyword, direct stop_check propagation and absence of an LSV-specific 8-tile pre-skip.
-- Preserve I04 hub-only leave behavior: only MapID 10000 proceeds; floor/flat maps are skipped rather than normalized.
-- Preserve I04 gate target 10000/(236,190), exact exit clicks (887,475) -> (478,427), move-result failure gate, absence of direct stop_check, absence of explicit injection guard, and absence of post-exit MapID/common.active verification.
-- Preserve I04 UNKNOWN boundaries: boolean value of the explicit wait_for_arrival keyword, exact click pacing/sleep placement, exact branch return values, and all-account `_leave_lsv_all` orchestration deferred to I11.
-- Do not infer exit success from the completion log as a verified destination-map change; the frozen helper does not perform that verification.
+- Preserve I05 fixed Dạ Minh defaults **key 1 / 0m5s**, always-active/no-delete UI, and dynamic-row default disabled/key1/0m5s/removable.
+- Preserve I05 immediate one-shot trigger, exact dismount points **(1306,340)** and **(906,688)**, and removal of old points **(1131,121)/(1073,123)**.
+- Preserve I05 one-shot call `press_single_key_dll(hwnd,key,delay=0,sync=True)` and targeted hidden-window transport.
+- Preserve I05 per-account repeating worker, dedicated `buff_stop/buff_thread`, generation barrier, and `buff_<n>=enabled|key|minutes|seconds` persistence.
+- Preserve I05 UNKNOWN boundaries: exact multi-row deadline/reset order, zero/invalid interval policy, repeating call options, fixed-row persisted index/migration, worker daemon/join micro-order, and exact trigger-wait signature default.
+- Do not import ordinary FarmTab buff-worker details as proof for TrainLSV.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any I05 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **I05 — Train LSV Dạ Minh Châu / manual timed-key schedule execution audit** only.
+3. Check GitHub first for any I06 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **I06 — Train LSV item pickup/filter execution audit** only.
 5. Inspect the frozen original EXE first.
-6. Audit the fixed `_da_minh_chau_row`, dynamic `_buff_rows`, schedule parsing, next-fire/elapsed timing, key dispatch mechanism, per-account/all-account scope, whether keys are sent by hidden/internal/window input, row enable rules, fixed-row special handling, and cancellation/thread lifecycle.
-7. Bind exact clean defaults already resolved in I01: fixed row key=1, minutes=0, seconds=5. Do not re-open them unless new EXE evidence contradicts the decoded defaults.
-8. Determine how additional user-added rows differ from fixed Dạ Minh Châu, including enabled checkbox, remove behavior, config persistence and zero/invalid interval handling.
-9. Keep pickup/filter deferred to I06 and do not mix Farm FSM/all-account orchestration beyond the schedule worker boundary; I11 owns the broader command/FSM layer.
-10. Search packaged runtime traces only after static extraction; generic key/click/helper records are not enough unless correlated to TrainLSV schedule execution.
-11. Persist I05 evidence/report, update STATE.md, and advance only to I06 after I05 verification.
+6. Audit `pickup_mode_var`, `PICKUP_MODE_DEFAULT/PICKUP_MODE_LABELS/PICKUP_PRESET_KEYS`, `get_pickup_preset_keys`, `_discard_loop`, shared bag-filter execution, bag-slot cadence/trigger, full-bag condition, keep/discard mappings, state transitions and error handling.
+7. Determine whether TrainLSV directly enables hidden pickup or only owns discard/filter logic; do not import ordinary Train H09 behavior without direct TrainLsv evidence.
+8. Bind `discard_stop`, per-account/session lifecycle and generation relationship only where directly proven.
+9. Keep treatment I07, reconnect I08, death I09, coordinates I10 and all-account/FSM I11 deferred.
+10. Search packaged runtime evidence only after static extraction and keep primitive-level evidence scoped.
+11. Persist I06 evidence/report, update STATE.md, and advance only to I07 after I06 verification.
