@@ -1,0 +1,69 @@
+{
+  "task": "I10",
+  "status": "VERIFIED_NAME_BASED_DYNAMIC_COORDS_WITH_MAPID_PIPE_SCHEMA_LIVE_RENAME_PROPAGATION_ACC_TRAIN_PERSISTENCE_AND_STALE_MAP_SKIP_DUPLICATE_WINNER_INDEX_START_AND_SAVE_SCHEDULER_DELAY_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b06_sha256": "9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29"
+  },
+  "coordinate_row": {
+    "builder": "_add_coord_row",
+    "arg_defaults": [null, null, null, null],
+    "fields": ["name_var", "map_var", "x_var", "y_var"],
+    "actions": ["Train", "delete"],
+    "sell_action": false,
+    "generated_name": {
+      "prefix": "Tọa độ ",
+      "existing_names_surface": true,
+      "exact_suffix_algorithm": "UNKNOWN",
+      "exact_start_index": "UNKNOWN"
+    },
+    "hard_max_rows": "NOT_RECOVERED",
+    "dedicated_numeric_validator": "NOT_RECOVERED"
+  },
+  "persistence": {
+    "section": "TrainLSV",
+    "key_family": "coord_<n>",
+    "separate_index_local": "_n",
+    "exact_first_index": "UNKNOWN",
+    "ordered_load": true,
+    "exact_load_sort_lambda": "UNKNOWN",
+    "value_schema": "preset_name|map_id|x|y",
+    "parser": "utils.parse_coord_value",
+    "parser_semantics": {
+      "preset_fields": "parts[:-3]",
+      "map_id_field": "parts[-3] -> int",
+      "x_field": "parts[-2]",
+      "y_field": "parts[-1]"
+    },
+    "map_id_normalized": true,
+    "xy_unit": "tile"
+  },
+  "edit_behavior": {
+    "rename_helper": "_on_name_changed",
+    "auto_save_helper": "_auto_save",
+    "save_scheduler": "_schedule_save_all_coords",
+    "rename_immediate": true,
+    "add_delete_refresh_options": true,
+    "duplicate_rejection": "NOT_RECOVERED",
+    "duplicate_resolution_winner": "UNKNOWN",
+    "exact_save_scheduler_delay": "UNKNOWN"
+  },
+  "per_account": {
+    "selection_var": "farm_var",
+    "save_key_family": "acc_<character>_train",
+    "load_helper": "load_acc_config",
+    "load_only_if_preset_exists": true
+  },
+  "movement_boundary": {
+    "i03_live_preset_resolution": true,
+    "saved_xy_unit": "tile",
+    "runtime_pixel_conversion": 32
+  },
+  "runtime_evidence": {
+    "packaged_log_checked": true,
+    "correlated_coordinate_lines": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "next_task": "I11 — Train LSV all-account commands / start-stop FSM orchestration audit"
+}
