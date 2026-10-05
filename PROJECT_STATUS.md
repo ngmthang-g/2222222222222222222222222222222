@@ -197,92 +197,27 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H10 — VERIFIED_MEMORY_PACKET_MOUNT_WITH_ISRiding_FASTPATH_3S_VERIFY_AND_AUTOPATH_REMOUNT_REQUEUE_HOME_PRIORITY_HORSE_SENTINEL_RETRY_LIMIT_UNKNOWN
 - H11 — VERIFIED_SEQUENTIAL_COORD_KEYS_PIPE_SCHEMA_LIVE_RENAME_PROPAGATION_WITH_UI_ONLY_LIST_VISIBILITY_AND_EXPLICIT_SAVE_SCHEDULER_DELAY_UNKNOWN
 - H12 — VERIFIED_PID_BOUND_INCREMENTAL_ROW_MODEL_WITH_5S_BACKGROUND_REFRESH_MAIN_THREAD_APPLY_POSITIVE_DELTA_EXTRA_TRACKING_AND_GENERATION_GUARDS
-- H13 — CURRENT
+- H13 — VERIFIED_ALL_ROW_FANOUT_WITH_DAEMON_UI_DISPATCH_PARALLEL_COMMANDS_AND_EXPLICIT_INNER_WAIT_UNKNOWNS
+- H14 — VERIFIED_COOPERATIVE_MULTI_ACCOUNT_FSM_WITH_PER_ROW_STOPPING_SENTINEL_JOINED_DRAIN_AND_UI_MIRROR_EXPLICIT_UNKNOWNS
+- H15 — CLASSIFIED_WITH_EXISTING_RUNTIME_PRIMITIVE_EVIDENCE_AND_WINDOWS_RUNTIME_MATRIX
 
-H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
+H01–H14 complete the frozen Train static/visual reconstruction contract: FarmTab wiring and 5s refresh/30s autosave; return-town modes; Site-10 bag/full behavior; periodic timing; saved-preset movement and Truyền return routing; treatment; death/Địa phủ recovery; reconnect; keep-mode filtering and hidden pickup enable; memory/packet mount/remount; coordinate persistence; PID-bound row/tracker model; all-account commands; and the cooperative global/per-row Farm FSM.
 
-H01 intentionally defers return-town semantics, inventory-full, periodic-town timing, movement, heal/death/reconnect, loot, mount, coordinate semantics and the farm FSM to later H tasks.
+H15 rechecked the frozen archive/EXE and inventoried actual runtime evidence instead of treating static recovery as runtime proof. The exact package contains `data/automove_log.txt` (SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes, 387,238 lines). It records real primitive execution including 16,040 AutoMove queue events, 15,993 StartAutoPath calls, 2,027 StopAutoPath calls, 8,511 AutoFight_Main records, 1,579 mount-toggle commands, 114 Game.GoTo calls, 114 NPCShop probes and 22,732 action=4 ItemAction sends.
 
-## Gate H current
-H02 — Train return-town condition and town-panel gating audit.
+Those records validate low-level primitives only. They do not identify which top-level Train button/Farm generation caused every record, nor prove arrival, sale completion, recovery completion or the H14 UI/FSM transitions. H15 therefore keeps end-to-end cases honest.
 
+The H15 parity matrix contains 45 cases:
+- 8 `RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE`
+- 34 `RUNTIME_ENV_REQUIRED`
+- 3 `STATIC_VERIFIED`
+- 0 `BLOCKED`.
 
-H02 resolved the current return-town mode contract: never / full_bag_timer / cycle, default cycle with 30 minutes. The lower town panel is independently default-hidden. Legacy full_bag is a compatibility alias for the current full-bag mode, not a fourth visible option.
+A 35-scenario Windows test plan now covers global/single Farm start-stop, partial/last-account stop, StartTab synchronization, all-account fan-out, full-bag threshold, cycle timing, movement/Truyền, treatment, death, reconnect, hidden pickup, filtering, mount/remount, coordinates, row refresh/tracker, PID reuse, permission limits, full Farm-cycle ordering, stale-generation cancellation, resize monitoring and actual sell completion.
 
-Any selected Farm route marked lock_town forces the shared return-town mode to never and disables the return-town radios; no automatic previous-mode restoration was recovered. Navigation priorities remain four readonly unique-choice slots with defaults Phù 1 / Phù 2 / Phù 3 / Ngựa.
+## Gate H closure
+**CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED**
 
-H03 now owns inventory-full detection, bag threshold/filter interaction and the full_bag_timer early-stop path. Periodic loop-minute scheduler execution remains H04.
+This closure means the Train subsystem no longer needs to be re-researched before later reconstruction. It does **not** claim that the original Windows tool has been fully runtime-tested in the current Linux environment. H15's Windows matrix remains mandatory before any final Train runtime-parity claim.
 
-
-H03 resolved Train inventory fullness as an occupied Site-10 slot metric sourced from memory_items.get_bag()['slots']. FarmTab preserves None on read failure rather than inventing zero.
-
-The full-bag decision uses a dedicated MI.is_full_bag predicate with an internal threshold. No current user-facing Farm threshold setting was recovered, and the exact numeric threshold remains intentionally UNKNOWN rather than guessed.
-
-_filter_before_town is driven by the Train pickup preset and shared bag_filter. In never mode a full bag is filtered and, if still full, the account stays because Không về is authoritative. In full_bag_timer/legacy full_bag mode the bag predicate can end the common wait early and transition to town. Periodic timing itself is now H04.
-
-
-H04 resolved the Train periodic scheduler as a remaining-cycle wait derived from loop_minutes × 60 seconds after accounting for elapsed front-half cycle work. cycle uses the normal timeout; full_bag_timer/legacy full_bag overlays the H03 bag-full predicate as an early break on the same timed wait.
-
-Normal timeout is a cycle boundary rather than Farm-worker termination. User stop, respawn/death and disconnect/reconnect can interrupt/reset normal cycle progression. The original monitor docs lock 4s death checks, 2s disconnect checks with 3 strikes (~6s), 30s reconnect active-wait attempts, and post-reconnect wait_memory_ready(timeout=45.0, need=3).
-
-Exact scheduler sleep/check quantum, exact clock API, remaining-time clamp expression and loop-minute input clamp remain intentionally UNKNOWN. H05 now owns Train coordinates and movement/return-route execution.
-
-
-H05 resolved Train movement around named saved-coordinate presets, 32 pixels/tile conversion, an exact FARM_NEAR_TILES threshold of 8.0 tiles, active FarmTab Truyền routing, fresh-MapID return verification and walk fallback when the return shortcut fails.
-
-FarmTab's active forward path uses its own _move_truyen_to/_exec_truyen_steps contract with to/to_from route data and user-selected move_target coordinates. Route-aware retry remains above the generic move_character primitive. The active step executor has a 30s default wait timeout and 0.5s cancellation sleep chunks.
-
-Return routing prefers the actual current MapID, only falling back to the selected Farm preset if memory reading fails. Return destinations normalize built-in or manual coordinates and then use the configured Phù 1/2/3/Ngựa home-priority list.
-
-fast_travel.goto_map remains explicitly DORMANT in this frozen build; fast_hop_to_map is live only through move_to_npc, and FarmTab uses verify_exited_farm. Forward shortcut final-failure fallback, route retry count and ordinary move tolerance remain intentionally UNKNOWN. H06 now owns heal/treatment routing.
-
-
-H06 resolved Train treatment routing. The treatment toggle is trist (default off); heal_map defaults visually to Trị liệu Tô Châu. Built-in destinations are exact: Đại Lý (43,178), Lạc Dương (255,126), Tô Châu (155,252), Lâu Lan (294,170), mapped to Farm MapIDs 2/3/4/5.
-
-_heal_at_death supports both built-in and saved manual coordinates, reuses the H05 movement convention, and fails explicitly on missing/invalid/unresolvable targets or movement failure. The exact treatment interaction points are (892,474) and (514,424), repeated x4 by the original documentation.
-
-A 0.2 pacing constant and common.active readiness pair are present in the frozen heal block, but their exact source-level argument binding/placement remains intentionally UNKNOWN. The Farm cycle checks the treatment result and exposes "trị liệu sau chết thất bại" on failure. H07 now owns the complete death/respawn recovery FSM.
-
-
-H07 resolved Train death recovery around FarmTab._diaphu_monitor. The monitor runs from Farm-session start at 4-second cadence, combines MapID 87 detection with real numeric HP=0 detection, and issues exactly one client respawn click at (792,441) per hp_latched zero-HP episode. MapID 87 sets a latched respawn_event once per continuous stay and re-arms only after leaving Địa phủ.
-
-Farm recovery enters the Đang hồi sinh state and may call the H06 treatment worker through hard_stop. The return-to-train option is the respawn setting, default off; when enabled it must reuse the H05 current saved Train target/movement path. Exact worker continuation when respawn is off and exact FSM consequence after treatment failure remain intentionally UNKNOWN.
-
-The row death counter starts at Chết: 0 and the HP-zero monitor branch owns _extra_deaths, supporting one count per latched HP-zero episode. Death-counter reset on same-row restart remains runtime-only. Farm does not inherit Train-LSV's post-respawn common.active wait; the 45s/need3 memory-ready gate remains reconnect-specific. H08 now owns reconnect and death/reconnect overlap.
-
-
-H08 resolved the Train reconnect watchdog. auto_reconnect is opt-in/default False. The watchdog runs at 2-second cadence, uses TCPGame connected memory as a false-positive veto, and requires both frozen login disconnect pixel probes for 3 consecutive ticks (~6s) before asserting halt.
-
-The exact disconnect probes are (640,244) RGB(160,145,52) and (702,453) RGB(212,28,34). Each reconnect attempt re-confirms the dialog before clicking exact client point (616,455), then waits common.active up to 30s. There are 5 visible attempts per batch; a failed batch waits 30s and repeats indefinitely rather than disabling the Farm account.
-
-Reconnect success invalidates the current PID Reader cache immediately and sets reconnect_ok as a Farm-cycle reset. The post-reconnect memory gate is wait_memory_ready(timeout=45.0, need=3), requiring three consecutive fresh RoleName+MapID reads and failing open on timeout.
-
-FarmTab has a guarded _ensure_injected helper, but H08 does not find direct readable proof of an unconditional reinjection call on the reconnect path, so forced post-reconnect reinjection remains intentionally UNKNOWN. H09 now owns loot/pickup filtering.
-
-
-H09 resolved Train loot filtering. The keep-mode radio is none/weapons/all with labels Không/Chỉ vũ khí/Tất cả and default all. Exact Train mapping is none -> discard_weapons + discard_nonweapon, weapons -> discard_nonweapon, all -> empty/no discard. Weapon classification uses the shared weapon_ids layer; non-weapon equipment filtering remains metadata-dependent.
-
-FarmTab filtering is event-driven through _filter_before_town, not a continuous discard watcher. The shared discard engine uses a default 1.0s pacing parameter, cancellation via stop_check, dbID dedupe and whole-stack packet 100005 payload 4:<dbID>. The filter state is Đang lọc đồ with #8e24aa styling and conditional prior-state restoration.
-
-The separate pickup_no_cankhon option defaults off and is not the keep-mode filter. Its exact original behavior is a 5-second delayed hidden write PICKITEM.IsOn=true through set_auto_fields, replacing the old visible pickup UI click sequence. No recurring 5-second polling or write-readback confirmation is recovered. H10 now owns mount/horse behavior.
-
-
-H10 resolved Train mount behavior. The navigation-priority value Ngựa is the boundary from phù-style return attempts into normal mounted/autopath movement; no dedicated horse hotkey or pixel-click mount path is recovered.
-
-The live mount engine is ensure_mounted: IsRiding==1 is an immediate success, HasMount is a separate Site-2 equipped-mount signal cached for 30s, normal mount activation uses Game.SendToggleRideState(Game.CurrentMountSlot), then waits exactly 3s and verifies fresh IsRiding. Optional stop-auto-first is fail-open; a 1.5 constant exists in the ensure block but its exact binding remains UNKNOWN.
-
-Mid-route mount loss uses _remount_requeue: stop_autopath -> ensure_mounted -> queue_autopath. move_character tracks remount_count/max_remount, but the exact numeric max remains intentionally UNKNOWN. Same-map NPC approach uses mounted move_character; cross-map/NPC-not-spawn game fallback is explicitly non-horse. H11 now owns saved-coordinate persistence/edit/selection.
-
-
-H11 resolved Train saved-coordinate persistence/edit behavior. Saved rows are dynamic name/map/X/Y records with Bán/Train/✕ actions, generated collision-aware `Tọa độ N` names, and no recovered hard row limit. The current Farm settings schema is sequential `coord_<n>` keys with four-field pipe values `preset_name|map_id|x|y`; unknown/retired maps are skipped rather than guessed.
-
-Renaming a preset immediately propagates to live account Sell/Farm combobox selections, and add/delete/rename refreshes all option lists. Per-character selections persist by name through `acc_<character>_sell/farm` and are restored only if the preset still exists.
-
-Coordinate-list hide/show is UI-only and not persisted; B05 locks the fresh state as visible. Edit autosave hooks exist, but no coordinate-specific debounce constant is safely bindable—the exact 30ms debounce elsewhere belongs only to scrollregion geometry. H12 now owns per-account runtime row identity/data/state tracking.
-
-
-H12 resolved Train per-account runtime rows. Rows are bound to HWND + PID snapshots, updated incrementally rather than rebuilt, and stale/reused HWND identities are torn down safely. The active refresh remains 5 seconds: window/character/bag reads happen in the background and Tk changes are applied on the main thread.
-
-The row model now locks live RoleName/MapID/Site-10 bag data, Farm-session money/EXP/death tracking, positive-only BoundMoney/EXP accumulation, exact state colors, _farming_acc active membership, _gen stale-worker generation semantics and separate _sell_active/_sell_stop_event lifecycle state.
-
-A frozen tracker sentence still says "refresh 3s", but it conflicts with the exact active 5000ms Farm refresh and no separate tracker bag poller exists; the 3s phrase is retained as stale documentation. There is also no per-row account-selection checkbox: _checked_rows explicitly means all account rows. H13 now owns all-account command orchestration.
+Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning with I01 module/UI/config wiring audit.
