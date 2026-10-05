@@ -2075,25 +2075,68 @@ H13 — Train all-account command orchestration audit.
 - docs/train_lsv/I10_COORDS_FLOW.md
 - docs/train_lsv/I10_COORDS_MODEL.json
 
+## I11 VERIFIED RESULTS
+- GitHub-first continuity check passed. No I11 artifacts existed; I01-I10 were already complete and were not redone.
+- Re-extracted/re-hashed the frozen specimen first. Archive SHA-256 remains c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; inner EXE remains 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22.
+- TrainLSV all-account/FSM authority remains the decoded .train_lsv_tab chunk at marker 0x2c07798, data 0x2c077ab, size 37904, 1201 constants.
+- Exact _checked_rows doc says all accounts in the list; TrainLSV has no row-selection checkbox. Old "checked/tick" naming is stale. Bulk target set is all current account rows.
+- Visible B06 bulk commands remain exactly Tới LSV / Tới chỗ train / Đánh / Rời LSV. Each outer UI command dispatches through threading.Thread(..., daemon=True).start().
+- Frozen bulk docs independently lock per-account parallelism. _move_lsv_all and _leave_lsv_all explicitly say one account per thread; _move_all/_stop_all/_farm_all say parallel and recovered locals contain rows/_threads/row worker surfaces.
+- _move_all has dedicated mv/xv/yv locals, binding per-account selected train preset rather than one global coordinate snapshot. It reuses the already-frozen I02/I03 movement boundary.
+- Visible bulk Đánh is NOT full TrainLSV automation. _farm_all calls the per-account manual _farm_acc path; exact _farm_acc doc says StartAutoFight Train by memory/internal path, no click.
+- _farm_acc directly guards against overlap with full automatic Farm: if _is_acc_farming(hwnd), it logs that the account is already farming automatically and skips the manual Fight action.
+- No equivalent active-Farm skip rule is independently proven for bulk Tới LSV/Tới chỗ train/Rời LSV; keep those conflict rules UNKNOWN instead of importing ordinary Train H13.
+- _stop_acc exact doc is "Dừng nhân vật + tắt flag farm cá nhân." It uses shared stop_character and cooperative Farm deactivation rather than asynchronous Python thread killing.
+- _farming_acc is the per-account active authority. _farm_threads is the per-account worker registry. Each row owns _gen; _farm_cycle captures gen_snap.
+- _check_stop is strongly mapped as self,row,halt,gen_snap,hwnd and exact doc says True means exit immediately. Other TrainLSV worker docs explicitly say generation changes on user stop/start invalidate stale workers.
+- Exact row play states are: inactive ▶ / green #388e3c; active serialized ASCII II / red #f44336; stopping _stopping_play with … / orange #ef6c00. _refresh_play_buttons skips _stopping_play rows so refresh cannot prematurely restore ▶.
+- _toggle_single_farm exact doc locks individual start/stop and says stopping the last active account transitions into the same global-stop workflow.
+- Stop-side constants appear before the start permission guard. Start-side Farm creation is guarded by has_permission_with_limit with trainlsv_tab/trainlsv surfaces; denied start logs the license denial. A separate global-wrapper permission precheck remains UNKNOWN.
+- Starting an account directly references _farm_cycle and _resize_monitor. The resize monitor independently polls each second and only resizes when the owned window differs from 1366x768.
+- Global _toggle_farm exact doc is idempotent/incremental: START only accounts not already farming; STOP only accounts currently farming. Exact no-row/all-running/no-active/start/stop logs are recovered.
+- Stable large-button states are stopped Bắt đầu / #388e3c / normal and running Dừng lại / #f44336.
+- _wait_farm_stop directly owns join and locals self,threads,has_remaining,wt. Exact doc says it waits for worker exit after current sub-cycle: has_remaining=True removes stopped workers while others continue; has_remaining=False resets the large button to Bắt đầu.
+- Exact partial-stop log is "Dừng xong phần acc được chọn — các acc còn lại tiếp tục"; full-stop log is "Đã dừng hoàn toàn".
+- Exact join timeout/micro-order remains UNKNOWN.
+- A separate no-window stale cleanup path is exact: if no game windows remain while Farm is active, TrainLSV auto-stops and sets large button Đang dừng... / #ef6c00 / disabled, syncs StartTab, then waits/drains workers. Do not generalize this orange state to every normal user stop.
+- _sync_start_tab_btn exact doc says the local Bắt đầu caption maps to StartTab Train LSV and that Farm state changes keep both buttons synchronized. Frozen StartTab independently routes _toggle_train_lsv_cmd into the same TrainLsvTab engine.
+- Exact _farm_cycle doc is move to Train LSV point -> farm -> repeat, keeping only map movement + fight and explicitly excluding ordinary Train sell/medicine/return-town cycle.
+- Only after static extraction, B06 was re-hashed at 9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29 and visually confirms the four bulk commands and bottom Bắt đầu.
+- Packaged automove_log contains zero correlated top-level TrainLSV/FSM markers. Generic runtime primitives remain AutoFight_Main=8511, AutoMove queued=16040, StartAutoPath called=15993, StopAutoPath called=2027; these prove only shared primitive execution.
+- I11 classification is STATIC_VERIFIED / RUNTIME_ENV_REQUIRED.
+
+## I11 FILES
+- docs/tasks/I11.md
+- docs/train_lsv/I11_ALL_FSM_STATIC_EVIDENCE.tsv
+- docs/train_lsv/I11_ALL_FSM_FLOW.md
+- docs/train_lsv/I11_ALL_FSM_MODEL.json
+
 ## BLOCKERS
-None known for I11.
+None known for I12.
 
 ## DO_NOT_TOUCH
-- Preserve I01-I09 contracts, Gate A baseline and closed Gate F/G/H handoffs.
+- Preserve I01-I10 contracts, Gate A baseline and closed Gate F/G/H handoffs.
 - Proxy runtime/network development remains locked out. Do not start Stage S early.
-- Preserve Train-only coordinate actions; do not add ordinary Train Sell-coordinate behavior or map-separator behavior.
-- Preserve TrainLSV coord key family and preset_name|map_id|x|y schema, stale-map skip behavior, name-based selection and rename propagation.
-- Preserve per-account acc_*_train persistence and I03 tile-to-pixel execution boundary.
-- Keep UNKNOWN: generated-name numbering, first coord index, exact sort lambda, duplicate resolution, active-selection deletion microflow, save scheduler mechanism, load/save guard micro-order and character-key escaping.
+- Preserve _checked_rows = all current TrainLSV rows; do not add checkboxes.
+- Preserve four visible bulk actions only; do not add a fifth visible Stop-all button.
+- Preserve bulk Đánh as manual memory StartAutoFight and separate it from full _farm_cycle.
+- Preserve manual Fight skip for accounts already running full Farm.
+- Preserve _farming_acc/_farm_threads/_gen generation-safe per-account lifecycle and cooperative stop.
+- Preserve row states ▶ green / II red / … orange and _stopping_play refresh protection.
+- Preserve global START-only-inactive / STOP-only-active behavior and partial/full drain semantics.
+- Preserve no-window cleanup orange disabled state as a special proven path, not a universal normal-stop UI.
+- Preserve StartTab mirror mapping Bắt đầu -> Train LSV.
+- Preserve I11 UNKNOWN boundaries: inner child-thread daemon/join policy, global extra permission precheck, active-Farm conflict rules for move/leave bulk commands, exact _gen mutations, ordinary stop transient button UI, join timeout/order, final state setter ordering and aggregate rollback behavior.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md and STATE.md.
-2. Check GitHub first for I11 artifacts; do not redo completed work.
-3. Execute I11 — Train LSV all-account commands / start-stop/FSM orchestration only.
-4. Inspect the frozen EXE first.
-5. Audit _checked_rows, _move_lsv_all, _move_all, _farm_all, _leave_lsv_all, _stop_all, _toggle_farm, _toggle_single_farm, _wait_farm_stop, _farm_threads, _farming_acc, _gen, _stopping_play, _refresh_play_buttons and _sync_start_tab_btn.
-6. Bind target-row semantics, parallelism, conflict/skip rules, global/single start-stop, button states, cooperative cancellation, generation safety and StartTab mirroring only where TrainLsvTab proves them.
-7. Reuse I02-I10 primitives only at directly wired edges; do not import H13/H14 ordinary Train behavior by similarity.
-8. Keep I12 runtime parity deferred.
-9. Persist I11 evidence/report, update STATE.md and advance only after I11 verification.
+2. Check GitHub first for any I12 artifacts/commits; if already complete and verified, do not redo them.
+3. Execute I12 — Train LSV parity/runtime matrix and Gate I closure only.
+4. Inspect the frozen original EXE and all I01-I11 artifacts first; do not reopen settled contracts without contradictory evidence.
+5. Build a parity matrix separating STATIC_VERIFIED, RUNTIME_VERIFIED_FROM_EXISTING_EVIDENCE and RUNTIME_ENV_REQUIRED.
+6. Reuse packaged automove_log only for the exact primitive it directly logs; do not infer top-level TrainLSV causation from generic movement/item/fight records.
+7. Produce a concrete Windows + live-game runtime test plan covering I02-I11 unknown/runtime-only edges, including LSV entry/floors, final train point, leave, Dạ Minh schedule, bag-full discard, treatment, reconnect, death recovery, coordinate persistence, bulk commands and start/stop generation safety.
+8. Cross-check B06 only as visual evidence.
+9. Close Gate I for static/visual research handoff only if the matrix has no unresolved static blocker; keep end-to-end runtime parity explicitly deferred where environment is required.
+10. Persist I12 artifacts, update STATE.md and PROJECT_STATUS.md, then advance only to Phase J if Gate I is legitimately closed.
