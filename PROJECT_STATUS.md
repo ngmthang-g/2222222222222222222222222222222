@@ -233,16 +233,23 @@ Stage S has not started. The next PLAN phase is **I — Train LSV**, beginning w
 - I07 — VERIFIED
 - I08 — VERIFIED
 - I09 — VERIFIED
-- I10 — VERIFIED_NAME_BASED_DYNAMIC_COORDS_WITH_MAPID_PIPE_SCHEMA_AND_ACC_TRAIN_PERSISTENCE
-- I11 — NEXT
+- I10 — VERIFIED
+- I11 — VERIFIED_ALL_ROWS_BULK_PARALLEL_COMMANDS_WITH_COOPERATIVE_GENERATION_SAFE_FSM
+- I12 — NEXT
 
-I10 locks TrainLSV saved-coordinate persistence. Rows are name/map/X/Y with Train-only apply and delete actions. The TrainLSV settings section stores a coord key family using preset name, MapID, X and Y separated by pipes. Save normalizes map name to MapID and skips unknown maps; load resolves MapID back to the current display map and skips stale maps.
+I10 locks TrainLSV saved-coordinate persistence and per-account Train preset selection.
 
-Preset name is the live selection identity. Rename propagates immediately to account Train selections. Account selections persist through the acc_*_train family and are loaded only when the preset still exists. Saved X/Y remain tile coordinates; I03 owns the x32 runtime conversion.
+I11 locks all-account commands and the TrainLSV start/stop FSM. _checked_rows means every current TrainLSV account row; there are no row selection checkboxes. The visible bulk bar remains exactly Tới LSV / Tới chỗ train / Đánh / Rời LSV, dispatched off the Tk thread and processed in parallel per account.
 
-TrainLsvTab has no ordinary-Train Sell coordinate action and no map-separator handler. Exact generated-name numbering, first coord index, duplicate-name winner and coordinate-save scheduling remain explicit unknowns.
+Bulk Đánh is the manual _farm_acc path: memory/internal StartAutoFight only, not the full automation FSM. It skips an account already running full automatic Farm. Full Farm instead uses per-account _farm_cycle workers tracked through _farming_acc/_farm_threads with row _gen and gen_snap generation safety.
 
-B06 remains consistent. No correlated coordinate-management runtime trace was recovered.
+Row play UI is frozen as inactive ▶ green, active serialized ASCII II red, and draining … orange through _stopping_play. Global START acts only on inactive rows; global STOP acts only on active rows. Stop is cooperative: stop state/generation invalidation is observed by _check_stop, worker threads drain, and _wait_farm_stop joins/finalizes partial or complete stop.
+
+A complete stop resets Bắt đầu / green / normal. A distinct no-window cleanup path uses Đang dừng... / orange / disabled while workers drain. This special cleanup visual is not generalized to every normal stop.
+
+StartTab mirrors the same TrainLsvTab FSM. Local stopped caption Bắt đầu maps to StartTab Train LSV. The full TrainLSV cycle is intentionally move-to-train -> fight -> repeat and does not import ordinary Train sell/medicine/return-town scheduling.
+
+No correlated top-level I11 runtime trace exists in the packaged helper log; generic movement/fight records remain primitive-only evidence.
 
 ## Gate I current
-I11 — Train LSV all-account commands / start-stop FSM orchestration audit.
+I12 — Train LSV parity/runtime matrix and Gate I closure.
