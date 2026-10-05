@@ -194,7 +194,8 @@ G01–G12 are complete for Party static/visual research and reconstruction hando
 - H07 — VERIFIED_4S_MAP87_HP0_RESPAWN_MONITOR_WITH_LATCHED_SINGLE_CLICK_EVENT_DRIVEN_RECOVERY_AND_EXPLICIT_RETURN_BRANCH_UNKNOWN
 - H08 — VERIFIED_2S_MEMORY_VETO_3STRIKE_RECONNECT_WITH_5_ATTEMPT_30S_ACTIVE_BATCHES_INFINITE_RETRY_AND_45S_MEMORY_READY_FAILOPEN_DIRECT_REINJECT_EDGE_UNKNOWN
 - H09 — VERIFIED_KEEP_MODE_TO_TRAIN_DISCARD_PRESETS_WITH_EVENT_DRIVEN_PRETOWN_FILTER_1S_DEFAULT_DISCARD_PACING_AND_SEPARATE_5S_HIDDEN_PICKUP_ENABLE
-- H10 — CURRENT
+- H10 — VERIFIED_MEMORY_PACKET_MOUNT_WITH_ISRiding_FASTPATH_3S_VERIFY_AND_AUTOPATH_REMOUNT_REQUEUE_HOME_PRIORITY_HORSE_SENTINEL_RETRY_LIMIT_UNKNOWN
+- H11 — CURRENT
 
 H01 recovered the FarmTab module/UI ownership contract without remeasuring B05. FarmTab owns Train UI/config/account rows, consumes shared Start window discovery, refreshes account rows incrementally every 5000 ms, and performs a 30000 ms periodic config autosave. The verified B05 screenshot hash remains unchanged.
 
@@ -262,3 +263,10 @@ H09 resolved Train loot filtering. The keep-mode radio is none/weapons/all with 
 FarmTab filtering is event-driven through _filter_before_town, not a continuous discard watcher. The shared discard engine uses a default 1.0s pacing parameter, cancellation via stop_check, dbID dedupe and whole-stack packet 100005 payload 4:<dbID>. The filter state is Đang lọc đồ with #8e24aa styling and conditional prior-state restoration.
 
 The separate pickup_no_cankhon option defaults off and is not the keep-mode filter. Its exact original behavior is a 5-second delayed hidden write PICKITEM.IsOn=true through set_auto_fields, replacing the old visible pickup UI click sequence. No recurring 5-second polling or write-readback confirmation is recovered. H10 now owns mount/horse behavior.
+
+
+H10 resolved Train mount behavior. The navigation-priority value Ngựa is the boundary from phù-style return attempts into normal mounted/autopath movement; no dedicated horse hotkey or pixel-click mount path is recovered.
+
+The live mount engine is ensure_mounted: IsRiding==1 is an immediate success, HasMount is a separate Site-2 equipped-mount signal cached for 30s, normal mount activation uses Game.SendToggleRideState(Game.CurrentMountSlot), then waits exactly 3s and verifies fresh IsRiding. Optional stop-auto-first is fail-open; a 1.5 constant exists in the ensure block but its exact binding remains UNKNOWN.
+
+Mid-route mount loss uses _remount_requeue: stop_autopath -> ensure_mounted -> queue_autopath. move_character tracks remount_count/max_remount, but the exact numeric max remains intentionally UNKNOWN. Same-map NPC approach uses mounted move_character; cross-map/NPC-not-spawn game fallback is explicitly non-horse. H11 now owns saved-coordinate persistence/edit/selection.
