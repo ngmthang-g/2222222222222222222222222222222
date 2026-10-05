@@ -1,0 +1,253 @@
+{
+  "task": "I11",
+  "status": "VERIFIED_ALL_ROWS_BULK_PARALLEL_COMMANDS_WITH_MANUAL_FIGHT_SEPARATE_FROM_FULL_FARM_PER_ACCOUNT_THREADS_COOPERATIVE_STOP_GENERATION_GUARD_ROW_STOPPING_SENTINEL_AND_STARTTAB_MIRROR_INNER_CHILD_THREAD_JOIN_GLOBAL_PERMISSION_AND_STOP_UI_MICROORDER_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b06_sha256": "9e3b57671a2ff165ea31264a1c2fb19493f861a7bdadc4dc993a55bd130f5d29"
+  },
+  "bulk_targets": {
+    "selector": "_checked_rows",
+    "semantic": "all current TrainLSV account rows",
+    "row_checkboxes": false,
+    "stale_checked_wording": true,
+    "empty_log": "[TrainLSV] Không có acc nào được chọn"
+  },
+  "visible_bulk": {
+    "commands": [
+      {
+        "label": "Tới LSV",
+        "method": "_move_lsv_all",
+        "primitive": "I02 _move_lsv"
+      },
+      {
+        "label": "Tới chỗ train",
+        "method": "_move_all",
+        "primitive": "I02 ensure + I03 _move_acc"
+      },
+      {
+        "label": "Đánh",
+        "method": "_farm_all",
+        "primitive": "_farm_acc manual StartAutoFight"
+      },
+      {
+        "label": "Rời LSV",
+        "method": "_leave_lsv_all",
+        "primitive": "I04 _leave_lsv"
+      }
+    ],
+    "outer_ui_dispatch": {
+      "thread": true,
+      "daemon": true
+    },
+    "visible_stop_all_button": false
+  },
+  "parallelism": {
+    "bulk_parallel": true,
+    "per_account_thread_docs_for_move_lsv_and_leave": true,
+    "move_all_locals": [
+      "self",
+      "_hp",
+      "rows",
+      "_threads",
+      "row",
+      "mv",
+      "xv",
+      "yv",
+      "wt"
+    ],
+    "farm_all_locals": [
+      "self",
+      "_hp",
+      "rows",
+      "_threads",
+      "row",
+      "wt"
+    ],
+    "generic_bulk_locals": [
+      "self",
+      "rows",
+      "_threads",
+      "row",
+      "wt"
+    ],
+    "inner_child_daemon": "UNKNOWN",
+    "inner_join_behavior": "UNKNOWN"
+  },
+  "manual_fight": {
+    "helper": "_farm_acc",
+    "shared_helper": "start_auto_train",
+    "semantic": "StartAutoFight Train by memory/internal path; no click",
+    "full_fsm": false,
+    "active_auto_farm_guard": "_is_acc_farming",
+    "active_skip": true,
+    "active_skip_log": "[Đánh] hwnd=... đang farm tự động → bỏ qua thao tác thủ công (dừng farm acc trước)"
+  },
+  "stop_acc": {
+    "helper": "_stop_acc",
+    "shared_helper": "stop_character",
+    "semantic": "stop character movement + deactivate per-account Farm flag",
+    "async_thread_kill": false
+  },
+  "row_session": {
+    "active_set": "_farming_acc",
+    "thread_registry": "_farm_threads",
+    "generation_field": "_gen",
+    "cycle_generation_snapshot": "gen_snap",
+    "stop_helper": "_check_stop(self,row,halt,gen_snap,hwnd)",
+    "generation_changes_on_user_stop_start": true,
+    "exact_generation_mutations": "UNKNOWN"
+  },
+  "row_button": {
+    "inactive": {
+      "text": "▶",
+      "bg": "#388e3c"
+    },
+    "active": {
+      "text": "II",
+      "doc_visual": "||",
+      "bg": "#f44336"
+    },
+    "stopping": {
+      "flag": "_stopping_play",
+      "text": "…",
+      "bg": "#ef6c00"
+    },
+    "refresh_skips_stopping": true
+  },
+  "single_toggle": {
+    "helper": "_toggle_single_farm",
+    "stop_path_before_start_permission_guard": true,
+    "start_permission": [
+      "has_permission_with_limit",
+      "trainlsv_tab",
+      "trainlsv"
+    ],
+    "denial_log": "[TrainLSV] Khóa bản quyền - khong cho phep",
+    "starts": [
+      "_farm_cycle",
+      "_resize_monitor"
+    ],
+    "last_account_stop": "transitions to global-stop workflow",
+    "exact_global_extra_permission_check": "UNKNOWN"
+  },
+  "global_toggle": {
+    "helper": "_toggle_farm",
+    "locals": [
+      "self",
+      "stopping",
+      "row",
+      "threads",
+      "_hp",
+      "targets",
+      "wt",
+      "art"
+    ],
+    "start_targets": "rows not currently farming",
+    "stop_targets": "rows currently farming",
+    "no_rows_log": "[TrainLSV] Không có acc nào trong danh sách",
+    "all_running_log": "[TrainLSV] Tất cả acc đang farm rồi — không bật thêm",
+    "no_active_log": "[TrainLSV] Không có acc nào đang farm",
+    "stop_ack": "[TrainLSV] Đã nhận lệnh dừng — chờ hoàn tất sub-cycle hiện tại...",
+    "stable_stopped": {
+      "text": "Bắt đầu",
+      "bg": "#388e3c",
+      "state": "normal"
+    },
+    "stable_running": {
+      "text": "Dừng lại",
+      "bg": "#f44336"
+    },
+    "ordinary_stop_transient_ui": "UNKNOWN",
+    "aggregate_rollback": "NOT_RECOVERED"
+  },
+  "wait_stop": {
+    "helper": "_wait_farm_stop",
+    "locals": [
+      "self",
+      "threads",
+      "has_remaining",
+      "wt"
+    ],
+    "joins_workers": true,
+    "exact_join_timeout": "UNKNOWN",
+    "partial_log": "[TrainLSV] Dừng xong phần acc được chọn — các acc còn lại tiếp tục",
+    "full_log": "[TrainLSV] Đã dừng hoàn toàn",
+    "partial_behavior": "remaining Farm accounts continue; global running state retained",
+    "full_behavior": "reset Bắt đầu / green / normal"
+  },
+  "stale_window_cleanup": {
+    "trigger": "no remaining game windows while Farm active",
+    "log": "[TrainLSV] Không còn cửa sổ game nào → TỰ ĐỘNG DỪNG farm",
+    "button": {
+      "text": "Đang dừng...",
+      "bg": "#ef6c00",
+      "state": "disabled"
+    },
+    "sync_start_tab": true,
+    "wait_farm_stop": true,
+    "generalize_to_normal_user_stop": false
+  },
+  "start_tab": {
+    "sync_helper": "_sync_start_tab_btn",
+    "locals": [
+      "self",
+      "text",
+      "bg",
+      "state",
+      "st",
+      "_upd"
+    ],
+    "stopped_caption_mapping": "TrainLsvTab Bắt đầu -> StartTab Train LSV",
+    "same_engine": true,
+    "starttab_toggle": "TLMStartTab._toggle_train_lsv_cmd"
+  },
+  "resize_monitor": {
+    "cadence_seconds": 1,
+    "target_size": [
+      1366,
+      768
+    ],
+    "resize_only_if_mismatch": true,
+    "exits_with_row_farm_stop": true
+  },
+  "farm_cycle": {
+    "helper": "_farm_cycle",
+    "semantic": "move to selected Train LSV point -> farm -> repeat",
+    "excludes": [
+      "ordinary Train sell cycle",
+      "medicine-buy cycle",
+      "return-town scheduler"
+    ],
+    "reuses": [
+      "I02",
+      "I03",
+      "I05",
+      "I06",
+      "I07",
+      "I08",
+      "I09"
+    ]
+  },
+  "runtime_evidence": {
+    "top_level_trainlsv_markers": 0,
+    "generic_primitives": {
+      "AutoFight_Main": 8511,
+      "AutoMove_queued": 16040,
+      "StartAutoPath_called": 15993,
+      "StopAutoPath_called": 2027
+    },
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "inner bulk child thread daemon/join microbehavior",
+    "global wrapper extra permission precheck",
+    "active-Farm skip/conflict behavior for move_lsv_all/move_all/leave_lsv_all",
+    "exact _gen increment/assignment statements",
+    "ordinary user global-stop transitional button state before drain completes",
+    "exact join timeout/micro-order",
+    "exact final Đã dừng state setter ordering",
+    "aggregate failure/rollback semantics"
+  ],
+  "next_task": "I12 — Train LSV parity/runtime matrix and Gate I closure"
+}
