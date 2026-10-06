@@ -1,0 +1,26 @@
+case_id	area	setup/action	expected_original_contract	current_result	evidence_required
+J14-01	environment	Launch exact frozen original on supported Windows/game host	Original starts and discovers real game HWND(s)	RUNTIME_ENV_REQUIRED	video+process/HWND map+logs
+J14-02	single_group	One runnable group, one normal row	Start transitions to running; normal finish returns idle	RUNTIME_ENV_REQUIRED	video+logs+config
+J14-03	rapid_restart	Start then Stop then Start same group before old worker finishes	Old cleanup cannot delete new run identity	RUNTIME_ENV_REQUIRED	timestamped video+logs
+J14-04	multi_group	Two runnable groups; bottom Start	Both groups run concurrently, one thread/job each	RUNTIME_ENV_REQUIRED	video+per-group logs
+J14-05	group_independence	Hard-fail Group A while Group B remains healthy	A stops; B continues; no global teardown until B ends	RUNTIME_ENV_REQUIRED	video+logs
+J14-06	barrier_abort	Peer waits at row barrier while one account hard-fails	Barrier abort releases peers; no next row for failed group	RUNTIME_ENV_REQUIRED	timestamps+thread/process observations
+J14-07	partial_setup	Three-account group; force one setup/inject/active failure	Failed account removed; ready accounts continue	RUNTIME_ENV_REQUIRED	setup logs+group execution video
+J14-08	all_setup_fail	Force all target setups to fail	Group ends before schedule rows; no other-group impact	RUNTIME_ENV_REQUIRED	logs+UI states
+J14-09	train_fail_soft	Train row target absent/unwiring normal-return failure	Failure logged; no group cancel; row may reach Xong	RUNTIME_ENV_REQUIRED	logs+row status video
+J14-10	final_discard_fail_open	Normal rows complete; safely force final discard error	Error logged then HOÀN THÀNH; no group abort	RUNTIME_ENV_REQUIRED	logs+completion video
+J14-11	persisted_modes	Enable Follow/Pickup/Discard/Buff, run-stop-run without reticking	Checkbox/config persists; workers re-arm, no duplicate sessions	RUNTIME_ENV_REQUIRED	config before/after+logs
+J14-12	follow_scope	Two running groups with different leaders	Each group's followers use only its own leader	RUNTIME_ENV_REQUIRED	position/video+logs
+J14-13	discard_scope	One running group + one idle configured group	Periodic discard targets running-group accounts only	RUNTIME_ENV_REQUIRED	item/log correlation
+J14-14	pickup_scope	One running group + selected members in idle group	PICKITEM keepalive covers all selected groups	RUNTIME_ENV_REQUIRED	memory/settings readback
+J14-15	buff_scope	One running group + idle configured group	Nga My buff worker services running-group accounts only	RUNTIME_ENV_REQUIRED	AUTOTRAIN field readback
+J14-16	stop_one	Two groups running; stop one group	Stopped group winds down; other group continues	RUNTIME_ENV_REQUIRED	video+button/log states
+J14-17	stop_all	Two+ groups running; bottom Stop	Orange disabled stopping state; all group cancels; final teardown once	RUNTIME_ENV_REQUIRED	video+logs
+J14-18	last_group_teardown	Let groups finish one by one	No global teardown until final group exits	RUNTIME_ENV_REQUIRED	logs+button states
+J14-19	delete_during_run	Delete/stop a group around live execution	No stale run state or impact on unrelated group; exact behavior recorded	RUNTIME_ENV_REQUIRED	video+logs
+J14-20	late_cancel_progress	Cancel near worker-batch completion	Observe actual current-row Đang/Xong race behavior	RUNTIME_ENV_REQUIRED	frame-accurate video+logs
+J14-21	destroy_cleanup	Close/destroy tab/app while groups/workers active	No stuck worker/stale callbacks; record real cleanup order	RUNTIME_ENV_REQUIRED	process/thread/log capture
+J14-22	watchdog_480	Hold cycle watcher without completed enter-exit cycle until deadline	Resolve exact timeout return and resulting group state	RUNTIME_OR_NATIVE_INSTRUCTION_REQUIRED	8+ minute trace or debugger
+J14-23	hook_exception	Cause a hook invoked through _call_hook to raise	Resolve pass-vs-abort frozen conflict	RUNTIME_OR_NATIVE_INSTRUCTION_REQUIRED	debugger/native trace+group state
+J14-24	setup_restart	After partial/all setup failure, manual fresh Start	Progress resets; fresh identities; setup retried	RUNTIME_ENV_REQUIRED	video+logs
+J14-25	group_failure_recovery	After hard group abort, immediately restart group	Old finish cannot tear down new session	RUNTIME_ENV_REQUIRED	video+identity/timing logs
