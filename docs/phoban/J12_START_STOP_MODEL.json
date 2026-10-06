@@ -1,0 +1,143 @@
+{
+  "task": "J12",
+  "status": "VERIFIED_INTEGRATED_START_STOP_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_path": "/mnt/data/TLMTool_2.1.2(6).zip",
+    "archive_size": 93715901,
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_tab_marker": "0x2b86f63"
+  },
+  "entry_points": {
+    "bottom": {
+      "handler": "_toggle_run",
+      "arg": "gd=None",
+      "idle": "start all runnable groups",
+      "running": "stop all"
+    },
+    "group": {
+      "handler": "_toggle_run",
+      "arg": "gd",
+      "idle": "start this group",
+      "running": "stop this group only"
+    }
+  },
+  "start_preflight": {
+    "stop_branch_before_permission": true,
+    "permission_helper": "has_permission_with_limit",
+    "permission_scope": "phoban_tab",
+    "permission_product": "phoban",
+    "denied_log": "[PhoBan] Khóa bản quyền - khong cho phep",
+    "dependency_log": "[Party] Lỗi import memory_items:",
+    "collect_job": "_collect_group_job",
+    "invalid_job": "no online selected targets or no checked schedule rows"
+  },
+  "progress_reset": {
+    "single_group": "_reset_group_progress(gd)",
+    "start_all": "reset_all_progress()",
+    "invalid_start_resets_progress": false,
+    "exact_all_reset_vs_first_thread_instruction_order": "UNKNOWN_MICROORDER"
+  },
+  "cancel_ownership": {
+    "global": "_cancel",
+    "group": "_run_cancel",
+    "fresh_group_identity_each_run": true,
+    "public_stop": "global cancel + every group cancel",
+    "fresh_restart_requires_global_rearm": true,
+    "exact_global_clear_line_order": "EXPLICIT_UNKNOWN"
+  },
+  "shared_workers": {
+    "run_registration_before_successful_guard_pass": true,
+    "pickup": {
+      "start": "_start_pickup",
+      "duplicate_guard": "is_alive",
+      "scope": "all selected members while schedule lifecycle exists"
+    },
+    "follow": {
+      "start": "_start_follow",
+      "duplicate_guard": "is_alive + generation",
+      "scope": "running groups separately"
+    },
+    "discard": {
+      "start": "_start_discard",
+      "duplicate_guard": "is_alive + generation",
+      "scope": "running-group accounts"
+    },
+    "buff": {
+      "start": "_start_buff",
+      "duplicate_guard": "is_alive + generation",
+      "scope": "running-group accounts"
+    },
+    "exact_start_call_order": "EXPLICIT_UNKNOWN",
+    "exact_order_relative_to_group_thread_start": "EXPLICIT_UNKNOWN"
+  },
+  "stop_one": {
+    "cooperative": true,
+    "scope": "one group",
+    "logical_running_ends_when_group_cancel_set": true,
+    "other_groups_continue": true
+  },
+  "stop_all": {
+    "helper": "_stop_all_runs",
+    "cooperative": true,
+    "ui": {
+      "text": "Đang dừng...",
+      "bg": "#ef6c00",
+      "state": "disabled"
+    },
+    "log": "[Phó bản] Dừng hết các nhóm"
+  },
+  "persisted_modes": {
+    "cleared_on_run_stop_or_finish": false,
+    "keys": [
+      "phoban_pickup",
+      "phoban_follow",
+      "phoban_nga_my_buff",
+      "phoban_discard_equip",
+      "phoban_discard_items",
+      "phoban_discard_meds",
+      "phoban_recreate_team"
+    ]
+  },
+  "teardown": {
+    "helper": "_finish_group_run",
+    "identity_safe": true,
+    "per_group_cleanup_if_others_remain": true,
+    "global_only_last_group": true,
+    "global_log": "[Phó bản] Hết nhóm chạy — teardown toàn cục",
+    "final_doc_mentions": [
+      "flags",
+      "buttons",
+      "pickup"
+    ],
+    "follow_discard_buff_no_group_exit": true
+  },
+  "destroy": {
+    "event": "<Destroy>",
+    "callback": "_on_destroy",
+    "constructor_state": [
+      "_refresh_id",
+      "_refreshing",
+      "_closing"
+    ],
+    "exact_internal_cleanup_sequence": "EXPLICIT_UNKNOWN"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_j12_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_START_STOP_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact call order among group Thread.start and _start_pickup/_start_follow/_start_discard/_start_buff",
+    "exact inter-worker start order",
+    "exact global _cancel.clear() line/order on restart",
+    "exact _on_destroy internal cleanup sequence",
+    "thread join/daemon microdetails not already frozen",
+    "live Windows/game start-stop timing parity"
+  ],
+  "deferred": {
+    "J13": "integrated failure/recovery",
+    "J14": "runtime parity/stress"
+  }
+}
