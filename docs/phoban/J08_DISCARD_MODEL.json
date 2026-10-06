@@ -1,0 +1,136 @@
+{
+  "task": "J08",
+  "status": "VERIFIED_PHOBAN_DISCARD_STATIC_RUNTIME_PRIMITIVE_ONLY",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_tab_marker": "0x2b86f63",
+    "bag_filter_marker": "0x28d5daf"
+  },
+  "ui": {
+    "controls": [
+      {
+        "label": "Vứt trang bị",
+        "var": "discard_equip_var",
+        "config_key": "phoban_discard_equip",
+        "default_visible": false
+      },
+      {
+        "label": "Vứt vật phẩm",
+        "var": "discard_items_var",
+        "config_key": "phoban_discard_items",
+        "default_visible": false
+      },
+      {
+        "label": "Vứt thuốc",
+        "var": "discard_meds_var",
+        "config_key": "phoban_discard_meds",
+        "default_visible": false
+      }
+    ],
+    "callback": "_toggle_discard"
+  },
+  "config_mapping": [
+    [
+      "discard_equip_var",
+      "phoban_discard_equip"
+    ],
+    [
+      "discard_items_var",
+      "phoban_discard_items"
+    ],
+    [
+      "discard_meds_var",
+      "phoban_discard_meds"
+    ]
+  ],
+  "discard_tick_keys": [
+    [
+      "discard_equip_var",
+      [
+        "discard_equip"
+      ]
+    ],
+    [
+      "discard_items_var",
+      [
+        "discard_items"
+      ]
+    ],
+    [
+      "discard_meds_var",
+      [
+        "discard_meds"
+      ]
+    ]
+  ],
+  "worker": {
+    "fields": [
+      "_discard_stop",
+      "_discard_thread",
+      "_discard_gen"
+    ],
+    "only_while_schedule_running": true,
+    "on_before_run": "armed/wait",
+    "all_ticks_off": "stop immediately",
+    "no_running_groups": "worker exits",
+    "existing_thread_guard": "is_alive",
+    "generation_overlap_guard": true,
+    "poll_symbol": "PB_DISCARD_POLL",
+    "poll_numeric": "EXPLICIT_UNKNOWN",
+    "members": "all accounts in currently-running groups",
+    "accounts_parallel": true,
+    "per_account_inflight_guard": true,
+    "inflight_identity_key": "EXPLICIT_UNKNOWN"
+  },
+  "per_account": {
+    "presets_sequential": true,
+    "preset_order": [
+      "discard_equip",
+      "discard_items",
+      "discard_meds"
+    ],
+    "shared_call": "bag_filter.discard_for_activity",
+    "activity": "phoban",
+    "one_preset_per_call": true,
+    "delay_seconds_per_item": 1,
+    "stop_check_passed": true,
+    "exact_stop_formula": "EXPLICIT_UNKNOWN"
+  },
+  "primitive": {
+    "packet_command": 100005,
+    "action": 4,
+    "action_name": "Abandon",
+    "payload": "4:<dbID>",
+    "gui_click_required": false,
+    "shared_send_lock_surfaces": [
+      "_SEND_LOCKS_GUARD",
+      "_SEND_LOCKS",
+      "_send_lock_for"
+    ]
+  },
+  "final_pass": {
+    "normal_completion": true,
+    "timing": "after normal schedule rows, before HOÀN THÀNH",
+    "key_source": "current enabled discard keys",
+    "empty_keys": "skip",
+    "account_scope": "finishing group's targets",
+    "separate_thread_batch": "STRONG_STATIC",
+    "mandatory_after_hard_abort_or_user_stop": false,
+    "late_cancel_boundary": "EXPLICIT_UNKNOWN"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "phoban_marker_lines": 0,
+    "discard_label_lines": 0,
+    "action4_generic_sent": 2,
+    "action4_spts_sent": 22732,
+    "action4_total": 22734,
+    "classification": "RUNTIME_PRIMITIVE_ONLY_NOT_PHOBAN_CALLER_CORRELATED"
+  },
+  "deferred": {
+    "J09": "pickup/nhặt không hồ lô",
+    "J10": "Nga My buff"
+  }
+}
