@@ -2499,34 +2499,70 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J11_MULTI_GROUP_MODEL.json
 - docs/phoban/J11_MULTI_GROUP_STATIC_EVIDENCE.tsv
 
+
+## J12 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J12 artifacts/completion commit existed before this turn; J01-J11 were already complete and were not redone.
+- Re-inspected the exact mounted original archive `/mnt/data/TLMTool_2.1.2(6).zip` before B07/runtime cross-check. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes. Inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact start/stop entry points are unified through `_toggle_run`: bottom button `gd=None` = stop all if anything is running, otherwise start all runnable groups; group button = stop/start only that group while other groups continue.
+- Stop routing precedes new-start preflight. Group stop / all-stop branches are ahead of the permission/job-launch surfaces, so a stop request is not blocked by a start permission check.
+- New-start permission gate is exact: `has_permission_with_limit` with `phoban_tab` / `phoban`; denial logs **[PhoBan] Khóa bản quyền - khong cho phep** before job/progress/cancel/thread creation.
+- Start preflight also carries the `memory_items` dependency/error surface before current HWND/job collection. Exact source-level exception-return syntax is not recoverable, but reconstruction must not launch a broken job if the required memory plumbing is unavailable.
+- Per-group start lifecycle is statically frozen as: collect runnable job first; invalid group logs “không có acc online + lịch trình” and does not start; valid group resets only its progress, receives a fresh `_run_cancel` identity, registers/launches its run and syncs buttons.
+- Start-all independently filters every group. Non-runnable configured groups are skipped. Zero runnable jobs logs **[Phó bản] Không có nhóm nào để chạy**. A valid batch uses `reset_all_progress` and logs **[Phó bản] Bắt đầu song song <N> nhóm — <M> acc**.
+- Exact machine-instruction order of `reset_all_progress()` versus construction/start of the first group thread is not printable-constant-bound; semantic contract is that reset belongs to the successful fresh start-all path, not stop/invalid-start.
+- J07 identity-safe teardown plus the start-region `_run_cancel` surface proves each new group run needs a fresh cancel identity; an old set Event cannot be reused for a new run.
+- Global `_cancel` is separate from group `_run_cancel`. Public `stop()` exact doc says **global cancel + every group cancel**. Fresh restart necessarily re-arms the global stop state; the exact `_cancel.clear()` source-line order remains an explicit micro-UNKNOWN.
+- Shared background mode integration is now frozen semantically: Follow/Discard/Pickup/Buff all document that ON while idle waits and **run start will build/rebuild the worker**. Therefore a valid active run identity must be visible before these workers can successfully pass their run-scope guard.
+- Exact native call order among `_run_one_group` Thread.start and `_start_pickup/_start_follow/_start_discard/_start_buff`, plus the inter-worker ordering, is not instruction-bound by the serialized printable constants. J12 keeps this explicit UNKNOWN instead of guessing from method-definition order.
+- Starting an additional group must not duplicate tab-level background workers: Pickup has `is_alive`; Follow/Discard/Buff have `is_alive` + generation guards. Existing workers simply see their cross-group scope change on subsequent polls.
+- Per-group stop sets that group's cancel, immediately making it logically non-running under the exact J07 definition, while its old worker may still wind down. Other groups continue.
+- Stop-all exact shell: `_stop_all_runs`, all run buttons show **Đang dừng... / #ef6c00 / disabled**, exact log **[Phó bản] Dừng hết các nhóm**, then cooperative unwind and last-group teardown. No forced Python thread kill is recovered.
+- Persisted run-mode selections are not cleared by stop/end: `phoban_pickup/phoban_follow/phoban_nga_my_buff/phoban_discard_equip/phoban_discard_items/phoban_discard_meds/phoban_recreate_team` remain configuration choices. Worker lifecycle stops; next run re-arms enabled modes.
+- Cleanup asymmetries remain exactly preserved: no hard-stop final discard flush; pickup has no recovered IsOn=False sweep; Nga My buff's OFF sweep is explicitly tied to untick and not independently recovered as unconditional run-end cleanup; Follow simply exits its run-scoped worker.
+- `_finish_group_run` remains the last-group lifecycle boundary: if another run remains, clean only the matching current group run; when the last run is gone, emit **[Phó bản] Hết nhóm chạy — teardown toàn cục** and reset flags/buttons/pickup lifecycle once.
+- Exact final-teardown prose names pickup specifically. Follow/Discard/Buff are still run-scoped because their own exact worker docs say they exit when no group is running.
+- Public `stop()` is confirmed as a tab-wide API, not focused-group stop.
+- `_on_destroy` is definitely bound through `<Destroy>`; constructor owns `_refresh_id/_refreshing/_closing`; exact method symbol is present. No standalone readable `_on_destroy` doc/log contract is recovered, so its exact internal cleanup call order remains explicit UNKNOWN for stronger native/runtime proof.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It confirms the idle Start presentation only.
+- Only after static extraction, exact packaged `data/automove_log.txt` was checked. It contains 0 correlated J12 start/stop/permission/shared-worker Phó Bản markers. J12 is **STATIC_VERIFIED / END_TO_END_START_STOP_RUNTIME_ENV_REQUIRED**.
+
+## J12 FILES
+- docs/tasks/J12.md
+- docs/phoban/J12_START_STOP_FLOW.md
+- docs/phoban/J12_START_STOP_MODEL.json
+- docs/phoban/J12_START_STOP_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J12.
+None known for J13.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J11 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole authority; do not import start/stop behavior from older/external Phó Bản projects.
+- Preserve J01-J12 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole authority; do not import recovery behavior from older/external projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve dynamic groups and exact six-member cap; do not invent a hard group-count cap.
-- Preserve per-group delete-all ability and compatibility-only old delete helpers.
-- Preserve cross-group account uniqueness and UI-order semantics.
-- Preserve per-group schedule/header/leader/run/cancel ownership.
-- Preserve start-all as runnable-group collection + one thread per runnable group.
-- Preserve global run registry plus group-local cancel ownership.
-- Preserve one-group finish/stop/failure independence and last-group-only global teardown.
-- Preserve exact background-worker scopes: Follow running-groups-per-group; Discard running groups; Pickup all selected groups; Buff running groups.
-- Preserve J11 UNKNOWNs: missing-config bootstrap microbranch, _group_counter mutation formula, run-registry container/key types, any hidden practical non-contract group limit, delete-during-run live timing and multi-group runtime parity.
-- Do not reopen J01-J10 unless later exact evidence directly contradicts them.
+- Preserve bottom start-all/stop-all versus per-group start/stop routing.
+- Preserve stop-before-start-preflight behavior and exact permission gate.
+- Preserve runnable-job filtering and progress-reset scope.
+- Preserve fresh per-group cancel/job identity and separate global cancel semantics.
+- Preserve semantic run-start re-arm of enabled Follow/Discard/Pickup/Buff modes.
+- Do not invent the exact native worker-vs-group-thread call order; it remains UNKNOWN.
+- Preserve singleton/tab-level background worker guards.
+- Preserve cooperative stop and orange disabled bulk-stopping UI.
+- Preserve persisted mode checkboxes across stop/end.
+- Preserve subsystem-specific cleanup asymmetries.
+- Preserve last-group-only global teardown and J07 identity-safe cleanup.
+- Preserve J12 UNKNOWNs: worker/group-thread call micro-order, global cancel clear order, _on_destroy internal sequence, remaining thread microdetails and live timing parity.
+- Do not reopen J01-J11 unless later exact evidence directly contradicts them.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J12 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J12 — Phó Bản integrated start/stop lifecycle audit** only.
-5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`.
-6. Audit the integrated start/stop shell across the already-frozen subsystems: bottom Start/Stop vs per-group Start/Stop; permission gate; job creation/skip rules; global/group cancel reset/set; progress reset timing; launch order of shared background workers (Follow/Discard/Pickup/Buff) relative to group threads; button-state synchronization; stop-all propagation; `stop()` / `_on_destroy`; final teardown ownership; and what persisted mode checkboxes are or are not cleared.
-7. J07 remains authority for abort/barrier/identity-safe cleanup; J11 remains authority for multi-group ownership. Do not duplicate them unless J12 finds a direct contradiction.
-8. Keep J13 failure/recovery integration and J14 runtime parity/stress separate.
-9. Cross-check B07 only after static extraction.
-10. Persist J12 artifacts, update STATE.md, and advance only after J12 verification.
+3. Check GitHub first for any J13 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J13 — Phó Bản integrated failure/recovery audit** only.
+5. Inspect the exact frozen original EXE first, primarily `.phoban_tab` plus `.phoban_dungeons` only where handler return/failure propagation is directly involved.
+6. Integrate the already-frozen failure boundaries into one recovery matrix: party-formation failure, setup/injection/active failure, config-memory failure, move failure, barrier abort, FuBen-start failure, cycle-watchdog/cycle failure, Train activation failure, per-account worker exception, hook False/exception behavior, final-discard failure, background Follow/Discard/Pickup/Buff errors, group-vs-global blast radius, row/group/button outcomes, and what can be retried automatically versus only by a new manual start.
+7. Re-audit the exact 480-second cycle-watchdog branch only enough to determine whether stronger static evidence can resolve its return/recovery behavior; do not guess if still unresolved.
+8. Keep J14 live Windows/runtime parity, rapid start-stop stress, multi-group stress and timing verification separate.
+9. Cross-check B07 only after static extraction; do not infer failure UI from idle screenshot.
+10. Persist J13 artifacts, update STATE.md, and advance only after J13 verification.
