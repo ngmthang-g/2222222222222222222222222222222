@@ -320,7 +320,10 @@ J14 confirms the current execution environment cannot run the original Windows/g
 **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**
 
 ## Phase K — Daily
-- K01 — NEXT
+- K01 — VERIFIED_ACTIVE_DAILY_AUTHORITY_VISIBLE_SURFACE_70_HANDLER_INVENTORY_AND_DEPENDENCY_BOUNDARY
+- K02 — NEXT
+
+K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
 ## Phase K current
-K01 — Daily tab authority / visible-surface + top-level handler inventory.
+K02 — Daily shared account discovery / row lifecycle / shared start-stop coordinator audit.
