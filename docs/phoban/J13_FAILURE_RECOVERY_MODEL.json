@@ -1,0 +1,138 @@
+{
+  "task": "J13",
+  "status": "VERIFIED_FAILURE_RECOVERY_STATIC_WITH_TWO_CORRECTED_J07_OVERCLAIMS",
+  "source": {
+    "archive_path": "/mnt/data/TLMTool_2.1.2(6).zip",
+    "archive_size": 93715901,
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_tab_marker": "0x2b86f63",
+    "phoban_dungeons_marker": "0x2b8513b"
+  },
+  "failure_classes": [
+    "pre-run reject",
+    "per-account degradation",
+    "current-group hard abort",
+    "fail-soft/log-only"
+  ],
+  "setup": {
+    "parallel_results": true,
+    "ready_subset": true,
+    "failed_accounts_pruned": "STRONG_STATIC",
+    "empty_ready_stops_group": true,
+    "active_wait_seconds": 2,
+    "whole_group_auto_retry": false
+  },
+  "party": {
+    "auto_accept_write_issue": "warning/fail-open",
+    "leave_timeout": "warning/fail-open",
+    "unresolved_member_roleid": "skip member",
+    "zero_resolved_roleid": "stop current group",
+    "create_retry_exhaustion": "stop current group",
+    "invite_still_missing_after_resend": "best-effort continue unless cancelled"
+  },
+  "dungeon_hard_failures": {
+    "config": {
+      "attempts": 5,
+      "gap_seconds": 2,
+      "blast_radius": "current group"
+    },
+    "move": {
+      "total_attempts": 3,
+      "blast_radius": "current group"
+    },
+    "barrier": {
+      "normal_timeout": null,
+      "role": "propagate failure/stop"
+    },
+    "start_fuben": {
+      "attempts": 5,
+      "gap_seconds": 0.3,
+      "blast_radius": "current group"
+    },
+    "cycle_false": {
+      "blast_radius": "current group"
+    }
+  },
+  "cycle_watcher": {
+    "temporary_none_ignored": true,
+    "transient_memory_read_failure": "watcher-local; no immediate abort surface recovered",
+    "pixel_read_error": "fail-open for auto-FuBen repair",
+    "watchdog_seconds": 480,
+    "watchdog_return": "EXPLICIT_UNKNOWN",
+    "false_result_outer_action": "abort current group"
+  },
+  "hooks": {
+    "missing_hook": "common/pass model",
+    "explicit_false": "ABORT_CURRENT_GROUP",
+    "exception": "STATIC_CONFLICT_DOC_SAYS_PASS_LOG_SAYS_ABORT",
+    "direct_on_entered_exception": "separate cycle-watcher log-only-looking path"
+  },
+  "worker_shell": {
+    "generic_acc_step_exception": "FAIL_SOFT_LOG_ONLY_UNLESS_CALLED_DUNGEON_ALREADY_ABORTED",
+    "own_abort_reference_recovered": false,
+    "schedule_worker_result_aggregation": false
+  },
+  "train": {
+    "return_failure_propagates_to_group": false,
+    "worker_ignores_return": true,
+    "row_can_reach_xong": true,
+    "classification": "FAIL_SOFT"
+  },
+  "final_discard": {
+    "error_log_before_group_complete": true,
+    "abort_link_recovered": false,
+    "group_completion_continues": true,
+    "classification": "FAIL_OPEN"
+  },
+  "background_workers": {
+    "follow": "feature-local errors; no group abort linkage",
+    "discard": "feature-local errors; no group abort linkage",
+    "pickup": "feature-local errors; no group abort linkage",
+    "buff": "feature-local errors; PB_BUFF_RETRY local retry; no group abort linkage"
+  },
+  "blast_radius": {
+    "ordinary_hard_failure": "current group only",
+    "other_groups_continue": true,
+    "global_stop_only": "bottom stop-all/public stop or equivalent explicit global cancel"
+  },
+  "progress": {
+    "statuses": [
+      "Chưa",
+      "Đang",
+      "Xong"
+    ],
+    "error_status": false,
+    "hard_abort_current_row_label": "EXPLICIT_UNKNOWN_LATE_CANCEL_RACE",
+    "train_fail_soft_row": "can reach Xong"
+  },
+  "recovery": {
+    "local_stage_retries_only": true,
+    "automatic_whole_group_restart": false,
+    "manual_fresh_start": true,
+    "fresh_identity": true,
+    "progress_reset": true,
+    "persisted_modes_rearm": true
+  },
+  "j07_corrections": [
+    "hook exception fail-open claim downgraded to static conflict",
+    "generic acc-step worker exception hard-fail claim corrected to fail-soft/log-only unless called dungeon path already aborts"
+  ],
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_j13_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_FAILURE_RECOVERY_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "480-second watchdog return expression/outcome",
+    "_call_hook exception behavior",
+    "outer _do_dungeon unexpected-exception abort micro-order",
+    "hard-abort row label under late-cancel race",
+    "outer background-worker survival after uncaught loop exception",
+    "live Windows/game failure-recovery parity"
+  ],
+  "deferred": {
+    "J14": "live runtime parity / stress verification"
+  }
+}
