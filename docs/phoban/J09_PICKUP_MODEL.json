@@ -1,0 +1,82 @@
+{
+  "task": "J09",
+  "status": "VERIFIED_PICKUP_KEEPALIVE_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_path": "/mnt/data/TLMTool_2.1.2(6).zip",
+    "archive_size": 93715901,
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_tab_marker": "0x2b86f63"
+  },
+  "ui": {
+    "label": "Nhặt không hồ lô",
+    "internal_doc_name": "Tự nhặt đồ",
+    "variable": "pickup_var",
+    "callback": "_toggle_pickup",
+    "config_key": "phoban_pickup",
+    "clean_default": false
+  },
+  "worker_state": {
+    "stop_event": "_pick_stop",
+    "thread": "_pick_thread",
+    "generation_field": null,
+    "generation_symbol_absent": true,
+    "start_alive_guard": true,
+    "start_clears_stop_event": true,
+    "schedule_scoped": true,
+    "poll_symbol": "PICK_POLL",
+    "poll_numeric": "EXPLICIT_UNKNOWN"
+  },
+  "member_scope": {
+    "helper": "_pickup_members",
+    "source": "get_groups_data().members",
+    "all_selected_groups": true,
+    "only_running_groups": false,
+    "deduplicate": true,
+    "preserve_order": true,
+    "live_hwnd_resolution": "_hwnd_by_name"
+  },
+  "repair": {
+    "reader": "get_auto_settings",
+    "group": "PICKITEM",
+    "field": "IsOn",
+    "normalized_with_bool": "STRONG_STATIC",
+    "desired_value": true,
+    "writer": "set_auto_fields",
+    "writer_saves_setting": true,
+    "repeated_every_poll": true,
+    "per_account_error_contained": true,
+    "outer_worker_error_contained": true
+  },
+  "stop_cleanup": {
+    "stops_keepalive": true,
+    "recovered_pickitem_false_write": false,
+    "recovered_pickup_sweep_off": false,
+    "contract": "do not invent IsOn=False on stop",
+    "final_group_teardown": "reset/stop pickup worker lifecycle once",
+    "persisted_checkbox_clear_recovered": false
+  },
+  "non_scope": [
+    "bag_filter",
+    "ItemAction discard/use/destroy packets",
+    "screen click pickup logic"
+  ],
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "log_size": 15741058,
+    "log_lines": 387238,
+    "correlated_markers": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "PICK_POLL numeric value",
+    "thread daemon/join/reference-clear micro-order",
+    "exact malformed/missing auto-settings payload behavior",
+    "rapid stop-start race without generation field",
+    "live Windows/game parity"
+  ],
+  "deferred": {
+    "J10": "Nga My buff"
+  }
+}
