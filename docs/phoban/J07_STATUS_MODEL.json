@@ -1,0 +1,165 @@
+{
+  "task": "J07",
+  "status": "VERIFIED_GROUP_ABORT_AND_IDENTITY_SAFE_TEARDOWN_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_tab_payload_marker": "0x2b86f63",
+    "phoban_dungeons_payload_marker": "0x2b8513b",
+    "phoban_tab_module_marker": "0x2b9234d",
+    "phoban_dungeons_module_marker": "0x2b86bf0"
+  },
+  "ownership": {
+    "global_fields": [
+      "_running",
+      "_cancel",
+      "_run_lock",
+      "_active_runs",
+      "_run_jobs"
+    ],
+    "group_cancel_key": "_run_cancel",
+    "group_running_rule": "cancel exists and is not set",
+    "external_stop": "global cancel + every group cancel",
+    "active_run_container_types": "UNKNOWN_MICRODETAIL"
+  },
+  "buttons": {
+    "group": {
+      "running": {
+        "text": "Dừng lịch trình",
+        "bg": "#f44336",
+        "state": "normal"
+      },
+      "stopping": {
+        "text": "Đang dừng lịch trình...",
+        "bg": "#ef6c00",
+        "state": "disabled"
+      },
+      "idle": {
+        "text": "Bắt đầu lịch trình",
+        "style": "green start"
+      }
+    },
+    "bottom": {
+      "running": {
+        "text": "Dừng lại",
+        "bg": "#f44336",
+        "state": "normal"
+      },
+      "bulk_stopping": {
+        "text": "Đang dừng...",
+        "bg": "#ef6c00",
+        "state": "disabled"
+      },
+      "idle": {
+        "text": "Bắt đầu",
+        "style": "green start"
+      }
+    }
+  },
+  "cancellation": {
+    "style": "cooperative Event + Barrier; no forced thread kill recovered",
+    "abort_cycle": {
+      "scope": "current group only",
+      "effects": [
+        "abort/break row barrier",
+        "set current group cancel"
+      ],
+      "idempotent": true
+    },
+    "barrier_wait": {
+      "normal_timeout": null,
+      "aborted_returns": false,
+      "abort_sources": [
+        "account hard failure",
+        "user stop"
+      ]
+    }
+  },
+  "hooks": {
+    "missing_hook": "PASS_TRUE",
+    "exception": "LOG_AND_PASS_TRUE",
+    "explicit_false": "ABORT_CURRENT_GROUP"
+  },
+  "hard_failure_stages": {
+    "config": {
+      "retries": 5,
+      "gap_seconds": 2,
+      "on_exhaustion": "abort current group"
+    },
+    "movement": {
+      "total_attempts": 3,
+      "on_exhaustion": "abort current group"
+    },
+    "prestart_barrier": {
+      "timeout": null,
+      "on_abort": "return false / stop current group"
+    },
+    "start_fuben": {
+      "attempts": 5,
+      "gap_seconds": 0.3,
+      "on_exhaustion": "abort current group"
+    },
+    "cycle_wait": {
+      "false_result": "abort current group"
+    }
+  },
+  "cycle_watchdog": {
+    "compiled_seconds": 480,
+    "deadline_local": true,
+    "timeout_log": true,
+    "exact_timeout_return": "EXPLICIT_UNKNOWN"
+  },
+  "progress": {
+    "statuses": [
+      "Chưa",
+      "Đang",
+      "Xong"
+    ],
+    "error_status_exists": false,
+    "start_resets_group_to": "Chưa",
+    "normal_before_workers": "Đang",
+    "normal_after_worker_batch": "Xong",
+    "cancel_failure_current_row_microstate": "EXPLICIT_UNKNOWN"
+  },
+  "finish_group_run": {
+    "local_model": [
+      "self",
+      "gd",
+      "job",
+      "cancel",
+      "still",
+      "th"
+    ],
+    "current_group_cleanup": true,
+    "global_teardown_only_when_last_group": true,
+    "global_teardown_doc_mentions": [
+      "flags",
+      "buttons",
+      "pickup"
+    ],
+    "identity_guard": true,
+    "numeric_generation_guard_recovered": false,
+    "purpose": "old winding-down session must not clear a newly-started session"
+  },
+  "recovery": {
+    "automatic_stage_retries": true,
+    "automatic_whole_group_restart": false,
+    "manual_restart": true,
+    "new_start_resets_progress": true,
+    "stale_cleanup_protected_by_identity": true
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_top_level_j07_markers": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact 480-second watchdog return expression/outcome",
+    "exact worker exception-handler source micro-order",
+    "exact outer dungeon exception-handler source micro-order",
+    "failed/current-row label in every late-cancel race",
+    "exact _active_runs/_run_jobs container types and lock micro-order",
+    "live Windows/game barrier/cancel/restart timing parity"
+  ]
+}
