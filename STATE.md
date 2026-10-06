@@ -2288,34 +2288,60 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J04_SCHEDULE_MODEL.json
 - docs/phoban/J04_SCHEDULE_STATIC_EVIDENCE.tsv
 
+
+## J05 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J05 artifacts or completion commit existed before this turn; J01-J04 were already complete and were not redone.
+- Re-inspected the exact uploaded TLMTool 2.1.2 archive first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Active frozen serialized module markers remain `.phoban_dungeons` at `0x2b8513b` and `.phoban_tab` at `0x2b86f63`.
+- The exact visible `PHOBAN_MAP_LIST` is a length-8 list, in order: **Tô Châu  - Thủy Lao / Tô Châu 1 - Tống Liêu / Tô Châu 2 - Trúc Lâm / Tô Châu 3 - Dã Ngoại / Lâu Lan 1 - Hoàng Kim / Lâu Lan 2 - Huyền Phật Châu / Lâu Lan 3 - Dung Nham / Sát Tinh - Thử nghiệm**. The first name contains two spaces before the hyphen.
+- Plain **Sát Tinh** is not a ninth visible dropdown item. It is a compatibility/alias key used in the frozen binding tables and handler registry.
+- Exact `DUNGEON_FUBEN_CODE`: Thủy Lao→`ThuyLao`; Tô Châu 1/2/3→`Q1_ToChau/Q2_ToChau/Q3_ToChau`; Lâu Lan 1/2/3→`Q1_LauLan/Q2_LauLan/Q3_LauLan`; both Sát Tinh aliases→`SatTinh`.
+- Exact `DUNGEON_MAP_IDS`: **92,93,94,95,108,109,110,111,111** for the same nine-key alias order. This independently agrees with J03's map-111 Sát Tinh follow exclusion.
+- Exact support table `DUNGEON_CLICK_POS` was also decoded: (540,246), (515,273), (498,301), (493,328), (502,296), (488,323), (498,350), (0,0), (0,0) in that same nine-key order. This is preserved as cross-table canonical-name evidence; movement execution was not reopened.
+- Frozen `.phoban_dungeons` contains `DungeonCtx`, `BaseDungeon`, `SatTinhDungeon`, `DUNGEON_HANDLERS`, `get_dungeon_handler` and `_call_hook`. No other custom `*Dungeon` class exists in that exact module.
+- BaseDungeon exposes the common hook contract: `pre_config/post_config/pre_move/post_move/pre_start_fuben/post_start_fuben/on_entered/post_cycle`.
+- Exact module documentation says an unregistered dungeon falls back to **BaseDungeon common flow**, and a new custom dungeon is added as a class plus one line in `DUNGEON_HANDLERS`.
+- The only current custom handler is **SatTinhDungeon**. Exact recovered custom hook surfaces are `on_entered` and `post_cycle`, with helper/session methods `_stop_session/_run/_halted/_loop_revive/_move_to_center/_train_once`.
+- Exact handler aliases immediately before `get_dungeon_handler` are **Sát Tinh - Thử nghiệm** and **Sát Tinh**. Combined with the single custom class and the matching FuBen/MapID aliases, the semantic binding is locked: both aliases resolve to **SatTinhDungeon**. Exact class-object-versus-instance storage form inside the registry remains a micro-detail UNKNOWN.
+- J04 row binding is now explicit: `activity == "Phó bản"` passes `row.name` into `_do_dungeon`; the same canonical name feeds `get_dungeon_handler(dungeon)` and `DUNGEON_FUBEN_CODE[dungeon]`. Custom handlers decorate the shared flow rather than replacing the scheduler.
+- Handler hook integration around the common flow is statically recovered as pre_config → common config → post_config → pre_move → common move/barrier → post_move → pre_start_fuben → common start-FuBen → post_start_fuben → common dungeon-cycle wait → post_cycle. J06/J07 boundaries remain deferred.
+- Only after static extraction, the user Phó Bản screenshot was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It confirms the Tên Map column but has no expanded schedule-row dropdown; exact dungeon names therefore come from the frozen EXE, not the screenshot.
+- Only after static extraction, packaged `data/automove_log.txt` was searched. No correlated Sát Tinh/SatTinh/SelectedFuBen/FuBen/ThuyLao/Q*_ToChau/Q*_LauLan/DUNGEON_HANDLERS traces were recovered. J05 is **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED** for live dispatch/FuBen application.
+
+## J05 FILES
+- docs/tasks/J05.md
+- docs/phoban/J05_DUNGEON_BINDING_FLOW.md
+- docs/phoban/J05_DUNGEON_BINDING_MODEL.json
+- docs/phoban/J05_DUNGEON_BINDING_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J05.
+None known for J06.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J04 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole Phó Bản authority; do not import schedule/dungeon behavior from older or external projects.
+- Preserve J01-J05 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole Phó Bản authority; do not import dungeon/run-count behavior from older or external projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve J04 actual frozen symbol names; do not invent `_group_schedule` or `_set_schedule_progress`.
-- Preserve schedule row business fields exactly: `enabled/activity/name/times`.
-- Preserve add-row defaults `enabled=True`, `times=1`, supported activities **Phó bản/Train** only, and dynamic Tên Map switching with Lần preserved.
-- Preserve per-group schedule ownership and per-group header toggle; do not restore the obsolete global schedule-toggle behavior.
-- Preserve modern `phoban_groups` plus legacy `phoban_group1/phoban_schedule` compatibility and old **Bán đồ** row skip.
-- Preserve exact progress labels/colors and main-thread progress-update bridge; keep the initial Chưa/#555555 versus canonical Chưa/#808080 nuance explicit until runtime evidence resolves it.
-- Preserve stable enabled-row/UI order.
-- Preserve J04 concurrency contract: groups parallel; rows sequential within one group; accounts parallel within one row; optional team recreation and account setup before row execution.
-- Preserve J04 deferred boundaries: dungeon-list/handler binding J05; exact `times` semantics J06; deep cancel/abort/status machine J07.
-- Preserve all J03 follow rules and explicit UNKNOWN boundaries.
+- Preserve the exact 8-item visible `PHOBAN_MAP_LIST`, order and spelling; especially the two spaces in `Tô Châu  - Thủy Lao`.
+- Preserve plain `Sát Tinh` as a hidden compatibility alias, not a ninth visible dropdown item.
+- Preserve exact `DUNGEON_FUBEN_CODE` and `DUNGEON_MAP_IDS` mappings, including both Sát Tinh aliases → SatTinh / MapID111.
+- Preserve J05 canonical-key rule: J04 schedule `row.name` is the shared binding key.
+- Preserve `BaseDungeon` as the fallback common handler for unregistered dungeons.
+- Preserve `SatTinhDungeon` as the only currently recovered custom handler and both Sát Tinh aliases as its semantic registry bindings.
+- Preserve handler-hook integration with the shared `_do_dungeon` flow; do not replace the common scheduler with per-dungeon hard-coded branches.
+- Preserve the explicit UNKNOWN for class-object-versus-instance storage inside `DUNGEON_HANDLERS`.
+- Preserve J05 deferred boundaries: exact `times` semantics J06; deep cancel/abort/status J07.
+- Preserve J04 scheduling concurrency/order and J03 follow rules unchanged.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J05 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J05 — Phó Bản dungeon list / dungeon-handler binding audit** only.
-5. Inspect the exact frozen original EXE first, including both `.phoban_tab` and `.phoban_dungeons`.
-6. Audit the dungeon-selection/binding surfaces only: `PHOBAN_MAP_LIST`, `DUNGEON_FUBEN_CODE`, `DUNGEON_MAP_IDS`, handler registry/lookup surfaces such as `get_dungeon_handler` / `DUNGEON_HANDLERS` if present, supported display names/aliases, MapID/FuBen-code association, and currently implemented custom handler classes.
-7. Identify only the binding needed to explain how a J04 Phó Bản schedule row resolves to the correct dungeon handler. Keep exact number-of-runs/`times` iteration J06, deep status/cancel/abort J07, and later drop/loot/Nga My/multi-group/start-stop/failure-recovery work deferred.
-8. Cross-check B07 only after static extraction; do not remeasure geometry unless frozen EXE evidence contradicts it.
-9. Do not import dungeon logic from older/external Phó Bản projects.
-10. Persist J05 artifacts, update STATE.md, and advance only after J05 verification.
+3. Check GitHub first for any J06 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J06 — Phó Bản number-of-runs / `times` semantics audit** only.
+5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use `.phoban_dungeons` only where `DungeonCtx.run_idx/times` is needed.
+6. Audit exact `times` behavior from schedule row to execution: allowed UI values/default, parsing/normalization, iteration range, `run_idx`, barrier placement across repetitions, config-memory repetition, start-FuBen retry relationship, cycle completion definition, row completion only after all requested runs, and any special `times` handling for Train rows.
+7. Keep deep cancellation/failure/status-state-machine semantics J07. Do not fold J07 into J06.
+8. Cross-check B07 only after static extraction; do not infer run-count values from the screenshot if the row control is not expanded.
+9. Do not import run-count behavior from older/external Phó Bản projects.
+10. Persist J06 artifacts, update STATE.md, and advance only after J06 verification.
