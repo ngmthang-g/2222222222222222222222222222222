@@ -274,7 +274,8 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 - J09 — VERIFIED_RUN_SCOPED_PICKITEM_ISON_KEEPALIVE_WITH_ALL_SELECTED_MEMBERS_AND_NO_RECOVERED_OFF_SWEEP
 - J10 — VERIFIED_NGA_MY_AUTOTRAIN_LIST910_KEEPALIVE_WITH_DUNGEON_GATE_AND_FINAL_UNTICK_OFF_SWEEP
 - J11 — VERIFIED_DYNAMIC_MULTI_GROUP_COORDINATION_WITH_UNIQUE_MEMBERS_PARALLEL_JOBS_AND_LOCKED_WORKER_SCOPES
-- J12 — NEXT
+- J12 — VERIFIED_PERMISSION_GATED_INTEGRATED_START_STOP_WITH_PERSISTED_MODES_AND_LAST_GROUP_TEARDOWN
+- J13 — NEXT
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
@@ -308,5 +309,7 @@ J10 locks Nga My buff as a run-scoped AUTOTRAIN monster-list keepalive: FactionI
 
 J11 locks the dynamic group container, delete-all behavior, six-member per-group cap with no recovered hard group-count cap, cross-group account uniqueness, per-group schedule/run ownership, start-all parallel job collection, independent group finish/stop semantics, and the intentionally different cross-group scopes of Follow/Discard/Pickup/Nga My buff. The reference B07 baseline has one group, while exact missing-config bootstrap microbehavior remains explicit rather than guessed.
 
+J12 locks the integrated start/stop lifecycle: stop routing precedes start preflight, new starts are permission-gated and runnable-job-filtered, progress reset scope differs for one-group versus all-group starts, every run has fresh group cancel/job identity, stop-all is cooperative with orange winding-down UI, persisted mode checkboxes survive stop/end, and global teardown occurs only when the final group is gone. Run start must re-arm enabled Follow/Discard/Pickup/Buff modes, while the exact native call order relative to group Thread.start and the internal _on_destroy cleanup sequence remain explicit static unknowns.
+
 ## Phase J current
-J12 — Phó Bản integrated start/stop lifecycle audit.
+J13 — Phó Bản integrated failure/recovery audit.
