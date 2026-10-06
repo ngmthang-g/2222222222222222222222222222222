@@ -265,23 +265,24 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 ## Phase J — Phó Bản
 - J01 — VERIFIED_PARTY_FORMATION
 - J02 — VERIFIED_LEADER_METADATA_PROPAGATION_NO_TEAM_LEADER_MEMORY_DEPENDENCY
-- J03 — NEXT
+- J03 — VERIFIED_RUN_SCOPED_FOLLOWER_WITH_DUNGEON_ONLY_SAME_MAP_QUEUE_ONLY_FOLLOW_MODE_AND_COMMAND_CLASH_GUARDS
+- J04 — NEXT
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
-J02 separates four different concepts that must not be conflated:
-- visible/nominal leader = first group combobox;
-- J01 recreate-team effective leader = nominal leader if online, otherwise first online target;
-- run-local dungeon metadata = _leader_hw plus per-member is_leader/member_index/total_members;
-- game auto-FuBen FollowLeader=True = a separate per-account memory setting.
+J02 separates visible first-slot leader, recreate-team leader, run-local is_leader metadata and game FUBEN.FollowLeader.
 
-The active Phó Bản modules do not reference read_team_leader, TeamLeader or LeaderID. A shared memory_items read_team_leader helper exists elsewhere in the EXE but is not used by PhoBanTab/phoban_dungeons. Dungeon execution therefore carries a tool-side leader marker rather than dynamically querying the game captain.
+J03 locks the optional "Theo sau đội trưởng" subsystem. `phoban_follow` defaults OFF. The follower worker exists only while at least one schedule group is running; enabling before a run keeps the mode armed and waits, while run start can create the worker. Run completion stops the worker without clearing the persisted checkbox.
 
-_acc_step_worker forwards is_leader/member_index/total_members into _do_dungeon, which places them in DungeonCtx for dungeon-specific hooks. BaseDungeon is pass-through. Current SatTinhDungeon explicitly says all accounts behave the same; leader metadata is only an extension point for future differentiated handlers.
+For each running group, the leader-position source is the first combobox and followers are the remaining slots. Positions come from MapID/PosX/PosY memory reads. Follow only operates inside DUNGEON_MAP_IDS, requires follower and leader on the same map, and explicitly excludes Sát Tinh map 111.
 
-The exact native source expression assigning _leader_hw and the exact Boolean comparison producing is_leader remain strong-static/unknown because Nuitka does not preserve the Python body in the constants blob.
+Two independent safety gates are preserved: PB_FOLLOW_DIST_TILES controls when leader/follower distance warrants a follow move; PB_FOLLOW_MOVE_TILES detects large follower self/foreign movement and yields for that poll unless the previous poll was follow-commanded. Exact numeric PB_FOLLOW values remain unknown.
 
-No correlated leader/runtime trace exists in the packaged helper log.
+A second shared clash guard calls `is_move_poll_active`; the frozen shared helper has exact 0.5-second TTL and exists specifically so Follow does not steal an HWND currently controlled by a move_character wait-for-arrival poll.
+
+Follow uses shared `move_character` in queue-only mode: effective `wait_for_arrival=False`, `follow_mode=True`. The frozen doc explicitly forbids Phù, stop-auto and mount toggles, preserving active auto FuBen.
+
+No correlated PhoBanTab follow trace exists in the packaged helper log. Generic AutoMove/StartAutoPath/StopAutoPath lines remain primitive-only evidence.
 
 ## Phase J current
-J03 — Phó Bản followers / Theo sau đội trưởng audit.
+J04 — Phó Bản schedule model / schedule-row execution audit.
