@@ -2619,30 +2619,65 @@ H13 — Train all-account command orchestration audit.
 - docs/daily/K01_STATIC_EVIDENCE.tsv
 - docs/daily/K01_MODEL.json
 
+
+## K02 VERIFIED RESULTS
+- GitHub-first continuity check passed. No K02 artifact/completion commit existed before this turn; K01 was already complete and was not redone.
+- Re-inspected the exact frozen original EXE first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Daily shared account refresh is incremental, not a full UI rebuild. Exact helpers are `_refresh_acc_lists/_start_refresh/_stop_refresh/_schedule_refresh`; the refresh worker gathers window/account data and uses Tk `after` for UI application.
+- Exact refresh cadence is **5 seconds**. `_start_refresh` is documented for tab selection; `_stop_refresh` for switching away. Constructor lifecycle state includes `_refresh_id/_refreshing/_closing`.
+- HWND identity is protected against handle reuse by PID binding. Exact `_is_window_alive` contract requires an HWND to remain open and still belong to the bound process; `bind_window_identity/unbind_window_identity` are explicit. If the HWND now points to another PID, Daily treats the old window as gone and recreates the row.
+- `_add_or_update_row` exact doc says new rows are added, while existing valid rows update name/level/map in place. `_remove_stale_accs` removes rows whose window closed or whose HWND was reused by another process.
+- Daily's account-list scrollregion has an exact **30 ms** time debounce. Frozen docs explicitly reject the older row-count-only optimization because it could lock an incorrect scrollregion before row geometry finished expanding.
+- Shared row controls are locked: `▶`, character label, activity combobox `Trừng ác/Tàng bảo đồ`, status dot `⬤`, state label, MapID, `Tới bổ đầu`, `Trị liệu`. Initial state is **Đã dừng**.
+- Row runtime/session state includes bound process identity plus `_farming_acc/_stop_event/_gen/_state`. These are runtime row/session surfaces, not recovered as durable Daily config keys.
+- Row permission gating is exact: `permission_guard.has_permission("daily_tab")`. A newly-created row without permission disables the play button, activity combobox, `Tới bổ đầu`, and `Trị liệu`. The shared injection/runtime path separately exposes `has_permission_with_limit("daily_tab","daily")`; K02 keeps these two permission layers distinct.
+- Exact shared state vocabulary/style mapping is frozen: `Đã dừng/Trị liệu` gray `#555555`; `Về bổ đầu/Đi huyệt mộ` blue `#1565c0`; `Làm nhiệm vụ/Đánh ác tặc/Đánh trong mộ` green `#2e7d32`; `Về Địa phủ` red `#c62828`; `Mất kết nối` dark red `#b71c1c`; unknown state falls back to gray.
+- State UI mutation is strictly marshaled back to the Tk main thread. Exact `_schedule_state_label` docs say it invokes `_apply_state_label` via `after(0)`; frozen comments explicitly warn that touching Tk widgets from worker threads can terminate the process silently.
+- Daily has a dedicated stale-worker race fix: module-level `_GenStop`. It wraps row `_stop_event` plus a captured `_gen`; `is_set()` also becomes true when the row generation changes. This prevents an old worker from surviving a rapid Stop→Start after the same Event is cleared for a new session.
+- Exact `_stop_reason` vocabulary independently confirms shared stop causes: batch Trừng Ác/Tàng Bảo Đồ cancel, disconnect halt, stop_event, new generation, dead/reused window, and respawn/Địa-phủ.
+- Per-row `▶/||` is owned by `_toggle_single_acc` and runs the row's **current activity only**, dispatching to `_punish_single_worker` or `_treasure_single_worker`. K02 does not deep-audit either activity worker.
+- Bottom `_start_all_accs` is a true all-row toggle. Exact doc: while running it sets running rows `_farming_acc=False` and signals their stop Events; while idle it starts each eligible non-running row in a per-account thread according to that row's selected activity.
+- Stop-all branch exact UI/log region restores row play presentation to `▶`, bottom button to **Bắt đầu / #388e3c**, syncs StartTab, and logs **[Bắt đầu] Đã dừng tất cả acc**. Worker unwind remains cooperative.
+- Start-all branch skips a Trừng Ác row whose teleport mode lacks a configured hotkey, logs **Không acc nào cần chạy** if zero rows qualify, otherwise logs **Đã chạy ...**, switches bottom to **Dừng lại / #f44336**, and ensures the shared monitor exists.
+- `_ensure_daily_monitor` exact doc says **Chỉ start 1 monitor instance**. `_daily_all_monitor` waits for all account sessions to stop, then resets UI using both activity reset helpers and logs **Tất cả acc đã dừng — tự động reset UI**.
+- Shared `_resize_monitor(hwnd,is_running_fn)` checks every **1 second** and restores a valid/visible bound game window to **1366×768** through the shared StartTab resize helper when size differs.
+- `_sync_start_tab_btns` explicitly synchronizes Trừng Ác/Tàng Bảo Đồ buttons on StartTab, confirming Daily has a shared external UI-state integration.
+- Daily persistence is bounded to configuration modes through shared `read_settings/write_settings`. Exact `daily_*` keys cover activity options; no persistence key is recovered for row activity selection, bound PID, `_farming_acc`, `_stop_event`, `_gen`, or current row state. `<Destroy>` is bound to `_save_on_destroy`; its exact internal cleanup order remains UNKNOWN.
+- Only after static extraction, K02 cross-checked B08 for shared controls only. The captured Daily state has an empty account list, shared headers, all-account `Tới bổ đầu/Trị liệu`, and bottom `Bắt đầu`; no populated-row behavior was inferred from the screenshot.
+- Only after static extraction, exact packaged `automove_log.txt` was searched. It contains 0 correlated Daily/Bắt đầu/Inject/DailyTab/Trừng Ác/Tàng Bảo Đồ markers. K02 is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+
+## K02 FILES
+- docs/tasks/K02.md
+- docs/daily/K02_SHARED_FLOW.md
+- docs/daily/K02_SHARED_MODEL.json
+- docs/daily/K02_SHARED_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-- Phase J live runtime parity remains blocked by the absence of a real Windows + Thần Long runtime; this remains deferred and does not block Phase K.
-- No known static blocker for K02.
+- Phase J live runtime parity remains deferred by environment.
+- No known static blocker for K03.
 
 ## DO_NOT_TOUCH
-- Preserve Gate A and closed Gate F/G/H/I handoffs and Phase J static closure.
-- Preserve K01 Daily authority exactly: `.daily_tab` / `daily_tab.py` / `DailyTab` are the active Daily source authority.
-- Preserve the explicit split between Trừng Ác and Tàng Bảo Đồ; do not merge their deep logic.
-- Preserve K01 visible control names and row activity values.
-- Preserve the 70-member top-level handler inventory as the Daily method surface.
-- Preserve direct-dependency classifications; do not promote D04 B-level emulator references to active imports without stronger exact evidence.
-- TLMTool 2.1.2 remains the sole Daily authority. Do not import behavior from previous Auto-BTD/Trừng Ác projects unless exact TLM evidence independently matches it.
-- Proxy runtime/network development remains locked.
-- Stage S implementation remains locked.
-- Do not deep-audit Trừng Ác or Tàng Bảo Đồ sequence logic during K02 beyond what is necessary to prove shared account/row/start-stop ownership.
+- Preserve K01 Daily authority and K02 shared roster/session/coordinator contracts.
+- Preserve 5-second incremental refresh and HWND+PID identity protection; do not key Daily rows by HWND alone.
+- Preserve 30ms scrollregion debounce; do not restore row-count-only invalidation.
+- Preserve exact row permission split: has_permission("daily_tab") for row UI and has_permission_with_limit("daily_tab","daily") on the limited runtime/injection path.
+- Preserve exact shared state vocabulary/colors and Tk after(0) marshalling.
+- Preserve per-row real stop Event + generation-protected _GenStop. Do not remove the generation check during refactor.
+- Preserve per-row current-activity dispatch and bottom all-row coordinator semantics.
+- Preserve singleton _daily_all_monitor and one-second 1366×768 resize-monitor contract.
+- Preserve runtime row/session state as transient; do not invent persistence for activity/PID/_farming_acc/_stop_event/_gen/_state.
+- TLMTool 2.1.2 remains sole Daily authority; do not import Trừng Ác behavior from previous Auto-BTD/Trừng Ác projects.
+- Do not deep-audit Tàng Bảo Đồ during K03.
+- Proxy runtime/network development and Stage S remain locked.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any K02 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **K02 — Daily shared account discovery / row lifecycle / shared start-stop coordinator audit** only.
-5. Inspect the exact frozen original EXE first, primarily `.daily_tab`.
-6. Audit shared logic only: account discovery/refresh cadence, HWND↔PID identity binding and stale-row removal, row creation/update, permission gating, per-row activity/state widgets, per-row `▶` toggle ownership, bottom `Bắt đầu/Dừng lại` all-account coordinator, shared monitor singleton, generation/stop-event protections, row-state marshaling to Tk main thread, resize monitor ownership, and shared config persistence boundaries.
-7. Do not deep-dive Trừng Ác quest/navigation/combat internals or Tàng Bảo Đồ map/item/combat internals; those begin K03 and K10 respectively.
-8. Cross-check B08 only after static extraction and only for shared row/global controls.
-9. Persist K02 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K02 verification.
+3. Check GitHub first for any K03 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K03 — Trừng Ác configuration / selection / top-level run-loop contract audit** only.
+5. Inspect the exact frozen original EXE first, primarily the Trừng Ác-related `.daily_tab` constants/handlers.
+6. Audit the Trừng Ác configuration and outer execution shell only: duration/move-mode/teleport-hotkey semantics, per-row and apply-all selection, `_punish_toggle/_punish_run_worker/_punish_start_worker/_punish_single_worker` ownership, selected/live-account filtering, batch cancel versus row stop/generation interaction, high-level loop/repeat termination, and top-level state/button/reset behavior.
+7. Do not yet deep-dive NPC-return mechanics, quest/full/cancel logic, target navigation/summon, combat timing, heal/reconnect/respawn, or discard internals except where needed to identify the outer run shell; those are later K04–K09 tasks.
+8. Cross-check B08 only after static extraction for Trừng Ác visible config state.
+9. Persist K03 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K03 verification.
