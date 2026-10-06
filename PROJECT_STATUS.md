@@ -266,7 +266,8 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 - J01 — VERIFIED_PARTY_FORMATION
 - J02 — VERIFIED_LEADER_METADATA_PROPAGATION_NO_TEAM_LEADER_MEMORY_DEPENDENCY
 - J03 — VERIFIED_RUN_SCOPED_FOLLOWER_WITH_DUNGEON_ONLY_SAME_MAP_QUEUE_ONLY_FOLLOW_MODE_AND_COMMAND_CLASH_GUARDS
-- J04 — NEXT
+- J04 — VERIFIED_GROUP_LOCAL_ORDERED_SCHEDULE_MODEL_WITH_MODERN_PLUS_LEGACY_CONFIG_COMPATIBILITY
+- J05 — NEXT
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
@@ -284,5 +285,7 @@ Follow uses shared `move_character` in queue-only mode: effective `wait_for_arri
 
 No correlated PhoBanTab follow trace exists in the packaged helper log. Generic AutoMove/StartAutoPath/StopAutoPath lines remain primitive-only evidence.
 
+J04 locks the original schedule-row architecture: per-group rows with fields enabled/activity/name/times, only Phó bản/Train activities, modern phoban_groups plus legacy phoban_group1/phoban_schedule compatibility, and the exact execution hierarchy of groups in parallel, rows sequential within each group, accounts parallel within each row. J05/J06/J07 boundaries remain deliberately deferred.
+
 ## Phase J current
-J04 — Phó Bản schedule model / schedule-row execution audit.
+J05 — Phó Bản dungeon list / dungeon-handler binding audit.
