@@ -1,0 +1,207 @@
+{
+  "task": "J01",
+  "status": "VERIFIED_DYNAMIC_6_SLOT_GROUP_FORMATION_WITH_FIRST_COMBO_NOMINAL_LEADER_UNIQUE_CROSS_GROUP_SELECTION_AND_OPTIONAL_B0_AUTOACCEPT_B1_LEAVE_B2_UI_CREATE_B3_BURST_INVITE_PIPELINE_PARTY_TIMEOUT_GLOBAL_VALUES_AND_LIVE_RUNTIME_PARITY_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b07_sha256": "8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8"
+  },
+  "module": {
+    "marker": ".phoban_tab",
+    "marker_offset": "0x2b86f63",
+    "chunk_size_bytes": 52957,
+    "constant_count": 1508,
+    "file": "phoban_tab.py",
+    "class": "PhoBanTab",
+    "related_module": "phoban_dungeons.py"
+  },
+  "ready_accounts": {
+    "refresh_seconds": 5,
+    "discovery": "start_tab.get_windows",
+    "background_reads": true,
+    "main_thread_apply": true,
+    "identity": "HWND + current PID",
+    "selected_hidden_from_ready_grid": true,
+    "layout": "3 ready accounts per row"
+  },
+  "group_ui": {
+    "builder": "_add_group_cluster",
+    "members_per_group": 6,
+    "visual_layout": "2 rows x 3 comboboxes",
+    "first_combobox_nominal_leader": true,
+    "empty_leader_label": "(chưa chọn)",
+    "add_group_button": "+ Thêm nhóm",
+    "delete_group_button": "✕ Xóa nhóm",
+    "cross_group_selection_unique": true,
+    "refresh_helper": "_refresh_group_combo_values",
+    "select_helper": "_on_group_selected",
+    "permission_scope": "phoban_tab",
+    "enabled_combobox_state": "readonly"
+  },
+  "recreate_option": {
+    "var": "recreate_team_var",
+    "label": "Tạo lại đội",
+    "config_key": "phoban_recreate_team",
+    "clean_default": false,
+    "run_edge": "_run_one_group -> _pb_ensure_party before schedule setup"
+  },
+  "targets": {
+    "helper": "_group_targets",
+    "semantic": "selected + currently online [(name, hwnd)]",
+    "resolver": "_pb_resolve_targets",
+    "role_id_sources": [
+      "read_own_ids",
+      "hwnd_of_pid"
+    ],
+    "name_match": [
+      "exact",
+      "case-insensitive fallback"
+    ],
+    "unresolved_member": "skip + log",
+    "none_resolved": "abort group"
+  },
+  "team_id": {
+    "helper": "_pb_team_id",
+    "no_team_integer_sentinels": [
+      0,
+      -1,
+      4294967295
+    ],
+    "no_team_text_sentinels": [
+      "0",
+      "false",
+      ""
+    ],
+    "read_failure_is_success": false
+  },
+  "leader_for_formation": {
+    "nominal": "first group combobox",
+    "offline_fallback": "first online target",
+    "one_online_member": "skip team creation and continue",
+    "deeper_semantics": "DEFERRED_J02"
+  },
+  "pipeline": {
+    "order": [
+      "B0_AUTO_ACCEPT",
+      "B1_LEAVE_EXISTING_TEAM",
+      "B2_LEADER_CREATE_UI",
+      "B3_BURST_INVITE"
+    ],
+    "cancellation": [
+      "group cancel",
+      "global cancel"
+    ],
+    "interruptible_sleep": "_pb_party_sleep"
+  },
+  "b0_auto_accept": {
+    "target_field": "UTILITIES.AutoAcceptInviteTeam",
+    "desired_value": true,
+    "verify_readback": true,
+    "exact_low_level_writer": "UNKNOWN",
+    "delay_symbol": "PB_PARTY_AUTOSET_DELAY",
+    "delay_value": "UNKNOWN"
+  },
+  "b1_leave": {
+    "helper": "leave_team",
+    "already_outside": "skip",
+    "wait_helper": "_pb_wait_team_state(expect_zero)",
+    "incomplete_timeout_behavior": "warn and continue",
+    "leave_delay_symbol": "PB_PARTY_LEAVE_DELAY",
+    "wait_timeout_symbol": "PB_PARTY_WAIT_LEFT_TIMEOUT",
+    "numeric_values": "UNKNOWN"
+  },
+  "b2_create": {
+    "helper": "_pb_click_create_team",
+    "leader_resize": [
+      1366,
+      768
+    ],
+    "optional_pixel_clicks": [
+      {
+        "pixel": "donVang.nguoiChoiGan",
+        "click": [
+          391,
+          683
+        ]
+      },
+      {
+        "pixel": "donVang.muiTenAnNhiemVu",
+        "click": [
+          34,
+          462
+        ]
+      }
+    ],
+    "tail_clicks": [
+      [
+        27,
+        467
+      ],
+      [
+        154,
+        214
+      ],
+      [
+        127,
+        336
+      ]
+    ],
+    "documented_click_gap_seconds": 1,
+    "create_helper": "_pb_invite_create",
+    "retry_symbol": "PB_PARTY_CREATE_RETRY",
+    "wait_timeout_symbol": "PB_PARTY_WAIT_TEAM_TIMEOUT",
+    "retry_gap_symbol": "PB_PARTY_INVITE_RETRY_GAP",
+    "numeric_retry_timeout_values": "UNKNOWN",
+    "exhausted_create_retries": "abort group"
+  },
+  "b3_invite": {
+    "helper": "_pb_invite_burst",
+    "recipients": "resolved non-leader members",
+    "burst_delay_symbol": "PB_PARTY_BURST_DELAY",
+    "join_poll_symbol": "PB_PARTY_JOIN_POLL",
+    "join_timeout_symbol": "PB_PARTY_JOIN_TIMEOUT",
+    "resend_missing_rounds": 1,
+    "waits_after_initial_and_resend": 2,
+    "still_missing_behavior": "log missing/team snapshot; return success unless cancelled",
+    "numeric_timing_values": "UNKNOWN"
+  },
+  "runtime_evidence": {
+    "packaged_log_checked": true,
+    "top_level_markers_found": 0,
+    "role_id_literal_count": 87,
+    "role_id_samples": "unrelated private-chat packet scripts",
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "deferred": {
+    "J02": "leader semantics/responsibility",
+    "J03": "followers/follow-leader",
+    "later": [
+      "schedule",
+      "dungeon list",
+      "run counts",
+      "status machine",
+      "drop/loot",
+      "Nga My buff",
+      "multi-group runtime orchestration",
+      "start/stop",
+      "failure/recovery",
+      "runtime tests"
+    ]
+  },
+  "explicit_unknowns": [
+    "PB_PARTY_TEAMID_POLL numeric value",
+    "PB_PARTY_CREATE_RETRY numeric value",
+    "PB_PARTY_WAIT_TEAM_TIMEOUT numeric value",
+    "PB_PARTY_INVITE_RETRY_GAP numeric value",
+    "PB_PARTY_JOIN_POLL numeric value",
+    "PB_PARTY_BURST_DELAY numeric value",
+    "PB_PARTY_JOIN_TIMEOUT numeric value",
+    "PB_PARTY_AUTOSET_DELAY numeric value",
+    "PB_PARTY_LEAVE_DELAY numeric value",
+    "PB_PARTY_WAIT_LEFT_TIMEOUT numeric value",
+    "exact low-level AutoAcceptInviteTeam writer",
+    "first-read versus initial-sleep micro-order in team-state waits",
+    "Windows/live-game create/leave/invite parity"
+  ],
+  "next_task": "J02 — Phó Bản leader semantics audit"
+}
