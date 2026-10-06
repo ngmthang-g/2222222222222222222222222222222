@@ -1,0 +1,137 @@
+{
+  "task": "K04",
+  "status": "VERIFIED_PUNISH_NPC_QUEST_FULL_CANCEL_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_payload_marker": "0x2903223",
+    "shared_memory_items_marker": "0x2b69c5f"
+  },
+  "npc_return": {
+    "helper": "_punish_goto_bodau",
+    "map_id": 4,
+    "tile": [
+      224,
+      285
+    ],
+    "tolerance": 96,
+    "tag": "Về bổ đầu",
+    "reinject_before_move": true,
+    "inject_failure": "FAIL_OPEN_TRY_DIRECT_MOVE",
+    "move_failure": "stop_character + return False/current-cycle skip",
+    "wrong_map": "return False/current-cycle skip",
+    "verify_map_id": 4
+  },
+  "teleport_prestep": {
+    "key_helper": "press_single_key_dll",
+    "fixed_coordinate": [
+      490,
+      429
+    ],
+    "then_final_goto_bodau": true,
+    "coordinate_ui_meaning": "EXPLICIT_UNKNOWN"
+  },
+  "normal_quest_clicks": {
+    "return_quest": [
+      [
+        890,
+        471
+      ],
+      [
+        884,
+        423
+      ],
+      [
+        481,
+        423
+      ]
+    ],
+    "receive_quest": [
+      [
+        891,
+        467
+      ],
+      [
+        484,
+        424
+      ]
+    ],
+    "mapping_confidence": "STRONG_STATIC_SOURCE_ORDER_GROUPING",
+    "state_label": "Làm nhiệm vụ",
+    "dedicated_click_success_verification_recovered": false
+  },
+  "full_check": {
+    "helper": "_punish_check_full",
+    "timing": "after receive-quest click group",
+    "dialog_reader": "memory_items.get_dialog_raw",
+    "fields": [
+      "Title",
+      "CleanMsg",
+      "Buttons"
+    ],
+    "semantic_signature": {
+      "title_or_npc": "Ngô Giới",
+      "message_contains": "tối đa 30",
+      "button_text": "Ta biết rồi"
+    },
+    "acknowledgement": "memory_items.click_dialog_button",
+    "acknowledgement_verifies_dialog_close": true,
+    "read_error": false,
+    "no_dialog": false,
+    "click_failure": false,
+    "success": true,
+    "success_outcome": "terminal-stop this account's Trừng Ác session",
+    "skipped_tracking": "STRONG_STATIC _punish_skipped/add association",
+    "exact_stop_mutation_order": "EXPLICIT_UNKNOWN"
+  },
+  "cancel_quest": {
+    "helper": "_punish_cancel_quest",
+    "close_current_panel": [
+      1072,
+      130
+    ],
+    "npc_move": {
+      "map_id": 4,
+      "npc_id": 698,
+      "helper": "memory_items.move_to_npc",
+      "verify_dialog": true
+    },
+    "cancel_clicks": [
+      [
+        479,
+        480
+      ],
+      [
+        476,
+        422
+      ]
+    ],
+    "success_log": "đã gửi hủy nhiệm vụ → sang vòng mới",
+    "failure_logs": [
+      "tới NPC hủy NV lỗi:",
+      "không mở được hội thoại NPC hủy NV"
+    ],
+    "semantic_outcome": "skip current cycle and retry next outer cycle",
+    "terminal_account_stop": false
+  },
+  "cancel_triggers": {
+    "no_target_coordinates": true,
+    "repeated_target_stuck": true,
+    "repeated_target_threshold": "DEFERRED_K05"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_k04_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "UI meaning of teleport click (490,429)",
+    "normal fixed-quest click delay/return-check microbehavior",
+    "full-dialog exact string comparison operators beyond documented semantics",
+    "30/30 terminal mutation ordering among _punish_skipped and row stop event",
+    "cancel helper Boolean result on every exception path",
+    "repeated target failure threshold/accounting",
+    "live Windows/game parity"
+  ]
+}
