@@ -272,7 +272,8 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 - J07 — VERIFIED_GROUP_ABORT_BARRIER_BREAK_IDENTITY_SAFE_TEARDOWN_WITH_EXPLICIT_RUNTIME_UNKNOWNS
 - J08 — VERIFIED_RUN_SCOPED_DISCARD_WORKER_WITH_PARALLEL_ACCOUNTS_SEQUENTIAL_PRESETS_AND_FINAL_PASS
 - J09 — VERIFIED_RUN_SCOPED_PICKITEM_ISON_KEEPALIVE_WITH_ALL_SELECTED_MEMBERS_AND_NO_RECOVERED_OFF_SWEEP
-- J10 — NEXT
+- J10 — VERIFIED_NGA_MY_AUTOTRAIN_LIST910_KEEPALIVE_WITH_DUNGEON_GATE_AND_FINAL_UNTICK_OFF_SWEEP
+- J11 — NEXT
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
@@ -302,5 +303,7 @@ J08 locks the three discard controls, exact config/preset mappings, run-scoped g
 
 J09 locks Nhặt không hồ lô as a persisted run-scoped PICKITEM.IsOn keepalive: all selected Phó Bản members across all groups are de-duplicated and re-resolved to live HWNDs, IsOn is read back every PICK_POLL and repaired to True through set_auto_fields/SaveSetting, and no pickup-local OFF sweep is recovered. Pickup has stop/thread state but no generation field; PICK_POLL numeric and stop/start race microdetails remain explicit runtime unknowns.
 
+J10 locks Nga My buff as a run-scoped AUTOTRAIN monster-list keepalive: FactionID 4 (fallback Nga My), ON = IsAttackMonsterInList True + list "910", OFF = False + empty list, readback-before-write with retry, currently-running-group scope, generation protection, and an explicit final OFF sweep on untick. Despite the UI suffix “Sát Tinh”, the frozen worker contract gates on being inside a dungeon map rather than a recovered map111-only check.
+
 ## Phase J current
-J10 — Phó Bản Nga My buff subsystem audit.
+J11 — Phó Bản multiple-groups coordination audit.
