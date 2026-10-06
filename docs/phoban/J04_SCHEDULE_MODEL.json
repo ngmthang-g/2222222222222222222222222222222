@@ -1,0 +1,189 @@
+{
+  "task": "J04",
+  "status": "VERIFIED_GROUP_LOCAL_ORDERED_SCHEDULE_MODEL_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "module": ".phoban_tab",
+    "marker_offset": "0x2b86f63",
+    "chunk_size": 52957,
+    "top_level_constants": 1508
+  },
+  "symbol_audit": {
+    "absent_requested_names": {
+      "_group_schedule": 0,
+      "_set_schedule_progress": 0
+    },
+    "actual_surfaces": [
+      "_schedule_rows",
+      "_add_schedule_row",
+      "_remove_schedule_row",
+      "_all_schedule_rows",
+      "get_schedule_rows",
+      "get_groups_data",
+      "get_selected_schedule",
+      "set_progress",
+      "reset_all_progress",
+      "_reset_group_progress",
+      "_set_row_progress",
+      "_collect_group_job",
+      "_run_one_group"
+    ]
+  },
+  "ui": {
+    "columns": [
+      "Hoạt động",
+      "Tên Map",
+      "Lần",
+      "Status",
+      "Xóa"
+    ],
+    "buttons": [
+      "+ Thêm Lịch trình",
+      "Tắt auto PB",
+      "Bắt đầu lịch trình"
+    ],
+    "screenshot_sha256": "8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8",
+    "screenshot_size": [
+      452,
+      1032
+    ],
+    "screenshot_has_visible_schedule_rows": false
+  },
+  "add_schedule_row": {
+    "reconstructed_signature": "_add_schedule_row(self, enabled=True, activity=None, name=None, times=1, rows=None)",
+    "serialized_defaults": [
+      true,
+      null,
+      null,
+      1,
+      null
+    ],
+    "supported_activities": [
+      "Phó bản",
+      "Train"
+    ],
+    "train_name_choices": [
+      "Về train theo thiết lập sẵn"
+    ],
+    "activity_change": {
+      "replaces_name_choices": true,
+      "resets_invalid_name": true,
+      "preserves_times": true
+    },
+    "autosave_trace_fields": [
+      "activity",
+      "name",
+      "times"
+    ]
+  },
+  "row_business_fields": [
+    "enabled",
+    "activity",
+    "name",
+    "times"
+  ],
+  "progress": {
+    "styles": {
+      "chưa": {
+        "label": "Chưa",
+        "fg": "#808080"
+      },
+      "đang": {
+        "label": "Đang",
+        "fg": "#b8860b"
+      },
+      "xong": {
+        "label": "Xong",
+        "fg": "#1b5e20"
+      }
+    },
+    "creation_label": {
+      "label": "Chưa",
+      "fg": "#555555"
+    },
+    "background_bridge": "_set_row_progress -> main-thread apply -> set_progress",
+    "status_matching_case_insensitive": true
+  },
+  "collection": {
+    "get_schedule_rows": {
+      "role": "legacy_flat_all_groups",
+      "fields": [
+        "enabled",
+        "activity",
+        "name",
+        "times"
+      ]
+    },
+    "get_groups_data": {
+      "role": "modern_full_group_config",
+      "shape": "[{num, members, schedule:[{enabled,activity,name,times}, ...]}, ...]"
+    },
+    "get_selected_schedule": {
+      "role": "execution_selected_rows",
+      "fields": [
+        "activity",
+        "name",
+        "times",
+        "row"
+      ],
+      "preserves_ui_row_order": true
+    },
+    "collect_group_job": {
+      "output": [
+        "num",
+        "targets",
+        "sched"
+      ],
+      "returns_none_when": [
+        "no online selected targets",
+        "no enabled schedule rows"
+      ]
+    }
+  },
+  "persistence": {
+    "modern_key": "phoban_groups",
+    "legacy_keys": [
+      "phoban_group1",
+      "phoban_schedule"
+    ],
+    "json_ensure_ascii": false,
+    "legacy_missing_enabled_default": true,
+    "legacy_missing_times_default": 1,
+    "removed_legacy_activity_skipped": "Bán đồ",
+    "malformed_json_microbehavior": "UNKNOWN"
+  },
+  "execution": {
+    "groups_parallel": true,
+    "rows_within_group_sequential": true,
+    "accounts_within_row_parallel": true,
+    "pre_schedule_stage": [
+      "optional recreate team",
+      "parallel account setup",
+      "join account setup"
+    ],
+    "per_row_normal_path": [
+      "set progress đang",
+      "create Barrier",
+      "start one _acc_step_worker per target",
+      "join row workers",
+      "set progress xong",
+      "advance to next row"
+    ],
+    "worker_activity_dispatch": {
+      "Phó bản": "_do_dungeon",
+      "Train": "_do_train"
+    }
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_schedule_markers": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "deferred": {
+    "J05": "dungeon list / PHOBAN_MAP_LIST / handler binding",
+    "J06": "times / number-of-runs semantics",
+    "J07": "deep status/cancel/abort/failure state machine"
+  }
+}
