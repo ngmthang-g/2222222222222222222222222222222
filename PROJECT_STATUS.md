@@ -268,7 +268,8 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 - J03 — VERIFIED_RUN_SCOPED_FOLLOWER_WITH_DUNGEON_ONLY_SAME_MAP_QUEUE_ONLY_FOLLOW_MODE_AND_COMMAND_CLASH_GUARDS
 - J04 — VERIFIED_GROUP_LOCAL_ORDERED_SCHEDULE_MODEL_WITH_MODERN_PLUS_LEGACY_CONFIG_COMPATIBILITY
 - J05 — VERIFIED_EXACT_DUNGEON_BINDING_TABLES_WITH_BASE_FALLBACK_AND_SATTINH_CUSTOM_HANDLER
-- J06 — NEXT
+- J06 — VERIFIED_MANUAL_DUNGEON_TIMES_WITH_ENTRY_DEFAULT1_SHARED_BARRIER_AND_TRAIN_TIMES_IGNORED
+- J07 — NEXT
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
@@ -290,5 +291,7 @@ J04 locks the original schedule-row architecture: per-group rows with fields ena
 
 J05 locks the exact eight visible Phó Bản names, nine-key FuBen-code/MapID alias tables, the hidden plain-Sát-Tinh alias, BaseDungeon fallback architecture, and SatTinhDungeon as the only current custom handler. Both Sát Tinh aliases resolve semantically to SatTinhDungeon while ordinary dungeons stay on the shared BaseDungeon flow.
 
+J06 locks the current Lần control as a free Entry with default 1, manual tool-side dungeon repetition, per-repetition memory config, shared-row barrier reuse, MapID enter→non-None-exit completion, and the fact that Train ignores the preserved Lần value and activates once. It also records the compiled 480-second map-watchdog branch that conflicts with a stale “vô thời hạn” helper doc, plus explicit run_idx/caller-literal unknowns.
+
 ## Phase J current
-J06 — Phó Bản number-of-runs / times semantics audit.
+J07 — Phó Bản status machine / cancel / abort / failure-recovery audit.
