@@ -269,7 +269,8 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 - J04 — VERIFIED_GROUP_LOCAL_ORDERED_SCHEDULE_MODEL_WITH_MODERN_PLUS_LEGACY_CONFIG_COMPATIBILITY
 - J05 — VERIFIED_EXACT_DUNGEON_BINDING_TABLES_WITH_BASE_FALLBACK_AND_SATTINH_CUSTOM_HANDLER
 - J06 — VERIFIED_MANUAL_DUNGEON_TIMES_WITH_ENTRY_DEFAULT1_SHARED_BARRIER_AND_TRAIN_TIMES_IGNORED
-- J07 — NEXT
+- J07 — VERIFIED_GROUP_ABORT_BARRIER_BREAK_IDENTITY_SAFE_TEARDOWN_WITH_EXPLICIT_RUNTIME_UNKNOWNS
+- J08 — NEXT
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
@@ -293,5 +294,7 @@ J05 locks the exact eight visible Phó Bản names, nine-key FuBen-code/MapID al
 
 J06 locks the current Lần control as a free Entry with default 1, manual tool-side dungeon repetition, per-repetition memory config, shared-row barrier reuse, MapID enter→non-None-exit completion, and the fact that Train ignores the preserved Lần value and activates once. It also records the compiled 480-second map-watchdog branch that conflicts with a stale “vô thời hạn” helper doc, plus explicit run_idx/caller-literal unknowns.
 
+J07 locks the two-layer cancel model, exact red/orange run-button states, current-group-only idempotent barrier-breaking abort, hook fail-open-vs-explicit-False behavior, last-group-only global teardown, and identity-safe rapid-restart cleanup. The compiled 480-second watcher remains real while its exact timeout return expression is explicitly unresolved rather than guessed.
+
 ## Phase J current
-J07 — Phó Bản status machine / cancel / abort / failure-recovery audit.
+J08 — Phó Bản drop settings / vứt đồ subsystem audit.
