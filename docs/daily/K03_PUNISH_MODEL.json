@@ -1,0 +1,149 @@
+{
+  "task": "K03",
+  "status": "VERIFIED_PUNISH_CONFIG_SELECTION_AND_OUTER_LOOP_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_payload_marker": "0x2903223"
+  },
+  "config": {
+    "duration": {
+      "clean_default": 15,
+      "unit": "seconds",
+      "role": "combat duration passed to execution cycle",
+      "validator": "digit-oriented _validate_repeat"
+    },
+    "move_mode": {
+      "clean_default": "horse",
+      "values": {
+        "horse": "Ngựa",
+        "teleport": "Định vị phù"
+      },
+      "runtime_locals": [
+        "move_mode",
+        "use_tele"
+      ]
+    },
+    "teleport_hotkey": {
+      "clean_default": "",
+      "values": [
+        "1",
+        "2",
+        "3"
+      ],
+      "readonly": true
+    },
+    "compatibility": {
+      "load_keys": [
+        "daily_punish_duration",
+        "daily_tele_use",
+        "daily_move_mode",
+        "daily_tele_hotkey"
+      ],
+      "compatibility_local": "old_tele_use",
+      "exact_precedence": "EXPLICIT_UNKNOWN"
+    }
+  },
+  "clean_b08_neighbors": {
+    "heal_below_30": true,
+    "discard_equipment": false,
+    "reconnect": true,
+    "respawn": true
+  },
+  "apply_all": {
+    "helper": "_apply_punish_all",
+    "effect": "set every current row activity to Trừng ác",
+    "starts_execution": false
+  },
+  "ownership": {
+    "punish_start_worker": "inject-first activity wrapper",
+    "punish_toggle": "activity-wide start/stop toggle",
+    "punish_run_worker": "activity-wide batch worker",
+    "punish_single_worker": "one-row iterative worker used by row/all-account coordinator"
+  },
+  "activity_button": {
+    "idle": {
+      "text": "Trừng ác",
+      "bg": "RoyalBlue",
+      "state": "normal"
+    },
+    "running": {
+      "text": "Dừng lại",
+      "bg": "FireBrick"
+    },
+    "stopping": {
+      "text": "Đang dừng...",
+      "state": "disabled"
+    },
+    "reset_helper": "_punish_reset_ui"
+  },
+  "batch": {
+    "global_running": "_punish_running",
+    "cancel": "_punish_cancel",
+    "initial_selection": "rows currently selected as Trừng ác",
+    "pid_snapshot": "selected_pids",
+    "locals": [
+      "selected",
+      "selected_pids",
+      "loop_idx",
+      "alive",
+      "still_active",
+      "threads"
+    ],
+    "no_selection_log": "[TRỪNG ÁC] Chưa acc nào chọn Trừng ác — bỏ qua",
+    "no_live_log": "[TRỪNG ÁC] Không còn acc nào sống — dừng",
+    "all_stopped_log": "[TRỪNG ÁC] Tất cả ... acc đã dừng — tự động dừng",
+    "iteration_log": "[TRỪNG ÁC] Lần ...",
+    "user_repeat_count": false,
+    "open_ended_until_stop_or_empty": true
+  },
+  "single": {
+    "worker": "_punish_single_worker",
+    "startup_log": "[TRỪNG ÁC] Single acc hwnd=... bắt đầu",
+    "row_generation_snapshot": true,
+    "guard": "_GenStop",
+    "loop_idx": true,
+    "iterative": true
+  },
+  "stop_ownership": {
+    "batch": "_punish_cancel",
+    "row_event": "row._stop_event",
+    "row_generation": "row._gen",
+    "diagnostic_reasons": [
+      "cancel(batch-trừng-ác)",
+      "stop_event(dừng)",
+      "gen(phiên-mới)",
+      "window-chết/đổi-process"
+    ]
+  },
+  "coordinator_distinction": {
+    "activity_batch": "one batch worker, only Trừng Ác-selected rows",
+    "daily_bottom": "mixed activities, one single-account worker per eligible row"
+  },
+  "teleport_hotkey_validation": {
+    "bottom_all_account_missing_hotkey_skip": true,
+    "activity_batch_equivalent_static_message_recovered": false
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_k03_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "daily_tele_use vs daily_move_mode precedence/migration source expression",
+    "duration Entry empty/min/max validator microbehavior",
+    "selected and selected_pids exact container shapes",
+    "per-account batch stop-lambda Boolean micro-order",
+    "activity final reset/monitor teardown source-line order",
+    "live Windows/game parity"
+  ],
+  "deferred": {
+    "K04": "NPC return / quest acquisition / 30-of-30 / stuck cancellation",
+    "K05": "target item/navigation/summon",
+    "K06": "combat/movement/cycle timing",
+    "K07": "heal/disconnect/respawn recovery",
+    "K08": "Trừng Ác discard worker",
+    "K09": "integrated Trừng Ác failure/recovery handoff"
+  }
+}
