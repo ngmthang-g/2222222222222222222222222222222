@@ -1,0 +1,118 @@
+{
+  "task": "J06",
+  "status": "VERIFIED_MANUAL_DUNGEON_TIMES_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_tab_marker": "0x2b86f63",
+    "phoban_dungeons_marker": "0x2b8513b"
+  },
+  "ui_times": {
+    "header": "Lần",
+    "widget_class": "Entry",
+    "legacy_local_name": "cb_times",
+    "variable": "times_var",
+    "default": 1,
+    "fixed_choice_list": false,
+    "seed_conversion_failure_fallback": "1",
+    "seed_conversion_exceptions": [
+      "ValueError",
+      "TypeError"
+    ],
+    "exact_zero_negative_clamp": "UNKNOWN",
+    "invalid_live_edit_before_start": "UNKNOWN"
+  },
+  "auxiliary_times_click_pos": {
+    "role": "present frozen auxiliary/legacy table; not proof of current schedule range",
+    "values": {
+      "1": [
+        337,
+        241
+      ],
+      "2": [
+        336,
+        266
+      ],
+      "3": [
+        341,
+        291
+      ],
+      "4": [
+        337,
+        317
+      ],
+      "5": [
+        337,
+        340
+      ]
+    }
+  },
+  "config": {
+    "legacy_missing_times_default": 1,
+    "activity_change_preserves_times": true
+  },
+  "dispatch": {
+    "phoban": {
+      "target": "_do_dungeon",
+      "uses_times": true
+    },
+    "train": {
+      "target": "_do_train",
+      "uses_times": false,
+      "execution": "activate Train once when possible"
+    }
+  },
+  "dungeon_repeat": {
+    "ownership": "tool-side manual loop",
+    "auto_repeat": false,
+    "repeat_count_modified": false,
+    "total_cardinality": "requested normalized times",
+    "memory_config_each_repetition": true,
+    "memory_config_retry": {
+      "attempts": 5,
+      "gap_seconds": 2
+    },
+    "movement_total_attempts": 3,
+    "row_barrier_created_per_schedule_row": true,
+    "same_barrier_reused_across_repetitions": true,
+    "barrier_timeout": null,
+    "start_fuben_retry": {
+      "attempts_from_frozen_doc": 5,
+      "gap_seconds_from_frozen_doc": 0.3,
+      "mapid_fast_pass_from_retry_2": true
+    },
+    "cycle_completion": {
+      "enter": "MapID == target",
+      "exit": "later non-None MapID != target",
+      "none_mapid_ignored": true
+    }
+  },
+  "dungeon_ctx": {
+    "fields": [
+      "run_idx",
+      "times"
+    ],
+    "per_repetition_context": true,
+    "run_idx_base": "UNKNOWN_0_OR_1"
+  },
+  "wait_dungeon_cycles": {
+    "generic_times_parameter": true,
+    "done_counter": true,
+    "deadline_local": true,
+    "literal_watchdog_seconds": 480,
+    "doc_claims_infinite_poll": true,
+    "conflict": "COMPILED_480S_BRANCH_VS_STALE_DOC",
+    "exact_current_caller_times_literal": "UNKNOWN_FROM_PRINTABLE_CONSTANTS"
+  },
+  "normal_row_completion": {
+    "account_worker_returns_after_requested_dungeon_count": true,
+    "row_progress_xong_after_all_account_threads_join": true,
+    "failure_cancel_semantics": "DEFERRED_J07"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_top_level_j06_markers": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  }
+}
