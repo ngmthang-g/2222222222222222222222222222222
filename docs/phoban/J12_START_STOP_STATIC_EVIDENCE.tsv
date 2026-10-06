@@ -1,0 +1,69 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; size93715901
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; size47450112
+phoban_tab_marker	0x2b86f63	VERIFIED_STATIC	.phoban_tab serialized payload
+ctor_running	0x2b86fcc	VERIFIED_STATIC	_running
+ctor_global_cancel	0x2b86fe8	VERIFIED_STATIC	_cancel
+ctor_run_lock	0x2b86ff7	VERIFIED_STATIC	_run_lock
+ctor_active_runs	0x2b87002	VERIFIED_STATIC	_active_runs
+ctor_run_jobs	0x2b87010	VERIFIED_STATIC	_run_jobs
+ctor_refresh_id	0x2b87021	VERIFIED_STATIC	_refresh_id
+ctor_refreshing	0x2b8702e	VERIFIED_STATIC	_refreshing
+ctor_closing	0x2b8703b	VERIFIED_STATIC	_closing
+destroy_bind	0x2b87356	VERIFIED_STATIC	<Destroy>
+destroy_callback	0x2b87361	VERIFIED_STATIC	_on_destroy
+bottom_idle_text	0x2b873c6	VERIFIED_STATIC_UTF8	Bắt đầu
+bottom_handler	0x2b873d4	VERIFIED_STATIC	_toggle_run
+group_run_button	0x2b8c46e	VERIFIED_STATIC_UTF8	Bắt đầu lịch trình
+group_running_rule	0x2b8d37f	VERIFIED_STATIC_UTF8	group running iff current cancel exists and not set
+button_sync_doc	0x2b8d4a1	VERIFIED_STATIC_UTF8	per-group running/stopping/idle and bottom any-running/idle state contract
+group_stop_log	0x2b8d613	VERIFIED_STATIC_UTF8	[Phó bản] Dừng Nhóm
+stop_all_helper	0x2b8d656	VERIFIED_STATIC	_stop_all_runs
+permission_helper	0x2b8d668	VERIFIED_STATIC	has_permission_with_limit
+permission_scope	0x2b8d6a0	VERIFIED_STATIC	phoban_tab
+permission_product	0x2b8d6ac	VERIFIED_STATIC	phoban
+permission_denied_log	0x2b8d6b6	VERIFIED_STATIC_UTF8	[PhoBan] Khóa bản quyền - khong cho phep
+memory_items_preflight_error	0x2b8d6e5	VERIFIED_STATIC_UTF8	[Party] Lỗi import memory_items:
+collect_group_job	0x2b8d718	VERIFIED_STATIC	_collect_group_job
+invalid_job_log	0x2b8d72c	VERIFIED_STATIC_UTF8	không có acc online + lịch trình
+reset_group_progress	0x2b8d755	VERIFIED_STATIC	_reset_group_progress
+group_run_cancel_start_region	0x2b8d76c	VERIFIED_STATIC	_run_cancel
+run_one_group_start_region	0x2b8d779	VERIFIED_STATIC	_run_one_group
+no_runnable_groups_log	0x2b8d78b	VERIFIED_STATIC_UTF8	[Phó bản] Không có nhóm nào để chạy
+reset_all_progress	0x2b8d7bc	VERIFIED_STATIC	reset_all_progress
+start_parallel_log	0x2b8d7d0	VERIFIED_STATIC_UTF8	[Phó bản] Bắt đầu song song ... nhóm — ... acc
+sync_run_buttons_start_region	0x2b8d809	VERIFIED_STATIC	_sync_run_buttons
+toggle_run_doc	0x2b8d81c	VERIFIED_STATIC_UTF8	bottom stop-all/start-all; group stop/start only that group; groups parallel
+bulk_stopping_text	0x2b8d9a3	VERIFIED_STATIC_UTF8	Đang dừng...
+bulk_stopping_bg	0x2b8d9b4	VERIFIED_STATIC	#ef6c00
+bulk_stopping_state	0x2b8d9bd	VERIFIED_STATIC	disabled
+stop_all_log	0x2b8d9c9	VERIFIED_STATIC_UTF8	[Phó bản] Dừng hết các nhóm
+stop_all_doc	0x2b8d9ef	VERIFIED_STATIC_UTF8	Dừng hết mọi nhóm đang chạy
+pickup_toggle_doc	0x2b88b33	VERIFIED_STATIC_UTF8	persisted pickup mode; worker only during schedule; run start re-arms; untick stops
+follow_toggle_doc	0x2b88e92	VERIFIED_STATIC_UTF8	ON+running starts; ON+idle waits; run start re-arms
+follow_worker_no_group_exit	0x2b89331	VERIFIED_STATIC_UTF8	follow exits when no group running; later run/tick rebuilds
+discard_toggle_doc	0x2b899c7	VERIFIED_STATIC_UTF8	discard enabled+running starts; idle waits; run start re-arms
+discard_worker_no_group_exit	0x2b89cf4	VERIFIED_STATIC_UTF8	discard exits when no group running; later run/tick rebuilds
+buff_toggle_doc	0x2b8a28c	VERIFIED_STATIC_UTF8	buff ON+running starts; idle waits; run start re-arms; untick cleanup
+buff_worker_no_group_exit	0x2b8a92d	VERIFIED_STATIC_UTF8	buff exits when no group running; later run/tick rebuilds
+finish_global_log	0x2b8feb6	VERIFIED_STATIC_UTF8	[Phó bản] Hết nhóm chạy — teardown toàn cục
+finish_doc	0x2b8fef0	VERIFIED_STATIC_UTF8	one-group cleanup; last-group global reset flags/buttons/pickup once
+finish_identity_doc	0x2b8ff8c	VERIFIED_STATIC_UTF8	remove only matching cancel/job identity; protect rapid restart
+public_stop_doc	0x2b904f1	VERIFIED_STATIC_UTF8	public stop = global cancel + every group cancel
+config_pickup	0x2b905ca	VERIFIED_STATIC	phoban_pickup
+config_recreate	0x2b905dd	VERIFIED_STATIC	phoban_recreate_team
+config_follow	0x2b905f7	VERIFIED_STATIC	phoban_follow
+config_buff	0x2b9060a	VERIFIED_STATIC	phoban_nga_my_buff
+config_discard_equip	0x2b90637	VERIFIED_STATIC	phoban_discard_equip
+config_discard_items	0x2b90662	VERIFIED_STATIC	phoban_discard_items
+config_discard_meds	0x2b9068c	VERIFIED_STATIC	phoban_discard_meds
+qualified_toggle_run	0x2b91f5b	VERIFIED_STATIC	PhoBanTab._toggle_run
+qualified_stop_all	0x2b91f72	VERIFIED_STATIC	PhoBanTab._stop_all_runs
+qualified_finish	0x2b92146	VERIFIED_STATIC	PhoBanTab._finish_group_run
+qualified_public_stop	0x2b9217d	VERIFIED_STATIC	PhoBanTab.stop
+qualified_on_destroy	0x2b9218d	VERIFIED_STATIC	PhoBanTab._on_destroy
+worker_start_relative_order	-	EXPLICIT_UNKNOWN	run-start re-arm contract proven; exact native order relative to _run_one_group Thread.start not instruction-bound
+global_cancel_clear_order	-	EXPLICIT_UNKNOWN	fresh restart requires re-arm; exact source-line clear order not printable-constant-bound
+on_destroy_sequence	-	EXPLICIT_UNKNOWN	dedicated callback/bound state proven; exact internal cleanup call sequence has no recovered textual contract
+b07_idle	-	VISUAL_VERIFIED	SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; idle start buttons; reference mode checkboxes off
+runtime_j12	-	NOT_RECOVERED	0 correlated start/stop/permission/shared-worker PhoBanTab markers in packaged automove_log
