@@ -1,0 +1,72 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_payload	0x2903223	VERIFIED_STATIC	.daily_tab
+ctor_refresh_id	0x29033e7	VERIFIED_STATIC	_refresh_id
+ctor_refreshing	0x29033f4	VERIFIED_STATIC	_refreshing
+ctor_closing	0x2903401	VERIFIED_STATIC	_closing
+destroy_bind	0x29034ef	VERIFIED_STATIC	<Destroy> -> _save_on_destroy
+is_window_alive_doc	0x2904264	VERIFIED_STATIC_UTF8	HWND must remain open and match bound PID; protects against HWND reuse
+utils_pid_helper	0x2904355	VERIFIED_STATIC	utils / _get_pid_from_hwnd
+bind_identity	0x2904433	VERIFIED_STATIC	bind_window_identity
+pid_reuse_log	0x2904461	VERIFIED_STATIC_UTF8	[Daily] hwnd=... đổi process ... cửa sổ cũ đã mất, tạo lại row mới
+unbind_identity	0x29044d4	VERIFIED_STATIC	unbind_window_identity
+row_play	0x29045c1	VERIFIED_STATIC_UTF8	▶
+row_activity_values	0x29046ae	VERIFIED_STATIC_DECODE	Trừng ác / Tàng bảo đồ
+row_dot	0x29046ef	VERIFIED_STATIC_UTF8	⬤
+row_initial_state	0x2904738	VERIFIED_STATIC_UTF8	Đã dừng
+row_runtime_fields	0x2904816	VERIFIED_STATIC	btn_play/lbl_state/lbl_dot/btn_bo_dau/btn_heal/activity_var/activity_cb/_state region
+add_update_doc	0x2904891	VERIFIED_STATIC_UTF8	Add row mới nếu chưa có, update tên/level/map nếu đã có.
+row_permission_helper	0x290491f	VERIFIED_STATIC	permission_guard
+row_permission_call	0x2904931	VERIFIED_STATIC	has_permission
+row_permission_scope	0x2904953	VERIFIED_STATIC	daily_tab
+row_permission_disabled	0x290496c	VERIFIED_STATIC	disabled state in btn_play/activity_cb/btn_bo_dau/btn_heal block
+row_permission_doc	0x29049aa	VERIFIED_STATIC_UTF8	Disable row mới tạo khi không có quyền daily_tab.
+refresh_get_windows	0x29049e5	VERIFIED_STATIC	get_windows
+remove_stale_doc	0x2904a3f	VERIFIED_STATIC_UTF8	remove closed or PID-reused HWND rows
+refresh_worker	0x2904a9f	VERIFIED_STATIC	DailyTab._refresh_acc_lists.<locals>._worker
+refresh_doc	0x2904acd	VERIFIED_STATIC_UTF8	Incremental refresh danh sách acc unified.
+refresh_apply_after	0x2904b11	VERIFIED_STATIC	_apply nested callback + after
+start_refresh_doc	0x2904bc3	VERIFIED_STATIC_UTF8	Bắt đầu refresh loop — gọi khi tab được chọn.
+stop_refresh_doc	0x2904c0f	VERIFIED_STATIC_UTF8	Dừng refresh loop — gọi khi tab bị chuyển đi.
+scroll_debounce_doc	0x2904c49	VERIFIED_STATIC_UTF8	30ms debounce; replaces stale row-count-only scrollregion invalidation
+scroll_force_doc	0x2904efa	VERIFIED_STATIC_UTF8	force recalculation after row add/remove batch on main thread
+scroll_update_doc	0x2904faf	VERIFIED_STATIC_UTF8	recalculate scrollregion immediately
+refresh_cadence	0x2905003	VERIFIED_STATIC_UTF8	Tự động refresh danh sách acc mỗi 5 giây.
+runtime_permission_helper	0x2905186	VERIFIED_STATIC	has_permission_with_limit
+runtime_permission_args	0x29051be	VERIFIED_STATIC	daily_tab / daily
+runtime_permission_denied	0x29051d2	VERIFIED_STATIC_UTF8	[Daily] Khóa bản quyền - khong cho phep
+resize_doc	0x2905eda	VERIFIED_STATIC_UTF8	every 1s check game-window size; resize when not 1366x768
+all_stop_log	0x2905f31	VERIFIED_STATIC_UTF8	[Bắt đầu] Gửi lệnh dừng tất cả acc...
+all_stop_idle_row_button	0x2905f69	VERIFIED_STATIC_UTF8	▶
+all_stop_idle_bottom	0x2905f85	VERIFIED_STATIC_UTF8	Bắt đầu
+all_stop_green	0x2905f95	VERIFIED_STATIC	#388e3c
+all_stop_done	0x2905fb4	VERIFIED_STATIC_UTF8	[Bắt đầu] Đã dừng tất cả acc
+missing_tele_hotkey_skip	0x2906004	VERIFIED_STATIC_UTF8	[Bắt đầu] Thiếu phím tắt phù — bỏ qua trừng ác
+all_start_none	0x2906087	VERIFIED_STATIC_UTF8	[Bắt đầu] Không acc nào cần chạy
+all_start_started	0x29060b6	VERIFIED_STATIC_UTF8	[Bắt đầu] Đã chạy ...
+all_running_bottom	0x29060d3	VERIFIED_STATIC_UTF8	Dừng lại
+all_running_red	0x29060e3	VERIFIED_STATIC	#f44336
+all_toggle_doc	0x2906103	VERIFIED_STATIC_UTF8	bottom toggle: running -> _farming_acc false + stop event; idle -> per-account activity threads
+monitor_worker	0x2906214	VERIFIED_STATIC	_daily_all_monitor
+monitor_singleton_doc	0x2906228	VERIFIED_STATIC_UTF8	Chỉ start 1 monitor instance.
+monitor_reset_helpers	0x2906249	VERIFIED_STATIC	_punish_reset_ui + _treasure_map_reset_ui
+monitor_done_log	0x29062a6	VERIFIED_STATIC_UTF8	[Bắt đầu] Tất cả acc đã dừng — tự động reset UI
+monitor_doc	0x29062ed	VERIFIED_STATIC_UTF8	Monitor: chờ tất cả acc dừng, rồi reset UI.
+start_tab_sync_doc	0x2906456	VERIFIED_STATIC_UTF8	Đồng bộ nút Trừng ác / Tàng bảo đồ trên StartTab.
+state_style_dict	0x2909ec3	VERIFIED_STATIC_DECODE	9 state labels mapped to fg colors; default gray follows
+state_apply_doc	0x2906558	VERIFIED_STATIC_UTF8	apply dot+label style; unknown state -> STATE_DEFAULT_STYLE
+state_set_doc	0x2906617	VERIFIED_STATIC_UTF8	state update safe from worker thread via after
+state_marshal_doc	0x29066d7	VERIFIED_STATIC_UTF8	marshal _apply_state_label to Tk main thread via after(0)
+single_toggle_doc	0x29067e8	VERIFIED_STATIC_UTF8	▶/|| button runs current activity for one account
+stop_reason_values	0x2906850	VERIFIED_STATIC_DECODE	batch cancels/halt/stop_event/gen/window/respawn reasons
+stop_reason_doc	0x2906911	VERIFIED_STATIC_UTF8	diagnostic stop reason includes generation and window/process change
+genstop_doc	0x290a005	VERIFIED_STATIC_UTF8	_GenStop fixes rapid Stop→Start stale-worker race using row generation + real stop event
+genstop_methods	0x290a1e8	VERIFIED_STATIC	_GenStop.__init__/is_set/set/clear
+config_read	0x290994d	VERIFIED_STATIC	_settings_lock/read_settings
+config_keys_load	0x2909980	VERIFIED_STATIC	Daily config load region
+config_keys_save	0x2909b07	VERIFIED_STATIC	Daily config write region
+config_write	0x2909c23	VERIFIED_STATIC	write_settings
+config_row_runtime_keys	-	VERIFIED_ABSENCE	no daily_* persistence keys for activity/PID/_farming_acc/_stop_event/_gen/_state
+b08_shared	-	CROSSCHECKED_FROZEN_B08	empty list; Nhân vật/Hoạt động; all Tới bổ đầu/Trị liệu; bottom Bắt đầu
+runtime_daily_markers	-	NOT_RECOVERED	0 correlated Daily/Bắt đầu/Inject/DailyTab/Trừng ác/Tàng bảo đồ markers in packaged automove_log
