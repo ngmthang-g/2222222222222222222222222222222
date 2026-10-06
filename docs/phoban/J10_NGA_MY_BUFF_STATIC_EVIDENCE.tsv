@@ -1,0 +1,60 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; size93715901
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; size47450112
+phoban_tab_marker	0x2b86f63	VERIFIED_STATIC	.phoban_tab serialized payload
+ctor_nga_my_buff_var	0x2b87129	VERIFIED_STATIC	nga_my_buff_var
+ctor_buff_stop	0x2b8713a	VERIFIED_STATIC	_buff_stop
+ctor_buff_thread	0x2b87146	VERIFIED_STATIC	_buff_thread
+ctor_buff_gen	0x2b87154	VERIFIED_STATIC	_buff_gen
+ui_buff_label	0x2b877d1	VERIFIED_STATIC_UTF8	Nga My buff (Sát Tinh)
+ui_buff_callback	0x2b877ea	VERIFIED_STATIC	_toggle_buff
+buff_start_func	0x2b8a22d	VERIFIED_STATIC	_start_buff
+buff_wait_log	0x2b8a23a	VERIFIED_STATIC_UTF8	[Phó bản] Tick Nga My buff BẬT — chờ lịch trình chạy
+buff_stop_func	0x2b8a280	VERIFIED_STATIC	_stop_buff
+buff_toggle_doc	0x2b8a28c	VERIFIED_STATIC_UTF8	run-scoped mode; ON+running starts; ON+idle waits; OFF stops; worker final untick sweep; save config
+buff_worker_func	0x2b8a3e2	VERIFIED_STATIC	_buff_worker
+buff_start_log	0x2b8a3f0	VERIFIED_STATIC_UTF8	[Phó bản] Bật Nga My buff (quét ...
+buff_poll_symbol	0x2b8a418	VERIFIED_STATIC	PB_BUFF_POLL
+buff_monster_symbol	0x2b8a435	VERIFIED_STATIC	PB_BUFF_MONSTER_LIST
+buff_stop_log	0x2b8a45b	VERIFIED_STATIC_UTF8	[Phó bản] Tắt Nga My buff
+buff_faction_field	0x2b8a47d	VERIFIED_STATIC	FactionID
+buff_faction_symbol	0x2b8a48a	VERIFIED_STATIC	PB_BUFF_FACTION_NGA_MY
+buff_faction_name_field	0x2b8a4a4	VERIFIED_STATIC	FactionName
+buff_faction_name	0x2b8a4b3	VERIFIED_STATIC_UTF8	Nga My
+buff_is_nga_my_doc	0x2b8a4bc	VERIFIED_STATIC_UTF8	FactionID 4, fallback name
+buff_retry_symbol	0x2b8a517	VERIFIED_STATIC	PB_BUFF_RETRY
+buff_autotrain_group	0x2b8a526	VERIFIED_STATIC	AUTOTRAIN
+buff_is_attack_field	0x2b8a531	VERIFIED_STATIC	IsAttackMonsterInList
+buff_attack_list_field	0x2b8a54a	VERIFIED_STATIC	AttackMonsterList
+buff_want_on	0x2b8a560	VERIFIED_STATIC	want_on
+buff_want_list	0x2b8a56e	VERIFIED_STATIC	want_list
+buff_retry_gap	0x2b8a636	VERIFIED_STATIC_UTF8	retry sau 1s
+buff_ensure_doc	0x2b8a671	VERIFIED_STATIC_UTF8	readback/retry; ON True+910; OFF False+empty; already-correct no write
+buff_members_nested	0x2b8a7df	VERIFIED_STATIC	PhoBanTab._buff_worker.<locals>._members
+buff_sweep_off	0x2b8a809	VERIFIED_STATIC	_sweep_off
+buff_sweep_off_qualname	0x2b8a815	VERIFIED_STATIC	PhoBanTab._buff_worker.<locals>._sweep_off
+buff_known	0x2b8a841	VERIFIED_STATIC	known/roster lifecycle region
+buff_snapshot	0x2b8a88e	VERIFIED_STATIC_UTF8	[Phó bản] Buff snapshot:
+buff_is_nga_my_call	0x2b8a8bc	VERIFIED_STATIC	_is_nga_my
+buff_ensure_call	0x2b8a8cf	VERIFIED_STATIC	_buff_ensure
+buff_outer_error	0x2b8a8dd	VERIFIED_STATIC_UTF8	[Phó bản] buff lỗi:
+buff_final_untick_log	0x2b8a8f8	VERIFIED_STATIC_UTF8	[Phó bản] Buff quét cuối untick ... acc Nga My
+buff_worker_doc	0x2b8a92d	VERIFIED_STATIC_UTF8	run-scoped; untick final sweep; generation guard; running-group accounts; NgaMy+dungeon map ON, others OFF; readback-difference write only
+buff_worker_local_dungeon_maps	0x2b92830	VERIFIED_STATIC_MAPPING	dungeon_maps local
+buff_worker_local_get_character_info	0x2b9285d	VERIFIED_STATIC_MAPPING	get_character_info local/import
+buff_worker_local_in_pb	0x2b928a7	VERIFIED_STATIC_MAPPING	in_pb
+config_buff_default	0x2b90606	VERIFIED_STATIC_DECODE	(phoban_nga_my_buff,"0")
+config_buff_save	0x2b908fb	VERIFIED_STATIC	phoban_nga_my_buff save key
+buff_monster_list_value	0x2b91340	VERIFIED_STATIC_DECODE	"910"
+buff_qualified_toggle	0x2b917b3	VERIFIED_STATIC	PhoBanTab._toggle_buff
+buff_qualified_start	0x2b917cb	VERIFIED_STATIC	PhoBanTab._start_buff
+buff_qualified_stop	0x2b917e2	VERIFIED_STATIC	PhoBanTab._stop_buff
+buff_qualified_is_nga_my	0x2b917f8	VERIFIED_STATIC	PhoBanTab._is_nga_my
+buff_qualified_ensure	0x2b9180e	VERIFIED_STATIC	PhoBanTab._buff_ensure
+buff_qualified_worker	0x2b91826	VERIFIED_STATIC	PhoBanTab._buff_worker
+map111_only_gate	-	NOT_RECOVERED	worker doc says dungeon map and local dungeon_maps; no dedicated map111-only gate recovered in buff block
+poll_numeric	-	EXPLICIT_UNKNOWN	PB_BUFF_POLL symbol/cadence proven; numeric scalar not safely bound
+retry_numeric	-	EXPLICIT_UNKNOWN	PB_BUFF_RETRY retry semantics proven; numeric scalar not safely bound
+run_end_sweep	-	NOT_INDEPENDENTLY_RECOVERED	untick final sweep explicit; no separate unconditional no-running-group OFF sweep documented
+b07_default	-	VISUAL_VERIFIED	B07 SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; nga_my_buff_sat_tinh=false
+runtime_j10	-	NOT_RECOVERED	0 correlated PhoBanTab buff markers/fields in packaged automove_log; raw "910" occurs 99 times without caller correlation
