@@ -1,0 +1,33 @@
+stage	failure_or_condition	automatic_retry_or_repair	propagation	blast_radius	row_group_outcome	recovery
+start_permission	permission denied	none	no run created	none	remain idle	fix permission then manual Start
+start_dependency	memory_items/plumbing unavailable	none recovered	no run created	none	remain idle	fix dependency then manual Start
+job_collection	no online targets or no checked rows	none	skip group	only requested group/configured card	no run	fix selection/schedule then Start
+party_B0	AutoAccept write/readback issue	readback/warning path	continue	group continues	no abort	manual acceptance may compensate
+party_B1	leave error or leave-confirm timeout	wait until timeout	fail-open	group continues	formation continues	next stages proceed
+party_roleid	one member unresolved	per-member skip	degrade target set	that member only	group may continue	new run can retry resolution
+party_roleid	zero members resolved	none after resolution	stop group	current group	no schedule	manual Start after identity/memory fixed
+party_B2	create does not produce real TeamID	PB_PARTY_CREATE_RETRY	stop group	current group	no schedule	manual Start
+party_B3	members still missing after one resend	one resend + second wait	best-effort continue	missing members only	group schedule can continue	manual correction/new run if needed
+setup	inject/common.active/setup false	short active retry; per-account result	failed account omitted	account only unless all fail	ready subset continues	manual new run retries setup
+setup	all accounts fail setup	none after setup window	end group	current group	no schedule rows	manual Start
+dungeon_config	memory write/readback failure	5 attempts ×2s	_abort_cycle	current group	current row aborts/winds down	manual Start
+dungeon_move	arrival timeout/error	3 total attempts	_abort_cycle	current group	current row aborts/winds down	manual Start
+barrier	abort from failure/user stop	no normal timeout	return False to peers	current group	workers unwind	manual Start after teardown
+fuben_start	still outside target map	5 attempts ×0.3s + MapID fast-pass	_abort_cycle	current group	current row aborts	manual Start
+cycle_read	MapID None during transition	poll/ignore	continue watcher	account watcher only	no immediate abort	automatic next poll
+cycle_memory	character-memory read error	watch-loop handling; exact outer retry microorder not fully instruction-bound	no immediate abort string recovered	account watcher	watch continues until stop/watchdog strong-static	automatic next poll / watchdog
+cycle_pixel	tuLamNhiemVu read error	fail-open: do not force restart	continue watcher	account watcher	no group abort	next cycle/poll
+cycle_auto	tuLamNhiemVu False	start_auto_fuben repair	continue watcher	account watcher	auto repair	automatic
+cycle_watchdog	480-second deadline reached	unknown return expression	UNKNOWN; if False outer aborts	possibly current group	UNKNOWN until J14	J14 runtime/native proof
+hook_explicit_false	hook returns False	none	_abort_cycle	current group	abort group	manual Start
+hook_exception	hook raises	STATIC CONFLICT: doc pass vs log '→ abort'	UNKNOWN	UNKNOWN current group vs fail-open	UNKNOWN	J14/native proof
+direct_on_entered_hook_exception	on_entered direct call raises	log catch recovered	fail-soft-looking watcher path	account watcher	no nearby abort primitive recovered	watcher continues strong-static
+worker_exception	_acc_step_worker catches generic exception	none	log only unless called dungeon already aborted	one account worker	row may still join/Xong	manual rerun if needed
+train	farm tab missing/account not found/dispatch/main-thread failure	none beyond dispatch/wait shell	return ignored by worker	one account activity	row can still reach Xong	fix Train state then new schedule run
+final_discard	final-pass exception	none recovered	log then HOÀN THÀNH	final cleanup feature	group still completes	manual discard later if desired
+follow	follow movement/read error	periodic lifecycle; exact outer catch survival microorder unknown	no schedule abort	Follow feature/account	group continues	later poll/toggle/run may recover
+discard	periodic discard error	per-account inflight + later polls	no schedule abort	Discard feature/account	group continues	later poll/new run
+pickup	read/write pickup error	periodic readback/repair	no schedule abort	Pickup feature/account	group continues	later poll/new run
+buff	AUTOTRAIN buff write/readback error	PB_BUFF_RETRY, 1s gap	no schedule abort	Buff feature/account	group continues	local retry/later poll
+hard_group_abort	any explicit hard stage exhausted	stage retries already exhausted	group cancel + barrier abort	current group only	button winds down then idle	manual fresh Start
+global_stop	bottom stop-all/public stop	cooperative unwind	global + every group cancel	all active groups	all wind down	manual Start creates fresh identities
