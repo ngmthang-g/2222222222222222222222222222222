@@ -276,7 +276,7 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 - J11 — VERIFIED_DYNAMIC_MULTI_GROUP_COORDINATION_WITH_UNIQUE_MEMBERS_PARALLEL_JOBS_AND_LOCKED_WORKER_SCOPES
 - J12 — VERIFIED_PERMISSION_GATED_INTEGRATED_START_STOP_WITH_PERSISTED_MODES_AND_LAST_GROUP_TEARDOWN
 - J13 — VERIFIED_INTEGRATED_FAILURE_RECOVERY_WITH_PARTIAL_SETUP_TRAIN_FAIL_SOFT_AND_J07_CORRECTIONS
-- J14 — NEXT
+- J14 — STATIC_RESEARCH_CLOSED_LIVE_RUNTIME_PARITY_DEFERRED
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
@@ -300,7 +300,7 @@ J05 locks the exact eight visible Phó Bản names, nine-key FuBen-code/MapID al
 
 J06 locks the current Lần control as a free Entry with default 1, manual tool-side dungeon repetition, per-repetition memory config, shared-row barrier reuse, MapID enter→non-None-exit completion, and the fact that Train ignores the preserved Lần value and activates once. It also records the compiled 480-second map-watchdog branch that conflicts with a stale “vô thời hạn” helper doc, plus explicit run_idx/caller-literal unknowns.
 
-J07 locks the two-layer cancel model, exact red/orange run-button states, current-group-only idempotent barrier-breaking abort, hook fail-open-vs-explicit-False behavior, last-group-only global teardown, and identity-safe rapid-restart cleanup. The compiled 480-second watcher remains real while its exact timeout return expression is explicitly unresolved rather than guessed.
+J07 locks the two-layer cancel model, exact red/orange run-button states, current-group-only idempotent barrier-breaking abort, last-group-only global teardown, and identity-safe rapid-restart cleanup. J13 later corrected two J07 overclaims: hook exceptions are a static doc-vs-branch conflict, and generic acc-step worker exceptions have no independent abort wiring. The compiled 480-second watcher remains real while its exact timeout return expression is unresolved.
 
 J08 locks the three discard controls, exact config/preset mappings, run-scoped generation-safe worker, parallel-account/sequential-preset execution, per-account inflight guard, internal action-4 packet path, and the normal-completion final discard pass. PB_DISCARD_POLL numeric value and late-cancel/final-pass races remain explicit runtime unknowns.
 
@@ -314,5 +314,13 @@ J12 locks the integrated start/stop lifecycle: stop routing precedes start prefl
 
 J13 locks the integrated failure/recovery matrix: setup can degrade per-account, explicit dungeon stages hard-abort only the current group after local retries, Train and final-discard failures are fail-soft, background-worker errors do not independently abort the schedule, and recovery is manual fresh-start rather than automatic whole-group restart. J13 also corrected two prior J07 overclaims: hook exceptions are now a static doc-vs-branch conflict, and generic acc-step worker exceptions have no independent abort wiring.
 
-## Phase J current
-J14 — Phó Bản runtime parity / stress verification plan and evidence closure.
+J14 confirms the current execution environment cannot run the original Windows/game stack. No live result was fabricated. A 25-case Windows runtime/stress matrix and harness specification now preserve exactly what must be verified later, including rapid restart identity safety, multi-group independence, worker scopes, the 480-second watchdog and the hook-exception conflict.
+
+## Phase J gate
+**STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**
+
+## Phase K — Daily
+- K01 — NEXT
+
+## Phase K current
+K01 — Daily tab authority / visible-surface + top-level handler inventory.
