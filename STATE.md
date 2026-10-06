@@ -2373,33 +2373,62 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J07_STATUS_MODEL.json
 - docs/phoban/J07_STATUS_STATIC_EVIDENCE.tsv
 
+
+## J08 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J08 artifacts/completion commit existed before this turn; J01-J07 were already complete and were not redone.
+- Re-inspected the exact uploaded TLMTool 2.1.2 archive and inner EXE first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size 47,450,112 bytes.
+- Exact visible discard controls are **Vứt trang bị / Vứt vật phẩm / Vứt thuốc**, owned by `discard_equip_var/discard_items_var/discard_meds_var`, with shared callback `_toggle_discard`. B07 confirms all three clean/default visible states are OFF.
+- Exact config mapping decodes to `discard_equip_var→phoban_discard_equip`, `discard_items_var→phoban_discard_items`, `discard_meds_var→phoban_discard_meds`.
+- Exact runtime `DISCARD_TICK_KEYS` decodes as nested tuples: `(discard_equip_var,(discard_equip,))`, `(discard_items_var,(discard_items,))`, `(discard_meds_var,(discard_meds,))`. Current enabled preset order is therefore equipment → items → medicines.
+- Discard mode is run-scoped and opt-in. Enabled ticks + an already-running group start the worker immediately; enabled ticks while idle wait for a later run; all ticks OFF stop the worker immediately; worker rechecks tick state every cycle and exits when no group runs.
+- Worker lifecycle uses `_discard_stop/_discard_thread/_discard_gen`, an existing-thread `is_alive` guard and generation protection against overlapping worker sessions. Exact generation/thread teardown micro-order remains UNKNOWN.
+- Scan cadence is exactly “every `PB_DISCARD_POLL` seconds”. The numeric value is not safely bindable from the serialized scalar pool and remains explicit UNKNOWN.
+- Every poll processes all accounts belonging to currently-running groups. Accounts are processed in parallel; within each account the enabled presets are processed sequentially in exact `discard_equip → discard_items → discard_meds` order.
+- The worker owns an `inflight` guard. Exact doc/log says an account whose previous discard thread is not finished is skipped for that poll, preventing overlapping per-account discard threads. Exact internal inflight identity key remains UNKNOWN.
+- `_discard_one_acc` calls `bag_filter.discard_for_activity` once per enabled preset with activity `phoban`, one-second per-item pacing and a stop_check handoff. It does not merge all three tick presets into one PhoBanTab call.
+- Shared `bag_filter` is opt-in: no keys/rules means no discard/no packet. The underlying abandon action is internal packet path `CMD_ITEM_ACTION=100005`, payload `4:<dbID>`; shared `memory_items` independently confirms action 4 = Abandon. No game-GUI “Vứt” click is required.
+- Stop-check handoff is proven, but the exact Boolean formula of the worker-owned stop closure — especially whether an already-running per-account pass directly checks one individual group's cancel Event — is not source-bound and remains explicit UNKNOWN.
+- The normal `_run_one_group` completion path contains a dedicated final-discard region after ordinary row completion and before `HOÀN THÀNH`: exact literals `vứt lượt cuối (`, `xong vứt lượt cuối`, `vứt lượt cuối lỗi:` plus locals `_fkeys/_ft/_t`. Strong static contract: re-read the current enabled discard keys, and when non-empty run one final account-thread batch for the finishing group's targets before completion.
+- If all three ticks were unticked, current final keys are empty and no forced final discard is recovered. The all-off toggle has already stopped the periodic worker.
+- No static evidence of a mandatory final flush after user stop/hard abort was recovered. The final-discard block is on the normal post-row path. A very late cancel at the exact final-pass boundary remains runtime-UNKNOWN.
+- If another group is still running, periodic discard can continue for that group after the finishing group completes. When the last group is gone, the worker's no-running-groups condition makes it exit.
+- Shared `bag_filter` owns `_SEND_LOCKS_GUARD/_SEND_LOCKS/_send_lock_for`, giving a lower-level send serialization boundary; exact periodic-vs-final-pass same-account interleaving still needs Windows/runtime parity.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It confirms all three controls unchecked; runtime behavior was not inferred from the screenshot.
+- Only after static extraction, exact packaged `data/automove_log.txt` was checked. It contains 0 correlated PhoBanTab discard/final-pass markers. Generic action-4 evidence exists: 2 normal + 22,732 spts = **22,734** explicit Abandon sends. This proves the shared low-level primitive ran, not that PhoBanTab caused those sends.
+- J08 classification: **STATIC_VERIFIED / RUNTIME_PRIMITIVE_ONLY / END_TO_END_RUNTIME_ENV_REQUIRED**.
+
+## J08 FILES
+- docs/tasks/J08.md
+- docs/phoban/J08_DISCARD_FLOW.md
+- docs/phoban/J08_DISCARD_MODEL.json
+- docs/phoban/J08_DISCARD_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J08.
+None known for J09.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J07 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole authority; do not import drop/loot/buff behavior from older or external Phó Bản projects.
+- Preserve J01-J08 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole authority; do not import pickup/buff behavior from older or external projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve global `_cancel` plus per-group `_run_cancel` ownership and cooperative stopping.
-- Preserve exact running/stopping/idle button captions/colors/states.
-- Preserve `_abort_cycle` as current-group-only, barrier-breaking, cancel-setting, idempotent.
-- Preserve barrier no-timeout normal semantics and aborted-barrier False exit.
-- Preserve hook fail-open on missing/exception and fail-closed only on explicit False.
-- Preserve last-group-only global teardown and identity-safe old-session cleanup.
-- Preserve no dedicated row Error/Cancelled progress style.
-- Preserve J07 UNKNOWN boundaries: 480s timeout return expression, exact exception-handler micro-order, late-cancel row-label microstate, internal `_active_runs/_run_jobs` container/lock micro-order and live timing.
-- Do not reopen J01-J06 unless a later exact contradiction is found.
+- Preserve exactly three discard controls and exact config/runtime preset mappings.
+- Preserve current default OFF state and run-scoped opt-in behavior.
+- Preserve accounts-parallel / presets-sequential execution and per-account inflight guard.
+- Preserve one-second per-item pacing and internal action-4 packet path.
+- Preserve normal-completion final discard pass using current enabled keys; unticked means skip.
+- Do not invent a hard-abort/user-stop final discard flush.
+- Preserve J08 UNKNOWNs: numeric PB_DISCARD_POLL, generation/thread micro-order, inflight identity key, exact stop closure formula, final-pass late-cancel race and periodic-vs-final-pass interleaving.
+- Do not reopen J01-J07 unless a later exact contradiction is found.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J08 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J08 — Phó Bản drop settings / vứt đồ subsystem audit** only.
-5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use `bag_filter`/shared discard helpers only where the frozen Phó Bản subsystem directly calls them.
-6. Audit only the three visible drop controls and their runtime ownership: `Vứt trang bị`, `Vứt vật phẩm`, `Vứt thuốc`; config keys/defaults; `DISCARD_TICK_KEYS` ordering; worker lifecycle `_discard_stop/_discard_thread/_discard_gen`; start/stop conditions; scan cadence; per-account/preset sequencing; stop/cancel interaction; and how the final cleanup pass behaves when unticked/run-ended.
-7. Do not merge J09 loot/pickup behavior or J10 Nga My buff behavior into J08.
+3. Check GitHub first for any J09 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J09 — Phó Bản loot / Nhặt không hồ lô subsystem audit** only.
+5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use shared memory/item helpers only where the frozen Phó Bản pickup subsystem directly calls them.
+6. Audit `Nhặt không hồ lô` only: `pickup_var/phoban_pickup` config/default, `_pick_stop/_pick_thread`, `_pickup_members`, `_toggle_pickup/_start_pickup/_stop_pickup/_pickup_worker`, worker lifetime/run-scope, scan cadence `PICK_POLL`, account/member scope, exact memory/internal pickup field/action being held ON, readback/repair behavior, stop/unset cleanup and last-group teardown interaction.
+7. Do not merge J10 Nga My buff or revisit J08 discard.
 8. Cross-check B07 only after static extraction.
-9. Do not import discard logic from older/external projects.
-10. Persist J08 artifacts, update STATE.md, and advance only after J08 verification.
+9. Do not import pickup logic from older/external projects.
+10. Persist J09 artifacts, update STATE.md, and advance only after J09 verification.
