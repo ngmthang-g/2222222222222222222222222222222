@@ -270,7 +270,8 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 - J05 — VERIFIED_EXACT_DUNGEON_BINDING_TABLES_WITH_BASE_FALLBACK_AND_SATTINH_CUSTOM_HANDLER
 - J06 — VERIFIED_MANUAL_DUNGEON_TIMES_WITH_ENTRY_DEFAULT1_SHARED_BARRIER_AND_TRAIN_TIMES_IGNORED
 - J07 — VERIFIED_GROUP_ABORT_BARRIER_BREAK_IDENTITY_SAFE_TEARDOWN_WITH_EXPLICIT_RUNTIME_UNKNOWNS
-- J08 — NEXT
+- J08 — VERIFIED_RUN_SCOPED_DISCARD_WORKER_WITH_PARALLEL_ACCOUNTS_SEQUENTIAL_PRESETS_AND_FINAL_PASS
+- J09 — NEXT
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
@@ -296,5 +297,7 @@ J06 locks the current Lần control as a free Entry with default 1, manual tool-
 
 J07 locks the two-layer cancel model, exact red/orange run-button states, current-group-only idempotent barrier-breaking abort, hook fail-open-vs-explicit-False behavior, last-group-only global teardown, and identity-safe rapid-restart cleanup. The compiled 480-second watcher remains real while its exact timeout return expression is explicitly unresolved rather than guessed.
 
+J08 locks the three discard controls, exact config/preset mappings, run-scoped generation-safe worker, parallel-account/sequential-preset execution, per-account inflight guard, internal action-4 packet path, and the normal-completion final discard pass. PB_DISCARD_POLL numeric value and late-cancel/final-pass races remain explicit runtime unknowns.
+
 ## Phase J current
-J08 — Phó Bản drop settings / vứt đồ subsystem audit.
+J09 — Phó Bản loot / Nhặt không hồ lô subsystem audit.
