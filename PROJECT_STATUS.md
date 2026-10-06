@@ -322,11 +322,14 @@ J14 confirms the current execution environment cannot run the original Windows/g
 ## Phase K — Daily
 - K01 — VERIFIED_ACTIVE_DAILY_AUTHORITY_VISIBLE_SURFACE_70_HANDLER_INVENTORY_AND_DEPENDENCY_BOUNDARY
 - K02 — VERIFIED_SHARED_ROSTER_PID_IDENTITY_GENSTOP_TK_MARSHAL_AND_ALL_ACCOUNT_COORDINATOR
-- K03 — NEXT
+- K03 — VERIFIED_PUNISH_CONFIG_SELECTION_BATCH_VS_SINGLE_OPEN_ENDED_LOOP
+- K04 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
 K02 locks the five-second incremental roster refresh, HWND+PID anti-reuse identity, create/update/stale-row lifecycle, 30ms scroll debounce, permission-gated row controls, exact state styles, Tk after(0) state marshalling, generation-protected per-row stop semantics, per-row activity dispatch, all-account Bắt đầu/Dừng lại coordinator, singleton Daily monitor and transient row-session persistence boundary.
 
+K03 locks the clean Trừng Ác duration/move/hotkey configuration, old/new teleport-config compatibility boundary, Apply-all selection semantics, distinct activity-batch versus per-row worker ownership, exact activity-level button states, selected/PID start snapshot, per-loop live/active filtering, open-ended iteration semantics, and separate batch-cancel versus row Event/generation stop identities.
+
 ## Phase K current
-K03 — Trừng Ác configuration / selection / top-level run-loop contract audit.
+K04 — Trừng Ác NPC return / quest acquisition / 30-of-30 / stuck-quest cancellation audit.
