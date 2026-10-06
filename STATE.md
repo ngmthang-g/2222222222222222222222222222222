@@ -2186,36 +2186,68 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J01_PARTY_FORMATION_FLOW.md
 - docs/phoban/J01_PARTY_FORMATION_MODEL.json
 
+## J02 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J02 artifacts existed; J01 was already complete and was not redone.
+- Re-materialized/re-hashed the frozen specimen before B07. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Re-parsed both active Phase-J constant chunks directly:
+  - `.phoban_tab` marker `0x2b86f63`, size **52957**, **1508** constants.
+  - `.phoban_dungeons` marker `0x2b8513b`, size **7700**, **249** constants.
+- Visible/nominal leader identity remains exact: **first group combobox**. If it is blank the leader label is `(chưa chọn)`.
+- The live group-combo refresh only retains still-valid selections; a stale/dead account selection resets. Therefore a stale first-slot leader is not preserved indefinitely as the UI leader.
+- `_group_targets` is the current execution roster: selected + currently-online unique account names resolved to HWNDs in group-slot iteration order. Strong local model is `self/gd/hwnd_by_name/hwnd/entry/seen/out/var/nm`.
+- `_run_one_group` owns explicit runtime locals `_leader_hw` and `_idx` in the per-account worker-construction region, plus current `targets`, `_nm`, `_hw`, `threads`.
+- Exact Python source expression assigning `_leader_hw` is not stored in the Nuitka constants blob. The strongest static model is that one current online target is captured as the run leader and each current target is indexed for worker metadata. The literal `_leader_hw = ...` and exact Boolean expression for `is_leader` remain **STRONG_STATIC / EXPLICIT UNKNOWN**, not guessed source.
+- `_acc_step_worker` directly carries `is_leader`, `member_index`, `total_members`; its local model includes all three.
+- The worker's Phó Bản call surface to `_do_dungeon` has exact keyword tuple `stop_check, barrier, cancel, acc_name, is_leader, member_index, total_members`, proving that leader/member metadata is operational and not only UI text.
+- Adjacent frozen default surface for `_do_dungeon` is `(None,None,None,'',False,0,1)`; adjacent worker defaults include `False,0,1`. Exact leader metadata defaults are therefore **is_leader=False / member_index=0 / total_members=1**.
+- `_do_dungeon` strongly maps `is_leader/member_index/total_members` into `_ctx` / dungeon-handler execution.
+- `DungeonCtx` exact field order is `tab, hwnd, acc_name, dungeon, is_leader, member_index, total_members, mid, post, stop_check, cancel, barrier, run_idx, times`.
+- Exact `DungeonCtx` defaults are `(None,0,'','',False,0,1,None,None,None,None,None,0,1)`.
+- Crucial architecture finding: **PhoBanTab does not read the in-game team leader**. The full `.phoban_tab` chunk has no `read_team_leader`, `TeamLeader`, `LeaderID`, `leader_id`, `is_team_leader`, `captain`; `.phoban_dungeons` has the same absence.
+- The frozen EXE does contain a shared `memory_items.read_team_leader` elsewhere, but the active Phó Bản chunks do not reference it. `read_team_id` is present only for J01 party-state verification.
+- Therefore Phó Bản's `is_leader` is a **tool-side group/run metadata concept**, not a live game-captain memory query.
+- This remains true when `Tạo lại đội` is OFF: the J01 B0/B1/B2/B3 recreation stage is skipped, but `_run_one_group` / `_acc_step_worker` still carry leader/member metadata. Do not add a `read_team_leader` prerequisite.
+- J01's team-creation leader and J02's run-local leader are separate concepts. J01 proves nominal first-slot leader with first-online fallback when recreating a team. J02 proves a run-local `_leader_hw` exists over the current online roster. Their normal alignment is strongly supported, but the exact native assignment/equivalence is not instruction-bound by constants alone.
+- Common dungeon configuration is symmetric for participants: `SelectedFuBen`, `AutoRepeat=False`, `FollowLeader=True`, `AutoRevive=True`. `FUBEN.FollowLeader=True` is a game auto-FuBen setting and must not be conflated with PhoBanTab's Boolean `is_leader`.
+- `BaseDungeon` hooks are pass-through/default; no leader-only behavior is recovered.
+- The only custom current dungeon class recovered is `SatTinhDungeon`. Its exact docs state **"mọi acc giống nhau"** and explicitly say future versions can branch on `ctx.is_leader / ctx.member_index / ctx.acc_name`. Thus current Sát Tinh does **not** have a leader-specific branch.
+- J02 records only the leader source boundary needed for J03: the follow-worker doc explicitly says it uses the **first combobox of the running group** as leader-position source. Follow polling/movement logic remains deferred.
+- No recovered run path verifies that the worker marked `is_leader` is actually the current game captain immediately before dungeon hooks. Do not add such a gate without original-runtime evidence.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It remains consistent with blank first slot and leader `(chưa chọn)`; no geometry was remeasured.
+- Only after static extraction, packaged `automove_log.txt` was checked. It contains 0 lines for `is_leader`, `member_index`, `Đội trưởng`, `leader`, `PhoBanTab`, `[Phó bản]`, and `Sát Tinh`. J02 is **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED** for the exact run-local leader assignment/offline race behavior.
+
+## J02 FILES
+- docs/tasks/J02.md
+- docs/phoban/J02_LEADER_STATIC_EVIDENCE.tsv
+- docs/phoban/J02_LEADER_FLOW.md
+- docs/phoban/J02_LEADER_MODEL.json
+
 ## BLOCKERS
-None known for J02.
+None known for J03.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve TLMTool 2.1.2 as sole Phó Bản authority; do not import dungeon logic from older/external user projects.
+- Preserve J01 party-formation contracts unchanged.
+- TLMTool 2.1.2 remains the sole Phó Bản authority; do not import leader behavior from older/external projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve J01 six-slot group model and first-combobox nominal leader rule.
-- Preserve cross-group selection uniqueness and 5-second PID-aware ready-account refresh.
-- Preserve `Tạo lại đội` clean default OFF.
-- Preserve formation target rule: selected + currently online members only.
-- Preserve RoleID skip/zero-resolvable abort and exact no-team TeamID sentinels.
-- Preserve offline nominal-leader fallback to first online target and one-online fast path.
-- Preserve B0→B1→B2→B3 recreation ordering.
-- Preserve B1 incomplete-leave-confirmation warning/fail-open behavior.
-- Preserve B2 exact leader UI clicks and 1-second spacing.
-- Preserve B2 hard abort only after create retries fail to produce real TeamID.
-- Preserve B3 one missing-member resend and success-even-if-still-missing behavior unless cancelled.
-- Preserve cooperative group/global cancellation.
-- Preserve J01 UNKNOWN boundaries for PB_PARTY numeric timing/retry values, exact AutoAcceptInviteTeam writer, wait first-read micro-order and live-game parity.
+- Preserve nominal UI leader = first combobox and blank -> `(chưa chọn)`.
+- Preserve current-online ordered roster semantics and run-local `_leader_hw/_idx` metadata layer.
+- Preserve `is_leader/member_index/total_members` propagation through `_acc_step_worker → _do_dungeon → DungeonCtx`.
+- Preserve absence of `read_team_leader` dependency in active Phó Bản modules.
+- Preserve distinction between UI leader, J01 recreate-team leader, run-local `is_leader`, and game `FUBEN.FollowLeader`.
+- Preserve BaseDungeon pass-through and current SatTinh "mọi acc giống nhau" behavior; do not invent leader-only dungeon hooks.
+- Preserve J02 UNKNOWN boundaries: exact `_leader_hw` assignment, exact `is_leader` Boolean expression, native member-index expression/base, same-refresh-window offline handoff, mid-step leader recompute behavior, and Windows runtime parity.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J02 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J02 — Phó Bản leader semantics audit** only.
-5. Inspect frozen original EXE first.
-6. Audit how leader identity is represented and propagated after J01 formation: leader label/first-slot semantics, effective leader fallback boundaries, `is_leader` computation passed into dungeon execution, leader-only branches/hooks, team-leader memory reads if any, and how leader identity behaves when members go offline or group formation is skipped.
-7. Keep follower/follow-leader worker semantics deferred to J03 except where needed to identify the leader source. Do not audit schedule/dungeon list/run count/status/drop/loot/Nga My/multi-group start-stop yet.
-8. Cross-check B07 only after static extraction.
-9. Do not import leader behavior from old external phó-bản projects.
-10. Persist J02 artifacts, update STATE.md, and advance only after J02 verification.
+3. Check GitHub first for any J03 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J03 — Phó Bản followers / "Theo sau đội trưởng" audit** only.
+5. Inspect the frozen original EXE first.
+6. Audit `follow_leader_var`, `_toggle_follow`, `_start_follow`, `_stop_follow`, `_follow_worker`, `PB_FOLLOW_POLL`, `PB_FOLLOW_MOVE_TILES`, group-running filter, first-combo leader lookup, same-map/dungeon-map checks, command-clash suppression, SatTinh exclusion, generation/worker lifecycle and stop behavior.
+7. Bind exact movement helper/mode used by follow, leader/member position reads and cache/reset behavior only where directly proven.
+8. Keep schedule/dungeon list/run counts/status/drop/loot/Nga My/multi-group run/start-stop/failure-recovery deferred.
+9. Cross-check B07 only after static extraction.
+10. Do not import follower logic from older external Phó Bản projects.
+11. Persist J03 artifacts, update STATE.md, and advance only after J03 verification.
