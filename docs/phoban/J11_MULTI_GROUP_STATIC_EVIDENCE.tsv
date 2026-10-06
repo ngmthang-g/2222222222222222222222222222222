@@ -1,0 +1,45 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; size93715901
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; size47450112
+phoban_tab_marker	0x2b86f63	VERIFIED_STATIC	.phoban_tab serialized payload
+ctor_run_lock	0x2b86ff8	VERIFIED_STATIC	_run_lock
+ctor_active_runs	0x2b87003	VERIFIED_STATIC	_active_runs
+ctor_run_jobs	0x2b87011	VERIFIED_STATIC	_run_jobs
+groups_container	0x2b87a52	VERIFIED_STATIC	_groups
+group_counter	0x2b87a5b	VERIFIED_STATIC	_group_counter
+add_group_button	0x2b87ec5	VERIFIED_STATIC_UTF8	+ Thêm nhóm
+add_group_function	0x2b87ed1	VERIFIED_STATIC	_add_group_cluster
+cross_group_combo_doc	0x2b885bc	VERIFIED_STATIC_UTF8	earlier-group selected account not shown in later group; current valid stays; dead resets
+all_selected_doc	0x2b88ac8	VERIFIED_STATIC_UTF8	Tất cả acc được chọn (mọi cụm Nhóm), unique, giữ thứ tự.
+delete_group_button	0x2b8c19c	VERIFIED_STATIC_UTF8	✕ Xóa nhóm
+max_members_symbol	0x2b8c205	VERIFIED_STATIC	MAX_GROUP_MEMBERS
+group_builder_doc	0x2b8c4df	VERIFIED_STATIC_UTF8	new group = leader row + delete + Nhóm n six comboboxes + activity table + add-row; returns group dict
+remove_group_symbol	0x2b8c59b	VERIFIED_STATIC	_remove_group
+remove_group_run_cancel	0x2b8c6c3	STRONG_STATIC	_run_cancel in removal control region
+remove_group_remove	0x2b8c6d0	STRONG_STATIC	remove in removal control region
+renumber_groups_symbol	0x2b8c6d8	VERIFIED_STATIC	_renumber_groups
+remove_group_doc	0x2b8c6eb	VERIFIED_STATIC_UTF8	Xóa 1 cụm ... cho phép xóa hết.
+remove_last_compat_doc	0x2b8c737	VERIFIED_STATIC_UTF8	(Tương thích cũ) Xóa nhóm sau cùng.
+delete_state_compat_doc	0x2b8c763	VERIFIED_STATIC_UTF8	(Tương thích cũ — không còn nút xóa chung, chỉ cập nhật label).
+get_groups_data_doc	0x2b8cf95	VERIFIED_STATIC_UTF8	modern full group data [{num,members,schedule}, ...]
+collect_group_job_doc	0x2b8d2b5	VERIFIED_STATIC_UTF8	one group -> (num,targets,sched), None if no online acc or no checked row
+start_parallel_log	0x2b8d7d1	VERIFIED_STATIC_UTF8	[Phó bản] Bắt đầu song song ...
+toggle_run_doc	0x2b8d81d	VERIFIED_STATIC_UTF8	bottom runs all groups one thread each in parallel; group button affects only its group
+group_run_cancel	0x2b8c6c3	VERIFIED_STATIC	_run_cancel
+finish_remaining_text	0x2b8fe88	VERIFIED_STATIC_UTF8	xong, còn ... nhóm chạy tiếp
+finish_group_doc	0x2b8fef1	VERIFIED_STATIC_UTF8	one-group cleanup; global teardown only when last group finishes; identity-safe session cleanup
+run_group_doc	0x2b90352	VERIFIED_STATIC_UTF8	one group independent of others; own schedule flow
+modern_config_key	0x2b906a3	VERIFIED_STATIC	phoban_groups
+legacy_group1_key	0x2b907a3	VERIFIED_STATIC	phoban_group1
+save_modern_key	0x2b90926	VERIFIED_STATIC	phoban_groups
+qualified_remove_last	0x2b91b42	VERIFIED_STATIC	PhoBanTab._remove_last_group
+qualified_update_del_state	0x2b91b79	VERIFIED_STATIC	PhoBanTab._update_del_group_state
+toggle_run_locals	0x2b93ab7	STRONG_STATIC_MAPPING	self,gd,... targets_gd,started,job,num,targets,sched,cancel,job_obj,total_acc
+run_one_group_locals	0x2b937de	VERIFIED_STATIC_MAPPING	self,gd,group_num,targets,sched,cancel,job,...
+max_groups_symbol	-	VERIFIED_ABSENCE	no MAX_GROUPS/MAX_PHOBAN_GROUPS/PB_MAX_GROUPS recovered in exact EXE
+b07_baseline	-	VISUAL_VERIFIED	SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; one visible group, six slots, delete + add group controls
+follow_scope	0x2b892ea	VERIFIED_STATIC	J03 running-groups-only; leader/followers per group
+discard_scope	0x2b89ca9	VERIFIED_STATIC	J08 run-scoped running-group accounts
+pickup_scope	0x2b88ac8	VERIFIED_STATIC	J09 all selected members across all groups, unique/order-preserving
+buff_scope	0x2b8a92d	VERIFIED_STATIC	J10 running-group accounts
+runtime_multigroup	-	NOT_RECOVERED	0 correlated [Phó bản]/Bắt đầu song song/nhóm chạy tiếp/Hết nhóm chạy/Dừng Nhóm/Dừng hết nhóm lines in packaged automove_log
