@@ -1,0 +1,237 @@
+{
+  "task": "J02",
+  "status": "VERIFIED_FIRST_SLOT_UI_LEADER_WITH_RUN_LOCAL_LEADER_METADATA_PROPAGATED_AS_IS_LEADER_MEMBER_INDEX_TOTAL_MEMBERS_TO_DUNGEON_CTX_NO_TEAM_LEADER_MEMORY_DEPENDENCY_AND_NO_CURRENT_LEADER_SPECIFIC_DUNGEON_HANDLER_EXACT_NATIVE_LEADER_HW_ASSIGNMENT_AND_OFFLINE_HANDOFF_EXPRESSION_STRONG_STATIC_NOT_INSTRUCTION_BOUND",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b07_sha256": "8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8"
+  },
+  "modules": {
+    "phoban_tab": {
+      "marker": ".phoban_tab",
+      "offset": "0x2b86f63",
+      "chunk_size": 52957,
+      "constant_count": 1508
+    },
+    "phoban_dungeons": {
+      "marker": ".phoban_dungeons",
+      "offset": "0x2b8513b",
+      "chunk_size": 7700,
+      "constant_count": 249
+    }
+  },
+  "ui_leader": {
+    "source": "first group combobox",
+    "empty_label": "(chưa chọn)",
+    "stale_selection_resets": true,
+    "team_memory_driven": false
+  },
+  "execution_roster": {
+    "helper": "_group_targets",
+    "semantic": "selected+online unique targets in group slot order",
+    "strong_locals": [
+      "self",
+      "gd",
+      "hwnd_by_name",
+      "hwnd",
+      "entry",
+      "seen",
+      "out",
+      "var",
+      "nm"
+    ]
+  },
+  "run_local": {
+    "helper": "_run_one_group",
+    "locals": [
+      "self",
+      "gd",
+      "group_num",
+      "targets",
+      "sched",
+      "cancel",
+      "job",
+      "GI",
+      "e",
+      "_recreate",
+      "ok_party",
+      "setup_threads",
+      "results",
+      "lock",
+      "_setup_one",
+      "name",
+      "hwnd",
+      "t",
+      "ready",
+      "item",
+      "barrier",
+      "threads",
+      "_leader_hw",
+      "_idx",
+      "_fkeys",
+      "_ft",
+      "_nm",
+      "_hw",
+      "_t",
+      "_e"
+    ],
+    "leader_hw_present": true,
+    "member_index_local": "_idx",
+    "exact_leader_hw_assignment": "STRONG_STATIC_UNKNOWN_SOURCE_EXPRESSION",
+    "exact_is_leader_boolean_expression": "UNKNOWN"
+  },
+  "per_account_worker": {
+    "helper": "_acc_step_worker",
+    "locals": [
+      "self",
+      "name",
+      "hwnd",
+      "item",
+      "barrier",
+      "cancel",
+      "is_leader",
+      "member_index",
+      "total_members",
+      "act",
+      "nm",
+      "cnt",
+      "c",
+      "stop_check",
+      "e"
+    ],
+    "dungeon_call_keywords": [
+      "stop_check",
+      "barrier",
+      "cancel",
+      "acc_name",
+      "is_leader",
+      "member_index",
+      "total_members"
+    ],
+    "defaults_surface": [
+      null,
+      null,
+      false,
+      0,
+      1
+    ]
+  },
+  "dungeon_call": {
+    "helper": "_do_dungeon",
+    "optional_metadata_defaults": [
+      null,
+      null,
+      null,
+      "",
+      false,
+      0,
+      1
+    ],
+    "locals_include": [
+      "is_leader",
+      "member_index",
+      "total_members",
+      "_ctx",
+      "_hook",
+      "dungeon_handler",
+      "dungeon_ctx"
+    ]
+  },
+  "dungeon_ctx": {
+    "fields": [
+      "tab",
+      "hwnd",
+      "acc_name",
+      "dungeon",
+      "is_leader",
+      "member_index",
+      "total_members",
+      "mid",
+      "post",
+      "stop_check",
+      "cancel",
+      "barrier",
+      "run_idx",
+      "times"
+    ],
+    "defaults": [
+      null,
+      0,
+      "",
+      "",
+      false,
+      0,
+      1,
+      null,
+      null,
+      null,
+      null,
+      null,
+      0,
+      1
+    ]
+  },
+  "leader_memory_dependency": {
+    "phoban_tab_read_team_id": true,
+    "phoban_tab_read_team_leader": false,
+    "phoban_tab_TeamLeader": false,
+    "phoban_tab_LeaderID": false,
+    "phoban_tab_is_team_leader": false,
+    "phoban_dungeons_read_team_leader": false,
+    "shared_memory_items_read_team_leader_exists_elsewhere": true,
+    "conclusion": "tool-side run/group metadata, not live game-captain query"
+  },
+  "common_dungeon": {
+    "symmetric_for_all_accounts": true,
+    "config": {
+      "SelectedFuBen": "selected dungeon code",
+      "AutoRepeat": false,
+      "FollowLeader": true,
+      "AutoRevive": true
+    },
+    "leader_specific_common_branch": "NOT_RECOVERED"
+  },
+  "handlers": {
+    "BaseDungeon": {
+      "leader_specific_behavior": false,
+      "behavior": "pass-through common hooks"
+    },
+    "SatTinhDungeon": {
+      "leader_specific_behavior": false,
+      "doc": "mọi acc giống nhau",
+      "leader_metadata_use": "future extension point only"
+    }
+  },
+  "recreation_interaction": {
+    "recreate_default": false,
+    "recreation_off": "worker leader metadata still exists; no game-team leader verification prerequisite",
+    "recreation_on": "J01 first-slot nominal leader with first-online fallback for team creation",
+    "exact_equivalence_between_creation_leader_and_run_local_leader": "STRONG_STATIC_NOT_INSTRUCTION_BOUND"
+  },
+  "follow_boundary": {
+    "leader_source": "first combobox of running group",
+    "mechanics": "DEFERRED_J03"
+  },
+  "runtime_evidence": {
+    "packaged_log_checked": true,
+    "counts": {
+      "is_leader": 0,
+      "member_index": 0,
+      "Đội trưởng": 0,
+      "leader": 0,
+      "PhoBanTab": 0,
+      "[Phó bản]": 0,
+      "Sát Tinh": 0
+    },
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact native source expression assigning _leader_hw",
+    "exact Boolean expression producing is_leader",
+    "exact native member_index expression/base, though _idx/default 0 strongly supports zero-based indexing",
+    "same-refresh-window offline handoff after targets collection",
+    "whether an already-running step recomputes leader metadata mid-step",
+    "Windows/live-game observation of leader metadata/hook context"
+  ],
+  "next_task": "J03 — Phó Bản followers / Theo sau đội trưởng audit"
+}
