@@ -2652,32 +2652,69 @@ H13 — Train all-account command orchestration audit.
 - docs/daily/K02_SHARED_MODEL.json
 - docs/daily/K02_SHARED_STATIC_EVIDENCE.tsv
 
+
+## K03 VERIFIED RESULTS
+- GitHub-first continuity check passed. No K03 artifact/completion commit existed before this turn; K01-K02 were already complete and were not redone.
+- Re-inspected the exact frozen original EXE first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact visible Trừng Ác configuration is frozen: duration field **15** seconds clean baseline; move mode labels **Ngựa / Định vị phù** with internal values `horse/teleport`; readonly teleport hotkeys exactly **1/2/3** with clean blank selection.
+- B08 clean state independently confirms duration 15, Ngựa, blank hotkey, heal ON, discard OFF, reconnect ON, respawn ON. K03 records those neighboring defaults but defers their deep behavior.
+- `punish_duration` is the combat-duration parameter passed to the execution sequence, not a user run-count. The outer worker owns `loop_idx` and logs **Lần ...**; no `daily_punish_repeat/punish_repeat/repeat_count/max_repeat` symbol exists in the bounded Daily payload. The outer loop is therefore open-ended until stop/live/activity termination.
+- `_validate_repeat` exposes digit-oriented validation via `isdigit`; exact empty/min/max entry microbehavior remains UNKNOWN.
+- Runtime move snapshot owns `move_mode/use_tele/tele_hotkey`. Strong static contract: canonical move values are horse/teleport and the session derives the Boolean-style teleport decision from the chosen mode.
+- Config load exposes `daily_punish_duration/daily_tele_use/daily_move_mode/daily_tele_hotkey`; the load local model includes `old_tele_use`, strongly indicating backward-compatibility normalization between old Boolean teleport config and explicit move mode. Exact precedence/migration expression remains UNKNOWN.
+- `_apply_punish_all` exact doc says it sets every current row's activity combobox to **Trừng ác**. It is a selection/configuration operation and does **not** itself start execution.
+- Four distinct Trừng Ác ownership surfaces are frozen:
+  - `_punish_start_worker`: inject-first activity wrapper;
+  - `_punish_toggle`: activity-wide start/stop toggle;
+  - `_punish_run_worker`: activity-wide batch worker;
+  - `_punish_single_worker`: one-row iterative worker used by K02 row/all-account coordination.
+- Exact activity-level button states are frozen: idle/reset = **Trừng ác / RoyalBlue / normal**; running = **Dừng lại / FireBrick**; stopping = **Đang dừng... / disabled**.
+- Batch worker exact start-time structures include `selected` and `selected_pids`. Empty Trừng Ác selection logs **Chưa acc nào chọn Trừng ác — bỏ qua**. This is a start-time activity/process-identity snapshot rather than an unbounded rescan of arbitrary rows.
+- Inside the outer loop the worker owns `alive` and `still_active` filters, with distinct terminal logs **Không còn acc nào sống — dừng** and **Tất cả <N> acc đã dừng — tự động dừng**. Thus current liveness/activity is re-evaluated on every loop even though the original selection is snapshotted.
+- Batch loop is iteration-counted by `loop_idx`, logs **[TRỪNG ÁC] Lần ...**, and fans work out through a `threads` collection. No configured maximum iteration count is recovered.
+- Batch and row cancellation are distinct. Activity-wide batch uses `_punish_cancel`; K02 row sessions use `row._stop_event + row._gen + _GenStop`. Exact `_stop_reason` vocabulary independently distinguishes `cancel(batch-trừng-ác)`, `stop_event(dừng)`, `gen(phiên-mới)`, and window/process death.
+- Exact per-account batch stop-lambda Boolean composition—especially the exact instant an individually-stopped row interrupts an in-flight batch cycle—is not instruction-bound and remains explicit UNKNOWN.
+- `_punish_single_worker` snapshots `row/gen_snap`, owns its own `loop_idx`, passes `punish_duration/use_tele`, and uses `_GenStop`. It is also an iterative session, not a one-shot call.
+- Activity-wide Trừng Ác batch and Daily bottom Bắt đầu are intentionally different orchestration modes: the former is one batch worker over Trừng Ác-selected rows; the latter can mix Trừng Ác and Tàng Bảo Đồ and launches one single-account worker per eligible row.
+- Bottom all-account path has exact missing-hotkey guard **[Bắt đầu] Thiếu phím tắt phù — bỏ qua trừng ác**. No equivalent dedicated missing-hotkey message is independently recovered from the activity-wide batch block; K03 does not assume identical validation placement.
+- `_punish_reset_ui` restores the activity-level idle state. Exact final ordering among clearing `_punish_running`, button reset, StartTab sync and monitor teardown remains a runtime/lifecycle microdetail.
+- Only after static extraction, B08 was cross-checked for the clean Trừng Ác config state. It provides no running/stopping evidence.
+- Only after static extraction, exact packaged `automove_log.txt` was searched. It contains 0 correlated K03 Trừng Ác batch/single/start markers. K03 is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+
+## K03 FILES
+- docs/tasks/K03.md
+- docs/daily/K03_PUNISH_FLOW.md
+- docs/daily/K03_PUNISH_MODEL.json
+- docs/daily/K03_PUNISH_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
 - Phase J live runtime parity remains deferred by environment.
-- No known static blocker for K03.
+- No known static blocker for K04.
 
 ## DO_NOT_TOUCH
-- Preserve K01 Daily authority and K02 shared roster/session/coordinator contracts.
-- Preserve 5-second incremental refresh and HWND+PID identity protection; do not key Daily rows by HWND alone.
-- Preserve 30ms scrollregion debounce; do not restore row-count-only invalidation.
-- Preserve exact row permission split: has_permission("daily_tab") for row UI and has_permission_with_limit("daily_tab","daily") on the limited runtime/injection path.
-- Preserve exact shared state vocabulary/colors and Tk after(0) marshalling.
-- Preserve per-row real stop Event + generation-protected _GenStop. Do not remove the generation check during refactor.
-- Preserve per-row current-activity dispatch and bottom all-row coordinator semantics.
-- Preserve singleton _daily_all_monitor and one-second 1366×768 resize-monitor contract.
-- Preserve runtime row/session state as transient; do not invent persistence for activity/PID/_farming_acc/_stop_event/_gen/_state.
-- TLMTool 2.1.2 remains sole Daily authority; do not import Trừng Ác behavior from previous Auto-BTD/Trừng Ác projects.
-- Do not deep-audit Tàng Bảo Đồ during K03.
-- Proxy runtime/network development and Stage S remain locked.
+- Preserve K01-K03 Daily/Trừng Ác contracts unchanged.
+- Preserve duration 15 clean baseline, horse/teleport canonical values and hotkeys 1/2/3.
+- Preserve duration as combat-time, not a repeat-count setting; do not invent a user repeat counter.
+- Preserve config compatibility ambiguity: old daily_tele_use + daily_move_mode are both real; exact precedence remains UNKNOWN.
+- Preserve Apply Trừng Ác as row activity selection only, not Start.
+- Preserve separate activity-wide batch and per-row single-worker orchestration.
+- Preserve exact activity-level idle/running/stopping button states.
+- Preserve start-time selected/selected_pids snapshot plus per-loop alive/still_active filtering.
+- Preserve open-ended loop_idx semantics and no recovered maximum iteration count.
+- Preserve separate batch cancel versus row stop Event/generation identities.
+- Do not invent identical teleport-hotkey validation placement for every entry point.
+- TLMTool 2.1.2 remains sole authority; do not import Auto-BTD/Trừng Ác behavior from older projects.
+- Do not deep-audit target navigation/combat/heal/disconnect/respawn/discard during K04 beyond quest/NPC dependencies necessary to prove K04.
+- Stage S remains locked.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any K03 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **K03 — Trừng Ác configuration / selection / top-level run-loop contract audit** only.
-5. Inspect the exact frozen original EXE first, primarily the Trừng Ác-related `.daily_tab` constants/handlers.
-6. Audit the Trừng Ác configuration and outer execution shell only: duration/move-mode/teleport-hotkey semantics, per-row and apply-all selection, `_punish_toggle/_punish_run_worker/_punish_start_worker/_punish_single_worker` ownership, selected/live-account filtering, batch cancel versus row stop/generation interaction, high-level loop/repeat termination, and top-level state/button/reset behavior.
-7. Do not yet deep-dive NPC-return mechanics, quest/full/cancel logic, target navigation/summon, combat timing, heal/reconnect/respawn, or discard internals except where needed to identify the outer run shell; those are later K04–K09 tasks.
-8. Cross-check B08 only after static extraction for Trừng Ác visible config state.
-9. Persist K03 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K03 verification.
+3. Check GitHub first for any K04 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K04 — Trừng Ác NPC return / quest acquisition / 30-of-30 / stuck-quest cancellation audit** only.
+5. Inspect the exact frozen original EXE first, primarily `_punish_goto_bodau`, the quest-receive region inside `_punish_exec_sequence`, `_punish_check_full`, and `_punish_cancel_quest`.
+6. Audit NPC return target/map/tolerance/injection behavior; quest receive interaction; exact 30/30 detection/dialog handling; stuck/no-target cancellation flow; success/fail/skip/stop distinctions; and how those outcomes feed the outer cycle.
+7. Do not yet deep-dive Trừng Ác Lệnh target extraction/navigation/summon (K05), combat/movement timing (K06), heal/disconnect/respawn (K07), or discard (K08).
+8. Cross-check B08 only after static extraction; B08 contains no quest-dialog runtime evidence.
+9. Persist K04 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K04 verification.
