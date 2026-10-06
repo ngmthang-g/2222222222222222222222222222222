@@ -1,0 +1,111 @@
+key	offset_hex	status	evidence
+module_marker	0x2b86f63	VERIFIED_STATIC_DECODE	.phoban_tab; size52957; constants1508
+ctor_member_rows	0x2b87045	VERIFIED_STATIC	_member_rows
+ctor_recreate_var	0x2b87079	VERIFIED_STATIC	recreate_team_var
+ctor_group_vars	0x2b8715f	VERIFIED_STATIC	_group_vars
+ctor_pending_group	0x2b8716c	VERIFIED_STATIC	_pending_group
+build_ui	0x2b87337	VERIFIED_STATIC	_build_ui
+bottom_start	0x2b873c6	VERIFIED_STATIC	Bắt đầu
+team_group	0x2b874a4	VERIFIED_STATIC	Cấu hình tổ đội
+ready_accounts_label	0x2b8750c	VERIFIED_STATIC	Danh sách acc sẵn sàng:
+recreate_label	0x2b8762e	VERIFIED_STATIC	Tạo lại đội
+recreate_clean_bool	0x2b87615	VERIFIED_STATIC_DECODE	BooleanVar(False) surface in config option block
+add_group_button	0x2b87ec2	VERIFIED_STATIC	+ Thêm nhóm
+member_update_doc	0x2b8814a	VERIFIED_STATIC	ready member tracked by HWND; real name update; closed window row removed
+ready_layout_doc	0x2b88270	VERIFIED_STATIC	3 ready acc per row; selected account hidden
+stale_member_doc	0x2b882eb	VERIFIED_STATIC	closed window or changed process/HWND reuse removed
+selected_group1_doc	0x2b884ad	VERIFIED_STATIC	Group1 selected members blank/duplicate filtered compatibility helper
+ready_names_doc	0x2b88466	VERIFIED_STATIC	ready account names
+combo_refresh_doc	0x2b885bb	VERIFIED_STATIC	earlier-group selection removed from later dropdown; current kept; dead resets
+refresh_background_doc	0x2b88703	VERIFIED_STATIC	window+char reads background; UI apply main thread
+refresh_cadence	0x2b88966	VERIFIED_STATIC_DECODE	5000 ms
+hwnd_name_cache_doc	0x2b88a20	VERIFIED_STATIC	name->HWND with PID reuse guard and 30s supplemental process cache
+all_selected_doc	0x2b88ac7	VERIFIED_STATIC	all selected across groups unique and ordered
+party_cancel_helper	0x2b8ab8d	VERIFIED_STATIC	_pb_party_cancelled
+party_sleep_doc	0x2b8aba2	VERIFIED_STATIC	interruptible by group or global cancel
+roleid_error	0x2b8abf5	VERIFIED_STATIC	cannot read RoleID log
+resolve_targets_doc	0x2b8aca3	VERIFIED_STATIC	(name,hwnd)->(name,hwnd,rid); read_own_ids+hwnd_of_pid; exact/case-insensitive; unresolved skipped
+team_id_helper	0x2b8ae2f	VERIFIED_STATIC	_pb_team_id
+no_team_text	0x2b8ae47	VERIFIED_STATIC_DECODE	('0','false','')
+no_team_integer_set	0x2b8ae60	VERIFIED_STATIC_DECODE	frozenset({0,-1,4294967295})
+party_teamid_poll_symbol	0x2b8aeaa	VERIFIED_STATIC	PB_PARTY_TEAMID_POLL
+wait_team_doc	0x2b8aeca	VERIFIED_STATIC	wait outside/real team; None read failure not success
+create_missing_click_module	0x2b8afe0	VERIFIED_STATIC	missing click module log
+create_resize	0x2b8b033	VERIFIED_STATIC_DECODE	1366x768
+create_click_gap_symbol	0x2b8b07f	VERIFIED_STATIC	PB_PARTY_CREATE_CLICK_GAP
+near_player_pixel	0x2b8b09a	VERIFIED_STATIC_DECODE	(donVang,nguoiChoiGan)
+near_player_click	0x2b8b0c2	VERIFIED_STATIC_DECODE	(391,683)
+near_player_missing	0x2b8b0ca	VERIFIED_STATIC	if pixel absent skip click
+quest_arrow_pixel	0x2b8b154	VERIFIED_STATIC_DECODE	(donVang,muiTenAnNhiemVu)
+quest_arrow_click	0x2b8b170	VERIFIED_STATIC_DECODE	(34,462)
+quest_arrow_missing	0x2b8b177	VERIFIED_STATIC	if pixel absent skip click
+create_tail_symbol	0x2b8b206	VERIFIED_STATIC	PB_PARTY_CREATE_TAIL_CLICKS
+create_click_doc	0x2b8b27a	VERIFIED_STATIC	click sequence + exact 1s spacing
+create_retry_symbol	0x2b8b3b9	VERIFIED_STATIC	PB_PARTY_CREATE_RETRY
+create_helper	0x2b8b414	VERIFIED_STATIC	_pb_click_create_team
+wait_team_helper	0x2b8b42b	VERIFIED_STATIC	_pb_wait_team_state
+create_wait_timeout_symbol	0x2b8b440	VERIFIED_STATIC	PB_PARTY_WAIT_TEAM_TIMEOUT
+invite_retry_gap_symbol	0x2b8b49b	VERIFIED_STATIC	PB_PARTY_INVITE_RETRY_GAP
+create_fail_log	0x2b8b4b6	VERIFIED_STATIC	create exhausted -> stop this group
+create_retry_doc	0x2b8b4e2	VERIFIED_STATIC	retry UI create and real TeamID; False abort group
+join_poll_symbol	0x2b8b599	VERIFIED_STATIC	PB_PARTY_JOIN_POLL
+wait_same_team_doc	0x2b8b5ad	VERIFIED_STATIC	wait others same real TeamID; timeout returns missing list; cancel returns None
+burst_delay_symbol	0x2b8b668	VERIFIED_STATIC	PB_PARTY_BURST_DELAY
+join_timeout_symbol	0x2b8b6d9	VERIFIED_STATIC	PB_PARTY_JOIN_TIMEOUT
+invite_burst_doc	0x2b8b7ad	VERIFIED_STATIC	burst invite; one wait; resend missing once; second wait; True even still missing unless cancelled
+resolve_targets_call	0x2b8b8fa	VERIFIED_STATIC	_pb_resolve_targets
+no_roleid_abort	0x2b8b90f	VERIFIED_STATIC	no resolvable RoleID -> stop group
+autoset_value	0x2b8b98c	VERIFIED_STATIC_DECODE	UTILITIES.AutoAcceptInviteTeam=True
+autoset_readback	0x2b8b9d8	VERIFIED_STATIC	_pb_is_autoset_on
+autoset_confirm	0x2b8b9eb	VERIFIED_STATIC	confirmed ON log
+autoset_manual_warning	0x2b8ba01	VERIFIED_STATIC	warning manual accept may be needed
+autoset_delay_symbol	0x2b8ba6b	VERIFIED_STATIC	PB_PARTY_AUTOSET_DELAY
+already_outside	0x2b8ba83	VERIFIED_STATIC	already outside team -> skip leave
+leave_team_helper	0x2b8baac	VERIFIED_STATIC	leave_team
+leave_delay_symbol	0x2b8bad4	VERIFIED_STATIC	PB_PARTY_LEAVE_DELAY
+wait_left_timeout_symbol	0x2b8baea	VERIFIED_STATIC	PB_PARTY_WAIT_LEFT_TIMEOUT
+leave_timeout_continue	0x2b8bb06	VERIFIED_STATIC	leave confirmation incomplete -> warning and still continue
+offline_leader_fallback	0x2b8bb42	VERIFIED_STATIC	offline nominal leader -> replacement creation leader
+single_online_fastpath	0x2b8bb65	VERIFIED_STATIC	one online account -> no team creation needed
+invite_create_helper	0x2b8bb99	VERIFIED_STATIC	_pb_invite_create
+invite_burst_helper	0x2b8bbac	VERIFIED_STATIC	_pb_invite_burst
+ensure_party_doc	0x2b8bbda	VERIFIED_STATIC	B0->B1->B2->B3; first combo leader; offline -> first online; one online skip
+group_permission_scope	0x2b8bf15	VERIFIED_STATIC_DECODE	phoban_tab
+group_permission_doc	0x2b8bf6a	VERIFIED_STATIC	group combobox readonly/disabled based on permission
+group_selected_doc	0x2b8bfa0	VERIFIED_STATIC	selection refreshes other combos + save
+group_leader_caption	0x2b8c0c5	VERIFIED_STATIC	Đội trưởng:
+empty_leader	0x2b8c10a	VERIFIED_STATIC_DECODE	(chưa chọn)
+delete_group	0x2b8c19b	VERIFIED_STATIC	✕ Xóa nhóm
+max_members_symbol	0x2b8c206	VERIFIED_STATIC	MAX_GROUP_MEMBERS
+cols_per_row_symbol	0x2b8c219	VERIFIED_STATIC	COLS_PER_ROW
+group_builder_doc	0x2b8c4de	VERIFIED_STATIC	group has leader row + 6 comboboxes
+leader_label_doc	0x2b8c648	VERIFIED_STATIC	leader name = first combo; blank -> chưa chọn
+group_targets_doc	0x2b8dad2	VERIFIED_STATIC	online selected account targets [(name,hwnd)]
+run_group_recreate_log	0x2b90122	VERIFIED_STATIC	recreate-team ON -> party formation before schedule
+ensure_party_call	0x2b90177	VERIFIED_STATIC	_pb_ensure_party
+party_failure_stops_group	0x2b901a0	VERIFIED_STATIC	formation failed -> stop group/no schedule
+run_group_doc	0x2b90352	VERIFIED_STATIC	party recreation is first stage B0/B1/B2/B3 before setup/schedule
+config_recreate_default	0x2b905db	VERIFIED_STATIC_DECODE	phoban_recreate_team default '0'
+tail_click_1	0x2b913dc	VERIFIED_STATIC_DECODE	(27,467)
+tail_click_2	0x2b913e3	VERIFIED_STATIC_DECODE	(154,214)
+tail_click_3	0x2b913eb	VERIFIED_STATIC_DECODE	(127,336)
+module_description	0x2b90991	VERIFIED_STATIC	Phó Bản Tab - Cấu hình tổ đội & chuẩn bị cho auto phó bản.
+module_qualname	0x2b9140c	VERIFIED_STATIC	PhoBanTab.__init__
+party_ensure_qualname	0x2b919c3	VERIFIED_STATIC	PhoBanTab._pb_ensure_party
+click_create_locals	0x2b9324e	STRONG_STATIC_MAPPING	self/lhwnd/cancel/check_pixel/click_at/e/resize_window/steps/x/y
+ensure_party_locals	0x2b932ae	STRONG_STATIC_MAPPING	self/GI/gd/group_num/targets/cancel/members/.../leader/lname/lhwnd/.../others
+invite_burst_locals	0x2b93347	STRONG_STATIC_MAPPING	self/GI/group_num/lname/lhwnd/others/cancel/.../missing/missing2
+invite_create_locals	0x2b933a6	STRONG_STATIC_MAPPING	self/GI/group_num/lname/lhwnd/cancel/attempt
+resolve_targets_locals	0x2b93434	STRONG_STATIC_MAPPING	self/GI/targets/rows/.../by_exact/by_lower/.../rid
+wait_group_locals	0x2b934d2	STRONG_STATIC_MAPPING	self/lhwnd/others/timeout/cancel/no_team/deadline/.../missing
+wait_team_locals	0x2b9352d	STRONG_STATIC_MAPPING	self/targets/expect_zero/timeout/cancel/no_team/deadline/states
+combo_refresh_locals	0x2b93626	STRONG_STATIC_MAPPING	self/ready/chosen_before/gd/chosen_here/avail_all/var/cur/cb/vals/gd0/free/nm
+group_builder_locals	0x2b924c8	STRONG_STATIC_MAPPING	self/n/parent/grp/top/leader_lbl/gvars/COLS_PER_ROW/rows/all_var/body/gd/.../var/cb/.../btn_pb_off/btn_run
+runtime_autoset	-	NOT_RECOVERED	0 AutoAcceptInviteTeam lines in packaged automove_log
+runtime_create_team	-	NOT_RECOVERED	0 CreateTeam/C_TeamAction/Tạo đội lines
+runtime_leave_team	-	NOT_RECOVERED	0 leave_team lines
+runtime_invite	-	NOT_RECOVERED	0 invite/mời đội lines
+runtime_teamid	-	NOT_RECOVERED	0 TeamID lines
+runtime_roleid	-	NOT_CORRELATED	87 RoleID literal lines; inspected samples are private-chat packet scripts
+b07_hash	-	VISUAL_VERIFIED	8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; one visible group, six blank slots, recreate unchecked
+party_timing_values	-	EXPLICIT_UNKNOWN	PB_PARTY_* symbolic timing/retry globals verified but numeric values not safely bound in J01
