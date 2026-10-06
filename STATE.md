@@ -2687,34 +2687,64 @@ H13 — Train all-account command orchestration audit.
 - docs/daily/K03_PUNISH_MODEL.json
 - docs/daily/K03_PUNISH_STATIC_EVIDENCE.tsv
 
+
+## K04 VERIFIED RESULTS
+- GitHub-first recovery check found K04 **partially completed but not closed**: commits already existed for `docs/tasks/K04.md`, `docs/daily/K04_PUNISH_QUEST_FLOW.md`, and `docs/daily/K04_PUNISH_QUEST_MODEL.json`, while `STATE.md/PROJECT_STATUS.md` still pointed to K04 and the static-evidence TSV was missing. Those completed K04 artifacts were **not redone**.
+- Revalidated the already-written K04 claims against the exact frozen original EXE before closing the task. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- `_punish_goto_bodau` exact frozen documentation confirms normal NPC return target **Tô Châu map 4, tile (224,285)**, arrival tolerance **96**, and MapID==4 verification after movement.
+- The NPC-return helper re-injects before movement because the hook may be lost after respawn/restart. Injection failure is explicitly **fail-open**: exact logs say “inject cho move thất bại, thử di chuyển trực tiếp” / “inject lỗi:”, after which direct movement is still attempted.
+- NPC move stop/fail/wrong-map is a **current-cycle skip**, not terminal Trừng Ác completion. Exact failure text is “move về bổ đầu thất bại → skip vòng”; frozen doc says fail/timeout stops character and returns False so caller skips rather than clicking the NPC from a wrong location.
+- Teleport mode has exact pre-step tuple **(490,429)** after the configured DLL hotkey, then converges on the same final `_punish_goto_bodau` path. Exact UI meaning of that fixed coordinate remains UNKNOWN.
+- Normal quest interaction fixed-click groups were re-decoded directly from serialized integer tuples:
+  - trả nhiệm vụ: **(890,471) → (884,423) → (481,423)**
+  - nhận nhiệm vụ: **(891,467) → (484,424)**
+  followed by `_punish_check_full`.
+- 30/30 detection is memory/GameDialog-based, replacing the older unreliable pixel detector. The Daily helper directly reads `Title/CleanMsg/Buttons` through `memory_items.get_dialog_raw`.
+- Exact full-dialog semantic markers are **Ngô Giới**, message signature **tối đa 30**, and button **Ta biết rồi**. Exact operator/string-normalization microexpressions are not invented from constant order.
+- Full acknowledgement uses shared `memory_items.click_dialog_button`, whose exact frozen docs say it calls `GameDialog:FunctionButtonClicked`, lets the game send its normal dialog close/packet path, and returns True only after the dialog closes.
+- Full-check read/no-match/click-failure paths are intentionally fail-open as **not full**. A verified full dialog + successful close returns True.
+- Caller exact text says **NV đã đầy 30/30 → dừng trừng ác cho acc này**. Constructor owns `_punish_skipped`, and an `add` constant occurs immediately after this terminal branch, strongly binding 30/30 to terminal per-account Trừng Ác skip/stop tracking. Exact mutation order versus row stop Event remains UNKNOWN.
+- Stuck/no-target cancellation is a separate recovery helper `_punish_cancel_quest`: close current panel at **(1072,130)**; `move_to_npc(map 4, npc 698)`; then click **(479,480) → (476,422)**. Exact success text says **đã gửi hủy nhiệm vụ → sang vòng mới**.
+- Shared `memory_items.move_to_npc` exact docs confirm NPC position lookup, movement, `ClickNPC`, GameDialog verification, and fallback to game NPC navigation when cross-map/no live NPC position. K04 uses that shared evidence only because the cancellation helper directly calls it.
+- No-target log is **không bóc được tọa độ mục tiêu → hủy NV rồi sang vòng mới**. Cancellation failure logs but has no terminal-account stop surface; strongest static contract is fail-soft/current-cycle skip and retry on the next outer Trừng Ác iteration.
+- Repeated target failure can also trigger quest cancellation through `_punish_target_fail` and “kẹt ... vòng liên tiếp → hủy NV”. Exact threshold/accounting is deliberately deferred to K05.
+- B08 was only cross-checked after static extraction and contains no quest-dialog runtime evidence.
+- Packaged runtime log contains no correlated K04 quest/NPC/full/cancel markers. K04 remains **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- Missing K04 evidence artifact was added and K04 is now complete.
+
+## K04 FILES
+- docs/tasks/K04.md
+- docs/daily/K04_PUNISH_QUEST_FLOW.md
+- docs/daily/K04_PUNISH_QUEST_MODEL.json
+- docs/daily/K04_PUNISH_QUEST_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
 - Phase J live runtime parity remains deferred by environment.
-- No known static blocker for K04.
+- No known static blocker for K05.
 
 ## DO_NOT_TOUCH
-- Preserve K01-K03 Daily/Trừng Ác contracts unchanged.
-- Preserve duration 15 clean baseline, horse/teleport canonical values and hotkeys 1/2/3.
-- Preserve duration as combat-time, not a repeat-count setting; do not invent a user repeat counter.
-- Preserve config compatibility ambiguity: old daily_tele_use + daily_move_mode are both real; exact precedence remains UNKNOWN.
-- Preserve Apply Trừng Ác as row activity selection only, not Start.
-- Preserve separate activity-wide batch and per-row single-worker orchestration.
-- Preserve exact activity-level idle/running/stopping button states.
-- Preserve start-time selected/selected_pids snapshot plus per-loop alive/still_active filtering.
-- Preserve open-ended loop_idx semantics and no recovered maximum iteration count.
-- Preserve separate batch cancel versus row stop Event/generation identities.
-- Do not invent identical teleport-hotkey validation placement for every entry point.
-- TLMTool 2.1.2 remains sole authority; do not import Auto-BTD/Trừng Ác behavior from older projects.
-- Do not deep-audit target navigation/combat/heal/disconnect/respawn/discard during K04 beyond quest/NPC dependencies necessary to prove K04.
+- Preserve K01-K04 Daily/Trừng Ác contracts unchanged.
+- Preserve NPC return map 4 / tile 224,285 / tolerance 96 and re-inject-fail-open behavior.
+- Preserve normal NPC move fail/wrong-map as current-cycle skip, not terminal account stop.
+- Preserve teleport pre-step tuple (490,429) but keep its exact UI meaning UNKNOWN.
+- Preserve exact normal quest click groups and their order.
+- Preserve 30/30 as memory/GameDialog detection, not pixel detection.
+- Preserve semantic full markers Ngô Giới / tối đa 30 / Ta biết rồi and fail-open “not full” on read/click failure.
+- Preserve verified 30/30 as terminal for that account's Trừng Ác session.
+- Preserve stuck/no-target cancellation exact close/NPC/click sequence and next-cycle recovery semantics.
+- Preserve repeated target-stuck threshold/accounting as deferred to K05; do not invent it.
+- TLMTool 2.1.2 remains sole authority; do not import target logic from older Auto-BTD/Trừng Ác projects.
+- Do not deep-audit combat/recovery/discard during K05 beyond dependencies needed to prove target/summon flow.
 - Stage S remains locked.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any K04 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **K04 — Trừng Ác NPC return / quest acquisition / 30-of-30 / stuck-quest cancellation audit** only.
-5. Inspect the exact frozen original EXE first, primarily `_punish_goto_bodau`, the quest-receive region inside `_punish_exec_sequence`, `_punish_check_full`, and `_punish_cancel_quest`.
-6. Audit NPC return target/map/tolerance/injection behavior; quest receive interaction; exact 30/30 detection/dialog handling; stuck/no-target cancellation flow; success/fail/skip/stop distinctions; and how those outcomes feed the outer cycle.
-7. Do not yet deep-dive Trừng Ác Lệnh target extraction/navigation/summon (K05), combat/movement timing (K06), heal/disconnect/respawn (K07), or discard (K08).
-8. Cross-check B08 only after static extraction; B08 contains no quest-dialog runtime evidence.
-9. Persist K04 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K04 verification.
+3. Check GitHub first for any K05 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K05 — Trừng Ác Lệnh bag/use target extraction / travel / stuck-target accounting / summon audit** only.
+5. Inspect the exact frozen original EXE first, primarily `_punish_goto_target`, `_punish_summon_target`, `_punish_target_fail`, plus shared `memory_items`/fast-travel helpers only where those exact Daily functions call them.
+6. Audit exact Trừng Ác Lệnh item ID and bag lookup/use retries; target extraction from GameDialog and UseItemData fallback; target MapID/PosX/PosY/name validation; fast-travel/goto_map ownership; stop/fail/skip distinctions; exact repeated target-failure counter key/threshold/reset semantics; no-item terminal behavior; summon dialog title/buttons and internal dialog-button click/verification.
+7. Do not yet deep-dive combat duration/movement-stop/auto-train behavior (K06), heal/disconnect/respawn (K07), or discard worker (K08).
+8. Cross-check B08 only after static extraction; B08 contains no target/summon runtime evidence.
+9. Persist K05 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K05 verification.
