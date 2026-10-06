@@ -2463,35 +2463,70 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J10_NGA_MY_BUFF_MODEL.json
 - docs/phoban/J10_NGA_MY_BUFF_STATIC_EVIDENCE.tsv
 
+
+## J11 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J11 artifacts/completion commit existed before this turn; J01-J10 were already complete and were not redone.
+- Re-inspected the exact mounted original archive `/mnt/data/TLMTool_2.1.2(6).zip` before B07/runtime cross-check. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes. Inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact multi-group constructor/runtime state includes `_groups/_group_counter/_run_lock/_active_runs/_run_jobs`. The UI has persistent **+ Thêm nhóm** → `_add_group_cluster`.
+- Exact group-builder documentation: one new group contains leader row + per-group delete + **Nhóm n (6 combobox)** + activity table + add-schedule-row controls and returns a group dict.
+- B07 reference idle baseline shows exactly one visible group. However exact removal documentation says **“Xóa 1 cụm ... cho phép xóa hết.”** Therefore one is not a minimum: the current UI permits deleting all groups and reaching zero.
+- Current per-group delete is **✕ Xóa nhóm**. Frozen compatibility helpers `_remove_last_group` and `_update_del_group_state` remain, but their docs explicitly mark them as old compatibility; current architecture no longer has a shared/common delete button.
+- The exact group builder has `MAX_GROUP_MEMBERS` and six account slots. No `MAX_GROUPS/MAX_PHOBAN_GROUPS/PB_MAX_GROUPS` symbol or Phó Bản max-group message is recovered. Therefore the exact member cap is **6 per group**, while no explicit hard group-count cap is recovered. Reconstruction must not invent an arbitrary maximum group count.
+- The exact missing/empty-config bootstrap group-count branch is not instruction-bound by printable constants. Preserve the B07 one-group reference baseline and exact delete-all behavior; do not falsely claim a hidden mandatory one-group minimum.
+- Cross-group account uniqueness is exact. `_refresh_group_combo_values` says an account chosen in an earlier group no longer appears in later-group dropdowns; current valid selections remain; dead/stale selections reset. The all-group helper is exactly “Tất cả acc được chọn (mọi cụm Nhóm), unique, giữ thứ tự.”
+- Group order is semantically important: modern `get_groups_data` persists `[{num,members,schedule}, ...]` in UI order; J04 already froze row order within each group. No group drag/reorder control is recovered.
+- Removal control region directly contains `_run_cancel`, `remove`, then `_renumber_groups` immediately before the exact removal doc. Strong static contract: deleting a group is run-aware, removes it from the group container and renumbers/relabels remaining groups. Exact `_group_counter` mutation/reset expression remains UNKNOWN.
+- Each group owns its own six member vars, nominal leader, schedule rows, header checkbox, leader label, run button, `Tắt auto PB` button and current `_run_cancel`. Groups are self-contained configuration/run units, not member lists sharing one global schedule.
+- Modern persistence key remains `phoban_groups`; legacy `phoban_group1/phoban_schedule` remain compatibility surfaces only. Do not reconstruct the current tool as single Group1 + global schedule.
+- Exact `_collect_group_job`: one group becomes `(num,targets,sched)`; no online targets or no checked row → no job. Thus start-all skips non-runnable configured groups.
+- Exact start-all contract: bottom Start runs **all runnable groups**, one thread per group, in parallel. Exact log is **[Phó bản] Bắt đầu song song <N> nhóm — <M> acc**; zero runnable jobs logs no-group-to-run.
+- Run ownership is split between tab registry `_run_lock/_active_runs/_run_jobs` and group-local `_run_cancel`. Exact Python container/key types remain UNKNOWN and are not invented.
+- Group execution is genuinely parallel/independent: rows are sequential only inside that group, accounts parallel inside its row, and stop/failure of Group A does not cancel Group B/C.
+- Exact finish contract: one group cleanup leaves other runs untouched and can log **xong, còn <N> nhóm chạy tiếp**. Global teardown occurs only when the final active group finishes. J07 identity-safe cleanup remains authoritative so stale old-run cleanup cannot remove a newly-started session.
+- Shared worker cross-group scopes are now frozen explicitly:
+  - J03 Follow = each **running group** independently, first slot leader + remaining followers;
+  - J08 Vứt đồ = accounts in **currently-running groups**;
+  - J09 Nhặt không hồ lô = **all selected members across all groups**, unique/order-preserving, while pickup worker lifetime remains schedule-scoped;
+  - J10 Nga My buff = accounts in **currently-running groups**.
+- These four worker scopes are intentionally different. Reconstruction must not replace them with one universal group-members helper.
+- Group removal during a live/winding-down run is architecturally protected by per-group cancel handling plus J07 run-identity cleanup, but exact live timing when deletion happens during barrier/memory work remains runtime-unverified.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It confirms one visible group, six slots, per-group delete and + Thêm nhóm; it is not used to infer hidden multi-group behavior.
+- Only after static extraction, exact packaged `data/automove_log.txt` was checked: 0 correlated markers for `[Phó bản]`, `Bắt đầu song song`, `nhóm chạy tiếp`, `Hết nhóm chạy`, `Dừng Nhóm`, or `Dừng hết các nhóm`. J11 is **STATIC_VERIFIED / END_TO_END_MULTI_GROUP_RUNTIME_ENV_REQUIRED**.
+
+## J11 FILES
+- docs/tasks/J11.md
+- docs/phoban/J11_MULTI_GROUP_FLOW.md
+- docs/phoban/J11_MULTI_GROUP_MODEL.json
+- docs/phoban/J11_MULTI_GROUP_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J11.
+None known for J12.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J10 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole authority; do not import multi-group behavior from older/external Phó Bản projects.
+- Preserve J01-J11 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole authority; do not import start/stop behavior from older/external Phó Bản projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve exact Nga My buff state fields and `phoban_nga_my_buff` default OFF.
-- Preserve run-scoped mode, is_alive + generation overlap protection.
-- Preserve `PB_BUFF_MONSTER_LIST="910"`, FactionID 4 + Nga My fallback.
-- Preserve exact AUTOTRAIN ON/OFF field pairs and readback-before-write behavior.
-- Preserve currently-running-group member scope.
-- Preserve the worker's frozen **dungeon-map** gate; do not replace it with an assumed map111-only check merely because UI says Sát Tinh.
-- Preserve regular OFF enforcement for non-NgaMy/outside-dungeon cases.
-- Preserve final untick OFF sweep over known Nga My accounts.
-- Do not invent an unconditional run-end OFF sweep while the tick remains ON.
-- Preserve J10 UNKNOWNs: PB_BUFF_POLL/PB_BUFF_RETRY numerics, map-set construction expression, fallback normalization, known-roster container, generation teardown micro-order and live runtime parity.
-- Do not reopen J01-J09 unless later exact evidence directly contradicts them.
+- Preserve dynamic groups and exact six-member cap; do not invent a hard group-count cap.
+- Preserve per-group delete-all ability and compatibility-only old delete helpers.
+- Preserve cross-group account uniqueness and UI-order semantics.
+- Preserve per-group schedule/header/leader/run/cancel ownership.
+- Preserve start-all as runnable-group collection + one thread per runnable group.
+- Preserve global run registry plus group-local cancel ownership.
+- Preserve one-group finish/stop/failure independence and last-group-only global teardown.
+- Preserve exact background-worker scopes: Follow running-groups-per-group; Discard running groups; Pickup all selected groups; Buff running groups.
+- Preserve J11 UNKNOWNs: missing-config bootstrap microbranch, _group_counter mutation formula, run-registry container/key types, any hidden practical non-contract group limit, delete-during-run live timing and multi-group runtime parity.
+- Do not reopen J01-J10 unless later exact evidence directly contradicts them.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J11 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J11 — Phó Bản multiple-groups coordination audit** only.
+3. Check GitHub first for any J12 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J12 — Phó Bản integrated start/stop lifecycle audit** only.
 5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`.
-6. Audit the multiple-group contract only: group creation/removal/count limit/default group, member uniqueness across groups, group numbering/renumbering, per-group schedule/header/run state, `_active_runs/_run_jobs/_run_lock` ownership, start-all job collection, independent group threads/cancels, one-group finish while others continue, and how the shared background workers J03/J08/J09/J10 derive their cross-group scope.
-7. Do not redo J12 start/stop button/FSM details except where necessary to prove multiple-group ownership; J07 remains the authority for cancel/identity-safe teardown.
-8. Do not merge later failure/recovery/runtime-test tasks into J11.
-9. Cross-check B07 only after static extraction; B07 shows one visible group and cannot by itself prove multi-group behavior.
-10. Persist J11 artifacts, update STATE.md, and advance only after J11 verification.
+6. Audit the integrated start/stop shell across the already-frozen subsystems: bottom Start/Stop vs per-group Start/Stop; permission gate; job creation/skip rules; global/group cancel reset/set; progress reset timing; launch order of shared background workers (Follow/Discard/Pickup/Buff) relative to group threads; button-state synchronization; stop-all propagation; `stop()` / `_on_destroy`; final teardown ownership; and what persisted mode checkboxes are or are not cleared.
+7. J07 remains authority for abort/barrier/identity-safe cleanup; J11 remains authority for multi-group ownership. Do not duplicate them unless J12 finds a direct contradiction.
+8. Keep J13 failure/recovery integration and J14 runtime parity/stress separate.
+9. Cross-check B07 only after static extraction.
+10. Persist J12 artifacts, update STATE.md, and advance only after J12 verification.
