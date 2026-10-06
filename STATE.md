@@ -2432,34 +2432,66 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J09_PICKUP_MODEL.json
 - docs/phoban/J09_PICKUP_STATIC_EVIDENCE.tsv
 
+
+## J10 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J10 artifacts/completion commit existed before this turn; J01-J09 were already complete and were not redone.
+- Re-inspected the exact mounted original archive `/mnt/data/TLMTool_2.1.2(6).zip` before B07/runtime cross-check. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes. Inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact visible control is **Nga My buff (Sát Tinh)**. Constructor state is `nga_my_buff_var/_buff_stop/_buff_thread/_buff_gen`; callback is `_toggle_buff`. Exact callable inventory includes `_start_buff/_stop_buff/_is_nga_my/_buff_ensure/_buff_worker`.
+- Config key is exactly `phoban_nga_my_buff`; load fallback is `"0"`; B07 independently confirms clean/default OFF.
+- Exact toggle documentation locks run-scoped persisted-mode behavior: ON+running starts worker immediately; ON+idle waits for later run start; OFF stops immediately and the worker performs a **final untick sweep** before exit.
+- Worker lifecycle uses stop Event + thread + generation. Exact doc says `is_alive` prevents overlap and generation prevents two workers from overlapping. Exact generation/thread teardown micro-order remains UNKNOWN.
+- Scan cadence is `PB_BUFF_POLL` seconds. Its numeric value is not safely bound from current static evidence and remains explicit UNKNOWN.
+- Exact `PB_BUFF_MONSTER_LIST` value is **"910"**.
+- Nga My detection is exact: primary `FactionID == 4`, fallback faction name **Nga My**. Exact fallback string-normalization expression remains a micro-UNKNOWN.
+- Exact controlled auto fields are under `AUTOTRAIN`. ON = `IsAttackMonsterInList=True` + `AttackMonsterList="910"`. OFF = `IsAttackMonsterInList=False` + `AttackMonsterList=""`.
+- `_buff_ensure` is a readback/repair helper: read current `AUTOTRAIN` fields, skip writing if already correct, otherwise write desired pair and re-read/retry up to `PB_BUFF_RETRY`. Failed attempts wait **1 second**. Exact numeric `PB_BUFF_RETRY` remains explicit UNKNOWN.
+- Buff account scope is **members of currently-running groups**, unlike J09 pickup's all-selected-groups roster.
+- Worker re-reads current character info and uses `FactionID/FactionName/MapID`. Exact snapshot log is `[Phó bản] Buff snapshot: ... F<FactionID>(FactionName)/map<MapID> ...`.
+- Important parity finding: although the checkbox label says **(Sát Tinh)**, the exact worker documentation says **Nga My + trong map phó bản → ON; còn lại (không phải Nga My / đã ra ngoài) → OFF**. The worker has local `dungeon_maps`; no dedicated `MapID == 111` gate is recovered in the buff block. Reconstruction must not narrow the code to map 111 just from the label.
+- Every regular poll computes the desired ON/OFF state and writes only when readback differs. This means non-NgaMy or accounts outside the dungeon-map set are actively restored to the OFF pair.
+- Worker owns a `known` roster plus nested `_sweep_off`. Exact final cleanup log is **[Phó bản] Buff quét cuối untick <N> acc Nga My**. This binds the final untick sweep to Nga My accounts known during the worker session; exact container/key type remains UNKNOWN.
+- Unlike J09 pickup, J10 has an explicit OFF cleanup on untick: final sweep forces `IsAttackMonsterInList=False` and empty `AttackMonsterList`.
+- Worker doc separately says **hết nhóm chạy cũng thoát**, but the frozen prose explicitly names the final OFF sweep as **quét cuối untick**. No independently-recovered unconditional no-running-group/run-end OFF sweep exists. Normal polling already drives out-of-dungeon accounts OFF; an additional unconditional schedule-end sweep must not be invented without stronger evidence.
+- Buff errors are logged/retried/contained: exact surfaces include `buff lỗi import:`, `ghi buff lỗi:`, `ghi buff FAIL ... retry sau 1s`, `[Phó bản] buff lỗi:`. No recovered contract routes a routine buff maintenance error into J07 `_abort_cycle`.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It confirms the visible label and clean OFF state only.
+- Only after static extraction, exact packaged `data/automove_log.txt` (SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes, 387,238 lines) was searched. It contains 0 correlated PhoBanTab buff markers/field names. Raw `910` occurs 99 times but without buff/PhoBan correlation and is not J10 runtime proof.
+- J10 classification: **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+
+## J10 FILES
+- docs/tasks/J10.md
+- docs/phoban/J10_NGA_MY_BUFF_FLOW.md
+- docs/phoban/J10_NGA_MY_BUFF_MODEL.json
+- docs/phoban/J10_NGA_MY_BUFF_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J10.
+None known for J11.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J09 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole authority; do not import Nga My buff behavior from older/external projects.
+- Preserve J01-J10 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole authority; do not import multi-group behavior from older/external Phó Bản projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve exact pickup state fields `pickup_var/_pick_stop/_pick_thread`; do not add a generation field.
-- Preserve `phoban_pickup` default OFF and run-scoped persisted-mode behavior.
-- Preserve pickup member scope as all selected Phó Bản members across all groups, unique/order-preserving, while the keepalive itself exists only during schedule lifetime.
-- Preserve current-live-HWND re-resolution each poll.
-- Preserve internal `PICKITEM.IsOn` readback/repair and `set_auto_fields` SaveSetting path.
-- Preserve J09 as auto-setting keepalive only; no bag_filter/item-action/screen-click pickup logic.
-- Preserve no recovered pickup OFF-sweep: stop/untick ends enforcement but must not invent `PICKITEM.IsOn=False`.
-- Preserve last-group pickup worker teardown without clearing the persisted checkbox unless later exact evidence contradicts it.
-- Preserve J09 UNKNOWNs: numeric PICK_POLL, thread stop/start micro-order, malformed auto-setting payload behavior, rapid restart race without generation field, live runtime parity.
-- Do not reopen J01-J08 unless later exact evidence directly contradicts them.
+- Preserve exact Nga My buff state fields and `phoban_nga_my_buff` default OFF.
+- Preserve run-scoped mode, is_alive + generation overlap protection.
+- Preserve `PB_BUFF_MONSTER_LIST="910"`, FactionID 4 + Nga My fallback.
+- Preserve exact AUTOTRAIN ON/OFF field pairs and readback-before-write behavior.
+- Preserve currently-running-group member scope.
+- Preserve the worker's frozen **dungeon-map** gate; do not replace it with an assumed map111-only check merely because UI says Sát Tinh.
+- Preserve regular OFF enforcement for non-NgaMy/outside-dungeon cases.
+- Preserve final untick OFF sweep over known Nga My accounts.
+- Do not invent an unconditional run-end OFF sweep while the tick remains ON.
+- Preserve J10 UNKNOWNs: PB_BUFF_POLL/PB_BUFF_RETRY numerics, map-set construction expression, fallback normalization, known-roster container, generation teardown micro-order and live runtime parity.
+- Do not reopen J01-J09 unless later exact evidence directly contradicts them.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J10 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J10 — Phó Bản Nga My buff subsystem audit** only.
-5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use character-info/auto-setting shared helpers only where the frozen buff subsystem directly calls them.
-6. Audit `Nga My buff (Sát Tinh)` only: `nga_my_buff_var/phoban_nga_my_buff` default/config, `_buff_stop/_buff_thread/_buff_gen`, `_toggle_buff/_start_buff/_stop_buff/_is_nga_my/_buff_ensure/_buff_worker`, `PB_BUFF_POLL`, running-group/member scope, class/Nga-My detection, dungeon-map/Sát-Tinh gate, exact auto field(s) forced ON/OFF, readback-before-write, final untick sweep, run-end teardown and generation/session guards.
-7. Do not merge J11 multiple-group audit into J10.
-8. Cross-check B07 only after static extraction.
-9. Do not import buff logic from older/external Phó Bản projects.
-10. Persist J10 artifacts, update STATE.md, and advance only after J10 verification.
+3. Check GitHub first for any J11 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J11 — Phó Bản multiple-groups coordination audit** only.
+5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`.
+6. Audit the multiple-group contract only: group creation/removal/count limit/default group, member uniqueness across groups, group numbering/renumbering, per-group schedule/header/run state, `_active_runs/_run_jobs/_run_lock` ownership, start-all job collection, independent group threads/cancels, one-group finish while others continue, and how the shared background workers J03/J08/J09/J10 derive their cross-group scope.
+7. Do not redo J12 start/stop button/FSM details except where necessary to prove multiple-group ownership; J07 remains the authority for cancel/identity-safe teardown.
+8. Do not merge later failure/recovery/runtime-test tasks into J11.
+9. Cross-check B07 only after static extraction; B07 shows one visible group and cannot by itself prove multi-group behavior.
+10. Persist J11 artifacts, update STATE.md, and advance only after J11 verification.
