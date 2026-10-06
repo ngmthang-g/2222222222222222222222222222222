@@ -1,0 +1,56 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+phoban_tab_payload_marker	0x2b86f63	VERIFIED_STATIC	.phoban_tab serialized payload
+phoban_dungeons_payload_marker	0x2b8513b	VERIFIED_STATIC	.phoban_dungeons serialized payload
+phoban_tab_module_marker	0x2b9234d	VERIFIED_STATIC	u<module phoban_tab>
+phoban_dungeons_module_marker	0x2b86bf0	VERIFIED_STATIC	u<module phoban_dungeons>
+ctor_running	0x2b86fcd	VERIFIED_STATIC	_running
+ctor_global_cancel	0x2b86fe9	VERIFIED_STATIC	_cancel
+ctor_run_lock	0x2b86ff8	VERIFIED_STATIC	_run_lock
+ctor_active_runs	0x2b87003	VERIFIED_STATIC	_active_runs
+ctor_run_jobs	0x2b87011	VERIFIED_STATIC	_run_jobs
+group_run_cancel	0x2b8c6c4	VERIFIED_STATIC	_run_cancel group key
+group_running_doc	0x2b8d344	VERIFIED_STATIC	True iff group run cancel exists and not set
+any_group_running_doc	0x2b8d3d0	VERIFIED_STATIC	True while any group runs
+group_stopping_text	0x2b8d413	VERIFIED_STATIC	Đang dừng lịch trình...
+group_stopping_bg	0x2b8d432	VERIFIED_STATIC	#ef6c00
+group_stopping_state	0x2b8d43c	VERIFIED_STATIC	disabled
+group_running_text	0x2b8d45a	VERIFIED_STATIC	Dừng lịch trình
+group_running_bg	0x2b8d470	VERIFIED_STATIC	#f44336
+bottom_running_text	0x2b8d483	VERIFIED_STATIC	Dừng lại
+button_sync_doc	0x2b8d4a2	VERIFIED_STATIC	per-group running/stopping/idle and bottom running/idle contract
+group_stop_log	0x2b8d614	VERIFIED_STATIC	[Phó bản] Dừng Nhóm
+toggle_run_doc	0x2b8d822	VERIFIED_STATIC	bottom controls all; group button controls only that group; groups independent
+bulk_stopping_text	0x2b8d9a4	VERIFIED_STATIC	Đang dừng...
+bulk_stopping_bg	0x2b8d9b5	VERIFIED_STATIC	#ef6c00
+stop_all_log	0x2b8d9ca	VERIFIED_STATIC	[Phó bản] Dừng hết các nhóm
+stop_all_doc	0x2b8d9f0	VERIFIED_STATIC	Dừng hết mọi nhóm đang chạy
+abort_cycle_doc	0x2b8e53e	VERIFIED_STATIC	account fail stops current group; abort barrier + set group cancel; idempotent
+barrier_wait_doc	0x2b8e644	VERIFIED_STATIC	no normal timeout; aborted by failure/user stop -> False
+config_cancel_doc	0x2b8e4ea	VERIFIED_STATIC	group/global cancel exits config early False
+hook_safe_doc	0x2b85edb	VERIFIED_STATIC	missing/error hook pass True; explicit False aborts via tab
+move_fail_log	0x2b8ed64	VERIFIED_STATIC	move hard failure -> dừng chu trình
+start_fail_log	0x2b8e821	VERIFIED_STATIC	start_auto_fuben FAIL after retries; still outside map -> stop cycle
+cycle_fail_log	0x2b8ee65	VERIFIED_STATIC	chờ cycle map FAIL -> dừng chu trình
+worker_error_log	0x2b8fdaa	VERIFIED_STATIC	worker lỗi:
+dungeon_error_log	0x2b8eebd	VERIFIED_STATIC	lỗi chu trình:
+wait_deadline_local	0x2b93c23	VERIFIED_STATIC_MAPPING	_wait_dungeon_cycles local deadline
+wait_done_local	0x2b93c2d	VERIFIED_STATIC_MAPPING	_wait_dungeon_cycles local done
+watchdog_480	0x2b8f557	VERIFIED_STATIC_DECODE	encoded integer 480
+watchdog_timeout_log	0x2b8f561	VERIFIED_STATIC	theo dõi map timeout (...) — hoàn thành ...
+watchdog_return	-	EXPLICIT_UNKNOWN	compiled branch exists; exact native return expression not instruction-bound
+progress_error_state	-	VERIFIED_ABSENCE	PROGRESS_STYLES has only Chưa/Đang/Xong; no Error/Cancelled state
+row_doing_before_workers	0x2b90277	VERIFIED_STATIC	_set_row_progress then status đang before Barrier/worker batch
+row_done_after_batch	0x2b902ce	VERIFIED_STATIC	xong constant after worker-thread batch on normal path
+failed_row_label_microorder	-	EXPLICIT_UNKNOWN	cancel check vs post-join xong assignment not instruction-bound
+finish_group_run_symbol	0x2b900ce	VERIFIED_STATIC	_finish_group_run
+finish_global_log	0x2b8feb7	VERIFIED_STATIC	[Phó bản] Hết nhóm chạy — teardown toàn cục
+finish_doc	0x2b8fef1	VERIFIED_STATIC	one-group cleanup; last group global teardown; reset flags/buttons/pickup once
+finish_identity_doc	0x2b8ff94	VERIFIED_STATIC	clear only matching cancel/job identity; protect rapid restart/new session
+finish_locals	0x2b92df9	VERIFIED_STATIC_MAPPING	self,gd,job,cancel,still,th
+normal_complete_log	0x2b90345	VERIFIED_STATIC	HOÀN THÀNH
+run_one_group_doc	0x2b90352	VERIFIED_STATIC	one independent group; team recreate before setup; barrier per schedule step
+stop_method_doc	0x2b904f2	VERIFIED_STATIC	stop whole process = global cancel + every group cancel
+b07_visual	-	VISUAL_VERIFIED	SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8 452x1032 idle state only
+runtime_j07_markers	-	NOT_RECOVERED	0 correlated top-level stop/abort/failure/teardown/completion markers in packaged automove_log
