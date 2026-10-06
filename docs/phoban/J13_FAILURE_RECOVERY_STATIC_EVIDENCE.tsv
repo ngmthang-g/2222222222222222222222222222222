@@ -1,0 +1,59 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; size93715901
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; size47450112
+phoban_tab_marker	0x2b86f63	VERIFIED_STATIC	.phoban_tab serialized payload
+phoban_dungeons_marker	0x2b8513b	VERIFIED_STATIC	.phoban_dungeons serialized payload
+party_zero_roleid	0x2b8b90f	VERIFIED_STATIC_UTF8	no RoleID targets -> stop group
+party_leave_failopen	0x2b8bb06	VERIFIED_STATIC_UTF8	leave not fully confirmed -> vẫn tiếp tục
+party_single_online	0x2b8bb65	VERIFIED_STATIC_UTF8	one online account -> no team recreation needed
+party_create_hard_fail	0x2b8b4b6	VERIFIED_STATIC_UTF8	TẠO THẤT BẠI — dừng nhóm này
+party_run_shell_fail	0x2b901a0	VERIFIED_STATIC_UTF8	tạo đội không xong — dừng nhóm, không chạy lịch trình
+setup_inject_fail	0x2b8fc21	VERIFIED_STATIC_UTF8	bỏ qua: chưa inject được DLL
+setup_active_fail	0x2b8fc66	VERIFIED_STATIC_UTF8	không thấy common.active
+setup_error	0x2b8fc84	VERIFIED_STATIC_UTF8	setup lỗi:
+setup_doc	0x2b8fc9b	VERIFIED_STATIC_UTF8	inject -> resize -> wait active -> click main UI; returns True if ready
+run_setup_results	0x2b9383c	VERIFIED_STATIC_MAPPING	_run_one_group owns results
+run_setup_ready	0x2b93863	VERIFIED_STATIC_MAPPING	_run_one_group owns ready after results/setup threads
+setup_one_locals	0x2b93967	VERIFIED_STATIC_MAPPING	_setup_one locals nm,hw,ok,cancel,self,lock,results
+all_setup_fail_log	0x2b90246	VERIFIED_STATIC_UTF8	không acc nào online
+config_retry_doc	0x2b8e2d0	VERIFIED_STATIC_UTF8	config retry 5 ×2s; exhaustion FAIL; stop exits early
+abort_cycle_doc	0x2b8e53d	VERIFIED_STATIC_UTF8	account hard fail aborts current group barrier + cancel; idempotent
+barrier_doc	0x2b8e643	VERIFIED_STATIC_UTF8	no timeout; aborted failure/stop -> False
+start_fuben_hard_fail	0x2b8e83c	VERIFIED_STATIC_UTF8	start retry exhausted while outside map -> stop cycle
+move_retry	0x2b8ecae	VERIFIED_STATIC_UTF8	retry move tới điểm hẹn lần ... /3
+move_hard_fail	0x2b8ed62	VERIFIED_STATIC_UTF8	move tới điểm hẹn FAIL -> dừng chu trình
+cycle_false_hard_fail	0x2b8ee63	VERIFIED_STATIC_UTF8	chờ cycle map FAIL -> dừng chu trình
+cycle_memory_error	0x2b8f504	VERIFIED_STATIC_UTF8	không đọc được memory:
+cycle_timeout_480	0x2b8f557	VERIFIED_STATIC_DECODE	compiled integer 480 next to done/deadline timeout path
+cycle_timeout_log	0x2b8f560	VERIFIED_STATIC_UTF8	theo dõi map timeout (...) — hoàn thành ...
+cycle_pixel_read_failopen	0x2b8f613	VERIFIED_STATIC_UTF8	đọc tuLamNhiemVu lỗi -> bỏ qua, không bật lại
+cycle_repair_auto	0x2b8f68d	VERIFIED_STATIC_UTF8	tuLamNhiemVu=False -> bật lại FuBen
+cycle_on_entered_error	0x2b8f6f7	VERIFIED_STATIC_UTF8	hook on_entered lỗi:
+hook_false_log	0x2b85e90	VERIFIED_STATIC_UTF8	trả False -> dừng chu trình
+hook_abort_ref	0x2b85eb5	VERIFIED_STATIC	_abort_cycle in _call_hook block
+hook_exception_log	0x2b85ec3	VERIFIED_STATIC_UTF8	hook exception log prefix
+hook_exception_abort_text	0x2b85ece	VERIFIED_STATIC_UTF8	→ abort
+hook_doc_conflict	0x2b85eda	STATIC_CONFLICT	doc says missing/error -> pass True; explicit False abort; conflicts with adjacent exception '→ abort' branch text
+worker_do_dungeon	0x2b8fd31	VERIFIED_STATIC	_acc_step_worker calls _do_dungeon
+worker_do_train	0x2b8fd8f	VERIFIED_STATIC	_acc_step_worker calls _do_train
+worker_error	0x2b8fda8	VERIFIED_STATIC_UTF8	worker lỗi:
+worker_doc	0x2b8fdb9	VERIFIED_STATIC_UTF8	one account performs one schedule step
+worker_local_model	0x2b923d2	STRONG_STATIC_MAPPING	worker locals include activity/count/stop_check/exception but no result accumulator
+worker_own_abort_ref	-	VERIFIED_ABSENCE	no _abort_cycle constant in _acc_step_worker's own compact constant block
+train_missing_farm	0x2b8f986	VERIFIED_STATIC_UTF8	farm_tab_ref chưa wiring
+train_not_found	0x2b8fb25	VERIFIED_STATIC_UTF8	account not found in farm_tab
+train_dispatch_error	0x2b8f9da	VERIFIED_STATIC_UTF8	dispatch lỗi:
+train_main_error	0x2b8fbbf	VERIFIED_STATIC_UTF8	lỗi main thread:
+train_success	0x2b8fba7	VERIFIED_STATIC_UTF8	kích hoạt train OK
+row_worker_join_then_xong	0x2b902c5	VERIFIED_STATIC_REGION	worker threads -> join region -> xong constant
+final_discard_error	0x2b90324	VERIFIED_STATIC_UTF8	vứt lượt cuối lỗi:
+group_complete_after_final_discard	0x2b90343	VERIFIED_STATIC_UTF8	HOÀN THÀNH follows final-discard error region
+follow_errors	0x2b892be	VERIFIED_STATIC_UTF8	bám lỗi / follow lỗi background surfaces
+discard_errors	0x2b89c85	VERIFIED_STATIC_UTF8	periodic discard worker error surface
+pickup_errors	0x2b88d45	VERIFIED_STATIC_UTF8	pickup per-account/worker error surfaces
+buff_errors	0x2b8a5c8	VERIFIED_STATIC_UTF8	buff write/worker error surfaces
+progress_no_error_state	-	VERIFIED_STATIC	PROGRESS_STYLES only Chưa/Đang/Xong
+watchdog_return	-	EXPLICIT_UNKNOWN	second static pass still cannot instruction-bind 480s return
+outer_dungeon_exception_abort_order	-	EXPLICIT_UNKNOWN	lỗi chu trình exists; exact abort micro-order not source-bound
+b07_idle	-	VISUAL_VERIFIED	SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; idle only, no failure UI
+runtime_j13	-	NOT_RECOVERED	0 correlated party/setup/worker/dungeon/final-discard/background/watchdog/Train markers in packaged automove_log
