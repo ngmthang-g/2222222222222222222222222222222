@@ -1,0 +1,66 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_payload	0x2903223	VERIFIED_STATIC	.daily_tab
+punish_group	0x290356e	VERIFIED_STATIC_UTF8	Trừng ác
+duration_label	0x290361a	VERIFIED_STATIC_UTF8	Thời gian đánh ác tặc (giây):
+duration_default	0x2903678	VERIFIED_STATIC_UTF8	15
+duration_var	0x2903687	VERIFIED_STATIC	punish_duration_var
+move_label	0x290373d	VERIFIED_STATIC_UTF8	Cách về NPC nhận nhiệm vụ:
+move_var	0x290379e	VERIFIED_STATIC	move_mode_var
+horse_value	0x2903795	VERIFIED_STATIC	horse
+horse_label	0x29037ba	VERIFIED_STATIC_UTF8	Ngựa
+teleport_label	0x29037ea	VERIFIED_STATIC_UTF8	Định vị phù
+teleport_value	0x2903803	VERIFIED_STATIC	teleport
+hotkey_label	0x290380d	VERIFIED_STATIC_UTF8	Phím tắt phù:
+hotkey_values	0x290385c	VERIFIED_STATIC_DECODE	1/2/3 + readonly combobox
+hotkey_var	0x2903838	VERIFIED_STATIC	tele_hotkey_var
+apply_all_log	0x290526d	VERIFIED_STATIC_UTF8	[Trừng ÁC] Đã Áp dụng cho ... acc
+apply_all_doc	0x2905297	VERIFIED_STATIC_UTF8	Đặt combobox hoạt động = 'Trừng ác' cho tất cả acc.
+start_wrapper_ref	0x2906354	VERIFIED_STATIC	_punish_toggle
+start_wrapper_doc	0x2906364	VERIFIED_STATIC_UTF8	Nút Bắt đầu (Trừng ác): inject trước rồi bật quy trình.
+toggle_stopping_state	0x2906d47	VERIFIED_STATIC	disabled
+toggle_stopping_text	0x2906d53	VERIFIED_STATIC_UTF8	Đang dừng...
+toggle_button	0x2906d73	VERIFIED_STATIC	btn_punish_start
+toggle_running_text	0x2906d85	VERIFIED_STATIC_UTF8	Dừng lại
+toggle_running_bg	0x2906d95	VERIFIED_STATIC	FireBrick
+toggle_launch	0x2906da0	VERIFIED_STATIC	_punish_run_worker
+batch_start_log	0x2906db4	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Worker bắt đầu — move=..., thời gian đánh ...
+batch_no_selection	0x2906df8	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Chưa acc nào chọn Trừng ác — bỏ qua
+batch_selected	0x2906e3a	VERIFIED_STATIC	selected
+batch_selected_pids	0x2906e44	VERIFIED_STATIC	selected_pids
+batch_no_alive	0x2906e53	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Không còn acc nào sống — dừng
+batch_all_stopped	0x2906e8b	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Tất cả ... acc đã dừng — tự động dừng
+batch_iteration	0x2906ed0	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Lần ...
+batch_lambda	0x2906ef3	VERIFIED_STATIC	DailyTab._punish_run_worker.<locals>.<lambda>
+single_start_log	0x29069ad	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Single acc hwnd=... bắt đầu
+single_row	0x29069dc	VERIFIED_STATIC	row
+single_gen_snap	0x29069e1	VERIFIED_STATIC	gen_snap
+single_loop_idx	0x29069eb	VERIFIED_STATIC	loop_idx
+single_exec	0x2906a72	VERIFIED_STATIC	_punish_exec_sequence
+single_duration	0x2906a89	VERIFIED_STATIC	punish_duration
+single_use_tele	0x2906a9a	VERIFIED_STATIC	use_tele
+single_genstop	0x2906aa4	VERIFIED_STATIC	_GenStop
+single_end_diag	0x2906bb7	VERIFIED_STATIC_UTF8	farming= / event= / gen= / kết thúc (...)
+single_doc	0x2906be5	VERIFIED_STATIC_UTF8	Chạy trừng ác cho 1 acc.
+stop_reason_batch	0x2906850	VERIFIED_STATIC_UTF8	cancel(batch-trừng-ác)
+stop_reason_event	0x29068a5	VERIFIED_STATIC_UTF8	stop_event(dừng)
+stop_reason_gen	0x29068b9	VERIFIED_STATIC_UTF8	gen(phiên-mới)
+stop_reason_window	0x29068cc	VERIFIED_STATIC_UTF8	window-chết/đổi-process
+batch_locals	0x290b413	VERIFIED_STATIC_MAPPING	self,move_mode,use_tele,tele_hotkey,punish_duration,selected,selected_pids,loop_idx,alive,still_active,wins,halt,threads,resize_monitors,...
+single_locals	0x290b500	VERIFIED_STATIC_MAPPING	self,hwnd,move_mode,use_tele,tele_hotkey,punish_duration,row,gen_snap,loop_idx,halt,respawn_event,monitor_stop,...
+reset_idle_text	0x2908e8b	VERIFIED_STATIC_UTF8	Trừng ác
+reset_idle_bg	0x2908e9a	VERIFIED_STATIC	RoyalBlue
+reset_idle_state	0x2908ea5	VERIFIED_STATIC	normal
+config_duration	0x2909980	VERIFIED_STATIC	daily_punish_duration
+config_tele_use	0x2909999	VERIFIED_STATIC	daily_tele_use
+config_move_mode	0x29099ad	VERIFIED_STATIC	daily_move_mode
+config_hotkey	0x29099c0	VERIFIED_STATIC	daily_tele_hotkey
+config_old_tele_local	0x290b073	STRONG_STATIC_MAPPING	old_tele_use local in config load model
+config_save_duration	0x2909b07	VERIFIED_STATIC	daily_punish_duration
+config_save_tele_use	0x2909b1e	VERIFIED_STATIC	daily_tele_use
+config_save_hotkey	0x2909b30	VERIFIED_STATIC	daily_tele_hotkey
+repeat_config	-	VERIFIED_ABSENCE	no daily_punish_repeat/punish_repeat/repeat_count/max_repeat in bounded Daily payload
+bottom_missing_hotkey	0x2906004	VERIFIED_STATIC_UTF8	[Bắt đầu] Thiếu phím tắt phù — bỏ qua trừng ác
+b08_defaults	-	CROSSCHECKED_FROZEN_B08	duration15; move Ngựa; hotkey blank; heal true; discard false; reconnect true; respawn true
+runtime_k03	-	NOT_RECOVERED	0 correlated [TRỪNG ÁC]/[Trừng ÁC]/[Bắt đầu]/single/batch start markers in packaged automove_log
