@@ -2593,29 +2593,56 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J14_RUNTIME_TEST_MATRIX.tsv
 - docs/phoban/J14_GATE_CLOSURE.md
 
+
+## K01 VERIFIED RESULTS
+- GitHub-first continuity check passed. No K01 artifact/completion commit existed before this turn; Phase J remained closed at **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED** and was not reopened.
+- Re-inspected the exact frozen original EXE first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact active Daily authority is now frozen: `.daily_tab` payload marker `0x2903223`; next serialized payload `.debug_android_tab` at `0x290bb8c`; bounded Daily serialized span **35,177 bytes / 0x8969**; `daily_tab.py` at `0x290aad1`; `<module daily_tab>` at `0x290abe0`; class `DailyTab`; embedded description **Daily Tab - Quản lý tác vụ hàng ngày.**
+- Daily is active, not dormant. Main application tab construction contains visible `Daily`, module key `daily_tab`, class reference `DailyTab`, plus `daily_tab_ref` coordination.
+- Constructor/runtime state visibly separates Trừng Ác and Tàng Bảo Đồ ownership: `_punish_running/_punish_cancel/_punish_btn` versus `_treasure_map_running/_treasure_map_cancel/_treasure_map_btn`, plus shared `_monitor_running/_acc_rows` and refresh/shutdown state.
+- Exact visible Trừng Ác surface is frozen: duration field with UI seed **15**; move method `Ngựa / Định vị phù`; readonly teleport hotkey values **1/2/3**; heal option; visible Tô Châu heal location; equipment-discard option; reconnect; respawn/Địa phủ; apply-all control.
+- Exact visible Tàng Bảo Đồ surface is frozen: tomb duration field with UI seed **30**; post-dig heal option; heal-location selector; reconnect; respawn; apply-all control.
+- Shared account-list static row architecture is frozen: headers **Nhân vật / Hoạt động**, row `▶`, activity values exactly **Trừng ác / Tàng bảo đồ**, status dot `⬤`, initial state **Đã dừng**, per-row **Tới bổ đầu** and **Trị liệu**.
+- Shared visible all-account controls are **Tới bổ đầu / Trị liệu / Bắt đầu**. Runtime string surface also contains **Dừng lại / Đang dừng...**.
+- Exact top-level callable inventory contains **70 DailyTab methods/class members**. K01 categorizes them into shared UI/account discovery/config, runtime support, all-account/per-row orchestration, Trừng Ác support/execution and Tàng Bảo Đồ execution without deep-auditing those sequences.
+- Top-level entry points are frozen: bottom all-account toggle `_start_all_accs`; per-row toggle `_toggle_single_acc`; activity start wrappers `_punish_start_worker/_treasure_start_worker`; activity run families `_punish_toggle/_punish_run_worker` and `_treasure_map_toggle/_treasure_map_run_worker`; config lifecycle `_load_config/_save_config/_save_on_destroy`.
+- Exact internal module names directly exposed inside the bounded Daily payload include `utils`, `permission_guard`, `dll_injector`, `bag_filter`, `memory_items`, `fast_travel`, `pixel`, and `start_tab`. Module-level/external refs include `tkinter`, `tkinter.font`, `configparser`, `os`, `threading`, `win32gui`, and `keyboard`.
+- Prior D04 B-level Daily→emulator edges remain only `STATIC_REFERENCE_NOT_IMPORT_PROOF`; K01 does **not** promote `emu_input/emu_reader/emu_remote/emu_setup` to active Daily imports because those exact module names are not direct refs in the bounded Daily payload.
+- Only after static extraction, K01 cross-checked the frozen B08 evidence. Existing Daily screenshots remain hashes `217178561894a4205c7b5835ed33c050b384c8f60359f6894165e3400d514834` and `3939691e166fa67d9c50069119e4e3904496cd6769b04cf0d3199c6b3e0f866b`, same visible state with the already-frozen 265-pixel cursor-only difference. EXE-derived visible labels agree with B08; no hidden behavior was inferred from images.
+- K01 establishes the Phase-K split consistent with PLAN's ~17 tasks: K01–K02 shared; K03–K09 seven Trừng Ác tasks; K10–K15 six Tàng Bảo Đồ tasks; K16–K17 runtime/parity closure.
+
+## K01 FILES
+- docs/tasks/K01.md
+- docs/daily/K01_AUTHORITY_SURFACE.md
+- docs/daily/K01_HANDLER_INVENTORY.tsv
+- docs/daily/K01_DEPENDENCIES.tsv
+- docs/daily/K01_STATIC_EVIDENCE.tsv
+- docs/daily/K01_MODEL.json
+
 ## BLOCKERS
-- Phase J live runtime parity remains blocked by the absence of a real Windows + Thần Long runtime. This does not block continuation of static research into Phase K.
-- No known static blocker for K01.
+- Phase J live runtime parity remains blocked by the absence of a real Windows + Thần Long runtime; this remains deferred and does not block Phase K.
+- No known static blocker for K02.
 
 ## DO_NOT_TOUCH
-- Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve Phase J J01-J14 static contracts and J13 corrections.
-- Phase J must be described as **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**, never full runtime PASS.
-- Preserve unresolved J13/J14 conflicts: hook exception behavior and 480-second watchdog return.
-- Preserve J14 runtime matrix for a future real Windows/game rerun; do not fill PASS results without evidence.
-- TLMTool 2.1.2 remains sole authority for Daily as Phase K begins.
+- Preserve Gate A and closed Gate F/G/H/I handoffs and Phase J static closure.
+- Preserve K01 Daily authority exactly: `.daily_tab` / `daily_tab.py` / `DailyTab` are the active Daily source authority.
+- Preserve the explicit split between Trừng Ác and Tàng Bảo Đồ; do not merge their deep logic.
+- Preserve K01 visible control names and row activity values.
+- Preserve the 70-member top-level handler inventory as the Daily method surface.
+- Preserve direct-dependency classifications; do not promote D04 B-level emulator references to active imports without stronger exact evidence.
+- TLMTool 2.1.2 remains the sole Daily authority. Do not import behavior from previous Auto-BTD/Trừng Ác projects unless exact TLM evidence independently matches it.
 - Proxy runtime/network development remains locked.
-- Stage S implementation remains locked until the research plan reaches the implementation gate.
-- Do not import Daily/Trừng Ác/Tàng Bảo Đồ behavior from older/external projects unless the exact TLM artifact independently confirms it.
+- Stage S implementation remains locked.
+- Do not deep-audit Trừng Ác or Tàng Bảo Đồ sequence logic during K02 beyond what is necessary to prove shared account/row/start-stop ownership.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any K01 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **K01 — Daily tab authority / visible-surface + top-level handler inventory** only.
-5. Inspect the exact frozen original EXE first. Identify active Daily module/class marker(s), constructor/top-level callable inventory, visible Trừng Ác and Tàng Bảo Đồ sections, account/list controls, top-level Start/Stop/config entry points and direct module dependencies.
-6. Cross-check frozen B08 Daily screenshot only after static extraction; do not infer hidden behavior from the screenshot.
-7. Do not deep-dive Trừng Ác route/combat logic or Tàng Bảo Đồ logic yet; K01 defines later K-task boundaries.
-8. Do not import logic from previous Auto-BTD/Trừng Ác projects into TLM reconstruction.
-9. Persist K01 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K01 verification.
+3. Check GitHub first for any K02 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K02 — Daily shared account discovery / row lifecycle / shared start-stop coordinator audit** only.
+5. Inspect the exact frozen original EXE first, primarily `.daily_tab`.
+6. Audit shared logic only: account discovery/refresh cadence, HWND↔PID identity binding and stale-row removal, row creation/update, permission gating, per-row activity/state widgets, per-row `▶` toggle ownership, bottom `Bắt đầu/Dừng lại` all-account coordinator, shared monitor singleton, generation/stop-event protections, row-state marshaling to Tk main thread, resize monitor ownership, and shared config persistence boundaries.
+7. Do not deep-dive Trừng Ác quest/navigation/combat internals or Tàng Bảo Đồ map/item/combat internals; those begin K03 and K10 respectively.
+8. Cross-check B08 only after static extraction and only for shared row/global controls.
+9. Persist K02 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K02 verification.
