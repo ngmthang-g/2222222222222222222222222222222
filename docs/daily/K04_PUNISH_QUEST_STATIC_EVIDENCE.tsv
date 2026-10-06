@@ -1,0 +1,64 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_payload	0x2903223	VERIFIED_STATIC	.daily_tab
+punish_skipped_ctor	0x29033bf	VERIFIED_STATIC	_punish_skipped
+teleport_click_tuple	0x29075d2	VERIFIED_STATIC_DECODE	(490,429)
+goto_bodau_call	0x2907604	VERIFIED_STATIC	_punish_goto_bodau
+goto_bodau_runtime_text	0x2907618	VERIFIED_STATIC_UTF8	move_character → Tô Châu (map 4, 224, 285)
+quest_return_label	0x2907649	VERIFIED_STATIC_UTF8	trả nhiệm vụ
+quest_state	0x290765e	VERIFIED_STATIC_UTF8	Làm nhiệm vụ
+return_click_1	0x2907671	VERIFIED_STATIC_DECODE	(890,471)
+return_click_2	0x2907679	VERIFIED_STATIC_DECODE	(884,423)
+return_click_3	0x2907681	VERIFIED_STATIC_DECODE	(481,423)
+quest_receive_label	0x2907689	VERIFIED_STATIC_UTF8	nhận nhiệm vụ
+receive_click_1	0x290769f	VERIFIED_STATIC_DECODE	(891,467)
+receive_click_2	0x29076a7	VERIFIED_STATIC_DECODE	(484,424)
+full_check_call	0x29076af	VERIFIED_STATIC	_punish_check_full
+full_terminal_log	0x29076c3	VERIFIED_STATIC_UTF8	NV đã đầy 30/30 → dừng trừng ác cho acc này
+full_terminal_add	0x29076fe	STRONG_STATIC	add immediately follows terminal-full branch; consistent with _punish_skipped tracking
+cancel_close_tuple	0x2907c64	VERIFIED_STATIC_DECODE	(1072,130)
+cancel_move_to_npc	0x2907c70	VERIFIED_STATIC	move_to_npc
+cancel_npc_id	0x2907c79	VERIFIED_STATIC_DECODE	698
+cancel_move_error	0x2907c7c	VERIFIED_STATIC_UTF8	tới NPC hủy NV lỗi:
+cancel_dialog_fail	0x2907c99	VERIFIED_STATIC_UTF8	không mở được hội thoại NPC hủy NV
+cancel_click_1	0x2907ccb	VERIFIED_STATIC_DECODE	(479,480)
+cancel_click_2	0x2907cd3	VERIFIED_STATIC_DECODE	(476,422)
+cancel_success	0x2907cdb	VERIFIED_STATIC_UTF8	đã gửi hủy nhiệm vụ → sang vòng mới
+cancel_doc	0x2907d10	VERIFIED_STATIC_UTF8	close (1072,130); move_to_npc(map4,npc698); click (479,480),(476,422); caller skips cycle then restarts
+full_dialog_reader	0x2907e91	VERIFIED_STATIC	get_dialog_raw
+full_read_error	0x2907ea1	VERIFIED_STATIC_UTF8	đọc bảng Full lỗi:
+full_field_title	0x2907ebe	VERIFIED_STATIC	Title
+full_field_message	0x2907ec7	VERIFIED_STATIC	CleanMsg
+full_field_buttons	0x2907ed4	VERIFIED_STATIC	Buttons
+full_button_text	0x2907ee0	VERIFIED_STATIC_UTF8	Ta biết rồi
+full_title_name	0x2907ef8	VERIFIED_STATIC_UTF8	Ngô Giới
+full_message_signature	0x2907f05	VERIFIED_STATIC_UTF8	tối đa 30
+full_detect_log	0x2907f13	VERIFIED_STATIC_UTF8	NV đầy 30/30 (bảng Ngô Giới) → bấm ...
+full_click_helper	0x2907f46	VERIFIED_STATIC	click_dialog_button
+full_click_fail	0x2907f67	VERIFIED_STATIC_UTF8	thất bại → coi như chưa đầy
+full_click_error	0x2907f91	VERIFIED_STATIC_UTF8	bấm nút Full lỗi:
+full_not_found	0x2907fab	VERIFIED_STATIC_UTF8	không thấy bảng Full → coi như chưa đầy
+full_doc	0x2907fe1	VERIFIED_STATIC_UTF8	GameDialog replaces old pixel full detector; Ngô Giới 30-limit + Ta biết rồi; memory click verify close; True stops account, unread/not-full False
+no_target_log	0x29082ff	VERIFIED_STATIC_UTF8	không bóc được tọa độ mục tiêu → hủy NV rồi sang vòng mới
+cancel_helper_call	0x2908352	VERIFIED_STATIC	_punish_cancel_quest
+target_fail_counter	0x2908495	VERIFIED_STATIC	_punish_target_fail
+repeated_stuck_log	0x29084af	VERIFIED_STATIC_UTF8	kẹt ... vòng liên tiếp → hủy NV
+inject_move_fail	0x2908a37	VERIFIED_STATIC_UTF8	inject cho move thất bại, thử di chuyển trực tiếp
+inject_move_exception	0x2908a77	VERIFIED_STATIC_UTF8	inject lỗi:
+goto_bodau_tag	0x2908a88	VERIFIED_STATIC_UTF8	Về bổ đầu
+goto_bodau_tolerance	0x2908a9a	VERIFIED_STATIC_DECODE	96
+goto_bodau_stop	0x2908acc	VERIFIED_STATIC_UTF8	move bổ đầu bị stop (...)
+goto_bodau_fail	0x2908aeb	VERIFIED_STATIC_UTF8	move về bổ đầu thất bại → skip vòng
+goto_bodau_wrong_map	0x2908b1f	VERIFIED_STATIC_UTF8	sai map sau move (map=...)
+goto_bodau_doc	0x2908b38	VERIFIED_STATIC_UTF8	map4 tile224,285; reinject before move; fail/timeout stop_character + False/skip; verify MapID4; tolerance96
+qualified_cancel	0x290a8eb	VERIFIED_STATIC	DailyTab._punish_cancel_quest
+qualified_full	0x290a90a	VERIFIED_STATIC	DailyTab._punish_check_full
+qualified_goto_bodau	0x290a965	VERIFIED_STATIC	DailyTab._punish_goto_bodau
+memory_items_marker	0x2b69c5f	VERIFIED_STATIC	.memory_items
+memory_dialog_raw_doc	0x2b6b5b8	VERIFIED_SHARED_STATIC_UTF8	get_dialog_raw returns Title/CleanMsg/Buttons or None when no dialog/old DLL path
+memory_dialog_click_lua	0x2b6b7e9	VERIFIED_SHARED_STATIC	GameDialog FunctionButtonClicked path
+memory_dialog_click_doc	0x2b6b925	VERIFIED_SHARED_STATIC_UTF8	click_dialog_button uses FunctionButtonClicked; game sends normal dialog packet/close; True only after dialog closes
+memory_move_to_npc_doc	0x2b7231d	VERIFIED_SHARED_STATIC_UTF8	move_to_npc gets NPC pos, moves, ClickNPC, verifies dialog; fallback game NPC navigation; bool success
+b08_runtime_quest	-	NOT_APPLICABLE	B08 is clean idle/config state only; no NPC/dialog/quest runtime proof
+runtime_k04	-	NOT_RECOVERED	0 correlated K04 quest/NPC/full/cancel markers in packaged automove_log
