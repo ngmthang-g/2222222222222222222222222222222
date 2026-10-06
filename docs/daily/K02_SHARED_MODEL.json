@@ -1,0 +1,162 @@
+{
+  "task": "K02",
+  "status": "VERIFIED_DAILY_SHARED_ROSTER_ROW_SESSION_AND_COORDINATOR_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_payload_marker": "0x2903223"
+  },
+  "refresh": {
+    "interval_seconds": 5,
+    "incremental": true,
+    "background_worker_then_tk_after": true,
+    "state_fields": [
+      "_refresh_id",
+      "_refreshing",
+      "_closing"
+    ],
+    "scroll_debounce_ms": 30
+  },
+  "identity": {
+    "hwnd_pid_binding": true,
+    "helpers": [
+      "_pid_of",
+      "_owns_hwnd",
+      "_is_window_alive"
+    ],
+    "pid_reuse_protection": true,
+    "binding_helpers": [
+      "bind_window_identity",
+      "unbind_window_identity"
+    ]
+  },
+  "row": {
+    "visible_controls": [
+      "▶",
+      "name",
+      "activity combobox",
+      "⬤",
+      "state label",
+      "MapID",
+      "Tới bổ đầu",
+      "Trị liệu"
+    ],
+    "activity_values": [
+      "Trừng ác",
+      "Tàng bảo đồ"
+    ],
+    "initial_state": "Đã dừng",
+    "runtime_fields": [
+      "bound PID",
+      "_farming_acc",
+      "_stop_event",
+      "_gen",
+      "_state"
+    ]
+  },
+  "permissions": {
+    "row_helper": "permission_guard.has_permission",
+    "row_scope": "daily_tab",
+    "disabled_when_denied": [
+      "btn_play",
+      "activity_cb",
+      "btn_bo_dau",
+      "btn_heal"
+    ],
+    "runtime_limit_helper": "has_permission_with_limit",
+    "runtime_limit_args": [
+      "daily_tab",
+      "daily"
+    ]
+  },
+  "state_styles": {
+    "Đã dừng": "#555555",
+    "Trị liệu": "#555555",
+    "Về bổ đầu": "#1565c0",
+    "Đi huyệt mộ": "#1565c0",
+    "Làm nhiệm vụ": "#2e7d32",
+    "Đánh ác tặc": "#2e7d32",
+    "Đánh trong mộ": "#2e7d32",
+    "Về Địa phủ": "#c62828",
+    "Mất kết nối": "#b71c1c",
+    "default": "#555555"
+  },
+  "tk_thread_safety": {
+    "methods": [
+      "_set_state",
+      "_schedule_state_label",
+      "_apply_state_label"
+    ],
+    "marshal": "after(0)"
+  },
+  "session_guard": {
+    "helper": "_GenStop",
+    "real_event": "row['_stop_event']",
+    "generation": "row['_gen']",
+    "is_set_when": [
+      "real event set",
+      "generation differs from worker snapshot"
+    ]
+  },
+  "per_row_toggle": {
+    "handler": "_toggle_single_acc",
+    "workers": {
+      "Trừng ác": "_punish_single_worker",
+      "Tàng bảo đồ": "_treasure_single_worker"
+    }
+  },
+  "all_account_toggle": {
+    "handler": "_start_all_accs",
+    "idle_action": "start eligible non-running rows in per-account threads",
+    "running_action": "set _farming_acc false and signal row stop event",
+    "running_button": {
+      "text": "Dừng lại",
+      "bg": "#f44336"
+    },
+    "idle_button": {
+      "text": "Bắt đầu",
+      "bg": "#388e3c"
+    }
+  },
+  "all_monitor": {
+    "ensure": "_ensure_daily_monitor",
+    "worker": "_daily_all_monitor",
+    "singleton": true,
+    "reset_helpers": [
+      "_punish_reset_ui",
+      "_treasure_map_reset_ui"
+    ]
+  },
+  "resize_monitor": {
+    "helper": "_resize_monitor",
+    "interval_seconds": 1,
+    "target_size": [
+      1366,
+      768
+    ],
+    "resize_helper": "start_tab.resize_window"
+  },
+  "persistence": {
+    "infrastructure": [
+      "CONFIG_PATH",
+      "_settings_lock",
+      "read_settings",
+      "write_settings"
+    ],
+    "runtime_row_fields_persisted": false,
+    "destroy_callback": "_save_on_destroy",
+    "destroy_internal_order": "EXPLICIT_UNKNOWN"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_daily_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact source-line increment timing of row _gen",
+    "exact daemon/join micro-order for shared coordinator threads",
+    "exact _save_on_destroy internal cleanup order",
+    "live Windows/game timing parity"
+  ]
+}
