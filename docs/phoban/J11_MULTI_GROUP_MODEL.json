@@ -1,0 +1,106 @@
+{
+  "task": "J11",
+  "status": "VERIFIED_MULTI_GROUP_COORDINATION_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_path": "/mnt/data/TLMTool_2.1.2(6).zip",
+    "archive_size": 93715901,
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_tab_marker": "0x2b86f63"
+  },
+  "groups": {
+    "container": "_groups",
+    "counter": "_group_counter",
+    "add_button": "+ Thêm nhóm",
+    "add_function": "_add_group_cluster",
+    "reference_baseline_visible_groups": 1,
+    "delete_button": "✕ Xóa nhóm",
+    "delete_function": "_remove_group",
+    "delete_all_allowed": true,
+    "runtime_min_groups": 0,
+    "member_cap_per_group": 6,
+    "explicit_group_count_cap_recovered": false,
+    "max_groups_symbols_absent": [
+      "MAX_GROUPS",
+      "MAX_PHOBAN_GROUPS",
+      "PB_MAX_GROUPS"
+    ],
+    "missing_config_bootstrap_exact": "EXPLICIT_UNKNOWN"
+  },
+  "group_state": {
+    "members": "six vars/comboboxes",
+    "nominal_leader": "first member combobox",
+    "schedule_rows": "per group",
+    "header_checkbox": "all_var per group",
+    "leader_label": "leader_lbl",
+    "run_button": "btn_run",
+    "auto_pb_button": "btn_pb_off",
+    "run_cancel": "_run_cancel"
+  },
+  "member_uniqueness": {
+    "cross_group_unique": true,
+    "earlier_selection_removed_from_later_dropdowns": true,
+    "current_valid_selection_preserved": true,
+    "stale_dead_selection_resets": true,
+    "all_selected_helper": "unique + stable order"
+  },
+  "numbering": {
+    "renumber_function": "_renumber_groups",
+    "removal_calls_renumber": "STRONG_STATIC",
+    "persisted_num": true,
+    "exact_counter_update_expression": "EXPLICIT_UNKNOWN"
+  },
+  "compatibility": {
+    "remove_last_group": "_remove_last_group",
+    "update_delete_group_state": "_update_del_group_state",
+    "legacy_group_key": "phoban_group1",
+    "legacy_schedule_key": "phoban_schedule",
+    "modern_key": "phoban_groups"
+  },
+  "run_registry": {
+    "lock": "_run_lock",
+    "active_runs": "_active_runs",
+    "run_jobs": "_run_jobs",
+    "container_key_types": "EXPLICIT_UNKNOWN",
+    "job_collector": "_collect_group_job",
+    "job_shape": [
+      "num",
+      "targets",
+      "sched"
+    ],
+    "skip_when": [
+      "no online selected targets",
+      "no checked schedule rows"
+    ],
+    "start_all_parallel": true,
+    "one_thread_per_runnable_group": true
+  },
+  "independence": {
+    "group_cancel_local": true,
+    "one_group_stop_does_not_stop_others": true,
+    "one_group_failure_does_not_stop_others": true,
+    "one_group_finish_does_not_teardown_others": true,
+    "global_teardown_only_last_group": true,
+    "identity_safe_cleanup": true
+  },
+  "background_scopes": {
+    "follow": "running groups separately; first slot leader + remaining followers",
+    "discard": "accounts in currently-running groups",
+    "pickup": "all selected members across all groups, unique/order-preserving, while worker lifetime is run-scoped",
+    "nga_my_buff": "accounts in currently-running groups"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_multi_group_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_MULTI_GROUP_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact missing/empty-config bootstrap group count beyond B07 one-group reference baseline",
+    "exact _group_counter mutation/reset expression",
+    "exact _active_runs/_run_jobs container and key types",
+    "any hidden practical group count limit not represented by recovered static contract",
+    "live delete-during-run timing",
+    "end-to-end Windows multi-group parity"
+  ]
+}
