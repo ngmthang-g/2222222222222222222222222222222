@@ -29,7 +29,7 @@ stop_all_doc	0x2b8d9f0	VERIFIED_STATIC	Dừng hết mọi nhóm đang chạy
 abort_cycle_doc	0x2b8e53e	VERIFIED_STATIC	account fail stops current group; abort barrier + set group cancel; idempotent
 barrier_wait_doc	0x2b8e644	VERIFIED_STATIC	no normal timeout; aborted by failure/user stop -> False
 config_cancel_doc	0x2b8e4ea	VERIFIED_STATIC	group/global cancel exits config early False
-hook_safe_doc	0x2b85edb	VERIFIED_STATIC	missing/error hook pass True; explicit False aborts via tab
+hook_safe_doc	0x2b85eda	STATIC_CONFLICT	doc says missing/error pass True and explicit False abort; adjacent exception branch text says → abort
 move_fail_log	0x2b8ed64	VERIFIED_STATIC	move hard failure -> dừng chu trình
 start_fail_log	0x2b8e821	VERIFIED_STATIC	start_auto_fuben FAIL after retries; still outside map -> stop cycle
 cycle_fail_log	0x2b8ee65	VERIFIED_STATIC	chờ cycle map FAIL -> dừng chu trình
@@ -54,3 +54,6 @@ run_one_group_doc	0x2b90352	VERIFIED_STATIC	one independent group; team recreate
 stop_method_doc	0x2b904f2	VERIFIED_STATIC	stop whole process = global cancel + every group cancel
 b07_visual	-	VISUAL_VERIFIED	SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8 452x1032 idle state only
 runtime_j07_markers	-	NOT_RECOVERED	0 correlated top-level stop/abort/failure/teardown/completion markers in packaged automove_log
+hook_exception_abort_text	0x2b85ece	STATIC_CONFLICT	adjacent _call_hook exception text says → abort; conflicts with hook doc pass-True claim
+worker_own_abort_ref	-	VERIFIED_ABSENCE	no _abort_cycle constant in _acc_step_worker's compact constant block; J13 correction
+worker_local_model_j13	0x2b923d2	STRONG_STATIC_MAPPING	worker locals have activity/count/stop_check/exception but no result accumulator; J13 correction
