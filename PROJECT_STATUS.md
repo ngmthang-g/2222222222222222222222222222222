@@ -323,7 +323,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K01 — VERIFIED_ACTIVE_DAILY_AUTHORITY_VISIBLE_SURFACE_70_HANDLER_INVENTORY_AND_DEPENDENCY_BOUNDARY
 - K02 — VERIFIED_SHARED_ROSTER_PID_IDENTITY_GENSTOP_TK_MARSHAL_AND_ALL_ACCOUNT_COORDINATOR
 - K03 — VERIFIED_PUNISH_CONFIG_SELECTION_BATCH_VS_SINGLE_OPEN_ENDED_LOOP
-- K04 — NEXT
+- K04 — VERIFIED_NPC_RETURN_QUEST_30OF30_AND_STUCK_CANCEL_FLOW
+- K05 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -331,5 +332,7 @@ K02 locks the five-second incremental roster refresh, HWND+PID anti-reuse identi
 
 K03 locks the clean Trừng Ác duration/move/hotkey configuration, old/new teleport-config compatibility boundary, Apply-all selection semantics, distinct activity-batch versus per-row worker ownership, exact activity-level button states, selected/PID start snapshot, per-loop live/active filtering, open-ended iteration semantics, and separate batch-cancel versus row Event/generation stop identities.
 
+K04 locks map-4 NPC return to tile (224,285) with tolerance 96 and fail-open reinjection, the fixed return/receive quest click groups, memory/GameDialog 30-of-30 detection with terminal per-account stop, and the map4/NPC698 stuck-quest cancellation path that recovers into the next outer cycle. K04 was recovered from a partial GitHub state without redoing its already-correct task/flow/model artifacts; the missing evidence artifact was added before closure.
+
 ## Phase K current
-K04 — Trừng Ác NPC return / quest acquisition / 30-of-30 / stuck-quest cancellation audit.
+K05 — Trừng Ác Lệnh bag/use target extraction / travel / stuck-target accounting / summon audit.
