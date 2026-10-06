@@ -1,0 +1,21 @@
+dependency	offset_hex	classification	K01_note
+tkinter	0x2909c8e	VERIFIED_MODULE_LEVEL_REFERENCE	Daily UI toolkit
+tkinter.font	0x2909c9e	VERIFIED_MODULE_LEVEL_REFERENCE	font setup
+configparser	0x2909cb2	VERIFIED_MODULE_LEVEL_REFERENCE	settings/config support
+os	0x2909cc0	VERIFIED_MODULE_LEVEL_REFERENCE	APPDATA/config path support
+threading	0x29032d6	VERIFIED_DIRECT_REFERENCE	Event/Thread state
+win32gui	0x290423f	VERIFIED_DIRECT_REFERENCE	HWND liveness/rect/visibility
+utils	0x2904355	VERIFIED_EXPLICIT_INTERNAL_MODULE_REF	window identity/PID shared helper region
+permission_guard	0x290491f	VERIFIED_EXPLICIT_INTERNAL_MODULE_REF	Daily permission gating
+dll_injector	0x2905080	VERIFIED_EXPLICIT_INTERNAL_MODULE_REF	inject_into_pid/get_default_dll_path
+bag_filter	0x2905b15	VERIFIED_EXPLICIT_INTERNAL_MODULE_REF	Trừng ác discard worker
+start_tab	0x2905e4c	VERIFIED_EXPLICIT_INTERNAL_MODULE_REF	resize/start-tab coordination
+memory_items	0x29071d2	VERIFIED_EXPLICIT_INTERNAL_MODULE_REF	disconnect/memory-ready and item/dialog surfaces
+fast_travel	0x29083d9	VERIFIED_EXPLICIT_INTERNAL_MODULE_REF	goto_map path in Trừng ác
+pixel	0x2909de4	VERIFIED_EXPLICIT_INTERNAL_MODULE_REF	await/find/check pixel helpers
+keyboard	0x2909cf5	VERIFIED_MODULE_LEVEL_REFERENCE	press_single_key_dll surface
+info_tab	0x290326e	VERIFIED_CONSTRUCTOR_REFERENCE	constructor/tab integration reference; not claimed as import
+TLMMainApp.create_tabs	0x28d0f95	VERIFIED_ACTIVE_APP_INTEGRATION	Daily tab entry exists in active main tab set
+DailyTab import/use	0x28d2032	VERIFIED_ACTIVE_APP_INTEGRATION	main app references DailyTab class
+start_tab→daily_tab	-	VERIFIED_CONTEXTUAL_EDGE_EXISTING_D04	start_tab holds daily_tab_ref and coordinates punish/treasure toggles
+emu_input/emu_reader/emu_remote/emu_setup	-	NOT_PROMOTED_TO_DIRECT_IMPORT	D04 B-level static references are not import proof; K01 exact Daily payload does not expose these names as direct module refs
