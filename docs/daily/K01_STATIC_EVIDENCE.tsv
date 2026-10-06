@@ -1,0 +1,64 @@
+key	offset_hex	status	evidence
+payload_marker	0x2903223	VERIFIED_STATIC	.daily_tab
+next_payload_marker	0x290bb8c	VERIFIED_STATIC	.debug_android_tab; bounds Daily serialized payload region
+payload_span	-	VERIFIED_DERIVED	0x8969 = 35177 bytes between .daily_tab and .debug_android_tab markers
+module_description	0x2909c49	VERIFIED_STATIC_UTF8	Daily Tab - Quản lý tác vụ hàng ngày.
+class_name	0x290a22a	VERIFIED_STATIC	DailyTab
+module_filename	0x290aad1	VERIFIED_STATIC_UTF8	daily_tab.py
+module_marker	0x290abe0	VERIFIED_STATIC_UTF8	<module daily_tab>
+main_tab_name	0x28d0f95	VERIFIED_ACTIVE_APP_INTEGRATION	Daily
+main_tab_module	0x28d0fa6	VERIFIED_ACTIVE_APP_INTEGRATION	daily_tab
+main_daily_class	0x28d2032	VERIFIED_ACTIVE_APP_INTEGRATION	DailyTab
+ctor_punish_running	0x29032c5	VERIFIED_STATIC	_punish_running
+ctor_punish_cancel	0x29032e8	VERIFIED_STATIC	_punish_cancel
+ctor_treasure_running	0x2903305	VERIFIED_STATIC	_treasure_map_running
+ctor_treasure_cancel	0x290331c	VERIFIED_STATIC	_treasure_map_cancel
+ctor_monitor_running	0x2903345	VERIFIED_STATIC	_monitor_running
+ctor_acc_rows	0x29033b4	VERIFIED_STATIC	_acc_rows
+ctor_refresh_state	0x29033e7	VERIFIED_STATIC	_refresh_id/_refreshing/_closing region
+destroy_bind	0x29034ef	VERIFIED_STATIC_UTF8	<Destroy> -> _save_on_destroy
+punish_group	0x290356e	VERIFIED_STATIC_UTF8	Trừng ác
+punish_duration	0x290361a	VERIFIED_STATIC_UTF8	Thời gian đánh ác tặc (giây):
+punish_ui_seed_15	0x2903678	VERIFIED_STATIC_UTF8	15
+punish_move_label	0x290373d	VERIFIED_STATIC_UTF8	Cách về NPC nhận nhiệm vụ:
+punish_horse	0x29037ba	VERIFIED_STATIC_UTF8	Ngựa
+punish_teleport	0x29037ea	VERIFIED_STATIC_UTF8	Định vị phù
+punish_hotkey_values	0x290385c	VERIFIED_STATIC_DECODE	1/2/3 readonly combobox values
+punish_heal	0x29038e0	VERIFIED_STATIC_UTF8	Trị liệu khi HP < 30%
+punish_discard	0x2903973	VERIFIED_STATIC_UTF8	Lọc trang bị (vứt vũ khí, trang bị trong quá trình làm nhiệm vụ)
+punish_reconnect	0x2903a15	VERIFIED_STATIC_UTF8	Tự kết nối lại khi mất mạng
+punish_respawn	0x2903a52	VERIFIED_STATIC_UTF8	Hồi sinh khi chết/Địa phủ
+punish_apply_all	0x2903a7e	VERIFIED_STATIC_UTF8	Áp dụng Trừng ác cho tất cả acc
+treasure_group	0x2903b5a	VERIFIED_STATIC_UTF8	Tàng bảo đồ
+treasure_duration	0x2903b9d	VERIFIED_STATIC_UTF8	Thời gian đánh trong huyệt mộ (giây):
+treasure_ui_seed_30	0x2903bea	VERIFIED_STATIC_UTF8	30
+treasure_heal	0x2903c3d	VERIFIED_STATIC_UTF8	Trị liệu sau khi đào nếu HP < 30%
+treasure_heal_location	0x2903c68	VERIFIED_STATIC_UTF8	Vị trí trị liệu:
+treasure_apply_all	0x2903d39	VERIFIED_STATIC_UTF8	Áp dụng Tàng bảo đồ cho tất cả acc
+accounts_group	0x2903d7f	VERIFIED_STATIC_UTF8	Danh sách tài khoản
+account_header_name	0x2903dbd	VERIFIED_STATIC_UTF8	Nhân vật
+account_header_activity	0x2903dd2	VERIFIED_STATIC_UTF8	Hoạt động
+all_controls	0x2903fa1	VERIFIED_STATIC_UTF8	Điều khiển tất cả:
+all_go_bodau	0x2903fe6	VERIFIED_STATIC_UTF8	Tới bổ đầu
+all_heal	0x290402b	VERIFIED_STATIC_UTF8	Trị liệu
+bottom_start	0x290408c	VERIFIED_STATIC_UTF8	Bắt đầu
+row_play	0x29045c1	VERIFIED_STATIC_UTF8	▶
+row_activity_punish	0x29046ae	VERIFIED_STATIC_UTF8	Trừng ác
+row_activity_treasure	0x29046d0	VERIFIED_STATIC_UTF8	Tàng bảo đồ
+row_state_dot	0x29046ef	VERIFIED_STATIC_UTF8	⬤
+row_initial_state	0x2904738	VERIFIED_STATIC_UTF8	Đã dừng
+bottom_stop_later	0x29060d3	VERIFIED_STATIC_UTF8	Dừng lại
+bottom_stopping_later	0x2905f31	VERIFIED_STATIC_CONTEXT	start/stop shell includes stopping transition; exact Đang dừng... also present later in module
+start_all_doc	0x2906103	VERIFIED_STATIC_UTF8	bottom Bắt đầu/Dừng lại toggles all accounts; per-account threads
+punish_start_doc	0x2906364	VERIFIED_STATIC_UTF8	Trừng ác start: inject first then run
+treasure_start_doc	0x29063c4	VERIFIED_STATIC_UTF8	Tàng bảo đồ start: inject first then run
+module_callable_inventory	0x290a234	VERIFIED_STATIC	70 top-level DailyTab methods/class members recovered
+config_punish_duration	0x2909980	VERIFIED_STATIC	daily_punish_duration
+config_treasure_duration	0x29099d5	VERIFIED_STATIC	daily_treasure_map_tomb_dur
+config_punish_heal	0x2909a38	VERIFIED_STATIC	daily_punish_heal
+config_punish_discard	0x2909a4d	VERIFIED_STATIC	daily_punish_discard_equip
+config_punish_reconnect	0x2909a6d	VERIFIED_STATIC	daily_punish_dc_reconnect
+config_punish_respawn	0x2909a8c	VERIFIED_STATIC	daily_punish_respawn
+config_treasure_reconnect	0x2909aa6	VERIFIED_STATIC	daily_treasure_dc_reconnect
+config_treasure_respawn	0x2909ac7	VERIFIED_STATIC	daily_treasure_respawn
+b08_pair	-	CROSSCHECKED_FROZEN_B08	Daily screenshots hashes 21717856... and 3939691e...; same visible state, cursor-only 265px diff
