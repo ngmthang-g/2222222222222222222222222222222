@@ -1,0 +1,172 @@
+{
+  "task": "J03",
+  "status": "VERIFIED_OPT_IN_RUN_SCOPED_FIRST_SLOT_FOLLOW_WORKER_WITH_DUNGEON_ONLY_SAME_MAP_DISTANCE_GATE_FOLLOW_MODE_QUEUE_ONLY_COMMAND_CLASH_GUARDS_SATTINH111_EXCLUSION_AND_GENERATION_SAFE_LIFECYCLE_PB_FOLLOW_NUMERIC_THRESHOLDS_AND_EXACT_CACHE_MUTATION_MICROORDER_UNKNOWN",
+  "specimen": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "b07_sha256": "8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8",
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500"
+  },
+  "phoban_module": {
+    "marker": ".phoban_tab",
+    "marker_offset": "0x2b86f63",
+    "chunk_size": 52957,
+    "constant_count": 1508
+  },
+  "config": {
+    "var": "follow_var",
+    "label": "Theo sau đội trưởng",
+    "callback": "_toggle_follow",
+    "key": "phoban_follow",
+    "clean_default": false,
+    "b07_default": false
+  },
+  "lifecycle": {
+    "fields": [
+      "_follow_stop",
+      "_follow_thread",
+      "_follow_gen"
+    ],
+    "start": "_start_follow",
+    "stop": "_stop_follow",
+    "worker": "_follow_worker",
+    "start_if_enabled_and_any_group_running": true,
+    "enabled_before_run": "wait; later run start creates worker",
+    "disable_mid_run": "worker stops",
+    "recheck_tick_each_cycle": true,
+    "no_running_groups": "worker exits; option may remain enabled",
+    "overlap_guard": "existing worker is_alive + generation session",
+    "exact_generation_mutations": "UNKNOWN",
+    "exact_daemon_value": "UNKNOWN"
+  },
+  "running_group_filter": {
+    "per_group": "_group_is_running(gd)",
+    "semantic": "group run cancel exists and is not set",
+    "any_group": "_any_group_running()",
+    "idle_groups": "skipped entirely; no position reads"
+  },
+  "roster": {
+    "leader_source": "first combobox",
+    "follower_slice": "members[1:]",
+    "frozen_slice": [
+      "slice",
+      1,
+      null,
+      null
+    ],
+    "blank_offline": "skip/no usable target"
+  },
+  "position": {
+    "helper": "_follow_worker.<locals>._pos",
+    "source": "get_character_info",
+    "fields": [
+      "MapID",
+      "PosX",
+      "PosY"
+    ],
+    "screen_pixel_detection": false,
+    "constants_in_arithmetic": [
+      0.5,
+      32
+    ],
+    "exact_arithmetic_expression": "UNKNOWN",
+    "distance_unit": "tiles per frozen documentation"
+  },
+  "map_gate": {
+    "source": "DUNGEON_MAP_IDS",
+    "only_dungeon_maps": true,
+    "leader_outside": "skip whole group and clear stale position/command cache",
+    "resume_on_reentry": true,
+    "excluded_maps": [
+      111
+    ],
+    "excluded_names": [
+      "Sát Tinh - Thử nghiệm",
+      "Sát Tinh"
+    ],
+    "exclusion_reason": "accounts anchor at 65,85; follow would break position"
+  },
+  "same_map": {
+    "required": true,
+    "follower_map_must_equal_leader_map": true
+  },
+  "thresholds": {
+    "poll_symbol": "PB_FOLLOW_POLL",
+    "distance_symbol": "PB_FOLLOW_DIST_TILES",
+    "foreign_move_symbol": "PB_FOLLOW_MOVE_TILES",
+    "poll_numeric": "UNKNOWN",
+    "distance_numeric": "UNKNOWN",
+    "foreign_move_numeric": "UNKNOWN"
+  },
+  "clash_guard_delta": {
+    "caches": [
+      "last_pos",
+      "commanded",
+      "commanded_now"
+    ],
+    "rule": "if follower self-moves > PB_FOLLOW_MOVE_TILES per poll and was not commanded by follow in previous poll, skip this poll",
+    "previous_follow_exemption": true,
+    "exact_cache_mutation_order": "UNKNOWN"
+  },
+  "clash_guard_shared_move_poll": {
+    "helper": "is_move_poll_active",
+    "source_module": ".utils",
+    "utility_marker_offset": "0x2c4c962",
+    "utility_doc": "True while a move wait_for_arrival poll is active on HWND; Follow checks before queue to avoid stealing command",
+    "ttl_seconds": 0.5,
+    "action_when_active": "skip follow queue for that HWND"
+  },
+  "movement": {
+    "helper": "move_character",
+    "explicit_keywords": [
+      "wait_for_arrival",
+      "stop_check",
+      "follow_mode"
+    ],
+    "effective_wait_for_arrival": false,
+    "effective_follow_mode": true,
+    "exact_stop_check_expression": "UNKNOWN",
+    "semantics": [
+      "queue autopath only",
+      "no Phù",
+      "do not stop game auto",
+      "do not toggle mount",
+      "preserve auto FuBen"
+    ],
+    "shared_move_defaults": {
+      "wait_for_arrival": false,
+      "stop_check": null,
+      "home_priority": null,
+      "follow_mode": false,
+      "tolerance": 48
+    }
+  },
+  "error_handling": {
+    "per_member_log": "bám lỗi",
+    "outer_log": "[Phó bản] follow lỗi",
+    "hard_abort_whole_schedule": "NOT_RECOVERED"
+  },
+  "runtime_evidence": {
+    "top_level_follow_markers": 0,
+    "generic_movement_lines": {
+      "AutoMove queued": 16040,
+      "StartAutoPath called": 15993,
+      "StopAutoPath called": 2027
+    },
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED",
+    "note": "generic movement is primitive-only evidence, not PhoBanTab follow causation"
+  },
+  "explicit_unknowns": [
+    "PB_FOLLOW_POLL numeric value",
+    "PB_FOLLOW_DIST_TILES numeric value",
+    "PB_FOLLOW_MOVE_TILES numeric value",
+    "exact 32.0/0.5 position arithmetic expression",
+    "exact _follow_gen mutation statements/order",
+    "exact daemon Boolean/thread cleanup micro-order",
+    "exact stop_check callable passed to move_character",
+    "exact last_pos/commanded/commanded_now mutation order",
+    "unreadable leader/follower position cache behavior beyond skip/no-command",
+    "live Windows/game command-race parity"
+  ],
+  "next_task": "J04 — Phó Bản schedule model / schedule-row execution audit"
+}
