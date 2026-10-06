@@ -2262,35 +2262,60 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J03_FOLLOWER_FLOW.md
 - docs/phoban/J03_FOLLOWER_MODEL.json
 
+
+## J04 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J04 artifacts existed before this turn; J01-J03 were already complete and were not redone.
+- Re-inspected the exact user-supplied frozen TLMTool 2.1.2 specimen before using the screenshot. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size 47,450,112 bytes.
+- Active schedule authority remains frozen `.phoban_tab` at marker `0x2b86f63`, encoded chunk size **52,957** bytes, **1,508** top-level constants.
+- The continuation-note names `_group_schedule` and `_set_schedule_progress` do **not** exist in the exact frozen EXE (0 raw hits each). The actual frozen surfaces are `_schedule_rows`, `_add_schedule_row`, `_remove_schedule_row`, `_all_schedule_rows`, `get_schedule_rows`, `get_groups_data`, `get_selected_schedule`, `set_progress`, `reset_all_progress`, `_reset_group_progress`, `_set_row_progress`, `_collect_group_job` and `_run_one_group`.
+- Per-group schedule columns are exactly **Hoạt động / Tên Map / Lần / Status / Xóa**. Group controls include **+ Thêm Lịch trình / Tắt auto PB / Bắt đầu lịch trình**. The group header checkbox toggles only rows of that group; the old global `_toggle_all_schedule` surface is retained only for compatibility and is documented as no longer used.
+- Exact serialized defaults for `_add_schedule_row` decode to `(True, None, None, 1, None)`; local argument order binds the reconstruction model to `_add_schedule_row(self, enabled=True, activity=None, name=None, times=1, rows=None)`. `rows=None` means the last/current target group.
+- Supported activity types are exactly **Phó bản** and **Train**. `_map_names_for_activity` maps them to `PHOBAN_MAP_LIST` and `TRAIN_MAP_LIST`; the frozen Train display value includes **Về train theo thiết lập sẵn**. Activity changes replace the Tên Map choice list, reset an invalid current name and preserve the Lần value.
+- Row business/persistence fields are exactly **enabled / activity / name / times**. Activity/name/times writes are wired into the row autosave path. Live rows additionally carry frame/widget/progress references.
+- Canonical progress styles are exact: `chưa -> Chưa/#808080`, `đang -> Đang/#b8860b`, `xong -> Xong/#1b5e20`. `set_progress` accepts a row dict or a widget belonging to the row and matches the three states case-insensitively. `_set_row_progress` is the worker-to-main-thread UI bridge.
+- Static nuance preserved: row construction contains an initial **Chưa/#555555**, while the canonical `chưa` style is **Chưa/#808080**. Whether the creation state is immediately normalized is not proven and remains explicit UNKNOWN.
+- `get_schedule_rows` is the legacy flat all-groups compatibility surface. `get_groups_data` is the modern per-group config surface with exact documented shape `[{'num': n, 'members': [...], 'schedule': [...]}, ...]`. `get_selected_schedule` returns checked rows as `[{activity, name, times, row}]`, preserving current row/UI order.
+- `_collect_group_job` returns `(num, targets, sched)` and returns None when there are no currently-online selected targets or no enabled schedule rows.
+- Persistence is modern + legacy compatible. Modern key is `phoban_groups`; legacy keys are `phoban_group1` and `phoban_schedule`. Missing legacy `enabled` defaults True and missing `times` defaults 1. Old legacy activity **Bán đồ** is explicitly skipped because that activity was removed. The save path still references all three compatibility keys and uses JSON with `ensure_ascii=False`.
+- Exact J04 execution architecture is now frozen: **groups run in parallel; rows inside one group run sequentially; accounts inside one row run in parallel**. In one group, optional J01 team recreation runs first, then target-account setup runs in parallel and joins, then each schedule row is marked `đang`, receives a per-step `Barrier`, launches one `_acc_step_worker` per target, joins that batch and on the normal path marks the row `xong` before advancing.
+- `_acc_step_worker` executes exactly one schedule step for one account and dispatches by activity: **Phó bản -> `_do_dungeon`**, **Train -> `_do_train`**. Dungeon-list internals remain J05, exact `times`/run-count semantics remain J06, and deep cancel/abort/failure/status-machine behavior remains J07.
+- Only after static extraction, the user-provided Phó Bản screenshot was cross-checked. It is byte-identical to locked B07: SHA-256 `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452x1032 RGBA. It visually confirms the six member slots, schedule headers and group controls; no geometry was remeasured.
+- Only after static extraction, packaged `data/automove_log.txt` was searched. No correlated top-level Phó Bản schedule/group-step/completion markers were recovered. J04 is therefore **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED** for live ordering/cancel races.
+
+## J04 FILES
+- docs/tasks/J04.md
+- docs/phoban/J04_SCHEDULE_FLOW.md
+- docs/phoban/J04_SCHEDULE_MODEL.json
+- docs/phoban/J04_SCHEDULE_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J04.
+None known for J05.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J02 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole Phó Bản authority; do not import follower logic from older/external projects.
+- Preserve J01-J04 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole Phó Bản authority; do not import schedule/dungeon behavior from older or external projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve `follow_var/phoban_follow` clean default OFF and persisted-mode behavior.
-- Preserve follow scope: only currently-running groups; ON-before-run waits; run-end stops worker without clearing checkbox.
-- Preserve first-combobox leader source and follower slots after the first.
-- Preserve memory position fields MapID/PosX/PosY and dungeon-only/same-map gates.
-- Preserve exact map-111 Sát Tinh exclusion.
-- Preserve distinct `PB_FOLLOW_DIST_TILES` distance gate and `PB_FOLLOW_MOVE_TILES` foreign-movement safety gate.
-- Preserve `last_pos/commanded/commanded_now` prior-follow exemption semantics.
-- Preserve shared `is_move_poll_active` guard with exact 0.5s TTL.
-- Preserve follow movement as shared `move_character` queue-only `wait_for_arrival=False, follow_mode=True`: no Phù, no stop-auto, no mount toggle, preserve auto FuBen.
-- Preserve cache-clear-on-leader-leaves-dungeon behavior.
-- Preserve J03 UNKNOWN boundaries: numeric PB_FOLLOW_POLL/DIST/MOVE values, 32.0/0.5 arithmetic expression, generation/thread micro-order, exact stop_check callable, exact cache mutation order, unreadable-position cache handling and live Windows/game race behavior.
+- Preserve J04 actual frozen symbol names; do not invent `_group_schedule` or `_set_schedule_progress`.
+- Preserve schedule row business fields exactly: `enabled/activity/name/times`.
+- Preserve add-row defaults `enabled=True`, `times=1`, supported activities **Phó bản/Train** only, and dynamic Tên Map switching with Lần preserved.
+- Preserve per-group schedule ownership and per-group header toggle; do not restore the obsolete global schedule-toggle behavior.
+- Preserve modern `phoban_groups` plus legacy `phoban_group1/phoban_schedule` compatibility and old **Bán đồ** row skip.
+- Preserve exact progress labels/colors and main-thread progress-update bridge; keep the initial Chưa/#555555 versus canonical Chưa/#808080 nuance explicit until runtime evidence resolves it.
+- Preserve stable enabled-row/UI order.
+- Preserve J04 concurrency contract: groups parallel; rows sequential within one group; accounts parallel within one row; optional team recreation and account setup before row execution.
+- Preserve J04 deferred boundaries: dungeon-list/handler binding J05; exact `times` semantics J06; deep cancel/abort/status machine J07.
+- Preserve all J03 follow rules and explicit UNKNOWN boundaries.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J04 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J04 — Phó Bản schedule model / schedule-row execution audit** only.
-5. Inspect the frozen original EXE first.
-6. Audit schedule-row structure and lifecycle: `_schedule_rows`, `_add_schedule_row`, `_remove_schedule_row`, `_set_schedule_progress`, `_group_schedule`, enabled/activity/name/times fields, supported activity types, row progress state, per-group schedule collection/order and exact config serialization/load compatibility.
-7. Identify only the schedule execution ordering/barrier handoff needed to understand row sequencing; keep dungeon-list internals J05, number-of-runs semantics J06, status-machine deep audit J07 and later drop/loot/Nga My/multi-group/start-stop/failure-recovery tasks deferred.
-8. Cross-check B07 only after static extraction and do not remeasure geometry unless frozen EXE evidence contradicts it.
-9. Do not import schedule behavior from older external Phó Bản projects.
-10. Persist J04 artifacts, update STATE.md, and advance only after J04 verification.
+3. Check GitHub first for any J05 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J05 — Phó Bản dungeon list / dungeon-handler binding audit** only.
+5. Inspect the exact frozen original EXE first, including both `.phoban_tab` and `.phoban_dungeons`.
+6. Audit the dungeon-selection/binding surfaces only: `PHOBAN_MAP_LIST`, `DUNGEON_FUBEN_CODE`, `DUNGEON_MAP_IDS`, handler registry/lookup surfaces such as `get_dungeon_handler` / `DUNGEON_HANDLERS` if present, supported display names/aliases, MapID/FuBen-code association, and currently implemented custom handler classes.
+7. Identify only the binding needed to explain how a J04 Phó Bản schedule row resolves to the correct dungeon handler. Keep exact number-of-runs/`times` iteration J06, deep status/cancel/abort J07, and later drop/loot/Nga My/multi-group/start-stop/failure-recovery work deferred.
+8. Cross-check B07 only after static extraction; do not remeasure geometry unless frozen EXE evidence contradicts it.
+9. Do not import dungeon logic from older/external Phó Bản projects.
+10. Persist J05 artifacts, update STATE.md, and advance only after J05 verification.
