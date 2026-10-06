@@ -1,0 +1,153 @@
+{
+  "task": "J05",
+  "status": "VERIFIED_EXACT_DUNGEON_BINDINGS_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_dungeons_marker": "0x2b8513b",
+    "phoban_tab_marker": "0x2b86f63"
+  },
+  "phoban_map_list": [
+    "Tô Châu  - Thủy Lao",
+    "Tô Châu 1 - Tống Liêu",
+    "Tô Châu 2 - Trúc Lâm",
+    "Tô Châu 3 - Dã Ngoại",
+    "Lâu Lan 1 - Hoàng Kim",
+    "Lâu Lan 2 - Huyền Phật Châu",
+    "Lâu Lan 3 - Dung Nham",
+    "Sát Tinh - Thử nghiệm"
+  ],
+  "hidden_aliases": [
+    "Sát Tinh"
+  ],
+  "dungeon_fuben_code": {
+    "Tô Châu  - Thủy Lao": "ThuyLao",
+    "Tô Châu 1 - Tống Liêu": "Q1_ToChau",
+    "Tô Châu 2 - Trúc Lâm": "Q2_ToChau",
+    "Tô Châu 3 - Dã Ngoại": "Q3_ToChau",
+    "Lâu Lan 1 - Hoàng Kim": "Q1_LauLan",
+    "Lâu Lan 2 - Huyền Phật Châu": "Q2_LauLan",
+    "Lâu Lan 3 - Dung Nham": "Q3_LauLan",
+    "Sát Tinh - Thử nghiệm": "SatTinh",
+    "Sát Tinh": "SatTinh"
+  },
+  "dungeon_map_ids": {
+    "Tô Châu  - Thủy Lao": 92,
+    "Tô Châu 1 - Tống Liêu": 93,
+    "Tô Châu 2 - Trúc Lâm": 94,
+    "Tô Châu 3 - Dã Ngoại": 95,
+    "Lâu Lan 1 - Hoàng Kim": 108,
+    "Lâu Lan 2 - Huyền Phật Châu": 109,
+    "Lâu Lan 3 - Dung Nham": 110,
+    "Sát Tinh - Thử nghiệm": 111,
+    "Sát Tinh": 111
+  },
+  "dungeon_click_pos": {
+    "Tô Châu  - Thủy Lao": [
+      540,
+      246
+    ],
+    "Tô Châu 1 - Tống Liêu": [
+      515,
+      273
+    ],
+    "Tô Châu 2 - Trúc Lâm": [
+      498,
+      301
+    ],
+    "Tô Châu 3 - Dã Ngoại": [
+      493,
+      328
+    ],
+    "Lâu Lan 1 - Hoàng Kim": [
+      502,
+      296
+    ],
+    "Lâu Lan 2 - Huyền Phật Châu": [
+      488,
+      323
+    ],
+    "Lâu Lan 3 - Dung Nham": [
+      498,
+      350
+    ],
+    "Sát Tinh - Thử nghiệm": [
+      0,
+      0
+    ],
+    "Sát Tinh": [
+      0,
+      0
+    ]
+  },
+  "handler_architecture": {
+    "context_class": "DungeonCtx",
+    "fallback_class": "BaseDungeon",
+    "custom_classes": [
+      "SatTinhDungeon"
+    ],
+    "registry": "DUNGEON_HANDLERS",
+    "lookup": "get_dungeon_handler",
+    "semantic_bindings": {
+      "Sát Tinh - Thử nghiệm": "SatTinhDungeon",
+      "Sát Tinh": "SatTinhDungeon"
+    },
+    "registry_value_storage_form": "UNKNOWN_CLASS_OBJECT_OR_INSTANCE",
+    "fallback_semantics": "unregistered dungeon -> BaseDungeon common flow"
+  },
+  "base_hooks": [
+    "pre_config",
+    "post_config",
+    "pre_move",
+    "post_move",
+    "pre_start_fuben",
+    "post_start_fuben",
+    "on_entered",
+    "post_cycle"
+  ],
+  "sat_tinh": {
+    "custom_hook_surfaces": [
+      "on_entered",
+      "post_cycle"
+    ],
+    "helper_surfaces": [
+      "_stop_session",
+      "_run",
+      "_halted",
+      "_loop_revive",
+      "_move_to_center",
+      "_train_once"
+    ],
+    "map_id": 111,
+    "aliases": [
+      "Sát Tinh - Thử nghiệm",
+      "Sát Tinh"
+    ]
+  },
+  "schedule_binding": {
+    "canonical_key": "J04 schedule row.name",
+    "activity": "Phó bản",
+    "dispatcher": "_do_dungeon",
+    "memory_config": "_config_dungeon_memory",
+    "selected_fuben_source": "DUNGEON_FUBEN_CODE[dungeon]",
+    "handler_source": "get_dungeon_handler(dungeon)"
+  },
+  "screenshot": {
+    "sha256": "8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8",
+    "size": [
+      452,
+      1032
+    ],
+    "map_dropdown_expanded": false
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_handler_or_fuben_markers": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "deferred": {
+    "J06": "exact times / number-of-runs semantics",
+    "J07": "deep cancel/abort/status-machine behavior"
+  }
+}
