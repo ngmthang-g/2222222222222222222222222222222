@@ -1,0 +1,71 @@
+method	offset_hex	category	K01_scope_note
+__init__	0x290a234	lifecycle	constructor; owns tab state
+_build_ui	0x290a24b	ui	build Trừng ác/Tàng bảo đồ/account-list/global controls
+_sanitize_name	0x290a25f	account_shared	normalize visible role name
+_get_char_info	0x290a278	account_shared	character-info wrapper
+_get_char_name	0x290a291	account_shared	role-name wrapper
+_is_window_alive	0x290a2ad	account_shared	window+bound-process liveness
+_pid_of	0x290a2c8	account_shared	HWND→PID helper
+_owns_hwnd	0x290a2da	account_shared	bound-window identity check
+_add_or_update_row	0x290a2ef	account_shared	create/update one account row
+_apply_row_permission	0x290a30c	account_shared	Daily permission gating for row controls
+_remove_stale_accs	0x290a32c	account_shared	remove closed/reused HWND rows
+_refresh_acc_lists	0x290a349	account_shared	discover/update account roster
+_start_refresh	0x290a366	account_shared	start periodic roster refresh
+_stop_refresh	0x290a38e	account_shared	stop roster refresh
+_on_rows_configure	0x290a3a6	ui_scroll	rows configure callback
+_request_scroll_update	0x290a3c3	ui_scroll	debounced scroll-region request
+_update_scroll_region	0x290a3e4	ui_scroll	recompute account-list canvas scrollregion
+_schedule_refresh	0x290a404	account_shared	schedule next roster refresh
+_validate_repeat	0x290a420	shared	numeric-entry validation
+_ensure_injected	0x290a43b	shared_runtime	ensure resources.dat DLL in one game process
+_inject_all_windows	0x290a456	shared_runtime	inject all current game windows
+_apply_punish_all	0x290a474	ui_config	set every row activity to Trừng ác
+_apply_treasure_all	0x290a490	ui_config	set every row activity to Tàng bảo đồ
+_move_bo_dau	0x290a4ae	shared_action	move one account to bổ đầu
+_move_bo_dau_all	0x290a4c5	shared_action	move all accounts to bổ đầu
+_heal_bo_dau	0x290a4e0	shared_action	move/click one account for healing
+_heal_all	0x290a4f7	shared_action	heal all accounts
+_punish_running_hwnds	0x290a50b	punish_support	current running Trừng ác HWND set
+_toggle_punish_discard	0x290a52b	punish_discard	toggle persisted discard mode
+_start_punish_discard	0x290a54c	punish_discard	start discard worker
+_stop_punish_discard	0x290a56c	punish_discard	stop discard worker
+_punish_discard_worker	0x290a58b	punish_discard	periodic discard worker
+_punish_discard_one	0x290a5ac	punish_discard	discard for one running account
+_resize_monitor	0x290a5ca	shared_runtime	keep game window 1366x768
+_start_all_accs	0x290a5e4	orchestration	bottom Bắt đầu/Dừng lại toggle
+_ensure_daily_monitor	0x290a5fe	orchestration	ensure one all-account monitor
+_daily_all_monitor	0x290a61e	orchestration	watch all-account lifecycle
+_punish_start_worker	0x290a651	orchestration	inject then start Trừng ác flow
+_treasure_start_worker	0x290a688	orchestration	inject then start Tàng bảo đồ flow
+_sync_start_tab_btns	0x290a6a9	orchestration	synchronize Daily/start-tab buttons
+_apply_state_label	0x290a6c8	state_ui	apply row state label on Tk thread
+_set_state	0x290a6e5	state_ui	set logical/visible account state
+_schedule_state_label	0x290a6fa	state_ui	marshal row-state update to Tk thread
+_toggle_single_acc	0x290a71a	orchestration	per-row ▶ start/stop toggle
+_stop_reason	0x290a737	orchestration	diagnose current stop reason
+_punish_single_worker	0x290a74e	punish	one-account Trừng ác wrapper
+_treasure_single_worker	0x290a76e	treasure	one-account Tàng bảo đồ wrapper
+_punish_toggle	0x290a790	punish	Trừng ác top-level toggle
+_punish_run_worker	0x290a7a9	punish	Trừng ác run worker
+_diaphu_monitor	0x290a7cf	punish_shared_recovery	death/Địa phủ monitor
+_punish_disconnect_monitor	0x290a7e9	punish	disconnect monitor
+_punish_exec_sequence	0x290a80e	punish	Trừng ác execution sequence
+WindowHungError	0x290a89b	punish_shared_recovery	local exception class
+_wait_movement_stopped	0x290a8c5	punish	movement-stop wait
+_punish_cancel_quest	0x290a8eb	punish	cancel stuck quest
+_punish_check_full	0x290a90a	punish	30/30 quest-full check
+_punish_goto_target	0x290a927	punish	use Trừng Ác Lệnh / navigate to target
+_punish_summon_target	0x290a945	punish	summon target
+_punish_goto_bodau	0x290a965	punish	return to bổ đầu
+_punish_heal	0x290a982	punish	punish healing step
+_punish_reset_ui	0x290a999	punish	reset Trừng ác UI
+_treasure_map_toggle	0x290a9b4	treasure	Tàng bảo đồ top-level toggle
+_treasure_map_run_worker	0x290a9d3	treasure	Tàng bảo đồ run worker
+_treasure_map_disconnect_monitor	0x290a9f6	treasure	disconnect monitor
+_treasure_map_exec_sequence	0x290aa21	treasure	Tàng bảo đồ execution sequence
+_treasure_heal	0x290aa4e	treasure	treasure healing step
+_treasure_map_reset_ui	0x290aa67	treasure	reset treasure UI
+_save_on_destroy	0x290aa88	lifecycle_config	save/cleanup destroy callback
+_load_config	0x290aaa3	lifecycle_config	load Daily config
+_save_config	0x290aaba	lifecycle_config	save Daily config
