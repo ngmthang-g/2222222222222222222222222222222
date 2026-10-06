@@ -1,0 +1,115 @@
+{
+  "task": "J10",
+  "status": "VERIFIED_NGA_MY_BUFF_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_path": "/mnt/data/TLMTool_2.1.2(6).zip",
+    "archive_size": 93715901,
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "phoban_tab_marker": "0x2b86f63"
+  },
+  "ui": {
+    "label": "Nga My buff (Sát Tinh)",
+    "variable": "nga_my_buff_var",
+    "callback": "_toggle_buff",
+    "config_key": "phoban_nga_my_buff",
+    "clean_default": false
+  },
+  "worker_state": {
+    "stop_event": "_buff_stop",
+    "thread": "_buff_thread",
+    "generation": "_buff_gen",
+    "alive_guard": true,
+    "generation_overlap_guard": true,
+    "schedule_scoped": true,
+    "poll_symbol": "PB_BUFF_POLL",
+    "poll_numeric": "EXPLICIT_UNKNOWN"
+  },
+  "constants": {
+    "monster_list_symbol": "PB_BUFF_MONSTER_LIST",
+    "monster_list": "910",
+    "faction_symbol": "PB_BUFF_FACTION_NGA_MY",
+    "faction_id": 4,
+    "retry_symbol": "PB_BUFF_RETRY",
+    "retry_numeric": "EXPLICIT_UNKNOWN",
+    "retry_gap_seconds": 1
+  },
+  "class_detection": {
+    "primary": {
+      "field": "FactionID",
+      "equals": 4
+    },
+    "fallback": {
+      "field": "FactionName",
+      "semantic_name": "Nga My",
+      "normalization": "EXPLICIT_UNKNOWN"
+    }
+  },
+  "member_scope": {
+    "currently_running_groups_only": true,
+    "live_character_info_each_poll": true,
+    "fields": [
+      "FactionID",
+      "FactionName",
+      "MapID"
+    ]
+  },
+  "map_gate": {
+    "frozen_doc": "Nga My + trong map phó bản -> ON; others -> OFF",
+    "worker_local": "dungeon_maps",
+    "map111_only_proven": false,
+    "exact_set_construction": "EXPLICIT_UNKNOWN"
+  },
+  "auto_fields": {
+    "group": "AUTOTRAIN",
+    "on": {
+      "IsAttackMonsterInList": true,
+      "AttackMonsterList": "910"
+    },
+    "off": {
+      "IsAttackMonsterInList": false,
+      "AttackMonsterList": ""
+    }
+  },
+  "ensure": {
+    "helper": "_buff_ensure",
+    "readback_before_write": true,
+    "skip_write_when_already_correct": true,
+    "retry_each_attempt_reads_memory": true,
+    "retry_gap_seconds": 1,
+    "success": "desired state reached or already correct",
+    "errors_contained": true
+  },
+  "cleanup": {
+    "known_roster_local": "known",
+    "untick_final_sweep": true,
+    "sweep_helper": "_sweep_off",
+    "sweep_scope_log": "acc Nga My",
+    "sweep_desired_state": "OFF",
+    "no_running_group_exit": true,
+    "unconditional_run_end_sweep_proven": false
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "log_size": 15741058,
+    "log_lines": 387238,
+    "correlated_j10_markers": 0,
+    "raw_910_occurrences": 99,
+    "raw_910_caller_correlation": false,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "PB_BUFF_POLL numeric value",
+    "PB_BUFF_RETRY numeric value",
+    "exact source expression constructing dungeon_maps",
+    "FactionName fallback normalization expression",
+    "known roster container/key type",
+    "_buff_gen/thread teardown micro-order",
+    "no-running-group exit cleanup beyond explicitly documented behavior",
+    "live Windows/game parity"
+  ],
+  "deferred": {
+    "J11": "multiple-group behavior"
+  }
+}
