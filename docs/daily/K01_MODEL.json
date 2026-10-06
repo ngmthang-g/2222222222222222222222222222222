@@ -1,0 +1,57 @@
+{
+  "task": "K01",
+  "status": "VERIFIED_DAILY_AUTHORITY_VISIBLE_SURFACE_AND_HANDLER_INVENTORY",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "payload_marker": "0x2903223",
+    "next_payload_marker": "0x290bb8c",
+    "payload_span_bytes": 35177,
+    "module_filename_marker": "0x290aad1",
+    "module_marker": "0x290abe0",
+    "class_name": "DailyTab",
+    "active_in_main_app": true
+  },
+  "sections": [
+    "Trừng ác",
+    "Tàng bảo đồ",
+    "Danh sách tài khoản",
+    "Điều khiển tất cả"
+  ],
+  "row_activity_values": [
+    "Trừng ác",
+    "Tàng bảo đồ"
+  ],
+  "top_level_callables": 70,
+  "direct_internal_refs": [
+    "utils",
+    "permission_guard",
+    "dll_injector",
+    "bag_filter",
+    "memory_items",
+    "fast_travel",
+    "pixel",
+    "start_tab"
+  ],
+  "not_promoted_edges": [
+    "emu_input",
+    "emu_reader",
+    "emu_remote",
+    "emu_setup"
+  ],
+  "phase_split": {
+    "K01": "shared authority/surface",
+    "K02": "shared account discovery/row lifecycle/start-stop coordinator",
+    "K03_K09": "Trừng Ác",
+    "K10_K15": "Tàng Bảo Đồ",
+    "K16_K17": "runtime/parity"
+  },
+  "b08_crosscheck": "PASS",
+  "deferred": [
+    "deep Trừng Ác logic",
+    "deep Tàng Bảo Đồ logic",
+    "shared start-stop races",
+    "runtime parity"
+  ]
+}
