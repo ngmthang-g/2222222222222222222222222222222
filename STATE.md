@@ -2346,35 +2346,60 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J06_TIMES_MODEL.json
 - docs/phoban/J06_TIMES_STATIC_EVIDENCE.tsv
 
+
+## J07 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J07 artifacts/completion commit existed before this turn; J01-J06 were already complete and were not redone.
+- Re-inspected the exact uploaded TLMTool 2.1.2 archive first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Frozen run-state ownership is two-layered: tab-global `_running/_cancel/_run_lock/_active_runs/_run_jobs` plus per-group `_run_cancel`. Exact `_group_is_running` semantics are cancel exists + not set. External `stop()` explicitly means global cancel + every group cancel.
+- Exact command routing remains: bottom run button controls all groups; a group run button controls only that group; unrelated groups continue independently.
+- Exact group button states are now frozen: running = **Dừng lịch trình / #f44336 / normal**; stopping = **Đang dừng lịch trình... / #ef6c00 / disabled**; idle = **Bắt đầu lịch trình** with green start styling. Bottom button is **Dừng lại / #f44336** while groups run, **Bắt đầu** when idle, and the bulk stop path has **Đang dừng... / #ef6c00 / disabled**.
+- Cancellation is cooperative. No forced Python thread-kill mechanism was recovered. Group/global stop signals Events and the synchronization/failure shell lets workers unwind.
+- Exact `_abort_cycle` contract: any account hard failure stops **that group only**, aborts/breaks the shared barrier so peers escape, sets the group cancel so workers cannot advance, and is idempotent.
+- Exact `_barrier_wait` contract: no ordinary timeout; wait for the complete party. An aborted barrier caused by account failure or user stop returns False so the caller exits.
+- Frozen `.phoban_dungeons._call_hook` contract is asymmetric and important: missing hook or hook exception is logged/fail-open True; only explicit hook False aborts the current group cycle through the tab abort shell.
+- Hard-failure escalation after internal retries is group-local: exhausted memory config, movement, FuBen-start, or false cycle-wait result stops the current group, not every group.
+- J06's compiled 480-second watcher was rechecked. `_wait_dungeon_cycles` has `deadline`, `done`, encoded integer **480** and exact timeout log `theo dõi map timeout (...s) — hoàn thành ...`. The exact native return expression of that timeout branch is **not instruction-bound by the static constant stream**. It remains explicit UNKNOWN rather than being guessed. If the helper returns False, the outer exact path logs `chờ cycle map FAIL → dừng chu trình`.
+- Per-account worker and outer dungeon exception logs are exact: `worker lỗi:` and `lỗi chu trình:`. Their semantic boundary is current-group failure, but the precise source-level exception-handler micro-order relative to `_abort_cycle` is not reconstructable from printable constants and remains explicit UNKNOWN.
+- Row-progress vocabulary remains only **Chưa / Đang / Xong**; no Error/Cancelled style exists. `Đang` is set before the worker batch and `Xong` is on the normal post-batch path. Exact late-cancel ordering against that final Xong write is not instruction-bound, so J07 does not invent whether every aborted current row visibly remains Đang.
+- Exact `_finish_group_run` documentation locks one-group cleanup versus final global teardown. If other groups remain, only the completed/stopped group is cleaned and those groups continue. Only the last finishing group emits **[Phó bản] Hết nhóm chạy — teardown toàn cục** and resets the global flags/buttons/pickup lifecycle once.
+- Critical recovery safety is exact: `_finish_group_run` removes cancel/job state only when it belongs to the **same run identity**. If the user starts a new session while the old worker is still winding down, stale cleanup must not clear the new cancel/job or trigger premature global teardown. No numeric group-run generation counter is recovered; this is an identity guard, not a guessed generation guard.
+- Recovery is stage-local retry + safe/manual restart. Automatic retries remain config 5×2s, movement up to 3 total attempts, FuBen start 5×0.3s, plus the compiled cycle watcher. No automatic whole-group schedule restart after hard abort was recovered. A new/manual start resets group progress and gets a fresh run identity.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It shows only the normal idle state; red/orange stopping states come from the EXE, not screenshot inference.
+- Only after static extraction, exact packaged `data/automove_log.txt` (SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes, 387,238 lines) was searched. It contains 0 correlated top-level J07 stop/abort/failure/teardown/completion markers. J07 is **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED** for live cancellation/barrier/watchdog/rapid-restart races.
+
+## J07 FILES
+- docs/tasks/J07.md
+- docs/phoban/J07_STATUS_FLOW.md
+- docs/phoban/J07_STATUS_MODEL.json
+- docs/phoban/J07_STATUS_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J07.
+None known for J08.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J06 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole authority; do not import status/cancel behavior from older or external Phó Bản projects.
+- Preserve J01-J07 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole authority; do not import drop/loot/buff behavior from older or external Phó Bản projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve J06 current Lần widget as an `Entry`, not a restored 1–5 Combobox.
-- Preserve default/missing-config `times=1`; preserve explicit UNKNOWN for 0/negative/manual-invalid-text handling.
-- Preserve `TIMES_CLICK_POS` only as a frozen auxiliary table; do not use it to impose a current schedule 1–5 limit.
-- Preserve Train behavior: Lần value may remain visible/persisted but Train execution activates once and ignores `times`.
-- Preserve Phó Bản manual repetition with `AutoRepeat=False` and untouched game `RepeatCount`.
-- Preserve per-repetition memory config and one J04 row Barrier reused across repetitions.
-- Preserve one completed dungeon run as target-MapID entry followed by later non-None exit; ignore temporary None.
-- Preserve per-run `DungeonCtx.run_idx` + total `times`, while keeping exact 0/1 index base UNKNOWN.
-- Preserve the compiled 480-second wait-helper watchdog conflict; do not implement a true infinite wait from the stale helper doc.
-- Preserve J06 generic-helper caller-literal UNKNOWN until stronger/runtime evidence.
-- Keep deep abort/cancel/broken-barrier/timeout/status transitions strictly in J07.
+- Preserve global `_cancel` plus per-group `_run_cancel` ownership and cooperative stopping.
+- Preserve exact running/stopping/idle button captions/colors/states.
+- Preserve `_abort_cycle` as current-group-only, barrier-breaking, cancel-setting, idempotent.
+- Preserve barrier no-timeout normal semantics and aborted-barrier False exit.
+- Preserve hook fail-open on missing/exception and fail-closed only on explicit False.
+- Preserve last-group-only global teardown and identity-safe old-session cleanup.
+- Preserve no dedicated row Error/Cancelled progress style.
+- Preserve J07 UNKNOWN boundaries: 480s timeout return expression, exact exception-handler micro-order, late-cancel row-label microstate, internal `_active_runs/_run_jobs` container/lock micro-order and live timing.
+- Do not reopen J01-J06 unless a later exact contradiction is found.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J07 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J07 — Phó Bản status machine / cancel / abort / failure-recovery audit** only.
-5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use `.phoban_dungeons` only for hook-return abort semantics.
-6. Audit the exact run-state machine needed to close J07: group/global cancel ownership, `_abort_cycle`, barrier abort/broken handling, `_barrier_wait`, worker return propagation, config/move/start/cycle failure branches, the compiled 480s cycle-watchdog outcome, row progress on failure/cancel, group button/global button state transitions, `_finish_group_run`, teardown ownership and restart-generation/identity guards.
-7. Do not re-audit J01 team formation, J03 follow, J04 row ordering, J05 dungeon binding or J06 count semantics unless J07 finds a direct contradiction.
-8. Keep later drop/loot/Nga My/multi-group details beyond the status-machine boundary deferred to their PLAN tasks.
-9. Cross-check B07 only after static extraction; do not infer hidden failure-state UI from the screenshot.
-10. Persist J07 artifacts, update STATE.md, and advance only after J07 verification.
+3. Check GitHub first for any J08 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J08 — Phó Bản drop settings / vứt đồ subsystem audit** only.
+5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use `bag_filter`/shared discard helpers only where the frozen Phó Bản subsystem directly calls them.
+6. Audit only the three visible drop controls and their runtime ownership: `Vứt trang bị`, `Vứt vật phẩm`, `Vứt thuốc`; config keys/defaults; `DISCARD_TICK_KEYS` ordering; worker lifecycle `_discard_stop/_discard_thread/_discard_gen`; start/stop conditions; scan cadence; per-account/preset sequencing; stop/cancel interaction; and how the final cleanup pass behaves when unticked/run-ended.
+7. Do not merge J09 loot/pickup behavior or J10 Nga My buff behavior into J08.
+8. Cross-check B07 only after static extraction.
+9. Do not import discard logic from older/external projects.
+10. Persist J08 artifacts, update STATE.md, and advance only after J08 verification.
