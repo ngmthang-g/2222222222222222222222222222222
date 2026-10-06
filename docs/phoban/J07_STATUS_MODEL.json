@@ -1,6 +1,6 @@
 {
   "task": "J07",
-  "status": "VERIFIED_GROUP_ABORT_AND_IDENTITY_SAFE_TEARDOWN_STATIC_RUNTIME_ENV_REQUIRED",
+  "status": "VERIFIED_GROUP_ABORT_AND_IDENTITY_SAFE_TEARDOWN_WITH_J13_HOOK_AND_GENERIC_WORKER_CORRECTIONS",
   "source": {
     "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
     "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
@@ -77,8 +77,8 @@
     }
   },
   "hooks": {
-    "missing_hook": "PASS_TRUE",
-    "exception": "LOG_AND_PASS_TRUE",
+    "missing_hook": "COMMON_PASS_MODEL",
+    "exception": "STATIC_CONFLICT_DOC_PASS_VS_BRANCH_ABORT_TEXT",
     "explicit_false": "ABORT_CURRENT_GROUP"
   },
   "hard_failure_stages": {
@@ -160,6 +160,13 @@
     "exact outer dungeon exception-handler source micro-order",
     "failed/current-row label in every late-cancel race",
     "exact _active_runs/_run_jobs container types and lock micro-order",
-    "live Windows/game barrier/cancel/restart timing parity"
-  ]
+    "live Windows/game barrier/cancel/restart timing parity",
+    "_call_hook exception behavior due doc/branch conflict"
+  ],
+  "worker_exception_correction": {
+    "generic_acc_step_exception": "FAIL_SOFT_LOG_ONLY_UNLESS_CALLED_DUNGEON_ALREADY_ABORTED",
+    "worker_local_abort_reference_recovered": false,
+    "schedule_worker_result_aggregation": false,
+    "corrected_by": "J13"
+  }
 }
