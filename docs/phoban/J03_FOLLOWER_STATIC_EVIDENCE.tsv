@@ -1,0 +1,89 @@
+key	offset_hex	status	evidence
+phoban_tab_marker	0x2b86f63	VERIFIED_STATIC_DECODE	.phoban_tab; size52957; constants1508
+ctor_follow_var	0x2b8708c	VERIFIED_STATIC	follow_var
+ctor_follow_stop	0x2b87098	VERIFIED_STATIC	_follow_stop
+ctor_follow_thread	0x2b870a6	VERIFIED_STATIC	_follow_thread
+ctor_follow_gen	0x2b870b6	VERIFIED_STATIC	_follow_gen
+ui_follow_label	0x2b876be	VERIFIED_STATIC	Theo sau đội trưởng
+ui_follow_toggle	0x2b876d9	VERIFIED_STATIC	_toggle_follow
+any_group_running_ref	0x2b88e1e	VERIFIED_STATIC	_any_group_running
+start_follow_ref	0x2b88e32	VERIFIED_STATIC	_start_follow
+follow_wait_log	0x2b88e41	VERIFIED_STATIC	Tick theo sau BẬT — chờ lịch trình chạy
+stop_follow_ref	0x2b88e84	VERIFIED_STATIC	_stop_follow
+toggle_follow_doc	0x2b88e92	VERIFIED_STATIC	ON+running starts; ON+idle waits; OFF stops immediately; worker rechecks tick; save config
+follow_worker_ref	0x2b89010	VERIFIED_STATIC	_follow_worker
+follow_thread_keywords	0x2b89020	VERIFIED_STATIC_DECODE	(target,args,daemon)
+follow_start_log	0x2b89038	VERIFIED_STATIC	Bật theo sau đội trưởng startup log
+follow_poll_symbol	0x2b8906d	VERIFIED_STATIC	PB_FOLLOW_POLL
+follow_dist_symbol	0x2b89093	VERIFIED_STATIC	PB_FOLLOW_DIST_TILES
+follow_start_suffix	0x2b890a9	VERIFIED_STATIC	follow_mode không ngắt auto
+follow_stop_log	0x2b890cf	VERIFIED_STATIC	Tắt theo sau đội trưởng
+follow_imports	0x2b890ff	VERIFIED_STATIC_DECODE	(get_character_info,move_character)
+follow_move_helper	0x2b89125	VERIFIED_STATIC	move_character
+follow_dungeon_maps	0x2b89135	VERIFIED_STATIC	DUNGEON_MAP_IDS
+follow_dungeon_discard	0x2b89146	VERIFIED_STATIC	discard
+follow_sattinh_name	0x2b8914f	VERIFIED_STATIC_DECODE	(Sát Tinh - Thử nghiệm,)
+follow_pos_helper	0x2b8916d	VERIFIED_STATIC	_pos
+follow_pos_qualname	0x2b89173	VERIFIED_STATIC	PhoBanTab._follow_worker.<locals>._pos
+follow_members_helper	0x2b8919b	VERIFIED_STATIC	_members
+follow_members_qualname	0x2b891a5	VERIFIED_STATIC	PhoBanTab._follow_worker.<locals>._members
+follow_group_running	0x2b891d1	VERIFIED_STATIC	_group_is_running
+follow_last_pos	0x2b891e4	VERIFIED_STATIC	last_pos
+follow_commanded	0x2b891ee	VERIFIED_STATIC	commanded
+follow_follower_slice	0x2b891f9	VERIFIED_STATIC_DECODE	slice(1,None,None) — leader slot excluded from follower slice
+follow_lmap	0x2b891fe	VERIFIED_STATIC	lmap
+follow_arith_half	0x2b89204	STRONG_STATIC	0.5 in follow position/distance block; exact arithmetic expression not recovered
+follow_arith_32	0x2b8920d	STRONG_STATIC	32.0 in follow position/distance block; exact arithmetic expression not recovered
+follow_move_threshold_symbol	0x2b89216	VERIFIED_STATIC	PB_FOLLOW_MOVE_TILES
+follow_lx	0x2b8922c	VERIFIED_STATIC	lx
+follow_ly	0x2b89230	VERIFIED_STATIC	ly
+move_poll_import_tuple	0x2b89234	VERIFIED_STATIC_DECODE	(is_move_poll_active,)
+move_poll_helper	0x2b8924b	VERIFIED_STATIC	is_move_poll_active
+follow_move_keywords	0x2b89260	VERIFIED_STATIC_DECODE	(wait_for_arrival,stop_check,follow_mode)
+follow_commanded_now	0x2b8928d	VERIFIED_STATIC	commanded_now
+follow_success_fragment	0x2b8929c	VERIFIED_STATIC	bám theo
+follow_distance_fragment	0x2b892a9	VERIFIED_STATIC	(cách
+follow_distance_format	0x2b892b3	VERIFIED_STATIC	.1f
+follow_member_error	0x2b892be	VERIFIED_STATIC	bám lỗi:
+follow_outer_error	0x2b892cd	VERIFIED_STATIC	[Phó bản] follow lỗi:
+follow_worker_doc	0x2b892ea	VERIFIED_STATIC	full periodic follower contract: running groups only, first-combo leader, same-map distance, follow_mode queue-only, clash guards, dungeon-only, SatTinh111 exclusion, generation lifecycle
+follow_pos_failure_default	0x2b89894	STRONG_STATIC_DECODE	(None,None,None)
+follow_map_field	0x2b89899	VERIFIED_STATIC_DECODE	(MapID,)
+follow_x_field	0x2b898a2	VERIFIED_STATIC_DECODE	(PosX,)
+follow_y_field	0x2b898aa	VERIFIED_STATIC_DECODE	(PosY,)
+group_is_running_doc	0x2b8d37f	VERIFIED_STATIC	True when group run cancel exists and is not set
+any_group_running_doc	0x2b8d3d0	VERIFIED_STATIC	True when any group is running
+config_follow_default	0x2b905f5	VERIFIED_STATIC_DECODE	(phoban_follow,'0')
+config_follow_save_key	0x2b908ec	VERIFIED_STATIC	phoban_follow
+dungeon_map_ids	0x2b90de4	VERIFIED_STATIC_DECODE	dungeon map dict; SatTinh names map to111
+toggle_follow_qualname	0x2b916a8	VERIFIED_STATIC	PhoBanTab._toggle_follow
+start_follow_qualname	0x2b916c2	VERIFIED_STATIC	PhoBanTab._start_follow
+stop_follow_qualname	0x2b916db	VERIFIED_STATIC	PhoBanTab._stop_follow
+follow_worker_qualname	0x2b916f3	VERIFIED_STATIC	PhoBanTab._follow_worker
+follow_worker_locals	0x2b92e1d	STRONG_STATIC_MAPPING	self/gen/get_character_info/move_character/stop/last_pos/commanded/dungeon_maps/_pos/_members/tick_on/commanded_now/name_hw/gd/members/_nm/_hw/lhw/lmap/lx/ly/fnm/fhw/fmap/fx/fy/prev/moved/dist/is_move_poll_active/e
+utils_marker	0x2c4c962	VERIFIED_SHARED_STATIC	.utils size32300 constants862
+move_poll_lock	0x2c4c99d	VERIFIED_SHARED_STATIC	_move_poll_lock
+move_poll_ts	0x2c4c9b4	VERIFIED_SHARED_STATIC	_move_poll_ts
+move_poll_ttl_symbol	0x2c4c9c3	VERIFIED_SHARED_STATIC	_MOVE_POLL_TTL
+move_poll_ttl_value	0x2c4c9dc	VERIFIED_SHARED_STATIC	0.5 seconds
+move_poll_doc	0x2c4c9e5	VERIFIED_SHARED_STATIC	True while move wait_for_arrival poll is active; Follow calls before queue to avoid stealing command
+move_mark_poll	0x2c50382	VERIFIED_SHARED_STATIC	_mark_move_poll inside move_character arrival-poll path
+move_character_defaults	0x2c537e3	VERIFIED_SHARED_STATIC_DECODE	(False,None,None,False,48) => wait_for_arrival=False, stop_check=None, home_priority=None, follow_mode=False, tolerance48
+move_character_locals	0x2c54131	VERIFIED_SHARED_STATIC_MAPPING	move_character args include wait_for_arrival/stop_check/home_priority/follow_mode/tolerance
+b07_follow_default	-	VISUAL_VERIFIED	B07 SHA 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; follow_leader=false
+runtime_follow_label	-	NOT_RECOVERED	0 Theo sau đội trưởng lines in packaged automove_log
+runtime_follow_tick	-	NOT_RECOVERED	0 Tick theo sau lines
+runtime_follow_action	-	NOT_RECOVERED	0 bám theo lines
+runtime_follow_error	-	NOT_RECOVERED	0 follow lỗi lines
+runtime_follow_mode	-	NOT_RECOVERED	0 follow_mode lines
+runtime_move_poll	-	NOT_RECOVERED	0 is_move_poll_active lines
+runtime_automove	-	RUNTIME_PRIMITIVE_ONLY	AutoMove queued=16040 lines
+runtime_startpath	-	RUNTIME_PRIMITIVE_ONLY	StartAutoPath called=15993 lines
+runtime_stoppath	-	RUNTIME_PRIMITIVE_ONLY	StopAutoPath called=2027 lines
+follow_poll_numeric	-	EXPLICIT_UNKNOWN	PB_FOLLOW_POLL symbol verified; numeric value not safely bound to name
+follow_dist_numeric	-	EXPLICIT_UNKNOWN	PB_FOLLOW_DIST_TILES symbol verified; numeric value not safely bound to name
+follow_move_numeric	-	EXPLICIT_UNKNOWN	PB_FOLLOW_MOVE_TILES symbol verified; numeric value not safely bound to name
+follow_position_arithmetic	-	EXPLICIT_UNKNOWN	32.0 and0.5 verified in block; exact native formula not source-bound
+follow_cache_microorder	-	EXPLICIT_UNKNOWN	last_pos/commanded/commanded_now contract verified; exact mutation order not source-bound
+follow_generation_microorder	-	EXPLICIT_UNKNOWN	_follow_gen + worker gen contract verified; exact increment/assignment order not source-bound
+follow_stop_check_callable	-	EXPLICIT_UNKNOWN	follow call supplies stop_check but exact callable expression not source-bound
