@@ -2314,34 +2314,67 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J05_DUNGEON_BINDING_MODEL.json
 - docs/phoban/J05_DUNGEON_BINDING_STATIC_EVIDENCE.tsv
 
+
+## J06 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J06 artifacts/completion commit existed before this turn; J01-J05 were already complete and were not redone.
+- Re-inspected the exact uploaded TLMTool 2.1.2 archive first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- The current schedule `Lần` control is a real **Entry**, not a fixed-choice Combobox. The old local remains named `cb_times`, but the exact widget class in the frozen EXE is `Entry`. No readonly values-list/Spinbox/validation surface is present for that field.
+- Exact `_add_schedule_row` serialized defaults are `(True, None, None, 1, None)`, so a new row's `times` default is **1**. The row-construction block also carries literal fallback `"1"` plus `ValueError/TypeError`, giving strong static evidence that invalid seeded/load-time numeric conversion falls back to 1.
+- Exact handling/clamping of a manually-entered **0**, negative value, or invalid nonnumeric text immediately before Start is not source-bound by the printable constants and remains explicit UNKNOWN rather than guessed.
+- Legacy schedule load also defaults a missing `times` field to **1**.
+- The frozen `TIMES_CLICK_POS` table was decoded exactly: `"1"→(337,241), "2"→(336,266), "3"→(341,291), "4"→(337,317), "5"→(337,340)`. This table does **not** make the current schedule Lần field a 1–5 dropdown: the current UI is a free Entry and the current dungeon path does not use game RepeatCount.
+- Exact activity-change documentation says the Lần value is preserved when switching activity. That is a UI/config rule only.
+- Critical execution asymmetry is now locked. A **Phó bản** row passes `times` into the dungeon execution path. A **Train** row calls `_do_train` with only its normal stop/control surface; the frozen Train doc says it switches to Train and activates that account once. Therefore the Lần field is **ignored by Train execution** and Train runs once regardless of the preserved displayed count.
+- Dungeon repetition is tool-side/manual. `_config_dungeon_memory` sets `SelectedFuBen`, `AutoRepeat=False`, `FollowLeader=True`, `AutoRevive=True`, and explicitly says **do not modify RepeatCount**. The exact `_do_dungeon` doc says the Phó Bản activity repeats `times` times.
+- Memory dungeon configuration is re-applied on **every requested repetition**, with no first-run/s later-run split. The memory write helper independently retries up to **5 times**, **2 seconds** apart; those are write retries, not schedule repetitions.
+- The per-repetition common flow is statically locked as config/hooks → move to meeting/NPC point → shared barrier → FuBen-start retry → dungeon cycle → shared barrier before the next repetition. Move logging shows total attempt notation `/3`, matching initial movement plus up to two retries.
+- J04 creates **one Barrier per schedule row**. J06 confirms `_do_dungeon` receives/reuses that same barrier across requested repetitions. It is not recreated per run. The barrier helper itself has no timeout; broken/aborted barrier outcomes remain J07.
+- The FuBen-start retry is internal to one dungeon repetition, not the user's schedule count. Frozen docs bind the current fast retry model to **5 × 0.3s**, with MapID fast-pass from retry #2 onward if another account already pulled the party into the target map.
+- One completed dungeon cycle is based on map transition: target `MapID` entered, then later a **non-None** different MapID observed. Temporary `None` during map loading is ignored and does not count as exit.
+- `DungeonCtx` has exact fields `run_idx` and `times`. The `_do_dungeon` outer local model owns `run`, and its nested context builder takes `run_idx`, proving per-run context plus total-count context for custom handlers.
+- Exact first `run_idx` value (0-based vs 1-based) is not observable in the current handler/runtime evidence and remains explicit UNKNOWN.
+- The generic `_wait_dungeon_cycles` helper owns `times`, `done`, and `deadline`. Its doc says it counts MapID enter/exit cycles and ignores None.
+- A real frozen-code/documentation conflict was found: the helper doc says waiting is “vô thời hạn”, but the exact compiled helper also contains local `deadline`, literal **480**, and the exact timeout-log fragment `theo dõi map timeout (...s) — hoàn thành ...`. Therefore a compiled **480-second watchdog branch exists** and reconstruction must not implement a truly infinite wait from the stale prose line alone. Deep timeout outcome/order is deferred to J07.
+- Another boundary is preserved rather than guessed: `_do_dungeon` explicitly documents outer manual repetition and “1 cycle map” per repetition, while the generic helper itself still accepts a `times` argument. The exact literal native caller value passed into that helper is not recoverable from printable constants; overall requested-count completion is locked, but that call literal remains a micro-UNKNOWN for later Windows verification.
+- Normal row completion remains consistent with J04: account workers return only after their normal activity completes; the row is marked `Xong` only after the current account-thread batch joins. For Phó Bản this means normal success only after the requested dungeon repetition sequence. Failure/cancel status behavior remains J07.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. No schedule row is expanded in the screenshot, so Entry/count behavior comes from the EXE, not image inference.
+- Only after static extraction, exact packaged `data/automove_log.txt` (SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes, 387,238 lines) was searched. It contains 0 correlated top-level J06 markers for Phó Bản start/completion/map-timeout/cycle failure/start retry/SelectedFuBen/RepeatCount. J06 is **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED** for live count/index/timeout races.
+
+## J06 FILES
+- docs/tasks/J06.md
+- docs/phoban/J06_TIMES_FLOW.md
+- docs/phoban/J06_TIMES_MODEL.json
+- docs/phoban/J06_TIMES_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J06.
+None known for J07.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J05 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole Phó Bản authority; do not import dungeon/run-count behavior from older or external projects.
+- Preserve J01-J06 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole authority; do not import status/cancel behavior from older or external Phó Bản projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve the exact 8-item visible `PHOBAN_MAP_LIST`, order and spelling; especially the two spaces in `Tô Châu  - Thủy Lao`.
-- Preserve plain `Sát Tinh` as a hidden compatibility alias, not a ninth visible dropdown item.
-- Preserve exact `DUNGEON_FUBEN_CODE` and `DUNGEON_MAP_IDS` mappings, including both Sát Tinh aliases → SatTinh / MapID111.
-- Preserve J05 canonical-key rule: J04 schedule `row.name` is the shared binding key.
-- Preserve `BaseDungeon` as the fallback common handler for unregistered dungeons.
-- Preserve `SatTinhDungeon` as the only currently recovered custom handler and both Sát Tinh aliases as its semantic registry bindings.
-- Preserve handler-hook integration with the shared `_do_dungeon` flow; do not replace the common scheduler with per-dungeon hard-coded branches.
-- Preserve the explicit UNKNOWN for class-object-versus-instance storage inside `DUNGEON_HANDLERS`.
-- Preserve J05 deferred boundaries: exact `times` semantics J06; deep cancel/abort/status J07.
-- Preserve J04 scheduling concurrency/order and J03 follow rules unchanged.
+- Preserve J06 current Lần widget as an `Entry`, not a restored 1–5 Combobox.
+- Preserve default/missing-config `times=1`; preserve explicit UNKNOWN for 0/negative/manual-invalid-text handling.
+- Preserve `TIMES_CLICK_POS` only as a frozen auxiliary table; do not use it to impose a current schedule 1–5 limit.
+- Preserve Train behavior: Lần value may remain visible/persisted but Train execution activates once and ignores `times`.
+- Preserve Phó Bản manual repetition with `AutoRepeat=False` and untouched game `RepeatCount`.
+- Preserve per-repetition memory config and one J04 row Barrier reused across repetitions.
+- Preserve one completed dungeon run as target-MapID entry followed by later non-None exit; ignore temporary None.
+- Preserve per-run `DungeonCtx.run_idx` + total `times`, while keeping exact 0/1 index base UNKNOWN.
+- Preserve the compiled 480-second wait-helper watchdog conflict; do not implement a true infinite wait from the stale helper doc.
+- Preserve J06 generic-helper caller-literal UNKNOWN until stronger/runtime evidence.
+- Keep deep abort/cancel/broken-barrier/timeout/status transitions strictly in J07.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J06 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J06 — Phó Bản number-of-runs / `times` semantics audit** only.
-5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use `.phoban_dungeons` only where `DungeonCtx.run_idx/times` is needed.
-6. Audit exact `times` behavior from schedule row to execution: allowed UI values/default, parsing/normalization, iteration range, `run_idx`, barrier placement across repetitions, config-memory repetition, start-FuBen retry relationship, cycle completion definition, row completion only after all requested runs, and any special `times` handling for Train rows.
-7. Keep deep cancellation/failure/status-state-machine semantics J07. Do not fold J07 into J06.
-8. Cross-check B07 only after static extraction; do not infer run-count values from the screenshot if the row control is not expanded.
-9. Do not import run-count behavior from older/external Phó Bản projects.
-10. Persist J06 artifacts, update STATE.md, and advance only after J06 verification.
+3. Check GitHub first for any J07 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J07 — Phó Bản status machine / cancel / abort / failure-recovery audit** only.
+5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use `.phoban_dungeons` only for hook-return abort semantics.
+6. Audit the exact run-state machine needed to close J07: group/global cancel ownership, `_abort_cycle`, barrier abort/broken handling, `_barrier_wait`, worker return propagation, config/move/start/cycle failure branches, the compiled 480s cycle-watchdog outcome, row progress on failure/cancel, group button/global button state transitions, `_finish_group_run`, teardown ownership and restart-generation/identity guards.
+7. Do not re-audit J01 team formation, J03 follow, J04 row ordering, J05 dungeon binding or J06 count semantics unless J07 finds a direct contradiction.
+8. Keep later drop/loot/Nga My/multi-group details beyond the status-machine boundary deferred to their PLAN tasks.
+9. Cross-check B07 only after static extraction; do not infer hidden failure-state UI from the screenshot.
+10. Persist J07 artifacts, update STATE.md, and advance only after J07 verification.
