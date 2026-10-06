@@ -99,16 +99,18 @@ _finish_group_run(...)
 
 `_abort_cycle` is explicitly idempotent.
 
-## Hook behavior
+## Hook behavior — J13 correction
 
 ```text
 _call_hook(...)
-  ├─ hook missing        → True / continue
-  ├─ hook raises        → log, True / continue
-  └─ hook returns False → _abort_cycle → False
+  ├─ explicit False → _abort_cycle → current-group abort
+  ├─ missing hook   → common/pass model
+  └─ hook raises    → STATIC CONFLICT
+       docstring says pass
+       adjacent branch text says "→ abort"
 ```
 
-Do not make hook exceptions fatal.
+Hook exception behavior must remain unresolved until J14/stronger native evidence.
 
 ## Failure escalation by dungeon stage
 
@@ -132,9 +134,13 @@ start FuBen
 cycle wait
   False → "chờ cycle map FAIL" → group hard-fail
 
-unexpected worker/dungeon exception
-  log worker lỗi / lỗi chu trình
-  → semantic current-group failure boundary
+unexpected generic _acc_step_worker exception
+  → log worker lỗi
+  → no independent worker-local abort wiring recovered
+
+unexpected _do_dungeon exception
+  → log lỗi chu trình
+  → exact abort micro-order remains unresolved
 ```
 
 ## 480-second branch
