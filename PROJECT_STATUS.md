@@ -263,6 +263,18 @@ CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED
 Phase I research may hand off. Stage S remains locked and TrainLSV runtime parity must still be executed later before claiming full functional parity.
 
 ## Phase J — Phó Bản
-Current task: **J01 — party formation audit**.
+- J01 — VERIFIED_DYNAMIC_6_SLOT_GROUP_FORMATION_WITH_FIRST_COMBO_NOMINAL_LEADER_UNIQUE_CROSS_GROUP_SELECTION_AND_OPTIONAL_B0_AUTOACCEPT_B1_LEAVE_B2_UI_CREATE_B3_BURST_INVITE_PIPELINE
+- J02 — NEXT
 
-Phase-J research must use the frozen TLMTool 2.1.2 Phó Bản implementation as authority and must not import dungeon logic from older/external Than Long projects.
+J01 establishes the active Phó Bản authority as frozen phoban_tab.py / PhoBanTab. Ready accounts refresh every 5 seconds with HWND+PID identity; selected members disappear from the ready pool and from later-group dropdowns. Each group has exactly six account comboboxes, with the first combobox as the nominal leader.
+
+The optional "Tạo lại đội" flow defaults OFF. When enabled at group-run start, the frozen sequence is B0 auto-accept invite, B1 leave existing teams, B2 effective leader creates a new team through the original 1366x768 UI click sequence, then B3 burst-invite the resolved non-leader members.
+
+RoleID is resolved from live windows; unresolved individual members are skipped while zero resolvable RoleIDs abort the group. No-team TeamID sentinels are explicitly frozen. If the nominal first-slot leader is offline, the first online target becomes the effective creation leader; one online member does not require team creation.
+
+B1 incomplete leave confirmation is warning/fail-open. B2 exhausted create retries hard-abort the group. B3 performs one missing-member resend and, crucially, still returns success even if some members remain missing unless cancelled.
+
+B07 remains visually consistent: recreate unchecked, one visible group, leader "(chưa chọn)", six blank slots. No correlated party-recreation runtime trace exists in the packaged helper log, so live create/leave/invite parity remains runtime-environment-required.
+
+## Phase J current
+J02 — Phó Bản leader semantics audit.
