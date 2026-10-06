@@ -1,0 +1,71 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+phoban_dungeons_serialized_marker	0x2b8513b	VERIFIED_STATIC	.phoban_dungeons
+phoban_tab_serialized_marker	0x2b86f63	VERIFIED_STATIC	.phoban_tab
+phoban_map_list_blob	0x2b90a88	VERIFIED_STATIC_DECODE	L8 exact visible list; ends with Sát Tinh - Thử nghiệm; plain Sát Tinh absent
+phoban_map_1	0x2b90a8b	VERIFIED_STATIC	Tô Châu  - Thủy Lao (two spaces before hyphen)
+phoban_map_2	0x2b90aa7	VERIFIED_STATIC	Tô Châu 1 - Tống Liêu
+phoban_map_3	0x2b90ac3	VERIFIED_STATIC	Tô Châu 2 - Trúc Lâm
+phoban_map_4	0x2b90add	VERIFIED_STATIC	Tô Châu 3 - Dã Ngoại
+phoban_map_5	0x2b90af8	VERIFIED_STATIC	Lâu Lan 1 - Hoàng Kim
+phoban_map_6	0x2b90b11	VERIFIED_STATIC	Lâu Lan 2 - Huyền Phật Châu
+phoban_map_7	0x2b90b34	VERIFIED_STATIC	Lâu Lan 3 - Dung Nham
+phoban_map_8	0x2b90b4c	VERIFIED_STATIC	Sát Tinh - Thử nghiệm
+dungeon_click_pos_blob	0x2b90b64	VERIFIED_STATIC_DECODE	D9 9-key map; exact coordinates decoded
+dungeon_click_pos_symbol	0x2b90c8c	VERIFIED_STATIC	DUNGEON_CLICK_POS
+dungeon_fuben_code_blob	0x2b90ca0	VERIFIED_STATIC_DECODE	9 keys -> ThuyLao,Q1/Q2/Q3_ToChau,Q1/Q2/Q3_LauLan,SatTinh,SatTinh
+fuben_thuylao	0x2b90d87	VERIFIED_STATIC	ThuyLao
+fuben_q1_tochau	0x2b90d90	VERIFIED_STATIC	Q1_ToChau
+fuben_q2_tochau	0x2b90d9b	VERIFIED_STATIC	Q2_ToChau
+fuben_q3_tochau	0x2b90da6	VERIFIED_STATIC	Q3_ToChau
+fuben_q1_laulan	0x2b90db1	VERIFIED_STATIC	Q1_LauLan
+fuben_q2_laulan	0x2b90dbc	VERIFIED_STATIC	Q2_LauLan
+fuben_q3_laulan	0x2b90dc7	VERIFIED_STATIC	Q3_LauLan
+fuben_sattinh_trial	0x2b90dd2	VERIFIED_STATIC	SatTinh
+fuben_sattinh_alias	0x2b90ddb	VERIFIED_STATIC	SatTinh
+dungeon_map_ids_blob	0x2b90de4	VERIFIED_STATIC_DECODE	9 keys -> 92,93,94,95,108,109,110,111,111
+mapid_thuylao	0x2b90ecb	VERIFIED_STATIC_DECODE	92
+mapid_tochau1	0x2b90ecd	VERIFIED_STATIC_DECODE	93
+mapid_tochau2	0x2b90ecf	VERIFIED_STATIC_DECODE	94
+mapid_tochau3	0x2b90ed1	VERIFIED_STATIC_DECODE	95
+mapid_laulan1	0x2b90ed3	VERIFIED_STATIC_DECODE	108
+mapid_laulan2	0x2b90ed5	VERIFIED_STATIC_DECODE	109
+mapid_laulan3	0x2b90ed7	VERIFIED_STATIC_DECODE	110
+mapid_sattinh_trial	0x2b90ed9	VERIFIED_STATIC_DECODE	111
+mapid_sattinh_alias	0x2b90edb	VERIFIED_STATIC_DECODE	back-reference to same 111
+config_fuben_code_ref	0x2b8e0c8	VERIFIED_STATIC	DUNGEON_FUBEN_CODE
+config_selected_fuben_ref	0x2b8e123	VERIFIED_STATIC	FUBEN.SelectedFuBen
+config_doc	0x2b8e315	VERIFIED_STATIC	SelectedFuBen from DUNGEON_FUBEN_CODE; AutoRepeat0 FollowLeader1 AutoRevive1; RepeatCount untouched
+do_dungeon_handler_lookup	0x2b8eb91	VERIFIED_STATIC	get_dungeon_handler
+do_dungeon_ctx	0x2b8ebc2	VERIFIED_STATIC	_ctx
+do_dungeon_hook	0x2b8ebee	VERIFIED_STATIC	_hook
+hook_pre_config	0x2b8edc5	VERIFIED_STATIC	pre_config
+hook_pre_start_fuben	0x2b8edc5	VERIFIED_STATIC	pre_start_fuben
+hook_post_start_fuben	0x2b8ee05	VERIFIED_STATIC	post_start_fuben
+handler_registry_symbol	0x2b85e13	VERIFIED_STATIC	DUNGEON_HANDLERS
+base_handler_symbol	0x2b85e25	VERIFIED_STATIC	BaseDungeon
+handler_lookup_doc	0x2b85e32	VERIFIED_STATIC	Return dungeon handler; fallback BaseDungeon common flow
+handler_arch_doc	0x2b85f64	VERIFIED_STATIC	one class per custom dungeon; unregistered uses common flow; add to DUNGEON_HANDLERS
+dungeon_ctx_symbol	0x2b86299	VERIFIED_STATIC	DungeonCtx
+base_pre_config	0x2b8632d	VERIFIED_STATIC	BaseDungeon.pre_config
+base_post_config	0x2b86351	VERIFIED_STATIC	BaseDungeon.post_config
+base_pre_move	0x2b86377	VERIFIED_STATIC	BaseDungeon.pre_move
+base_post_move	0x2b863cf	VERIFIED_STATIC	BaseDungeon.post_move
+base_pre_start	0x2b86423	VERIFIED_STATIC	BaseDungeon.pre_start_fuben
+base_post_start	0x2b864f7	VERIFIED_STATIC	BaseDungeon.post_start_fuben
+base_on_entered	0x2b86575	VERIFIED_STATIC	BaseDungeon.on_entered
+base_post_cycle	0x2b865d9	VERIFIED_STATIC	BaseDungeon.post_cycle
+sattinh_class	0x2b8660a	VERIFIED_STATIC	SatTinhDungeon
+sattinh_doc	0x2b86668	VERIFIED_STATIC	map111 anchor65,85 current members same behavior
+sattinh_on_entered	0x2b86aae	VERIFIED_STATIC	SatTinhDungeon.on_entered
+sattinh_post_cycle	0x2b86ade	VERIFIED_STATIC	SatTinhDungeon.post_cycle
+sattinh_alias_trial	0x2b86b81	VERIFIED_STATIC	Sát Tinh - Thử nghiệm
+sattinh_alias_plain	0x2b86b9d	VERIFIED_STATIC	Sát Tinh
+get_dungeon_handler_symbol	0x2b86ba4	VERIFIED_STATIC	get_dungeon_handler
+only_custom_dungeon_class	-	VERIFIED_STATIC_SEARCH	No other *Dungeon custom class found in exact .phoban_dungeons module
+registry_value_storage_form	-	EXPLICIT_UNKNOWN	Semantic alias->SatTinhDungeon locked; class-object vs instance storage form not instruction-bound
+b07_visual	-	VISUAL_VERIFIED	SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; 452x1032; Tên Map column visible; dropdown not expanded
+runtime_handler_markers	-	NOT_RECOVERED	0 Sát Tinh/SatTinh/SelectedFuBen/FuBen/ThuyLao/Q*_ToChau/Q*_LauLan/DUNGEON_HANDLERS markers in packaged automove_log
+j06_times	-	DEFERRED	exact times/run-count semantics
+j07_status	-	DEFERRED	deep cancel/abort/status-machine behavior
