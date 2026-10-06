@@ -1,0 +1,43 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+header_times	0x2b8c346	VERIFIED_STATIC	Lần
+add_row_defaults	0x2b91c42	VERIFIED_STATIC_DECODE	T5 t n n w1 n => enabled=True activity=None name=None times=1 rows=None
+times_seed_fallback	0x2b8c8fb	STRONG_STATIC	literal "1" followed by exception tuple ValueError/TypeError in row-construction block
+times_widget_entry	0x2b8c916	VERIFIED_STATIC	actual current widget class Entry
+times_var	0x2b8ca10	VERIFIED_STATIC	times_var
+cb_times_local	0x2b8ca1b	VERIFIED_STATIC	legacy/misleading local name cb_times
+activity_preserves_times	0x2b8ce1e	VERIFIED_STATIC	activity change resets invalid map name but keeps number of runs
+legacy_times_default	0x2b90715	VERIFIED_STATIC_DECODE	legacy load key times followed by integer default 1
+times_click_pos_blob	0x2b911f2	VERIFIED_STATIC_DECODE	D5 "1".."5" -> (337,241),(336,266),(341,291),(337,317),(337,340)
+times_click_pos_symbol	0x2b91224	VERIFIED_STATIC	TIMES_CLICK_POS
+config_repeatcount_doc	0x2b8e2d0	VERIFIED_STATIC	AutoRepeat=False; FollowLeader=True; AutoRevive=True; RepeatCount untouched; config retry 5 times x2s
+start_retry_doc	0x2b8e86f	VERIFIED_STATIC	per-repetition start stage; retry with MapID fast-pass; _do_dungeon doc binds 5x0.3s
+do_dungeon_doc	0x2b8eed0	VERIFIED_STATIC	Phó Bản repeats times; same memory config every repetition; move/barrier/start/wait-one-cycle/barrier; success after enough times
+do_dungeon_local_times	0x2b92c42	VERIFIED_STATIC_MAPPING	_do_dungeon outer local model includes times
+do_dungeon_local_run	0x2b92ce9	VERIFIED_STATIC_MAPPING	_do_dungeon outer local model includes run
+dungeonctx_run_idx	0x2b851c0	VERIFIED_STATIC	DungeonCtx field run_idx
+dungeonctx_times	0x2b851c9	VERIFIED_STATIC	DungeonCtx field times
+ctx_builder_run_idx	0x2b92a81	VERIFIED_STATIC_MAPPING	nested _ctx local model begins run_idx and captures times
+worker_phoban_dispatch	0x2b8fd31	VERIFIED_STATIC	_acc_step_worker calls _do_dungeon
+worker_train_dispatch	0x2b8fd8f	VERIFIED_STATIC	_acc_step_worker calls _do_train
+worker_train_keywords	0x2b8fd9c	VERIFIED_STATIC_DECODE	Train call keyword surface only stop_check
+train_doc	0x2b8f9fc	VERIFIED_STATIC	Train activity switches tab once and activates account once; success on activation
+row_barrier_create	0x2b902a4	VERIFIED_STATIC	one Barrier created for current J04 schedule row
+barrier_wait_doc	0x2b8e643	VERIFIED_STATIC	barrier has no timeout; broken/aborted returns false
+wait_cycles_symbol	0x2b8ee17	VERIFIED_STATIC	_wait_dungeon_cycles
+wait_cycles_times_local	0x2b93bc6	VERIFIED_STATIC_MAPPING	_wait_dungeon_cycles local model contains times
+wait_cycles_done_local	0x2b93c2d	VERIFIED_STATIC_MAPPING	_wait_dungeon_cycles local model contains done counter
+wait_cycles_deadline_local	0x2b93c23	VERIFIED_STATIC_MAPPING	_wait_dungeon_cycles local model contains deadline
+wait_cycles_watchdog_480	0x2b8f557	VERIFIED_STATIC_DECODE	integer 480 adjacent to done + timeout log
+wait_common_active_30	0x2b8f5be	VERIFIED_STATIC_DECODE	integer 30 before "chờ common.active"
+wait_cycles_doc	0x2b8f74b	VERIFIED_STATIC	entry target MapID starts a run; later non-None different MapID completes one; None ignored; doc says poll 1s
+wait_doc_conflict	-	STATIC_CONFLICT	wait doc says indefinite but compiled helper has deadline+480+timeout log
+row_done_progress	0x2b902ce	VERIFIED_STATIC	xong applied after current account-thread batch normal join
+b07_visual	-	VISUAL_VERIFIED	SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; no visible expanded schedule row
+runtime_j06_markers	-	NOT_RECOVERED	0 correlated [Phó bản]/start/complete/map-timeout/cycle-fail/start-retry/SelectedFuBen/RepeatCount lines in packaged automove_log
+times_zero_negative_normalization	-	EXPLICIT_UNKNOWN	exact source expression/clamp not instruction-bound
+invalid_live_text	-	EXPLICIT_UNKNOWN	Entry is free text; exact Start-time handling of manually invalid text not proven
+run_idx_base	-	EXPLICIT_UNKNOWN	per-run run_idx proven; first value 0 vs1 not observed in current handler/runtime
+wait_helper_call_times_literal	-	EXPLICIT_UNKNOWN	generic helper accepts times; exact literal passed by current native _do_dungeon call not recoverable from printable constants
+j07_deep_status	-	DEFERRED	cancel/timeout/broken-barrier/failure status-machine transitions
