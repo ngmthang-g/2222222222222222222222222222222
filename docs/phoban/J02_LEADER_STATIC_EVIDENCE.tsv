@@ -1,0 +1,52 @@
+key	offset_hex	status	evidence
+phoban_tab_marker	0x2b86f63	VERIFIED_STATIC_DECODE	.phoban_tab; size52957; constants1508
+phoban_dungeons_marker	0x2b8513b	VERIFIED_STATIC_DECODE	.phoban_dungeons; size7700; constants249
+group_combo_refresh_doc	0x2b885bb	VERIFIED_STATIC	current selection kept only while valid; stale/dead resets
+follow_worker_doc	0x2b892ea	VERIFIED_STATIC	follow source explicitly says leader position = first combobox of running group; mechanics deferred J03
+team_id_reader	0x2b8ae21	VERIFIED_STATIC	read_team_id present for party state
+leader_label_doc	0x2b8c648	VERIFIED_STATIC	leader name = first combobox; blank -> (chưa chọn)
+leader_label_helper	0x2b8c69e	VERIFIED_STATIC	_update_leader_label
+group_targets_doc	0x2b8dad2	VERIFIED_STATIC	online selected targets [(name,hwnd)]
+group_targets_locals	0x2b92f6f	STRONG_STATIC_MAPPING	self/gd/hwnd_by_name/hwnd/entry/seen/out/var/nm; ordered current group vars -> online unique output
+fuben_followleader_fields	0x2b8e152	VERIFIED_STATIC_DECODE	('FUBEN','FollowLeader','bool')
+fuben_config_doc	0x2b8e2d0	VERIFIED_STATIC	SelectedFuBen + AutoRepeat=False + FollowLeader=True + AutoRevive=True; same common config flow
+do_dungeon_doc	0x2b8eed0	VERIFIED_STATIC	common flow and handler ctx includes acc_name/is_leader/member_index
+dungeonctx_kw_fields	0x2b8f413	VERIFIED_STATIC	is_leader
+dungeonctx_member_field	0x2b8f41e	VERIFIED_STATIC	member_index
+dungeonctx_field_tuple	0x2b8f446	VERIFIED_STATIC_DECODE	tab/hwnd/acc_name/dungeon/is_leader/member_index/total_members/mid/post/stop_check/cancel/barrier/run_idx/times
+worker_do_dungeon_keywords	0x2b8fd3e	VERIFIED_STATIC_DECODE	stop_check/barrier/cancel/acc_name/is_leader/member_index/total_members
+worker_doc	0x2b8fdb9	VERIFIED_STATIC	one-account worker executes one schedule step
+do_dungeon_defaults	0x2b92097	STRONG_STATIC_MAPPING	(None,None,None,'',False,0,1) adjacent to PhoBanTab._do_dungeon; leader metadata defaults false/0/1
+acc_step_defaults	0x2b92104	STRONG_STATIC_MAPPING	(None,None,False,0,1) adjacent to PhoBanTab._acc_step_worker
+do_dungeon_qualname	0x2b920a2	VERIFIED_STATIC	PhoBanTab._do_dungeon
+acc_step_qualname	0x2b9210d	VERIFIED_STATIC	PhoBanTab._acc_step_worker
+run_group_qualname	0x2b92163	VERIFIED_STATIC	PhoBanTab._run_one_group
+acc_step_locals	0x2b923d4	STRONG_STATIC_MAPPING	self/name/hwnd/item/barrier/cancel/is_leader/member_index/total_members/.../stop_check
+do_dungeon_locals	0x2b92c2e	STRONG_STATIC_MAPPING	self/hwnd/name/times/.../is_leader/member_index/total_members/.../_ctx/_hook/dungeon_handler/dungeon_ctx
+run_group_locals	0x2b937de	STRONG_STATIC_MAPPING	.../targets/.../threads/_leader_hw/_idx/.../_nm/_hw/_t/_e
+read_team_leader_phoban_tab	-	NOT_RECOVERED	0 occurrences in full .phoban_tab chunk
+teamleader_phoban_tab	-	NOT_RECOVERED	0 TeamLeader/LeaderID/leader_id/is_team_leader/captain occurrences in .phoban_tab
+read_team_leader_dungeons	-	NOT_RECOVERED	0 occurrences in full .phoban_dungeons chunk
+shared_read_team_leader	0x2b73245	OUT_OF_MODULE_STATIC	read_team_leader exists elsewhere in frozen EXE but is not referenced by Phó Bản chunks
+dungeonctx_defaults	0x2b862b3	VERIFIED_STATIC_DECODE	(None,0,'','',False,0,1,None,None,None,None,None,0,1)
+base_default_doc	0x2b862f1	VERIFIED_STATIC	Mặc định: không làm gì thêm, giữ luồng chung
+base_pre_config	0x2b86339	VERIFIED_STATIC	BaseDungeon.pre_config
+base_post_config	0x2b8635e	VERIFIED_STATIC	BaseDungeon.post_config
+base_pre_move	0x2b86381	VERIFIED_STATIC	BaseDungeon.pre_move
+base_post_move	0x2b863da	VERIFIED_STATIC	BaseDungeon.post_move
+base_pre_start	0x2b86434	VERIFIED_STATIC	BaseDungeon.pre_start_fuben
+base_post_start	0x2b86509	VERIFIED_STATIC	BaseDungeon.post_start_fuben
+base_on_entered	0x2b86581	VERIFIED_STATIC	BaseDungeon.on_entered
+base_post_cycle	0x2b865e5	VERIFIED_STATIC	BaseDungeon.post_cycle
+framework_doc	0x2b85f64	VERIFIED_STATIC	ctx exposes is_leader/member_index but Sát Tinh current behavior is all accounts same; future extension point
+sattinh_doc	0x2b86664	VERIFIED_STATIC	Sát Tinh explicitly says mọi acc giống nhau and future branches may use ctx.is_leader/member_index/acc_name
+sattinh_class	0x2b8660a	VERIFIED_STATIC	SatTinhDungeon
+dungeon_handlers	0x2b85e13	VERIFIED_STATIC	DUNGEON_HANDLERS registry surface; fallback BaseDungeon
+exact_leader_hw_assignment	-	EXPLICIT_UNKNOWN	_run_one_group owns _leader_hw and ordered targets/_idx but Nuitka constants do not store Python body expression
+exact_is_leader_expression	-	EXPLICIT_UNKNOWN	metadata propagation verified; literal Boolean expression not instruction-bound
+midstep_recompute	-	NOT_RECOVERED	no recovered surface showing leader metadata recomputed during one running step
+runtime_is_leader	-	NOT_RECOVERED	0 is_leader lines in packaged automove_log
+runtime_member_index	-	NOT_RECOVERED	0 member_index lines
+runtime_leader_text	-	NOT_RECOVERED	0 leader/Đội trưởng lines
+runtime_phoban	-	NOT_RECOVERED	0 PhoBanTab/[Phó bản]/Sát Tinh lines
+b07_hash	-	VISUAL_VERIFIED	8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; one group, blank first slot, leader=(chưa chọn)
