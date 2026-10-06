@@ -2572,37 +2572,50 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J07_STATUS_MODEL.json
 - docs/phoban/J07_STATUS_STATIC_EVIDENCE.tsv
 
+
+## J14 VERIFIED RESULTS / GATE-J CLOSURE
+- GitHub-first continuity check passed. No J14 artifacts/completion commit existed before this turn; J01-J13 were already complete and were not redone.
+- Runtime capability check was performed before claiming parity. Current execution environment is **Linux x86_64 / POSIX**; Python reports Linux, `wine` is not installed, and no TLMTool/Thần Long/Wine/LDPlayer Windows process is running. DISPLAY exists but this is not a Windows game runtime.
+- Exact frozen original archive remains mounted at `/mnt/data/TLMTool_2.1.2(6).zip`, size **93,715,901** bytes, SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`. Inner EXE contract remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Because no real Windows + live Thần Long runtime exists here, **0 live Phó Bản cases were executed and 0 live cases were marked PASS**. Mocks/Linux execution are not substituted for original runtime proof.
+- Gate-J classification is **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**. This closes the static research handoff only.
+- J13 conflict `_call_hook` exception behavior remains unresolved and classified `RUNTIME_OR_NATIVE_INSTRUCTION_REQUIRED`.
+- J13 conflict for the compiled 480-second cycle-watchdog return remains unresolved and classified `RUNTIME_OR_NATIVE_INSTRUCTION_REQUIRED`.
+- A Windows runtime harness specification is frozen: Windows 10/11 x64, exact original specimen, matching game client, at least 3 accounts (prefer 6), real HWND/memory/injection environment, timestamped video/log/config evidence and optional native debugger for unresolved conflicts.
+- J14 runtime matrix contains 25 explicit cases covering normal run, rapid Start→Stop→Start, multi-group concurrency/independence, barrier abort, partial/all setup failure, Train fail-soft, final-discard fail-open, persisted-mode re-arm, Follow/Discard/Pickup/Buff scopes, stop-one/stop-all, teardown, delete-during-run, late-cancel progress, destroy cleanup, 480s watchdog and hook-exception behavior.
+- Every unexecuted live test is explicitly `RUNTIME_ENV_REQUIRED` or `RUNTIME_OR_NATIVE_INSTRUCTION_REQUIRED`; no unrun case is counted as PASS.
+- J14 closes Phase J at static research level and advances to Phase K. Stage S implementation remains locked by PLAN.
+
+## J14 FILES
+- docs/tasks/J14.md
+- docs/phoban/J14_RUNTIME_ENVIRONMENT.md
+- docs/phoban/J14_RUNTIME_HARNESS.md
+- docs/phoban/J14_RUNTIME_TEST_MATRIX.tsv
+- docs/phoban/J14_GATE_CLOSURE.md
+
 ## BLOCKERS
-J14 requires a live Windows/game runtime environment for true parity/stress verification. No static blocker remains.
+- Phase J live runtime parity remains blocked by the absence of a real Windows + Thần Long runtime. This does not block continuation of static research into Phase K.
+- No known static blocker for K01.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J13 Phó Bản contracts, including J13's targeted corrections to J07.
-- TLMTool 2.1.2 remains the sole authority; do not import runtime behavior from older/external projects.
-- Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve four distinct failure classes: pre-run reject, per-account degradation, current-group hard abort, fail-soft/log-only.
-- Preserve setup partial-degradation behavior and empty-ready group stop.
-- Preserve explicit dungeon hard-failure retries/blast radius.
-- Preserve Train failure as fail-soft at schedule-row level unless later live/native evidence directly contradicts it.
-- Preserve final-discard failure as fail-open to group completion.
-- Preserve background worker errors as not independently aborting schedule groups.
-- Preserve hook explicit False = current-group abort.
-- Preserve **hook exception behavior as STATIC_CONFLICT**, not fail-open or fail-closed, until J14/stronger native evidence resolves it.
-- Preserve generic `_acc_step_worker` exception as no independent abort wiring; explicit dungeon methods remain responsible for their hard-abort stages.
-- Preserve 480-second watchdog branch and its unresolved exact return.
-- Preserve no Error/Cancelled row style and late-cancel row-label UNKNOWN.
-- Preserve manual fresh-start recovery; no whole-group automatic restart.
-- Do not reopen J01-J12 except for a direct J14 runtime/native contradiction.
+- Preserve Phase J J01-J14 static contracts and J13 corrections.
+- Phase J must be described as **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**, never full runtime PASS.
+- Preserve unresolved J13/J14 conflicts: hook exception behavior and 480-second watchdog return.
+- Preserve J14 runtime matrix for a future real Windows/game rerun; do not fill PASS results without evidence.
+- TLMTool 2.1.2 remains sole authority for Daily as Phase K begins.
+- Proxy runtime/network development remains locked.
+- Stage S implementation remains locked until the research plan reaches the implementation gate.
+- Do not import Daily/Trừng Ác/Tàng Bảo Đồ behavior from older/external projects unless the exact TLM artifact independently confirms it.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J14 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J14 — Phó Bản runtime parity / stress verification plan and evidence closure** only.
-5. First determine whether a real Windows + TLM game runtime is actually available in the current execution environment. Do not claim live parity if it is not.
-6. If live runtime is available, verify at minimum: rapid Start→Stop→Start identity safety; two+ groups parallel; one-group hard failure while another continues; barrier abort release; partial setup failure; Train fail-soft behavior; final-discard fail-open behavior; persisted mode re-arm; Follow/Discard/Pickup/Buff scopes; 480-second watchdog behavior or a safe controlled equivalent if waiting 480 seconds is impractical; hook exception behavior if safely reproducible.
-7. If live runtime is not available, do not fabricate test results. Produce the exact J14 runtime test matrix/harness requirements, classify each unresolved item RUNTIME_ENV_REQUIRED, and close only the static research handoff—not runtime parity.
-8. Reconcile J13's two explicit conflicts first if runtime evidence exists: `_call_hook` exception behavior and 480-second watchdog return.
-9. Keep Stage S implementation locked until the research-gate plan explicitly permits it.
-10. Persist J14 artifacts, update STATE.md and PROJECT_STATUS.md with an honest Gate-J closure classification.
+3. Check GitHub first for any K01 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K01 — Daily tab authority / visible-surface + top-level handler inventory** only.
+5. Inspect the exact frozen original EXE first. Identify active Daily module/class marker(s), constructor/top-level callable inventory, visible Trừng Ác and Tàng Bảo Đồ sections, account/list controls, top-level Start/Stop/config entry points and direct module dependencies.
+6. Cross-check frozen B08 Daily screenshot only after static extraction; do not infer hidden behavior from the screenshot.
+7. Do not deep-dive Trừng Ác route/combat logic or Tàng Bảo Đồ logic yet; K01 defines later K-task boundaries.
+8. Do not import logic from previous Auto-BTD/Trừng Ác projects into TLM reconstruction.
+9. Persist K01 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K01 verification.
