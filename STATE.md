@@ -2222,32 +2222,75 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J02_LEADER_FLOW.md
 - docs/phoban/J02_LEADER_MODEL.json
 
+## J03 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J03 artifacts existed; J01-J02 were already complete and were not redone.
+- Rechecked/re-hashed the frozen TLMTool 2.1.2 specimen before B07/runtime evidence. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Active follower authority remains frozen `.phoban_tab` at `0x2b86f63`, size **52957**, **1508** constants. Shared movement-clash helper authority was independently checked in frozen `.utils` at `0x2c4c962`, size **32300**, **862** constants.
+- The actual constructor field is **`follow_var`** (not a separate `follow_leader_var` symbol), with `_follow_stop`, `_follow_thread`, `_follow_gen`.
+- Visible option is exact `Theo sau đội trưởng`; callback `_toggle_follow`; config key `phoban_follow`; exact clean fallback is `('phoban_follow','0')`. Follow is opt-in and OFF by default.
+- Exact toggle doc: ON + any group already running -> start follower worker immediately; ON + no run -> keep option ON and wait; later run start creates worker; OFF -> stop worker immediately; worker rechecks the tick each cycle; config is saved.
+- Exact group filters: `_group_is_running(gd)` is true only when the group's run cancel exists and is not set; `_any_group_running()` is true while any group runs. Idle configured groups are skipped entirely by follow (no leader/member reads, no follow moves).
+- Worker lifecycle is generation-safe: constructor owns `_follow_stop/_follow_thread/_follow_gen`; `_start_follow` references `_follow_worker`, existing-thread `is_alive` guard and Thread keyword surface `target/args/daemon`; worker receives `gen`. Exact doc says generation prevents two workers overlapping and worker exits when no groups remain running. Exact `_follow_gen` mutation statements and daemon Boolean remain UNKNOWN.
+- Follow leader source is exact: **first combobox of each running group**. This matches J02 nominal leader source; no `read_team_leader` memory query is introduced.
+- The follow block contains exact `slice(1,None,None)`, binding the normal follower slice to group member slots after the first/leader slot. Leader is not commanded to follow itself.
+- Position reads are memory-based via exact imports `get_character_info` + `move_character`. Nested `_pos` reads exact fields `MapID`, `PosX`, `PosY`. Constants **32.0** and **0.5** are in the follow position/distance block, but the exact native arithmetic formula is not recoverable from constants alone and remains UNKNOWN.
+- Exact map rule: follow works only inside `DUNGEON_MAP_IDS`. If the leader leaves the dungeon-map set, the group stops following and old position/command cache is cleared; when the leader comes back into a dungeon map, follow resumes without stale safety-cache blocking the first new tick.
+- Exact exception: **Sát Tinh map 111 never follows**, even with checkbox enabled. Frozen doc says the accounts anchor at 65,85 and following would break that position.
+- Same-map gate is exact: a follower is considered only when on the same MapID as the leader. Another-map members are not dragged by this worker.
+- Two distinct symbolic thresholds are verified:
+  - `PB_FOLLOW_DIST_TILES`: minimum leader/follower distance before queueing follow movement.
+  - `PB_FOLLOW_MOVE_TILES`: safety threshold for detecting significant follower self/foreign movement between polls.
+  - `PB_FOLLOW_POLL`: periodic worker interval.
+  Their numeric values are **not safely bound** to names from the serialized constant table and remain explicit UNKNOWN.
+- Command-clash safety rule is exact at semantic level: if a follower moves more than `PB_FOLLOW_MOVE_TILES` tiles in one poll and that movement was not caused by follow's previous poll, skip that follower for this poll. Frozen doc explicitly identifies run-move/combat as the competing-command case.
+- Worker owns exact caches `last_pos`, `commanded`, `commanded_now`. Exact wording `không phải do follow ra lệnh poll trước` locks prior-follow-command exemption, so follow-caused movement is not misclassified as foreign movement on the next cycle. Exact set/dict mutation order remains UNKNOWN.
+- Follow also directly calls shared `is_move_poll_active` before queueing movement. Frozen shared utils doc says it returns True while a `move_character` **wait_for_arrival** poll is actively steering the HWND, specifically so Follow does not steal that movement command.
+- Shared `_MOVE_POLL_TTL` is exactly **0.5 seconds**.
+- Follow movement uses shared `move_character` with explicit keyword surface `wait_for_arrival, stop_check, follow_mode`.
+- Shared `move_character` defaults are directly frozen as `(False,None,None,False,48)` = wait_for_arrival=False, stop_check=None, home_priority=None, follow_mode=False, tolerance=48.
+- Follow's exact documentation says `follow_mode` **only queues AutoPath**: no Phù, no stop game auto, no mount toggle, so current auto FuBen remains active. Combined with the explicit caller keywords, the effective follow semantics are **wait_for_arrival=False / follow_mode=True**. Exact Python callable supplied as `stop_check` remains UNKNOWN but belongs to the follow worker/session lifecycle.
+- The follow worker is periodic, not one-shot: every `PB_FOLLOW_POLL` cycle it re-evaluates checkbox/generation, running groups, leader/follower positions, allowed maps, same-map, movement-distance/clash guards and current leader position before optionally queueing a new follow move.
+- Group-run completion does **not** clear the saved follow checkbox. Worker exits when no group runs, while the persisted mode may remain ON; a later run can create it again.
+- Exact per-member/outer error surfaces include `bám lỗi:` and `[Phó bản] follow lỗi:`. No frozen contract says one follow exception hard-aborts the whole schedule.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. Existing B07 visible-state evidence records `follow_leader=false`; no geometry was remeasured.
+- Only after static extraction, exact packaged `automove_log.txt` (SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`) was searched. It contains 0 correlated lines for follow labels/actions/errors/`follow_mode`/`is_move_poll_active`. Generic primitive lines remain AutoMove queued **16040**, StartAutoPath **15993**, StopAutoPath **2027**, and are primitive-only evidence, not PhoBanTab-follow causation.
+- J03 classification is **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED** for numeric PB_FOLLOW values, exact cache/generation micro-order and live movement-command race behavior.
+
+## J03 FILES
+- docs/tasks/J03.md
+- docs/phoban/J03_FOLLOWER_STATIC_EVIDENCE.tsv
+- docs/phoban/J03_FOLLOWER_FLOW.md
+- docs/phoban/J03_FOLLOWER_MODEL.json
+
 ## BLOCKERS
-None known for J03.
+None known for J04.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01 party-formation contracts unchanged.
-- TLMTool 2.1.2 remains the sole Phó Bản authority; do not import leader behavior from older/external projects.
+- Preserve J01-J02 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole Phó Bản authority; do not import follower logic from older/external projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve nominal UI leader = first combobox and blank -> `(chưa chọn)`.
-- Preserve current-online ordered roster semantics and run-local `_leader_hw/_idx` metadata layer.
-- Preserve `is_leader/member_index/total_members` propagation through `_acc_step_worker → _do_dungeon → DungeonCtx`.
-- Preserve absence of `read_team_leader` dependency in active Phó Bản modules.
-- Preserve distinction between UI leader, J01 recreate-team leader, run-local `is_leader`, and game `FUBEN.FollowLeader`.
-- Preserve BaseDungeon pass-through and current SatTinh "mọi acc giống nhau" behavior; do not invent leader-only dungeon hooks.
-- Preserve J02 UNKNOWN boundaries: exact `_leader_hw` assignment, exact `is_leader` Boolean expression, native member-index expression/base, same-refresh-window offline handoff, mid-step leader recompute behavior, and Windows runtime parity.
+- Preserve `follow_var/phoban_follow` clean default OFF and persisted-mode behavior.
+- Preserve follow scope: only currently-running groups; ON-before-run waits; run-end stops worker without clearing checkbox.
+- Preserve first-combobox leader source and follower slots after the first.
+- Preserve memory position fields MapID/PosX/PosY and dungeon-only/same-map gates.
+- Preserve exact map-111 Sát Tinh exclusion.
+- Preserve distinct `PB_FOLLOW_DIST_TILES` distance gate and `PB_FOLLOW_MOVE_TILES` foreign-movement safety gate.
+- Preserve `last_pos/commanded/commanded_now` prior-follow exemption semantics.
+- Preserve shared `is_move_poll_active` guard with exact 0.5s TTL.
+- Preserve follow movement as shared `move_character` queue-only `wait_for_arrival=False, follow_mode=True`: no Phù, no stop-auto, no mount toggle, preserve auto FuBen.
+- Preserve cache-clear-on-leader-leaves-dungeon behavior.
+- Preserve J03 UNKNOWN boundaries: numeric PB_FOLLOW_POLL/DIST/MOVE values, 32.0/0.5 arithmetic expression, generation/thread micro-order, exact stop_check callable, exact cache mutation order, unreadable-position cache handling and live Windows/game race behavior.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J03 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J03 — Phó Bản followers / "Theo sau đội trưởng" audit** only.
+3. Check GitHub first for any J04 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J04 — Phó Bản schedule model / schedule-row execution audit** only.
 5. Inspect the frozen original EXE first.
-6. Audit `follow_leader_var`, `_toggle_follow`, `_start_follow`, `_stop_follow`, `_follow_worker`, `PB_FOLLOW_POLL`, `PB_FOLLOW_MOVE_TILES`, group-running filter, first-combo leader lookup, same-map/dungeon-map checks, command-clash suppression, SatTinh exclusion, generation/worker lifecycle and stop behavior.
-7. Bind exact movement helper/mode used by follow, leader/member position reads and cache/reset behavior only where directly proven.
-8. Keep schedule/dungeon list/run counts/status/drop/loot/Nga My/multi-group run/start-stop/failure-recovery deferred.
-9. Cross-check B07 only after static extraction.
-10. Do not import follower logic from older external Phó Bản projects.
-11. Persist J03 artifacts, update STATE.md, and advance only after J03 verification.
+6. Audit schedule-row structure and lifecycle: `_schedule_rows`, `_add_schedule_row`, `_remove_schedule_row`, `_set_schedule_progress`, `_group_schedule`, enabled/activity/name/times fields, supported activity types, row progress state, per-group schedule collection/order and exact config serialization/load compatibility.
+7. Identify only the schedule execution ordering/barrier handoff needed to understand row sequencing; keep dungeon-list internals J05, number-of-runs semantics J06, status-machine deep audit J07 and later drop/loot/Nga My/multi-group/start-stop/failure-recovery tasks deferred.
+8. Cross-check B07 only after static extraction and do not remeasure geometry unless frozen EXE evidence contradicts it.
+9. Do not import schedule behavior from older external Phó Bản projects.
+10. Persist J04 artifacts, update STATE.md, and advance only after J04 verification.
