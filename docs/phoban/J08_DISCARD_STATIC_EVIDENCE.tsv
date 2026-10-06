@@ -1,0 +1,58 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+ctor_discard_equip_var	0x2b870c3	VERIFIED_STATIC	discard_equip_var
+ctor_discard_items_var	0x2b870d6	VERIFIED_STATIC	discard_items_var
+ctor_discard_meds_var	0x2b870e9	VERIFIED_STATIC	discard_meds_var
+ctor_discard_stop	0x2b870fb	VERIFIED_STATIC	_discard_stop
+ctor_discard_thread	0x2b8710a	VERIFIED_STATIC	_discard_thread
+ctor_discard_gen	0x2b8711b	VERIFIED_STATIC	_discard_gen
+ui_discard_equip	0x2b8772d	VERIFIED_STATIC_UTF8	Vứt trang bị
+ui_discard_toggle	0x2b8773f	VERIFIED_STATIC	_toggle_discard
+ui_discard_items	0x2b87787	VERIFIED_STATIC_UTF8	Vứt vật phẩm
+ui_discard_meds	0x2b877ae	VERIFIED_STATIC_UTF8	Vứt thuốc
+config_discard_tuple	0x2b90620	VERIFIED_STATIC_DECODE	((discard_equip_var,phoban_discard_equip),(discard_items_var,phoban_discard_items),(discard_meds_var,phoban_discard_meds))
+runtime_discard_tuple	0x2b91346	VERIFIED_STATIC_DECODE	((discard_equip_var,(discard_equip,)),(discard_items_var,(discard_items,)),(discard_meds_var,(discard_meds,)))
+discard_tick_keys_symbol	0x2b898b2	VERIFIED_STATIC	DISCARD_TICK_KEYS
+discard_enabled_doc	0x2b898c5	VERIFIED_STATIC_UTF8	returns bag_filter preset keys of enabled equipment/items/meds ticks; [] when none
+discard_enabled_func	0x2b8994b	VERIFIED_STATIC	_discard_enabled_keys
+discard_start_func	0x2b89962	VERIFIED_STATIC	_start_discard
+discard_wait_log	0x2b89972	VERIFIED_STATIC_UTF8	[Phó bản] Tick vứt đồ BẬT — chờ lịch trình chạy
+discard_stop_func	0x2b899b8	VERIFIED_STATIC	_stop_discard
+discard_toggle_doc	0x2b899c7	VERIFIED_STATIC_UTF8	enabled+running starts; enabled+idle waits; all-off stops; worker rechecks ticks; save config
+discard_worker_func	0x2b89b53	VERIFIED_STATIC	_discard_worker
+discard_start_log	0x2b89b64	VERIFIED_STATIC_UTF8	[Phó bản] Bật vứt đồ (quét ...
+discard_poll_symbol	0x2b89b8c	VERIFIED_STATIC	PB_DISCARD_POLL
+discard_stop_log	0x2b89bbf	VERIFIED_STATIC_UTF8	[Phó bản] Tắt vứt đồ
+discard_members_helper	0x2b89bed	VERIFIED_STATIC	PhoBanTab._discard_worker.<locals>._members
+discard_inflight	0x2b89c1a	VERIFIED_STATIC	inflight
+discard_skip_inflight_log	0x2b89c24	VERIFIED_STATIC_UTF8	vòng trước chưa vứt xong — bỏ qua nhịp này
+discard_one_acc_func	0x2b89c5f	VERIFIED_STATIC	_discard_one_acc
+discard_worker_doc	0x2b89ca9	VERIFIED_STATIC_UTF8	periodic run-scoped worker; accounts parallel; presets sequential equip->items->meds; inflight skip; generation/is_alive guards
+discard_one_acc_doc	0x2b8a076	VERIFIED_STATIC_UTF8	one account sequential presets; one discard_for_activity per preset; delay 1s/item; early stop
+discard_for_activity_ref	0x2b89fe3	VERIFIED_STATIC	discard_for_activity
+discard_activity	0x2b89fff	VERIFIED_STATIC	phoban
+bag_filter_marker	0x28d5daf	VERIFIED_STATIC	bag_filter module
+bag_send_locks_guard	0x28d5dde	VERIFIED_STATIC	_SEND_LOCKS_GUARD
+bag_send_locks	0x28d5df1	VERIFIED_STATIC	_SEND_LOCKS
+bag_discard_rules_doc	0x28d6345	VERIFIED_STATIC_UTF8	discard rules result + stop_check early-stop contract
+bag_activity_doc	0x28d648f	VERIFIED_STATIC_UTF8	selected preset keys; None/[] means discard nothing
+bag_opt_in_doc	0x28d6572	VERIFIED_STATIC_UTF8	default no discard; empty rules no scan/no packet; presets opt-in
+bag_packet_doc	0x28d696f	VERIFIED_STATIC_UTF8	packet 100005 "4:dbID"
+bag_discard_for_activity_defaults	0x28d7032	VERIFIED_STATIC_DECODE	(None,None,1.0,None,None,False) => keys,extra_rules,delay,stop_check,on_progress,dry_run defaults
+memory_item_action_doc	0x29194d6	VERIFIED_STATIC_UTF8	action4 Abandon; CMD_ITEM_ACTION100005; <action>:<dbID>; internal DLL path
+final_discard_log	0x2b902d4	VERIFIED_STATIC_UTF8	vứt lượt cuối (
+final_discard_fkeys	0x2b902f6	STRONG_STATIC_MAPPING	_fkeys local in _run_one_group normal completion region
+final_discard_threads	0x2b902fe	STRONG_STATIC_MAPPING	_ft and _t locals in final-discard region
+final_discard_done	0x2b90307	VERIFIED_STATIC_UTF8	xong vứt lượt cuối
+final_discard_error	0x2b90324	VERIFIED_STATIC_UTF8	vứt lượt cuối lỗi:
+group_complete_after_final	0x2b90343	VERIFIED_STATIC_UTF8	HOÀN THÀNH follows final-discard constants
+run_group_locals	0x2b937e0	VERIFIED_STATIC_MAPPING	_run_one_group locals include targets,sched,cancel,job,threads,_leader_hw,_idx,_fkeys,_ft,_t
+b07_default	-	VISUAL_VERIFIED	B07 SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; all three discard controls false
+poll_numeric	-	EXPLICIT_UNKNOWN	PB_DISCARD_POLL symbol and cadence semantics verified; numeric scalar not safely bound
+inflight_identity	-	EXPLICIT_UNKNOWN	per-account overlap prevention proven; exact identity key not source-bound
+stop_formula	-	EXPLICIT_UNKNOWN	stop_check handoff proven; exact worker closure Boolean expression not source-bound
+final_abort_flush	-	NOT_RECOVERED	final pass is on normal completion path; no mandatory flush after hard abort/user stop recovered
+late_cancel_final_pass	-	EXPLICIT_UNKNOWN	cancel arriving exactly around final-pass boundary requires runtime/instruction proof
+runtime_phoban_discard	-	NOT_RECOVERED	0 [Phó bản]/vứt đồ/vứt lượt cuối top-level lines in packaged automove_log
+runtime_action4	-	RUNTIME_PRIMITIVE_ONLY	2 ItemAction sent action=4 + 22732 spts action=4 = 22734; caller not correlated to PhoBanTab
