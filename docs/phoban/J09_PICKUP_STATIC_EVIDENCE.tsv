@@ -1,0 +1,45 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; size93715901
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; size47450112
+phoban_tab_marker	0x2b86f63	VERIFIED_STATIC	.phoban_tab serialized payload
+ctor_pickup_var	0x2b87053	VERIFIED_STATIC	pickup_var
+ctor_pick_stop	0x2b8705f	VERIFIED_STATIC	_pick_stop
+ctor_pick_thread	0x2b8706b	VERIFIED_STATIC	_pick_thread
+pickup_generation_symbol	-	VERIFIED_ABSENCE	no _pick_gen / _pickup_gen in exact PhoBanTab module
+ui_pickup_label	0x2b876f8	VERIFIED_STATIC_UTF8	Nhặt không hồ lô
+ui_pickup_callback	0x2b8770f	VERIFIED_STATIC	_toggle_pickup
+pickup_members_doc	0x2b88ac8	VERIFIED_STATIC_UTF8	Tất cả acc được chọn (mọi cụm Nhóm), unique, giữ thứ tự.
+pickup_start	0x2b88b16	VERIFIED_STATIC	_start_pickup
+pickup_stop	0x2b88b25	VERIFIED_STATIC	_stop_pickup
+pickup_toggle_doc	0x2b88b33	VERIFIED_STATIC_UTF8	persisted Tự nhặt đồ mode; keepalive only during schedule; tick while running starts immediately; untick stops immediately
+pickup_alive_guard	0x2b88c01	VERIFIED_STATIC	is_alive
+pickup_stop_clear	0x2b88c0b	VERIFIED_STATIC	clear before pickup-worker start shell
+pickup_worker	0x2b88c12	VERIFIED_STATIC	_pickup_worker
+pickup_start_log	0x2b88c23	VERIFIED_STATIC_UTF8	[Phó bản] Bật tự nhặt đồ (poll ...
+pickup_poll_symbol	0x2b88c4f	VERIFIED_STATIC	PICK_POLL
+pickup_start_log_setting	0x2b88c5a	VERIFIED_STATIC_UTF8	giữ PICKITEM.IsOn
+pickup_stop_log	0x2b88c78	VERIFIED_STATIC_UTF8	[Phó bản] Tắt tự nhặt đồ
+pickup_members_ref	0x2b88ca9	VERIFIED_STATIC	_pickup_members
+pickup_hwnd_resolver	0x2b88cba	VERIFIED_STATIC	_hwnd_by_name
+pickup_reader	0x2b88cda	VERIFIED_STATIC	get_auto_settings
+pickup_group	0x2b88ced	VERIFIED_STATIC	PICKITEM
+pickup_field	0x2b88cf9	VERIFIED_STATIC	IsOn
+pickup_true_literal	0x2b88d02	VERIFIED_STATIC_DECODE	True
+pickup_writer	0x2b88d0a	VERIFIED_STATIC	set_auto_fields
+pickup_write_shape	0x2b88d1b	VERIFIED_STATIC_DECODE	nested PICKITEM / IsOn / bool write shape
+pickup_account_error	0x2b88d45	VERIFIED_STATIC_UTF8	bật tự nhặt lỗi:
+pickup_result	0x2b88d61	VERIFIED_STATIC_UTF8	tự nhặt đồ (OK/FAIL)
+pickup_outer_error	0x2b88d81	VERIFIED_STATIC_UTF8	[Phó bản] pick lỗi:
+pickup_worker_doc	0x2b88d9e	VERIFIED_STATIC_UTF8	Mỗi PICK_POLL giây: acc nào bị tắt tự-nhặt-đồ thì bật lại + lưu
+pickup_members_locals	0x2b93577	STRONG_STATIC_MAPPING	self,out,seen,... member-name de-dup helper
+pickup_worker_locals	0x2b93590	VERIFIED_STATIC_MAPPING	self,stop,GI,names,name_hw,nm,hwnd,data,val,on,ok,e
+config_pickup_default	0x2b905c8	VERIFIED_STATIC_DECODE	(phoban_pickup,"0")
+config_pickup_save	0x2b908c7	VERIFIED_STATIC	phoban_pickup save key
+shared_save_setting_doc	0x2b72502	VERIFIED_SHARED_STATIC_UTF8	set_auto_fields đã SaveSetting
+run_group_background_doc	0x2b90352	VERIFIED_STATIC_UTF8	nhặt đồ / vứt đồ / lưu auto FuBen chạy đằng sau
+finish_group_pickup_doc	0x2b8fef0	VERIFIED_STATIC_UTF8	last-group global teardown resets flags/buttons/pickup once
+pickup_false_write	-	NOT_RECOVERED	no PICKITEM.IsOn=False write shape recovered in exact pickup subsystem
+pickup_sweep_off	-	NOT_RECOVERED	no pickup-local _sweep_off; exact _sweep_off belongs to Nga My buff block
+b07_default	-	VISUAL_VERIFIED	B07 SHA256 8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8; pickup_no_gourd=false
+poll_numeric	-	EXPLICIT_UNKNOWN	PICK_POLL symbol/cadence proven; numeric scalar not safely bound
+runtime_pickup	-	NOT_RECOVERED	0 correlated [Phó bản]/Bật-Tắt tự nhặt/PICKITEM/pick lỗi/set_auto_fields/SaveSetting lines in packaged automove_log
