@@ -2145,29 +2145,77 @@ H13 — Train all-account command orchestration audit.
 ## GATE I
 **CLOSED_FOR_STATIC_VISUAL_RESEARCH_HANDOFF / END_TO_END_RUNTIME_PARITY_DEFERRED**
 
+## J01 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J01 artifacts existed; Gate I was already complete and was not reopened.
+- Re-extracted/re-hashed the frozen original before using B07. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Active Phó Bản authority is frozen module `.phoban_tab` / `phoban_tab.py`, class `PhoBanTab`; marker offset `0x2b86f63`, encoded chunk size **52957**, **1508** top-level constants. Related dungeon-handler module `phoban_dungeons.py` is present but J01 did not audit dungeon handlers.
+- Constructor/UI party-formation surfaces are native to `PhoBanTab`: `_member_rows`, `recreate_team_var`, `_group_vars`, `_pending_group`, `_groups`, `_group_counter`, run-lock/job surfaces.
+- Ready accounts are refreshed incrementally every **5 seconds** from `start_tab.get_windows`; slow window/character reads happen in a background worker and UI apply happens on the main thread.
+- Ready-member identity is HWND + current PID. Closed windows and HWND process reuse remove the old member row.
+- Exact ready-list doc says selected accounts are hidden from the ready grid; ready grid layout is 3 accounts/row.
+- Each group built by `_add_group_cluster` contains exactly **6 account comboboxes**. B07 confirms 2 rows × 3.
+- Exact leader-label rule: the **first combobox is the nominal leader**; blank first slot displays `(chưa chọn)`.
+- `_refresh_group_combo_values` enforces cross-group uniqueness in the normal UI: an account chosen by an earlier group disappears from later-group dropdown choices; a still-valid current selection is preserved; a dead/stale selection resets.
+- `_on_group_selected` immediately refreshes other combobox values and enters the config-save path.
+- Group combobox permission scope is `phoban_tab`; enabled state is `readonly`, denied state disabled.
+- `Tạo lại đội` uses `recreate_team_var`; exact clean config fallback is `phoban_recreate_team=0`. B07 shows it unchecked. Party recreation is therefore opt-in.
+- Exact `_run_one_group` doc places team recreation **before** schedule setup when enabled. If `_pb_ensure_party` fails, that group stops and its schedule does not proceed.
+- Current formation targets are selected **and currently online** group members: `[(name, hwnd)]`.
+- `_pb_resolve_targets` resolves RoleID using live `read_own_ids + hwnd_of_pid`, exact-name then case-insensitive matching. One unresolved member is skipped/logged; zero resolvable RoleIDs aborts the group.
+- TeamID no-team integer sentinels are exactly `{0,-1,4294967295}`; textual no-team forms include `0/false/empty`. `None`/read failure is not accepted as successful team state.
+- Party recreation effective leader rule is exact: first combobox account if online; if that nominal leader is offline, **first online target becomes the creation leader**. If only one online account remains, no team creation is needed and the group can continue.
+- Recreate pipeline is exact at architecture level: **B0 auto-accept → B1 leave existing team → B2 leader UI create → B3 burst invite**.
+- B0 targets `UTILITIES.AutoAcceptInviteTeam=True` and verifies readback where possible. Exact low-level writer and numeric `PB_PARTY_AUTOSET_DELAY` remain UNKNOWN.
+- B1 skips `leave_team` for members already outside a team, sends leave for others, then waits for no-team state. If all-leave confirmation times out, exact behavior is warning + **still continue** rather than hard abort.
+- B2 `_pb_click_create_team` has leader-window 1366×768 resize surface and exact UI click sequence:
+  - pixel `donVang.nguoiChoiGan` present → click **(391,683)**; absent → skip/log.
+  - pixel `donVang.muiTenAnNhiemVu` present → click **(34,462)**; absent → skip/log.
+  - then tail clicks **(27,467) → (154,214) → (127,336)**.
+  Exact documentation says **every click is 1 second apart**.
+- B2 `_pb_invite_create` retries creation symbolically by `PB_PARTY_CREATE_RETRY`, waiting for a **real TeamID** each attempt. Exhausted creation retries hard-abort that group.
+- B3 `_pb_invite_burst` sends a burst to all resolved non-leader members, waits once for same-TeamID, resends only missing members once, then waits one more time.
+- Crucial frozen behavior: after the second wait, `_pb_invite_burst` returns success **even if some members are still missing**, unless cancelled; missing list/team snapshot are logged. Do not reconstruct an all-members-must-join hard abort at this layer.
+- Party sleeps/waits are cooperative through `_pb_party_cancelled` + `_pb_party_sleep`; group or global cancel can interrupt formation.
+- Symbolic PB_PARTY timing/retry globals are verified, but J01 does not safely bind their numeric values: TEAMID_POLL, CREATE_RETRY, WAIT_TEAM_TIMEOUT, INVITE_RETRY_GAP, JOIN_POLL, BURST_DELAY, JOIN_TIMEOUT, AUTOSET_DELAY, LEAVE_DELAY, WAIT_LEFT_TIMEOUT.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It confirms recreate unchecked, one visible group, leader `(chưa chọn)`, six blank slots and add/delete-group controls. No geometry was remeasured.
+- Only after static extraction, packaged `automove_log.txt` was searched. No correlated team-recreation markers were found for AutoAcceptInviteTeam/CreateTeam/leave_team/invite/TeamID/C_TeamAction/Tạo đội/mời đội/Phó Bản. The 87 literal RoleID lines sampled are unrelated private-chat packet scripts. J01 is **STATIC_VERIFIED / RUNTIME_ENV_REQUIRED** for actual game-party recreation.
+
+## J01 FILES
+- docs/tasks/J01.md
+- docs/phoban/J01_PARTY_FORMATION_STATIC_EVIDENCE.tsv
+- docs/phoban/J01_PARTY_FORMATION_FLOW.md
+- docs/phoban/J01_PARTY_FORMATION_MODEL.json
+
 ## BLOCKERS
-None known for starting Phase J research. The 53 runtime-required TrainLSV scenarios remain mandatory later for end-to-end parity but do not block continuing the PLAN's static/research phases.
+None known for J02.
 
 ## DO_NOT_TOUCH
-- Preserve Gate A forensic baseline and closed Gate F/G/H/I research handoffs.
-- Preserve all I01-I11 frozen TrainLSV contracts and I12 matrix classifications.
-- Never silently upgrade a `RUNTIME_ENV_REQUIRED` I12 row without exact original Windows/live-game execution/observation.
-- Preserve runtime-log scope: generic AutoMove/AutoFight/action4 records prove only the primitive actually logged.
-- Preserve B06 as visual evidence only, never behavioral proof.
-- Preserve corrected disconnect-pixel tolerance 5.
-- Preserve no-direct-PICKITEM TrainLSV finding, no ordinary-Train 8-tile pre-skip, no ordinary-Train sell/medicine/return-town cycle and all other negative/absence contracts.
-- Proxy runtime/network development remains locked out.
-- Do not start Stage S source reconstruction early.
-- Phase J must use frozen TLMTool 2.1.2 as authority. Do not import phó-bản logic from older/external Than Long projects as a substitute for TLM evidence.
+- Preserve Gate A and closed Gate F/G/H/I research handoffs.
+- Preserve TLMTool 2.1.2 as sole Phó Bản authority; do not import dungeon logic from older/external user projects.
+- Proxy runtime/network development remains locked. Do not start Stage S early.
+- Preserve J01 six-slot group model and first-combobox nominal leader rule.
+- Preserve cross-group selection uniqueness and 5-second PID-aware ready-account refresh.
+- Preserve `Tạo lại đội` clean default OFF.
+- Preserve formation target rule: selected + currently online members only.
+- Preserve RoleID skip/zero-resolvable abort and exact no-team TeamID sentinels.
+- Preserve offline nominal-leader fallback to first online target and one-online fast path.
+- Preserve B0→B1→B2→B3 recreation ordering.
+- Preserve B1 incomplete-leave-confirmation warning/fail-open behavior.
+- Preserve B2 exact leader UI clicks and 1-second spacing.
+- Preserve B2 hard abort only after create retries fail to produce real TeamID.
+- Preserve B3 one missing-member resend and success-even-if-still-missing behavior unless cancelled.
+- Preserve cooperative group/global cancellation.
+- Preserve J01 UNKNOWN boundaries for PB_PARTY numeric timing/retry values, exact AutoAcceptInviteTeam writer, wait first-read micro-order and live-game parity.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J01 artifacts/commits; if already complete and verified, do not redo them.
-4. Start **J01 — Phó Bản party-formation audit** only, following the first Phase-J PLAN concern.
-5. Inspect the frozen original EXE first. Identify the active Phó Bản module/class, constructor/UI wiring and the exact party-formation surfaces needed to understand how dungeon participants/groups are formed.
-6. Separate party formation from later J tasks: leader, followers, schedule, dungeon list, run counts, status machine, drop/loot settings, Nga My buff, multiple groups, start/stop, failure/recovery and runtime tests.
-7. Use the Phó Bản screenshot baseline only after static extraction; do not infer behavior solely from UI text.
-8. Do not reuse dungeon automation logic from older user projects. TLMTool 2.1.2 is the authority.
-9. Persist J01 evidence/report and update STATE.md. Advance only to J02 after J01 verification.
+3. Check GitHub first for any J02 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J02 — Phó Bản leader semantics audit** only.
+5. Inspect frozen original EXE first.
+6. Audit how leader identity is represented and propagated after J01 formation: leader label/first-slot semantics, effective leader fallback boundaries, `is_leader` computation passed into dungeon execution, leader-only branches/hooks, team-leader memory reads if any, and how leader identity behaves when members go offline or group formation is skipped.
+7. Keep follower/follow-leader worker semantics deferred to J03 except where needed to identify the leader source. Do not audit schedule/dungeon list/run count/status/drop/loot/Nga My/multi-group start-stop yet.
+8. Cross-check B07 only after static extraction.
+9. Do not import leader behavior from old external phó-bản projects.
+10. Persist J02 artifacts, update STATE.md, and advance only after J02 verification.
