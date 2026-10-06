@@ -2403,32 +2403,63 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J08_DISCARD_MODEL.json
 - docs/phoban/J08_DISCARD_STATIC_EVIDENCE.tsv
 
+
+## J09 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J09 artifacts/completion commit existed before this turn; J01-J08 were already complete and were not redone.
+- Re-inspected the exact mounted original archive `/mnt/data/TLMTool_2.1.2(6).zip` before any screenshot/log cross-check. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes. Inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact visible control is **Nhặt không hồ lô**. Constructor state is `pickup_var/_pick_stop/_pick_thread`; callback is `_toggle_pickup`. Exact function inventory contains `_pickup_members/_toggle_pickup/_start_pickup/_stop_pickup/_pickup_worker`.
+- Critical architecture difference: no `_pick_gen` or `_pickup_gen` exists in the exact PhoBanTab module. Pickup must not inherit the generation-counter design used by follow/discard/buff.
+- Config key is exactly `phoban_pickup`; clean/load fallback is `"0"`; save path writes the same key. B07 independently confirms `pickup_no_gourd=false`.
+- Exact toggle documentation says `Tự nhặt đồ` is a persisted mode and the IsOn keepalive only runs while a Phó Bản schedule is running. Tick during a run starts it immediately; untick stops it immediately. Run documentation independently says pickup runs in the background with the schedule.
+- The pickup start shell exposes `is_alive` and stop-event `clear` immediately before `_pickup_worker`, proving duplicate-worker guard + stop-event reuse. Exact thread daemon/join/reference-clear ordering remains micro-UNKNOWN.
+- Exact cadence is `PICK_POLL` seconds. Numeric value cannot be safely bound from the serialized scalar pool and remains explicit UNKNOWN.
+- `_pickup_members` exact doc: **all selected accounts from all group clusters, unique, stable order**. It references `get_groups_data` and `members`; its local model includes output/seen/member-name state. This is intentionally broader than J08 discard's “currently-running groups only” scope.
+- Therefore the static original model is: while at least one Phó Bản schedule is running, the pickup keepalive services all currently selected Phó Bản members that resolve to live HWNDs, even if one selected member belongs to another configured group that is not the group currently executing.
+- Worker directly references `_pickup_members` + `_hwnd_by_name`; local model is `self,stop,GI,names,name_hw,nm,hwnd,data,val,on,ok,e`. It re-resolves current live HWNDs each poll rather than freezing one lifetime HWND roster.
+- Internal implementation is exact: read `get_auto_settings(hwnd)` → inspect `PICKITEM.IsOn` → if not effectively ON, call `set_auto_fields` with `PICKITEM.IsOn=True`. The worker is a memory/internal auto-setting keepalive, not a drop scan/click engine.
+- Exact worker documentation: every `PICK_POLL` seconds, any account whose auto-pick is off is turned back on and saved. The local `val/on/bool` model strongly supports Boolean normalization/readback before repair.
+- Shared exact-memory documentation says `set_auto_fields đã SaveSetting`; this matches the pickup worker's “bật lại + lưu” contract. The write is therefore sent through the game's internal auto-setting/save path.
+- Exact diagnostics include per-account `bật tự nhặt lỗi:`, result `tự nhặt đồ (OK/FAIL)`, and outer `[Phó bản] pick lỗi:`. No recovered contract says one pickup keepalive error hard-aborts the Phó Bản schedule.
+- J09 contains no bag_filter preset, item-action packet, or screen-click pickup logic. The operational contract is specifically **keep `PICKITEM.IsOn=True`** while the run-scoped mode is active.
+- Stop/untick cleanup was audited carefully. Inside the exact pickup subsystem there is only a recovered `PICKITEM.IsOn=True` write shape; no pickup-local `_sweep_off`, no recovered `PICKITEM.IsOn=False` write, and exact toggle wording is “bỏ tick -> dừng ngay”. The `_sweep_off` symbol present in PhoBanTab belongs to Nga My buff, not pickup. Reconstruction must therefore stop enforcing ON and must **not invent an OFF write**.
+- J07 final-group documentation says global teardown resets flags/buttons/pickup once. Combined with the persisted pickup-mode contract, strongest static model is that final-group teardown stops/resets the pickup worker lifecycle; no evidence shows it clears `pickup_var/phoban_pickup` or writes `PICKITEM.IsOn=False`.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It confirms the visible checkbox and clean OFF state only.
+- Only after static extraction, exact packaged `data/automove_log.txt` (SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes, 387,238 lines) was searched. It contains 0 correlated pickup markers for Phó Bản, PICKITEM, pick errors, set_auto_fields or SaveSetting. J09 is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+
+## J09 FILES
+- docs/tasks/J09.md
+- docs/phoban/J09_PICKUP_FLOW.md
+- docs/phoban/J09_PICKUP_MODEL.json
+- docs/phoban/J09_PICKUP_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J09.
+None known for J10.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J08 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole authority; do not import pickup/buff behavior from older or external projects.
+- Preserve J01-J09 Phó Bản contracts unchanged.
+- TLMTool 2.1.2 remains the sole authority; do not import Nga My buff behavior from older/external projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve exactly three discard controls and exact config/runtime preset mappings.
-- Preserve current default OFF state and run-scoped opt-in behavior.
-- Preserve accounts-parallel / presets-sequential execution and per-account inflight guard.
-- Preserve one-second per-item pacing and internal action-4 packet path.
-- Preserve normal-completion final discard pass using current enabled keys; unticked means skip.
-- Do not invent a hard-abort/user-stop final discard flush.
-- Preserve J08 UNKNOWNs: numeric PB_DISCARD_POLL, generation/thread micro-order, inflight identity key, exact stop closure formula, final-pass late-cancel race and periodic-vs-final-pass interleaving.
-- Do not reopen J01-J07 unless a later exact contradiction is found.
+- Preserve exact pickup state fields `pickup_var/_pick_stop/_pick_thread`; do not add a generation field.
+- Preserve `phoban_pickup` default OFF and run-scoped persisted-mode behavior.
+- Preserve pickup member scope as all selected Phó Bản members across all groups, unique/order-preserving, while the keepalive itself exists only during schedule lifetime.
+- Preserve current-live-HWND re-resolution each poll.
+- Preserve internal `PICKITEM.IsOn` readback/repair and `set_auto_fields` SaveSetting path.
+- Preserve J09 as auto-setting keepalive only; no bag_filter/item-action/screen-click pickup logic.
+- Preserve no recovered pickup OFF-sweep: stop/untick ends enforcement but must not invent `PICKITEM.IsOn=False`.
+- Preserve last-group pickup worker teardown without clearing the persisted checkbox unless later exact evidence contradicts it.
+- Preserve J09 UNKNOWNs: numeric PICK_POLL, thread stop/start micro-order, malformed auto-setting payload behavior, rapid restart race without generation field, live runtime parity.
+- Do not reopen J01-J08 unless later exact evidence directly contradicts them.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J09 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J09 — Phó Bản loot / Nhặt không hồ lô subsystem audit** only.
-5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use shared memory/item helpers only where the frozen Phó Bản pickup subsystem directly calls them.
-6. Audit `Nhặt không hồ lô` only: `pickup_var/phoban_pickup` config/default, `_pick_stop/_pick_thread`, `_pickup_members`, `_toggle_pickup/_start_pickup/_stop_pickup/_pickup_worker`, worker lifetime/run-scope, scan cadence `PICK_POLL`, account/member scope, exact memory/internal pickup field/action being held ON, readback/repair behavior, stop/unset cleanup and last-group teardown interaction.
-7. Do not merge J10 Nga My buff or revisit J08 discard.
+3. Check GitHub first for any J10 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J10 — Phó Bản Nga My buff subsystem audit** only.
+5. Inspect the exact frozen original EXE first, primarily `.phoban_tab`; use character-info/auto-setting shared helpers only where the frozen buff subsystem directly calls them.
+6. Audit `Nga My buff (Sát Tinh)` only: `nga_my_buff_var/phoban_nga_my_buff` default/config, `_buff_stop/_buff_thread/_buff_gen`, `_toggle_buff/_start_buff/_stop_buff/_is_nga_my/_buff_ensure/_buff_worker`, `PB_BUFF_POLL`, running-group/member scope, class/Nga-My detection, dungeon-map/Sát-Tinh gate, exact auto field(s) forced ON/OFF, readback-before-write, final untick sweep, run-end teardown and generation/session guards.
+7. Do not merge J11 multiple-group audit into J10.
 8. Cross-check B07 only after static extraction.
-9. Do not import pickup logic from older/external projects.
-10. Persist J09 artifacts, update STATE.md, and advance only after J09 verification.
+9. Do not import buff logic from older/external Phó Bản projects.
+10. Persist J10 artifacts, update STATE.md, and advance only after J10 verification.
