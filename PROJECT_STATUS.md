@@ -271,7 +271,8 @@ Phase I research may hand off. Stage S remains locked and TrainLSV runtime parit
 - J06 — VERIFIED_MANUAL_DUNGEON_TIMES_WITH_ENTRY_DEFAULT1_SHARED_BARRIER_AND_TRAIN_TIMES_IGNORED
 - J07 — VERIFIED_GROUP_ABORT_BARRIER_BREAK_IDENTITY_SAFE_TEARDOWN_WITH_EXPLICIT_RUNTIME_UNKNOWNS
 - J08 — VERIFIED_RUN_SCOPED_DISCARD_WORKER_WITH_PARALLEL_ACCOUNTS_SEQUENTIAL_PRESETS_AND_FINAL_PASS
-- J09 — NEXT
+- J09 — VERIFIED_RUN_SCOPED_PICKITEM_ISON_KEEPALIVE_WITH_ALL_SELECTED_MEMBERS_AND_NO_RECOVERED_OFF_SWEEP
+- J10 — NEXT
 
 J01 locks the six-slot group model and optional B0/B1/B2/B3 recreate-team pipeline.
 
@@ -299,5 +300,7 @@ J07 locks the two-layer cancel model, exact red/orange run-button states, curren
 
 J08 locks the three discard controls, exact config/preset mappings, run-scoped generation-safe worker, parallel-account/sequential-preset execution, per-account inflight guard, internal action-4 packet path, and the normal-completion final discard pass. PB_DISCARD_POLL numeric value and late-cancel/final-pass races remain explicit runtime unknowns.
 
+J09 locks Nhặt không hồ lô as a persisted run-scoped PICKITEM.IsOn keepalive: all selected Phó Bản members across all groups are de-duplicated and re-resolved to live HWNDs, IsOn is read back every PICK_POLL and repaired to True through set_auto_fields/SaveSetting, and no pickup-local OFF sweep is recovered. Pickup has stop/thread state but no generation field; PICK_POLL numeric and stop/start race microdetails remain explicit runtime unknowns.
+
 ## Phase J current
-J09 — Phó Bản loot / Nhặt không hồ lô subsystem audit.
+J10 — Phó Bản Nga My buff subsystem audit.
