@@ -1,0 +1,64 @@
+key	offset_hex	status	evidence
+phoban_tab_marker	0x2b86f63	VERIFIED_STATIC_DECODE	.phoban_tab; size52957; constants1508
+ctor_schedule_rows	0x2b8717c	VERIFIED_STATIC	_schedule_rows
+ui_schedule_col_activity	0x2b8c2d0	VERIFIED_STATIC	Hoạt động
+ui_schedule_col_name	0x2b8c30e	VERIFIED_STATIC	Tên Map
+ui_schedule_col_times	0x2b8c346	VERIFIED_STATIC	Lần
+ui_schedule_col_status	0x2b8c36f	VERIFIED_STATIC	Status
+ui_schedule_col_delete	0x2b8c39f	VERIFIED_STATIC	Xóa
+ui_add_schedule_button	0x2b8c3d4	VERIFIED_STATIC	+ Thêm Lịch trình
+ui_auto_pb_off_button	0x2b8c3eb	VERIFIED_STATIC	Tắt auto PB
+ui_group_run_button	0x2b8c46e	VERIFIED_STATIC	Bắt đầu lịch trình
+toggle_group_rows_doc	0x2b8c7c5	VERIFIED_STATIC	Header checkbox toggles all rows in one group
+activity_list_symbol	0x2b8c814	VERIFIED_STATIC	ACTIVITY_LIST
+add_row_doc	0x2b8ca56	VERIFIED_STATIC	Only Phó bản/Train; target group defaults to last group
+add_row_defaults	0x2b91c42	VERIFIED_STATIC_DECODE	T5 t n n w1 n => (True,None,None,1,None)
+add_row_arg_locals	0x2b925bf	STRONG_STATIC_MAPPING	self,enabled,activity,name,times,rows,...
+row_autosave_trace	0x2b8c9ae	VERIFIED_STATIC	_auto_save + trace_add(write) on act/name/times vars
+row_initial_status	0x2b8c95e	VERIFIED_STATIC	Chưa
+row_initial_status_fg	0x2b8c973	VERIFIED_STATIC	#555555
+remove_schedule_row	0x2b8cb15	VERIFIED_STATIC	_remove_schedule_row
+all_schedule_rows_doc	0x2b8cb64	VERIFIED_STATIC	Merge all group rows in order
+progress_styles_symbol	0x2b8cc1b	VERIFIED_STATIC	PROGRESS_STYLES
+progress_doc	0x2b8cc2c	VERIFIED_STATIC	row dict or any row widget; status chưa/đang/xong case-insensitive
+progress_styles_table	0x2b91cbe	VERIFIED_STATIC_DECODE	chưa=(Chưa,#808080); đang=(Đang,#b8860b); xong=(Xong,#1b5e20)
+reset_all_progress_doc	0x2b8cd08	VERIFIED_STATIC	Reset all rows to Chưa
+activity_phoban	0x2b8cd68	VERIFIED_STATIC	Phó bản
+activity_train	0x2b8cd85	VERIFIED_STATIC	Train
+map_list_doc	0x2b8cd9c	VERIFIED_STATIC	Phó bản -> PHOBAN_MAP_LIST; Train -> TRAIN_MAP_LIST
+activity_change_doc	0x2b8ce1e	VERIFIED_STATIC	Replace map choices; reset invalid name; keep times
+get_schedule_rows_doc	0x2b8cf19	VERIFIED_STATIC	Legacy flat all rows fields enabled/activity/name/times
+get_groups_data_doc	0x2b8cf94	VERIFIED_STATIC	[{num,members,schedule}, ...] modern group config
+get_selected_schedule_doc	0x2b8d012	VERIFIED_STATIC	Checked rows -> {activity,name,times,row}
+collect_group_job_doc	0x2b8d2b4	VERIFIED_STATIC	(num,targets,sched), None if no online acc or no checked row
+reset_group_progress_doc	0x2b8d344	VERIFIED_STATIC	Reset only rows of group gd
+toggle_run_doc	0x2b8d81c	VERIFIED_STATIC	Bottom start/stop all groups; group button affects only that group; groups parallel
+worker_one_step_doc	0x2b8fdb9	VERIFIED_STATIC	Worker 1 acc thực hiện MỘT bước lịch trình
+set_row_progress_doc	0x2b8fe1f	VERIFIED_STATIC	Background thread -> main-thread progress apply
+run_group_log_header	0x2b900e0	VERIFIED_STATIC	[Phó bản] ═══ Nhóm ...
+run_group_recreate_first	0x2b90122	VERIFIED_STATIC	Recreate team first, schedule after
+run_group_setup_join	0x2b901f6	VERIFIED_STATIC	_setup_one + setup_threads + join + results
+run_row_set_doing	0x2b90277	VERIFIED_STATIC	_set_row_progress(row,'đang')
+run_row_barrier	0x2b902a4	VERIFIED_STATIC	Barrier created for row step
+run_row_worker	0x2b902ad	VERIFIED_STATIC	_acc_step_worker per item/target
+run_row_set_done	0x2b902ce	VERIFIED_STATIC	xong after worker batch normal path
+run_group_complete	0x2b90343	VERIFIED_STATIC	HOÀN THÀNH
+run_group_doc	0x2b90352	VERIFIED_STATIC	Independent group; recreate-team first; parallel setup + barrier per schedule step
+config_modern_key	0x2b906a1	VERIFIED_STATIC	phoban_groups
+config_legacy_schedule_key	0x2b906c0	VERIFIED_STATIC	phoban_schedule
+legacy_removed_activity	0x2b906ef	VERIFIED_STATIC	Bán đồ
+legacy_defaults_block	0x2b9070a	STRONG_STATIC_DECODE	enabled default True; times default 1; business fields enabled/activity/name/times
+legacy_skip_log	0x2b90761	VERIFIED_STATIC	Skip old Bán đồ config row
+config_legacy_group1_key	0x2b907a1	VERIFIED_STATIC	phoban_group1 default []
+save_json_ensure_ascii	0x2b9090f	VERIFIED_STATIC	json.dumps(..., ensure_ascii=...)
+save_modern_key	0x2b90926	VERIFIED_STATIC	phoban_groups
+save_legacy_group1	0x2b90935	VERIFIED_STATIC	phoban_group1
+save_legacy_schedule	0x2b90959	VERIFIED_STATIC	phoban_schedule
+train_map_choice	0x2b91267	VERIFIED_STATIC	Về train theo thiết lập sẵn
+absent_group_schedule	-	VERIFIED_ABSENCE	0 raw hits for _group_schedule in exact inner EXE
+absent_set_schedule_progress	-	VERIFIED_ABSENCE	0 raw hits for _set_schedule_progress in exact inner EXE
+b07_visual	-	VISUAL_VERIFIED	user screenshot SHA256 8b62070b...; 452x1032; headers/buttons match; no row visible
+runtime_schedule_markers	-	NOT_RECOVERED	0 correlated [Phó bản]/group-step/HOÀN THÀNH/schedule lines in packaged automove_log
+j05_dungeon_list	-	DEFERRED	PHOBAN_MAP_LIST/handler internals
+j06_times_semantics	-	DEFERRED	exact run-count/iteration semantics
+j07_status_machine	-	DEFERRED	cancel/abort/failure/deep status transitions
