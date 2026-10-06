@@ -2532,37 +2532,77 @@ H13 — Train all-account command orchestration audit.
 - docs/phoban/J12_START_STOP_MODEL.json
 - docs/phoban/J12_START_STOP_STATIC_EVIDENCE.tsv
 
+
+## J13 VERIFIED RESULTS
+- GitHub-first continuity check passed. No J13 artifacts/completion commit existed before this turn; J01-J12 were already complete and were not redone.
+- Re-inspected the exact mounted original archive `/mnt/data/TLMTool_2.1.2(6).zip` before B07/runtime cross-check. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes. Inner `TLMTool.dist/TLMTool.exe` remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Integrated failure classes are now locked as four distinct categories: pre-run reject; per-account degradation; current-group hard abort; fail-soft/log-only. Do not normalize all failures to one abort policy.
+- Start-preflight failures (permission/dependency/no runnable job) create no new run; recovery is fixing the condition then manual Start.
+- Party formation remains deliberately mixed: AutoAccept issues and leave timeout are fail-open; unresolved individual RoleID skips that member; zero RoleID targets or exhausted real-TeamID create retries stop the current group; burst invite still-missing after resend remains best-effort success unless cancelled.
+- Account setup is per-account degradation. Exact `_run_one_group` local model owns `setup_threads/results/ready`; nested `_setup_one` owns `nm/hw/ok/cancel/self/lock/results`. Strong static contract: failed inject/common.active/setup accounts are omitted from the ready subset; ready accounts continue. Exact group log when none remain is **không acc nào online**, then no schedule executes.
+- Setup's own recovery is local only: normal inject path + short `common.active` retry window documented around 2 seconds. No automatic whole-group rerun after setup exhaustion is recovered.
+- Explicit dungeon hard-failure shell remains current-group-only: config memory 5×2s exhaustion, movement 3 total attempts exhaustion, explicit hook False, FuBen start 5×0.3s exhaustion, and false cycle-wait result all stop the current group through the existing abort/barrier shell.
+- Barrier is propagation, not retry: no normal timeout; failure/user stop aborts it and peers exit.
+- Cycle watcher tolerates temporary MapID None and has local repair/fail-open behavior such as `tuLamNhiemVu` read error → skip restart, False → attempt to re-enable auto FuBen. No immediate hard-abort surface is attached to those transient verification messages.
+- The 480-second watcher was re-audited. The exact helper still contains `deadline`, `done`, integer **480**, and timeout log **theo dõi map timeout (...s) — hoàn thành ...**. A second static pass still cannot instruction-bind its exact native return expression. It remains **EXPLICIT UNKNOWN**; if the helper returns False, the outer exact path hard-aborts the current group.
+- J13 found and corrected a real J07 overclaim for hooks. Exact `_call_hook` doc says missing/error → pass True and explicit False → abort, but the same exact helper block also contains exception text `) lỗi:` followed by **→ abort** plus `_abort_cycle`. Therefore hook exception behavior is now **STATIC_CONFLICT / RUNTIME_OR_NATIVE_INSTRUCTION_REQUIRED**. Explicit False remains a current-group abort.
+- J13 found and corrected a second J07 overclaim for generic `_acc_step_worker` exceptions. The worker's own exact block calls `_do_dungeon/_do_train`, logs `worker lỗi:`, has no recovered worker-local `_abort_cycle` reference and no schedule-worker result aggregation. Generic worker exceptions are therefore fail-soft/log-only unless the called dungeon path already set group cancel itself.
+- This correction does not weaken explicit dungeon failures: config/move/hook-False/start/cycle hard stages abort internally before returning to the generic worker shell.
+- Train failure is now explicitly classified fail-soft at schedule-row level. `_do_train` has failure paths for unwired farm tab, account missing, dispatch/main-thread errors; its return is not aggregated by the worker/run shell. Therefore a normal-return Train failure can still allow the row worker batch to join and reach the normal `Xong` path. This bug-like behavior must be preserved for parity.
+- Final-discard failure is also fail-open: exact `vứt lượt cuối lỗi:` is followed by `HOÀN THÀNH` in the normal completion region and no abort link is recovered.
+- Periodic Follow/Discard/Pickup/Buff errors remain feature-local; no schedule `_abort_cycle` linkage is recovered. Buff has its own PB_BUFF_RETRY; other workers rely on their periodic/toggle/run lifecycle for later recovery.
+- Ordinary hard failure blast radius remains only the current group. Other groups continue. Global blast radius requires explicit stop-all/public stop semantics.
+- Progress still has only **Chưa/Đang/Xong**. Hard-abort current-row late-cancel label timing remains UNKNOWN; Train/generic fail-soft paths can reach `Xong`.
+- Automatic recovery exists only inside individual stages. No whole-group automatic restart after hard abort is recovered. Manual fresh Start is the recovery mechanism: reset progress, fresh cancel/job identity, rerun setup/config, re-arm persisted modes.
+- Targeted J07 artifacts were patched rather than silently leaving contradictions: hook exception was downgraded to STATIC_CONFLICT and generic worker exception was corrected to fail-soft/log-only unless an inner dungeon stage already aborted.
+- Only after static extraction, B07 was re-hashed at `8b62070b04231f762dc080f4432cbc178f020ae0614540dc0e9c293d16987fb8`, 452×1032 RGBA. It contains no failure UI evidence.
+- Only after static extraction, exact packaged `data/automove_log.txt` (SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes, 387,239 newline-counted lines) was searched. It contains 0 correlated J13 party/setup/worker/dungeon/final-discard/background/watchdog/Train markers.
+- J13 classification: **STATIC_VERIFIED / END_TO_END_FAILURE_RECOVERY_RUNTIME_ENV_REQUIRED**.
+
+## J13 FILES
+- docs/tasks/J13.md
+- docs/phoban/J13_FAILURE_RECOVERY_FLOW.md
+- docs/phoban/J13_FAILURE_RECOVERY_MODEL.json
+- docs/phoban/J13_FAILURE_RECOVERY_MATRIX.tsv
+- docs/phoban/J13_FAILURE_RECOVERY_STATIC_EVIDENCE.tsv
+
+## J13 TARGETED CORRECTION FILES
+- docs/tasks/J07.md
+- docs/phoban/J07_STATUS_FLOW.md
+- docs/phoban/J07_STATUS_MODEL.json
+- docs/phoban/J07_STATUS_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
-None known for J13.
+J14 requires a live Windows/game runtime environment for true parity/stress verification. No static blocker remains.
 
 ## DO_NOT_TOUCH
 - Preserve Gate A and closed Gate F/G/H/I research handoffs.
-- Preserve J01-J12 Phó Bản contracts unchanged.
-- TLMTool 2.1.2 remains the sole authority; do not import recovery behavior from older/external projects.
+- Preserve J01-J13 Phó Bản contracts, including J13's targeted corrections to J07.
+- TLMTool 2.1.2 remains the sole authority; do not import runtime behavior from older/external projects.
 - Proxy runtime/network development remains locked. Do not start Stage S early.
-- Preserve bottom start-all/stop-all versus per-group start/stop routing.
-- Preserve stop-before-start-preflight behavior and exact permission gate.
-- Preserve runnable-job filtering and progress-reset scope.
-- Preserve fresh per-group cancel/job identity and separate global cancel semantics.
-- Preserve semantic run-start re-arm of enabled Follow/Discard/Pickup/Buff modes.
-- Do not invent the exact native worker-vs-group-thread call order; it remains UNKNOWN.
-- Preserve singleton/tab-level background worker guards.
-- Preserve cooperative stop and orange disabled bulk-stopping UI.
-- Preserve persisted mode checkboxes across stop/end.
-- Preserve subsystem-specific cleanup asymmetries.
-- Preserve last-group-only global teardown and J07 identity-safe cleanup.
-- Preserve J12 UNKNOWNs: worker/group-thread call micro-order, global cancel clear order, _on_destroy internal sequence, remaining thread microdetails and live timing parity.
-- Do not reopen J01-J11 unless later exact evidence directly contradicts them.
+- Preserve four distinct failure classes: pre-run reject, per-account degradation, current-group hard abort, fail-soft/log-only.
+- Preserve setup partial-degradation behavior and empty-ready group stop.
+- Preserve explicit dungeon hard-failure retries/blast radius.
+- Preserve Train failure as fail-soft at schedule-row level unless later live/native evidence directly contradicts it.
+- Preserve final-discard failure as fail-open to group completion.
+- Preserve background worker errors as not independently aborting schedule groups.
+- Preserve hook explicit False = current-group abort.
+- Preserve **hook exception behavior as STATIC_CONFLICT**, not fail-open or fail-closed, until J14/stronger native evidence resolves it.
+- Preserve generic `_acc_step_worker` exception as no independent abort wiring; explicit dungeon methods remain responsible for their hard-abort stages.
+- Preserve 480-second watchdog branch and its unresolved exact return.
+- Preserve no Error/Cancelled row style and late-cancel row-label UNKNOWN.
+- Preserve manual fresh-start recovery; no whole-group automatic restart.
+- Do not reopen J01-J12 except for a direct J14 runtime/native contradiction.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any J13 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **J13 — Phó Bản integrated failure/recovery audit** only.
-5. Inspect the exact frozen original EXE first, primarily `.phoban_tab` plus `.phoban_dungeons` only where handler return/failure propagation is directly involved.
-6. Integrate the already-frozen failure boundaries into one recovery matrix: party-formation failure, setup/injection/active failure, config-memory failure, move failure, barrier abort, FuBen-start failure, cycle-watchdog/cycle failure, Train activation failure, per-account worker exception, hook False/exception behavior, final-discard failure, background Follow/Discard/Pickup/Buff errors, group-vs-global blast radius, row/group/button outcomes, and what can be retried automatically versus only by a new manual start.
-7. Re-audit the exact 480-second cycle-watchdog branch only enough to determine whether stronger static evidence can resolve its return/recovery behavior; do not guess if still unresolved.
-8. Keep J14 live Windows/runtime parity, rapid start-stop stress, multi-group stress and timing verification separate.
-9. Cross-check B07 only after static extraction; do not infer failure UI from idle screenshot.
-10. Persist J13 artifacts, update STATE.md, and advance only after J13 verification.
+3. Check GitHub first for any J14 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **J14 — Phó Bản runtime parity / stress verification plan and evidence closure** only.
+5. First determine whether a real Windows + TLM game runtime is actually available in the current execution environment. Do not claim live parity if it is not.
+6. If live runtime is available, verify at minimum: rapid Start→Stop→Start identity safety; two+ groups parallel; one-group hard failure while another continues; barrier abort release; partial setup failure; Train fail-soft behavior; final-discard fail-open behavior; persisted mode re-arm; Follow/Discard/Pickup/Buff scopes; 480-second watchdog behavior or a safe controlled equivalent if waiting 480 seconds is impractical; hook exception behavior if safely reproducible.
+7. If live runtime is not available, do not fabricate test results. Produce the exact J14 runtime test matrix/harness requirements, classify each unresolved item RUNTIME_ENV_REQUIRED, and close only the static research handoff—not runtime parity.
+8. Reconcile J13's two explicit conflicts first if runtime evidence exists: `_call_hook` exception behavior and 480-second watchdog return.
+9. Keep Stage S implementation locked until the research-gate plan explicitly permits it.
+10. Persist J14 artifacts, update STATE.md and PROJECT_STATUS.md with an honest Gate-J closure classification.
