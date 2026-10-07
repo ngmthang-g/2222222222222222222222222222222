@@ -3015,3 +3015,12 @@ On CONTINUE:
 9. Re-check current repository code/build state after K09 changes; docs-only work must not create a fake Stage-S build target.
 10. Persist K09 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K09 verification.
 
+## POST-K08 CODE/BUILD RECHECK
+- Current main tree after K08 closure: **582 entries**.
+- Python code files remain exactly the same 7 forensic scripts under tools/; K08 added no executable source.
+- Application source paths remain absent.
+- Build-system files/workflows remain absent.
+- Latest K08 closure commit has **0 CI statuses** and **0 workflow runs**, consistent with the repository having no CI/build target yet.
+- All four K08 artifacts were fetched back successfully after commit.
+- Therefore K08 introduced no code/build regression. Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED** rather than PASS/FAIL.
+
