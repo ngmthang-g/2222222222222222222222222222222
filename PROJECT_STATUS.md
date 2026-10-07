@@ -333,7 +333,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K11 — VERIFIED_TREASURE_MOUNT_BAG_MULTIPIXEL_TWO_STAGE_ACTIVATION_AND_MOVEMENT_WAIT
 - K12 — VERIFIED_TREASURE_MAP96_MOVE_COMMON_ACTIVE_TOMB_DURATION_NON96_SKIP_AND_FINAL_HEAL_BOUNDARY
 - K13 — VERIFIED_TREASURE_HEAL_SELECTED_MAP_RECOVERY_ADAPTER_CACHE_READY_AND_RESPAWN
-- K14 — NEXT
+- K14 — VERIFIED_TREASURE_SKIPPED_ACCOUNT_STOP_RESET_AND_FAILURE_LIFECYCLE
+- K15 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -361,5 +362,7 @@ K12 locks the post-activation map96/tomb branch. `_treasure_map_exec_sequence` h
 
 K13 locks Treasure healing and recovery. `_treasure_heal` is selected-map driven rather than hardwired to Tô Châu: it requires a configured heal map, resolves coordinates from `TREASURE_HEAL_COORDS`, resolves the map ID dynamically through `MAP_LIST`, moves with the shared movement helper, and fails cleanly for missing selection/coordinates/map ID or movement failure. Its compact move surface passes `wait_for_arrival/stop_check` only, so the shared default tolerance 48 remains the effective default; no Treasure-specific fixed treatment click or `_punish_heal`-style reinjection surface is recovered. Start-of-cycle heal failure skips only the current cycle, while final-heal failure is fail-soft/log-only. `_treasure_map_disconnect_monitor` has a thin event-adapter local model (`halt/respawn_event/stop_event/ev/real_set`) rather than a second full pixel/memory detector; strong static evidence supports reuse of the existing Daily detector layer while preserving adapter micro-order as UNKNOWN. Treasure activity recovery has exact disconnect-wait/OK/timeout messages but no independently bound timeout number, so Trừng Ác's 60s value is not copied. The single-worker owns Reader-cache invalidation and `wait_memory_ready` recovery surfaces, and Treasure reuses the shared death/Map87 `respawn_event` model; exact reconnect overrides, monitor thread ordering and simultaneous death/disconnect priority remain UNKNOWN.
 
+K14 locks Treasure failure and teardown lifecycle without reopening K10-K13 internals. DailyTab owns `_treasure_map_skipped` beside the Treasure running/cancel/button state. The two exact `tangBaoDo_multi not found` branches remain terminal-current-Treasure-account conditions, while start-heal failure is current-cycle-only, non-96 is a nonterminal tomb-outcome skip, and final-heal failure is fail-soft. Strong static evidence from the Treasure skip-state field, the `skip_set` movement-wait surface, and activity `still_active` filtering supports persistent exclusion of terminally skipped HWNDs during the active batch; exact add/discard/clear source statements remain UNKNOWN. The shared stop diagnostic distinguishes Treasure batch cancel, disconnect halt, row stop Event, generation change, window/PID invalidation and Địa-phủ respawn. Bottom all-account stop still signals `_farming_acc=False` + row `_stop_event`; singleton `_daily_all_monitor` waits for all row sessions to end, calls both Daily reset helpers, and then performs the global UI reset. Treasure's exact idle tuple remains `Tàng bảo đồ / RoyalBlue / normal`; teardown statement order is still explicit UNKNOWN.
+
 ## Phase K current
-K14 — Tàng Bảo Đồ skipped-account / stop-reset / failure-lifecycle audit.
+K15 — Tàng Bảo Đồ integrated lifecycle / failure matrix / static handoff audit.
