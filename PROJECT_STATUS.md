@@ -336,7 +336,7 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K14 — VERIFIED_TREASURE_SKIPPED_ACCOUNT_STOP_RESET_AND_FAILURE_LIFECYCLE
 - K15 — VERIFIED_TREASURE_INTEGRATED_LIFECYCLE_FAILURE_MATRIX_AND_STATIC_HANDOFF
 - K16 — VERIFIED_DAILY_SHARED_CROSS_ACTIVITY_LIFECYCLE_PERSISTENCE_COORDINATOR_AND_OWNERSHIP_BOUNDARY
-- K17 — NEXT
+- K17 — STATIC_RESEARCH_CLOSED_RUNTIME_PARITY_MATRIX_PENDING_LIVE_ENV
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -370,5 +370,11 @@ K15 closes the Tàng Bảo Đồ static handoff by integrating K10-K14 and audit
 
 K16 closes the shared Daily static integration layer. It confirms the 5-second roster refresh, HWND+PID anti-reuse identity, row Event+generation stale-worker guard, Tk `after(0)` state marshalling, shared injection, manual all-account `Tới bổ đầu`/`Trị liệu`, bottom Bắt đầu/Dừng lại coordinator, singleton `_daily_all_monitor`, StartTab synchronization, and Daily config load/save persistence. The remaining shared top-level gaps from K01 (`_validate_repeat`, injection helpers, manual movement/heal helpers, and config/destroy methods) are now accounted for. Row activity/PID/session state remains transient and is not persisted. Activity-wide Trừng Ác/Treasure ownership remains separate from row `_farming_acc/_stop_event/_gen` ownership; no unified owner mutex or independently-bound same-HWND mutual-exclusion guard was recovered, so that concurrency boundary is reserved for K17 runtime parity rather than guessed. No blocking contradiction was found across K02/K09/K15.
 
-## Phase K current
-K17 — Daily integrated runtime/parity closure matrix and Phase-K handoff.
+## Phase K gate
+**STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**
+
+## Phase L — Đồn
+- L01 — NEXT
+
+## Phase L current
+L01 — Đồn authority / visible surface / handler inventory / dependency boundary audit.
