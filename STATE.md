@@ -2718,33 +2718,79 @@ H13 — Train all-account command orchestration audit.
 - docs/daily/K04_PUNISH_QUEST_MODEL.json
 - docs/daily/K04_PUNISH_QUEST_STATIC_EVIDENCE.tsv
 
+
+## CURRENT REPOSITORY AUDIT — 2026-10-07
+- A full GitHub-tree continuity audit was run because continuation appeared stalled.
+- Current repository has **563 entries** and remains a research/reconstruction evidence repository, not yet the reconstructed application source tree.
+- Authoritative continuity was consistent before K05: PLAN/STATE/PROJECT_STATUS showed K01-K04 complete and K05 as the first unfinished task. GitHub search found no pre-existing K05 artifact/commit, so no completed Daily work was redone.
+- Current code-bearing research tools are the seven static forensic scripts under `tools/D01...D07`; they were not modified by this recovery.
+- No reconstructed application build target currently exists: no `src/` app tree, no app `pyproject.toml/setup.py/requirements`, no reconstructed-app `.spec`, and no GitHub Actions build workflow were found.
+- Therefore product build status at this phase is **NOT_APPLICABLE_YET / STAGE S NOT STARTED**, not “broken”. It would be incorrect to claim a successful reconstructed-app build before an app source/build system exists.
+- This is consistent with PLAN/SCOPE_LOCK: Stage S implementation remains intentionally locked until later research gates.
+- Recovery action was docs/evidence-only, so no product source/build pipeline could be regressed by K05.
+- Persistent audit artifact: `docs/audits/CURRENT_REPO_AUDIT_2026-10-07.md`.
+
+## K05 VERIFIED RESULTS
+- GitHub-first check passed: no K05 artifacts existed before this work; K01-K04 were not rewritten.
+- Exact frozen original archive/EXE were revalidated before analysis. Inner EXE SHA-256 remains `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact Trừng Ác Lệnh item constant is **40004000**.
+- `_punish_goto_target` reads the internal bag through `memory_items.get_bag`, finds the matching item row and uses its `dbID`; no screen/image bag search belongs to this path.
+- Shared `memory_items.use_item` is the internal item-action path: command **100005**, action **3**, payload `3:<dbID>`; it does not click the visible bag GUI.
+- Missing Trừng Ác Lệnh at the **target-acquisition** stage is terminal for that account's current Trừng Ác session. Exact frozen text is `túi không có Trừng Ác Lệnh → dừng acc`.
+- First item use has exactly **2 total send attempts**. The block owns `_att/_used` and exact `... thất bại lần ... /2`; exhausting both attempts is fail-soft to the current cycle: `gửi lệnh dùng thất bại → skip vòng`.
+- Target extraction priority is exact: `memory_items.get_dialog_target` first, then `memory_items.get_use_item_target` fallback. If neither yields a usable target, Daily calls K04 `_punish_cancel_quest` and proceeds to a later outer cycle.
+- Shared GameDialog target parser uses the exact shape `- <TargetName> ở <MapName> (<PosX>, <PosY>)` and returns `MapID/PosX/PosY/TargetName/MapName/Title/Buttons`.
+- UseItemData fallback queries current doing tasks and task-template `UseItemData`, matching `ItemID == requested item id`, and returns `MapID/PosX/PosY`. It is live task metadata, not a hard-coded Trừng Ác target table.
+- Daily reads `MapID/PosX/PosY`, optional `TargetName`, and falls back to label `mục tiêu`. Exact coordinate-range predicate remains UNKNOWN.
+- Target travel is owned by `fast_travel.goto_map`, with exact tag `TrừngÁc` and keyword surfaces `wait_for_arrival/stop_check/tag`.
+- Shared fast_travel docs state its coordinate convention is pixels where pixel = tile×32. Daily logs target coordinates as `tile=(...)`, but the exact Daily source expression performing tile→pixel conversion is not instruction-bound, so K05 keeps that arithmetic expression UNKNOWN.
+- Travel stopped by session cancellation logs `bay tới mục tiêu bị stop (...)` and returns/skips. Ordinary travel failure logs `bay tới mục tiêu thất bại → skip vòng`, invokes `stop_character`, updates target-failure tracking, and skips the cycle.
+- Important correction: `_punish_target_fail` is **not** recovered as a qualified DailyTab method. It is the target-failure state/attribute used by `_punish_goto_target`.
+- Exact target-failure locals are `_tkey/_d/_last/_streak`; default prior state is **(None, 0)**. Strong static contract is consecutive-failure tracking for the same target, with changed target resetting/rebasing the streak.
+- Exact stuck log is `kẹt <...> vòng liên tiếp → hủy NV`; the recovery then uses K04 quest cancellation and a `pop` reset surface.
+- The **numeric stuck threshold is not statically resolved** and is frozen as `EXPLICIT_UNKNOWN`; no 2/3/etc. value is guessed.
+- Summon `_punish_summon_target` reads the bag again and reuses the same item 40004000.
+- Important outcome difference: no item during target acquisition is terminal to the account, while no item during **summon** logs `túi không còn Trừng Ác Lệnh → skip vòng` and only skips the current cycle.
+- Summon use failure/error is also current-cycle skip. Unlike target acquisition, no `/2` retry surface or `_att` local is recovered in summon, so K05 does not invent a two-attempt summon retry.
+- Frozen summon documentation expects GameDialog title **Trừng Ác Lệnh** with buttons **[2] Triệu hồi / [3] Để sau**. The executable definitely scans button text **Triệu hồi**.
+- Summon dialog missing/read error/button missing/click failure all skip the current cycle.
+- `Triệu hồi` activation uses shared `memory_items.click_dialog_button`: exact internal `GameDialog:FunctionButtonClicked` path with verified dialog close, not a screen-coordinate click.
+- B08 contains no target/summon runtime evidence. Packaged runtime log contains no correlated K05 markers, so K05 is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+
+## K05 FILES
+- docs/tasks/K05.md
+- docs/daily/K05_PUNISH_TARGET_FLOW.md
+- docs/daily/K05_PUNISH_TARGET_MODEL.json
+- docs/daily/K05_PUNISH_TARGET_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
 - Phase J live runtime parity remains deferred by environment.
-- No known static blocker for K05.
+- Reconstructed application build verification is not applicable yet because Stage S/application source has not started; no build target exists to execute.
+- No known static blocker for K06.
 
 ## DO_NOT_TOUCH
-- Preserve K01-K04 Daily/Trừng Ác contracts unchanged.
-- Preserve NPC return map 4 / tile 224,285 / tolerance 96 and re-inject-fail-open behavior.
-- Preserve normal NPC move fail/wrong-map as current-cycle skip, not terminal account stop.
-- Preserve teleport pre-step tuple (490,429) but keep its exact UI meaning UNKNOWN.
-- Preserve exact normal quest click groups and their order.
-- Preserve 30/30 as memory/GameDialog detection, not pixel detection.
-- Preserve semantic full markers Ngô Giới / tối đa 30 / Ta biết rồi and fail-open “not full” on read/click failure.
-- Preserve verified 30/30 as terminal for that account's Trừng Ác session.
-- Preserve stuck/no-target cancellation exact close/NPC/click sequence and next-cycle recovery semantics.
-- Preserve repeated target-stuck threshold/accounting as deferred to K05; do not invent it.
-- TLMTool 2.1.2 remains sole authority; do not import target logic from older Auto-BTD/Trừng Ác projects.
-- Do not deep-audit combat/recovery/discard during K05 beyond dependencies needed to prove target/summon flow.
-- Stage S remains locked.
+- Preserve K01-K05 Daily/Trừng Ác contracts unchanged.
+- Preserve item ID 40004000 and internal action-3 / command-100005 use-item path.
+- Preserve target-acquisition no-item as terminal per-account stop, versus summon no-item as current-cycle skip.
+- Preserve two total use attempts for target acquisition; do not copy that retry count into summon without stronger evidence.
+- Preserve target extraction priority GameDialog → UseItemData.
+- Preserve UseItemData as live task-template fallback, not a hard-coded route.
+- Preserve fast_travel.goto_map ownership and tag TrừngÁc; keep exact Daily tile→pixel arithmetic expression UNKNOWN.
+- Preserve _punish_target_fail as state/attribute rather than inventing a missing top-level method.
+- Preserve default target-failure state (None,0), consecutive-streak semantics, quest-cancel recovery, and UNKNOWN numeric threshold.
+- Preserve summon expected dialog contract and internal FunctionButtonClicked path.
+- TLMTool 2.1.2 remains sole authority; do not import combat/recovery logic from older Auto-BTD/Trừng Ác projects.
+- Do not start Stage S or create placeholder app/build files merely to manufacture a build result before PLAN reaches implementation.
+- Do not deep-audit heal/disconnect/respawn (K07) or discard (K08) during K06 except for dependencies required by the combat cycle.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any K05 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **K05 — Trừng Ác Lệnh bag/use target extraction / travel / stuck-target accounting / summon audit** only.
-5. Inspect the exact frozen original EXE first, primarily `_punish_goto_target`, `_punish_summon_target`, `_punish_target_fail`, plus shared `memory_items`/fast-travel helpers only where those exact Daily functions call them.
-6. Audit exact Trừng Ác Lệnh item ID and bag lookup/use retries; target extraction from GameDialog and UseItemData fallback; target MapID/PosX/PosY/name validation; fast-travel/goto_map ownership; stop/fail/skip distinctions; exact repeated target-failure counter key/threshold/reset semantics; no-item terminal behavior; summon dialog title/buttons and internal dialog-button click/verification.
-7. Do not yet deep-dive combat duration/movement-stop/auto-train behavior (K06), heal/disconnect/respawn (K07), or discard worker (K08).
-8. Cross-check B08 only after static extraction; B08 contains no target/summon runtime evidence.
-9. Persist K05 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K05 verification.
+3. Check GitHub first for any K06 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K06 — Trừng Ác combat / movement-stop / auto-train timing and cycle-completion audit** only.
+5. Inspect the exact frozen original EXE first, primarily the combat portion of `_punish_exec_sequence`, `_wait_movement_stopped`, and any directly-called auto-train/movement helpers.
+6. Audit transition from successful summon into combat; exact movement-stop/stability detection; auto-train/attack enabling/disabling; configured `punish_duration` timing semantics; stop/cancel checks during combat; how combat completion returns to the outer Trừng Ác loop; and any per-cycle cleanup/reset directly belonging to combat.
+7. Do not deep-dive heal/disconnect/respawn recovery (K07) or Trừng Ác discard worker (K08).
+8. Cross-check B08 only after static extraction; B08 has no combat runtime state.
+9. Persist K06 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K06 verification.
