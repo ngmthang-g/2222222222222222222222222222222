@@ -1,0 +1,21 @@
+test_id	surface	static_contract	packaged_runtime_evidence	status_here	live_validation_needed
+K17-R01	roster/PID identity	5s refresh; HWND+PID identity; reused PID/HWND must not inherit stale session	no correlated Daily markers	NOT_EXECUTABLE_HERE	Validate with populated Windows/game roster
+K17-R02	row Stop->Start generation	_stop_event + _gen via _GenStop prevents stale worker survival	no correlated row-lifecycle trace	NOT_EXECUTABLE_HERE	Validate rapid stop/start with live account
+K17-R03	mixed row activities	bottom coordinator dispatches each eligible row by its selected activity	0 [Bắt đầu]/Daily markers	NOT_EXECUTABLE_HERE	Validate mixed Trừng Ác/Tàng Bảo Đồ rows
+K17-R04	all-row stop/reset	cooperative row stop; singleton monitor waits then resets both activity UIs	0 global reset markers	NOT_EXECUTABLE_HERE	Validate mixed active rows and final reset
+K17-R05	activity-wide vs row ownership	separate ownership domains; no unified mutex proven	no ownership trace	NOT_EXECUTABLE_HERE	Observe original same-HWND conflict policy
+K17-R06	manual Tới bổ đầu overlap	manual helper is shared HWND action; running-session exclusion UNKNOWN	0 matching markers	NOT_EXECUTABLE_HERE	Observe original overlap policy
+K17-R07	manual Trị liệu overlap	manual helper is shared HWND action; running-session exclusion UNKNOWN	0 matching markers	NOT_EXECUTABLE_HERE	Observe original overlap policy
+K17-R08	shared injection re-entry	already-loaded DLL is accepted as ready	0 [Inject] markers	NOT_EXECUTABLE_HERE	Validate repeated start on already-prepared process
+K17-R09	Trừng Ác nominal lifecycle	K09 static handoff complete	no correlated Trừng Ác lifecycle trace	NOT_EXECUTABLE_HERE	Validate live transitions against K03-K09
+K17-R10	Trừng Ác recovery	K07 death/reconnect contract frozen	no correlated Daily recovery trace	NOT_EXECUTABLE_HERE	Validate live disconnect/death cases
+K17-R11	Treasure nominal lifecycle	K15 static handoff complete	no correlated Tàng Bảo Đồ lifecycle trace	NOT_EXECUTABLE_HERE	Validate live transitions against K10-K15
+K17-R12	Treasure terminal item miss	first/second item miss terminal-current-account; batch exclusion role frozen	no correlated Treasure item-failure trace	NOT_EXECUTABLE_HERE	Validate account exclusion in multi-account batch
+K17-R13	Treasure reconnect/death	Treasure adapter/shared detector; timeout numeric still UNKNOWN	no correlated Treasure recovery trace	NOT_EXECUTABLE_HERE	Measure live timeout/event ordering
+K17-R14	config persistence	visible config persists; row activity/PID/session fields do not	no config lifecycle trace	NOT_EXECUTABLE_HERE	Validate save/reload and daily_move_mode compatibility
+K17-R15	destroy lifecycle	<Destroy> -> _save_on_destroy; cleanup order UNKNOWN	no destroy trace	NOT_EXECUTABLE_HERE	Validate idle/active shutdown ordering
+K17-R16	StartTab sync	_sync_start_tab_btns is external sync boundary	B08 idle only	NOT_EXECUTABLE_HERE	Validate button consistency through starts/stops/resets
+K17-R17	window/PID change while active	window/PID invalidation is first-class stop reason	no correlated reuse trace	NOT_EXECUTABLE_HERE	Validate stale-worker exit and row recreation
+K17-R18	Tk state marshalling	worker states route through after(0)	no runtime state trace	NOT_EXECUTABLE_HERE	Validate under repeated live state changes
+K17-R19	packaged log coverage	K01-K16 have no correlated Daily lifecycle trace	SHA256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500; 15741058 bytes; 387238 lines	VERIFIED_NEGATIVE_EVIDENCE	No live parity inference allowed
+K17-R20	Phase-K static consistency	K09 + K15 + K16 show zero blocking contradictions	static artifacts complete	VERIFIED_STATIC	Phase K may close as static handoff with runtime tests pending
