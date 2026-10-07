@@ -1,0 +1,91 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; exact TLMTool_2.1.2(7).zip rechecked before K16
+zip_crc	-	VERIFIED_FILE	CRC test clean; no compressed-data errors
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_AUTHORITY	.daily_tab exact Daily authority; K01-K15 closed activity contracts reused
+ctor_punish_state	0x29032c5	VERIFIED_STATIC	_punish_running + _punish_cancel
+ctor_treasure_state	0x2903305	VERIFIED_STATIC	_treasure_map_running + _treasure_map_cancel
+ctor_shared_monitor	0x2903345	VERIFIED_STATIC	_monitor_running
+ctor_rows	0x29033b4	VERIFIED_STATIC	_acc_rows
+ctor_refresh_shutdown	0x29033e7	VERIFIED_STATIC	_refresh_id/_refreshing/_closing
+ctor_saving_guard	0x29034c5	VERIFIED_STATIC	_saving_enabled
+ctor_build_load	0x29034d6	VERIFIED_STATIC_SCOPE	_build_ui then _load_config surfaces are serialized in constructor region
+destroy_bind	0x29034ef	VERIFIED_STATIC	<Destroy> bound to _save_on_destroy
+constructor_refresh	0x290354c	VERIFIED_STATIC	_start_refresh constructor surface
+row_default_activity_surface	0x29046ae	STRONG_STATIC	new-row block serializes Trừng ác before readonly activity values Trừng ác/Tàng bảo đồ; row activity remains non-persisted runtime state
+refresh_cadence	0x2905003	VERIFIED_K02	5-second incremental account refresh
+hwnd_pid_identity	0x2904264	VERIFIED_K02	HWND must match bound PID; reused handles force row recreation
+scroll_debounce	0x2904c49	VERIFIED_K02	30ms scroll-region debounce
+row_permission	0x2904931	VERIFIED_K02	permission_guard.has_permission("daily_tab") gates row play/activity/manual controls
+runtime_permission	0x2905188	VERIFIED_STATIC	permission_guard.has_permission_with_limit("daily_tab","daily") shared runtime/injection gate
+state_apply	0x2906558	VERIFIED_K02	_apply_state_label styles dot+label; unknown state -> default gray
+state_set	0x2906617	VERIFIED_K02	_set_state is worker-thread-safe via scheduling
+state_marshal	0x29066d7	VERIFIED_K02	_schedule_state_label marshals _apply_state_label through Tk after(0)
+genstop	0x290a005	VERIFIED_K02	_GenStop combines real row stop Event + generation mismatch to kill stale row worker after rapid Stop->Start
+validate_repeat_digit	0x290503c	VERIFIED_STATIC_SURFACE	_validate_repeat uses isdigit generator surface for numeric-entry validation
+validate_repeat_exact_empty_policy	-	EXPLICIT_UNKNOWN	Exact empty-string/normalization return policy is not independently instruction-bound
+dll_injector	0x2905080	VERIFIED_STATIC	dll_injector dependency inside shared injection helper
+inject_pid	0x2905090	VERIFIED_STATIC	inject_into_pid + get_default_dll_path
+inject_doc	0x2905144	VERIFIED_STATIC_UTF8	Inject DLL (resources.dat) vào game process nếu chưa inject.
+inject_already_loaded	0x2905124	VERIFIED_STATIC_UTF8	already loaded is accepted as successful/ready outcome
+ensure_injected_ref	0x2905202	VERIFIED_STATIC	_ensure_injected shared per-HWND injection surface
+inject_all_doc	0x2905254	VERIFIED_STATIC_UTF8	Inject mọi cửa sổ game đang mở.
+inject_all_count	0x2905218	VERIFIED_STATIC_UTF8	[Inject] Đã inject <count> cửa sổ
+injection_idempotence	-	VERIFIED_STATIC_SEMANTIC	Activity-level and all-account starts may reach shared injection repeatedly; per-HWND helper explicitly handles already-loaded DLL state
+move_one_alive	0x2905364	VERIFIED_STATIC	_move_bo_dau path checks _is_window_alive
+move_one_inject_failopen	0x29053e5	VERIFIED_STATIC_UTF8	inject thất bại, thử di chuyển trực tiếp
+move_one_helper	0x2905443	VERIFIED_STATIC	move_character
+move_one_doc	0x29054c0	VERIFIED_STATIC_UTF8	Di chuyển 1 acc tới bổ đầu (Tô Châu, map 4, 224, 285).
+move_all_inject	0x2905503	VERIFIED_STATIC	_move_bo_dau_all block references _inject_all_windows before all-account fanout
+move_all_parallel	0x2905569	VERIFIED_STATIC_SCOPE	threads + join + completion text; all-account bổ đầu runs parallel child work
+move_all_doc	0x29055a7	VERIFIED_STATIC_UTF8	Di chuyển tất cả acc tới bổ đầu — song song.
+heal_one_click	0x2905694	VERIFIED_STATIC	click_at/window_hwnd shared hidden-click surface
+heal_one_doc	0x29056fc	VERIFIED_STATIC_UTF8	Đưa 1 acc tới Tô Châu trị liệu (map 4, 155, 252).
+heal_all_parallel	0x2905736	VERIFIED_STATIC_SCOPE	no-account/run/completion surfaces; all-account heal fans out across current accounts
+heal_all_doc	0x29057ad	VERIFIED_STATIC_UTF8	Đưa tất cả acc tới Tô Châu trị liệu — song song.
+manual_actions_activity_dispatch	-	VERIFIED_ABSENCE_OF_ACTIVITY_BRANCH_SURFACE	_move_bo_dau/_heal_bo_dau manual helpers operate on HWND/account target rather than choosing Trừng ác/Tàng bảo đồ worker
+manual_actions_running_exclusion	-	EXPLICIT_UNKNOWN	No independent static binding proves whether manual Tới bổ đầu/Trị liệu is blocked while an activity worker owns the same HWND
+bottom_stop_log	0x2905f31	VERIFIED_K02	[Bắt đầu] Gửi lệnh dừng tất cả acc...
+bottom_stop_contract	0x2906103	VERIFIED_K02	running -> each row _farming_acc=False + row _stop_event; idle -> per-account selected-activity threads
+bottom_start_missing_hotkey	0x2906004	VERIFIED_K02_K03	Trừng Ác teleport row with missing hotkey is skipped at bottom coordinator boundary
+bottom_start_worker_refs	0x2906057	VERIFIED_STATIC	_punish_single_worker / _treasure_single_worker
+bottom_no_work	0x2906087	VERIFIED_STATIC_UTF8	[Bắt đầu] Không acc nào cần chạy
+bottom_started	0x29060b6	VERIFIED_STATIC_UTF8	[Bắt đầu] Đã chạy <N>
+bottom_running_ui	0x29060d3	VERIFIED_STATIC	Dừng lại / #f44336
+daily_monitor	0x2906214	VERIFIED_K02	_daily_all_monitor
+daily_monitor_singleton	0x2906228	VERIFIED_K02	Chỉ start 1 monitor instance.
+daily_monitor_resets	0x2906249	VERIFIED_K02	_punish_reset_ui + _treasure_map_reset_ui after all row sessions stop
+daily_monitor_done	0x29062a6	VERIFIED_K02	[Bắt đầu] Tất cả acc đã dừng — tự động reset UI
+activity_start_punish	0x2906364	VERIFIED_K03_K09	Trừng ác activity button: inject first then toggle/run activity-wide worker
+activity_start_treasure	0x29063c4	VERIFIED_K10_K15	Tàng bảo đồ activity button: inject first then toggle/run activity-wide worker
+starttab_sync	0x2906456	VERIFIED_K02	_sync_start_tab_btns synchronizes Trừng ác/Tàng bảo đồ controls on StartTab
+owner_domains	-	VERIFIED_STATIC_ARCHITECTURE	Activity-wide owners use _punish_running/_punish_cancel or _treasure_map_running/_treasure_map_cancel; row/bottom owners use row _farming_acc/_stop_event/_gen
+cross_domain_mutex	-	EXPLICIT_UNKNOWN	No single unified Daily owner token/mutex or independently-bound guard proving same-HWND mutual exclusion between activity-wide and per-row ownership was recovered
+cross_domain_ui_sync_scope	-	VERIFIED_STATIC_BOUNDARY	_sync_start_tab_btns synchronizes external activity buttons; singleton all-row monitor watches row sessions; these do not by themselves prove cross-domain worker mutual exclusion
+config_path	0x2909940	VERIFIED_STATIC	CONFIG_PATH + _settings_lock + read_settings
+config_section	0x2909976	VERIFIED_STATIC	Settings section
+load_punish_duration	0x2909982	VERIFIED_STATIC	daily_punish_duration
+load_tele_use	0x290999d	VERIFIED_STATIC	daily_tele_use
+load_move_mode	0x29099ad	VERIFIED_STATIC	daily_move_mode compatibility surface
+load_tele_hotkey	0x29099c2	VERIFIED_STATIC	daily_tele_hotkey
+load_treasure_duration	0x29099d8	VERIFIED_STATIC	daily_treasure_map_tomb_dur
+load_treasure_heal	0x29099fb	VERIFIED_STATIC	daily_treasure_heal
+load_treasure_heal_map	0x2909a14	VERIFIED_STATIC	daily_treasure_heal_map
+load_punish_heal	0x2909a3a	VERIFIED_STATIC	daily_punish_heal
+load_punish_discard	0x2909a51	VERIFIED_STATIC	daily_punish_discard_equip
+load_punish_reconnect	0x2909a71	VERIFIED_STATIC	daily_punish_dc_reconnect
+load_punish_respawn	0x2909a90	VERIFIED_STATIC	daily_punish_respawn
+load_treasure_reconnect	0x2909aaa	VERIFIED_STATIC	daily_treasure_dc_reconnect
+load_treasure_respawn	0x2909acb	VERIFIED_STATIC	daily_treasure_respawn
+save_config_dir	0x2909ae3	VERIFIED_STATIC	CONFIG_DIR + makedirs(exist_ok)
+save_keys_region	0x2909b07	VERIFIED_STATIC_SCOPE	visible Daily configuration write region
+save_write	0x2909c23	VERIFIED_STATIC	write_settings
+save_error	0x2909c33	VERIFIED_STATIC_UTF8	[DAILY] Save error:
+runtime_row_persistence	-	VERIFIED_ABSENCE	No Daily persistence keys for row activity/PID/_farming_acc/_stop_event/_gen/_state
+move_mode_save_literal	-	EXPLICIT_UNKNOWN	Load-side daily_move_mode is exact; absence of a second literal in save region is not proof it is never written because Nuitka constant backreferences may reuse the load literal
+destroy_save	0x2903500	VERIFIED_STATIC	<Destroy> callback references _save_on_destroy
+destroy_cleanup_order	-	EXPLICIT_UNKNOWN	Exact _save_on_destroy order for _closing/refresh/activity/discard/save cleanup is not instruction-bound
+b08_shared	-	CROSSCHECKED_FROZEN_B08	captured Daily is idle with empty account list and bottom Bắt đầu; cannot prove populated-row races/overlap
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_shared_markers	-	NOT_RECOVERED	0 [Daily], 0 [Bắt đầu], 0 [Inject], 0 DailyTab, 0 Tới bổ đầu, 0 [Trị liệu], 0 Trừng ác, 0 Tàng bảo đồ correlated markers
+shared_callable_coverage	-	VERIFIED_COMPLETE_AFTER_K16	All shared/cross-activity top-level Daily callables from K01 are covered by K01/K02/K09/K15 plus K16 gap closure
