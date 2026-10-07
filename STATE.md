@@ -3826,3 +3826,7 @@ On CONTINUE:
 7. Separate visible/current behavior from dormant/static references.
 8. Use screenshots/runtime evidence only after EXE-first static extraction.
 9. Persist L01 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L01 verification.
+## K17 FINAL SYNC
+- PROJECT_STATUS.md closure summary was finalized at commit 03b9f8ec08b0b98cfe770db4b8ab996a7211bbf9.
+- Latest checked commit still has **0 CI statuses** and **0 workflow runs**.
+- NEXT_ACTION remains L01 exactly as recorded above.
