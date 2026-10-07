@@ -3448,3 +3448,77 @@ On CONTINUE:
 - Packaged automove_log has **0 correlated K13 markers** for Treasure heal/reconnect/respawn/Địa-phủ/cache-ready behavior.
 - First K13 artifact committed: docs/daily/K13_TREASURE_RECOVERY_STATIC_EVIDENCE.tsv at commit 36f613669c837fa3b6d0d695ef148dc2deb2b2fa.
 - K13 remains IN_PROGRESS until model/flow/task docs, code/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
+## K13 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K13 artifact/completion commit existed; K01-K12 remained unchanged.
+- Exact TLMTool_2.1.2(7).zip was revalidated before K13: SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, CRC clean. Inner TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact .daily_tab constants blob was re-inspected as **35,163 bytes / 1,186 constants**, exact end marker.
+- Treasure recovery config fallbacks are preserved: heal OFF, heal-map Tô Châu, reconnect ON, respawn ON. B08 current captured state matches heal OFF / Tô Châu / reconnect ON / respawn ON.
+- Exact Treasure recovery-entry text says respawn_event set -> clear so heal/move can leave map87. The next exact boundary is HP checking.
+- Start-of-cycle Treasure heal is exact: if enabled and HP<30, call _treasure_heal; failure logs `Heal thất bại → skip vòng này`, so start-heal failure is current-cycle skip, not account terminal.
+- _treasure_heal exact locals are self,hwnd,stop_check,heal_map,coords,heal_tile_x,heal_tile_y,map_id,name,mid,e,ok.
+- Exact Treasure heal validation chain: selected heal location required -> coordinate lookup required -> selected name resolved through MAP_LIST to map_id -> invalid map_id fails -> movement attempted -> movement failure fails -> success logs `trị liệu tại <map> thành công`.
+- Exact selectable heal coordinates remain Đại Lý=(43,178), Lạc Dương=(255,126), Tô Châu=(155,252), Lâu Lan=(27,183).
+- Treasure heal compact movement kwargs are wait_for_arrival/stop_check only; there is no tolerance kw. Shared move_character default tolerance **48** therefore remains the effective default unless later exact evidence proves an override.
+- No Treasure-specific fixed treatment-click coordinates are serialized in the _treasure_heal compact block, and no Treasure-specific `inject cho heal thất bại` surface is recovered. Do not copy manual Tô Châu click sequences, _punish_heal tolerance10, or _punish_heal reinjection behavior into Treasure by analogy.
+- The exact Treasure heal wait_for_arrival Boolean and any post-arrival treatment microaction remain UNKNOWN.
+- Final Treasure heal failure remains exact `Heal cuối vòng thất bại` and is fail-soft/log-only at the cycle tail.
+- Activity-wide Treasure reconnect shell is exact: _treasure_monitor_stops + disconnect detected/wait + reconnect OK/continue + timeout/dừng.
+- Treasure reconnect timeout numeric remains **EXPLICIT_UNKNOWN**; K13 does not copy Trừng Ác's exact 60s value without independent Treasure binding.
+- _treasure_map_disconnect_monitor exact local model is self,hwnd,halt,respawn_event,stop_event,ev,real_set.
+- This Treasure monitor is an event-adapter shape rather than a second full detector local model. It lacks the full detector locals check_pixel/dc_strikes/MI/conn/dc1/dc2 owned by _punish_disconnect_monitor.
+- Strong static evidence supports reuse/delegation to the already-verified Daily detector layer, while exact native call edge and ev/real_set propagation order remain UNKNOWN.
+- Shared Daily detector semantics remain K07-verified and are preserved as the detector layer: 2s cadence, memory True veto, both exact disconnect pixels for 3 consecutive ticks (~6s), then halt + click(616,455).
+- Treasure single-worker locals exactly include halt,respawn_event,monitor_stop,rm,invalidate_character_cache,_get_pid_from_hwnd,wait_memory_ready,_exit_why, freezing a post-reconnect/session memory-refresh boundary.
+- Shared cache/memory-ready contract remains exact: invalidate stale Reader cache after reconnect/reload; valid sample requires usable RoleName + MapID!=None; timeout False/log/fail-open. Shared defaults are 45.0s / need3 / interval1.0. Exact Treasure call override args remain UNKNOWN.
+- No unconditional Treasure post-reconnect DLL reinjection edge is independently proven.
+- Shared Daily death/Địa-phủ monitor remains exact: 4s cadence, HP0 click(792,441), MapID87 -> respawn_event.set(). Treasure batch/single workers own respawn_event plus rm monitor handles and Treasure exec explicitly consumes/clears the event at next cycle entry.
+- Death/Map87 is therefore recoverable for Treasure: shared death event -> Treasure recovery boundary -> next exec clears event -> HP/start-heal -> normal movement/activation can leave map87.
+- Exact death-monitor thread-launch order and same-scheduling-window disconnect-vs-death precedence remain UNKNOWN.
+- Packaged automove_log SHA-256 remains 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, **15,741,058 bytes / 387,238 lines**. Correlated K13 Treasure heal/reconnect/respawn/cache-ready markers are all **0**.
+- K13 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- K13 artifacts:
+  - docs/daily/K13_TREASURE_RECOVERY_STATIC_EVIDENCE.tsv — commit 36f613669c837fa3b6d0d695ef148dc2deb2b2fa
+  - docs/daily/K13_TREASURE_RECOVERY_MODEL.json — commit d95b26f6368c2a9bb2b87f632cfcf3465301f770
+  - docs/daily/K13_TREASURE_RECOVERY_FLOW.md — commit c7d2ddfb8b2d3d37fe4e8b84c6e102bed01d6779
+  - docs/tasks/K13.md — commit bd5eee472777130cbd5f3f5a41fde5292a043972
+- PROJECT_STATUS.md advanced K13 -> VERIFIED and K14 -> NEXT at commit eaefa701b9ca735f4f68859c3236237671423008.
+
+## POST-K13 CODE/BUILD RECHECK
+- Current main tree after K13 status update: **602 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K13 artifacts were fetched back successfully.
+- K13 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- End-to-end Treasure recovery parity still requires a real Windows + live Thần Long runtime.
+- Reconstructed product build is still not applicable before Stage S because there is no app source/build target.
+- No known static blocker for K14.
+
+## DO_NOT_TOUCH
+- Preserve K01-K13 contracts unchanged unless exact new evidence exposes a real contradiction.
+- Preserve selected-map Treasure heal instead of hardwiring Tô Châu.
+- Preserve Treasure heal movement tolerance layer at shared default48; do not import _punish_heal tolerance10.
+- Do not invent Treasure treatment clicks or Treasure-specific heal reinjection.
+- Preserve start-heal current-cycle skip and final-heal fail-soft/log-only.
+- Preserve Treasure disconnect adapter/event-bridge shape and shared Daily detector layer without inventing adapter micro-order.
+- Do not copy Trừng Ác reconnect timeout60 into Treasure.
+- Preserve Reader-cache invalidation/memory-ready boundary but keep Treasure override args UNKNOWN.
+- Preserve shared death/Map87 respawn_event recovery and keep launch ordering/dual-event precedence UNKNOWN.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K14 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K14 — Tàng Bảo Đồ skipped-account / stop-reset / failure-lifecycle audit** only.
+5. Re-inspect the exact frozen original EXE first and reuse K10-K13 evidence without reopening already-closed internals unless a contradiction appears.
+6. Audit _treasure_map_skipped ownership/mutation/use, first/second item-not-found account exclusion, activity batch still_active filtering, user/cancel/window/gen stop classes, reconnect/death interruption classes, non96 skip versus terminal conditions, and _treasure_map_reset_ui / shared Daily UI-reset handoff.
+7. Build a Treasure failure/lifecycle matrix but do not yet perform the final integrated static handoff; reserve full Treasure closure for the following task.
+8. Preserve K10-K13 contracts unchanged.
+9. Cross-check runtime/B08 only after static extraction.
+10. Persist K14 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after K14 verification.
