@@ -155,7 +155,7 @@ Later implementation must:
 Phase K — Daily is statically complete.
 
 Next phase:
-`L — Đồn`.
+`L — Dồn`.
 
 Next task:
-`L01 — Đồn authority / visible surface / handler inventory / dependency boundary audit`.
+`L01 — Dồn authority / visible surface / handler inventory / dependency boundary audit`.
