@@ -376,7 +376,10 @@ K17 closes Phase K at the static-research level. The original archive, inner EXE
 **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**
 
 ## Phase L — Dồn
-- L01 — NEXT
+- L01 — VERIFIED_ACTIVE_DONVANG_AUTHORITY_CAPTURED_VISIBLE_SURFACE_127_HANDLER_INVENTORY_AND_DEPENDENCY_BOUNDARY
+- L02 — NEXT
+
+L01 locks `donvang_tab.py` / `DonVangTab` as the active Dồn authority. The exact Nuitka `.donvang_tab` module has size field **65,260 bytes** and count field **1,813**, and **127** direct top-level `DonVangTab` methods are inventoried. `TLMMainApp` constructs the tab under visible label `Dồn`, while StartTab exposes `Dồn vàng / Tới nơi nhận / Tới chỗ bán / Tới nơi train / Cấu hình`. The visible surface includes Về thành conditions/priorities, Train/death/disconnect/unstuck/pickup/filter/heal controls, saved coordinates, receiver rows, a shared Dồn coordinate, per-account move/Dồn/sell controls, and all-account actions. Dồn is current/wired rather than dormant; dedicated-tab visibility is permission-controlled, with the captured run showing it visible while the exact permission state remains unknown. Direct dependency boundaries are frozen, and weak emulator/farm-tab references are not promoted to active runtime imports.
 
 ## Phase L current
-L01 — Dồn authority / visible surface / handler inventory / dependency boundary audit.
+L02 — Dồn return mechanism audit.
