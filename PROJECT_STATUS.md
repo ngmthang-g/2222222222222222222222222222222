@@ -327,7 +327,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K05 — VERIFIED_ITEM40004000_DIALOG_USEITEMDATA_FAST_TRAVEL_STREAK_AND_SUMMON_FLOW
 - K06 — VERIFIED_PUNISH_COMBAT_MONOTONIC_DURATION_AUTOTRAIN_FAILSOFT_DRIFT160_AND_MOVEMENT_HELPER_BOUNDARY
 - K07 — VERIFIED_DAILY_PUNISH_HEAL_RESPAWN_AND_RECONNECT_RECOVERY
-- K08 — NEXT
+- K08 — VERIFIED_DAILY_PUNISH_DISCARD_RUN_SCOPED_PARALLEL_PER_ACCOUNT_PACKET4
+- K09 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -343,5 +344,7 @@ K06 locks the successful-summon → combat segment: `punish_duration` is a monot
 
 K07 locks Daily-specific Trừng Ác recovery without importing Farm semantics. `_diaphu_monitor` runs every 4s, clicks revive at (792,441) on HP0, and sets `respawn_event` on MapID 87; the next cycle clears that event so heal/movement can leave Địa phủ. Low-HP treatment is checked at cycle start and end; start-heal failure skips only the current cycle. `_punish_heal` targets Tô Châu map4 tile (155,252), uses movement tolerance 10, and injection failure is fail-open to direct movement. `_punish_disconnect_monitor` runs every 2s with `memory_items.is_connected` as a True-veto plus exact dual disconnect pixels, requiring 3 consecutive ticks (~6s) before `halt` + reconnect click (616,455). Activity-wide Daily reconnect has an exact 60s bounded wait with OK→continue / timeout→stop. The single-account recovery path uses `wait_pixel(common.active)`, cache invalidation and `wait_memory_ready(timeout=45, need=3)` with shared 1.0s sampling and fail-open timeout. No Daily `/5` attempt or infinite reconnect-batch surface is recovered, and no unconditional post-reconnect DLL reinjection edge is proven.
 
+K08 locks the Trừng Ác equipment-discard subsystem as a separate run-scoped background worker rather than a per-cycle step. The persisted checkbox defaults OFF and, when armed, starts only when Trừng Ác accounts are running; it stops immediately on untick and can re-arm on a later run. The worker scopes to current running/non-disconnected Trừng Ác HWNDs, fans out one child thread per eligible account, and uses per-account `inflight` protection so slow passes do not overlap. Each child calls `bag_filter.discard_for_activity(activity="daily", keys=["discard_equip"], ... )`; the preset intentionally covers both non-weapon equipment and weapons. Shared bag filtering is Site-10, rule-AND/rules-OR, dbID-deduped, protect-list-first, weapon-protected by default unless explicitly enabled, and degrades to weapon-ID-only behavior when non-weapon metadata is missing. Discard sends internal packet command 100005 action 4 (`4:<dbID>`) and removes the full stack; pacing is 1 second per account with stop-aware early termination and lower-level per-HWND send locks. `DAILY_DISCARD_POLL` exists but its numeric value remains UNKNOWN. Packaged runtime logs contain 22,734 generic action=4 records but no Daily/K08-correlated discard trace.
+
 ## Phase K current
-K08 — Trừng Ác discard worker / equipment filtering and discard lifecycle audit.
+K09 — Trừng Ác integrated lifecycle / failure matrix / static handoff audit.
