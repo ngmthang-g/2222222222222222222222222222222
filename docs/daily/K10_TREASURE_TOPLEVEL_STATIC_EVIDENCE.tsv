@@ -1,0 +1,70 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901 CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_DECODE	.daily_tab size35163 count1186 exact end marker
+treasure_group	0x2903b5a	VERIFIED_STATIC_DECODE	(" Tàng bảo đồ ","Bold.TLabelframe",3)
+treasure_duration_label	0x2903b9e	VERIFIED_STATIC_DECODE	Thời gian đánh trong huyệt mộ (giây):
+treasure_duration_ui_seed	0x2903bec	VERIFIED_STATIC_DECODE	("30",)
+treasure_duration_var	0x2903bf2	VERIFIED_STATIC	treasure_map_tomb_dur_var
+treasure_duration_entry	0x2903c0d	VERIFIED_STATIC	treasure_map_tomb_dur_entry
+treasure_heal_var	0x2903c2a	VERIFIED_STATIC	treasure_heal_var
+treasure_heal_label	0x2903c3d	VERIFIED_STATIC_UTF8	Trị liệu sau khi đào nếu HP < 30%
+treasure_heal_map_visible	0x2903ca6	VERIFIED_STATIC_DECODE	("Tô Châu",)
+treasure_heal_map_var	0x2903cb3	VERIFIED_STATIC	treasure_heal_map_var
+treasure_heal_coords	0x2909e68	VERIFIED_STATIC_DECODE	Đại Lý=(43,178); Lạc Dương=(255,126); Tô Châu=(155,252); Lâu Lan=(27,183)
+treasure_reconnect_var	0x2903d08	VERIFIED_STATIC	treasure_dc_reconnect_var
+treasure_respawn_var	0x2903d23	VERIFIED_STATIC	treasure_respawn_var
+treasure_apply_all_label	0x2903d39	VERIFIED_STATIC_UTF8	Áp dụng Tàng bảo đồ cho tất cả acc
+treasure_apply_all_ref	0x2903d6a	VERIFIED_STATIC	_apply_treasure_all
+treasure_apply_all_value	0x29052db	VERIFIED_STATIC_DECODE	("Tàng bảo đồ",)
+treasure_apply_all_log	0x29052f0	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Đã Áp dụng cho ... acc
+treasure_apply_all_doc	0x290531a	VERIFIED_STATIC_UTF8	Đặt combobox hoạt động = 'Tàng bảo đồ' cho tất cả acc.
+treasure_start_wrapper_ref	0x29063ae	VERIFIED_STATIC	_treasure_map_toggle
+treasure_start_wrapper_doc	0x29063c4	VERIFIED_STATIC_UTF8	Nút Bắt đầu (Tàng bảo đồ): inject trước rồi bật quy trình.
+bottom_worker_ref	0x290606e	VERIFIED_STATIC	_treasure_single_worker
+single_start_log	0x2906c37	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Single acc hwnd=...
+single_tag	0x2906c5d	VERIFIED_STATIC_UTF8	TÀNG BẢO ĐỒ
+single_disconnect_ref	0x2906c70	VERIFIED_STATIC	_treasure_map_disconnect_monitor
+single_exec_ref	0x2906cc6	VERIFIED_STATIC	_treasure_map_exec_sequence
+single_tomb_dur_ref	0x2906ce3	VERIFIED_STATIC	tomb_dur
+single_doc	0x2906ced	VERIFIED_STATIC_UTF8	Chạy tàng bảo đồ cho 1 acc.
+shared_stopping_literals	0x2906d47	VERIFIED_SHARED_STATIC_DECODE	("disabled","Đang dừng...")
+shared_running_literals	0x2906d85	VERIFIED_SHARED_STATIC_DECODE	("Dừng lại","FireBrick")
+treasure_button_ref	0x2908ead	VERIFIED_STATIC	btn_treasure_start
+treasure_run_worker_ref	0x2908ec1	VERIFIED_STATIC	_treasure_map_run_worker
+batch_start_log	0x2908edb	VERIFIED_STATIC_UTF8	[TÀNG BẢO ĐỒ] Worker bắt đầu — thời gian đánh huyệt mộ ...
+batch_no_selection	0x2908f29	VERIFIED_STATIC_DECODE	[Tàng bảo đồ] Chưa acc nào chọn Tàng bảo đồ — bỏ qua
+batch_no_alive	0x2908f75	VERIFIED_STATIC_DECODE	[Tàng bảo đồ] Không còn acc nào sống — dừng
+batch_all_stopped	0x2908fb3	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Tất cả ... acc đã dừng — tự động dừng
+batch_iteration	0x2908fd4	VERIFIED_STATIC_UTF8	[TÀNG BẢO ĐỒ] Lần ...
+batch_lambda	0x2908ff0	VERIFIED_STATIC	DailyTab._treasure_map_run_worker.<locals>.<lambda>
+batch_recovery_nested	0x2909025	VERIFIED_STATIC	_treasure_monitor_stops
+batch_disconnect_log	0x290903e	VERIFIED_STATIC_DECODE	[Tàng bảo đồ] Phát hiện mất kết nối → chờ kết nối lại...
+batch_reconnect_ok	0x2909093	VERIFIED_STATIC_DECODE	[Tàng bảo đồ] Kết nối lại OK → tiếp tục
+batch_reconnect_timeout	0x29090d0	VERIFIED_STATIC_DECODE	[Tàng bảo đồ] Kết nối lại timeout → dừng
+disconnect_monitor_log	0x2909127	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] disconnect monitor hwnd=...
+exec_respawn_clear	0x290918d	VERIFIED_STATIC_DECODE	[Tàng bảo đồ] respawn_event đang set → clear, cho heal/move rời map 87
+treasure_reset_ui	0x2909918	VERIFIED_STATIC_DECODE	("Tàng bảo đồ","RoyalBlue","normal")
+config_tomb_duration	0x29099d6	VERIFIED_STATIC_DECODE	("daily_treasure_map_tomb_dur","30")
+config_treasure_heal	0x29099f9	VERIFIED_STATIC_DECODE	("daily_treasure_heal","0")
+config_treasure_heal_map	0x2909a12	VERIFIED_STATIC_DECODE	("daily_treasure_heal_map","Tô Châu")
+config_treasure_reconnect	0x2909aa8	VERIFIED_STATIC_DECODE	("daily_treasure_dc_reconnect","1")
+config_treasure_respawn	0x2909ac9	VERIFIED_STATIC_DECODE	("daily_treasure_respawn","1")
+config_save_tomb_duration	0x2909b43	VERIFIED_STATIC	daily_treasure_map_tomb_dur
+config_save_heal	0x2909b60	VERIFIED_STATIC	daily_treasure_heal
+config_save_heal_map	0x2909b75	VERIFIED_STATIC	daily_treasure_heal_map
+config_save_reconnect	0x2909bee	VERIFIED_STATIC	daily_treasure_dc_reconnect
+config_save_respawn	0x2909c0b	VERIFIED_STATIC	daily_treasure_respawn
+batch_locals	0x290b94c	VERIFIED_STATIC_MAPPING	self,e,tomb_dur,selected,selected_pids,loop_idx,alive,still_active,wins,halt,threads,hwnd,_,respawn_event,monitor_stop,t,rm,ms,_hwnd,ok,r
+single_locals	0x290b9e9	VERIFIED_STATIC_MAPPING	self,hwnd,tomb_dur,row,gen_snap,halt,respawn_event,monitor_stop,rm,invalidate_character_cache,_get_pid_from_hwnd,wait_memory_ready,_exit_why
+exec_locals	0x290b8e8	VERIFIED_STATIC_MAPPING	self,hwnd,tomb_dur,halt,respawn_event,stop_event,hard_stop,stop,ci_hp,hp_pct,ci,found
+no_repeat_config	-	VERIFIED_ABSENCE	No daily_treasure_repeat/treasure_repeat/repeat_count/max_repeat in decoded Daily blob; only shared _validate_repeat name exists
+b08_treasure_state	-	CROSSCHECKED_FROZEN_B08	tomb_duration30; heal=false; heal_map=Tô Châu; reconnect=true; respawn=true
+b08_hash_1	-	VERIFIED_IMAGE_REUSE	217178561894a4205c7b5835ed33c050b384c8f60359f6894165e3400d514834
+b08_hash_2	-	VERIFIED_IMAGE_REUSE	3939691e166fa67d9c50069119e4e3904496cd6769b04cf0d3199c6b3e0f866b
+treasure_reconnect_timeout_numeric	-	EXPLICIT_UNKNOWN	Treasure block proves bounded reconnect success/timeout shell but does not independently bind the numeric timeout in K10
+treasure_disconnect_detector_internals	-	DEFERRED_K13_PLUS	Dedicated monitor exists; pixel/memory-strike internals intentionally not deep-audited in K10
+death_monitor_launch_microorder	-	STRONG_STATIC_BOUNDARY	respawn_event + monitor_stop are owned by batch/single shells and exec clears respawn_event; exact thread-launch statement order not instruction-bound
+treasure_toggle_visual_microorder	-	STRONG_STATIC_SHARED	Dedicated btn_treasure_start + run worker + reset tuple are exact; shared Dừng lại/FireBrick/Đang dừng literals exist, exact source-line assignment order remains unknown
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500
+runtime_treasure_correlated	-	NOT_RECOVERED	0 correlated Tàng bảo đồ top-level worker/session markers in packaged automove_log
