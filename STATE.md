@@ -3255,3 +3255,76 @@ On CONTINUE:
 - First K11 artifact committed: docs/daily/K11_TREASURE_ITEM_ACTIVATION_STATIC_EVIDENCE.tsv at commit 1de855a3f4941c426e9494cbbaef49811778f2da.
 - K11 remains IN_PROGRESS until model/flow/task docs, code/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
 
+## K11 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K11 artifact/completion commit existed; K01-K10 remained unchanged.
+- Exact TLMTool_2.1.2(7).zip was revalidated before K11: SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, CRC clean. Inner TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact .daily_tab constants blob was decoded again as **35,163 bytes / 1,186 constants**, exact end marker.
+- K11 covers only the Treasure activation slice of _treasure_map_exec_sequence; map96/tomb combat and deep Treasure recovery remain deferred.
+- Mount prep is frozen: B0 log, IsRiding fallback0, already-riding skip, 0.3s settle, common.nguaActive pixel, exact fallback click (1306,340). Extra B0 coords (1131,121), (1073,123), (906,688) remain strong-static without speculative labels.
+- common.nguaActive exact pixel config: region(903,683), RGB(193,162,96), timeout1, tolerance10.
+- Bag-open stage is frozen: B1 log, fixed coord (1296,421), wait_pixel keyword surface window_hwnd/timeout, key tuido.active, and strong-static drag pair (870,635)->(910,145).
+- tuido.active exact pixel config: region(1123,631), RGB(150,166,78), timeout5, tolerance10. Exact explicit timeout override/false-return behavior at the Daily call remains UNKNOWN.
+- Current recognizer is exactly find_multipixel("tuido","tangBaoDo_multi"), not the legacy tangBaoDo/tangBaoDo_multi_old keys.
+- Exact current multipixel config: search rectangle (702,163)-(1132,517), offset(20,30), base RGB(2,30,35), offset RGB(228,215,170), timeout5, tolerance1.
+- Shared find_multipixel helper contract is frozen: single capture, scan all base matches, validate offset pixel, return base client (x,y) or None.
+- Success text exactly says Found tuido.tangBaoDo_multi at <found> -> click.
+- Daily uses shared mouse.click_at; helper docs prove DLL-sync + PostMessage background HWND clicks without physical cursor movement.
+- Activation-success block also serializes fixed coords (950,370), (490,427), (1173,105) plus keyword surface window_hwnd/count/jitter/delay. Exact source-line role/order and override values remain UNKNOWN rather than guessed.
+- First tangBaoDo_multi not-found is terminal for the affected Treasure account: exact text says dừng tàng bảo đồ cho acc này.
+- _treasure_map_skipped exists as activity skip state; exact mutation statement/order at the terminal branch is not independently native-bound.
+- Fixed coord (1155,108) is serialized immediately before the movement-stop wait; exact UI purpose remains UNKNOWN.
+- Treasure then calls _wait_movement_stopped with exact keyword names stop_check/skip_set and no by_memory override. K06 helper defaults prove by_memory=False, so this call uses the MovementDetector/is_moving **10-pixel** branch, not Direction+Pos memory wait.
+- Exact post-wait success text is [Tàng bảo đồ] Đã dừng.
+- After movement stops, the code performs a second tangBaoDo_multi checkpoint. Exact second failure says not found (lần 2) -> dừng tàng bảo đồ cho acc này, so second not-found is also terminal for the affected Treasure account.
+- K11 therefore freezes a two-stage item activation shape: mount prep -> bag open/verify -> first map-item find/use -> movement-stop wait -> second map-item find/use -> post-activation MapID outcome.
+- Exact second-success repeated click statement sequence is only strong-static reuse; it is not separately logged and was not falsely promoted to line-by-line proof.
+- Immediate next exact deep-flow boundary is MapID=96 (huyệt mộ) -> đánh, reserved for K12.
+- Packaged automove_log SHA-256 remains 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, **15,741,058 bytes / 387,238 lines**. Correlated K11 markers are all **0**.
+- B08 has no runtime activation state and was used only after static extraction.
+- K11 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- K11 artifacts:
+  - docs/daily/K11_TREASURE_ITEM_ACTIVATION_STATIC_EVIDENCE.tsv — commit 1de855a3f4941c426e9494cbbaef49811778f2da
+  - docs/daily/K11_TREASURE_ITEM_ACTIVATION_MODEL.json — commit f0707f2332b418e947efe5da39e2116efbad7343
+  - docs/daily/K11_TREASURE_ITEM_ACTIVATION_FLOW.md — commit 3ababb15542f7f1382f0bf7c55a352540f9d6b37
+  - docs/tasks/K11.md — commit 95a5060e351d036c96116a19a5d33b564e70dfac
+- PROJECT_STATUS.md advanced K11 -> VERIFIED and K12 -> NEXT at commit eab4d28af6d25737b83ebe68422a4a6d0d3fb5c1.
+
+## POST-K11 CODE/BUILD RECHECK
+- Current main tree after K11 status update: **594 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K11 artifacts were fetched back successfully.
+- K11 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- End-to-end Treasure activation parity still requires a real Windows + live Thần Long runtime.
+- Reconstructed product build is still not applicable before Stage S because there is no app source/build target.
+- No known static blocker for K12.
+
+## DO_NOT_TOUCH
+- Preserve K01-K11 contracts unchanged unless exact new evidence exposes a real contradiction.
+- Preserve the current tangBaoDo_multi recognizer and its exact pixel pattern.
+- Preserve background HWND click semantics; do not replace with physical mouse automation.
+- Preserve first and second not-found as terminal Treasure-account conditions.
+- Preserve the exact movement-stop call boundary and by_memory=False / MovementDetector 10-pixel behavior.
+- Do not invent labels/order for unresolved fixed coordinates or click override values.
+- Do not deep-audit map96/tomb combat in K11 artifacts.
+- Keep unresolved micro-orderings UNKNOWN.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K12 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K12 — Tàng Bảo Đồ map96 movement / tomb combat / post-activation outcome audit** only.
+5. Re-inspect the exact frozen original EXE first.
+6. Start exactly at the post-K11 MapID outcome boundary: map96 detection, tomb state transition, move-to-map96/tile(50,16), common.active wait, tomb combat duration semantics, non-map96 outcome, and immediate final-heal boundary.
+7. Follow only directly-called movement/auto-fight/pixel helpers required by that branch; do not deep-audit Treasure reconnect/death internals unless a direct K12 dependency requires it.
+8. Preserve K10-K11 ownership and activation contracts unchanged.
+9. Cross-check packaged runtime/B08 only after static extraction.
+10. Persist K12 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after K12 verification.
+
