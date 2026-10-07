@@ -1,0 +1,209 @@
+{
+  "task": "K12",
+  "status": "VERIFIED_TREASURE_MAP96_MOVE_COMMON_ACTIVE_TOMB_DURATION_NON96_SKIP_AND_FINAL_HEAL_BOUNDARY_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "zip_crc_clean": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_blob": {
+      "marker": "0x2903223",
+      "size_bytes": 35163,
+      "top_level_constants": 1186,
+      "exact_end": true
+    }
+  },
+  "exec_sequence": {
+    "method": "DailyTab._treasure_map_exec_sequence",
+    "locals": [
+      "self",
+      "hwnd",
+      "tomb_dur",
+      "halt",
+      "respawn_event",
+      "stop_event",
+      "hard_stop",
+      "stop",
+      "ci_hp",
+      "hp_pct",
+      "ci",
+      "found"
+    ],
+    "defaults_after_required_self_hwnd": [
+      5,
+      null,
+      null,
+      null
+    ],
+    "direct_call_default_mapping": {
+      "tomb_dur": 5,
+      "halt": null,
+      "respawn_event": null,
+      "stop_event": null
+    },
+    "production_duration_source": "K10 activity/single workers own and pass configured tomb_dur"
+  },
+  "duration_layers": {
+    "ui_seed_seconds": 30,
+    "config_missing_key_fallback_seconds": 30,
+    "exec_helper_direct_default_seconds": 5,
+    "normal_worker_semantic": "configured tomb_dur snapshot is passed to exec sequence",
+    "contradiction": false,
+    "interpretation": "UI/config production layer and helper fallback layer are distinct"
+  },
+  "post_activation_map96": {
+    "exact_log": "[Tàng bảo đồ]   MapID=96 (huyệt mộ) → đánh <tomb_dur>...",
+    "state_text": "Đánh trong mộ",
+    "duration_unit": "seconds",
+    "user_repeat_count": false,
+    "timing_semantic": "per-tomb-combat dwell, not number of runs",
+    "timing_primitive": "EXPLICIT_UNKNOWN",
+    "monotonic_deadline_recovered": false,
+    "local_t_end_recovered": false,
+    "fixed_click_surfaces": [
+      [
+        1135,
+        124
+      ],
+      [
+        955,
+        123
+      ]
+    ],
+    "fixed_click_semantics": "EXPLICIT_UNKNOWN"
+  },
+  "map96_move": {
+    "exact_log": "[Tàng bảo đồ]   Di chuyển đến map 96, tọa độ (50, 16)",
+    "state_text": "Đi huyệt mộ",
+    "destination": {
+      "map_id": 96,
+      "tile": [
+        50,
+        16
+      ],
+      "move_character_xy": [
+        1600,
+        512
+      ],
+      "tile_scale": 32
+    },
+    "helper": "utils.move_character",
+    "keyword_surface": [
+      "map_id",
+      "x_tile",
+      "y_tile",
+      "wait_for_arrival",
+      "stop_check"
+    ],
+    "helper_defaults": {
+      "wait_for_arrival": false,
+      "stop_check": null,
+      "home_priority": null,
+      "follow_mode": false,
+      "tolerance": 48
+    },
+    "explicitly_overridden": {
+      "wait_for_arrival": "keyword passed; exact Boolean value not independently instruction-bound",
+      "stop_check": "passed"
+    },
+    "effective_tolerance_if_not_overridden": 48,
+    "caller_false_return_effect": "EXPLICIT_UNKNOWN"
+  },
+  "common_active_wait": {
+    "exact_log": "[Tàng bảo đồ]   Chờ common.active...",
+    "helper": "pixel.wait_pixel",
+    "key": [
+      "common",
+      "active"
+    ],
+    "keyword_surface": [
+      "window_hwnd",
+      "timeout",
+      "debug",
+      "cancel_flag"
+    ],
+    "pixel_config": {
+      "point": [
+        1330,
+        33
+      ],
+      "rgb": [
+        34,
+        8,
+        11
+      ],
+      "timeout_seconds": 100,
+      "tolerance_percent": 5
+    },
+    "explicit_timeout_override": true,
+    "timeout_override_numeric": "EXPLICIT_UNKNOWN",
+    "helper_contract": "True if pixel appears before timeout; False on timeout/cancel",
+    "caller_false_return_effect": "EXPLICIT_UNKNOWN"
+  },
+  "post_wait_outcome": {
+    "mapid_prefix": "[Tàng bảo đồ]   MapID=",
+    "non96_suffix": " — không phải huyệt mộ, bỏ qua",
+    "non96_class": "SKIP_TOMB_OUTCOME_NOT_ACCOUNT_TERMINAL",
+    "account_stop_text_present": false,
+    "next_boundary": "final heal/cycle tail"
+  },
+  "final_heal_boundary": {
+    "check_text": "% — kiểm tra trị liệu",
+    "failure_text": "[Tàng bảo đồ]   Heal cuối vòng thất bại",
+    "helper": "DailyTab._treasure_heal",
+    "config_condition": "Treasure heal enabled and HP < 30%",
+    "deep_routing_click_semantics": "DEFERRED_K13",
+    "failure_class": "FAIL_SOFT_LOG_ONLY_AT_CYCLE_TAIL"
+  },
+  "cycle_tail": {
+    "prefix": "[Tàng bảo đồ] === HWND ",
+    "shared_suffix": " — Kết thúc ===",
+    "normal_return_scalar": "EXPLICIT_UNKNOWN",
+    "next_outer_behavior": "returns to K10-owned Treasure session/worker shell"
+  },
+  "flow_order_boundary": {
+    "source_order_surface": [
+      "MapID96/tomb combat announcement + state",
+      "two fixed combat click surfaces",
+      "move-to-map96/tile50,16 surface",
+      "common.active wait",
+      "post-wait MapID outcome",
+      "final-heal boundary",
+      "cycle tail"
+    ],
+    "exact_micro_order_of_fixed_clicks_vs_duration_wait": "UNKNOWN"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_counts": {
+      "MapID=96": 0,
+      "Đánh trong mộ": 0,
+      "Đi huyệt mộ": 0,
+      "Chờ common.active": 0,
+      "tọa độ (50, 16)": 0,
+      "huyệt mộ": 0
+    },
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "screenshot_crosscheck": {
+    "B08_tomb_duration_seconds": 30,
+    "map96_runtime_visible": false,
+    "hidden_behavior_inferred_from_B08": false
+  },
+  "explicit_unknowns": [
+    "exact semantic label/order of fixed tomb click coordinates 1135,124 and 955,123",
+    "exact timer primitive for tomb_dur",
+    "exact Boolean passed to wait_for_arrival in the K12 move call",
+    "exact caller behavior when move_character returns False",
+    "numeric explicit timeout passed to common.active wait",
+    "exact caller behavior when common.active wait returns False",
+    "exact source-level MapID read/check micro-order around combat versus movement",
+    "exact normal-success Python return scalar",
+    "live Windows/game parity"
+  ],
+  "deferred": {
+    "K13": "Treasure heal / reconnect / respawn recovery internals"
+  },
+  "next_task": "K13 — Tàng Bảo Đồ heal / reconnect / respawn recovery audit"
+}
