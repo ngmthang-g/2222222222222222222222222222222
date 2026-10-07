@@ -305,7 +305,7 @@ H13 — Train all-account command orchestration audit.
 - Boundary behavior and detached-order propagation remain explicit UNKNOWN.
 
 ## C18 VERIFIED RESULTS
-- `Đồng bộ các cửa sổ` is a real toggle backed by `_toggle_layout`.
+- `Dồng bộ các cửa sổ` is a real toggle backed by `_toggle_layout`.
 - Runtime state includes `layout_active`, `sync_layout_running`, `sync_loop_id`, and grid-slot state.
 - The maintenance path uses `_sync_windows_loop` → `_layout_worker` → worker-cached HWNDs → `_arrange_grid`.
 - Grid application is master-aware: current master is index 0/top-left.
@@ -322,7 +322,7 @@ H13 — Train all-account command orchestration audit.
 - WINDOW_BEHAVIOR_MATRIX.md
 
 ## C19 VERIFIED RESULTS
-- `Đồng bộ phím chuột` is a real persistent input-synchronization subsystem.
+- `Dồng bộ phím chuột` is a real persistent input-synchronization subsystem.
 - The selected master window is the event source; other game windows are targets.
 - Mouse coordinates are converted to master-client coordinates and scaled to each target client size.
 - Click processing is ordered; scroll and mouse-move have dedicated paths, with move throttling.
@@ -542,10 +542,10 @@ H13 — Train all-account command orchestration audit.
 
 ## E03 VERIFIED RESULTS
 - `create_tabs` uses local `_new_tab` plus `_tab_inner`, `_tab_frames`, `_tab_keys` maps.
-- Potential insertion order contains Start/Login/Party/Train/Train LSV/Train LD/Phó Bản/Daily/Đồn/Rao/Tối ưu/Info/Proxy/Debug/Debug Android.
+- Potential insertion order contains Start/Login/Party/Train/Train LSV/Train LD/Phó Bản/Daily/Dồn/Rao/Tối ưu/Info/Proxy/Debug/Debug Android.
 - Gate-B visible production order is the same sequence with Train LD, Proxy, Debug and Debug Android hidden.
 - Info is the invariant always-visible fallback; if selected tab becomes hidden, selection moves to Info.
-- Debug/Android/Proxy are dev-gated; Đồn/Rao/Tối ưu are permission-controlled.
+- Debug/Android/Proxy are dev-gated; Dồn/Rao/Tối ưu are permission-controlled.
 - Tab content has a one-time lazy-build guard plus `_rebuild_tab` path.
 - `_make_scrollable` provides Canvas+vertical Scrollbar+MouseWheel wrapper.
 - Central refresh lifecycle stops old tab polling and starts selected tab polling; after build only selected refresh-capable tab polls.
@@ -669,8 +669,8 @@ H13 — Train all-account command orchestration audit.
 - Entering Xếp-lưới explicitly stops active Farm/Train plus Daily Trừng Ác and Tàng Bảo Đồ before enabling layout+input sync.
 - Switching Auto/manual disables both synchronization systems.
 - Start quick commands delegate to feature-tab methods in short threads; feature tabs remain authoritative owners of long-running FSM/workers.
-- Farm/Train LSV/Đồn/Daily expose synchronization helpers that mirror authoritative feature state back to Start buttons.
-- Farm/Train LSV/Đồn have per-account plus all-account start/stop surfaces; Daily keeps separate Trừng Ác/Tàng Bảo Đồ FSMs.
+- Farm/Train LSV/Dồn/Daily expose synchronization helpers that mirror authoritative feature state back to Start buttons.
+- Farm/Train LSV/Dồn have per-account plus all-account start/stop surfaces; Daily keeps separate Trừng Ác/Tàng Bảo Đồ FSMs.
 - Rao/Tối ưu expose _start_all_busy guards; Phó Bản exposes stop-all-run control.
 - Runtime permission/account-limit checks remain authoritative at action time.
 - Login owns post-login routing; Party waits all groups then executes its configured post-party action once.
@@ -693,7 +693,7 @@ H13 — Train all-account command orchestration audit.
 - Original EXE resolves all three Login group widgets as Tk LabelFrame using Bold.TLabelframe.
 - Game group controls, conditional game-path/captcha-status labels, schedule Checkbutton/readonly Combobox/radio widgets, account Canvas+Scrollbar structure and bottom Bắt đầu button were recovered.
 - Exact after-login source labels/internal values are Chờ/wait, Party/party, Train/train, Train LSV/train_lsv, Dồn vàng/don.
-- B03 screenshot transcription `Đồn văn` was corrected: source label is `Dồn vàng`; right-edge raster clipping hid/misled the final glyph.
+- B03 screenshot transcription `Dồn văn` was corrected: source label is `Dồn vàng`; right-edge raster clipping hid/misled the final glyph.
 - Header selector is a custom check-glyph Button calling _toggle_all_checks, not an unknown native checkbox.
 - Account rows use custom selector Button + account/password Entry + readonly captcha Combobox + Login Button + proxy/reload Button.
 - Captcha modes are Không / Tool / Proxy; proxy action is Tool→⇄, Proxy→➜, Không→blank gray disabled.
@@ -913,7 +913,7 @@ H13 — Train all-account command orchestration audit.
 - Current uploaded `TLMTool_2.1.2(4).zip` SHA-256 is `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, byte-identical to the frozen archive already used by F01/Gate A.
 - Inner `TLMTool.dist/TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
 - Current Login screenshot `TLMTool_4dw2sgi7mQ(4).png` is SHA-256 `a555bce4054a0d32d19c2377a726c7fa2e6b78c03ce80e8291affb6185f04461`, byte-identical to B03/F01; no UI remeasurement was needed.
-- Final canonical label is **Dồn vàng** with internal mode `don`. PLAN.md was corrected from stale `Đồn vàng` occurrences to `Dồn vàng`.
+- Final canonical label is **Dồn vàng** with internal mode `don`. PLAN.md was corrected from stale `Dồn vàng` occurrences to `Dồn vàng`.
 - F11 audited F01–F10 as one Login handoff and found no contradiction requiring earlier task redo.
 - New static evidence resolves the generic post-login readiness loop:
   - original same-as-`login_tab._wait_and_activate` helper serializes range constants 0/20/1;
@@ -3820,9 +3820,9 @@ On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
 3. Check GitHub first for any L01 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **L01 — Đồn authority / visible surface / handler inventory / dependency boundary audit** only.
-5. Re-inspect the exact frozen original EXE first; do not infer Đồn behavior from prior tools/projects.
-6. Identify the active Đồn module/class in the main app, visible UI surface, top-level callable inventory and direct dependency boundary.
+4. Execute **L01 — Dồn authority / visible surface / handler inventory / dependency boundary audit** only.
+5. Re-inspect the exact frozen original EXE first; do not infer Dồn behavior from prior tools/projects.
+6. Identify the active Dồn module/class in the main app, visible UI surface, top-level callable inventory and direct dependency boundary.
 7. Separate visible/current behavior from dormant/static references.
 8. Use screenshots/runtime evidence only after EXE-first static extraction.
 9. Persist L01 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L01 verification.
