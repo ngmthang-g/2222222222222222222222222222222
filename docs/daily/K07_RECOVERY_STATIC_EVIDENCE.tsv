@@ -1,0 +1,83 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_payload	0x2903223	VERIFIED_STATIC	.daily_tab exact blob, size35163, count1186
+diaphu_monitor_ref	0x29069f5	VERIFIED_STATIC	_diaphu_monitor
+disconnect_monitor_ref	0x2906a13	VERIFIED_STATIC	_punish_disconnect_monitor
+single_reconnect_state	0x2906abc	VERIFIED_STATIC_UTF8	Chờ kết nối lại
+single_wait_pixel_ref	0x2906ad5	VERIFIED_STATIC	wait_pixel
+single_wait_interval_const	0x2906ae1	VERIFIED_STATIC_DECODE	0.5
+single_wait_pixel_key	0x2906aea	VERIFIED_STATIC_DECODE	(common,active)
+single_wait_kwargs	0x2906afc	VERIFIED_STATIC_DECODE	(window_hwnd,timeout,interval,debug)
+single_post_reconnect_helpers	0x2906b25	VERIFIED_STATIC_DECODE	invalidate_character_cache,_get_pid_from_hwnd,wait_memory_ready
+single_invalidate_ref	0x2906b6a	VERIFIED_STATIC	invalidate_character_cache
+single_memory_ready_ref	0x2906b86	VERIFIED_STATIC	wait_memory_ready
+single_memory_ready_args	0x2906b99	VERIFIED_STATIC_DECODE	(45.0,3)
+single_memory_ready_kwargs	0x2906ba6	VERIFIED_STATIC_DECODE	(timeout,need)
+batch_monitor_stops	0x2906f33	VERIFIED_STATIC	_punish_monitor_stops nested activity-wide recovery surface
+batch_disconnect_state	0x2906f4a	VERIFIED_STATIC_UTF8	Mất kết nối
+batch_disconnect_log	0x2906f5d	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Phát hiện mất kết nối → chờ kết nối lại...
+batch_reconnect_timeout	0x2906fac	VERIFIED_STATIC_DECODE	60 seconds
+batch_reconnect_ok	0x2906fae	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Kết nối lại OK → tiếp tục
+batch_reconnect_fail	0x2906fe5	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Kết nối lại timeout → dừng
+diaphu_poll	0x2907027	VERIFIED_STATIC_DECODE	4 seconds
+diaphu_hp_field	0x290702b	VERIFIED_STATIC_DECODE	HpPercent
+diaphu_hp_latch	0x2907038	VERIFIED_STATIC	hp_latched
+diaphu_state	0x2907044	VERIFIED_STATIC_UTF8	Về Địa phủ
+diaphu_hp0_log	0x2907062	VERIFIED_STATIC_UTF8	HP 0% → click (792, 441) hồi sinh
+diaphu_revive_click	0x290708a	VERIFIED_STATIC_DECODE	(792,441)
+diaphu_map_field	0x2907092	VERIFIED_STATIC_DECODE	MapID
+diaphu_map_id	0x290709b	VERIFIED_STATIC_DECODE	87
+diaphu_event_log	0x29070a7	VERIFIED_STATIC_UTF8	phát hiện ở Địa phủ (map 87) → respawn_event.set()
+diaphu_event	0x29070e8	VERIFIED_STATIC	respawn_event
+diaphu_doc	0x29070f7	VERIFIED_STATIC_UTF8	Theo dõi mỗi 4s: MapID==87 → respawn_event; HP==0% → click hồi sinh.
+disconnect_memory_module	0x29071d2	VERIFIED_STATIC	memory_items
+disconnect_is_connected	0x29071e0	VERIFIED_STATIC	is_connected
+disconnect_pixel1	0x29071ee	VERIFIED_STATIC_DECODE	(login,ngatKetNoi1)
+disconnect_pixel2	0x2907213	VERIFIED_STATIC_DECODE	(login,ngatKetNoi2)
+disconnect_strikes	0x2907229	VERIFIED_STATIC	dc_strikes
+disconnect_3strike	0x2907235	VERIFIED_STATIC_UTF8	MAT KET NOI (dialog 3/3) → halt
+disconnect_click	0x2907259	VERIFIED_STATIC_DECODE	(616,455)
+disconnect_doc	0x2907289	VERIFIED_STATIC_UTF8	2s per-account; memory True veto; both pixels 3 consecutive ticks (~6s); then halt + click(616,455)
+exec_respawn_clear	0x290743f	VERIFIED_STATIC_UTF8	respawn_event đang set → clear, cho heal/move rời map 87
+exec_hp_default	0x2907490	VERIFIED_STATIC_DECODE	(HpPercent,0)
+exec_hp_start_log	0x290749f	VERIFIED_STATIC_UTF8	HP=...
+exec_heal_start_check	0x29074b4	VERIFIED_STATIC_UTF8	% — kiểm tra trị liệu đầu vòng
+exec_heal_start_low	0x29074e0	VERIFIED_STATIC_UTF8	HP < 30% → trị liệu tại Tô Châu
+exec_punish_heal_ref	0x290751d	VERIFIED_STATIC	_punish_heal
+exec_heal_stop_kw	0x290752b	VERIFIED_STATIC_DECODE	(stop_check)
+exec_heal_start_fail	0x2907539	VERIFIED_STATIC_UTF8	Heal thất bại → skip vòng này
+exec_heal_end_check	0x29078be	VERIFIED_STATIC_UTF8	% — kiểm tra trị liệu cuối vòng
+exec_heal_end_fail	0x29078ea	VERIFIED_STATIC_UTF8	Heal cuối vòng thất bại
+punish_heal_inject_failopen	0x2908db8	VERIFIED_STATIC_UTF8	inject cho heal thất bại, thử di chuyển trực tiếp
+punish_heal_move_kwargs	0x2908df8	VERIFIED_STATIC_DECODE	(wait_for_arrival,stop_check,tolerance)
+punish_heal_move_fail	0x2908e23	VERIFIED_STATIC_UTF8	di chuyển đến Tô Châu trị liệu thất bại
+punish_heal_tolerance	0x2908e5c	VERIFIED_STATIC_DECODE	10
+punish_heal_doc	0x2908e5e	VERIFIED_STATIC_UTF8	Trị liệu khi HP thấp tại Tô Châu.
+cfg_punish_heal	0x2909a38	VERIFIED_STATIC_DECODE	(daily_punish_heal,0)
+cfg_punish_reconnect	0x2909a6f	VERIFIED_STATIC_DECODE	(daily_punish_dc_reconnect,1)
+cfg_punish_respawn	0x2909a8e	VERIFIED_STATIC_DECODE	(daily_punish_respawn,1)
+heal_coords_table	0x2909e68	VERIFIED_STATIC_DECODE	TREASURE_HEAL_COORDS includes Tô Châu=(155,252)
+qualified_diaphu	0x290a7cf	VERIFIED_STATIC	DailyTab._diaphu_monitor
+qualified_disconnect	0x290a7e9	VERIFIED_STATIC	DailyTab._punish_disconnect_monitor
+qualified_exec	0x290a817	VERIFIED_STATIC	DailyTab._punish_exec_sequence
+qualified_heal	0x290a982	VERIFIED_STATIC	DailyTab._punish_heal
+diaphu_locals	0x290aee5	VERIFIED_STATIC_MAPPING	self,hwnd,respawn_event,stop_event,tag,detected,hp_latched,ci,hp_pct
+disconnect_locals	0x290b1ae	VERIFIED_STATIC_MAPPING	self,hwnd,stop_event,halt,win32gui,check_pixel,row,gen_snap,dc_strikes,MI,conn,dc1,dc2,e
+exec_locals	0x290b216	VERIFIED_STATIC_MAPPING	self,hwnd,punish_duration,use_tele,tele_hotkey,halt,respawn_event,stop_event,hard_stop,stop,ci_hp,hp_pct,...drift
+heal_locals	0x290b3d1	VERIFIED_STATIC_MAPPING	self,hwnd,stop_check,coords,heal_tile_x,heal_tile_y,e,ok
+run_worker_locals	0x290b413	VERIFIED_STATIC_MAPPING	...halt,threads,resize_monitors,hwnd,respawn_event,monitor_stop...
+single_worker_locals	0x290b500	VERIFIED_STATIC_MAPPING	...halt,respawn_event,monitor_stop,rm,invalidate_character_cache,_get_pid_from_hwnd,wait_memory_ready,_exit_why
+shared_connected_doc	0x2b70e50	VERIFIED_SHARED_STATIC_UTF8	TCPGame.Instance.tcpClient.Connected: True connected, False disconnected, None read error
+shared_connected_ref	0x2b7446a	VERIFIED_SHARED_STATIC	memory_items.is_connected
+shared_invalidate_doc	0x2c4e864	VERIFIED_SHARED_STATIC_UTF8	invalidate Reader cache immediately after reconnect; stale pointer-chain cache may survive 10s
+shared_memory_ready_doc	0x2c4ea66	VERIFIED_SHARED_STATIC_UTF8	RoleName clear + MapID not None; invalidate each sample; timeout False/log/fail-open
+shared_memory_ready_defaults	0x2c53722	VERIFIED_SHARED_STATIC_DECODE	wait_memory_ready defaults (45.0,3,1.0)
+pixel_data	0x2b97b3e	VERIFIED_SHARED_STATIC_DECODE	ngatKetNoi1=(640,244) RGB(160,145,52) timeout5 tol5; ngatKetNoi2=(702,453) RGB(212,28,34) timeout5 tol5; common.active=(1330,33) RGB(34,8,11) timeout100 tol5
+daily_reconnect_attempt_loop	-	VERIFIED_ABSENCE	No Daily /5 attempt log or retry-loop surface recovered; do not copy Farm/TrainLSV 5-attempt infinite policy into Daily
+forced_post_reconnect_inject	-	NOT_PROVEN	Single worker direct local surface proves cache invalidate + wait_memory_ready but no unconditional post-reconnect injection edge
+single_active_wait_timeout	-	STRONG_STATIC_NOT_INSTRUCTION_BOUND	Activity-wide nested path proves 60s; single worker wait_pixel uses same common.active + timeout kw but exact numeric binding not independently instruction-bound
+heal_click_sequence_in_punish_helper	-	EXPLICIT_UNKNOWN	Daily manual treatment helper has clicks (892,474),(514,424), but direct binding of those clicks inside _punish_heal is not separately proven
+diaphu_latch_reset_expression	-	EXPLICIT_UNKNOWN	detected/hp_latched proven; exact source-level re-arm/reset conditions not instruction-bound
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_k07_markers	-	NOT_RECOVERED	0 correlated Trừng Ác / reconnect / MemReady / Địa phủ / HP0 / heal markers in packaged automove_log
