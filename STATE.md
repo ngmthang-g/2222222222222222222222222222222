@@ -3694,3 +3694,78 @@ On CONTINUE:
 8. Audit cross-activity contradictions and race/ownership boundaries only; keep runtime-only ordering UNKNOWN where native evidence is insufficient.
 9. Cross-check runtime/B08 only after static integration, then re-check repo code/build state.
 10. Persist K16 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K16 verification.
+
+## K16 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K16 artifact/completion commit existed; K01/K02/K09/K15 were treated as closed contracts and activity-specific internals were not reopened.
+- Exact TLMTool_2.1.2(7).zip was revalidated before K16: SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, ZIP CRC clean. Inner TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- K16 closes the remaining shared/cross-activity top-level Daily gaps from K01: _validate_repeat, _ensure_injected, _inject_all_windows, _move_bo_dau, _move_bo_dau_all, _heal_bo_dau, _heal_all, _save_on_destroy, _load_config, _save_config.
+- After K16, no shared/cross-activity top-level Daily callable remains unaccounted for.
+- Shared roster contract remains K02-exact: incremental refresh every 5s, HWND+bound-PID identity, PID-reuse row recreation, 30ms scroll debounce, row permission gating, transient row/session fields.
+- Row session protection remains exact: real row _stop_event + row _gen through _GenStop. Generation mismatch stops a stale worker after rapid Stop->Start.
+- Shared Tk state path remains exact: _set_state -> _schedule_state_label -> Tk after(0) -> _apply_state_label. Background workers must not directly mutate row state widgets.
+- Shared injection is now integrated explicitly: _ensure_injected uses dll_injector, PID resolution and default resources.dat path; exact outcomes include no-PID/failure/error, `already loaded`, and OK. _inject_all_windows applies the same preparation to current game windows. Repeated start paths are compatible with an already-loaded DLL state.
+- Manual _move_bo_dau is exact at the shared boundary: one HWND -> Tô Châu map4 tile(224,285); invalid/dead window and permission surfaces are checked; injection failure is fail-open to direct movement; shared move_character is used.
+- _move_bo_dau_all performs shared injection/preparation and parallel per-account movement with child-thread join/completion.
+- Manual _heal_bo_dau targets Tô Châu map4 tile(155,252) and owns an HWND-targeted click_at treatment surface. _heal_all fans out the treatment action in parallel.
+- Manual Tới bổ đầu/Trị liệu are activity-agnostic HWND/account actions rather than Trừng Ác/Treasure worker dispatch. Exact overlap exclusion with a running activity worker is **EXPLICIT_UNKNOWN** and reserved for K17 runtime parity.
+- Bottom all-account coordinator remains exact: idle -> shared preparation -> dispatch each eligible row by current activity -> per-row worker; running -> row _farming_acc=False + row _stop_event -> cooperative unwind. Missing Trừng Ác teleport hotkey may skip only that row at the coordinator boundary.
+- _daily_all_monitor remains singleton, waits until all row sessions stop, then calls both activity reset helpers and logs the automatic reset. _sync_start_tab_btns remains the external StartTab synchronization boundary.
+- Cross-activity ownership domains are explicitly separate.
+  - activity-wide Trừng Ác: _punish_running/_punish_cancel
+  - activity-wide Treasure: _treasure_map_running/_treasure_map_cancel
+  - row/bottom: row _farming_acc/_stop_event/_gen
+- No unified Daily owner token/mutex and no independently-bound same-HWND mutual-exclusion guard between activity-wide and row ownership was recovered. K16 does not invent a mutex and does not assume overlap is safe; K17 must test the original runtime behavior.
+- Shared persistence is now integrated: CONFIG_PATH/CONFIG_DIR/_settings_lock/read_settings/write_settings/Settings section; exact Daily load-key surface includes both activity config families plus the old/new teleport compatibility keys.
+- No durable Daily keys exist for row activity selection, bound PID, _farming_acc, _stop_event, _gen or row state. Those remain runtime/session state.
+- daily_move_mode is exact on the load side, but exact save/migration expression remains UNKNOWN; absence of a second literal in the save region is not proof it is never written because Nuitka can backreference constants.
+- Constructor owns _closing/_saving_enabled/refresh state; <Destroy> is exactly bound to _save_on_destroy; _save_config writes shared settings and exposes [DAILY] Save error:. Exact destroy cleanup order remains UNKNOWN.
+- _validate_repeat uses an isdigit generator surface and is classified only as numeric-entry validation. Its name is not evidence of a user repeat-count feature. Exact empty-string/cleanup behavior remains UNKNOWN.
+- Cross-activity contradiction audit found **0 blocking contradictions** across K02 shared infrastructure, K09 Trừng Ác handoff and K15 Treasure handoff.
+- Exact packaged automove_log remains SHA-256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, **15,741,058 bytes / 387,238 lines**. Correlated counts are zero for [Daily], [Bắt đầu], [Inject], DailyTab, Tới bổ đầu, [Trị liệu], Trừng ác and Tàng bảo đồ.
+- B08 remains an idle empty-account-list cross-check and cannot prove concurrency/ownership races.
+- K16 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- K16 artifacts:
+  - docs/daily/K16_SHARED_INTEGRATION_STATIC_EVIDENCE.tsv — commit d8bcffa13d31bfb34709168f616cbb961287986f
+  - docs/daily/K16_SHARED_INTEGRATION_MODEL.json — commit a88bcdb8d5c59db0204f17ed713c7db938ffa8e4
+  - docs/daily/K16_SHARED_INTEGRATION_FLOW.md — commit dfb44f9d3061604a6c5c4979aca7b8f11839fbf3
+  - docs/tasks/K16.md — commit dbba8650411436355a8b422660a6065e8bda533e
+- PROJECT_STATUS.md advanced K16 -> VERIFIED and K17 -> NEXT at commit 729cb28a76dab03503e7f6211df17a4c8abdcd70.
+
+## POST-K16 CODE/BUILD RECHECK
+- Current main tree after K16 status update: **614 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K16 artifacts were fetched back successfully.
+- K16 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- End-to-end Daily concurrency/parity still requires a real Windows + live Thần Long runtime.
+- Reconstructed product build is still not applicable before Stage S because there is no app source/build target.
+- Static K16 cannot resolve same-HWND overlap between activity-wide and row/manual ownership domains; this is intentionally deferred to K17 runtime parity.
+
+## DO_NOT_TOUCH
+- Preserve K01-K16 contracts unchanged unless exact new evidence exposes a real contradiction.
+- Preserve HWND+PID identity and row Event+generation stale-worker protection.
+- Preserve Tk after(0) state marshalling.
+- Preserve shared injection already-loaded/idempotent-ready semantics.
+- Preserve manual all-account movement/heal as shared HWND actions; do not silently turn them into activity workers.
+- Preserve separate activity-wide and row ownership domains; do not invent a cross-domain mutex before runtime evidence.
+- Preserve transient row activity/session state; do not persist it without evidence.
+- Preserve daily_move_mode compatibility ambiguity and _save_on_destroy teardown order as UNKNOWN.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K17 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K17 — Daily integrated runtime/parity closure matrix and Phase-K handoff** only.
+5. Treat K09 Trừng Ác, K15 Treasure and K16 shared static contracts as frozen. Do not reopen them unless a runtime contradiction is observed.
+6. Build the exact runtime/parity test matrix required to validate the remaining environment-only boundaries: populated roster refresh/PID reuse, per-row rapid Stop->Start generation guard, activity-wide vs row same-HWND overlap, manual Tới bổ đầu/Trị liệu while workers run, all-account mixed Trừng Ác+Treasure start/stop, singleton monitor reset, reconnect/death recovery, config save/reload/destroy persistence, and UI/StartTab synchronization.
+7. Use packaged runtime evidence where available, but explicitly mark tests requiring a real Windows + live Thần Long environment as NOT_EXECUTABLE_HERE rather than fabricating PASS.
+8. Determine whether Phase K can be statically closed with a runtime-test handoff package; do not claim live parity PASS without real environment evidence.
+9. Re-check repository code/build state after K17 docs/evidence changes.
+10. Persist K17 artifacts, update STATE.md/PROJECT_STATUS.md, and only then advance from Phase K to Phase L.
