@@ -3542,3 +3542,67 @@ On CONTINUE:
 - B08 was cross-checked only after static extraction and remains idle configuration only.
 - First K14 artifact committed: docs/daily/K14_TREASURE_FAILURE_LIFECYCLE_STATIC_EVIDENCE.tsv at commit 031e4cdf4785222cd38c7d73c6a029c1824359ff.
 - K14 remains IN_PROGRESS until model/flow/task docs, code/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
+## K14 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K14 artifact/completion commit existed; K01-K13 remained unchanged.
+- Exact TLMTool_2.1.2(7).zip and inner EXE were revalidated before K14: archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, inner EXE SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, inner size **47,450,112** bytes.
+- Exact .daily_tab was re-inspected as **35,163 bytes / 1,186 constants**.
+- DailyTab exact Treasure lifecycle fields are _treasure_map_running, _treasure_map_cancel, _treasure_map_btn and _treasure_map_skipped.
+- Shared exact stop diagnostic now freezes the Treasure lifecycle classes: cancel(batch-tàng-bảo-đồ), halt(mất-kết-nối), stop_event(dừng), gen(phiên-mới), window-chết/đổi-process, respawn(địa-phủ), plus fallback không-stop(?).
+- Activity-wide Treasure batch keeps selected/selected_pids start snapshots, loop_idx, alive and still_active. Exact batch endings remain no-selection -> bỏ qua, no-live -> dừng, all-selected-stopped -> tự động dừng.
+- K11's first and second tangBaoDo_multi not-found branches remain **TERMINAL_CURRENT_TREASURE_ACCOUNT**.
+- Exact _treasure_map_skipped ownership, exact Treasure movement-wait `skip_set` keyword, terminal not-found branches and activity still_active filtering together provide strong static evidence that terminally-skipped HWNDs are excluded from later active work within the same Treasure batch.
+- Exact _treasure_map_skipped add/discard/clear source statements and its exact clear boundary remain **EXPLICIT_UNKNOWN**. K14 did not invent them.
+- Failure classes are now explicitly separated: start-heal failure = SKIP_CURRENT_CYCLE; non96 = SKIP_TOMB_OUTCOME / NOT_ACCOUNT_TERMINAL; final-heal failure = FAIL_SOFT_LOG_ONLY; reconnect success = RECOVERABLE_INTERRUPT; reconnect timeout = TERMINAL_AFFECTED_RECOVERY_PATH; death/Map87 = RECOVERABLE_INTERRUPT.
+- User/session control stops remain separate from recovery interrupts: batch cancel Event, row _stop_event, _GenStop generation mismatch, and HWND/PID invalidation.
+- Bottom all-account stop remains exact: set row _farming_acc=False + row _stop_event, return bottom UI toward Bắt đầu/green, and let per-row workers unwind cooperatively.
+- Singleton _daily_all_monitor waits until all row sessions have actually stopped, calls both _punish_reset_ui and _treasure_map_reset_ui, then logs `[Bắt đầu] Tất cả acc đã dừng — tự động reset UI`.
+- _sync_start_tab_btns remains the external StartTab synchronization boundary.
+- Treasure activity exact idle tuple remains **Tàng bảo đồ / RoyalBlue / normal**; shared activity running/stopping surfaces remain **Dừng lại / FireBrick** and **Đang dừng... / disabled**.
+- Exact teardown source-line order among running flag, cancel/event signal, monitor shutdown, child completion, reset helper and StartTab sync remains UNKNOWN.
+- Packaged automove_log was rechecked only after static extraction: SHA-256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, **15,741,058 bytes / 387,238 lines**; all correlated K14 Treasure lifecycle/skip/reset markers are **0**.
+- B08 remains idle configuration only and contributes no runtime skipped-account/teardown evidence.
+- K14 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- K14 artifacts:
+  - docs/daily/K14_TREASURE_FAILURE_LIFECYCLE_STATIC_EVIDENCE.tsv — commit 031e4cdf4785222cd38c7d73c6a029c1824359ff
+  - docs/daily/K14_TREASURE_FAILURE_LIFECYCLE_MODEL.json — commit 778788cc068ba2f2c504f04f0bda813c3aadfdf4
+  - docs/daily/K14_TREASURE_FAILURE_LIFECYCLE_FLOW.md — commit 3c94e04d2ac9df3a09bcf4b5ab565a95d7d6d267
+  - docs/tasks/K14.md — commit 33be99d270e71d1838fe78c7720fcd73211c968c
+- PROJECT_STATUS.md advanced K14 -> VERIFIED and K15 -> NEXT at commit 985d273cc4cfebc8816beb85140975fd8fea801f.
+
+## POST-K14 CODE/BUILD RECHECK
+- Current main tree after K14 status update: **606 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K14 artifacts were fetched back successfully.
+- K14 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- End-to-end Treasure failure/teardown parity still requires a real Windows + live Thần Long runtime.
+- Reconstructed product build is still not applicable before Stage S because there is no app source/build target.
+- No known static blocker for K15.
+
+## DO_NOT_TOUCH
+- Preserve K01-K14 contracts unchanged unless exact new evidence exposes a real contradiction.
+- Preserve first/second Treasure item-not-found as terminal-current-account and keep ordinary cycle/outcome skips separate.
+- Preserve _treasure_map_skipped as Treasure lifecycle state but do not fabricate its add/clear micro-order.
+- Preserve activity selected/PID snapshot plus recurring alive/still_active filtering.
+- Preserve shared stop reason classes and generation/window identity protection.
+- Preserve bottom all-account cooperative stop and singleton monitor reset semantics.
+- Preserve exact Treasure idle/running/stopping UI states while keeping teardown statement order UNKNOWN.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K15 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K15 — Tàng Bảo Đồ integrated lifecycle / failure matrix / static handoff audit** only.
+5. Re-inspect the exact frozen original EXE first and integrate K10-K14 without reopening already-correct details unless an actual contradiction appears.
+6. Build one end-to-end Treasure lifecycle model covering config/selection, batch vs per-row ownership, mount/bag/two-stage activation, movement-stop, map96/tomb branch, selected-map heal, reconnect/death recovery, skipped-account exclusion, stop/reset/UI handoff and all failure classes.
+7. Audit every top-level Treasure callable from K01_HANDLER_INVENTORY.tsv for coverage and identify any remaining Treasure callable/surface not accounted for.
+8. Resolve only real K10-K14 contradictions; do not rewrite correct artifacts. If internally consistent, close the Treasure static handoff.
+9. Cross-check runtime/B08 only after the integrated static audit, then re-check repository code/build state.
+10. Persist K15 artifacts, update STATE.md/PROJECT_STATUS.md, and only then advance to the shared-Daily tasks.
