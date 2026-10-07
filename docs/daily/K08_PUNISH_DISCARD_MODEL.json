@@ -1,0 +1,136 @@
+{
+  "task": "K08",
+  "status": "VERIFIED_DAILY_PUNISH_DISCARD_RUN_SCOPED_PARALLEL_PER_ACCOUNT_PACKET4_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_blob": {
+      "size_bytes": 35163,
+      "top_level_constants": 1186
+    },
+    "bag_filter_blob": {
+      "size_bytes": 5162,
+      "top_level_constants": 145
+    }
+  },
+  "configuration": {
+    "var": "punish_discard_equip_var",
+    "label": "Lọc trang bị (vứt vũ khí, trang bị trong quá trình làm nhiệm vụ)",
+    "key": "daily_punish_discard_equip",
+    "load_fallback": "0",
+    "B08_current_state": false,
+    "toggle_saves_config": true
+  },
+  "ownership": {
+    "stop_event": "_punish_discard_stop",
+    "thread": "_punish_discard_thread",
+    "generation": "_punish_discard_gen",
+    "captured_worker_local": "gen",
+    "exact_generation_mutation_order": "EXPLICIT_UNKNOWN",
+    "duplicate_worker_guard": "is_alive surface recovered"
+  },
+  "lifecycle": {
+    "enabled_with_running_punish_account": "start periodic discard worker immediately",
+    "enabled_without_running_punish_account": "persist enabled state and wait; later account start creates worker",
+    "disabled": "stop worker immediately and persist config",
+    "worker_scope": "only currently running Trừng ác HWNDs, excluding stopped/disconnected rows",
+    "run_scoped": true,
+    "per_cycle": false,
+    "survives_multiple_punish_cycles": true,
+    "when_no_running_punish_accounts": "worker no longer lives; enabled checkbox may remain persisted for future starts"
+  },
+  "scheduler": {
+    "poll_symbol": "DAILY_DISCARD_POLL",
+    "poll_seconds": "EXPLICIT_UNKNOWN",
+    "parallel_accounts": true,
+    "one_child_thread_per_active_account": true,
+    "inflight_per_account": true,
+    "inflight_behavior": "skip that account on a poll if its previous discard pass is still running",
+    "serialized_inside_one_account": "packet actions paced sequentially",
+    "per_item_delay_seconds": 1.0,
+    "stop_aware": true,
+    "worker_nearby_wait_constant": 0.5,
+    "exact_role_of_0_5_constant": "NOT_PROMOTED_BEYOND_SCHEDULER_STOP_SHELL"
+  },
+  "daily_call": {
+    "helper": "bag_filter.discard_for_activity",
+    "activity": "daily",
+    "keys": [
+      "discard_equip"
+    ],
+    "keyword_surface": [
+      "keys",
+      "delay",
+      "stop_check"
+    ],
+    "preset_semantic": "all non-weapon equipment + weapons, same equipment preset semantics as Phó Bản",
+    "one_account_error": "fail-soft/log-only for that child thread",
+    "result_fields_logged": [
+      "total",
+      "ok",
+      "fail"
+    ]
+  },
+  "bag_filter": {
+    "default_site": 10,
+    "empty_keys_or_rules": "no scan, no packet",
+    "rule_combination": "fields inside one rule AND; multiple rules OR",
+    "dedupe": "dbID",
+    "weapon_default": "protected unless explicit weapon matching/allow rule",
+    "protect_ids_names": "highest priority",
+    "metadata_dependency": {
+      "non_weapon_equipment": "embedded item metadata Source/EquipType",
+      "weapons": "weapon_ids / is_weapon path",
+      "missing_meta_warning": "non-weapon filter can drop out; weapon-ID discard remains"
+    },
+    "per_hwnd_send_lock": true,
+    "discard_items_defaults": {
+      "delay": 1.0,
+      "stop_check": null,
+      "on_progress": null,
+      "dry_run": false
+    },
+    "discard_for_activity_defaults": {
+      "keys": null,
+      "extra_rules": null,
+      "delay": 1.0,
+      "stop_check": null,
+      "on_progress": null,
+      "dry_run": false
+    },
+    "immediate_retry_surface": "NOT_RECOVERED",
+    "later_periodic_rescan_can_reencounter_failed_remaining_items": true
+  },
+  "packet": {
+    "helper": "memory_items.abandon_item",
+    "command": 100005,
+    "action": 4,
+    "payload": "4:<dbID>",
+    "scope": "one bag slot by dbID",
+    "stack_effect": "discard the full stack in that slot"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "generic_action4_total": 22734,
+    "generic_action4_spts": 22732,
+    "generic_action4_plain": 2,
+    "daily_correlated_discard_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "build_audit": {
+    "application_source_exists": false,
+    "product_build_target_exists": false,
+    "classification": "NOT_APPLICABLE_YET_STAGE_S_NOT_STARTED",
+    "K08_changes": "docs/evidence only"
+  },
+  "explicit_unknowns": [
+    "numeric DAILY_DISCARD_POLL",
+    "exact generation increment/event/thread replacement statement order",
+    "exact role of nearby 0.5 scheduler constant",
+    "worker outer-exception continue-vs-exit micro-order",
+    "exact source-level delay literal expression at Daily call (semantic 1-second pacing is proven)",
+    "live Windows/game end-to-end parity"
+  ]
+}
