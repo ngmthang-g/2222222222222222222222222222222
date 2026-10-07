@@ -3626,3 +3626,71 @@ On CONTINUE:
   - docs/daily/K15_TREASURE_HANDOFF_STATIC_EVIDENCE.tsv — commit 9fe81d923b5490541b13c11d52ea1cee81359f04
   - docs/daily/K15_TREASURE_HANDOFF_MODEL.json — commit ee589223cf3ff5eccac238e8184c6a78d4d3926b
 - K15 remains IN_PROGRESS until flow/task docs, PROJECT_STATUS advancement, code/build recheck and STATE closure are persisted.
+## K15 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K15 artifact/completion commit existed; K10-K14 remained unchanged.
+- Exact library specimen TLMTool_2.1.2(7).zip was rematerialized before K15. Frozen authority remains archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes; inner TLMTool.exe SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- K01 top-level handler inventory was audited against K10-K14. Every Treasure-related top-level callable is covered: _build_ui, _apply_treasure_all, _treasure_start_worker, _treasure_single_worker, _wait_movement_stopped, _treasure_map_toggle, _treasure_map_run_worker, _treasure_map_disconnect_monitor, _treasure_map_exec_sequence, _treasure_heal, _treasure_map_reset_ui.
+- No top-level Treasure callable remains unaccounted for.
+- Activity-wide and per-row Treasure ownership stay distinct and must not be collapsed.
+- Integrated cycle handoff is frozen: session/stop guard -> consume respawn_event -> optional start HP<30 heal -> mount prep -> bag readiness -> first tangBaoDo_multi find/use -> MovementDetector movement-stop wait -> second tangBaoDo_multi checkpoint/use -> post-activation MapID/tomb region -> optional final heal -> cycle tail -> owning worker.
+- Treasure production duration default is **30s**; direct _treasure_map_exec_sequence helper fallback is **5s**. This is a resolved layer distinction, not a contradiction.
+- Current Treasure recognizer remains exactly tuido.tangBaoDo_multi with the K11 pattern; legacy tangBaoDo/tangBaoDo_multi_old are not the active Daily call.
+- First and second map-item not-found remain terminal-current-Treasure-account conditions.
+- Treasure movement-stop remains _wait_movement_stopped(stop_check,skip_set), by_memory=False -> MovementDetector/is_moving 10-pixel branch.
+- Post-activation map96/tomb region preserves exact MapID96 combat text/state, fixed combat coords, tile(50,16)/1600,512 move surface, common.active wait and non96 outcome, while exact fixed-click/timing/MapID micro-order remains UNKNOWN.
+- Treasure treatment remains selected-map driven with Đại Lý/Lạc Dương/Tô Châu/Lâu Lan coordinates, dynamic MAP_LIST resolution, shared movement tolerance48, no recovered Treasure fixed treatment click and no proven Treasure-specific heal reinjection.
+- Start-heal failure remains SKIP_CURRENT_CYCLE; final-heal failure remains FAIL_SOFT_LOG_ONLY.
+- Treasure disconnect monitor remains a thin event-adapter shape over the shared Daily detector layer. Treasure reconnect timeout numeric remains UNKNOWN; no forced post-reconnect reinjection is proven.
+- Shared death/Map87 respawn_event recovery remains recoverable; simultaneous disconnect/death priority remains UNKNOWN.
+- _treasure_map_skipped remains strong-static persistent exclusion state for terminally skipped HWNDs during the active batch; exact add/discard/clear statements and clear boundary remain UNKNOWN.
+- Integrated failure matrix is internally consistent: batch no-op/end, terminal-current-account, current-cycle skip, tomb-outcome skip, fail-soft, recoverable interrupt, terminal recovery path and control-stop classes remain distinct.
+- UI/stop handoff remains consistent: activity running Dừng lại/FireBrick -> stopping Đang dừng.../disabled -> idle Tàng bảo đồ/RoyalBlue/normal; bottom all-account stop uses _farming_acc=False + row _stop_event; singleton _daily_all_monitor waits for all rows then calls both reset helpers; _sync_start_tab_btns handles external sync.
+- No blocking contradiction was found across K10-K14 and no already-correct artifact required rewriting.
+- Packaged runtime log still has no correlated end-to-end Treasure trace; B08 remains idle-config-only. K15 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- From the Treasure perspective, static handoff is complete enough for later Stage-S reconstruction, but overall project Stage S remains blocked by remaining Phase K shared/runtime work and later PLAN phases.
+- K15 artifacts:
+  - docs/daily/K15_TREASURE_HANDOFF_STATIC_EVIDENCE.tsv — commit 9fe81d923b5490541b13c11d52ea1cee81359f04
+  - docs/daily/K15_TREASURE_HANDOFF_MODEL.json — commit ee589223cf3ff5eccac238e8184c6a78d4d3926b
+  - docs/daily/K15_TREASURE_HANDOFF_FLOW.md — commit 4367218e8c9a1486e0553c454cd7a90f7cf6df6a
+  - docs/tasks/K15.md — commit fe41bb0226eab825a48de7e8bbd96e9c15de25d7
+- PROJECT_STATUS.md advanced K15 -> VERIFIED and K16 -> NEXT at commit 478eaa7fecc39b342bf04586c84b2d22103f3340.
+
+## POST-K15 CODE/BUILD RECHECK
+- Current main tree after K15 status update: **610 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K15 artifacts were fetched back successfully.
+- K15 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- End-to-end Treasure parity still requires a real Windows + live Thần Long runtime.
+- Reconstructed product build is still not applicable before Stage S because there is no app source/build target.
+- No known static blocker for K16.
+
+## DO_NOT_TOUCH
+- Preserve K01-K15 contracts unchanged unless exact new evidence exposes a real contradiction.
+- Preserve separate activity-wide vs per-row ownership for both Daily activities.
+- Preserve all Treasure failure classes exactly; do not collapse terminal item-not-found, cycle skip, non96 skip, fail-soft and recoverable interruption.
+- Preserve Treasure duration layering 30 production / 5 direct helper fallback.
+- Preserve current tangBaoDo_multi recognizer and MovementDetector by_memory=False call site.
+- Preserve selected-map Treasure heal and shared tolerance48; do not import Trừng Ác heal behavior.
+- Preserve Treasure disconnect adapter/shared detector boundary and keep timeout numeric UNKNOWN.
+- Preserve _treasure_map_skipped lifecycle role without inventing mutation micro-order.
+- Preserve cooperative bottom stop/global monitor reset semantics and keep teardown statement order UNKNOWN.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K16 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K16 — Daily shared cross-activity lifecycle / persistence / UI-coordinator integration audit** only.
+5. Re-inspect the exact frozen original EXE first and use K01/K02/K09/K15 as closed activity contracts.
+6. Audit only the cross-activity/shared Daily surfaces: roster refresh + HWND/PID identity, per-row activity dispatch, row Event/generation lifecycle, all-account Bắt đầu/Dừng lại coordinator, singleton _daily_all_monitor, _sync_start_tab_btns, config load/save/destruction persistence, shared state-label/Tk marshalling, and how Trừng Ác/Tàng Bảo Đồ activity-level workers coexist with row-level workers without ownership collision.
+7. Identify any shared Daily top-level callable from K01 not yet covered by K02/K09/K15 and close only those gaps; do not reopen activity-specific internals.
+8. Audit cross-activity contradictions and race/ownership boundaries only; keep runtime-only ordering UNKNOWN where native evidence is insufficient.
+9. Cross-check runtime/B08 only after static integration, then re-check repo code/build state.
+10. Persist K16 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K16 verification.
