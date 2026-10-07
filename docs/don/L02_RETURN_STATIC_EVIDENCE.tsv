@@ -1,0 +1,57 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901 CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+donvang_module	0x2920bc1	VERIFIED_STATIC_DECODE	.donvang_tab size65260 count1813 exact-end decode
+town_condition_default	0x29211f5	VERIFIED_STATIC_DECODE	town_condition_var default cycle
+town_condition_full_bag	0x2921226	VERIFIED_VISIBLE_STATIC	Khi đầy túi; internal value full_bag_timer
+town_condition_cycle	0x29212b6	VERIFIED_VISIBLE_STATIC	Theo chu kỳ (phút); internal value cycle
+loop_default	0x29212f2	VERIFIED_STATIC_DECODE	loop_var default 30
+nav_priority_doc	0x292a30f	VERIFIED_STATIC_UTF8	Trả list ưu tiên về thành từ UI (Phù 1/2/3, Ngựa) — truyền vào move_character.
+truyen_move_retry_doc	0x292660e	VERIFIED_STATIC_UTF8	Gọi move_character cho 1 leg, thử lại tối đa retries lần.
+truyen_step_engine	0x2926914	VERIFIED_STATIC_UTF8	Chạy tuần tự list steps (move/click/wait/sleep). False nếu fail/stop.
+truyen_forward_doc	0x29269f8	VERIFIED_STATIC_UTF8	Chiều đi Thành -> Farm: chạy steps, gặp move_target thì tới tọa độ user.
+truyen_back_resolver	0x2926a68	VERIFIED_STATIC_UTF8	Nhánh về RIÊNG của map Truyền đang đứng; ưu tiên MapID hiện tại, fallback preset farm khi memory read fail; route dict hoặc None
+move_acc_manual_guard	0x2926b78	VERIFIED_STATIC_UTF8	[Tới] account đang farm tự động -> bỏ qua thao tác thủ công
+move_acc_doc	0x2926d50	VERIFIED_STATIC_UTF8	_move_acc accepts stop_check; farm cycle can cancel mid-move; manual None runs fully
+resolve_back_ref	0x2926e7c	VERIFIED_STATIC	_resolve_truyen_back
+resolve_back_doc	0x2926f3c	VERIFIED_STATIC_UTF8	back route + fresh exit verify; route None -> normal move; verify false -> stop abort else walk fallback
+run_farm_exit_ref	0x292713d	VERIFIED_STATIC	_run_farm_exit
+run_farm_exit_doc	0x2927188	VERIFIED_STATIC_UTF8	Dồn/receiver return: back route first, then normal horse move to destination, no phù; normal map -> old _move_acc behavior
+run_farm_exit_defaults	-	VERIFIED_STATIC_DECODE	Direct defaults tuple after method qualname = (None, Về dồn)
+run_farm_exit_locals	-	VERIFIED_STATIC_MAPPING	self,hwnd,map_var,x_var,y_var,stop_check,tag,route,exited
+resolve_back_locals	-	VERIFIED_STATIC_MAPPING	self,hwnd,stop_check,tag,route,_gci,invalidate_character_cache,_get_pid_from_hwnd,_p0,_ci0,_farm,verify_exited_farm
+farm_cycle_locals	-	VERIFIED_STATIC_MAPPING	includes cycle_start,condition,is_full_bag,stop_bag_check,loop_minutes,elapsed,sleep_time,don_ok
+farm_cycle_doc	0x292ab51	VERIFIED_STATIC_UTF8	Vòng lặp farm cho 1 acc: bán đồ/mua thuốc/tới/farm -> chờ chu kỳ; donor callback replaces return-to-town with Dồn
+farm_return_debug	0x292a842	VERIFIED_STATIC_UTF8	[DEBUG] VỀ THÀNH BÁN ĐỒ (acc nhận) — condition=... is_full_bag=...
+full_bag_branch	0x292aa45	VERIFIED_STATIC_UTF8	[DEBUG] ĐẦY túi (memory ... ô) -> dồn
+full_bag_filter	0x292aa95	VERIFIED_STATIC_UTF8	đầy túi nhưng lọc còn chỗ -> ở lại, chờ vòng sau
+full_bag_still_full	0x292aae2	VERIFIED_STATIC_UTF8	lọc xong vẫn đầy -> continue Dồn/return path
+cycle_seconds_constant	-	VERIFIED_STATIC_DECODE	farm-cycle block contains loop_minutes/elapsed/sleep_time and constant60; minute-based cycle timing
+inventory_threshold_details	-	DEFERRED_L04	constants 3/98/100 are present near bag branch but exact threshold semantics are intentionally not resolved in L02
+test_skip_town	0x292a832	DEBUG_ONLY_SURFACE	TEST_SKIP_TOWN exists in farm-cycle block; not treated as normal production trigger
+sell_return_doc	0x2927fbe	VERIFIED_STATIC_UTF8	_sell_acc: về thành theo cấu hình (map+X/Y) -> shop -> sell; stop_check supported
+sell_back_fallback	0x2927e33	VERIFIED_STATIC_UTF8	[Bán đồ] teleport hụt, vẫn ở farm -> đi bộ về điểm bán
+sell_home_priority	0x2927e73	VERIFIED_STATIC	_get_nav_priority then move_character kwargs wait_for_arrival/stop_check/home_priority
+sell_move_retry	0x2927ec7	VERIFIED_STATIC_UTF8	first sell movement failure -> retry
+get_sell_coords_doc	0x2927370	VERIFIED_STATIC_UTF8	built-in SELL_MAP_LIST uses SELL_MAP_COORDS; manual saved preset uses map/x/y; exact coordinate audit deferred
+farm_data_module	0x293962f	VERIFIED_STATIC_DECODE	.farm_data size4833 count21 exact-end decode
+truyen_routes_dict	0x2939f49	VERIFIED_STATIC_DECODE	TRUYEN_DAI_LY_ROUTES serialized route dictionary
+truyen_routes_name	0x293a75f	VERIFIED_STATIC	TRUYEN_DAI_LY_ROUTES
+route_back_85_86	-	VERIFIED_STATIC_DATA	85/86 back: move85(226,58), click892,472, click480,427 twice, sleep1, wait common.active30
+route_back_43	-	VERIFIED_STATIC_DATA	43 back: move43(135,168), same click/sleep/wait shape
+route_back_49	-	VERIFIED_STATIC_DATA	49 back: move49(147,209), same click/sleep/wait shape
+route_back_64	-	VERIFIED_STATIC_DATA	64 back: move64(196,156), same click/sleep/wait shape
+route_back_60	-	VERIFIED_STATIC_DATA	60 back: move60(207,200), same click/sleep/wait shape
+route_back_83	-	VERIFIED_STATIC_DATA	83 back: move83(158,75), same click/sleep/wait shape
+route_back_75_76	-	VERIFIED_STATIC_DATA	75/76 back: move75(131,123), same click/sleep/wait shape
+route_back_empty_instance_maps	-	VERIFIED_STATIC_DATA	1300/1400/1700 have empty serialized back lists; they do not themselves provide a movement back sequence
+fast_travel_verify	-	VERIFIED_DIRECT_HELPER	verify_exited_farm performs fresh MapID exit verification; Dồn-specific resolver doc controls Dồn fallback policy
+don_callback_boundary	-	VERIFIED_STATIC_FLOW	_toggle_single_farm builds _don_cb and passes don_callback to _farm_cycle
+don_flow_state	-	VERIFIED_STATIC_FLOW	Dồn callback state changes include Về dồn -> Đang dồn; receiver selection/execution internals deferred
+don_fail_return	-	VERIFIED_STATIC_UTF8	Dồn failure after receiver point sends donor back to farm
+receiver_cycle_boundary	-	VERIFIED_DON_LOGIC_DOC	receiver cycle = sell -> return to receiver point -> ready -> wait donated -> repeat; deep receiver audit deferred
+manual_vs_auto_stop	-	VERIFIED_STATIC_SEMANTIC	automatic return cooperatively honors stop_check; manual move refuses while auto-farm is active
+priority_ordering	-	DEFERRED_L03	L02 records the priority-list handoff only; exact ordering/dedup/fallback semantics belong to L03
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_l02_markers	-	NOT_RECOVERED	0 correlated markers for Donvang/Tới/VỀ THÀNH/teleport hụt/Về dồn/Tới-Truyền/ĐẦY túi/Dồn đồ/town-condition labels
+classification	-	STATIC_VERIFIED_RUNTIME_ENV_REQUIRED	No packaged live Dồn-return trace

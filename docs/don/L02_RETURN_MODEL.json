@@ -1,0 +1,110 @@
+{
+  "task": "L02",
+  "status": "VERIFIED_DON_RETURN_TRIGGER_SHORTCUT_WALK_FALLBACK_AND_HANDOFF_BOUNDARY_STATIC_RUNTIME_ENV_REQUIRED",
+  "authority": {
+    "module": "donvang_tab",
+    "class": "DonVangTab",
+    "marker": "0x2920bc1",
+    "size_bytes": 65260,
+    "constant_count": 1813
+  },
+  "trigger_modes": {
+    "default": "cycle",
+    "cycle": {
+      "ui": "Theo chu kỳ (phút)",
+      "internal_value": "cycle",
+      "default_minutes": 30,
+      "evidence": [
+        "loop_minutes",
+        "elapsed",
+        "sleep_time",
+        60
+      ],
+      "semantic": "minute-based return cycle",
+      "exact_poll_sleep_microorder": "UNKNOWN"
+    },
+    "full_bag": {
+      "ui": "Khi đầy túi",
+      "internal_value": "full_bag_timer",
+      "detector": "memory is_full_bag",
+      "pre_return_filter": "_filter_before_don",
+      "if_filter_frees_space": "stay at farm and wait next cycle",
+      "if_still_full": "continue return/Dồn path",
+      "exact_inventory_thresholds": "DEFERRED_L04"
+    },
+    "debug_bypass": "TEST_SKIP_TOWN exists but is not normal production behavior"
+  },
+  "automatic_cycle": {
+    "doc": "bán đồ/mua thuốc/tới/farm -> chờ chu kỳ",
+    "donor_override": "don_callback replaces normal return-to-town step with Dồn",
+    "stop_contract": "farm-cycle stop_check propagates through return/move helpers"
+  },
+  "return_shortcut": {
+    "resolver": "DonVangTab._resolve_truyen_back",
+    "route_source": "farm_data.TRUYEN_DAI_LY_ROUTES",
+    "route_selection": "current MapID first; farm preset fallback if memory read fails",
+    "route_none": "normal movement path",
+    "route_found": [
+      "execute serialized back steps",
+      "invalidate Reader cache",
+      "fresh verify_exited_farm"
+    ],
+    "verification_failure": "if stop requested abort; otherwise walk to final destination",
+    "doctrine": "teleport/back is an optimization, not required for completion"
+  },
+  "back_route_maps": {
+    "43": "move43 tile135,168 -> same click/sleep/wait shape",
+    "49": "move49 tile147,209 -> same click/sleep/wait shape",
+    "60": "move60 tile207,200 -> same click/sleep/wait shape",
+    "64": "move64 tile196,156 -> same click/sleep/wait shape",
+    "83": "move83 tile158,75 -> same click/sleep/wait shape",
+    "85/86": "move map85 tile226,58 -> click892,472 -> click480,427 x2 -> sleep1 -> wait common.active30",
+    "75/76": "move75 tile131,123 -> same click/sleep/wait shape",
+    "1300/1400/1700": "serialized back list empty"
+  },
+  "don_receiver_return": {
+    "helper": "DonVangTab._run_farm_exit",
+    "default_stop_check": null,
+    "default_tag": "Về dồn",
+    "sequence": [
+      "resolve/execute Truyền back shortcut if available",
+      "if shortcut fails and not stopped, walk fallback",
+      "move normally to Dồn/receiver target"
+    ],
+    "final_leg": "horse/normal movement, explicitly no phù",
+    "normal_map": "same as old _move_acc path"
+  },
+  "standard_sell_return": {
+    "helper": "DonVangTab._sell_acc",
+    "destination": "_get_sell_coords",
+    "shortcut": "back shortcut may be tried before normal move",
+    "shortcut_failure": "walk to sell point",
+    "final_move": "move_character with home_priority from _get_nav_priority",
+    "movement_retry": "one retry after first move failure",
+    "priority_details": "DEFERRED_L03"
+  },
+  "move_engine": {
+    "_truyen_move_retry": "move_character leg with bounded retries",
+    "_exec_truyen_steps": "sequential move/click/drag/npc_hub/wait/sleep step executor; false on fail/stop",
+    "_move_acc": "validates map/coords/injection and honors stop_check",
+    "manual_guard": "manual _move_acc is rejected while account is auto-farming"
+  },
+  "handoff_boundaries": {
+    "donor": "_farm_cycle -> don_callback -> don_logic.don_move_and_execute",
+    "receiver_selection": "DEFERRED later Phase-L receiver task",
+    "selling": "_sell_acc boundary only; shop/inventory deep audit deferred",
+    "train_return": "outbound town->farm to/to_from route exists but train-state behavior is deferred"
+  },
+  "runtime": {
+    "packaged_log_correlated_return_trace": false,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact farm-cycle timer polling/sleep micro-order",
+    "exact bag threshold interpretation near constants 3/98/100",
+    "exact navigation priority ordering/dedup/fallback semantics",
+    "receiver selection policy and Dồn transaction internals",
+    "live timing/parity of back-route clicks and walking fallback"
+  ],
+  "next_task": "L03 — Dồn return priority audit"
+}
