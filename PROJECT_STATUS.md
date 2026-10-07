@@ -379,7 +379,8 @@ K17 closes Phase K at the static-research level. The original archive, inner EXE
 - L01 — VERIFIED_ACTIVE_DONVANG_AUTHORITY_CAPTURED_VISIBLE_SURFACE_127_HANDLER_INVENTORY_AND_DEPENDENCY_BOUNDARY
 - L02 — VERIFIED_DON_RETURN_TRIGGER_SHORTCUT_WALK_FALLBACK_AND_HANDOFF_BOUNDARY
 - L03 — VERIFIED_DON_RETURN_PRIORITY_DEFAULT_DEDUP_DISABLED_SLOT_AND_SELL_ONLY_HOME_PRIORITY
-- L04 — NEXT
+- L04 — VERIFIED_DON_SITE10_98_100_FULL_BAG_THRESHOLD_TWO_MODE_FILTER_RECHECK_AND_HIDDEN_PICKITEM
+- L05 — NEXT
 
 L01 locks `donvang_tab.py` / `DonVangTab` as the active Dồn authority. The exact Nuitka `.donvang_tab` module has size field **65,260 bytes** and count field **1,813**, and **127** direct top-level `DonVangTab` methods are inventoried. `TLMMainApp` constructs the tab under visible label `Dồn`, while StartTab exposes `Dồn vàng / Tới nơi nhận / Tới chỗ bán / Tới nơi train / Cấu hình`. The visible surface includes Về thành conditions/priorities, Train/death/disconnect/unstuck/pickup/filter/heal controls, saved coordinates, receiver rows, a shared Dồn coordinate, per-account move/Dồn/sell controls, and all-account actions. Dồn is current/wired rather than dormant; dedicated-tab visibility is permission-controlled, with the captured run showing it visible while the exact permission state remains unknown. Direct dependency boundaries are frozen, and weak emulator/farm-tab references are not promoted to active runtime imports.
 
@@ -387,5 +388,7 @@ L02 locks the Dồn return mechanism without consuming later return-priority/inv
 
 L03 locks the exact Dồn return-priority surface: `NAV_OPTIONS = ["", "Phù 1", "Phù 2", "Phù 3", "Ngựa"]`, defaults `Phù 1 → Phù 2 → Phù 3 → Ngựa`, four readonly comboboxes, and an intentional blank/disabled slot. `_on_nav_priority_changed` recomputes available choices from already-used values, so normal UI selection prevents new duplicate nonblank priorities. Persistence is `[DonVang] nav_priority_1..4`. `_get_nav_priority` adapts the ordered UI list into `move_character(home_priority=...)`; the shared movement primitive treats Phù entries as ordered return-home hotkey attempts and Ngựa as the ordinary movement fallback. Within Dồn the only production `home_priority` consumer is `_sell_acc`; L02's `_run_farm_exit` Dồn/receiver final leg remains normal horse movement with no phù. Legacy/hand-edited already-duplicated config normalization and live attempt timing remain runtime/config-fixture unknowns.
 
+L04 locks Dồn inventory/full-bag behavior. Bag count is occupied Site-10 slots. Dồn keep policy is intentionally only two modes: `Tất cả -> []` and `Chỉ vũ khí -> [discard_nonweapon]`; there is no Dồn `Không` mode and no `discard_weapons` selection. `_pickup_no_cankhon` is separate, waits 5 seconds and writes hidden `PICKITEM.IsOn=True`. Exact full-bag threshold policy is **98 occupied slots when hidden pickup is ON, 100 when OFF**. The nearby `(3,)` belongs to nested `stop_bag_check` as an exact callback default, not a slot threshold; its parameter/micro-order remains explicit UNKNOWN. Full detection runs `_filter_before_don`, then re-reads occupied slots: below threshold stays at farm, still full continues to the already-proven Dồn boundary. Shared `bag_filter.discard_for_activity(activity="train")` retains 1.0s pacing, OR rule merge, dbID dedupe and action-4/opcode-100005 whole-stack discard. Live end-to-end parity remains environment-required.
+
 ## Phase L current
-L04 — Dồn inventory/full-bag filtering audit.
+L05 — Dồn coordinates audit.

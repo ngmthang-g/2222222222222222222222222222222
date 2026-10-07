@@ -4054,3 +4054,75 @@ On CONTINUE:
 6. Determine the exact full-bag threshold/state interpretation, filtering/preset behavior, free-space recheck, pickup-mode interaction, and the handoff back into the already-proven return/Dồn boundary without deep-auditing receiver, coordinates or train lifecycle.
 7. Cross-check screenshots/runtime only after static extraction.
 8. Persist L04 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L04 verification.
+
+
+## L04 VERIFIED RESULTS
+- GitHub-first continuity check passed: no pre-existing L04 artifact/completion existed; L01-L03 remained unchanged.
+- Exact uploaded `TLMTool_2.1.2(8).zip` was revalidated before screenshot use: SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes, **1,050** ZIP entries, CRC clean. Inner `TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact Dồn module remained `.donvang_tab` size **65,260 bytes / 1,813 constants**. Shared `.bag_filter` was revalidated at `0x28d5db3`, **5,162 bytes / 145 constants**; shared `.memory_items` at `0x2b69c5f`, **47,850 bytes / 895 constants**.
+- `DonVangTab._get_bag_slots` exact compiled documentation fixes bag count as **occupied Site-10 slots**; read failure returns `None` and preserves the previous displayed value rather than synthesizing zero.
+- Dồn keep-mode constants are exact:
+  - modes `("all","weapons")`;
+  - labels `all -> Tất cả`, `weapons -> Chỉ vũ khí`;
+  - preset mapping `all -> []`, `weapons -> ["discard_nonweapon"]`;
+  - default `all`.
+- Therefore Dồn intentionally has only **Tất cả / Chỉ vũ khí**. There is no Dồn `Không` mode and Dồn does not opt into `discard_weapons`.
+- `get_pickup_preset_keys` exact documentation says the Dồn radio maps into `bag_filter(train)` preset keys and `[]` means no discard.
+- `_filter_before_don` exact call surface is `bag_filter.discard_for_activity(... activity="train", keys=..., stop_check=...)`; Dồn provides only `keys` and `stop_check`.
+- Shared exact filter defaults therefore remain active: delay **1.0s**, empty keys/rules do nothing, selected rules OR-combine, targets dedupe by `dbID`, and discard uses packet/opcode **100005**, action **4**, payload `4:<dbID>`, whole stack.
+- Temporary filter state is **Đang lọc đồ** with foreground `#8e24aa`; prior state is restored only if another actor has not changed it meanwhile.
+- Hidden pickup remains a separate control. `_pickup_no_cankhon` has exact default delay `(5,)`, then calls `memory_items.set_auto_fields` with `PICKITEM.IsOn=True` (bool). Exact documentation says the old manual UI click sequence was removed. No recurring 5-second polling surface was recovered.
+- Full-bag constants were resolved from one exact source-local region:
+  - `full_bag_timer/full_bag`;
+  - nested `stop_bag_check`;
+  - exact callback-default tuple `(3,)`;
+  - numeric constants **98** and **100**;
+  - locals `no_cankhon/threshold/bag/slots` plus post-filter `_nc/_th/_after`.
+- Strong static binding fixes the Dồn full threshold as **98 occupied slots when hidden pickup is ON, 100 when hidden pickup is OFF**.
+- The nearby **3 is not a slot threshold**. It is the exact single default attached to nested `stop_bag_check`. Its exact parameter name and debounce/confirmation micro-order are not source-visible enough to claim, so L04 preserves that one detail as UNKNOWN rather than inventing “3 samples”.
+- Full-bag handoff is exact at L04 scope: detect full -> `_filter_before_don` -> re-read occupied slots/current threshold. If filter frees enough space, exact log says `đầy túi nhưng lọc còn chỗ (...) ô) → ở lại, chờ vòng sau`; if still full, exact log says `lọc xong vẫn đầy (...)` and the flow continues into the already-proven L02 Dồn boundary. A `None` result does not fabricate free space.
+- Screenshot cross-check happened only after static extraction. Dồn screenshot SHA-256 remains `dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a`; it shows hidden pickup unchecked and `Tất cả` selected, with only `Tất cả / Chỉ vũ khí` radios. Captured effective threshold is therefore **100** and pre-Dồn preset list is empty.
+- Frozen packaged `automove_log.txt` remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, **387,238 lines**. Correlated DonVang/full-bag/filter/PICKITEM/IsOn/Đang-lọc markers are **0**. Raw `action=4` appears **22,734** times but remains primitive-only evidence, not attributable to Dồn.
+- L04 artifacts committed together at **9c7b32bd16251817583930dbbc36f777f6e5aa1c**:
+  - `docs/don/L04_INVENTORY_FLOW.md`
+  - `docs/don/L04_INVENTORY_MODEL.json`
+  - `docs/don/L04_INVENTORY_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/L04.md`
+- All four L04 artifacts were fetched back successfully.
+
+## POST-L04 CODE/BUILD RECHECK
+- Recursive main tree after L04 artifact commit contains **637 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- L04 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- L04 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- L04 has no known static blocker.
+- Exact callback-local meaning/micro-order behind `stop_bag_check` default **3** still needs stronger source recovery or controlled runtime/config instrumentation.
+- Live post-discard memory propagation and end-to-end Dồn full-bag parity require Windows + live Thần Long runtime.
+- Reconstructed product build remains not applicable before Stage S.
+
+## DO_NOT_TOUCH
+- Preserve L01-L04 contracts unless exact new evidence exposes a contradiction.
+- Preserve Dồn keep policy as exactly two modes; do not import ordinary Train's third `Không` mode into Dồn.
+- Preserve hidden pickup and keep/discard policy as separate controls.
+- Preserve full thresholds **98 with hidden pickup ON / 100 with hidden pickup OFF**.
+- Do not relabel callback default 3 as a proven 3-sample confirmation without stronger evidence.
+- Preserve L02 return boundary and L03 priority boundary; do not re-open them during coordinates work.
+- Do not deepen receiver selection/transaction while auditing coordinates unless directly required by the coordinate call path.
+- Do not create Stage-S application/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L05 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L05 — Dồn coordinates audit** only.
+5. Re-inspect the exact frozen original EXE first, focusing on `_coord_name_list`, `_preset_to_vars`, `_name_to_coords`, `_apply_coord_to_all`, `_on_map_select`, `_on_sep_select`, `_add_coord_row`, `_remove_coord_row`, `_schedule_save_all_coords`, `_don_point_coords`, `_move_to_recv_point`, `_get_sell_coords`, and only directly-called map/coordinate helpers needed by those paths.
+6. Determine exact saved-coordinate representation, map ID/name conversion, shared Dồn coordinate semantics, receiver-coordinate relation, per-account Farm/Sell selectors, apply-all/delete/persistence behavior, and coordinate validation/fallback boundaries.
+7. Keep receiver selection/locking/transaction policy deferred unless coordinate resolution directly requires it.
+8. Cross-check screenshots/runtime only after static extraction.
+9. Persist L05 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L05 verification.
