@@ -1,0 +1,64 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901 CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_DECODE	.daily_tab size35163 count1186 exact end marker
+cfg_treasure_heal	0x29099f9	VERIFIED_STATIC_DECODE	(daily_treasure_heal,"0")
+cfg_treasure_heal_map	0x2909a12	VERIFIED_STATIC_DECODE	(daily_treasure_heal_map,"Tô Châu")
+cfg_treasure_reconnect	0x2909aa8	VERIFIED_STATIC_DECODE	(daily_treasure_dc_reconnect,"1")
+cfg_treasure_respawn	0x2909ac9	VERIFIED_STATIC_DECODE	(daily_treasure_respawn,"1")
+treasure_heal_coords	0x2909e68	VERIFIED_STATIC_DECODE	TREASURE_HEAL_COORDS: Đại Lý=(43,178); Lạc Dương=(255,126); Tô Châu=(155,252); Lâu Lan=(27,183)
+exec_respawn_clear	0x2909190	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] respawn_event đang set → clear, cho heal/move rời map 87
+exec_hp_start	0x29091e5	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] HP=
+exec_hp_low	0x2909202	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] HP < 30% → trị liệu
+exec_heal_ref	0x2909233	VERIFIED_STATIC	_treasure_heal
+exec_heal_start_fail	0x2909245	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Heal thất bại → skip vòng này
+exec_final_heal_fail	0x29097bc	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Heal cuối vòng thất bại
+heal_no_selection	0x2909812	VERIFIED_STATIC_UTF8	chưa chọn vị trí trị liệu
+heal_no_coords	0x2909838	VERIFIED_STATIC_UTF8	không có tọa độ cho map
+heal_map_list	0x2909859	VERIFIED_STATIC	MAP_LIST
+heal_bad_map_id	0x2909864	VERIFIED_STATIC_UTF8	map_id không hợp lệ
+heal_move_kwargs	0x290987e	VERIFIED_STATIC_DECODE	(wait_for_arrival,stop_check)
+heal_move_fail	0x290989f	VERIFIED_STATIC_UTF8	di chuyển đến vị trí trị liệu thất bại
+heal_success_prefix	0x29098d8	VERIFIED_STATIC_UTF8	trị liệu tại
+heal_success_suffix	0x29098ed	VERIFIED_STATIC_UTF8	thành công
+heal_doc	0x29098fc	VERIFIED_STATIC_UTF8	Trị liệu khi HP thấp.
+qualified_heal	0x290aa4f	VERIFIED_STATIC	DailyTab._treasure_heal
+heal_locals	0x290b889	VERIFIED_STATIC_MAPPING	self,hwnd,stop_check,heal_map,coords,heal_tile_x,heal_tile_y,map_id,name,mid,e,ok
+heal_signature	-	VERIFIED_STATIC_MAPPING	Required surface self,hwnd,stop_check,heal_map; helper resolves selected name -> coords -> MAP_LIST map_id -> movement
+heal_tolerance	-	VERIFIED_SHARED_DEFAULT	No tolerance kw is present in Treasure heal move surface; shared move_character default tolerance=48 therefore applies if direct helper call is unchanged
+heal_fixed_click_surface	-	VERIFIED_ABSENCE_IN_COMPACT_BLOCK	No Treasure-specific fixed treatment-click coordinates are serialized inside the _treasure_heal compact block; do not copy manual/Tô Châu click sequences by analogy
+heal_reinject_surface	-	NOT_PROVEN	No Treasure-specific reinjection failure/log surface is recovered in _treasure_heal; do not copy _punish_heal reinjection behavior by analogy
+batch_recovery_nested	0x2909025	VERIFIED_STATIC	_treasure_monitor_stops nested per-account recovery surface inside activity worker
+batch_disconnect_log	0x2909041	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Phát hiện mất kết nối → chờ kết nối lại...
+batch_reconnect_ok	0x2909096	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Kết nối lại OK → tiếp tục
+batch_reconnect_timeout	0x29090d3	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Kết nối lại timeout → dừng
+treasure_disconnect_log	0x2909128	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] disconnect monitor hwnd=
+treasure_disconnect_ref	0x2906c71	VERIFIED_STATIC	_treasure_map_disconnect_monitor called by Treasure single/session shell
+qualified_disconnect	0x290a9f7	VERIFIED_STATIC	DailyTab._treasure_map_disconnect_monitor
+disconnect_adapter_locals	0x290b7a7	VERIFIED_STATIC_MAPPING	self,hwnd,halt,respawn_event,stop_event,ev,real_set
+disconnect_adapter_shape	-	STRONG_STATIC	Treasure monitor is an event adapter/bridge: unlike _punish_disconnect_monitor it has no local check_pixel,dc_strikes,MI,conn,dc1,dc2 detector state; exact ev/real_set propagation micro-order remains unknown
+shared_detector_locals	0x290b1ae	VERIFIED_SHARED_STATIC_MAPPING	_punish_disconnect_monitor owns self,hwnd,stop_event,halt,win32gui,check_pixel,row,gen_snap,dc_strikes,MI,conn,dc1,dc2,e
+shared_detector_doc	0x2907289	VERIFIED_SHARED_STATIC_UTF8	Daily detector contract: 2s per-account; memory True veto; both disconnect pixels 3 consecutive ticks (~6s); halt + click(616,455)
+shared_disconnect_pixels	0x2b97b3e	VERIFIED_SHARED_STATIC	ngatKetNoi1=(640,244) RGB(160,145,52) tol5; ngatKetNoi2=(702,453) RGB(212,28,34) tol5
+treasure_detector_call_edge	-	STRONG_STATIC_NOT_INSTRUCTION_BOUND	Adapter shape strongly indicates reuse of the existing Daily disconnect detector; exact native call edge and event propagation are not promoted to line-by-line proof
+treasure_reconnect_timeout_numeric	-	EXPLICIT_UNKNOWN	Treasure batch has bounded OK/timeout shell but no independently bound numeric timeout; do not copy Trừng Ác 60s
+single_worker_locals	0x290b9e9	VERIFIED_STATIC_MAPPING	self,hwnd,tomb_dur,row,gen_snap,halt,respawn_event,monitor_stop,rm,invalidate_character_cache,_get_pid_from_hwnd,wait_memory_ready,_exit_why
+single_cache_invalidate	-	VERIFIED_STATIC_BOUNDARY	Treasure single worker owns current-PID cache invalidation and wait_memory_ready recovery surfaces after reconnect/session interruption
+shared_invalidate_doc	0x2c4e864	VERIFIED_SHARED_STATIC_UTF8	invalidate Reader cache immediately after reconnect; stale pointer-chain cache may survive 10s
+shared_memory_ready_doc	0x2c4ea66	VERIFIED_SHARED_STATIC_UTF8	RoleName clear + MapID not None; invalidate each sample; timeout False/log/fail-open
+shared_memory_ready_defaults	0x2c53722	VERIFIED_SHARED_STATIC_DECODE	wait_memory_ready defaults (45.0,3,1.0)
+treasure_memory_ready_args	-	EXPLICIT_UNKNOWN	Treasure single worker owns wait_memory_ready, but exact override args are not independently instruction-bound; shared defaults are known separately
+forced_post_reconnect_inject	-	NOT_PROVEN	No unconditional Treasure post-reconnect DLL reinjection edge is independently recovered
+shared_diaphu_ref	0x29069f5	VERIFIED_SHARED_STATIC	_diaphu_monitor shared Daily death/Địa-phủ monitor
+shared_diaphu_poll	0x2907027	VERIFIED_SHARED_STATIC_DECODE	4 seconds
+shared_diaphu_hp0	0x2907062	VERIFIED_SHARED_STATIC_UTF8	HP 0% → click (792,441) hồi sinh
+shared_diaphu_click	0x290708a	VERIFIED_SHARED_STATIC_DECODE	(792,441)
+shared_diaphu_map87	0x290709b	VERIFIED_SHARED_STATIC_DECODE	MapID 87
+shared_diaphu_event	0x29070a7	VERIFIED_SHARED_STATIC_UTF8	map87 → respawn_event.set()
+treasure_run_locals	0x290b94c	VERIFIED_STATIC_MAPPING	activity worker owns respawn_event,monitor_stop,rm,ms plus per-account child state
+treasure_death_wiring	-	STRONG_STATIC	Treasure batch/single workers own respawn_event and rm monitor handles; exec consumes/clears respawn_event; direct shared _diaphu_monitor wiring is preserved but exact thread-launch statement order remains unknown
+respawn_reentry	0x2909190	VERIFIED_STATIC_FLOW	On a set respawn_event the next Treasure exec clears it, then immediately reaches HP/start-heal boundary so heal/movement can leave map87
+same_tick_disconnect_death_order	-	EXPLICIT_UNKNOWN	Exact precedence when halt and respawn_event become set in the same scheduling window is not instruction-bound
+b08_recovery_state	-	CROSSCHECKED_FROZEN_B08	Treasure heal=false; heal_map=Tô Châu; reconnect=true; respawn=true
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_k13_markers	-	NOT_RECOVERED	0 correlated Treasure heal/reconnect/respawn/Địa-phủ/cache-ready markers in packaged automove_log
