@@ -326,7 +326,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K04 — VERIFIED_NPC_RETURN_QUEST_30OF30_AND_STUCK_CANCEL_FLOW
 - K05 — VERIFIED_ITEM40004000_DIALOG_USEITEMDATA_FAST_TRAVEL_STREAK_AND_SUMMON_FLOW
 - K06 — VERIFIED_PUNISH_COMBAT_MONOTONIC_DURATION_AUTOTRAIN_FAILSOFT_DRIFT160_AND_MOVEMENT_HELPER_BOUNDARY
-- K07 — NEXT
+- K07 — VERIFIED_DAILY_PUNISH_HEAL_RESPAWN_AND_RECONNECT_RECOVERY
+- K08 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -340,5 +341,7 @@ K05 locks Trừng Ác Lệnh item ID 40004000, internal action-3 item use, two-a
 
 K06 locks the successful-summon → combat segment: `punish_duration` is a monotonic elapsed-time window; combat state is `Đánh ác tặc`; death can end the fight early; shared `start_auto_train` is the enable primitive and its default verification contract is Direction-based with 3 samples at 1.0s and up to 3 send attempts. Daily's exact failure policy is fail-soft (`gửi bật auto train thất bại → vẫn đánh tiếp`). The combat tail owns a 160-pixel `math.hypot` drift detector, final-HP/heal boundary, and normal `Kết thúc` return to the already-proven outer loop. No explicit Daily `stop_game_auto/AUTO_MODE_NONE/stop_auto_train` surface is recovered at combat end. K06 also freezes `_wait_movement_stopped`: `by_memory` defaults False, its memory helper uses timeout 300s / 6 stable polls / 0.5s / 16px defaults, and the explicit recovered Daily call surface is in Tàng Bảo Đồ rather than the Trừng Ác combat block. B08 was rechecked only after static extraction; packaged runtime log contains generic AutoFight primitives but no correlated Daily/K06 trace.
 
+K07 locks Daily-specific Trừng Ác recovery without importing Farm semantics. `_diaphu_monitor` runs every 4s, clicks revive at (792,441) on HP0, and sets `respawn_event` on MapID 87; the next cycle clears that event so heal/movement can leave Địa phủ. Low-HP treatment is checked at cycle start and end; start-heal failure skips only the current cycle. `_punish_heal` targets Tô Châu map4 tile (155,252), uses movement tolerance 10, and injection failure is fail-open to direct movement. `_punish_disconnect_monitor` runs every 2s with `memory_items.is_connected` as a True-veto plus exact dual disconnect pixels, requiring 3 consecutive ticks (~6s) before `halt` + reconnect click (616,455). Activity-wide Daily reconnect has an exact 60s bounded wait with OK→continue / timeout→stop. The single-account recovery path uses `wait_pixel(common.active)`, cache invalidation and `wait_memory_ready(timeout=45, need=3)` with shared 1.0s sampling and fail-open timeout. No Daily `/5` attempt or infinite reconnect-batch surface is recovered, and no unconditional post-reconnect DLL reinjection edge is proven.
+
 ## Phase K current
-K07 — Trừng Ác heal / reconnect / respawn recovery audit.
+K08 — Trừng Ác discard worker / equipment filtering and discard lifecycle audit.
