@@ -3144,3 +3144,91 @@ On CONTINUE:
 - First K10 artifact committed: docs/daily/K10_TREASURE_TOPLEVEL_STATIC_EVIDENCE.tsv at commit 6a92d5c563ca58672303b164abb6222bfad7632f.
 - K10 remains IN_PROGRESS until model/flow/task docs, runtime/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
 
+## K10 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K10 artifact/completion commit existed; K01-K09 were already complete and were not rewritten.
+- Exact TLMTool_2.1.2(7).zip was revalidated before K10: SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, CRC clean. Inner TLMTool.dist/TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact .daily_tab constants blob was decoded again as **35,163 bytes / 1,186 top-level constants**, consumed exactly to its end marker.
+- Tàng Bảo Đồ visible/config surface is locked:
+  - tomb-combat duration UI seed **30 seconds**;
+  - post-dig heal if HP<30 checkbox;
+  - treatment location selector with visible seed **Tô Châu**;
+  - reconnect checkbox;
+  - respawn checkbox;
+  - Apply-all button.
+- Exact load fallbacks are:
+  - daily_treasure_map_tomb_dur="30"
+  - daily_treasure_heal="0"
+  - daily_treasure_heal_map="Tô Châu"
+  - daily_treasure_dc_reconnect="1"
+  - daily_treasure_respawn="1"
+- Exact selectable treatment-coordinate dictionary is frozen at the config boundary: Đại Lý=(43,178), Lạc Dương=(255,126), Tô Châu=(155,252), Lâu Lan=(27,183). K10 does not deep-audit heal movement/click behavior.
+- Apply-all is configuration-only: exact doc says set every current row activity combobox to Tàng bảo đồ. It does not itself start execution.
+- Activity-wide start ownership is exact: inject/preparation wrapper -> _treasure_map_toggle -> _treasure_map_run_worker.
+- Activity batch local model is exact: tomb_dur, selected, selected_pids, loop_idx, alive, still_active, wins, halt, threads, respawn_event, monitor_stop and child-thread state.
+- Exact batch outcomes:
+  - no selected Tàng Bảo Đồ rows -> bỏ qua;
+  - no live selected rows -> dừng;
+  - all selected rows stopped -> auto-stop;
+  - [TÀNG BẢO ĐỒ] Lần ... -> outer iteration counter.
+- No user treasure repeat-count config exists in the decoded Daily blob. tomb_dur is a per-cycle tomb-combat-duration parameter, not an N-run count.
+- Per-row/bottom coordinator path remains distinct: _treasure_single_worker receives hwnd/tomb_dur/row/gen_snap, owns halt/respawn/monitor state plus Reader-cache invalidation and wait_memory_ready surfaces, and directly calls _treasure_map_exec_sequence.
+- No explicit single-worker loop_idx local is recovered. K10 therefore does not invent per-row cycle numbering or exact source-form repetition.
+- Dedicated treasure reconnect shell is proven:
+  - _treasure_map_disconnect_monitor exists;
+  - activity-wide nested _treasure_monitor_stops exists;
+  - exact messages cover disconnect detected -> wait -> reconnect OK continue / timeout stop.
+- Treasure-specific reconnect timeout numeric is **EXPLICIT_UNKNOWN in K10** rather than copied from Trừng Ác. Detector internals are deferred to later Tàng Bảo Đồ recovery work.
+- Death/respawn top-level shell is proven: batch/single workers own respawn_event/monitor_stop and _treasure_map_exec_sequence has exact cycle-entry text clearing respawn_event so heal/move can leave map 87. Exact death-monitor launch/thread ordering remains UNKNOWN.
+- Exact treasure idle/reset tuple is **Tàng bảo đồ / RoyalBlue / normal**. Dedicated btn_treasure_start and shared running/stopping literal pool are present; exact toggle-assignment/teardown source-line order remains UNKNOWN.
+- K02 shared _daily_all_monitor and _sync_start_tab_btns remain the global UI-reset/synchronization boundary.
+- Only after static extraction, frozen B08 was cross-checked: tomb duration 30, heal OFF, treatment location Tô Châu, reconnect ON, respawn ON.
+- Exact packaged automove_log.txt remains SHA-256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, **15,741,058 bytes / 387,238 lines**. Correlated Tàng Bảo Đồ top-level markers are **0**, so no end-to-end runtime parity is claimed.
+- K10 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- K10 artifacts:
+  - docs/daily/K10_TREASURE_TOPLEVEL_STATIC_EVIDENCE.tsv — commit 6a92d5c563ca58672303b164abb6222bfad7632f
+  - docs/daily/K10_TREASURE_TOPLEVEL_MODEL.json — commit 85c9e6de79f7892439d84be35f6290d8dd64896f
+  - docs/daily/K10_TREASURE_TOPLEVEL_FLOW.md — commit 5ebdcebd0494a1348df33a7bd2c7968a8f85ba96
+  - docs/tasks/K10.md — commit 7b22925d7fbee33223303dcc10602e1625994970
+- PROJECT_STATUS.md advanced K10 -> VERIFIED and K11 -> NEXT at commit f00c82fd21238d91777ac2fd6377b3ce26aacd9e.
+
+## POST-K10 CODE/BUILD RECHECK
+- Current main tree after K10 status update: **590 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K10 artifacts were fetched back successfully after commit.
+- K10 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- End-to-end Tàng Bảo Đồ runtime parity requires a real Windows + live Thần Long environment.
+- Reconstructed product build is still not applicable before Stage S because there is no app source/build target.
+- No known static blocker for K11.
+
+## DO_NOT_TOUCH
+- Preserve K01-K10 contracts unchanged unless exact new evidence exposes a real contradiction.
+- Preserve Apply-all as selection-only.
+- Preserve activity-wide Tàng Bảo Đồ batch and per-row/bottom single-worker ownership as separate models.
+- Preserve duration 30 and exact config fallbacks.
+- Preserve open-ended activity batch; do not invent a user repeat-count.
+- Do not copy Trừng Ác reconnect timeout numeric into Treasure without independent evidence.
+- Preserve respawn_event recovery shell but do not invent death-monitor thread ordering.
+- Preserve exact idle/reset tuple and shared Daily UI reset infrastructure.
+- Do not deep-audit item/bag/mount/map96/combat/heal internals inside K10 artifacts.
+- Keep unresolved values/orderings UNKNOWN.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K11 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K11 — Tàng Bảo Đồ bag/item detection and treasure-map activation audit** only.
+5. Re-inspect the exact frozen original EXE first.
+6. Audit the treasure-map item/bag activation portion of _treasure_map_exec_sequence: mount pre-step only where directly required, bag-open signal, tuido.tangBaoDo_multi recognition, click/activation, not-found terminal behavior, second-check behavior, and the exact stop/wait boundary immediately after activation.
+7. Follow only directly-called pixel/memory helpers needed by that path; do not deep-audit map96 tomb combat/heal/reconnect yet.
+8. Preserve K10 top-level ownership/config shell unchanged.
+9. Cross-check B08 only after static extraction; B08 does not show the runtime activation flow.
+10. Persist K11 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K11 verification.
+
