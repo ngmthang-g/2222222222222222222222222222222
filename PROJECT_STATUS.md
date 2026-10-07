@@ -377,9 +377,12 @@ K17 closes Phase K at the static-research level. The original archive, inner EXE
 
 ## Phase L — Dồn
 - L01 — VERIFIED_ACTIVE_DONVANG_AUTHORITY_CAPTURED_VISIBLE_SURFACE_127_HANDLER_INVENTORY_AND_DEPENDENCY_BOUNDARY
-- L02 — NEXT
+- L02 — VERIFIED_DON_RETURN_TRIGGER_SHORTCUT_WALK_FALLBACK_AND_HANDOFF_BOUNDARY
+- L03 — NEXT
 
 L01 locks `donvang_tab.py` / `DonVangTab` as the active Dồn authority. The exact Nuitka `.donvang_tab` module has size field **65,260 bytes** and count field **1,813**, and **127** direct top-level `DonVangTab` methods are inventoried. `TLMMainApp` constructs the tab under visible label `Dồn`, while StartTab exposes `Dồn vàng / Tới nơi nhận / Tới chỗ bán / Tới nơi train / Cấu hình`. The visible surface includes Về thành conditions/priorities, Train/death/disconnect/unstuck/pickup/filter/heal controls, saved coordinates, receiver rows, a shared Dồn coordinate, per-account move/Dồn/sell controls, and all-account actions. Dồn is current/wired rather than dormant; dedicated-tab visibility is permission-controlled, with the captured run showing it visible while the exact permission state remains unknown. Direct dependency boundaries are frozen, and weak emulator/farm-tab references are not promoted to active runtime imports.
 
+L02 locks the Dồn return mechanism without consuming later return-priority/inventory/receiver tasks. The farm cycle has exact `cycle` and `full_bag_timer` return modes; cycle defaults to 30 minutes, while full-bag mode checks memory bag state, filters before returning, stays at farm if filtering frees space, and continues toward Dồn only if still full. Donor accounts substitute the normal return-to-town step with a Dồn callback. `_resolve_truyen_back` selects a map-specific `back` route from current MapID (farm preset fallback on memory-read failure), executes the serialized shortcut, invalidates Reader cache and performs fresh exit verification; no route uses normal movement, while failed verification aborts on stop or walks to the destination otherwise. `_run_farm_exit` then finishes the receiver/Dồn leg by normal horse movement with no phù. The normal sell path remains separate and passes `_get_nav_priority()` into `move_character` as `home_priority`; exact priority ordering is intentionally deferred to L03. Runtime parity remains environment-required.
+
 ## Phase L current
-L02 — Dồn return mechanism audit.
+L03 — Dồn return priority audit.
