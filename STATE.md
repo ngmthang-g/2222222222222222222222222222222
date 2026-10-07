@@ -3606,3 +3606,23 @@ On CONTINUE:
 8. Resolve only real K10-K14 contradictions; do not rewrite correct artifacts. If internally consistent, close the Treasure static handoff.
 9. Cross-check runtime/B08 only after the integrated static audit, then re-check repository code/build state.
 10. Persist K15 artifacts, update STATE.md/PROJECT_STATUS.md, and only then advance to the shared-Daily tasks.
+## K15 INTEGRATED TREASURE HANDOFF MILESTONE — IN PROGRESS
+- GitHub-first continuity check passed: no K15 artifact/completion commit existed; K10-K14 were preserved unchanged.
+- The exact library specimen TLMTool_2.1.2(7).zip was rematerialized before K15. Frozen authority remains archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes; inner TLMTool.exe SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- K15 integrated K10-K14 into one Treasure lifecycle model without reopening already-correct internals.
+- Full K01 handler inventory audit shows every top-level Treasure-related callable is accounted for: _build_ui, _apply_treasure_all, _treasure_start_worker, _treasure_single_worker, _wait_movement_stopped, _treasure_map_toggle, _treasure_map_run_worker, _treasure_map_disconnect_monitor, _treasure_map_exec_sequence, _treasure_heal and _treasure_map_reset_ui.
+- No unaccounted top-level Treasure callable remains.
+- Activity-wide and per-row ownership remain distinct: activity batch snapshots selected/selected_pids/configured tomb_dur and iterates open-ended with still_active filtering; per-row uses row HWND+PID + stop Event + generation identity and its own recovery shell.
+- Integrated Treasure cycle is now frozen at handoff level: stop/session guard -> respawn_event consumption -> optional HP<30 start heal -> mount prep -> bag readiness -> first tangBaoDo_multi find/use -> MovementDetector movement-stop wait -> second tangBaoDo_multi checkpoint/use -> post-activation MapID/tomb region -> optional final heal -> cycle tail.
+- K12's map96/tomb region remains intentionally micro-order-safe: exact surfaces are preserved, but exact order/meaning of fixed tomb clicks versus duration/movement/MapID read is not invented.
+- No blocking contradiction was found across K10-K14.
+- The only duration layering issue is resolved: production UI/config Treasure duration is 30s, while a direct _treasure_map_exec_sequence call defaults tomb_dur=5. Workers pass the configured value, so both are correct layers.
+- Failure classes are integrated consistently: first/second item-not-found terminal current Treasure account; start-heal failure current-cycle skip; non96 tomb-outcome skip; final-heal fail-soft; reconnect/death recoverable when successful; reconnect timeout terminal for affected recovery path; cancel/row Event/gen/window identity are control stops.
+- _treasure_map_skipped role remains strong-static persistent exclusion inside the active batch, while exact add/discard/clear statements and clear point remain UNKNOWN.
+- Treasure recovery remains consistent with K13: thin Treasure disconnect adapter over shared Daily detector layer, bounded reconnect shell with numeric timeout UNKNOWN, Reader-cache/memory-ready recovery boundary, shared death/Map87 respawn_event model, no proven forced post-reconnect reinjection.
+- UI/stop handoff remains consistent: activity Dừng lại/FireBrick -> Đang dừng.../disabled -> Tàng bảo đồ/RoyalBlue/normal; bottom all-account stop uses _farming_acc=False + row _stop_event; singleton _daily_all_monitor waits for all row sessions then calls both activity reset helpers; _sync_start_tab_btns handles external sync.
+- Runtime/B08 remain cross-check only: no correlated end-to-end Treasure trace is present in the packaged log, and B08 is idle configuration only.
+- K15 evidence/model committed:
+  - docs/daily/K15_TREASURE_HANDOFF_STATIC_EVIDENCE.tsv — commit 9fe81d923b5490541b13c11d52ea1cee81359f04
+  - docs/daily/K15_TREASURE_HANDOFF_MODEL.json — commit ee589223cf3ff5eccac238e8184c6a78d4d3926b
+- K15 remains IN_PROGRESS until flow/task docs, PROJECT_STATUS advancement, code/build recheck and STATE closure are persisted.
