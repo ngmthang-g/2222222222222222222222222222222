@@ -1,0 +1,52 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901 CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+module_marker	0x2920bc1	VERIFIED_STATIC	.donvang_tab unique marker in exact EXE
+module_size_field	0x2920bce	VERIFIED_STATIC_DECODE	65260 bytes
+module_count_field	0x2920bd2	VERIFIED_STATIC_DECODE	1813 constants by same Nuitka header convention validated in prior phases
+next_module_marker	0x2930abd	VERIFIED_STATIC	.emu_chat immediately follows DonVang constant stream
+source_filename	0x292e0da	VERIFIED_STATIC	donvang_tab.py
+module_qualname	0x292e366	VERIFIED_STATIC	<module donvang_tab>
+class_name	0x292d1c6	VERIFIED_STATIC	DonVangTab
+handler_count	0x292d1e0	VERIFIED_STATIC_INVENTORY	127 direct NUL-terminated DonVangTab class qualnames; nested <locals> excluded
+mainapp_tab_key	0x28d0e1b	VERIFIED_MAIN_APP_WIRING	donvang_tab slot exists in TLMMainApp.create_tabs
+mainapp_tab_label	0x28d0fb4	VERIFIED_MAIN_APP_WIRING	visible label is Dồn
+mainapp_ctor	0x28d2060	VERIFIED_MAIN_APP_WIRING	DonVangTab class is constructed by main app
+mainapp_visibility_setter	0x28d1d9c	VERIFIED_MAIN_APP_WIRING	_set_donvang_tab_visible
+mainapp_visibility_comment	0x28d22ad	STATIC_COMMENT_BOUNDARY	permission-controlled/dev-like visibility comment; screenshot proves visible in captured run
+starttab_row_label	0x2bfa4bc	VERIFIED_STARTTAB	Dồn vàng
+starttab_recv	0x2bfa4f2	VERIFIED_STARTTAB	Tới nơi nhận
+starttab_sell	0x2bfa517	VERIFIED_STARTTAB	Tới chỗ bán
+starttab_train	0x2bfa53b	VERIFIED_STARTTAB	Tới nơi train
+starttab_goto	0x2c0000a	VERIFIED_STARTTAB	TLMStartTab._goto_donvang_tab
+starttab_action	0x2c00029	VERIFIED_STARTTAB	TLMStartTab._donvang_action
+starttab_toggle	0x2c00046	VERIFIED_STARTTAB	TLMStartTab._toggle_donvang_cmd
+ui_return_group	0x29210e1	VERIFIED_VISIBLE_STATIC	Cấu hình Về thành
+ui_return_condition	0x2921186	VERIFIED_VISIBLE_STATIC	Điều kiện về thành
+ui_full_bag	0x2921227	VERIFIED_VISIBLE_STATIC	Khi đầy túi
+ui_cycle	0x29212b7	VERIFIED_VISIBLE_STATIC	Theo chu kỳ (phút)
+ui_nav_priority	0x292137b	VERIFIED_VISIBLE_STATIC	Phương thức về thành; Phù1/Phù2/Phù3/Ngựa
+ui_train_group	0x2921549	VERIFIED_VISIBLE_STATIC	Cấu hình Train
+ui_respawn	0x29215dc	VERIFIED_VISIBLE_STATIC	Quay lại train khi chết
+ui_disconnect	0x2921636	VERIFIED_VISIBLE_STATIC	Dừng khi mất kết nối mạng
+ui_unstuck	0x292166b	VERIFIED_VISIBLE_STATIC	Tự gỡ kẹt
+ui_pickup	0x29216d2	VERIFIED_VISIBLE_STATIC	Nhặt đồ không dùng hồ lô
+ui_filter	0x292170a	VERIFIED_VISIBLE_STATIC	Lọc đồ
+ui_heal	0x29217a6	VERIFIED_VISIBLE_STATIC	Trị liệu sau khi chết
+ui_heal_coord	0x29217c5	VERIFIED_VISIBLE_STATIC	Tọa độ trị liệu
+ui_coords_group	0x29218c0	VERIFIED_VISIBLE_STATIC	Cấu hình tọa độ lưu sẵn
+ui_accounts_group	0x2921af6	VERIFIED_VISIBLE_STATIC	Danh sách tài khoản
+ui_don_coord	0x2921b76	VERIFIED_VISIBLE_STATIC	Tọa độ dồn
+ui_add_receiver	0x2921ca6	VERIFIED_VISIBLE_STATIC	+ Thêm acc nhận
+ui_all_controls	0x2921e48	VERIFIED_VISIBLE_STATIC	Điều khiển tất cả
+row_move	0x2923ced	VERIFIED_ROW_SURFACE	Đến tọa độ
+row_don	0x2923deb	VERIFIED_ROW_SURFACE	Dồn đồ
+row_don_move	0x2923e3b	VERIFIED_ROW_SURFACE	Tới nơi dồn
+row_sell	0x2923e4d	VERIFIED_ROW_SURFACE	Bán đồ
+row_metrics	0x2923985	VERIFIED_ROW_SURFACE	Thời gian / Vàng đã dồn / Tốc độ vàng-h
+config_section	0x292ca8f	VERIFIED_PERSISTENCE	[DonVang] settings section
+autosave_doc	0x2922005	VERIFIED_PERSISTENCE	Tự lưu config mỗi 30 giây
+screenshot_don	-	CROSSCHECKED_AFTER_STATIC	dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a 452x1032; Dồn tab visibly selected
+screenshot_start	-	CROSSCHECKED_AFTER_STATIC	4f1b126ea4ba0034889545653046f552a226d5f0033d2329a8693342184c28cd 452x1032; StartTab shows Dồn vàng row and quick actions
+visibility_policy	-	EXPLICIT_RUNTIME_BOUNDARY	static comment says permission/dev-like gating while captured screenshot shows tab visible; exact permission state causing visibility not inferred
+dormant_boundary	-	VERIFIED_SCOPE	active main-app construction + StartTab actions prove module is current/wired, not dormant; weak emulator edges are not promoted

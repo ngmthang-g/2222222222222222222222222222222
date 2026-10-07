@@ -1,0 +1,20 @@
+dependency	evidence_offset	status	L01_boundary
+tkinter/ttk/tkinter.font	0x292cd3a	VERIFIED_MODULE_LEVEL	UI framework for DonVangTab
+os/configparser	0x292cd5e	VERIFIED_MODULE_LEVEL	settings path/config parsing support
+_settings_lock/read_settings/write_settings	0x292cd72	VERIFIED_MODULE_LEVEL	shared settings persistence
+farm_data	0x292ce25	VERIFIED_MODULE_LEVEL	FARM_MAP_LIST; SELL_MAP_COORDS; SELL_MAP_LIST; TRAIN_HEAL_COORDS; TRUYEN_DAI_LY_ROUTES; resolve_hub_npc
+info_tab object	0x2920cf3	VERIFIED_CONSTRUCTOR_DEP	constructor/notebook integration object
+start_tab.get_windows	0x2925421	VERIFIED_DIRECT_CALL_SURFACE	account/window discovery and StartTab synchronization
+permission_guard	0x2923eeb	VERIFIED_DIRECT_CALL_SURFACE	has_permission/check_account_limit for donvang_tab controls
+utils._get_pid_from_hwnd	0x29263b7	VERIFIED_DIRECT_LITERAL_CALL	PID/window helper
+dll_injector	0x29263e8	VERIFIED_DIRECT_LITERAL_CALL	inject_into_pid/get_default_dll_path
+don_logic	0x2922a4f	VERIFIED_DIRECT_LITERAL_CALL	watch_trade_invites/normalize_name and Dồn execution handoff
+fast_travel	0x2926f05	VERIFIED_DIRECT_LITERAL_CALL	verify_exited_farm route helper
+memory_items	0x292766e	VERIFIED_DIRECT_LITERAL_CALL	shop/open/sell-memory path
+bag_filter	0x2928936	VERIFIED_DIRECT_LITERAL_CALL	discard_for_activity filter-before-Dồn path
+pixel	0x2926682	VERIFIED_DIRECT_LITERAL_CALL	wait_pixel/check_pixel runtime UI-state checks
+mouse/bind_window_identity	0x29237ad	VERIFIED_DIRECT_CALL_SURFACE	HWND/PID binding/unbinding; click helpers also present as call surfaces
+win32gui/win32con	0x2929d03	VERIFIED_DIRECT_CALL_SURFACE	window/runtime interaction
+farm_tab	0x29271f9	REFERENCE_ONLY_IN_DOCSTRING	port/reference text; not promoted to runtime import by L01
+emu_input	-	STATIC_GRAPH_ONLY	D04 weak edge only; no direct literal in frozen DonVang blob
+emu_reader	-	STATIC_GRAPH_ONLY	D04 weak edge only; no direct literal in frozen DonVang blob

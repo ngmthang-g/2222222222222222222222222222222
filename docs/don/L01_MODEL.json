@@ -1,0 +1,140 @@
+{
+  "task": "L01",
+  "terminology": "Dồn",
+  "status": "VERIFIED_ACTIVE_DONVANG_AUTHORITY_CAPTURED_VISIBLE_SURFACE_127_HANDLER_INVENTORY_AND_DEPENDENCY_BOUNDARY",
+  "authority": {
+    "module": "donvang_tab",
+    "source_filename": "donvang_tab.py",
+    "class": "DonVangTab",
+    "marker_offset": "0x2920bc1",
+    "header_size_bytes": 65260,
+    "header_constant_count": 1813,
+    "next_module_marker": {
+      "name": "emu_chat",
+      "offset": "0x2930abd"
+    },
+    "direct_class_methods": 127
+  },
+  "main_app": {
+    "tab_label": "Dồn",
+    "tab_key": "donvang_tab",
+    "constructed": true,
+    "visibility_setter": "_set_donvang_tab_visible",
+    "static_visibility_note": "permission-controlled/dev-like comment",
+    "captured_visibility": "visible",
+    "exact_permission_state_at_capture": "UNKNOWN"
+  },
+  "start_tab": {
+    "label": "Dồn vàng",
+    "actions": [
+      "Dồn vàng",
+      "Tới nơi nhận",
+      "Tới chỗ bán",
+      "Tới nơi train",
+      "Cấu hình"
+    ],
+    "callables": [
+      "TLMStartTab._goto_donvang_tab",
+      "TLMStartTab._donvang_action",
+      "TLMStartTab._toggle_donvang_cmd"
+    ]
+  },
+  "visible_surface": {
+    "return_config": [
+      "Khi đầy túi",
+      "Theo chu kỳ (phút)",
+      "Phù 1",
+      "Phù 2",
+      "Phù 3",
+      "Ngựa"
+    ],
+    "train_config": [
+      "Quay lại train khi chết",
+      "Dừng khi mất kết nối mạng",
+      "Tự gỡ kẹt",
+      "Nhặt đồ không dùng hồ lô",
+      "Lọc đồ",
+      "Trị liệu sau khi chết",
+      "Tọa độ trị liệu"
+    ],
+    "saved_coordinates": true,
+    "receiver_rows": true,
+    "shared_don_coordinate": true,
+    "all_account_actions": [
+      "Tới nơi nhận",
+      "Tới chỗ bán",
+      "Tới nơi train"
+    ],
+    "per_account_actions": [
+      "Đến tọa độ",
+      "Dồn đồ",
+      "Tới nơi dồn",
+      "Bán đồ"
+    ],
+    "metrics": "Thời gian / Vàng đã dồn / Tốc độ vàng-h"
+  },
+  "captured_state": {
+    "screenshot_sha256": "dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a",
+    "town_condition": "Theo chu kỳ (phút)",
+    "cycle_minutes": "30",
+    "navigation_priority": [
+      "Phù 1",
+      "Phù 2",
+      "Phù 3",
+      "Ngựa"
+    ],
+    "unstuck_checked": true,
+    "pickup_filter": "Tất cả",
+    "heal_map": "Trị liệu Tô Châu",
+    "saved_coordinate_row": [
+      "Tọa độ 1",
+      "Đại Lý",
+      "0",
+      "0"
+    ],
+    "receiver_rows_visible": 2,
+    "bottom_button": "Bắt đầu",
+    "account_rows_visible": 0
+  },
+  "dependency_boundary": {
+    "verified_module_level": [
+      "tkinter/ttk/font",
+      "os",
+      "configparser",
+      "shared settings helpers",
+      "farm_data"
+    ],
+    "verified_direct_runtime": [
+      "start_tab",
+      "permission_guard",
+      "utils",
+      "dll_injector",
+      "don_logic",
+      "fast_travel",
+      "memory_items",
+      "bag_filter",
+      "pixel"
+    ],
+    "constructor_object": [
+      "info_tab"
+    ],
+    "reference_only": [
+      "farm_tab"
+    ],
+    "weak_graph_only": [
+      "emu_input",
+      "emu_reader"
+    ],
+    "rule": "weak/static graph edges are not promoted to active imports without direct DonVang blob evidence"
+  },
+  "persistence": {
+    "section": "DonVang",
+    "autosave_seconds": 30
+  },
+  "dormant_assessment": {
+    "module_dormant": false,
+    "reason": "main app constructs DonVangTab and StartTab exposes live Dồn actions",
+    "hidden_or_permission_controlled_surface": true
+  },
+  "next_task": "L02 — Dồn return mechanism audit"
+}
