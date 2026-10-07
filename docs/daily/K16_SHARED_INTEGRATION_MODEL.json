@@ -1,0 +1,297 @@
+{
+  "task": "K16",
+  "status": "VERIFIED_DAILY_SHARED_CROSS_ACTIVITY_LIFECYCLE_PERSISTENCE_COORDINATOR_AND_OWNERSHIP_BOUNDARY_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "zip_crc_clean": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_authority": ".daily_tab @ 0x2903223"
+  },
+  "shared_callable_gap_closure": {
+    "already_closed_by_K02": [
+      "__init__",
+      "_build_ui",
+      "_sanitize_name",
+      "_get_char_info",
+      "_get_char_name",
+      "_is_window_alive",
+      "_pid_of",
+      "_owns_hwnd",
+      "_add_or_update_row",
+      "_apply_row_permission",
+      "_remove_stale_accs",
+      "_refresh_acc_lists",
+      "_start_refresh",
+      "_stop_refresh",
+      "_on_rows_configure",
+      "_request_scroll_update",
+      "_update_scroll_region",
+      "_schedule_refresh",
+      "_resize_monitor",
+      "_start_all_accs",
+      "_ensure_daily_monitor",
+      "_daily_all_monitor",
+      "_sync_start_tab_btns",
+      "_apply_state_label",
+      "_set_state",
+      "_schedule_state_label",
+      "_toggle_single_acc",
+      "_stop_reason"
+    ],
+    "closed_by_K16": [
+      "_validate_repeat",
+      "_ensure_injected",
+      "_inject_all_windows",
+      "_move_bo_dau",
+      "_move_bo_dau_all",
+      "_heal_bo_dau",
+      "_heal_all",
+      "_save_on_destroy",
+      "_load_config",
+      "_save_config"
+    ],
+    "activity_specific_elsewhere": {
+      "_apply_punish_all": "K03/K09",
+      "_apply_treasure_all": "K10/K15",
+      "_punish_start_worker": "K03/K09",
+      "_treasure_start_worker": "K10/K15"
+    },
+    "remaining_shared_top_level_callables": []
+  },
+  "roster": {
+    "refresh_interval_seconds": 5,
+    "incremental": true,
+    "identity": "HWND + bound PID",
+    "hwnd_reuse_protection": true,
+    "row_recreation_on_pid_change": true,
+    "scroll_debounce_ms": 30,
+    "row_runtime_state": [
+      "_farming_acc",
+      "_stop_event",
+      "_gen",
+      "_state",
+      "bound PID"
+    ],
+    "row_activity_values": [
+      "Trừng ác",
+      "Tàng bảo đồ"
+    ],
+    "row_activity_default_surface": "STRONG_STATIC_Trừng_ác",
+    "persisted_row_activity": false
+  },
+  "permissions": {
+    "row_ui": {
+      "helper": "permission_guard.has_permission",
+      "scope": "daily_tab",
+      "gated": [
+        "row play",
+        "activity combobox",
+        "Tới bổ đầu",
+        "Trị liệu"
+      ]
+    },
+    "runtime": {
+      "helper": "has_permission_with_limit",
+      "args": [
+        "daily_tab",
+        "daily"
+      ],
+      "denied_log": "[Daily] Khóa bản quyền - khong cho phep"
+    }
+  },
+  "state_marshalling": {
+    "logical_setter": "_set_state",
+    "scheduler": "_schedule_state_label",
+    "widget_apply": "_apply_state_label",
+    "tkinter_marshal": "after(0)",
+    "rule": "background workers must not directly mutate row state widgets"
+  },
+  "row_session_guard": {
+    "real_event": "row['_stop_event']",
+    "generation": "row['_gen']",
+    "wrapper": "_GenStop",
+    "stops_when": [
+      "real stop Event set",
+      "generation differs from worker snapshot"
+    ],
+    "purpose": "prevent stale worker surviving rapid Stop->Start"
+  },
+  "injection": {
+    "per_hwnd": "_ensure_injected",
+    "all_windows": "_inject_all_windows",
+    "dependency": "dll_injector",
+    "dll": "resources.dat via get_default_dll_path",
+    "no_pid": "failure surface",
+    "outcomes": [
+      "already loaded",
+      "OK",
+      "failure/error"
+    ],
+    "idempotent_ready_semantic": true,
+    "activity_starts": "Trừng Ác and Treasure activity-level wrappers inject first",
+    "all_account_start": "shared injection/preparation before row fanout"
+  },
+  "manual_shared_actions": {
+    "move_one": {
+      "helper": "_move_bo_dau",
+      "target": "Tô Châu map4 tile224,285",
+      "window_liveness_check": true,
+      "inject_failure": "fail-open to direct movement",
+      "activity_dispatch": false
+    },
+    "move_all": {
+      "helper": "_move_bo_dau_all",
+      "inject_all_first": true,
+      "parallel": true,
+      "join_children": true
+    },
+    "heal_one": {
+      "helper": "_heal_bo_dau",
+      "target": "Tô Châu map4 tile155,252",
+      "background_click_surface": "mouse.click_at(window_hwnd=...)",
+      "activity_dispatch": false
+    },
+    "heal_all": {
+      "helper": "_heal_all",
+      "parallel": true
+    },
+    "overlap_guard_with_running_activity": "EXPLICIT_UNKNOWN"
+  },
+  "row_and_global_orchestration": {
+    "per_row_toggle": {
+      "helper": "_toggle_single_acc",
+      "dispatch": {
+        "Trừng ác": "_punish_single_worker",
+        "Tàng bảo đồ": "_treasure_single_worker"
+      }
+    },
+    "bottom_all": {
+      "helper": "_start_all_accs",
+      "start": "start eligible non-running rows using each row's selected activity",
+      "stop": "set _farming_acc=False and signal row _stop_event",
+      "no_work_log": "[Bắt đầu] Không acc nào cần chạy",
+      "running_ui": {
+        "text": "Dừng lại",
+        "bg": "#f44336"
+      },
+      "idle_ui": {
+        "text": "Bắt đầu",
+        "bg": "#388e3c"
+      }
+    },
+    "monitor": {
+      "ensure": "_ensure_daily_monitor",
+      "worker": "_daily_all_monitor",
+      "singleton": true,
+      "wait_for": "all row sessions no longer running",
+      "reset_helpers": [
+        "_punish_reset_ui",
+        "_treasure_map_reset_ui"
+      ]
+    },
+    "starttab_sync": "_sync_start_tab_btns"
+  },
+  "ownership_domains": {
+    "activity_wide": {
+      "punish": [
+        " _punish_running",
+        "_punish_cancel"
+      ],
+      "treasure": [
+        "_treasure_map_running",
+        "_treasure_map_cancel"
+      ]
+    },
+    "row_level": [
+      "row _farming_acc",
+      "row _stop_event",
+      "row _gen"
+    ],
+    "unified_owner_token_recovered": false,
+    "same_hwnd_activity_vs_row_mutual_exclusion": "EXPLICIT_UNKNOWN",
+    "note": "Do not invent a mutex or assume overlap is safe; runtime K17 must test original behavior."
+  },
+  "persistence": {
+    "infrastructure": [
+      "CONFIG_PATH",
+      "CONFIG_DIR",
+      "_settings_lock",
+      "read_settings",
+      "write_settings"
+    ],
+    "section": "Settings",
+    "load_keys": [
+      "daily_punish_duration",
+      "daily_tele_use",
+      "daily_move_mode",
+      "daily_tele_hotkey",
+      "daily_treasure_map_tomb_dur",
+      "daily_treasure_heal",
+      "daily_treasure_heal_map",
+      "daily_punish_heal",
+      "daily_punish_discard_equip",
+      "daily_punish_dc_reconnect",
+      "daily_punish_respawn",
+      "daily_treasure_dc_reconnect",
+      "daily_treasure_respawn"
+    ],
+    "save_visible_config_region": true,
+    "runtime_row_fields_persisted": false,
+    "move_mode_write_semantic": "EXPLICIT_UNKNOWN due constant backreference ambiguity",
+    "destroy": {
+      "bind": "<Destroy> -> _save_on_destroy",
+      "saving_guard": "_saving_enabled exists",
+      "exact_cleanup_order": "EXPLICIT_UNKNOWN"
+    }
+  },
+  "numeric_validator": {
+    "helper": "_validate_repeat",
+    "evidence": "isdigit generator",
+    "purpose": "numeric-entry validation",
+    "exact_empty_string_policy": "UNKNOWN",
+    "note": "Name does not imply a Daily run-count because K03/K10 proved no user repeat-count config."
+  },
+  "cross_activity_consistency": {
+    "punish_static_handoff": "K09 complete",
+    "treasure_static_handoff": "K15 complete",
+    "shared_contradictions_found": 0,
+    "preserved_boundaries": [
+      "activity-wide vs row ownership are separate",
+      "row activity selection is transient",
+      "global monitor resets both activity UIs only after row sessions stop",
+      "manual shared actions are activity-agnostic HWND actions",
+      "exact cross-domain same-HWND mutual exclusion is runtime-unknown",
+      "exact destroy/teardown statement ordering remains unknown"
+    ]
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "bytes": 15741058,
+    "lines": 387238,
+    "correlated_counts": {
+      "[Daily]": 0,
+      "[Bắt đầu]": 0,
+      "[Inject]": 0,
+      "DailyTab": 0,
+      "Tới bổ đầu": 0,
+      "[Trị liệu]": 0,
+      "Trừng ác": 0,
+      "Tàng bảo đồ": 0
+    },
+    "B08": "idle empty-account-list cross-check only",
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact _validate_repeat empty-string/cleanup behavior",
+    "exact same-HWND mutual-exclusion guard between activity-wide and per-row ownership domains",
+    "exact running-session guard for manual Tới bổ đầu/Trị liệu",
+    "exact daily_move_mode write/migration expression",
+    "exact _save_on_destroy cleanup ordering",
+    "exact coordinator thread daemon/join ordering",
+    "exact activity/global UI teardown ordering",
+    "live Windows/game race/timing parity"
+  ],
+  "next_task": "K17 — Daily integrated runtime/parity closure matrix and Phase-K handoff"
+}
