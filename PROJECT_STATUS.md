@@ -328,7 +328,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K06 — VERIFIED_PUNISH_COMBAT_MONOTONIC_DURATION_AUTOTRAIN_FAILSOFT_DRIFT160_AND_MOVEMENT_HELPER_BOUNDARY
 - K07 — VERIFIED_DAILY_PUNISH_HEAL_RESPAWN_AND_RECONNECT_RECOVERY
 - K08 — VERIFIED_DAILY_PUNISH_DISCARD_RUN_SCOPED_PARALLEL_PER_ACCOUNT_PACKET4
-- K09 — NEXT
+- K09 — VERIFIED_TRUNG_AC_INTEGRATED_LIFECYCLE_FAILURE_MATRIX_AND_STATIC_HANDOFF
+- K10 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -346,5 +347,7 @@ K07 locks Daily-specific Trừng Ác recovery without importing Farm semantics. 
 
 K08 locks the Trừng Ác equipment-discard subsystem as a separate run-scoped background worker rather than a per-cycle step. The persisted checkbox defaults OFF and, when armed, starts only when Trừng Ác accounts are running; it stops immediately on untick and can re-arm on a later run. The worker scopes to current running/non-disconnected Trừng Ác HWNDs, fans out one child thread per eligible account, and uses per-account `inflight` protection so slow passes do not overlap. Each child calls `bag_filter.discard_for_activity(activity="daily", keys=["discard_equip"], ... )`; the preset intentionally covers both non-weapon equipment and weapons. Shared bag filtering is Site-10, rule-AND/rules-OR, dbID-deduped, protect-list-first, weapon-protected by default unless explicitly enabled, and degrades to weapon-ID-only behavior when non-weapon metadata is missing. Discard sends internal packet command 100005 action 4 (`4:<dbID>`) and removes the full stack; pacing is 1 second per account with stop-aware early termination and lower-level per-HWND send locks. `DAILY_DISCARD_POLL` exists but its numeric value remains UNKNOWN. Packaged runtime logs contain 22,734 generic action=4 records but no Daily/K08-correlated discard trace.
 
+K09 closes the Trừng Ác static handoff by integrating K03-K08 into one lifecycle/failure matrix. It distinguishes control stops, terminal-current-account conditions, current-cycle skips, next-cycle recoveries, fail-soft/log-only paths, and recoverable death/disconnect interrupts. The two orchestration modes remain separate: activity-wide `_punish_run_worker` with `_punish_cancel` and start-time selection/PID snapshot versus per-row `_punish_single_worker` with row Event + generation guard. No blocking contradiction was found. Two apparent conflicts were resolved as layered state rather than contradictions: UI combat-duration seed 15 versus `_load_config` missing-key fallback `"5"`, and B08 current recovery-checkbox state versus missing-key fallbacks. All top-level Trừng Ác handlers in K01 are now accounted for; `_punish_target_fail` is tracking state and `_punish_monitor_stops` is nested recovery logic. `_wait_movement_stopped` remains explicitly outside the Trừng Ác flow because its recovered Daily call is in Tàng Bảo Đồ. Trừng Ác is therefore static-handoff-complete, while end-to-end runtime parity still requires a live Windows/game environment.
+
 ## Phase K current
-K09 — Trừng Ác integrated lifecycle / failure matrix / static handoff audit.
+K10 — Tàng Bảo Đồ configuration / selection / top-level run-loop contract audit.
