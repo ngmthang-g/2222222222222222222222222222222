@@ -329,7 +329,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K07 — VERIFIED_DAILY_PUNISH_HEAL_RESPAWN_AND_RECONNECT_RECOVERY
 - K08 — VERIFIED_DAILY_PUNISH_DISCARD_RUN_SCOPED_PARALLEL_PER_ACCOUNT_PACKET4
 - K09 — VERIFIED_TRUNG_AC_INTEGRATED_LIFECYCLE_FAILURE_MATRIX_AND_STATIC_HANDOFF
-- K10 — NEXT
+- K10 — VERIFIED_TREASURE_CONFIG_SELECTION_BATCH_SINGLE_TOPLEVEL_LOOP_AND_RECOVERY_SHELL
+- K11 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -349,5 +350,7 @@ K08 locks the Trừng Ác equipment-discard subsystem as a separate run-scoped b
 
 K09 closes the Trừng Ác static handoff by integrating K03-K08 into one lifecycle/failure matrix. It distinguishes control stops, terminal-current-account conditions, current-cycle skips, next-cycle recoveries, fail-soft/log-only paths, and recoverable death/disconnect interrupts. The two orchestration modes remain separate: activity-wide `_punish_run_worker` with `_punish_cancel` and start-time selection/PID snapshot versus per-row `_punish_single_worker` with row Event + generation guard. No blocking contradiction was found. Two apparent conflicts were resolved as layered state rather than contradictions: UI combat-duration seed 15 versus `_load_config` missing-key fallback `"5"`, and B08 current recovery-checkbox state versus missing-key fallbacks. All top-level Trừng Ác handlers in K01 are now accounted for; `_punish_target_fail` is tracking state and `_punish_monitor_stops` is nested recovery logic. `_wait_movement_stopped` remains explicitly outside the Trừng Ác flow because its recovered Daily call is in Tàng Bảo Đồ. Trừng Ác is therefore static-handoff-complete, while end-to-end runtime parity still requires a live Windows/game environment.
 
+K10 opens the Tàng Bảo Đồ branch at the top-level shell only. It locks the visible/config surface (tomb duration 30, post-dig HP<30 heal, treatment-map selector, reconnect, respawn), exact missing-key fallbacks, and the four treatment-map coordinates. Apply-all is configuration-only: it sets every current row activity to `Tàng bảo đồ`. The activity-wide path is `_treasure_start_worker -> _treasure_map_toggle -> _treasure_map_run_worker`; the batch worker owns `tomb_dur`, `selected`, `selected_pids`, `loop_idx`, live/still-active filtering, halt/respawn state and child threads. Exact no-selection/no-live/all-stopped logs plus `[TÀNG BẢO ĐỒ] Lần ...` prove an open-ended batch loop with no user repeat-count config. The K02 row/bottom coordinator remains a separate `_treasure_single_worker` path with row generation identity, `respawn_event`, reconnect/cache-ready recovery surfaces and direct `_treasure_map_exec_sequence` call. K10 also locks only the top-level reconnect/death shell and the exact idle reset tuple `Tàng bảo đồ / RoyalBlue / normal`; treasure item/bag/mount/map96/combat/heal internals are deferred to K11+.
+
 ## Phase K current
-K10 — Tàng Bảo Đồ configuration / selection / top-level run-loop contract audit.
+K11 — Tàng Bảo Đồ bag/item detection and treasure-map activation audit.
