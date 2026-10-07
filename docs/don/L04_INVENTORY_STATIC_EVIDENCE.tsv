@@ -1,0 +1,60 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; 1050 ZIP entries; CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+donvang_module	0x2920bc1	VERIFIED_STATIC_DECODE	.donvang_tab size65260 constants1813 exact-end decode
+bagfilter_module	0x28d5db3	VERIFIED_STATIC_DECODE	.bag_filter size5162 constants145
+memoryitems_module	0x2b69c5f	VERIFIED_STATIC_DECODE	.memory_items size47850 constants895
+ui_pickup_var	0x29216ba	VERIFIED_VISIBLE_STATIC	pickup_no_cankhon_var
+ui_pickup_label	0x29216d1	VERIFIED_VISIBLE_STATIC	Nhặt đồ không dùng hồ lô (càn khôn hồ)
+ui_keep_default_ref	0x2921732	VERIFIED_VISIBLE_STATIC	DONVANG_KEEP_DEFAULT
+ui_keep_var	0x2921748	VERIFIED_VISIBLE_STATIC	pickup_mode_var
+ui_keep_labels_ref	0x2921759	VERIFIED_VISIBLE_STATIC	DONVANG_KEEP_LABELS
+keep_modes	0x292cf5f	VERIFIED_STATIC_DECODE	DONVANG_KEEP_MODES=(all,weapons)
+keep_labels	0x292cf6f	VERIFIED_STATIC_DECODE	all->Tất cả; weapons->Chỉ vũ khí
+keep_mapping	0x292cf9f	VERIFIED_STATIC_DECODE	all->[]; weapons->[discard_nonweapon]
+keep_default	0x292cfc6	VERIFIED_STATIC_DECODE	DONVANG_KEEP_DEFAULT=all
+config_pickup_no_cankhon	0x292c6fa	VERIFIED_PERSISTENCE	pickup_no_cankhon
+config_pickup_mode	0x292c716	VERIFIED_PERSISTENCE	pickup_mode
+config_keep_validation	0x292c951	VERIFIED_PERSISTENCE	DONVANG_KEEP_MODES load validation surface
+get_preset_symbol	0x292887f	VERIFIED_STATIC	DONVANG_KEEP_PRESET_KEYS
+get_preset_doc	0x2928899	VERIFIED_STATIC_UTF8	Radio Nhặt đồ -> preset keys bag_filter(train); [] = không vứt gì
+filter_module	0x2928936	VERIFIED_STATIC	bag_filter
+filter_state	0x292894c	VERIFIED_STATIC	Đang lọc đồ
+filter_worker	0x292895f	VERIFIED_STATIC	discard_for_activity
+filter_activity	0x2928975	VERIFIED_STATIC	train
+filter_kwargs	0x292897c	VERIFIED_STATIC_DECODE	(keys,stop_check) only
+filter_error	0x2928990	VERIFIED_STATIC	[DonVang] hwnd=... lọc lỗi
+filter_bag_read	0x29289f0	VERIFIED_STATIC	get_bag
+filter_slots	0x29289f9	VERIFIED_STATIC_DECODE	(slots,0)
+filter_doc	0x2928a11	VERIFIED_STATIC_UTF8	pre-Dồn train preset filter; slots_after int or None; purple state then conditional restore
+pickup_delay	0x2928b72	VERIFIED_STATIC_DECODE	default tuple (5,)
+pickup_setter	0x2928b7e	VERIFIED_STATIC	set_auto_fields
+pickup_setting	0x2928b8f	VERIFIED_STATIC_DECODE	{(PICKITEM,IsOn,bool):True}
+pickup_doc	0x2928baa	VERIFIED_STATIC_UTF8	sleep 5s then hidden PICKITEM.IsOn=true; old manual clicks removed
+bag_slots_doc	0x2928d6a	VERIFIED_STATIC_UTF8	occupied Site10 slots; None on read error and keep old displayed value
+full_modes	0x292a9e1	VERIFIED_STATIC_DECODE	(full_bag_timer,full_bag)
+full_callback	0x292a9fd	VERIFIED_STATIC	stop_bag_check
+full_callback_qualname	0x292aa0d	VERIFIED_STATIC	DonVangTab._farm_cycle.<locals>.stop_bag_check
+full_callback_default	0x292aa3d	VERIFIED_STATIC_DECODE	(3,) exact nested callback default; not slot threshold
+full_threshold_98	0x292aa41	STRONG_STATIC_BINDING	98 in exact full-bag constant region
+full_threshold_100	0x292aa43	STRONG_STATIC_BINDING	100 in exact full-bag constant region
+full_threshold_policy	-	STRONG_STATIC_SEMANTIC	no_cankhon/threshold and _nc/_th local pairs bind hidden pickup ON->98 occupied slots; OFF->100
+full_log	0x292aa45	VERIFIED_STATIC	[DEBUG] ĐẦY túi (memory ... ô) -> dồn
+full_helper	0x292aa74	VERIFIED_STATIC	is_full_bag
+full_filter_call	0x292aa81	VERIFIED_STATIC	_filter_before_don
+full_freed_log	0x292aa95	VERIFIED_STATIC	đầy túi nhưng lọc còn chỗ (...) ô) -> ở lại, chờ vòng sau
+full_still_log	0x292aae2	VERIFIED_STATIC	lọc xong vẫn đầy (...)
+farm_cycle_locals	0x292efe0	VERIFIED_STATIC_MAPPING	contains condition,is_full_bag,stop_bag_check,MI,no_cankhon,threshold,bag,slots,_nc,_th,_after,loop_minutes,elapsed,sleep_time
+filter_locals	0x292f144	VERIFIED_STATIC_MAPPING	self,hwnd,stop_check,keys,BF,row,prev,res,e,_,MI,_bag,slots
+state_style	0x292cfcb	VERIFIED_STATIC_DECODE	Đang lọc đồ -> fg #8e24aa
+shared_filter_empty	0x28d648f	VERIFIED_SHARED_STATIC	keys None/[] -> no discard
+shared_filter_engine	0x28d6532	VERIFIED_SHARED_STATIC	OR merge; dbID dedupe; packet100005 payload4:dbID
+shared_filter_weapon_rule	0x28d6ee4	VERIFIED_SHARED_STATIC	discard_weapons is explicit match_weapons=True; Dồn mapping does not select it
+shared_filter_defaults	0x28d7032	VERIFIED_SHARED_STATIC_DECODE	keys=None,extra_rules=None,delay=1.0,stop_check=None,on_progress=None,dry_run=False
+screenshot_don	-	CROSSCHECKED_AFTER_STATIC	dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a; pickup unchecked; Tất cả selected; only two keep radios
+captured_effective_threshold	-	DERIVED_FROM_VERIFIED_STATIC	pickup OFF + all -> threshold100 and no pre-Dồn discard
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500; 387238 lines
+runtime_don_l04_markers	-	NOT_RECOVERED	0 correlated DonVang/full-bag/filter/PICKITEM/IsOn/Đang lọc đồ markers
+runtime_action4	-	RUNTIME_PRIMITIVE_ONLY	22734 raw action=4 occurrences; not attributable to Dồn
+callback_default3_semantic	-	EXPLICIT_UNKNOWN	3 is exact nested callback default, but constants do not safely expose parameter name or debounce/confirmation micro-order
+classification	-	STATIC_VERIFIED_RUNTIME_ENV_REQUIRED	live full-bag/filter parity requires Windows + game

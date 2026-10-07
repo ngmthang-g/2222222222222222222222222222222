@@ -1,0 +1,95 @@
+{
+  "task": "L04",
+  "status": "VERIFIED_DON_SITE10_98_100_FULL_BAG_THRESHOLD_TWO_MODE_FILTER_RECHECK_AND_HIDDEN_PICKITEM_STATIC_RUNTIME_ENV_REQUIRED",
+  "authority": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "zip_entries": 1050,
+    "zip_crc_clean": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "donvang_module": {"marker":"0x2920bc1","size_bytes":65260,"constant_count":1813},
+    "bag_filter_module": {"marker":"0x28d5db3","size_bytes":5162,"constant_count":145},
+    "memory_items_module": {"marker":"0x2b69c5f","size_bytes":47850,"constant_count":895}
+  },
+  "bag_metric": {
+    "helper": "DonVangTab._get_bag_slots",
+    "site": 10,
+    "field": "slots",
+    "meaning": "occupied Site-10 slots",
+    "read_failure": null,
+    "ui_failure_behavior": "keep previous displayed bag value"
+  },
+  "keep_policy": {
+    "modes": ["all","weapons"],
+    "labels": {"all":"Tất cả","weapons":"Chỉ vũ khí"},
+    "default": "all",
+    "preset_mapping": {"all":[],"weapons":["discard_nonweapon"]},
+    "no_none_mode": true,
+    "discard_weapons_opt_in": false
+  },
+  "pickup_no_cankhon": {
+    "ui_key": "pickup_no_cankhon",
+    "helper": "_pickup_no_cankhon",
+    "delay_seconds": 5,
+    "hidden_setter": "memory_items.set_auto_fields",
+    "setting": {"section":"PICKITEM","key":"IsOn","type":"bool","value":true},
+    "manual_ui_click_sequence": false,
+    "recurring_5s_polling": "NOT_RECOVERED"
+  },
+  "full_bag": {
+    "conditions": ["full_bag_timer","full_bag"],
+    "metric": "occupied Site-10 slots",
+    "threshold_policy": {"pickup_no_cankhon_true":98,"pickup_no_cankhon_false":100},
+    "threshold_binding_strength": "STRONG_STATIC_BINDING_FROM_EXACT_CONSTANT_REGION_AND_LOCAL_PAIRS",
+    "callback": "stop_bag_check",
+    "callback_default_tuple": [3],
+    "callback_default_exact_parameter_semantic": "UNKNOWN_DO_NOT_CALL_3_SAMPLE_PROVEN",
+    "pre_don_filter": "_filter_before_don",
+    "post_filter": {
+      "integer_below_current_threshold": "stay at farm; wait later cycle",
+      "integer_at_or_above_threshold": "continue Dồn/return boundary",
+      "null": "do not fabricate free space; existing full-bag transition remains"
+    }
+  },
+  "filter_before_don": {
+    "preset_source": "get_pickup_preset_keys",
+    "activity": "train",
+    "worker": "bag_filter.discard_for_activity",
+    "explicit_kwargs": ["keys","stop_check"],
+    "temporary_state": "Đang lọc đồ",
+    "temporary_state_color": "#8e24aa",
+    "result": {
+      "integer": "post-filter occupied Site-10 slot count",
+      "null": "all/no-filter or error/cancel/unusable read"
+    },
+    "restore_previous_state_only_if_unchanged": true
+  },
+  "shared_bag_filter": {
+    "inherited_delay_seconds": 1.0,
+    "empty_keys": "no scan/no packet/no discard",
+    "rule_merge": "OR",
+    "target_dedupe": "dbID",
+    "discard_packet": {"opcode":100005,"action":4,"payload":"4:<dbID>","scope":"whole stack represented by dbID"},
+    "cancellation": "stop_check"
+  },
+  "captured_state": {
+    "screenshot_sha256": "dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a",
+    "pickup_no_cankhon_checked": false,
+    "keep_mode": "all",
+    "effective_full_threshold": 100,
+    "pre_don_filter_keys": []
+  },
+  "runtime": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "line_count": 387238,
+    "correlated_don_l04_markers": 0,
+    "raw_action4_count": 22734,
+    "classification": "STATIC_VERIFIED_LIVE_RUNTIME_ENV_REQUIRED"
+  },
+  "unknowns": [
+    "exact semantic name and debounce/confirmation micro-order of stop_bag_check default value 3",
+    "live memory propagation timing after discard",
+    "live end-to-end Dồn full-bag parity"
+  ],
+  "next_task": "L05 — Dồn coordinates audit"
+}
