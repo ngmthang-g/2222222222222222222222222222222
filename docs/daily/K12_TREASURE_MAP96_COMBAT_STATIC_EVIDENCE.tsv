@@ -1,0 +1,44 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901 CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_DECODE	.daily_tab size35163 count1186 exact end marker
+exec_defaults	0x290aa21	VERIFIED_STATIC_DECODE	_treasure_map_exec_sequence defaults (5,None,None,None); maps to tomb_dur=5 then halt/respawn_event/stop_event optional defaults by arg/local order
+exec_locals	0x290b8e8	VERIFIED_STATIC_MAPPING	self,hwnd,tomb_dur,halt,respawn_event,stop_event,hard_stop,stop,ci_hp,hp_pct,ci,found
+worker_duration_surface	0x2908edb	VERIFIED_STATIC_UTF8	activity worker logs configured tomb combat duration and owns local tomb_dur; production worker path passes configured duration
+map96_log	0x2909600	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] MapID=96 (huyệt mộ) → đánh <tomb_dur>...
+tomb_state	0x290963b	VERIFIED_STATIC_UTF8	Đánh trong mộ
+tomb_click_surface_1	0x290964e	VERIFIED_STATIC_DECODE	(1135,124)
+tomb_click_surface_2	0x2909655	VERIFIED_STATIC_DECODE	(955,123)
+tomb_click_semantics	-	EXPLICIT_UNKNOWN	Both fixed HWND-click coordinates are serialized in the map96/tomb-combat block; exact per-click button meaning/order relative to dwell is not independently source-line-bound
+duration_semantics	-	VERIFIED_STATIC_SEMANTIC	tomb_dur is seconds for this one tomb-combat stage, not repeat count; no treasure repeat config exists
+duration_timing_primitive	-	EXPLICIT_UNKNOWN	Unlike Trừng Ác K06, treasure exec locals contain no _t_end and no treasure-local monotonic reference; exact sleep/Event.wait/interruptible timing primitive is not safely bound
+move_log	0x290965c	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Di chuyển đến map 96, tọa độ (50, 16)
+move_state	0x29096a5	VERIFIED_STATIC_UTF8	Đi huyệt mộ
+move_x_px	0x29096b7	VERIFIED_STATIC_DECODE	1600 = 50*32
+move_y_px	0x29096ba	VERIFIED_STATIC_DECODE	512 = 16*32
+move_kwargs	0x29096bd	VERIFIED_STATIC_DECODE	(map_id,x_tile,y_tile,wait_for_arrival,stop_check)
+move_helper	0x2905443	VERIFIED_SHARED_STATIC	Daily imports/uses utils.move_character
+move_helper_defaults	0x2c537e3	VERIFIED_SHARED_STATIC_DECODE	move_character optional defaults (wait_for_arrival=False, stop_check=None, home_priority=None, follow_mode=False, tolerance=48)
+move_target_semantic	-	VERIFIED_STATIC_SEMANTIC	K12 branch targets map96/tile(50,16); x/y passed to move_character are pixel units 1600/512
+move_wait_for_arrival_value	-	STRONG_STATIC_NOT_INSTRUCTION_BOUND	wait_for_arrival keyword is explicitly passed in the K12 call; exact Boolean value is not separately serialized/native-bound in this audit
+move_failure_caller_effect	-	EXPLICIT_UNKNOWN	No K12-specific move failure log/return branch is recovered before common.active/MapID outcome checks
+active_wait_log	0x29096f5	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Chờ common.active...
+active_wait_key	0x2906aea	VERIFIED_STATIC_DECODE	(common,active) shared Daily tuple reused by wait_pixel calls
+active_wait_kwargs	0x2909725	VERIFIED_STATIC_DECODE	(window_hwnd,timeout,debug,cancel_flag)
+common_active_pixel	0x2b97b3e	VERIFIED_PIXEL_DATA	common.active=(1330,33) RGB(34,8,11) configured timeout100 tolerance5
+wait_pixel_doc	0x2b95e28	VERIFIED_SHARED_STATIC_UTF8	wait until configured pixel appears; True before timeout else False; cancel_flag abort supported
+active_wait_override_timeout	-	EXPLICIT_UNKNOWN	K12 explicitly passes timeout but numeric override is not independently instruction-bound; do not assume pixel_data 100
+active_wait_false_effect	-	EXPLICIT_UNKNOWN	No distinct K12 failure text binds exact caller action when common.active wait returns False
+post_wait_mapid_prefix	0x2909751	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] MapID=
+non96_log	0x290976f	VERIFIED_STATIC_UTF8	— không phải huyệt mộ, bỏ qua
+non96_classification	-	VERIFIED_STATIC_SCOPE	Not a terminal-account dừng surface; skips tomb outcome/combat path and reaches immediate final-heal/cycle-tail boundary
+final_heal_check	0x290979a	VERIFIED_STATIC_UTF8	% — kiểm tra trị liệu
+final_heal_failure	0x29097b9	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Heal cuối vòng thất bại
+treasure_heal_helper	0x2909232	VERIFIED_STATIC	_treasure_heal reused by Treasure low-HP treatment subsystem
+final_heal_condition	-	STRONG_STATIC_K10_K12	Treasure heal toggle + HP<30 boundary; selected heal-map/helper internals are deferred to K13
+cycle_end_prefix	0x29097f1	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] === HWND
+shared_cycle_end	0x290791c	VERIFIED_SHARED_STATIC_UTF8	— Kết thúc === reused cycle-tail text
+normal_return_scalar	-	EXPLICIT_UNKNOWN	Exact Python success return scalar of treasure exec remains not instruction-bound
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_k12_markers	-	NOT_RECOVERED	0 MapID=96, 0 Đánh trong mộ, 0 Đi huyệt mộ, 0 common.active Treasure wait, 0 map96/tile50,16 correlated lines in packaged automove_log
+b08_scope	-	CROSSCHECKED_FROZEN_B08	B08 confirms configured tomb duration30 and idle Treasure controls only; no map96/combat runtime state
