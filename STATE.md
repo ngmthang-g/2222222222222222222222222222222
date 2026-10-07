@@ -3024,3 +3024,19 @@ On CONTINUE:
 - All four K08 artifacts were fetched back successfully after commit.
 - Therefore K08 introduced no code/build regression. Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED** rather than PASS/FAIL.
 
+## K09 STATIC HANDOFF MILESTONE — IN PROGRESS
+- GitHub-first continuity check passed: no pre-existing K09 artifact/completion commit existed; K03-K08 were already closed and were not re-researched from scratch.
+- Exact frozen TLMTool_2.1.2(7).zip was revalidated again: archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, inner EXE SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22.
+- The exact .daily_tab blob was re-decoded and K03-K08 evidence was integrated into one lifecycle/failure model.
+- No blocking contradiction was found across K03-K08.
+- Important layering resolution: UI construction seed for Trừng Ác combat duration is 15, while _load_config missing-key fallback is "5". These are distinct static layers, not a contradiction; do not collapse them into one universal default.
+- Important state-layer resolution: B08 captured heal/reconnect/respawn checkbox values are saved/current UI state, while missing-key config fallbacks are separate; no contradiction.
+- Important scope resolution: Daily reconnect remains bounded/Daily-specific and must not inherit Train/TrainLSV five-attempt infinite retry semantics.
+- Important helper boundary remains unchanged: _wait_movement_stopped is audited but the explicit recovered Daily call belongs to Tàng Bảo Đồ, not Trừng Ác.
+- Integrated failure classes are now frozen: terminal-current-account, skip-current-cycle, recover-next-cycle, fail-soft/log-only, recoverable interrupt, external/control stop, and explicit UNKNOWN effect.
+- Top-level Trừng Ác callable coverage is complete against K01_HANDLER_INVENTORY.tsv; no unaccounted top-level Trừng Ác handler remains. _punish_target_fail is a tracking surface, not a top-level handler; _punish_monitor_stops is a nested activity-wide recovery surface.
+- First K09 artifacts committed:
+  - docs/daily/K09_PUNISH_HANDOFF_STATIC_EVIDENCE.tsv at 0c324523d57543b6d71ac9d44ec9f71ed005e036
+  - docs/daily/K09_PUNISH_HANDOFF_MODEL.json at a45e98b6dfc69b6d3b3393aef3bd4aa6b27318da
+- K09 remains IN_PROGRESS until the integrated flow/task docs, repository/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
+
