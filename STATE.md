@@ -3350,3 +3350,74 @@ On CONTINUE:
 - B08 was cross-checked only after static extraction and shows configured duration30/idle controls, not map96 runtime behavior.
 - First K12 artifact committed: docs/daily/K12_TREASURE_MAP96_COMBAT_STATIC_EVIDENCE.tsv at commit e8f51327bf6a1f0b8c2da91b36c9f759288269de.
 - K12 remains IN_PROGRESS until model/flow/task docs, code/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
+## K12 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K12 artifact/completion commit existed; K01-K11 remained unchanged.
+- Exact TLMTool_2.1.2(7).zip was revalidated before K12: SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, CRC clean. Inner TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact .daily_tab constants blob was decoded again as **35,163 bytes / 1,186 constants**, exact end marker.
+- _treasure_map_exec_sequence hidden helper defaults are exactly **(5,None,None,None)** after required self/hwnd. By recovered arg/local order, direct helper fallback is tomb_dur=5, halt=None, respawn_event=None, stop_event=None.
+- K10's production UI/config layer remains **30 seconds** and the workers own/pass configured tomb_dur. The 5-second helper fallback and 30-second normal worker value are separate layers, not a contradiction.
+- Exact map96/tomb text is [Tàng bảo đồ] MapID=96 (huyệt mộ) → đánh <tomb_dur>... and exact state is Đánh trong mộ.
+- tomb_dur is a per-tomb combat duration in seconds, not a repeat count. No Treasure repeat-count config exists.
+- Unlike K06 Trừng Ác, Treasure exec has no recovered _t_end local and no Treasure-local monotonic reference. Exact duration timing primitive remains **EXPLICIT_UNKNOWN**; do not copy K06's monotonic implementation.
+- Exact fixed click coordinates **(1135,124)** and **(955,123)** are serialized inside the tomb-combat block. Their exact button labels/order relative to the duration wait remain UNKNOWN.
+- Exact movement surface is [Tàng bảo đồ] Di chuyển đến map 96, tọa độ (50, 16), state Đi huyệt mộ, with move values **1600/512 = tile50/16 × 32**.
+- Exact K12 move keyword surface is map_id/x_tile/y_tile/wait_for_arrival/stop_check, using shared utils.move_character.
+- Shared move_character optional defaults are exact: wait_for_arrival=False, stop_check=None, home_priority=None, follow_mode=False, tolerance=48. K12 explicitly passes wait_for_arrival and stop_check, but the exact Boolean value passed for wait_for_arrival is not independently instruction-bound.
+- No K12-specific movement-failure message is recovered before later active/MapID checks; exact caller handling of move_character=False remains UNKNOWN.
+- Exact common.active boundary is [Tàng bảo đồ] Chờ common.active... with wait_pixel kwargs window_hwnd/timeout/debug/cancel_flag.
+- Frozen common.active pixel is **(1330,33)** RGB **(34,8,11)**, configured timeout100, tolerance5. Because K12 explicitly supplies timeout, the effective call timeout is not assumed to be 100; numeric override remains UNKNOWN.
+- Shared wait_pixel contract is True if pixel appears before timeout, False on timeout/cancel. Exact K12 branch on False remains UNKNOWN.
+- Exact post-wait non-tomb text is [Tàng bảo đồ] MapID=<...> — không phải huyệt mộ, bỏ qua. This is **not** an account-terminal dừng surface; K12 classifies it as SKIP_TOMB_OUTCOME / NOT_ACCOUNT_TERMINAL.
+- Immediate final-heal boundary is exact: % — kiểm tra trị liệu plus [Tàng bảo đồ] Heal cuối vòng thất bại, reusing _treasure_heal. Deep Treasure healing internals remain K13.
+- Final-heal failure is fail-soft/log-only at the cycle tail; no independent terminal account-stop surface is attached.
+- Treasure normal tail owns [Tàng bảo đồ] === HWND plus shared — Kết thúc === and returns to the K10 worker/session shell. Exact success return scalar remains UNKNOWN.
+- Packaged automove_log SHA-256 remains 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, **15,741,058 bytes / 387,238 lines**. Correlated K12 counts are all **0** for MapID=96, Đánh trong mộ, Đi huyệt mộ, Chờ common.active, tile(50,16), and huyệt mộ.
+- B08 was cross-checked only after static extraction and provides only configured duration30/idle Treasure controls, not K12 runtime behavior.
+- K12 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- K12 artifacts:
+  - docs/daily/K12_TREASURE_MAP96_COMBAT_STATIC_EVIDENCE.tsv — commit e8f51327bf6a1f0b8c2da91b36c9f759288269de
+  - docs/daily/K12_TREASURE_MAP96_COMBAT_MODEL.json — commit 933830b9fe8d83e93a824db2090fa2013a36d63e
+  - docs/daily/K12_TREASURE_MAP96_COMBAT_FLOW.md — commit 90d18e899ffe3a8824437b15537a3c60af28008f
+  - docs/tasks/K12.md — commit ce64189f9bebfbeeaccb4dd845ed26d8e7d3983a
+- PROJECT_STATUS.md advanced K12 -> VERIFIED and K13 -> NEXT at commit 4716fee3abaee1dbc6e6a06cf99bf27a16ab98d5.
+
+## POST-K12 CODE/BUILD RECHECK
+- Current main tree after K12 status update: **598 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K12 artifacts were fetched back successfully.
+- K12 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- End-to-end Treasure map96/combat parity still requires a real Windows + live Thần Long runtime.
+- Reconstructed product build is still not applicable before Stage S because there is no app source/build target.
+- No known static blocker for K13.
+
+## DO_NOT_TOUCH
+- Preserve K01-K12 contracts unchanged unless exact new evidence exposes a real contradiction.
+- Preserve the two Treasure duration layers: production UI/config 30 and direct exec helper fallback 5.
+- Preserve tomb_dur as seconds, not run count.
+- Do not copy the Trừng Ác monotonic timer into Treasure without direct evidence.
+- Preserve exact fixed combat coordinates without inventing button labels/order.
+- Preserve map96 tile(50,16) / move values1600/512 and the common.active wait boundary.
+- Do not assume common.active effective timeout=100 because K12 passes an explicit override.
+- Preserve non-96 as non-terminal skip of the tomb outcome.
+- Preserve final-heal failure as fail-soft/log-only.
+- Keep all unresolved move/wait/timer microeffects UNKNOWN.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K13 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K13 — Tàng Bảo Đồ heal / reconnect / respawn recovery audit** only.
+5. Re-inspect the exact frozen original EXE first.
+6. Audit _treasure_heal, _treasure_map_disconnect_monitor, the Treasure activity-wide reconnect shell, per-row reconnect/cache-ready handoff, respawn/death-event integration, and how successful recovery returns to the next Treasure cycle.
+7. Resolve the Treasure-specific reconnect timeout numeric only if independently bound; do not copy Trừng Ác values by analogy.
+8. Preserve K10-K12 top-level/activation/map96 contracts unchanged.
+9. Cross-check B08/runtime only after static extraction.
+10. Persist K13 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after K13 verification.
