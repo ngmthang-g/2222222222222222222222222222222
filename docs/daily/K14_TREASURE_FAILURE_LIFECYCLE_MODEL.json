@@ -1,0 +1,216 @@
+{
+  "task": "K14",
+  "status": "VERIFIED_TREASURE_SKIPPED_ACCOUNT_STOP_RESET_AND_FAILURE_LIFECYCLE_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_blob": {
+      "marker": "0x2903223",
+      "size_bytes": 35163,
+      "top_level_constants": 1186
+    }
+  },
+  "ownership": {
+    "activity_running": "_treasure_map_running",
+    "activity_cancel": "_treasure_map_cancel",
+    "activity_button": "_treasure_map_btn",
+    "skipped_set": "_treasure_map_skipped",
+    "reset_helper": "_treasure_map_reset_ui",
+    "global_monitor": "_daily_all_monitor",
+    "starttab_sync": "_sync_start_tab_btns"
+  },
+  "skipped_account": {
+    "field": "_treasure_map_skipped",
+    "exact_field_ownership": true,
+    "terminal_sources": [
+      "first tuido.tangBaoDo_multi not found",
+      "second tuido.tangBaoDo_multi not found"
+    ],
+    "movement_wait_surface": {
+      "helper": "_wait_movement_stopped",
+      "keyword": "skip_set",
+      "binding_to_treasure_skipped": "STRONG_STATIC_NOT_LINE_BY_LINE"
+    },
+    "batch_surface": {
+      "locals": [
+        "selected",
+        "selected_pids",
+        "alive",
+        "still_active"
+      ],
+      "role": "terminally skipped Treasure HWNDs are persistently excluded from later still_active work within the current batch",
+      "proof_level": "STRONG_STATIC"
+    },
+    "exact_mutation_order": "EXPLICIT_UNKNOWN",
+    "exact_clear_boundary": "EXPLICIT_UNKNOWN"
+  },
+  "failure_matrix": [
+    {
+      "event": "no Treasure rows selected at activity start",
+      "class": "BATCH_NOOP",
+      "outcome": "bỏ qua"
+    },
+    {
+      "event": "no selected row remains live",
+      "class": "BATCH_TERMINAL",
+      "outcome": "dừng activity worker"
+    },
+    {
+      "event": "all selected rows are stopped/skipped/ineligible",
+      "class": "BATCH_TERMINAL",
+      "outcome": "auto-stop activity worker"
+    },
+    {
+      "event": "first treasure-map recognition not found",
+      "class": "TERMINAL_CURRENT_TREASURE_ACCOUNT",
+      "outcome": "exclude affected account from active Treasure work"
+    },
+    {
+      "event": "second treasure-map recognition not found",
+      "class": "TERMINAL_CURRENT_TREASURE_ACCOUNT",
+      "outcome": "exclude affected account from active Treasure work"
+    },
+    {
+      "event": "start-of-cycle heal fails",
+      "class": "SKIP_CURRENT_CYCLE",
+      "outcome": "account/session remains eligible for later cycle"
+    },
+    {
+      "event": "post-wait MapID != 96",
+      "class": "SKIP_TOMB_OUTCOME",
+      "outcome": "not terminal; continue to final-heal/cycle tail"
+    },
+    {
+      "event": "final heal fails",
+      "class": "FAIL_SOFT_LOG_ONLY",
+      "outcome": "cycle tail continues"
+    },
+    {
+      "event": "disconnect recovered",
+      "class": "RECOVERABLE_INTERRUPT",
+      "outcome": "continue Treasure session"
+    },
+    {
+      "event": "disconnect recovery timeout",
+      "class": "TERMINAL_AFFECTED_RECOVERY_PATH",
+      "outcome": "dừng"
+    },
+    {
+      "event": "death / Map87",
+      "class": "RECOVERABLE_INTERRUPT",
+      "outcome": "respawn_event -> next cycle clear -> heal/move away"
+    },
+    {
+      "event": "activity user cancel",
+      "class": "CONTROL_STOP",
+      "outcome": "cancel(batch-tàng-bảo-đồ)"
+    },
+    {
+      "event": "per-row stop Event",
+      "class": "CONTROL_STOP",
+      "outcome": "stop_event(dừng)"
+    },
+    {
+      "event": "row generation changes",
+      "class": "CONTROL_STOP",
+      "outcome": "gen(phiên-mới)"
+    },
+    {
+      "event": "window/PID invalidated",
+      "class": "CONTROL_STOP",
+      "outcome": "window-chết/đổi-process"
+    },
+    {
+      "event": "disconnect halt signal",
+      "class": "RECOVERY_STOP_REASON",
+      "outcome": "halt(mất-kết-nối)"
+    },
+    {
+      "event": "respawn signal",
+      "class": "RECOVERY_STOP_REASON",
+      "outcome": "respawn(địa-phủ)"
+    }
+  ],
+  "activity_batch": {
+    "start_snapshot": [
+      "selected",
+      "selected_pids"
+    ],
+    "loop_counter": "loop_idx",
+    "recurring_filters": [
+      "alive",
+      "still_active"
+    ],
+    "no_selection_text": "Chưa acc nào chọn Tàng bảo đồ — bỏ qua",
+    "no_alive_text": "Không còn acc nào sống — dừng",
+    "all_stopped_text": "Tất cả <n> acc đã dừng — tự động dừng",
+    "open_ended": true
+  },
+  "row_session": {
+    "stop_contract": {
+      "bottom_all_account": "set row _farming_acc=False and signal row _stop_event",
+      "generation_guard": "_GenStop causes old worker to stop when row _gen changes",
+      "window_identity": "HWND+PID binding rejects closed/reused process"
+    },
+    "stop_reason_helper": [
+      "cancel(batch-tàng-bảo-đồ)",
+      "halt(mất-kết-nối)",
+      "stop_event(dừng)",
+      "gen(phiên-mới)",
+      "window-chết/đổi-process",
+      "respawn(địa-phủ)",
+      "không-stop(?)"
+    ]
+  },
+  "ui_reset": {
+    "treasure_activity_running": {
+      "text": "Dừng lại",
+      "bg": "FireBrick"
+    },
+    "treasure_activity_stopping": {
+      "text": "Đang dừng...",
+      "state": "disabled"
+    },
+    "treasure_activity_idle": {
+      "text": "Tàng bảo đồ",
+      "bg": "RoyalBlue",
+      "state": "normal"
+    },
+    "bottom_all_running": {
+      "text": "Dừng lại",
+      "bg": "#f44336"
+    },
+    "bottom_all_idle": {
+      "text": "Bắt đầu",
+      "bg": "#388e3c"
+    },
+    "global_monitor": {
+      "singleton": true,
+      "wait_condition": "all per-row Daily sessions have stopped",
+      "reset_helpers": [
+        "_punish_reset_ui",
+        "_treasure_map_reset_ui"
+      ],
+      "log": "[Bắt đầu] Tất cả acc đã dừng — tự động reset UI"
+    },
+    "external_sync": "_sync_start_tab_btns",
+    "exact_teardown_order": "EXPLICIT_UNKNOWN"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "lines": 387238,
+    "bytes": 15741058,
+    "correlated_k14_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact _treasure_map_skipped add/discard/clear source statements",
+    "exact batch-start or reset point where _treasure_map_skipped is cleared",
+    "exact binding expression passed as skip_set to _wait_movement_stopped",
+    "exact order among activity running flag clear, cancel Event set, monitor_stop, child joins, reset helper, and StartTab sync",
+    "exact simultaneous disconnect/death stop-reason precedence",
+    "live Windows/game parity"
+  ],
+  "next_task": "K15 — Tàng Bảo Đồ integrated lifecycle / failure matrix / static handoff audit"
+}
