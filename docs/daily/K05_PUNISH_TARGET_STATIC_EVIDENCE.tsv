@@ -1,0 +1,70 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_payload	0x2903223	VERIFIED_STATIC	.daily_tab
+get_bag_ref	0x290818a	VERIFIED_STATIC	get_bag
+item_symbol	0x290819d	VERIFIED_STATIC	TRUNG_AC_LENH_ITEM_ID
+missing_item_terminal	0x29081d5	VERIFIED_STATIC_UTF8	túi không có Trừng Ác Lệnh → dừng acc
+use_item_ref	0x2908228	VERIFIED_STATIC	use_item
+use_fail_attempt	0x2908267	VERIFIED_STATIC_UTF8	gửi lệnh dùng thất bại lần
+use_fail_total	0x2908288	VERIFIED_STATIC_UTF8	/2
+used_local	0x2908292	VERIFIED_STATIC	_used
+use_exhausted	0x2908299	VERIFIED_STATIC_UTF8	gửi lệnh dùng thất bại → skip vòng
+dialog_target_ref	0x29082b4	VERIFIED_STATIC	get_dialog_target
+use_item_target_ref	0x29082c7	VERIFIED_STATIC	get_use_item_target
+target_local	0x29082e9	VERIFIED_STATIC	target
+no_target	0x29082ff	VERIFIED_STATIC_UTF8	không bóc được tọa độ mục tiêu → hủy NV rồi sang vòng mới
+cancel_quest_ref	0x2908352	VERIFIED_STATIC	_punish_cancel_quest
+target_map	0x2908368	VERIFIED_STATIC	MapID
+target_x	0x2908375	VERIFIED_STATIC	PosX
+target_y	0x290837f	VERIFIED_STATIC	PosY
+target_strange	0x2908389	VERIFIED_STATIC_UTF8	tọa độ mục tiêu lạ:
+target_name_tuple	0x29083c4	VERIFIED_STATIC_DECODE	(TargetName,)
+target_name_fallback	0x29083d3	VERIFIED_STATIC_UTF8	mục tiêu
+travel_log	0x29083dc	VERIFIED_STATIC_UTF8	bay tới ... map=... tile=(...)
+fast_travel_ref	0x29083e8	VERIFIED_STATIC	fast_travel/goto_map region
+goto_map_ref	0x29083f2	VERIFIED_STATIC	goto_map
+travel_tag	0x29083fd	VERIFIED_STATIC_UTF8	TrừngÁc
+goto_kw_names	0x290840a	VERIFIED_STATIC_DECODE	wait_for_arrival/stop_check/tag
+travel_stop	0x2908436	VERIFIED_STATIC_UTF8	bay tới mục tiêu bị stop (...)
+travel_fail	0x290846c	VERIFIED_STATIC_UTF8	bay tới mục tiêu thất bại → skip vòng
+stop_character	0x290848a	VERIFIED_STATIC	stop_character
+target_fail_state	0x2908495	VERIFIED_STATIC	_punish_target_fail state reference
+target_fail_default	0x29084a9	VERIFIED_STATIC_DECODE	(None,0)
+target_stuck_log	0x29084af	VERIFIED_STATIC_UTF8	kẹt ... vòng liên tiếp → hủy NV
+target_state_pop	0x29084dd	VERIFIED_STATIC	pop
+goto_target_doc	0x2908560	VERIFIED_STATIC_UTF8	item40004000; use packet; GameDialog fallback UseItemData; move; false on stop/fail; no item terminal
+item_id_value	0x2909eb7	VERIFIED_STATIC_DECODE	40004000
+goto_target_qualified	0x290a927	VERIFIED_STATIC	DailyTab._punish_goto_target
+goto_target_locals	0x290b32c	VERIFIED_STATIC_MAPPING	self,hwnd,stop,stop_event,halt,respawn_event,GI,bag,rows,e,_used,_att,_,target,dest_map,dest_x,dest_y,label,goto_map,ok,_tkey,_d,_last,_streak
+target_fail_method	-	VERIFIED_ABSENCE	no DailyTab._punish_target_fail qualified method; symbol is tracking state/attribute
+summon_bag_error	0x29086c8	VERIFIED_STATIC_UTF8	đọc túi (gọi quái) lỗi:
+summon_missing_item	0x2908704	VERIFIED_STATIC_UTF8	túi không còn Trừng Ác Lệnh → skip vòng
+summon_reuse_item	0x2908756	VERIFIED_STATIC_UTF8	gọi quái: dùng lại Trừng Ác Lệnh
+summon_use_fail	0x2908790	VERIFIED_STATIC_UTF8	gửi lệnh dùng (gọi quái) thất bại → skip vòng
+summon_use_error	0x29087c3	VERIFIED_STATIC_UTF8	dùng lệnh (gọi quái) lỗi:
+summon_button	0x29087e8	VERIFIED_STATIC_UTF8	Triệu hồi
+summon_missing_button	0x29087f7	VERIFIED_STATIC_UTF8	bảng không có nút Triệu hồi:
+summon_no_dialog	0x2908820	VERIFIED_STATIC_UTF8	không thấy bảng gọi quái → skip vòng
+summon_read_error	0x2908852	VERIFIED_STATIC_UTF8	đọc bảng gọi quái lỗi:
+summon_click_fail	0x2908885	VERIFIED_STATIC_UTF8	bấm Triệu hồi thất bại → skip vòng
+summon_click_error	0x29088b7	VERIFIED_STATIC_UTF8	bấm Triệu hồi lỗi:
+summon_doc	0x29088d5	VERIFIED_STATIC_UTF8	use Trừng Ác Lệnh + button Triệu hồi; expected title Trừng Ác Lệnh; [2] Triệu hồi/[3] Để sau; memory click+close verify
+summon_qualified	0x290a945	VERIFIED_STATIC	DailyTab._punish_summon_target
+summon_locals	0x290b5db	VERIFIED_STATIC_MAPPING	self,hwnd,stop,GI,bag,rows,e,_,btn_text,raw,btext,_bid
+memory_get_bag_doc	0x2b6a8a2	VERIFIED_SHARED_STATIC_UTF8	Site10 bag aggregate/enriched dict or None
+memory_use_item	0x2b6a968	VERIFIED_SHARED_STATIC	ITEM_ACT_USE / use_item
+memory_use_item_doc	0x2b6a976	VERIFIED_SHARED_STATIC_UTF8	use one dbID; packet 100005 "3:dbID"; no GUI
+memory_use_target_query	0x2b6b1a4	VERIFIED_SHARED_STATIC_UTF8	Game.GetDoingTasks + TaskTemplateData.UseItemData ItemID match
+memory_use_target_doc	0x2b6b2ea	VERIFIED_SHARED_STATIC_UTF8	returns MapID/PosX/PosY from UseItemData; example Trừng Ác Lệnh
+memory_dialog_target_doc	0x2b6b6b5	VERIFIED_SHARED_STATIC_UTF8	GameDialog target parser
+memory_dialog_button_lua	0x2b6b7e9	VERIFIED_SHARED_STATIC	find exact button text and call FunctionButtonClicked
+memory_dialog_button_doc	0x2b6b926	VERIFIED_SHARED_STATIC_UTF8	click GameDialog button by text and verify dialog close
+fast_travel_coord_doc	0x2947183	VERIFIED_SHARED_STATIC_UTF8	move_character coordinate convention pixel = tile*32
+fast_travel_wait_doc	0x29471a7	VERIFIED_SHARED_STATIC_UTF8	wait_for_arrival passed through
+fast_travel_stop_doc	0x2947265	VERIFIED_SHARED_STATIC_UTF8	stop_check passed to movement
+fast_travel_return_doc	0x2947550	VERIFIED_SHARED_STATIC_UTF8	returns move_character result when wait_for_arrival=True
+target_fail_threshold	-	EXPLICIT_UNKNOWN	streak semantics proven; numeric threshold not safely bound from printable constants
+daily_tile_conversion	-	EXPLICIT_UNKNOWN	fast_travel requires pixel coords; exact Daily conversion expression not instruction-bound
+b08_k05	-	NOT_APPLICABLE	B08 clean/config screenshot contains no target/summon runtime evidence
+runtime_k05	-	NOT_RECOVERED	no correlated target/use/travel/summon K05 markers in packaged automove_log
