@@ -116,7 +116,7 @@ Phải kiểm tra trong tình huống thật:
 
 Thứ tự tab chính:
 
-`▶ | Login | Party | Train | Train LSV | Phó Bản | Daily | Đồn | Rao | Tối ưu | i`
+`▶ | Login | Party | Train | Train LSV | Phó Bản | Daily | Dồn | Rao | Tối ưu | i`
 
 Không tự ý:
 
@@ -262,8 +262,8 @@ Phải giữ:
 - Xếp lưới
 - điều khiển hàng/cột
 - lựa chọn cửa sổ chính
-- `Đồng bộ các cửa sổ`
-- `Đồng bộ phím chuột`
+- `Dồng bộ các cửa sổ`
+- `Dồng bộ phím chuột`
 - preview
 - lựa chọn 1x–5x
 - Hủy tách
@@ -273,7 +273,7 @@ Phải giữ:
 
 Đặc biệt cần phân tích cơ chế:
 
-### Đồng bộ phím chuột
+### Dồng bộ phím chuột
 
 Không được tự đoán đây là kiểu:
 
@@ -464,7 +464,7 @@ Hai khối lớn:
 
 ---
 
-# 14. Tab Đồn
+# 14. Tab Dồn
 
 Phải tái tạo:
 
@@ -722,7 +722,7 @@ Không dùng DONE khi chỉ dựng UI.
 | B06 | 18m | Baseline Train LSV |
 | B07 | 18m | Baseline Phó Bản |
 | B08 | 18m | Baseline Daily |
-| B09 | 18m | Baseline Đồn |
+| B09 | 18m | Baseline Dồn |
 | B10 | 18m | Baseline Rao |
 | B11 | 18m | Baseline Tối ưu |
 | B12 | 18m | Baseline `i` |
@@ -940,7 +940,7 @@ Khoảng:
 
 ---
 
-# 33. GIAI ĐOẠN L — Đồn
+# 33. GIAI ĐOẠN L — Dồn
 
 Tách:
 
