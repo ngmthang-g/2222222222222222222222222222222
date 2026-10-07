@@ -1,0 +1,276 @@
+{
+  "task": "K13",
+  "status": "VERIFIED_TREASURE_HEAL_SELECTED_MAP_RECOVERY_ADAPTER_CACHE_READY_AND_RESPAWN_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_blob": {
+      "marker": "0x2903223",
+      "size_bytes": 35163,
+      "top_level_constants": 1186
+    }
+  },
+  "configuration": {
+    "heal": {
+      "key": "daily_treasure_heal",
+      "fallback": "0",
+      "B08_current": false,
+      "threshold_percent": 30
+    },
+    "heal_map": {
+      "key": "daily_treasure_heal_map",
+      "fallback": "Tô Châu",
+      "B08_current": "Tô Châu"
+    },
+    "reconnect": {
+      "key": "daily_treasure_dc_reconnect",
+      "fallback": "1",
+      "B08_current": true,
+      "exact_gate_placement": "UNKNOWN"
+    },
+    "respawn": {
+      "key": "daily_treasure_respawn",
+      "fallback": "1",
+      "B08_current": true,
+      "exact_gate_placement": "UNKNOWN"
+    }
+  },
+  "cycle_recovery_entry": {
+    "respawn_event": {
+      "action": "clear if set so heal/move can leave map87",
+      "terminal_account_stop": false
+    },
+    "hp_check": {
+      "field": "HpPercent",
+      "condition": "heal enabled AND HP < 30%",
+      "helper": "DailyTab._treasure_heal",
+      "failure": "SKIP_CURRENT_CYCLE"
+    }
+  },
+  "heal": {
+    "method": "DailyTab._treasure_heal",
+    "required_surface": [
+      "hwnd",
+      "stop_check",
+      "heal_map"
+    ],
+    "locals": [
+      "self",
+      "hwnd",
+      "stop_check",
+      "heal_map",
+      "coords",
+      "heal_tile_x",
+      "heal_tile_y",
+      "map_id",
+      "name",
+      "mid",
+      "e",
+      "ok"
+    ],
+    "selectable_coordinates": {
+      "Đại Lý": [
+        43,
+        178
+      ],
+      "Lạc Dương": [
+        255,
+        126
+      ],
+      "Tô Châu": [
+        155,
+        252
+      ],
+      "Lâu Lan": [
+        27,
+        183
+      ]
+    },
+    "validation": [
+      "heal_map must be selected",
+      "TREASURE_HEAL_COORDS must contain the selected name",
+      "resolve map_id dynamically by matching selected name against MAP_LIST",
+      "map_id must be valid",
+      "move to selected configured heal coordinate",
+      "movement success produces treatment-success surface"
+    ],
+    "move": {
+      "helper": "utils.move_character",
+      "keyword_surface": [
+        "wait_for_arrival",
+        "stop_check"
+      ],
+      "explicit_tolerance_kw": false,
+      "effective_shared_default_tolerance": 48,
+      "exact_wait_for_arrival_boolean": "UNKNOWN",
+      "failure_text": "di chuyển đến vị trí trị liệu thất bại"
+    },
+    "success_text": "trị liệu tại <heal_map> thành công",
+    "fixed_treatment_clicks_inside_helper": "NOT_RECOVERED",
+    "treasure_specific_reinject_before_move": "NOT_PROVEN",
+    "note": "Do not copy manual Tô Châu clicks or _punish_heal reinjection behavior by analogy."
+  },
+  "final_heal": {
+    "condition": "Treasure heal enabled AND HP < 30% at cycle tail",
+    "helper": "DailyTab._treasure_heal",
+    "failure_text": "[Tàng bảo đồ]   Heal cuối vòng thất bại",
+    "failure_class": "FAIL_SOFT_LOG_ONLY"
+  },
+  "disconnect": {
+    "treasure_adapter": {
+      "method": "DailyTab._treasure_map_disconnect_monitor",
+      "locals": [
+        "self",
+        "hwnd",
+        "halt",
+        "respawn_event",
+        "stop_event",
+        "ev",
+        "real_set"
+      ],
+      "shape": "event adapter/bridge rather than independent full detector",
+      "exact_ev_real_set_propagation": "UNKNOWN"
+    },
+    "shared_daily_detector": {
+      "method": "DailyTab._punish_disconnect_monitor",
+      "reuse_status": "STRONG_STATIC_DELEGATION_NOT_NATIVE_CALL_EDGE_PROVEN",
+      "cadence_seconds": 2,
+      "memory_true_veto": true,
+      "pixels": [
+        {
+          "key": "login.ngatKetNoi1",
+          "point": [
+            640,
+            244
+          ],
+          "rgb": [
+            160,
+            145,
+            52
+          ],
+          "tolerance": 5
+        },
+        {
+          "key": "login.ngatKetNoi2",
+          "point": [
+            702,
+            453
+          ],
+          "rgb": [
+            212,
+            28,
+            34
+          ],
+          "tolerance": 5
+        }
+      ],
+      "consecutive_ticks": 3,
+      "approximate_confirmation_seconds": 6,
+      "reconnect_click": [
+        616,
+        455
+      ]
+    },
+    "activity_wide": {
+      "nested_surface": "_treasure_monitor_stops",
+      "detect_text": "Phát hiện mất kết nối → chờ kết nối lại...",
+      "success_text": "Kết nối lại OK → tiếp tục",
+      "timeout_text": "Kết nối lại timeout → dừng",
+      "timeout_seconds": "EXPLICIT_UNKNOWN",
+      "success_handoff": "return to Treasure activity/session continuation",
+      "timeout_class": "TERMINAL_AFFECTED_RECOVERY_PATH"
+    }
+  },
+  "single_account_recovery": {
+    "worker": "DailyTab._treasure_single_worker",
+    "locals": [
+      "self",
+      "hwnd",
+      "tomb_dur",
+      "row",
+      "gen_snap",
+      "halt",
+      "respawn_event",
+      "monitor_stop",
+      "rm",
+      "invalidate_character_cache",
+      "_get_pid_from_hwnd",
+      "wait_memory_ready",
+      "_exit_why"
+    ],
+    "cache_refresh": {
+      "invalidate_current_pid": true,
+      "reason": "stale Reader pointer-chain cache can survive reconnect/reload"
+    },
+    "memory_ready": {
+      "helper": "utils.wait_memory_ready",
+      "treasure_call_args": "EXPLICIT_UNKNOWN",
+      "shared_defaults": {
+        "timeout_seconds": 45,
+        "need": 3,
+        "interval_seconds": 1
+      },
+      "valid_sample": [
+        "RoleName clear/non-placeholder",
+        "MapID != None"
+      ],
+      "cache_invalidated_each_sample": true,
+      "shared_timeout_behavior": "False + log + fail-open"
+    },
+    "forced_post_reconnect_reinject": "NOT_PROVEN",
+    "exact_pre_cache_wait_and_unwind_microorder": "UNKNOWN"
+  },
+  "death_respawn": {
+    "shared_monitor": {
+      "method": "DailyTab._diaphu_monitor",
+      "reuse_status": "STRONG_STATIC_TREASURE_WIRING",
+      "cadence_seconds": 4,
+      "hp_zero_click": [
+        792,
+        441
+      ],
+      "map87_sets": "respawn_event"
+    },
+    "treasure_workers": {
+      "activity_locals": [
+        "respawn_event",
+        "monitor_stop",
+        "rm"
+      ],
+      "single_locals": [
+        "respawn_event",
+        "monitor_stop",
+        "rm"
+      ],
+      "exact_thread_launch_order": "UNKNOWN"
+    },
+    "cycle_reentry": {
+      "action": "next Treasure exec clears respawn_event then reaches HP/start-heal boundary",
+      "outcome": "RECOVERABLE_TRANSITION",
+      "account_terminal": false
+    },
+    "same_window_disconnect_vs_death_order": "UNKNOWN"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_treasure_recovery_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact source-level placement of Treasure reconnect/respawn config gates",
+    "exact wait_for_arrival Boolean in _treasure_heal",
+    "exact additional treatment action after successful arrival, if any",
+    "exact ev/real_set adapter propagation order",
+    "native call edge from Treasure adapter to the shared Daily detector",
+    "Treasure activity reconnect timeout numeric",
+    "Treasure single-worker memory-ready override arguments",
+    "single-worker pre-cache reconnect wait/unwind micro-order",
+    "unconditional post-reconnect DLL reinjection",
+    "shared death-monitor thread-launch order in Treasure workers",
+    "same-scheduling-window disconnect/death precedence",
+    "live Windows/game parity"
+  ],
+  "next_task": "K14 — Tàng Bảo Đồ skipped-account / stop-reset / failure-lifecycle audit"
+}
