@@ -2763,50 +2763,64 @@ H13 — Train all-account command orchestration audit.
 - docs/daily/K05_PUNISH_TARGET_MODEL.json
 - docs/daily/K05_PUNISH_TARGET_STATIC_EVIDENCE.tsv
 
+
+## K06 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K06 artifact/completion commit existed before this work; K01-K05 were already complete and were not redone.
+- The exact frozen original archive was re-materialized from the user's Library and verified before any screenshot cross-check. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes. Inner `TLMTool.dist/TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- The successful K05 summon transitions into the combat segment of `DailyTab._punish_exec_sequence`. Exact combat state/text is **Đánh ác tặc**.
+- `punish_duration` is bound to an elapsed-time fight window through local `_t_end` plus `monotonic`; it is not a run-count. Exact inner fight polling/sleep quantum remains **EXPLICIT_UNKNOWN**.
+- Exact combat text **chết giữa lúc đánh → dừng đánh sớm** proves death/respawn state can terminate the fight window before its deadline.
+- Daily directly calls shared `start_auto_train` with keyword-name surface `stop_check/verify`. Shared helper defaults are exactly `(None, True, 3, 1.0, 2)`: verify enabled by default, 3 Direction samples, 1.0-second interval, 2 retries = **3 total send attempts**.
+- Shared Direction verification semantics are locked: any valid Direction change = True; all valid samples identical = False; insufficient valid samples = None/fail-open. The exact Boolean value explicitly supplied by the Daily combat call for `verify=` is not instruction-bound and remains **EXPLICIT_UNKNOWN**.
+- Exact Daily failure behavior is **fail-soft**: `gửi bật auto train thất bại → vẫn đánh tiếp`. Do not turn this into a hard abort.
+- The bounded Daily payload contains no recovered `stop_game_auto`, `set_game_auto`, `AUTO_MODE_NONE`, or `stop_auto_train` combat-tail surface. Shared movement code can stop auto later, but K06 recovers **no explicit Daily combat-end auto-off call**.
+- Combat stores a fight-position anchor, compares later Map/X/Y state, uses `math.hypot`, and has an exact drift threshold of **160 pixels**. Exact log says the character has moved away from the fight area and suspects party-follow/PK displacement.
+- No direct Daily relocation helper or combat-tail auto-off is recovered alongside the 160-pixel detector. The exact Python return-value effect of the >160px branch remains **EXPLICIT_UNKNOWN** instead of being guessed.
+- The combat tail contains the final HP/heal boundary and exact failure surface `Heal cuối vòng thất bại`; heal/reconnect/respawn internals remain K07.
+- Normal tail reaches exact **Kết thúc** text and returns control to the already-proven K03 open-ended Trừng Ác worker. Exact normal-success Python return scalar remains **EXPLICIT_UNKNOWN**.
+- `DailyTab._wait_movement_stopped` was audited without inventing a Trừng Ác call edge. Its recovered trailing defaults are `(None, None, False)`, so `by_memory` defaults **False**.
+- Its memory branch calls shared `wait_stopped_by_direction` with explicit 300-second timeout. Shared defaults are exactly: timeout **300s**, stable_needed **6**, interval **0.5s**, move_eps **16px**. Stable MapID/PosX/PosY for 6 polls (~3s) means stopped; movement/map change resets stability; stop/timeout returns False.
+- The non-memory branch exposes the older **MovementDetector 10-pixel** path. Post-stop hung-window checking exposes `is_window_hung`, `HUNG_TIMEOUT`, and `DailyTab.WindowHungError`; numeric `HUNG_TIMEOUT` remains **EXPLICIT_UNKNOWN**.
+- Important call-site boundary: the explicit `_wait_movement_stopped` call recovered from the compact Daily constants is in the **Tàng Bảo Đồ** block, with `stop_check/skip_set` keyword names and no visible `by_memory` override. A direct call from the Trừng Ác combat block was not recovered. Do not insert this helper into Trừng Ác combat merely because it exists.
+- Only after static extraction, the user-re-supplied Daily screenshots were matched against the frozen B08 hashes `217178561894a4205c7b5835ed33c050b384c8f60359f6894165e3400d514834` and `3939691e166fa67d9c50069119e4e3904496cd6769b04cf0d3199c6b3e0f866b`. They confirm only the visible clean baseline **Thời gian đánh ác tặc (giây): 15** and provide no live combat evidence.
+- Exact packaged `data/automove_log.txt` remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes. It contains **0 correlated Daily/K06 markers** for Trừng Ác combat. It does contain **8,511** generic `AutoFight_Main` records, including **6,102** `:Start` records; these prove only the lower-level primitive was exercised somewhere, not Daily/K06 end-to-end behavior.
+- K06 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- Stage S application reconstruction has not started, so reconstructed-product build verification remains **NOT_APPLICABLE_YET**, not failed.
+
+## K06 FILES
+- docs/tasks/K06.md
+- docs/daily/K06_PUNISH_COMBAT_FLOW.md
+- docs/daily/K06_PUNISH_COMBAT_MODEL.json
+- docs/daily/K06_PUNISH_COMBAT_STATIC_EVIDENCE.tsv
+
 ## BLOCKERS
 - Phase J live runtime parity remains deferred by environment.
-- Reconstructed application build verification is not applicable yet because Stage S/application source has not started; no build target exists to execute.
-- No known static blocker for K06.
+- K06 end-to-end Daily combat runtime parity still requires a real Windows + live Thần Long runtime; packaged generic AutoFight traffic is not correlated proof.
+- Reconstructed application build verification is not applicable yet because Stage S/application source has not started and no product build target exists.
+- No known static blocker for K07.
 
 ## DO_NOT_TOUCH
-- Preserve K01-K05 Daily/Trừng Ác contracts unchanged.
-- Preserve item ID 40004000 and internal action-3 / command-100005 use-item path.
-- Preserve target-acquisition no-item as terminal per-account stop, versus summon no-item as current-cycle skip.
-- Preserve two total use attempts for target acquisition; do not copy that retry count into summon without stronger evidence.
-- Preserve target extraction priority GameDialog → UseItemData.
-- Preserve UseItemData as live task-template fallback, not a hard-coded route.
-- Preserve fast_travel.goto_map ownership and tag TrừngÁc; keep exact Daily tile→pixel arithmetic expression UNKNOWN.
-- Preserve _punish_target_fail as state/attribute rather than inventing a missing top-level method.
-- Preserve default target-failure state (None,0), consecutive-streak semantics, quest-cancel recovery, and UNKNOWN numeric threshold.
-- Preserve summon expected dialog contract and internal FunctionButtonClicked path.
-- TLMTool 2.1.2 remains sole authority; do not import combat/recovery logic from older Auto-BTD/Trừng Ác projects.
-- Do not start Stage S or create placeholder app/build files merely to manufacture a build result before PLAN reaches implementation.
-- Do not deep-audit heal/disconnect/respawn (K07) or discard (K08) during K06 except for dependencies required by the combat cycle.
+- Preserve K01-K06 Daily/Trừng Ác contracts unchanged.
+- Preserve the K05 successful-summon → K06 combat transition.
+- Preserve `punish_duration` as a monotonic elapsed-time combat window, not a configured run-count.
+- Preserve auto-train enable failure as fail-soft: the fight window continues.
+- Do not invent an explicit Daily combat-end auto-off call.
+- Preserve the exact **160-pixel** drift detector, but do not invent a relocation action or exact branch return semantics.
+- Do not insert `_wait_movement_stopped` into Trừng Ác combat merely because the helper exists; the explicit recovered Daily call belongs to the Tàng Bảo Đồ block.
+- Keep Daily's explicit `verify=` value, fight-loop polling quantum, exact hard-stop Boolean composition, normal-success return scalar, drift-branch return effect, and numeric `HUNG_TIMEOUT` as explicit UNKNOWNs.
+- TLMTool 2.1.2 remains sole authority; do not import recovery/combat logic from older Auto-BTD/Trừng Ác projects.
+- Do not deep-audit K08 discard during K07 except for a dependency strictly required by recovery handoff.
+- Do not start Stage S or create placeholder application/build files before PLAN reaches implementation.
 
 ## NEXT_ACTION
 On CONTINUE:
 1. Read PLAN.md.
 2. Read STATE.md.
-3. Check GitHub first for any K06 artifacts/commits; if already complete and verified, do not redo them.
-4. Execute **K06 — Trừng Ác combat / movement-stop / auto-train timing and cycle-completion audit** only.
-5. Inspect the exact frozen original EXE first, primarily the combat portion of `_punish_exec_sequence`, `_wait_movement_stopped`, and any directly-called auto-train/movement helpers.
-6. Audit transition from successful summon into combat; exact movement-stop/stability detection; auto-train/attack enabling/disabling; configured `punish_duration` timing semantics; stop/cancel checks during combat; how combat completion returns to the outer Trừng Ác loop; and any per-cycle cleanup/reset directly belonging to combat.
-7. Do not deep-dive heal/disconnect/respawn recovery (K07) or Trừng Ác discard worker (K08).
-8. Cross-check B08 only after static extraction; B08 has no combat runtime state.
-9. Persist K06 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K06 verification.
-
-## K06 STATIC EXTRACTION MILESTONE — IN PROGRESS
-- GitHub-first continuity check passed: no pre-existing K06 artifact/commit existed; K01-K05 were left unchanged.
-- Exact frozen original was re-materialized from the user's Library archive TLMTool_2.1.2(3).zip and revalidated before screenshot use. Archive SHA-256 remains c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; inner TLMTool.exe remains 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size 47,450,112 bytes.
-- Combat static extraction is complete enough to freeze the main K06 evidence: start_auto_train edge, monotonic/_t_end duration surface, death-early-break text, 160-pixel hypot drift detector, final-heal boundary, and no explicit Daily stop_game_auto/AUTO_MODE_NONE/stop_auto_train symbol.
-- Shared utils evidence is also decoded: start_auto_train defaults (None, True, 3, 1.0, 2); wait_stopped_by_direction defaults (None, 300, 6, 0.5, 16); helper documentation confirms Direction verification and stable movement semantics.
-- _wait_movement_stopped was audited without assuming a Trừng Ác call edge. Its by_memory default is False; explicit recovered Daily call surface is in the Tàng Bảo Đồ block.
-- First K06 artifact committed: docs/daily/K06_PUNISH_COMBAT_STATIC_EVIDENCE.tsv (commit 901fcbf3b259eaf1323665101018d2643b31bd8a).
-- K06 remains IN_PROGRESS until flow/model/task docs, runtime/image cross-check, STATE and PROJECT_STATUS closure are committed.
-
-## K06 INTERIM NEXT_ACTION
-1. Persist K06 flow/model/task artifacts from the completed EXE-first extraction.
-2. Cross-check the already-frozen/re-supplied B08 images only as visible configuration evidence.
-3. Cross-check packaged automove_log only as runtime environment evidence; do not promote generic AutoFight_Main traffic to Daily proof.
-4. Close K06 in STATE.md and PROJECT_STATUS.md, then advance NEXT_ACTION to K07.
-
+3. Check GitHub first for any K07 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K07 — Trừng Ác heal / reconnect / respawn recovery audit** only.
+5. Re-inspect the exact frozen original EXE first, primarily `_punish_heal`, `_punish_disconnect_monitor`, `_diaphu_monitor`, and only the `_punish_single_worker/_punish_run_worker` recovery edges directly needed to understand handoff/resumption.
+6. Audit HP<30 start/end heal triggers, Tô Châu treatment routing, reconnect detection/wait/reinject/cache/memory-ready boundaries, HP0/Map87/Địa phủ respawn-event behavior, terminal versus fail-soft retry boundaries, and how successful recovery resumes the next Trừng Ác cycle.
+7. Preserve K06 combat/movement-helper contracts unchanged; do not reopen auto-train or movement-stop research unless a direct recovery dependency requires it.
+8. Do not deep-audit **K08 — Trừng Ác discard worker**.
+9. Cross-check B08/screenshots only after EXE/static extraction; the screenshots show recovery configuration controls but no live recovery state.
+10. Persist K07 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K07 verification.
