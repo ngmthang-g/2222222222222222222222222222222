@@ -3040,3 +3040,82 @@ On CONTINUE:
   - docs/daily/K09_PUNISH_HANDOFF_MODEL.json at a45e98b6dfc69b6d3b3393aef3bd4aa6b27318da
 - K09 remains IN_PROGRESS until the integrated flow/task docs, repository/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
 
+## K09 VERIFIED RESULTS
+- GitHub-first continuity check passed: K09 did not exist before this work; K03-K08 remained unchanged because no real contradiction required rewriting them.
+- Exact frozen archive was revalidated again before integration: TLMTool_2.1.2(7).zip SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, CRC clean, 1050 entries / 1002 files / 48 dirs / 260,061,035 uncompressed bytes. Inner TLMTool.dist/TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact .daily_tab was re-decoded as **35,163 bytes / 1,186 constants**.
+- K09 integrated the two Trừng Ác execution architectures without collapsing them:
+  - activity-wide: _punish_start_worker -> _punish_toggle -> _punish_run_worker, start-time selected rows/PID snapshot, _punish_cancel, open-ended loop_idx;
+  - row/bottom coordinator: _toggle_single_acc/_start_all_accs -> _punish_single_worker, row real Event + generation through _GenStop, its own open-ended loop_idx.
+- Integrated normal cycle is frozen: stop check -> respawn clear -> optional HP<30 start heal -> optional teleport pre-step -> bổ đầu map4 tile(224,285) -> fixed return/receive quest clicks -> 30/30 check -> item40004000 target acquisition -> fast travel -> second item use + Triệu hồi -> monotonic combat -> 160px drift check -> optional final heal -> Kết thúc -> next outer cycle.
+- Discard is explicitly outside that per-cycle sequence: it remains a run-scoped background worker spanning multiple Trừng Ác cycles.
+- Terminal current-account logical conditions are frozen:
+  - confirmed 30/30 daily limit;
+  - missing Trừng Ác Lệnh during target acquisition;
+  - activity-wide reconnect timeout path (exact 60s -> dừng).
+- Control-stop/session invalidation paths remain distinct: batch cancel, row stop Event, generation mismatch, window/PID death.
+- Current-cycle skip conditions are frozen: start-heal failure, bổ đầu move fail/wrong-map, exhausted first-stage item use, target travel failure, missing item at summon stage, and summon use/dialog/button/click failure.
+- Recover-next-cycle conditions are frozen: missing target coordinates -> cancel quest -> next cycle; repeated same-target stuck beyond unknown threshold -> cancel/reset -> next cycle.
+- Fail-soft/log-only paths are frozen: move/heal reinjection failure -> direct movement, 30/30 read/ack failure -> treat as not-full, auto-train start failure -> continue fight, final heal failure -> log/cycle tail, discard child failures -> account-local.
+- Recoverable interrupt paths are frozen:
+  - death: combat can end early, 4s monitor, HP0 click(792,441), Map87 respawn_event, next cycle clear/recover;
+  - disconnect: 2s monitor, memory True veto, exact dual pixels for 3 ticks, halt + click(616,455), activity-wide bounded 60s recovery, single-worker common.active -> cache invalidation -> wait_memory_ready(45,3).
+- The >160px drift detector remains DETECTED with exact return effect UNKNOWN.
+- No blocking contradiction was found across K03-K08.
+- Layering resolution #1: UI construction seed for punish duration is **15**, while _load_config missing-key fallback for daily_punish_duration is **"5"**. Both are exact and represent different layers; do not merge them into one universal default.
+- Layering resolution #2: B08 visible recovery checkbox state is current/saved UI state, while config missing-key fallbacks are separate. Different values are not contradictions.
+- Scope resolution remains: Daily reconnect must not inherit Train/TrainLSV five-attempt/infinite-batch reconnect behavior.
+- _wait_movement_stopped remains outside the Trừng Ác lifecycle: K06 audited it, but the explicit recovered Daily call belongs to Tàng Bảo Đồ.
+- Top-level Trừng Ác callable coverage is complete against K01_HANDLER_INVENTORY.tsv. No unaccounted top-level Trừng Ác handler remains.
+- _punish_target_fail is a target-failure tracking surface, not a top-level handler. _punish_monitor_stops is nested activity-wide recovery logic.
+- UI stop/reset handoff is integrated: activity button running/stopping/idle tuple, _punish_reset_ui idle reset, bottom coordinator stop signals, singleton _daily_all_monitor auto-reset after all row sessions stop, and _sync_start_tab_btns external sync. Exact teardown statement order remains UNKNOWN.
+- K09 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- From the Trừng Ác perspective the static handoff is complete enough for later Stage-S reconstruction, but the overall project is not Stage-S-ready yet because Phase K Tàng Bảo Đồ/shared/runtime tasks and later PLAN phases remain.
+- K09 artifacts:
+  - docs/daily/K09_PUNISH_HANDOFF_STATIC_EVIDENCE.tsv — commit 0c324523d57543b6d71ac9d44ec9f71ed005e036
+  - docs/daily/K09_PUNISH_HANDOFF_MODEL.json — commit a45e98b6dfc69b6d3b3393aef3bd4aa6b27318da
+  - docs/daily/K09_PUNISH_HANDOFF_FLOW.md — commit 7f88ce02ba8610c063f94501a4daf49025af632c
+  - docs/tasks/K09.md — commit 98bb61c0ee5654a611b5eff892141298ca861c0d
+- PROJECT_STATUS.md was advanced by commit 32ac7610000a3fccdd992875d0190390447d6a82.
+
+## POST-K09 CODE/BUILD RECHECK
+- Current main tree after K09 status update: **586 entries**.
+- Python code files remain exactly the same **7 forensic scripts** under tools/.
+- No application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K09 artifacts were fetched back successfully after commit.
+- K09 introduced documentation/evidence only and no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- End-to-end Trừng Ác runtime parity still requires a real Windows + live Thần Long environment.
+- Reconstructed application build remains not applicable until Stage S because no product source/build target exists yet.
+- No known static blocker for K10.
+
+## DO_NOT_TOUCH
+- Preserve K01-K09 contracts unchanged unless future exact evidence exposes a real contradiction.
+- Keep activity-wide Trừng Ác batch and per-row/bottom coordinator as separate ownership models.
+- Preserve the failure classes exactly; do not convert current-cycle skips or fail-soft paths into terminal stops.
+- Preserve 30/30 and missing target-stage Trừng Ác Lệnh as terminal-current-account conditions.
+- Preserve death and successful disconnect handling as recoverable transitions.
+- Preserve Daily-specific bounded reconnect semantics.
+- Preserve discard as run-scoped background work, not part of one execution cycle.
+- Preserve the two duration layers: UI seed 15 and missing-key config fallback "5".
+- Do not insert _wait_movement_stopped into Trừng Ác.
+- Keep unresolved values/orderings UNKNOWN instead of guessing.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K10 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K10 — Tàng Bảo Đồ configuration / selection / top-level run-loop contract audit** only.
+5. Re-inspect the exact frozen original EXE first and use K01/K02 shared Daily evidence only where directly applicable.
+6. Audit Tàng Bảo Đồ visible/config values, apply-all selection, activity-wide toggle/run worker, per-row single-worker ownership, batch selection/PID snapshot, loop termination, reconnect/death monitor shell at the top-level boundary, and UI reset handoff.
+7. Do not deep-audit treasure-item/bag/mount/tomb/combat/heal internals yet; reserve those for later K11+ tasks.
+8. Preserve the completed Trừng Ác handoff unchanged.
+9. Cross-check B08 only after static extraction.
+10. Persist K10 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K10 verification.
+
