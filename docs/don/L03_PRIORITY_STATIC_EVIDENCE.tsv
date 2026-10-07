@@ -1,0 +1,34 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901 CRC clean; uploaded (8) byte-identical to frozen authority
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+nav_options_serialized	0x29213d0	VERIFIED_STATIC_DECODE	5-element option list: empty string, Phù 1, Phù 2, Phù 3, Ngựa
+nav_defaults_serialized	0x29213f3	VERIFIED_STATIC_DECODE	4-element default list: Phù 1, Phù 2, Phù 3, Ngựa
+nav_combobox	0x2921464	VERIFIED_VISIBLE_STATIC	priority controls are Combobox widgets
+nav_readonly	0x2921477	VERIFIED_VISIBLE_STATIC	state=readonly
+nav_values	0x29214a4	VERIFIED_VISIBLE_STATIC	combobox values surface
+nav_selected_event	0x29214cf	VERIFIED_STATIC	<<ComboboxSelected>> binding
+nav_change_handler	0x292152b	VERIFIED_STATIC	_on_nav_priority_changed
+nav_change_locals	0x292fb53	VERIFIED_STATIC_MAPPING	NAV_OPTIONS, idx, var, used, other_var, val, current, available
+duplicate_normal_ui	-	VERIFIED_STATIC_SEMANTIC	handler recomputes available choices from used/current values; readonly normal UI prevents newly selecting duplicate nonblank priorities
+legacy_duplicate_migration	-	EXPLICIT_UNKNOWN	already-duplicated hand-edited/legacy config auto-normalization branch is not source-visible enough to claim
+config_section	0x292c8f4	VERIFIED_PERSISTENCE	[DonVang]
+config_save_prefix	0x292c6cb	VERIFIED_PERSISTENCE	nav_priority_
+config_load_key1	0x292c904	VERIFIED_PERSISTENCE	nav_priority_1
+config_load_key2	0x292c914	VERIFIED_PERSISTENCE	nav_priority_2
+config_load_key3	0x292c924	VERIFIED_PERSISTENCE	nav_priority_3
+config_load_key4	0x292c934	VERIFIED_PERSISTENCE	nav_priority_4
+get_priority_doc	0x292a30f	VERIFIED_STATIC_UTF8	Trả list ưu tiên về thành từ UI (Phù 1/2/3, Ngựa) — truyền vào move_character.
+sell_get_priority	0x2927e73	VERIFIED_STATIC	_sell_acc calls _get_nav_priority
+sell_home_priority	0x2927ea6	VERIFIED_STATIC	_sell_acc passes home_priority into move_character
+don_home_priority_count	-	VERIFIED_STATIC_SCOPE	only one production home_priority literal in exact donvang_tab module; priority is not spread to unrelated movement helpers
+utils_home_priority_local	0x2c5416f	VERIFIED_SHARED_STATIC	utils.move_character home_priority local
+utils_has_phu_local	0x2c541e8	VERIFIED_SHARED_STATIC	utils.move_character has_phu local
+utils_key_num_local	0x2c541f6	VERIFIED_SHARED_STATIC	utils.move_character key_num local for Phù hotkey attempt
+utils_ngua	0x2c5010c	VERIFIED_SHARED_STATIC	Ngựa special label in return-home priority block
+utils_return_log	0x2c5011a	VERIFIED_SHARED_STATIC	[di chuyển] Về thành: thử <sel> → bấm phím <key_num>
+fast_home_priority_doc	0x2947200	VERIFIED_SHARED_STATIC	home_priority passthrough for return-town/walk leg; callers forcing horse pass None
+l02_no_phu	-	PRESERVED_L02	_run_farm_exit final Dồn/receiver leg remains normal horse movement with no phù
+screenshot_don	-	CROSSCHECKED_AFTER_STATIC	dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a; visible order Phù1/Phù2/Phù3/Ngựa
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500
+runtime_priority_markers	-	NOT_RECOVERED	0 occurrences of Về thành: thử / [DonVang] / [Donvang] / Dồn
+classification	-	STATIC_VERIFIED_RUNTIME_ENV_REQUIRED	live attempt timing/fallback parity requires Windows + game

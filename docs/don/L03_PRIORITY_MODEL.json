@@ -1,0 +1,76 @@
+{
+  "task": "L03",
+  "status": "VERIFIED_DON_RETURN_PRIORITY_DEFAULT_DEDUP_DISABLED_SLOT_AND_SELL_ONLY_HOME_PRIORITY_STATIC_RUNTIME_ENV_REQUIRED",
+  "authority": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "module": "donvang_tab",
+    "class": "DonVangTab"
+  },
+  "ui": {
+    "options": ["", "Phù 1", "Phù 2", "Phù 3", "Ngựa"],
+    "defaults": ["Phù 1", "Phù 2", "Phù 3", "Ngựa"],
+    "slots": 4,
+    "combobox_state": "readonly",
+    "blank_semantic": "disabled/unused priority slot",
+    "screenshot_sha256": "dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a"
+  },
+  "duplicate_policy": {
+    "handler": "_on_nav_priority_changed",
+    "locals": ["NAV_OPTIONS", "idx", "var", "used", "other_var", "val", "current", "available"],
+    "normal_ui": "recomputes per-slot available options from values used by the other slots; readonly UI prevents newly selecting duplicate nonblank priorities",
+    "current_selection": "preserved while options are recomputed",
+    "legacy_preexisting_duplicate_migration": "RUNTIME_OR_CONFIG_FIXTURE_VERIFICATION_REQUIRED"
+  },
+  "persistence": {
+    "section": "DonVang",
+    "keys": ["nav_priority_1", "nav_priority_2", "nav_priority_3", "nav_priority_4"],
+    "save_prefix": "nav_priority_",
+    "value_type": "StringVar label text",
+    "scope": "shared Dồn config, not per-account row"
+  },
+  "adapter": {
+    "method": "_get_nav_priority",
+    "doc": "Trả list ưu tiên về thành từ UI (Phù 1/2/3, Ngựa) — truyền vào move_character.",
+    "consumer_argument": "home_priority"
+  },
+  "shared_move_consumer": {
+    "module": "utils",
+    "function": "move_character",
+    "locals": ["home_priority", "has_phu", "sel", "key_num"],
+    "special_value": "Ngựa",
+    "phu_behavior": "ordered Phù labels are interpreted as return-home hotkey attempts",
+    "log_shape": "[di chuyển]   Về thành: thử <selection> → bấm phím <key_num>",
+    "ngua_behavior": "non-hotkey ordinary movement fallback",
+    "force_horse_contract": "shared fast-travel doc says callers that force horse movement pass None"
+  },
+  "don_consumers": {
+    "home_priority_literal_count_in_donvang_module": 1,
+    "direct_consumer": "_sell_acc",
+    "applies_to": "shared sell movement path whenever it performs movement",
+    "does_not_apply_to": [
+      "_run_farm_exit Dồn/receiver final leg",
+      "Truyền back step executor",
+      "ordinary train-target movement",
+      "receiver-point no-phù movement"
+    ]
+  },
+  "preserved_l02": {
+    "truyen_back": "shortcut + fresh verify + walk fallback",
+    "don_receiver_final_leg": "normal horse movement, no phù",
+    "cancel": "existing stop_check ownership unchanged"
+  },
+  "runtime": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_priority_attempt_lines": 0,
+    "classification": "STATIC_VERIFIED_RUNTIME_ENV_REQUIRED"
+  },
+  "unknowns": [
+    "legacy/hand-edited config with already duplicated priority labels: exact auto-normalization behavior",
+    "live timing between failed Phù attempts",
+    "live success/failure transition into Ngựa fallback"
+  ],
+  "next_task": "L04 — Dồn inventory/full-bag filtering audit"
+}
