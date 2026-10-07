@@ -3522,3 +3522,23 @@ On CONTINUE:
 8. Preserve K10-K13 contracts unchanged.
 9. Cross-check runtime/B08 only after static extraction.
 10. Persist K14 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after K14 verification.
+## K14 STATIC EXTRACTION MILESTONE — IN PROGRESS
+- GitHub-first continuity check passed: no pre-existing K14 artifact/completion commit existed; K01-K13 were preserved.
+- Exact TLMTool_2.1.2(7).zip and inner TLMTool.exe were revalidated again before K14: archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, inner EXE SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, inner size **47,450,112** bytes.
+- Exact .daily_tab was re-inspected as **35,163 bytes / 1,186 constants**.
+- DailyTab owns exact Treasure activity/session fields _treasure_map_running, _treasure_map_cancel, _treasure_map_btn and _treasure_map_skipped.
+- Shared stop diagnostic has an exact Treasure-specific cancel reason `cancel(batch-tàng-bảo-đồ)` plus exact halt(mất-kết-nối), stop_event(dừng), gen(phiên-mới), window-chết/đổi-process and respawn(địa-phủ) classes.
+- Activity-wide Treasure batch keeps exact selected/selected_pids start snapshots and recomputes alive/still_active inside its open-ended loop. Exact terminal batch surfaces remain no selected -> bỏ qua, no live -> dừng, all selected stopped -> tự động dừng.
+- K11's two tangBaoDo_multi not-found branches remain terminal-current-Treasure-account conditions. Combined with the exact _treasure_map_skipped field, the exact `skip_set` keyword passed at the Treasure movement wait, and batch still_active filtering, strong static evidence supports persistent exclusion of terminally-skipped Treasure HWNDs during the active batch.
+- Exact `_treasure_map_skipped.add/discard/clear` statement placement is **not** native-instruction-bound. K14 therefore does not invent whether the set is cleared in toggle/start/reset or the exact mutation order at first/second not-found.
+- Start-heal failure remains current-cycle skip only; non96 remains skip-tomb-outcome/non-terminal; final-heal failure remains fail-soft/log-only.
+- Reconnect OK remains recoverable, reconnect timeout remains terminal for the affected recovery/account path, and death/Map87 respawn_event remains recoverable rather than terminal.
+- Bottom all-account stop contract remains exact from K02: while running, set each row _farming_acc=False + row _stop_event, return the bottom button to Bắt đầu/green, then workers unwind cooperatively.
+- Singleton _daily_all_monitor exact contract remains: wait until all row sessions stop, call both _punish_reset_ui and _treasure_map_reset_ui, then log `[Bắt đầu] Tất cả acc đã dừng — tự động reset UI`.
+- _sync_start_tab_btns remains the external StartTab sync boundary.
+- Treasure activity reset tuple remains exact: `Tàng bảo đồ / RoyalBlue / normal`; shared activity running/stopping surfaces remain Dừng lại/FireBrick and Đang dừng.../disabled.
+- Exact UI teardown source-line order (running flag/cancel/event/monitor/reset/sync) remains UNKNOWN.
+- Packaged automove_log was rechecked after static extraction: exact SHA-256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, 15,741,058 bytes / 387,238 lines, with zero correlated K14 lifecycle/skip/reset markers.
+- B08 was cross-checked only after static extraction and remains idle configuration only.
+- First K14 artifact committed: docs/daily/K14_TREASURE_FAILURE_LIFECYCLE_STATIC_EVIDENCE.tsv at commit 031e4cdf4785222cd38c7d73c6a029c1824359ff.
+- K14 remains IN_PROGRESS until model/flow/task docs, code/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
