@@ -1,0 +1,123 @@
+{
+  "task": "K06",
+  "status": "VERIFIED_PUNISH_COMBAT_MONOTONIC_DURATION_AUTOTRAIN_FAILSOFT_DRIFT160_AND_MOVEMENT_HELPER_BOUNDARY_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_payload_marker": "0x2903223"
+  },
+  "combat": {
+    "entry": "successful K05 summon -> _punish_exec_sequence combat segment",
+    "state_text": "Đánh ác tặc",
+    "duration_parameter": "punish_duration",
+    "duration_unit": "seconds",
+    "clock": "time.monotonic-equivalent symbol monotonic",
+    "deadline_local": "_t_end",
+    "entry_stop_check": true,
+    "death_early_break": true,
+    "death_marker": "chết giữa lúc đánh → dừng đánh sớm",
+    "poll_quantum": "EXPLICIT_UNKNOWN"
+  },
+  "auto_train": {
+    "daily_helper": "start_auto_train",
+    "daily_keyword_names": ["stop_check", "verify"],
+    "daily_verify_keyword_value": "EXPLICIT_UNKNOWN",
+    "failure_policy": "FAIL_SOFT_CONTINUE_FIGHT_WINDOW",
+    "failure_text": "gửi bật auto train thất bại → vẫn đánh tiếp",
+    "shared_helper_defaults": {
+      "stop_check": null,
+      "verify": true,
+      "samples": 3,
+      "interval_seconds": 1.0,
+      "retries": 2,
+      "maximum_send_attempts": 3
+    },
+    "shared_verify_contract": {
+      "signal": "Direction",
+      "any_direction_change": true,
+      "all_valid_samples_equal": false,
+      "insufficient_valid_samples": "None / fail-open"
+    },
+    "shared_auto_modes": {
+      "0": "stop",
+      "1": "train",
+      "2": "pk",
+      "3": "quest",
+      "6": "fuben"
+    },
+    "daily_explicit_disable_at_combat_end": false,
+    "note": "No stop_game_auto/set_game_auto/AUTO_MODE_NONE/stop_auto_train symbol is present in the bounded Daily payload. Shared movement code can stop game auto later, but K06 must not invent a combat-end OFF call."
+  },
+  "fight_anchor_and_drift": {
+    "anchor_fields": ["MapID", "PosX", "PosY"],
+    "fallback_tuple": [null, 0, 0],
+    "distance_function": "math.hypot",
+    "threshold_pixels": 160,
+    "log": "LỆCH KHỎI BÃI ĐÁNH ... px — nghi bị follow party lôi đi / PK đẩy",
+    "direct_relocation_call_recovered": false,
+    "return_effect": "EXPLICIT_UNKNOWN"
+  },
+  "cycle_tail": {
+    "final_hp_check_surface": true,
+    "final_heal_surface": true,
+    "heal_semantics_deferred_to": "K07",
+    "normal_end_text": "Kết thúc ===",
+    "outer_loop_behavior": "returns control to the already-proven open-ended K03 Trừng Ác worker, which may begin the next cycle while the account/session remains active",
+    "exact_success_return_scalar": "EXPLICIT_UNKNOWN"
+  },
+  "movement_stop_helper": {
+    "method": "DailyTab._wait_movement_stopped",
+    "signature_defaults_recovered": [null, null, false],
+    "by_memory_default": false,
+    "memory_branch": {
+      "helper": "utils.wait_stopped_by_direction",
+      "daily_explicit_timeout_seconds": 300,
+      "shared_defaults": {
+        "timeout_seconds": 300,
+        "stable_needed": 6,
+        "interval_seconds": 0.5,
+        "move_eps_pixels": 16
+      },
+      "semantic": "wait for common.active/valid stable MapID then stable PosX/PosY+MapID; movement or map change resets stability; stop/timeout false"
+    },
+    "fallback_branch": "MovementDetector 10-pixel",
+    "post_stop_hung_probe": "is_window_hung",
+    "hung_timeout_symbol": "HUNG_TIMEOUT",
+    "hung_timeout_numeric": "EXPLICIT_UNKNOWN",
+    "error_type": "DailyTab.WindowHungError",
+    "trung_ac_combat_direct_call": "NOT_RECOVERED",
+    "recovered_daily_call_site": "Tàng Bảo Đồ block, kwargs stop_check/skip_set, no by_memory override visible",
+    "boundary_note": "Do not insert this helper into Trừng Ác combat merely because K06 audited it."
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "daily_k06_correlated_markers": 0,
+    "generic_autofight_main_lines": 8511,
+    "generic_autofight_start_lines": 6102,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "image_crosscheck": {
+    "after_static_only": true,
+    "hashes": [
+      "217178561894a4205c7b5835ed33c050b384c8f60359f6894165e3400d514834",
+      "3939691e166fa67d9c50069119e4e3904496cd6769b04cf0d3199c6b3e0f866b"
+    ],
+    "visible_fact_used": "Thời gian đánh ác tặc (giây) = 15 clean baseline",
+    "runtime_combat_fact_inferred_from_image": false
+  },
+  "explicit_unknowns": [
+    "explicit Daily verify keyword Boolean value",
+    "fight-loop sleep/wait polling quantum",
+    "exact hard_stop/stop Boolean expression and micro-order",
+    "exact normal-success Python return scalar",
+    "exact Boolean-return effect of the >160px drift branch",
+    "numeric HUNG_TIMEOUT",
+    "live Windows/game parity"
+  ],
+  "deferred": {
+    "K07": "heal / reconnect / respawn",
+    "K08": "Trừng Ác discard worker"
+  }
+}
