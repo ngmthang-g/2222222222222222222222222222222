@@ -1,0 +1,268 @@
+{
+  "task": "K11",
+  "status": "VERIFIED_TREASURE_MOUNT_BAG_MULTIPIXEL_TWO_STAGE_ACTIVATION_AND_MOVEMENT_WAIT_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "zip_crc_clean": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_blob": {
+      "marker": "0x2903223",
+      "size_bytes": 35163,
+      "top_level_constants": 1186,
+      "exact_end": true
+    }
+  },
+  "exec_sequence": {
+    "method": "DailyTab._treasure_map_exec_sequence",
+    "defaults_serialized": [
+      5,
+      null,
+      null,
+      null
+    ],
+    "locals": [
+      "self",
+      "hwnd",
+      "tomb_dur",
+      "halt",
+      "respawn_event",
+      "stop_event",
+      "hard_stop",
+      "stop",
+      "ci_hp",
+      "hp_pct",
+      "ci",
+      "found"
+    ],
+    "scope_in_K11": "mount pre-step + bag opening + treasure-map recognition/use + movement-stop boundary + second recognition checkpoint"
+  },
+  "mount_pre_step": {
+    "log": "B0: mở ngựa",
+    "riding_read": {
+      "field": "IsRiding",
+      "fallback": 0
+    },
+    "already_riding": "skip mount-opening work",
+    "settle_seconds": 0.3,
+    "active_pixel": {
+      "section": "common",
+      "key": "nguaActive",
+      "region": [
+        903,
+        683
+      ],
+      "color": [
+        193,
+        162,
+        96
+      ],
+      "timeout_seconds": 1,
+      "tolerance_percent": 10
+    },
+    "exact_fallback_click_when_not_active": [
+      1306,
+      340
+    ],
+    "other_serialized_coords": [
+      [
+        1131,
+        121
+      ],
+      [
+        1073,
+        123
+      ],
+      [
+        906,
+        688
+      ]
+    ],
+    "other_coord_mapping": "STRONG_STATIC_SCOPE_NOT_SOURCE_LINE_BOUND"
+  },
+  "bag_open": {
+    "log": "B1: mở túi",
+    "serialized_open_coord": [
+      1296,
+      421
+    ],
+    "wait_pixel": {
+      "key": [
+        "tuido",
+        "active"
+      ],
+      "keyword_surface": [
+        "window_hwnd",
+        "timeout"
+      ],
+      "pixel_config": {
+        "region": [
+          1123,
+          631
+        ],
+        "color": [
+          150,
+          166,
+          78
+        ],
+        "timeout_seconds": 5,
+        "tolerance_percent": 10
+      },
+      "exact_override_timeout": "UNKNOWN"
+    },
+    "serialized_drag": [
+      [
+        870,
+        635
+      ],
+      [
+        910,
+        145
+      ]
+    ],
+    "drag_semantic": "STRONG_STATIC: Daily imports drag_drop and this coordinate pair is adjacent to the bag-active check",
+    "wait_failure_effect": "EXPLICIT_UNKNOWN"
+  },
+  "recognizer": {
+    "helper": "pixel.find_multipixel",
+    "section": "tuido",
+    "key": "tangBaoDo_multi",
+    "current": true,
+    "config": {
+      "region": [
+        702,
+        163,
+        1132,
+        517,
+        20,
+        30
+      ],
+      "base_rgb": [
+        2,
+        30,
+        35
+      ],
+      "offset_rgb": [
+        228,
+        215,
+        170
+      ],
+      "timeout_seconds": 5,
+      "tolerance_percent": 1
+    },
+    "helper_contract": "scan configured base region in one capture, test base+offset colors, return base client (x,y) or None",
+    "legacy_pixel_keys_present_but_not_called": [
+      "tuido.tangBaoDo",
+      "tuido.tangBaoDo_multi_old"
+    ]
+  },
+  "click_stack": {
+    "helper": "mouse.click_at",
+    "helper_contract": "synchronous background click via DLL sync protocol + PostMessage; HWND may be targeted directly; physical cursor movement is not required",
+    "helper_defaults": {
+      "count": 1,
+      "delay_seconds": 0.5,
+      "click_type": "left",
+      "jitter": true,
+      "hung_check": true
+    },
+    "found_log": "Found tuido.tangBaoDo_multi at <found> → click",
+    "fixed_activation_coords": [
+      [
+        950,
+        370
+      ],
+      [
+        490,
+        427
+      ],
+      [
+        1173,
+        105
+      ]
+    ],
+    "activation_keyword_surface": [
+      "window_hwnd",
+      "count",
+      "jitter",
+      "delay"
+    ],
+    "exact_fixed_coord_purpose_and_call_order": "EXPLICIT_UNKNOWN",
+    "exact_activation_count_jitter_delay_values": "EXPLICIT_UNKNOWN"
+  },
+  "first_checkpoint": {
+    "find": "tuido.tangBaoDo_multi",
+    "success": "click/use path begins",
+    "failure": "TERMINAL_CURRENT_TREASURE_ACCOUNT",
+    "failure_text": "tuido.tangBaoDo_multi not found → dừng tàng bảo đồ cho acc này",
+    "skip_state": "_treasure_map_skipped exists; exact mutation statement at this branch is not native-instruction-bound"
+  },
+  "post_first_activation_boundary": {
+    "fixed_coord_before_wait": [
+      1155,
+      108
+    ],
+    "fixed_coord_purpose": "EXPLICIT_UNKNOWN",
+    "wait_method": "DailyTab._wait_movement_stopped",
+    "keyword_surface": [
+      "stop_check",
+      "skip_set"
+    ],
+    "by_memory_override": false,
+    "effective_mode": "MovementDetector / is_moving 10-pixel branch",
+    "memory_direction_branch_used": false,
+    "result_contract": "True when movement stopped; False on cancel/timeout as defined by helper",
+    "post_stop_hung_check": "is_window_hung / HUNG_TIMEOUT",
+    "stopped_log": "[Tàng bảo đồ]   Đã dừng"
+  },
+  "second_checkpoint": {
+    "recognizer": "tuido.tangBaoDo_multi",
+    "position": "after movement-stop success",
+    "failure": "TERMINAL_CURRENT_TREASURE_ACCOUNT",
+    "failure_text": "tuido.tangBaoDo_multi not found (lần 2) → dừng tàng bảo đồ cho acc này",
+    "success": "proceeds through reused activation constants into post-activation outcome handling",
+    "exact_second_success_click_microsequence": "STRONG_STATIC_REUSE_NOT_SEPARATELY_LOGGED"
+  },
+  "two_stage_shape": [
+    "mount pre-step if needed",
+    "open/verify bag",
+    "find treasure-map multipixel",
+    "first activation/use",
+    "wait for character movement to stop",
+    "find treasure-map multipixel a second time",
+    "second activation/use",
+    "continue to MapID/post-activation outcome"
+  ],
+  "next_boundary": {
+    "exact_text": "MapID=96 (huyệt mộ) → đánh",
+    "deferred_to": "K12"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_k11_markers": 0,
+    "fixed_coord_runtime_matches": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "screenshot_crosscheck": {
+    "B08_runtime_activation_visible": false,
+    "hidden_behavior_inferred_from_B08": false
+  },
+  "explicit_unknowns": [
+    "exact source-line purpose/order of B0 fixed coords 1131,121 / 1073,123 / 906,688",
+    "exact bag-open wait timeout override and false-return branch",
+    "exact source-line mapping/order of activation fixed coords 950,370 / 490,427 / 1173,105",
+    "exact count/jitter/delay override values in activation click call",
+    "exact UI purpose of fixed coord 1155,108 before movement wait",
+    "exact _treasure_map_skipped mutation micro-order on first/second not-found",
+    "exact repeated click statement sequence after second successful recognition",
+    "live Windows/game parity"
+  ],
+  "deferred": [
+    "MapID=96 movement and tomb combat",
+    "post-dig heal",
+    "Treasure reconnect/death detector internals",
+    "full post-activation outcome matrix"
+  ],
+  "next_task": "K12 — Tàng Bảo Đồ map96 movement / tomb combat / post-activation outcome audit"
+}
