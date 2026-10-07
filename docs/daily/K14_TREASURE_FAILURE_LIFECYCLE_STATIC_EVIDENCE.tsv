@@ -1,0 +1,66 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901 CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_DECODE	.daily_tab size35163 count1186 exact end marker
+treasure_running_state	0x2903305	VERIFIED_STATIC	_treasure_map_running
+treasure_cancel_state	0x290331c	VERIFIED_STATIC	_treasure_map_cancel
+treasure_button_state	0x2903332	VERIFIED_STATIC	_treasure_map_btn
+treasure_skipped_state	0x29033d0	VERIFIED_STATIC	_treasure_map_skipped owned by DailyTab
+all_stop_log	0x2905f33	VERIFIED_STATIC_UTF8	[Bắt đầu] Gửi lệnh dừng tất cả acc...
+all_idle_button	0x2905f6b	VERIFIED_STATIC_DECODE	▶ / #388e3c / Bắt đầu / #388e3c
+all_sync_ref	0x2905f9e	VERIFIED_STATIC	_sync_start_tab_btns
+all_stop_done	0x2905fb6	VERIFIED_STATIC_UTF8	[Bắt đầu] Đã dừng tất cả acc
+all_workers	0x2906057	VERIFIED_STATIC_DECODE	_punish_single_worker / _treasure_single_worker
+all_running_button	0x29060d5	VERIFIED_STATIC_DECODE	Dừng lại / #f44336
+all_toggle_doc	0x2906103	VERIFIED_STATIC_UTF8	Running -> set every row _farming_acc=False + _stop_event; idle -> start per-account workers
+all_monitor_ref	0x2906214	VERIFIED_STATIC	_daily_all_monitor
+all_monitor_singleton	0x2906228	VERIFIED_STATIC_UTF8	Chỉ start 1 monitor instance.
+all_monitor_reset_helpers	0x290624e	VERIFIED_STATIC_DECODE	_punish_reset_ui / _treasure_map_reset_ui
+all_auto_reset_log	0x29062a8	VERIFIED_STATIC_UTF8	[Bắt đầu] Tất cả acc đã dừng — tự động reset UI
+all_monitor_doc	0x29062ed	VERIFIED_STATIC_UTF8	Monitor: chờ tất cả acc dừng, rồi reset UI.
+starttab_sync_doc	0x2906456	VERIFIED_STATIC_UTF8	Đồng bộ nút Trừng ác / Tàng bảo đồ trên StartTab.
+starttab_running	0x2906499	VERIFIED_STATIC_DECODE	Dừng lại; Treasure StartTab button reference follows in same sync block
+stop_reason_cancel_treasure	0x290686b	VERIFIED_STATIC_UTF8	cancel(batch-tàng-bảo-đồ)
+stop_reason_halt	0x290688c	VERIFIED_STATIC_UTF8	halt(mất-kết-nối)
+stop_reason_event	0x29068a5	VERIFIED_STATIC_UTF8	stop_event(dừng)
+stop_reason_gen	0x29068b9	VERIFIED_STATIC_UTF8	gen(phiên-mới)
+stop_reason_window	0x29068cc	VERIFIED_STATIC_UTF8	window-chết/đổi-process
+stop_reason_respawn	0x29068ea	VERIFIED_STATIC_UTF8	respawn(địa-phủ)
+stop_reason_doc	0x2906911	VERIFIED_STATIC_UTF8	Shared diagnostic returns cancel(batch) / halt / stop_event / gen / window / respawn
+single_worker_start	0x2906c37	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Single acc hwnd=...
+single_worker_doc	0x2906ced	VERIFIED_STATIC_UTF8	Chạy tàng bảo đồ cho 1 acc.
+shared_stopping_ui	0x2906d53	VERIFIED_STATIC_DECODE	disabled / Đang dừng...
+shared_running_ui	0x2906d87	VERIFIED_STATIC_DECODE	Dừng lại / FireBrick
+batch_no_selection	0x2908f2b	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Chưa acc nào chọn Tàng bảo đồ — bỏ qua
+batch_no_alive	0x2908f77	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Không còn acc nào sống — dừng
+batch_all_stopped_prefix	0x2908fb3	VERIFIED_STATIC_UTF8	[Tàng bảo đồ] Tất cả <n> acc đã dừng — tự động dừng (suffix is interned/shared)
+batch_iteration	0x2908fd4	VERIFIED_STATIC_UTF8	[TÀNG BẢO ĐỒ] Lần ...
+batch_locals	0x290b94c	VERIFIED_STATIC_MAPPING	self,tomb_dur,selected,selected_pids,loop_idx,alive,still_active,wins,halt,threads,hwnd,_,respawn_event,monitor_stop,t,rm,ms,_hwnd,ok,r
+skipped_batch_role	-	STRONG_STATIC	_treasure_map_skipped ownership + terminal item-not-found branches + batch still_active filtering together support persistent exclusion of terminally-skipped Treasure HWNDs during the active batch
+skipped_exact_add_clear_microorder	-	EXPLICIT_UNKNOWN	Exact add/discard/clear statements and whether clear happens in toggle/start/reset are not native-instruction-bound
+movement_skip_set_kw	0x290955d	VERIFIED_STATIC	_wait_movement_stopped is called with skip_set in Treasure activation path
+movement_skip_set_binding	-	STRONG_STATIC	Only Treasure-specific skip-state field is _treasure_map_skipped; exact native argument binding remains not line-by-line proven
+item_not_found_1	0x29094c8	VERIFIED_STATIC_UTF8	tuido.tangBaoDo_multi not found → dừng tàng bảo đồ cho acc này
+item_not_found_2	0x290958e	VERIFIED_STATIC_UTF8	tuido.tangBaoDo_multi not found (lần 2) → dừng tàng bảo đồ cho acc này
+item_not_found_class	-	VERIFIED_STATIC_SEMANTIC	Both are TERMINAL_CURRENT_TREASURE_ACCOUNT, unlike ordinary cycle skips
+start_heal_fail	0x2909244	VERIFIED_STATIC_UTF8	Heal thất bại → skip vòng này
+start_heal_class	-	VERIFIED_STATIC_SEMANTIC	SKIP_CURRENT_CYCLE, account/session remains eligible
+non96_skip	0x290976f	VERIFIED_STATIC_UTF8	không phải huyệt mộ, bỏ qua
+non96_class	-	VERIFIED_STATIC_SEMANTIC	SKIP_TOMB_OUTCOME_NOT_ACCOUNT_TERMINAL
+final_heal_fail	0x29097bb	VERIFIED_STATIC_UTF8	Heal cuối vòng thất bại
+final_heal_class	-	VERIFIED_STATIC_SEMANTIC	FAIL_SOFT_LOG_ONLY at cycle tail
+reconnect_timeout	0x29090d2	VERIFIED_STATIC_UTF8	Kết nối lại timeout → dừng
+reconnect_success	0x2909095	VERIFIED_STATIC_UTF8	Kết nối lại OK → tiếp tục
+reconnect_class	-	VERIFIED_STATIC_SEMANTIC	Success is recoverable; timeout terminates affected recovery/account path
+respawn_clear	0x290918f	VERIFIED_STATIC_UTF8	respawn_event đang set → clear, cho heal/move rời map 87
+respawn_class	-	VERIFIED_STATIC_SEMANTIC	RECOVERABLE_TRANSITION, not account terminal
+reset_tuple	0x290991a	VERIFIED_STATIC_DECODE	Tàng bảo đồ / RoyalBlue / normal
+qualified_reset	0x290aa67	VERIFIED_STATIC	DailyTab._treasure_map_reset_ui
+activity_cancel_semantic	-	VERIFIED_SHARED_STATIC	_treasure_map_cancel is activity-batch cancel Event; stop reason exact cancel(batch-tàng-bảo-đồ)
+row_stop_semantic	-	VERIFIED_SHARED_STATIC	K02 row stop uses _farming_acc=False + real _stop_event; _GenStop also stops stale generation
+window_pid_semantic	-	VERIFIED_SHARED_STATIC	K02 HWND+PID identity invalidates reused/dead windows; stop reason exact window-chết/đổi-process
+batch_selected_pid_semantic	-	VERIFIED_K10_STATIC	selected + selected_pids are snapshotted at activity start; still_active is recomputed inside the open-ended batch
+ui_teardown_order	-	EXPLICIT_UNKNOWN	Exact source-line order of running flag clear, cancel/event set, monitor shutdown, reset helper and StartTab sync remains unknown
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_k14_markers	-	NOT_RECOVERED	0 correlated Treasure lifecycle/skip/reset markers: Tàng bảo đồ, terminal not-found, non96 skip, all-stopped, Treasure batch-cancel stop reason, respawn stop reason, reconnect timeout, global Daily auto-reset
+b08_scope	-	CROSSCHECKED_FROZEN_B08	B08 is idle config only; no skipped-account/worker teardown runtime state
