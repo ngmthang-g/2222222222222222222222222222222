@@ -4126,3 +4126,56 @@ On CONTINUE:
 7. Keep receiver selection/locking/transaction policy deferred unless coordinate resolution directly requires it.
 8. Cross-check screenshots/runtime only after static extraction.
 9. Persist L05 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L05 verification.
+
+
+## L05 VERIFIED RESULTS
+- GitHub-first continuity passed: no pre-existing L05 completion; L01-L04 remain unchanged.
+- Exact original archive and inner EXE were revalidated before screenshot cross-check. Archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, 93,715,901 bytes, 1,050 entries, CRC clean. Inner EXE SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, 47,450,112 bytes.
+- Saved-coordinate rows are dynamic name/map/X/Y records with Train apply + delete. Preset display name is the live identity; rename propagates to account selectors.
+- _name_to_coords resolves built-in sell, built-in Dồn/receive, or saved manual presets to (map_id,x,y), otherwise None.
+- Exact Dồn targets: Lạc Dương map3 (247,93); Đại Lý map2 (258,124); Tô Châu map4 (416,239); Lâu Lan map5 (249,275).
+- Exact sell targets: Đại Lý map2 (103,188); Lạc Dương map3 (231,219); Tô Châu map4 (191,257); Lâu Lan map5 (37,126).
+- Current UI uses one shared _recv_coord_var / Tọa độ dồn across receiver rows. Receiver rows contain account selection + delete; deleting a row does not delete the shared coordinate.
+- Current account coordinate selector is role-switched: receiver role gets sell built-ins + manual presets; donor role gets manual train presets.
+- Saved-row Train action applies the preset name to all train selectors.
+- [DonVang] coordinate rows persist as coord_<n>=preset_name|map_id|x|y. Unknown maps on save and stale maps on load are skipped rather than guessed.
+- Per-account coordinate selector persists as acc_<character>_farm. Receiver config surface also contains recv_count, recv_<n>_acc, recv_<n>_coord, receiver and recv_coord; conflicting legacy/per-row precedence is deferred to L06.
+- No dedicated numeric X/Y clamp/validator was recovered; no range was invented.
+- Screenshot cross-check after static extraction matches one shared Tọa độ dồn and saved row Train action. Frozen runtime log has 0 correlated Dồn-coordinate markers, so live parity remains deferred.
+- L05 artifacts committed at 2d2e776d8592790596b307ac8208cdd9224e0ef0:
+  - docs/don/L05_COORDINATES_FLOW.md
+  - docs/don/L05_COORDINATES_MODEL.json
+  - docs/don/L05_COORDINATES_STATIC_EVIDENCE.tsv
+  - docs/tasks/L05.md
+
+## POST-L05 CODE/BUILD RECHECK
+- Recursive main tree after L05 artifact commit: 641 entries, not truncated.
+- Python executable-code files remain exactly 7 forensic scripts under tools/.
+- No reconstructed application source directory, build-system file, or GitHub Actions workflow exists.
+- L05 artifact commit has 0 combined CI statuses and 0 workflow runs.
+- Product build remains NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED.
+
+## BLOCKERS
+- Receiver-coordinate migration precedence is deferred to L06.
+- Exact fresh-row map/X/Y defaults independent of captured config remain unresolved where binding is insufficient.
+- Live coordinate movement/parity requires Windows + live game runtime.
+
+## DO_NOT_TOUCH
+- Preserve L01-L05 contracts.
+- Preserve one shared Dồn coordinate; do not create per-receiver Dồn coordinates.
+- Preserve exact built-in coordinate tables and role-switched selector.
+- Preserve stale/unknown map skip behavior; do not fuzzy-remap or invent numeric clamps.
+- Receiver account selection/readiness behavior belongs to L06.
+- Do not create Stage-S application/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for existing L06 artifacts; do not redo verified work.
+4. Execute L06 — Dồn receiver accounts / readiness / selection audit only.
+5. Re-inspect the frozen original EXE first, focusing on _sync_recv_aliases, _add_receiver_row, _renumber_receiver_rows, _remove_receiver_row, _refresh_receiver_combo, _reset_receiver_rows, _is_receiver_hwnd, _selected_receiver_hwnd, _all_receiver_hwnds, _find_recv_row_for_hwnd, _receiver_speed, _any_ready_receiver, _pick_ready_receiver, _fallback_receiver, _apply_receiver_style, _on_receiver_selected, _start_trade_watch and _ensure_trade_watch, plus directly-called receiver-state helpers.
+6. Determine receiver-row lifecycle, duplicate-account handling, receiver identity mapping, ready/busy/offline state ownership, ranking/fallback behavior, watcher scope, serialization behavior, and config migration precedence when directly bound.
+7. Keep deeper donor transaction/train-state behavior deferred unless directly required.
+8. Cross-check screenshots/runtime only after static extraction.
+9. Persist L06 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L06 verification.
