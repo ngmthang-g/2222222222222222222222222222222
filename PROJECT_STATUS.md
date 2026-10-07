@@ -324,7 +324,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K02 — VERIFIED_SHARED_ROSTER_PID_IDENTITY_GENSTOP_TK_MARSHAL_AND_ALL_ACCOUNT_COORDINATOR
 - K03 — VERIFIED_PUNISH_CONFIG_SELECTION_BATCH_VS_SINGLE_OPEN_ENDED_LOOP
 - K04 — VERIFIED_NPC_RETURN_QUEST_30OF30_AND_STUCK_CANCEL_FLOW
-- K05 — NEXT
+- K05 — VERIFIED_ITEM40004000_DIALOG_USEITEMDATA_FAST_TRAVEL_STREAK_AND_SUMMON_FLOW
+- K06 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -334,5 +335,7 @@ K03 locks the clean Trừng Ác duration/move/hotkey configuration, old/new tele
 
 K04 locks map-4 NPC return to tile (224,285) with tolerance 96 and fail-open reinjection, the fixed return/receive quest click groups, memory/GameDialog 30-of-30 detection with terminal per-account stop, and the map4/NPC698 stuck-quest cancellation path that recovers into the next outer cycle. K04 was recovered from a partial GitHub state without redoing its already-correct task/flow/model artifacts; the missing evidence artifact was added before closure.
 
+K05 locks Trừng Ác Lệnh item ID 40004000, internal action-3 item use, two-attempt target-acquisition use, GameDialog→UseItemData target extraction, fast_travel target movement, consecutive stuck-target recovery with unresolved numeric threshold, and the second-use GameDialog summon flow through internal Triệu hồi activation. A repository-wide continuity/build audit also confirmed that Stage S/application source has not started, so there is no reconstructed product build target yet rather than a broken build.
+
 ## Phase K current
-K05 — Trừng Ác Lệnh bag/use target extraction / travel / stuck-target accounting / summon audit.
+K06 — Trừng Ác combat / movement-stop / auto-train timing and cycle-completion audit.
