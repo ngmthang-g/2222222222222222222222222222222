@@ -2952,3 +2952,66 @@ On CONTINUE:
 - First K08 artifact committed: docs/daily/K08_PUNISH_DISCARD_STATIC_EVIDENCE.tsv (commit b82181bc38c66bedcda66d6c49ec7e53fa2903be).
 - K08 remains IN_PROGRESS until flow/model/task docs, B08/runtime cross-check summary, STATE closure and PROJECT_STATUS advancement are persisted.
 
+## K08 VERIFIED RESULTS
+- Full current-code/build audit was performed before K08 per user instruction. K01-K07 were confirmed already-correct and were not rewritten.
+- Exact frozen TLMTool_2.1.2(7).zip remains SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes; inner TLMTool.dist/TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Current repository code audit found exactly **7 Python forensic scripts + 1 shell verifier**, no reconstructed application source/build target, no CI workflow, and no blocking source defect. Product-build classification remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not failed. K08 changed docs/evidence only.
+- Exact .daily_tab blob was decoded as **35,163 bytes / 1,186 constants**; exact .bag_filter blob as **5,162 bytes / 145 constants**; directly-needed .memory_items packet constants were also decoded.
+- Visible/persisted K08 control is "Lọc trang bị (vứt vũ khí, trang bị trong quá trình làm nhiệm vụ)" / punish_discard_equip_var / config key daily_punish_discard_equip; load fallback is **"0"**. B08 current captured state is OFF.
+- K08 is a separate run/session-level background subsystem with _punish_discard_stop, _punish_discard_thread, _punish_discard_gen; it is **not** a once-per-_punish_exec_sequence action.
+- Exact toggle behavior: ON + running Trừng Ác account → start worker; ON + no running account → remain armed and wait for a later Trừng Ác start; OFF → stop worker immediately; worker rechecks checkbox state; config is saved.
+- _punish_running_hwnds scopes the worker only to currently-running Trừng Ác HWNDs and excludes stopped/disconnected rows.
+- Exact worker contract: every DAILY_DISCARD_POLL interval, active Trừng Ác accounts are processed **in parallel**, one child thread per account. Numeric DAILY_DISCARD_POLL is **EXPLICIT_UNKNOWN** and was not guessed.
+- Per-account inflight protection is exact: if the previous discard pass for one account is still running, skip that account for the current worker tick rather than overlap it. Other accounts can still proceed.
+- Worker calls bag_filter.discard_for_activity with activity daily, preset key discard_equip, and keyword surface keys/delay/stop_check.
+- Exact Daily preset semantic is **all non-weapon equipment + weapons**, same equipment preset meaning as Phó Bản; this is deliberately opt-in/dangerous and is not a keep-weapons mode.
+- Shared bag_filter contract is frozen: empty/no keys means no scan/no packet; Site 10 default; fields inside a rule are AND, multiple rules OR; targets dedupe by dbID; weapons protected by default unless explicit weapon matching is enabled; protected IDs/names have highest priority.
+- Original degradation behavior is preserved: if embedded/item metadata is unavailable, non-weapon matching can drop out while weapon-ID filtering still works. This is not silently fixed during parity.
+- Shared discard ultimately uses internal memory_items.abandon_item: command **100005**, action **4**, payload **4:<dbID>**, discarding the **full stack** in that bag slot. No visible bag GUI click belongs to this path.
+- Shared discard defaults and Daily worker docs independently lock **1.0-second** per-account packet pacing. Daily passes stop_check, so a long pass can stop early between item actions when the feature/session is stopped.
+- bag_filter also owns lower-level per-HWND send locks (_SEND_LOCKS_GUARD/_SEND_LOCKS/_send_lock_for). Preserve these in addition to Daily's inflight layer.
+- No immediate action-4 retry loop is recovered. Current-pass failures are counted/returned; later periodic scans may encounter still-present items again.
+- One-account child errors are fail-soft/account-local. A worker-level error surface also exists, but exact unexpected outer-exception continue-vs-exit micro-order is **EXPLICIT_UNKNOWN**.
+- Generation state/captured gen is proven, but exact generation increment / stop-event / thread-replacement statement ordering remains **EXPLICIT_UNKNOWN**.
+- Only after static extraction, B08 was cross-checked. It confirms the discard checkbox is OFF in the captured state and provides no runtime discard evidence.
+- Packaged automove_log.txt has **22,734 generic action=4 records** (22,732 spts + 2 plain), proving the low-level discard primitive was exercised somewhere. It contains **0 correlated Daily/K08 markers** for [Trừng ác], lọc trang bị, DAILY_DISCARD_POLL, discard_for_activity, or discard_equip; end-to-end K08 runtime provenance is therefore not claimed.
+- K08 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+
+## K08 FILES
+- docs/tasks/K08.md
+- docs/daily/K08_PUNISH_DISCARD_FLOW.md
+- docs/daily/K08_PUNISH_DISCARD_MODEL.json
+- docs/daily/K08_PUNISH_DISCARD_STATIC_EVIDENCE.tsv
+- docs/audits/CURRENT_CODE_BUILD_AUDIT_2026-10-07_1636.md
+
+## BLOCKERS
+- End-to-end Daily parity still requires a real Windows + live Thần Long runtime.
+- Reconstructed application build remains not applicable until Stage S source exists; no product build target exists yet by design.
+- No known static blocker for K09.
+
+## DO_NOT_TOUCH
+- Preserve K01-K08 contracts unchanged.
+- Preserve discard as a run-scoped background subsystem, not a per-cycle tail action.
+- Preserve current-running-Trừng-Ác-only scope and exclusion of stopped/disconnected accounts.
+- Preserve parallel-account fanout + per-account inflight protection + lower-level per-HWND bag_filter send locks.
+- Preserve daily + discard_equip preset semantics including weapon discard.
+- Preserve packet 100005 action 4 / full-stack behavior and 1-second pacing.
+- Preserve original metadata-degradation behavior; do not silently replace it with a new classifier.
+- Do not invent an immediate retry loop or a numeric DAILY_DISCARD_POLL.
+- Keep generation mutation ordering and worker outer-exception micro-order UNKNOWN.
+- TLMTool 2.1.2 remains sole authority.
+- Do not start Stage S before PLAN reaches implementation.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K09 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K09 — Trừng Ác integrated lifecycle / failure matrix / static handoff audit** only.
+5. Re-inspect the exact frozen original EXE and K03-K08 persisted evidence first; do not re-research already-closed details unless a contradiction appears.
+6. Build the integrated Trừng Ác state/failure matrix: terminal per-account stops vs current-cycle skips vs fail-soft/log-only vs recoverable reconnect/death transitions; batch vs single-account orchestration; discard worker scope; UI reset/stop handoff; and any remaining Trừng Ác callable not yet accounted for.
+7. Identify contradictions/UNKNOWNs across K03-K08 and correct only real conflicts; do not rewrite correct artifacts.
+8. Close the Trừng Ác static handoff only if every K03-K08 surface is internally consistent. K10 remains the first Tàng Bảo Đồ task afterward.
+9. Re-check current repository code/build state after K09 changes; docs-only work must not create a fake Stage-S build target.
+10. Persist K09 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K09 verification.
+
