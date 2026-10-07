@@ -2824,3 +2824,25 @@ On CONTINUE:
 8. Do not deep-audit **K08 — Trừng Ác discard worker**.
 9. Cross-check B08/screenshots only after EXE/static extraction; the screenshots show recovery configuration controls but no live recovery state.
 10. Persist K07 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K07 verification.
+
+## K07 STATIC EXTRACTION MILESTONE — IN PROGRESS
+- GitHub-first continuity check passed: no pre-existing K07 artifacts or K07 completion commit existed; K01-K06 were not redone.
+- Re-inspected the newly supplied exact archive `TLMTool_2.1.2(7).zip` first. Archive SHA-256 is still `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes. Inner `TLMTool.dist/TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- The exact `.daily_tab` Nuitka constant blob was fully decoded: **35,163 bytes / 1,186 top-level constants**, ending exactly at the next blob boundary. K07 evidence was extracted from that blob plus directly-called shared `.utils`, `.memory_items`, and frozen `.pixel_data` constants.
+- Recovery surfaces now statically frozen: `DailyTab._diaphu_monitor`, `DailyTab._punish_disconnect_monitor`, `DailyTab._punish_heal`, and the K07 edges in `_punish_single_worker/_punish_run_worker/_punish_exec_sequence`.
+- Death monitor evidence is exact: 4-second cadence, HP0 revive click **(792,441)**, MapID **87** sets `respawn_event`, and the cycle-start recovery branch clears that event so heal/move can leave map 87.
+- Disconnect detector evidence is exact: 2-second cadence, memory-connected True veto, both `login.ngatKetNoi1+2` pixels, 3 consecutive ticks (~6s), then `halt` + click **(616,455)**.
+- Daily recovery is intentionally not being conflated with Train/TrainLSV: no Daily `/5` reconnect-attempt or infinite-retry surface is recovered. The activity-wide Trừng Ác recovery path explicitly proves a **60-second** reconnect wait with OK→continue / timeout→stop.
+- Single-account Trừng Ác recovery directly proves `wait_pixel(common.active)`, Reader-cache invalidation and `wait_memory_ready(timeout=45.0, need=3)`; shared effective memory-ready interval is **1.0s** and timeout is fail-open. Exact single-worker active-wait numeric timeout is not independently instruction-bound.
+- Low-HP treatment edges are exact: HP<30 check at cycle start and cycle end; start-heal failure skips the current cycle; final-heal failure is logged at the cycle tail. `_punish_heal` re-inject failure is fail-open to direct movement, uses Tô Châu treatment coordinates from the frozen table **(155,252)** and an exact movement tolerance **10**.
+- No unconditional forced post-reconnect DLL reinjection edge is proven in the single-worker recovery block; do not invent one. Later heal/NPC movement helpers independently perform their own guarded reinjection attempts.
+- First K07 artifact committed: `docs/daily/K07_RECOVERY_STATIC_EVIDENCE.tsv` at commit `07653a3f926ced5f5034646cbba2fbb1870ff0c6`.
+- K07 remains **IN_PROGRESS** until flow/model/task documents, runtime/image cross-check summary, STATE closure, and PROJECT_STATUS advancement are persisted.
+
+## K07 INTERIM NEXT_ACTION
+1. Persist K07 recovery flow/model/task artifacts from the completed EXE-first extraction.
+2. Preserve Daily-specific reconnect policy; do not copy Farm/TrainLSV 5-attempt infinite reconnect logic.
+3. Cross-check B08 only as visible recovery-control state, after static extraction.
+4. Cross-check packaged automove_log only for correlated K07 runtime traces; generic unrelated logs are not proof.
+5. Close K07 in STATE.md and PROJECT_STATUS.md, then advance NEXT_ACTION to K08.
+
