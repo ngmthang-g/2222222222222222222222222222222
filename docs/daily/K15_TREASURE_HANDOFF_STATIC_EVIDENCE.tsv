@@ -1,0 +1,62 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FROZEN_SPECIMEN	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; exact library TLMTool_2.1.2(7).zip rematerialized before K15
+inner_exe_sha	-	VERIFIED_FROZEN_SPECIMEN	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_DECODE	.daily_tab size35163 count1186 exact end marker from K10-K14 extraction chain
+handler_inventory	-	VERIFIED_COMPLETE	K01_HANDLER_INVENTORY.tsv exact top-level Treasure-related surfaces audited in K15
+handler_build_ui	0x290a24b	COVERED_K10	_build_ui Treasure config/UI group covered by K10
+handler_apply_all	0x290a490	COVERED_K10	_apply_treasure_all selection-only behavior covered by K10
+handler_start_worker	0x290a688	COVERED_K10	_treasure_start_worker inject-first wrapper covered by K10
+handler_single_worker	0x290a76e	COVERED_K10_K13_K14	_treasure_single_worker row/gen/recovery/stop lifecycle covered
+handler_wait_movement	0x290a8c5	COVERED_K11	_wait_movement_stopped Treasure call uses by_memory=False/MovementDetector branch
+handler_toggle	0x290a9b4	COVERED_K10_K14	_treasure_map_toggle activity ownership/button lifecycle covered
+handler_run_worker	0x290a9d3	COVERED_K10_K14	_treasure_map_run_worker selection/PID/open-loop/still_active/terminal batch conditions covered
+handler_disconnect	0x290a9f6	COVERED_K13	_treasure_map_disconnect_monitor event-adapter/recovery surface covered
+handler_exec	0x290aa21	COVERED_K11_K12_K13_K14	_treasure_map_exec_sequence activation/map96/heal/failure surfaces covered
+handler_heal	0x290aa4e	COVERED_K13	_treasure_heal selected-map movement/validation covered
+handler_reset	0x290aa67	COVERED_K10_K14	_treasure_map_reset_ui exact idle tuple/reset handoff covered
+top_level_treasure_unaccounted	-	VERIFIED_NONE	No top-level Treasure callable from K01 inventory remains uncovered
+duration_ui_config	0x2903bec	VERIFIED_LAYER	UI seed30 + load fallback30
+duration_helper_default	0x290aa21	VERIFIED_LAYER	_treasure_map_exec_sequence direct fallback tomb_dur=5; distinct from production worker config
+duration_contradiction	-	RESOLVED_LAYERING	30 production UI/config vs 5 direct helper fallback is not contradiction
+activation_recognizer	0x2909429	VERIFIED_K11	Current recognizer tuido.tangBaoDo_multi; legacy keys not active Daily call
+activation_not_found_1	0x29094c8	VERIFIED_TERMINAL	First tangBaoDo_multi not-found stops current Treasure account
+activation_not_found_2	0x290958e	VERIFIED_TERMINAL	Second tangBaoDo_multi not-found stops current Treasure account
+activation_wait	0x2909537	VERIFIED_K11	_wait_movement_stopped(stop_check,skip_set), by_memory default False -> MovementDetector 10-pixel
+map96_branch	0x2909600	VERIFIED_K12	MapID=96 huyệt mộ combat branch with tomb_dur seconds
+map96_move	0x290965c	VERIFIED_K12	move to map96 tile50,16 via 1600/512 movement values
+common_active	0x29096f5	VERIFIED_K12	common.active wait exists; effective explicit timeout numeric remains unknown
+non96	0x290976f	VERIFIED_NONTERMINAL	MapID !=96 skips tomb outcome, does not stop Treasure account
+heal_start_fail	0x2909245	VERIFIED_SKIP_CYCLE	Start-of-cycle heal failure skips current cycle
+heal_final_fail	0x29097b9	VERIFIED_FAILSOFT	Final heal failure log-only/fail-soft
+heal_selected_map	0x29098fc	VERIFIED_K13	_treasure_heal selected-map helper; no hardwired Tô Châu-only contract
+heal_tolerance	-	VERIFIED_SHARED_DEFAULT	No Treasure tolerance kw -> shared move_character default48
+heal_no_fixed_click	-	VERIFIED_ABSENCE	No Treasure-specific fixed treatment click/reinject surface recovered
+disconnect_adapter	0x290a9f6	VERIFIED_K13	Treasure disconnect monitor thin event adapter shape
+disconnect_shared_detector	0x2907289	VERIFIED_SHARED_K07	2s, memory True veto, dual pixels x3, halt + click616,455
+treasure_reconnect_timeout	-	EXPLICIT_UNKNOWN	Bounded OK/timeout shell exists but Treasure numeric timeout not independently bound
+single_cache_ready	0x290b9e9	VERIFIED_K13	Single-worker cache invalidation + wait_memory_ready recovery boundary
+respawn_shared	0x2907027	VERIFIED_SHARED_K07	4s shared death monitor; HP0 click792,441; map87 -> respawn_event
+respawn_consume	0x2909190	VERIFIED_K13	Treasure next exec clears respawn_event then enters HP/heal/movement path
+skipped_field	0x29033d0	VERIFIED_K14	_treasure_map_skipped exact DailyTab field
+skipped_batch_role	-	STRONG_STATIC_K14	Terminal not-found + skip_set + still_active filtering support persistent exclusion within active batch
+skipped_mutation_microorder	-	EXPLICIT_UNKNOWN	Exact add/discard/clear statements and clear boundary not native-bound
+batch_selection	0x290b94c	VERIFIED_K10_K14	selected + selected_pids start snapshot; alive/still_active repeated filtering; loop_idx open-ended
+batch_no_selection	0x2908f2b	VERIFIED_BATCH_END	No selected Treasure rows -> no-op/bỏ qua
+batch_no_alive	0x2908f77	VERIFIED_BATCH_END	No live selected rows -> dừng
+batch_all_stopped	0x2908fb3	VERIFIED_BATCH_END	All selected rows stopped/excluded -> auto-stop
+stop_reason_cancel	0x290686b	VERIFIED_CONTROL_STOP	cancel(batch-tàng-bảo-đồ)
+stop_reason_halt	0x290688c	VERIFIED_RECOVERY_INTERRUPT	halt(mất-kết-nối)
+stop_reason_event	0x29068a5	VERIFIED_CONTROL_STOP	stop_event(dừng)
+stop_reason_gen	0x29068b9	VERIFIED_CONTROL_STOP	gen(phiên-mới)
+stop_reason_window	0x29068cc	VERIFIED_CONTROL_STOP	window-chết/đổi-process
+stop_reason_respawn	0x29068ea	VERIFIED_RECOVERY_INTERRUPT	respawn(địa-phủ)
+reset_tuple	0x290991a	VERIFIED_UI_RESET	Tàng bảo đồ / RoyalBlue / normal
+global_monitor	0x2906214	VERIFIED_SHARED_K02	_daily_all_monitor singleton waits for all row sessions and calls both reset helpers
+global_reset_log	0x29062a8	VERIFIED_SHARED_K02	[Bắt đầu] Tất cả acc đã dừng — tự động reset UI
+starttab_sync	0x2906456	VERIFIED_SHARED_K02	_sync_start_tab_btns synchronizes external controls
+teardown_order	-	EXPLICIT_UNKNOWN	Exact cancel/running/monitor/join/reset/sync statement order
+contradiction_k10_k14	-	VERIFIED_NONE	No blocking contradiction across K10-K14 after integrated audit
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_treasure_integrated	-	NOT_RECOVERED	No correlated end-to-end Treasure lifecycle trace in packaged automove_log
+b08_scope	-	CROSSCHECKED_FROZEN_B08	Idle Treasure UI/config only; no runtime lifecycle proof
+handoff_status	-	STATIC_HANDOFF_COMPLETE	Treasure top-level/static behavior coverage complete; runtime parity still requires live Windows/game
