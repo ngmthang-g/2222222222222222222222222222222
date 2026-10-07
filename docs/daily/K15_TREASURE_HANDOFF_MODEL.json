@@ -1,0 +1,352 @@
+{
+  "task": "K15",
+  "status": "VERIFIED_TREASURE_INTEGRATED_LIFECYCLE_FAILURE_MATRIX_AND_STATIC_HANDOFF_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "exact_library_specimen": "TLMTool_2.1.2(7).zip",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_blob": {
+      "marker": "0x2903223",
+      "size_bytes": 35163,
+      "top_level_constants": 1186
+    }
+  },
+  "callable_coverage": {
+    "_build_ui": "K10 Treasure config/UI group",
+    "_apply_treasure_all": "K10 selection-only",
+    "_treasure_start_worker": "K10 inject-first wrapper",
+    "_treasure_single_worker": "K10 ownership + K13 recovery + K14 stop lifecycle",
+    "_wait_movement_stopped": "K11 exact Treasure call-site semantics",
+    "_treasure_map_toggle": "K10/K14 activity ownership and button lifecycle",
+    "_treasure_map_run_worker": "K10/K14 batch selection/PID/open-loop/still_active",
+    "_treasure_map_disconnect_monitor": "K13 event-adapter recovery surface",
+    "_treasure_map_exec_sequence": "K11-K14 activation/map96/heal/failure lifecycle",
+    "_treasure_heal": "K13 selected-map treatment",
+    "_treasure_map_reset_ui": "K10/K14 reset handoff"
+  },
+  "unaccounted_top_level_treasure_callables": [],
+  "orchestration": {
+    "activity_wide": {
+      "entry": "_treasure_start_worker -> _treasure_map_toggle -> _treasure_map_run_worker",
+      "inject_first": true,
+      "snapshot": [
+        "selected",
+        "selected_pids",
+        "tomb_dur"
+      ],
+      "loop": "open-ended loop_idx while eligible still_active accounts remain",
+      "parallel_account_threads": true,
+      "cancel": "_treasure_map_cancel"
+    },
+    "per_row": {
+      "entry": "_toggle_single_acc/_start_all_accs -> _treasure_single_worker",
+      "identity": "row HWND+PID + real stop Event + generation snapshot",
+      "execution": "_treasure_map_exec_sequence",
+      "recovery": "halt/respawn_event/monitor_stop + Reader cache invalidation + wait_memory_ready",
+      "separate_from_activity_batch": true
+    }
+  },
+  "configuration": {
+    "tomb_duration": {
+      "ui_seed_seconds": 30,
+      "missing_key_fallback_seconds": 30,
+      "exec_direct_helper_default_seconds": 5,
+      "production_behavior": "workers pass configured tomb_dur",
+      "contradiction": false
+    },
+    "heal_enabled_missing_key_fallback": "0",
+    "heal_map_missing_key_fallback": "Tô Châu",
+    "reconnect_missing_key_fallback": "1",
+    "respawn_missing_key_fallback": "1",
+    "apply_all": "sets current row activity comboboxes to Tàng bảo đồ only; does not start work"
+  },
+  "integrated_cycle": {
+    "stable_order": [
+      "cycle/session stop guard",
+      "consume respawn_event if set",
+      "optional HP<30 start heal",
+      "mount preparation if needed",
+      "open/verify bag",
+      "find current tuido.tangBaoDo_multi",
+      "first activation/use",
+      "wait movement stopped using MovementDetector by_memory=False",
+      "second tuido.tangBaoDo_multi checkpoint/use",
+      "post-activation MapID/tomb outcome region",
+      "optional final HP<30 heal",
+      "cycle tail and return to owning worker"
+    ],
+    "post_activation_region": {
+      "map96_text": "MapID=96 (huyệt mộ) → đánh <tomb_dur>",
+      "state": "Đánh trong mộ",
+      "duration_semantic": "seconds for current tomb-combat stage",
+      "fixed_click_surfaces": [
+        [
+          1135,
+          124
+        ],
+        [
+          955,
+          123
+        ]
+      ],
+      "move_surface": "map96 tile(50,16) through move values1600/512",
+      "common_active_wait": true,
+      "non96": "skip tomb outcome, not terminal",
+      "exact_micro_order_of_fixed_clicks_duration_move_and_mapid_read": "UNKNOWN"
+    }
+  },
+  "item_activation": {
+    "mount": {
+      "riding_field": "IsRiding",
+      "active_pixel": "common.nguaActive",
+      "fallback_click": [
+        1306,
+        340
+      ]
+    },
+    "bag": {
+      "active_pixel": "tuido.active",
+      "drag_surface": [
+        [
+          870,
+          635
+        ],
+        [
+          910,
+          145
+        ]
+      ]
+    },
+    "recognizer": {
+      "key": [
+        "tuido",
+        "tangBaoDo_multi"
+      ],
+      "region": [
+        702,
+        163,
+        1132,
+        517,
+        20,
+        30
+      ],
+      "base_rgb": [
+        2,
+        30,
+        35
+      ],
+      "offset_rgb": [
+        228,
+        215,
+        170
+      ],
+      "timeout_seconds": 5,
+      "tolerance_percent": 1,
+      "legacy_keys_not_current": true
+    },
+    "click": "background HWND mouse.click_at via DLL-sync/PostMessage",
+    "two_stage": true,
+    "first_not_found": "TERMINAL_CURRENT_TREASURE_ACCOUNT",
+    "second_not_found": "TERMINAL_CURRENT_TREASURE_ACCOUNT"
+  },
+  "movement_stop": {
+    "helper": "_wait_movement_stopped",
+    "keyword_surface": [
+      "stop_check",
+      "skip_set"
+    ],
+    "by_memory": false,
+    "detector": "MovementDetector/is_moving 10-pixel branch"
+  },
+  "heal": {
+    "threshold_percent": 30,
+    "start_failure": "SKIP_CURRENT_CYCLE",
+    "final_failure": "FAIL_SOFT_LOG_ONLY",
+    "selected_coordinates": {
+      "Đại Lý": [
+        43,
+        178
+      ],
+      "Lạc Dương": [
+        255,
+        126
+      ],
+      "Tô Châu": [
+        155,
+        252
+      ],
+      "Lâu Lan": [
+        27,
+        183
+      ]
+    },
+    "map_id_resolution": "dynamic through MAP_LIST",
+    "movement_tolerance_layer": "shared move_character default48",
+    "fixed_treatment_clicks": "NOT_RECOVERED",
+    "treasure_specific_reinject": "NOT_PROVEN"
+  },
+  "recovery": {
+    "disconnect": {
+      "adapter": "_treasure_map_disconnect_monitor thin event bridge",
+      "shared_detector": "2s cadence; memory-connected True veto; dual exact pixels for 3 ticks; halt + click616,455",
+      "activity_shell": "detect -> bounded wait -> OK continue / timeout stop",
+      "treasure_timeout_numeric": "UNKNOWN",
+      "single_cache_ready": "invalidate Reader cache + wait_memory_ready boundary",
+      "forced_reinject_after_reconnect": "NOT_PROVEN"
+    },
+    "death": {
+      "shared_monitor": "_diaphu_monitor",
+      "cadence_seconds": 4,
+      "hp0_click": [
+        792,
+        441
+      ],
+      "map87_sets": "respawn_event",
+      "reentry": "next Treasure exec clears event then resumes HP/heal/movement boundary",
+      "class": "RECOVERABLE_INTERRUPT"
+    }
+  },
+  "skipped_account": {
+    "state": "_treasure_map_skipped",
+    "role": "persistent exclusion of terminally skipped Treasure HWNDs within active batch",
+    "proof": "STRONG_STATIC from state ownership + terminal not-found + skip_set + still_active filtering",
+    "exact_add_discard_clear_microorder": "UNKNOWN"
+  },
+  "failure_matrix": [
+    {
+      "event": "no Treasure rows selected",
+      "class": "BATCH_NOOP",
+      "outcome": "no activity work"
+    },
+    {
+      "event": "no selected row remains live",
+      "class": "BATCH_TERMINAL",
+      "outcome": "stop activity"
+    },
+    {
+      "event": "all selected rows stopped/skipped/ineligible",
+      "class": "BATCH_TERMINAL",
+      "outcome": "auto-stop activity"
+    },
+    {
+      "event": "first map-item recognition missing",
+      "class": "TERMINAL_CURRENT_TREASURE_ACCOUNT",
+      "outcome": "exclude affected account"
+    },
+    {
+      "event": "second map-item recognition missing",
+      "class": "TERMINAL_CURRENT_TREASURE_ACCOUNT",
+      "outcome": "exclude affected account"
+    },
+    {
+      "event": "start heal fails",
+      "class": "SKIP_CURRENT_CYCLE",
+      "outcome": "later cycle may run"
+    },
+    {
+      "event": "MapID after activation is not 96",
+      "class": "SKIP_TOMB_OUTCOME",
+      "outcome": "continue final-heal/cycle tail"
+    },
+    {
+      "event": "final heal fails",
+      "class": "FAIL_SOFT_LOG_ONLY",
+      "outcome": "finish cycle tail"
+    },
+    {
+      "event": "disconnect recovery succeeds",
+      "class": "RECOVERABLE_INTERRUPT",
+      "outcome": "continue Treasure"
+    },
+    {
+      "event": "disconnect recovery times out",
+      "class": "TERMINAL_AFFECTED_RECOVERY_PATH",
+      "outcome": "stop affected path"
+    },
+    {
+      "event": "death/Map87",
+      "class": "RECOVERABLE_INTERRUPT",
+      "outcome": "respawn_event recovery"
+    },
+    {
+      "event": "activity batch cancel",
+      "class": "CONTROL_STOP",
+      "outcome": "cancel(batch-tàng-bảo-đồ)"
+    },
+    {
+      "event": "row stop Event",
+      "class": "CONTROL_STOP",
+      "outcome": "stop_event(dừng)"
+    },
+    {
+      "event": "row generation changes",
+      "class": "CONTROL_STOP",
+      "outcome": "gen(phiên-mới)"
+    },
+    {
+      "event": "window/PID invalidated",
+      "class": "CONTROL_STOP",
+      "outcome": "window-chết/đổi-process"
+    }
+  ],
+  "ui_stop_handoff": {
+    "activity_running": {
+      "text": "Dừng lại",
+      "bg": "FireBrick"
+    },
+    "activity_stopping": {
+      "text": "Đang dừng...",
+      "state": "disabled"
+    },
+    "activity_idle": {
+      "text": "Tàng bảo đồ",
+      "bg": "RoyalBlue",
+      "state": "normal"
+    },
+    "bottom_running": {
+      "text": "Dừng lại",
+      "bg": "#f44336"
+    },
+    "bottom_idle": {
+      "text": "Bắt đầu",
+      "bg": "#388e3c"
+    },
+    "all_account_stop": "set row _farming_acc=False + row _stop_event",
+    "global_monitor": "singleton _daily_all_monitor waits for all rows, calls _punish_reset_ui + _treasure_map_reset_ui",
+    "starttab_sync": "_sync_start_tab_btns",
+    "exact_teardown_order": "UNKNOWN"
+  },
+  "contradiction_audit": {
+    "blocking_conflicts_found": 0,
+    "resolved_layering": [
+      "normal Treasure duration 30 vs exec direct-helper fallback5"
+    ],
+    "preserved_unknowns": [
+      "Treasure reconnect timeout numeric",
+      "common.active explicit timeout numeric",
+      "exact _treasure_map_skipped mutation/clear order",
+      "tomb combat timing primitive",
+      "fixed click meanings/order",
+      "Treasure heal post-arrival microaction",
+      "disconnect adapter native call edge/event propagation",
+      "death/disconnect simultaneous precedence",
+      "final UI teardown order"
+    ],
+    "corrections_to_K10_K14_required": false
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_end_to_end_treasure_trace": false,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "static_handoff": {
+    "treasure_top_level_callable_coverage_complete": true,
+    "treasure_static_handoff_complete": true,
+    "stage_s_ready_from_treasure_perspective": true,
+    "overall_project_stage_s_ready": false,
+    "reason": "Phase K shared/runtime tasks and later PLAN phases still remain before reconstruction",
+    "next_task": "K16 — Daily shared cross-activity lifecycle / persistence / UI-coordinator integration audit"
+  }
+}
