@@ -375,8 +375,8 @@ K17 closes Phase K at the static-research level. The original archive, inner EXE
 ## Phase K gate
 **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**
 
-## Phase L — Đồn
+## Phase L — Dồn
 - L01 — NEXT
 
 ## Phase L current
-L01 — Đồn authority / visible surface / handler inventory / dependency boundary audit.
+L01 — Dồn authority / visible surface / handler inventory / dependency boundary audit.
