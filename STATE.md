@@ -2794,3 +2794,19 @@ On CONTINUE:
 7. Do not deep-dive heal/disconnect/respawn recovery (K07) or Trừng Ác discard worker (K08).
 8. Cross-check B08 only after static extraction; B08 has no combat runtime state.
 9. Persist K06 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K06 verification.
+
+## K06 STATIC EXTRACTION MILESTONE — IN PROGRESS
+- GitHub-first continuity check passed: no pre-existing K06 artifact/commit existed; K01-K05 were left unchanged.
+- Exact frozen original was re-materialized from the user's Library archive TLMTool_2.1.2(3).zip and revalidated before screenshot use. Archive SHA-256 remains c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; inner TLMTool.exe remains 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size 47,450,112 bytes.
+- Combat static extraction is complete enough to freeze the main K06 evidence: start_auto_train edge, monotonic/_t_end duration surface, death-early-break text, 160-pixel hypot drift detector, final-heal boundary, and no explicit Daily stop_game_auto/AUTO_MODE_NONE/stop_auto_train symbol.
+- Shared utils evidence is also decoded: start_auto_train defaults (None, True, 3, 1.0, 2); wait_stopped_by_direction defaults (None, 300, 6, 0.5, 16); helper documentation confirms Direction verification and stable movement semantics.
+- _wait_movement_stopped was audited without assuming a Trừng Ác call edge. Its by_memory default is False; explicit recovered Daily call surface is in the Tàng Bảo Đồ block.
+- First K06 artifact committed: docs/daily/K06_PUNISH_COMBAT_STATIC_EVIDENCE.tsv (commit 901fcbf3b259eaf1323665101018d2643b31bd8a).
+- K06 remains IN_PROGRESS until flow/model/task docs, runtime/image cross-check, STATE and PROJECT_STATUS closure are committed.
+
+## K06 INTERIM NEXT_ACTION
+1. Persist K06 flow/model/task artifacts from the completed EXE-first extraction.
+2. Cross-check the already-frozen/re-supplied B08 images only as visible configuration evidence.
+3. Cross-check packaged automove_log only as runtime environment evidence; do not promote generic AutoFight_Main traffic to Daily proof.
+4. Close K06 in STATE.md and PROJECT_STATUS.md, then advance NEXT_ACTION to K07.
+
