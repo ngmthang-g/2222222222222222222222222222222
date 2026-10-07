@@ -3769,3 +3769,60 @@ On CONTINUE:
 8. Determine whether Phase K can be statically closed with a runtime-test handoff package; do not claim live parity PASS without real environment evidence.
 9. Re-check repository code/build state after K17 docs/evidence changes.
 10. Persist K17 artifacts, update STATE.md/PROJECT_STATUS.md, and only then advance from Phase K to Phase L.
+
+## K17 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K17 artifact/completion commit existed; K09, K15 and K16 were treated as frozen inputs.
+- Exact TLMTool_2.1.2(7).zip was revalidated: SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, ZIP CRC clean. Inner TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Packaged automove_log was re-extracted and revalidated: SHA-256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, **15,741,058 bytes / 387,238 lines**.
+- Rechecked counts are zero for [Daily], [Bắt đầu], [Inject], DailyTab, Tới bổ đầu, [Trị liệu], Trừng ác, Tàng bảo đồ, Mất kết nối, Địa phủ and Tất cả acc đã dừng.
+- Packaged runtime evidence is **VERIFIED_NEGATIVE_EVIDENCE**, not live parity proof.
+- K17 produced a **20-case** Daily runtime/parity matrix. Cases requiring the original Windows + live Thần Long environment are explicitly **NOT_EXECUTABLE_HERE**; no fabricated PASS was recorded.
+- Runtime matrix covers roster/PID reuse, rapid Stop->Start generation protection, mixed all-account activities, ownership overlap, manual shared-action overlap, injection re-entry, both activity lifecycles/recovery paths, Treasure terminal item-miss exclusion, config/destroy persistence, StartTab synchronization, window/PID invalidation and Tk state marshalling.
+- Static closure audit confirms **0 blocking contradictions** across K09 Trừng Ác, K15 Treasure and K16 shared Daily.
+- All Daily top-level callables are accounted for; no known static handler gap remains.
+- Phase-K decision: **STATIC RESEARCH COMPLETE / LIVE RUNTIME PARITY PENDING**. This is not a live parity PASS.
+- Remaining unresolved Daily items are runtime/environment-only: cross-domain ownership policy, manual-action overlap policy, Treasure reconnect timeout/event ordering, destroy cleanup order, live daily_move_mode persistence/migration, live thread timing and UI sync timing.
+- K17 artifacts:
+  - docs/daily/K17_RUNTIME_PARITY_MATRIX.tsv — commit dab0b3d6eead84cb1b06f3bb160b884d5b5ab1e6
+  - docs/daily/K17_PHASE_K_HANDOFF_MODEL.json — commit 5294ced7ad04a315d892cbd411ed794b4b62b07e
+  - docs/daily/K17_PHASE_K_HANDOFF.md — commit 2467f2b9babe07ce4d72092915d84cfd6c1594f6
+  - docs/tasks/K17.md — commit e5d12679c12a59d4444ad2a48bcfe98e1161cf94
+- PROJECT_STATUS.md marked K17 static closure and advanced to Phase L / L01 at commit 2490833d5969ddf9da784c5da58515129ab1442a.
+
+## POST-K17 CODE/BUILD RECHECK
+- Current main tree after K17 status update: **618 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked commit has **0 CI statuses** and **0 workflow runs**.
+- All four K17 artifacts were fetched back successfully.
+- K17 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## PHASE K GATE
+- **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**.
+- K17 runtime matrix is the required later parity checklist.
+- Do not reopen K01-K16 unless future runtime evidence exposes a real contradiction.
+
+## BLOCKERS
+- Live Daily parity still requires Windows + live Thần Long runtime.
+- Reconstructed product build is still not applicable before Stage S.
+- No known static blocker for Phase L.
+
+## DO_NOT_TOUCH
+- Preserve K01-K17 Daily contracts and the distinction between static closure and live parity.
+- Never convert K17 NOT_EXECUTABLE_HERE cases into PASS without real evidence.
+- Preserve unresolved runtime-only ownership/overlap/teardown behaviors as UNKNOWN until tested.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L01 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L01 — Đồn authority / visible surface / handler inventory / dependency boundary audit** only.
+5. Re-inspect the exact frozen original EXE first; do not infer Đồn behavior from prior tools/projects.
+6. Identify the active Đồn module/class in the main app, visible UI surface, top-level callable inventory and direct dependency boundary.
+7. Separate visible/current behavior from dormant/static references.
+8. Use screenshots/runtime evidence only after EXE-first static extraction.
+9. Persist L01 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L01 verification.
