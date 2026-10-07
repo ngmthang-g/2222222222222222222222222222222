@@ -3232,3 +3232,26 @@ On CONTINUE:
 9. Cross-check B08 only after static extraction; B08 does not show the runtime activation flow.
 10. Persist K11 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K11 verification.
 
+## K11 STATIC EXTRACTION MILESTONE — IN PROGRESS
+- GitHub-first continuity check passed: no pre-existing K11 artifact/completion commit existed; K01-K10 were preserved.
+- Exact TLMTool_2.1.2(7).zip was revalidated before K11: archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, CRC clean. Inner TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact .daily_tab blob was fully decoded again: **35,163 bytes / 1,186 constants**, exact end marker.
+- K11 freezes the Tàng Bảo Đồ activation portion of _treasure_map_exec_sequence only; map96 tomb combat/heal/reconnect remain deferred.
+- Mount pre-step is exact at the static boundary: B0 log, character field (IsRiding,0), already-riding skip, 0.3s settle, common.nguaActive pixel check, and exact logged fallback click (1306,340). Additional fixed mount coordinates (1131,121), (1073,123), (906,688) are serialized in the same B0 block; their exact source-line purposes are kept strong-static rather than guessed.
+- Pixel config common.nguaActive is exact: region (903,683), RGB(193,162,96), timeout1, tolerance10.
+- Bag-open block is exact at the static boundary: B1 log, fixed coordinate (1296,421), wait_pixel call surface with window_hwnd/timeout, pixel key tuido.active, and adjacent drag coordinates (870,635)->(910,145). Pixel tuido.active is region(1123,631), RGB(150,166,78), timeout5, tolerance10.
+- Current treasure-map recognizer is explicitly tuido.tangBaoDo_multi. Its frozen pixel config is region [702,163,1132,517,20,30], base RGB [2,30,35], offset RGB [228,215,170], timeout5, tolerance1. Legacy tangBaoDo / tangBaoDo_multi_old entries exist but are not the current Daily call surface.
+- Shared pixel.find_multipixel contract is exact: one window capture, scan all base matches, verify offset color, return the base client (x,y) or None.
+- On success Daily logs: Found tuido.tangBaoDo_multi at <found> → click. Daily uses the shared mouse.click_at background-click stack; helper docs prove DLL sync + PostMessage behavior with HWND targeting and no physical cursor requirement.
+- The activation-success constant block also contains fixed coordinates (950,370), (490,427), (1173,105) and keyword surface window_hwnd/count/jitter/delay. Exact source-line mapping and exact override values for count/jitter/delay are not independently instruction-bound and remain UNKNOWN.
+- First recognizer failure is terminal for the current Treasure account: exact text says not found → dừng tàng bảo đồ cho acc này.
+- A fixed (1155,108) click surface is serialized immediately before _wait_movement_stopped. Its exact UI purpose is not text-bound and is not guessed.
+- The Treasure movement-stop call is now bound exactly: _wait_movement_stopped with keyword names stop_check/skip_set and no by_memory override. Since helper default by_memory=False, this Treasure call uses the MovementDetector 10-pixel branch, not the Direction+Pos memory branch.
+- After movement stops, exact log Đã dừng is followed by a second tangBaoDo_multi checkpoint. Exact second failure text says not found (lần 2) → dừng tàng bảo đồ cho acc này.
+- Therefore K11 freezes a two-checkpoint activation shape around the movement wait: first map-item find/use -> movement-stop wait -> second map-item find/use/check -> post-activation outcome. Exact repeated second-success click microsequence is only strong-static reuse, not separately logged.
+- Immediate next deep-flow boundary after successful second activation is MapID=96 (huyệt mộ) handling, deferred to K12.
+- Packaged automove_log contains **0 correlated K11 markers** for Tàng Bảo Đồ, tangBaoDo_multi, B0/B1/B2, movement-stop Treasure text, or fixed activation coordinates.
+- B08 was cross-checked only after static extraction and contains no runtime bag/item activation evidence.
+- First K11 artifact committed: docs/daily/K11_TREASURE_ITEM_ACTIVATION_STATIC_EVIDENCE.tsv at commit 1de855a3f4941c426e9494cbbaef49811778f2da.
+- K11 remains IN_PROGRESS until model/flow/task docs, code/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
+
