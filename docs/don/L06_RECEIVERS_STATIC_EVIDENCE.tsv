@@ -1,0 +1,78 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; 1050 ZIP entries; CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+sync_aliases_doc	0x2922158	VERIFIED_STATIC_UTF8	legacy receiver_var/recv_coord_var aliases kept for old singular logic
+receiver_add_doc	0x29222e2	VERIFIED_STATIC_UTF8	add receiver row = account combo + delete; shared Dồn coord outside rows
+receiver_renumber_doc	0x2922487	VERIFIED_STATIC_UTF8	renumber Acc nhận 1,2,3 after deletion
+receiver_remove_doc	0x29224e9	VERIFIED_STATIC_UTF8	remove receiver row; always retain at least one; shared coordinate unaffected
+receiver_refresh_doc	0x29225ea	VERIFIED_STATIC_UTF8	populate every receiver combo from _acc_rows; preserve current selection while account exists
+receiver_refresh_dup_locals	0x29225a1	STRONG_STATIC_MAPPING	hwnd_map/dup/" ("/hwnd/names/_receiver_hwnd_map indicate duplicate display-name disambiguation with parenthesized HWND
+receiver_refresh_locals	0x292fe93	VERIFIED_STATIC_MAPPING	names,hwnd_map,nm,label,dup,base,rd,any_valid,cur
+receiver_no_selection_doc	0x29226d4	VERIFIED_STATIC_UTF8	when no receiver selection, restore all account rows to normal donor presentation
+is_receiver_doc	0x2922849	VERIFIED_STATIC_UTF8	True if HWND is selected in any receiver row
+selected_receiver_doc	0x29228a2	VERIFIED_STATIC_UTF8	first selected receiver row HWND or None
+all_receiver_doc	0x29228fa	VERIFIED_STATIC_UTF8	set of all selected receiver HWNDs
+managed_names_doc	0x292294c	VERIFIED_STATIC_UTF8	all account names managed by tool; whitelist for receiver trade watcher
+start_watch_worker	0x2922a4f	VERIFIED_STATIC	don_logic.watch_trade_invites + normalize_name
+start_watch_no_accounts	0x2922af9	VERIFIED_STATIC_UTF8	no managed accounts -> temporarily do not watch
+start_watch_doc	0x2922bc4	VERIFIED_STATIC_UTF8	background trade-invite watcher; managed names accepted; unknown names cancelled; runs outside Dồn
+ensure_watch_map	0x2922d54	VERIFIED_STATIC	_trade_watchers + is_alive
+ensure_watch_doc	0x2922de1	VERIFIED_STATIC_UTF8	one background watcher per receiver; lives until game window closes; idempotent ensure
+find_recv_row_doc	0x2922f5f	VERIFIED_STATIC_UTF8	find receiver config row by HWND
+receiver_speed_doc	0x2922fe6	VERIFIED_STATIC_UTF8	receiver gold/hour from tracker = donated gold / elapsed hours
+don_point_not_pinned	0x2923185	VERIFIED_STATIC_UTF8	shared coordinate but choose any ready receiver; not pinned to receiver 1
+any_ready_doc	0x29232dd	VERIFIED_STATIC_UTF8	ready receiver HWND different from this donor, or None
+pick_ready_random	0x2923326	VERIFIED_STATIC	random + _receiver_speed + candidates + min + choice
+pick_ready_doc	0x2923358	VERIFIED_STATIC_UTF8	only ready candidates; minimum gold/hour first; random tie; returns hwnd+coords or None
+fallback_doc	0x2923513	VERIFIED_STATIC_UTF8	first receiver with valid coordinates; fallback when selection cannot be made
+receiver_style_doc	0x2923634	VERIFIED_STATIC_UTF8	receiver name/level highlighted yellow; nonreceiver black
+receiver_selected_doc	0x29236ee	VERIFIED_STATIC_UTF8	selection change updates style and moves receiver account row to top; buttons unchanged
+manual_don_self_guard	0x29243cb	VERIFIED_STATIC_UTF8	receiver must differ from donor for manual Dồn
+manual_move_pick	0x2924622	VERIFIED_STATIC	manual move path calls _pick_ready_receiver then _fallback_receiver
+state_receiver_ready	0x292cfda	VERIFIED_STATIC_DECODE	Sẵn sàng nhận
+state_receiver_prep	0x292cfee	VERIFIED_STATIC_DECODE	Chuẩn bị nhận
+state_receiver_receiving	0x292d003	VERIFIED_STATIC_DECODE	Đang nhận
+state_ready_color	0x292d0cf	VERIFIED_STATIC_DECODE	Sẵn sàng nhận -> #2e7d32 by ordered state/style table
+state_prep_color	0x292d0de	VERIFIED_STATIC_DECODE	Chuẩn bị nhận -> #1565c0 by ordered state/style table
+state_receiving_color	0x292d0ed	VERIFIED_STATIC_DECODE	Đang nhận -> #1565c0 by ordered state/style table
+recv_phase_doc	0x292c03a	VERIFIED_STATIC_UTF8	start -> Đang nhận; done -> Sẵn sàng nhận only if still Đang nhận
+recv_registry_lock	0x291b159	VERIFIED_DON_LOGIC_STATIC	_recv_reg_lock / _recv_registry
+recv_registry_fields	0x291b179	VERIFIED_DON_LOGIC_STATIC	ready Event, donated, aborted, donor_hwnd
+register_receiver_doc	0x291b199	VERIFIED_DON_LOGIC_STATIC	idempotent receiver registration
+unregister_receiver_doc	0x291b1ee	VERIFIED_DON_LOGIC_STATIC	remove receiver registry state when recv_cycle ends
+ready_receiver_set_doc	0x291b241	VERIFIED_DON_LOGIC_STATIC	set of receiver HWNDs whose ready event is set
+mark_ready_doc	0x291b2c6	VERIFIED_DON_LOGIC_STATIC	receiver marks ready
+mark_donated_doc	0x291b2fa	VERIFIED_DON_LOGIC_STATIC	donor signals Dồn complete for receiver
+claim_doc	0x291b37a	VERIFIED_DON_LOGIC_STATIC	set donor_hwnd so receiver knows claimant; donor death resets promptly
+abort_doc	0x291b460	VERIFIED_DON_LOGIC_STATIC	donor abort resets that receiver cycle; fault isolation
+clear_abort_doc	0x291b566	VERIFIED_DON_LOGIC_STATIC	clear stale abort on new attempt after receiver lock held
+per_receiver_lock_doc	0x291b123	VERIFIED_DON_LOGIC_STATIC	idempotent lock per receiver
+active_trade_doc	0x291b642	VERIFIED_DON_LOGIC_STATIC	mark donor+receiver active trade state
+watcher_yield_doc	0x291c53f	VERIFIED_DON_LOGIC_STATIC	watcher yields while receiver donor claim exists to avoid MessageBox race
+watcher_accept_doc	0x291c7fb	VERIFIED_DON_LOGIC_STATIC	background watcher: allowed inviter accepted, unknown rejected and continue, unreadable ignored, active Dồn yields
+normalize_name_doc	0x291c3cc	VERIFIED_DON_LOGIC_STATIC	normalize account name by lowercasing/diacritic removal/nonalnum normalization and .S4 handling
+don_wait_ready_doc	0x291f125	VERIFIED_DON_LOGIC_STATIC	donor waits for at least one receiver ready; false on timeout
+don_wait_ready_5s_log	0x291f26d	VERIFIED_DON_LOGIC_STATIC	ready=[] trong 5s
+no_ready_log	0x291f283	VERIFIED_DON_LOGIC_STATIC	no ready receiver -> skip and farm continues
+post_lock_ready_log	0x291f2d9	VERIFIED_DON_LOGIC_STATIC	selected receiver no longer ready after lock -> retry/skip selection
+receiver_busy_log	0x291f2f6	VERIFIED_DON_LOGIC_STATIC	receiver busy
+all_busy_log	0x291f442	VERIFIED_DON_LOGIC_STATIC	all receivers busy -> skip cycle / farm continues
+don_move_doc	0x291f60a	VERIFIED_DON_LOGIC_STATIC	choose ready receiver at call time, Dồn, then signal donated
+parallel_doc	0x291f6c4	VERIFIED_DON_LOGIC_STATIC	per-receiver locks allow donors in parallel across different receivers; same receiver serialized
+ranking_doc	0x291f7c2	VERIFIED_DON_LOGIC_STATIC	lowest gold/hour among ready; busy receivers excluded
+manual_auto_lock_doc	0x292013f	VERIFIED_DON_LOGIC_STATIC	manual don_single and auto don_move_and_execute both acquire selected receiver's lock
+recv_cycle_start	0x291ea0a	VERIFIED_DON_LOGIC_STATIC	register/start receiver loop
+recv_cycle_ready	0x291eb8f	VERIFIED_DON_LOGIC_STATIC	ready after successful return; donors may Dồn
+recv_cycle_donated	0x291ebd7	VERIFIED_DON_LOGIC_STATIC	received/donated -> begin next sell cycle
+recv_cycle_abort	0x291ec12	VERIFIED_DON_LOGIC_STATIC	donor abort -> reset receiver cycle
+recv_cycle_donor_dead	0x291ec8e	VERIFIED_DON_LOGIC_STATIC	donor window dies -> clean stale trade UI and restart receiver cycle
+recv_cycle_doc	0x291ed6c	VERIFIED_DON_LOGIC_STATIC	receiver FSM sell -> return -> ready -> wait donated -> repeat; separate registry per receiver
+save_receiver_keys	0x292c72f	VERIFIED_PERSISTENCE	recv_/recv_count/_acc/_coord plus legacy receiver/recv_coord surface
+load_receiver_doc	0x292c9b2	VERIFIED_PERSISTENCE	load receiver rows; default one row when config absent
+load_receiver_locals	0x292f5af	VERIFIED_STATIC_MAPPING	self,cfg,sect,rd,entries,count,acc,coord,shared,_acc,_c,_coord
+migration_precedence	-	EXPLICIT_UNKNOWN	conflicting legacy recv_coord vs differing per-row recv_<n>_coord exact precedence not safely source-visible
+cross_row_duplicate_guard	-	NOT_RECOVERED	all combos receive same candidates; no exclusion handler/string recovered; downstream _all_receiver_hwnds is a set
+screenshot_don	-	CROSSCHECKED_AFTER_STATIC	dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a; two visible receiver rows + one shared Dồn coordinate
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 387238 lines
+runtime_receiver_markers	-	NOT_RECOVERED	0 RECV/RECV-DBG/DON/ready/prep/receiving/watch/busy/claim markers
+classification	-	STATIC_VERIFIED_RUNTIME_ENV_REQUIRED	live receiver timing/races require Windows + game

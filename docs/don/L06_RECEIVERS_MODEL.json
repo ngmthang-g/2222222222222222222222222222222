@@ -1,0 +1,153 @@
+{
+  "task":"L06",
+  "status":"VERIFIED_MULTI_RECEIVER_REGISTRY_PER_RECEIVER_LOCK_LOWEST_SPEED_SELECTION_BACKGROUND_TRADE_WATCH_STATIC_RUNTIME_ENV_REQUIRED",
+  "authority":{
+    "archive_sha256":"c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size":93715901,
+    "zip_entries":1050,
+    "zip_crc_clean":true,
+    "inner_exe_sha256":"15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size":47450112,
+    "donvang_module":{"size_bytes":65260,"constant_count":1813},
+    "don_logic_module":"don_logic"
+  },
+  "receiver_rows":{
+    "builder":"_add_receiver_row",
+    "fields":["receiver_var","receiver_combo","delete"],
+    "shared_coord":"_recv_coord_var from L05",
+    "minimum_rows":1,
+    "renumber_helper":"_renumber_receiver_rows",
+    "legacy_alias_helper":"_sync_recv_aliases",
+    "legacy_receiver_alias":"first receiver row",
+    "legacy_recv_coord_alias":"shared Dồn coordinate",
+    "refresh_helper":"_refresh_receiver_combo",
+    "preserve_current_if_account_still_exists":true
+  },
+  "receiver_identity":{
+    "display_source":"current _acc_rows character labels",
+    "display_to_hwnd":"_receiver_hwnd_map",
+    "duplicate_character_name_behavior":"disambiguate duplicate labels by appending parenthesized HWND",
+    "is_receiver":"_is_receiver_hwnd checks any selected row",
+    "selected_receiver":"_selected_receiver_hwnd = first selected receiver row or None",
+    "all_receivers":"_all_receiver_hwnds returns set of selected receiver HWNDs",
+    "cross_row_uniqueness_filter":"NOT_RECOVERED",
+    "same_account_in_multiple_rows":"UI candidate lists are not filtered by other rows; downstream set membership collapses repeats"
+  },
+  "receiver_ui":{
+    "selection_handler":"_on_receiver_selected",
+    "style_helper":"_apply_receiver_style",
+    "receiver_highlight":"yellow semantic",
+    "non_receiver_name_color":"black",
+    "receiver_row_reorder":"receiver account row moved to top",
+    "buttons_same_for_receiver_and_donor":true
+  },
+  "registry":{
+    "module":"don_logic",
+    "guard":"_recv_reg_lock",
+    "registry":"_recv_registry",
+    "per_receiver_fields":["ready Event","donated Event","aborted Event","donor_hwnd"],
+    "register":"_register_receiver idempotent",
+    "unregister":"_unregister_receiver on recv_cycle exit",
+    "ready_set":"mark_receiver_ready / ready Event",
+    "donated_signal":"mark_receiver_donated",
+    "abort_signal":"mark_receiver_aborted",
+    "claim":"set_receiver_donor"
+  },
+  "receiver_cycle":{
+    "helper":"recv_cycle",
+    "steps":["sell_cb","move_recv_cb","set ready","wait donated/abort/donor death","repeat"],
+    "sell_location":"receiver account's selected sell destination",
+    "ready_after_successful_return":true,
+    "donor_abort":"reset receiver cycle immediately",
+    "donor_window_death":"cleanup stale trade UI then reset receiver cycle",
+    "phase_callbacks":{
+      "prep_cb":"Chuẩn bị nhận",
+      "state_cb_start":"Đang nhận",
+      "state_cb_done":"Sẵn sàng nhận if still Đang nhận"
+    }
+  },
+  "receiver_states":{
+    "Sẵn sàng nhận":"#2e7d32",
+    "Chuẩn bị nhận":"#1565c0",
+    "Đang nhận":"#1565c0"
+  },
+  "selection":{
+    "ready_source":"don_logic.ready_receiver_hwnds",
+    "any_ready_helper":"_any_ready_receiver",
+    "pick_helper":"_pick_ready_receiver",
+    "candidate_requirements":["receiver ready","receiver != donor","valid receiver coordinate"],
+    "ranking":"minimum _receiver_speed",
+    "speed_formula":"_extra_donated / elapsed_hours",
+    "tie_break":"random.choice among equal minimum-speed candidates",
+    "return":"(receiver_hwnd, coordinate_tuple) or None",
+    "fallback_helper":"_fallback_receiver",
+    "fallback_semantic":"first receiver with valid coordinates",
+    "fallback_scope":"manual/move-only path; not a substitute for auto-ready selection"
+  },
+  "automatic_don":{
+    "orchestrator":"don_logic.don_move_and_execute",
+    "ready_wait":"don_wait_recv_ready",
+    "no_ready_log_window_seconds":5,
+    "no_ready":"skip cycle / farm continues",
+    "recheck_after_lock":true,
+    "busy_receiver":"excluded/skipped",
+    "all_busy":"skip cycle / farm continues",
+    "donor_equals_receiver":"rejected"
+  },
+  "locking":{
+    "lock_factory":"_don_lock_for",
+    "lock_scope":"per receiver HWND",
+    "global_lock":false,
+    "same_receiver_parallelism":1,
+    "different_receiver_parallelism":"allowed",
+    "manual_and_auto_share_lock_policy":true,
+    "receiver_busy_after_nonblocking_acquire_failure":"skip/select another or skip cycle"
+  },
+  "fault_isolation":{
+    "abort_is_per_receiver":true,
+    "old_abort_cleared_at_new_attempt_after_lock":true,
+    "donor_stop_or_disconnect":"receiver aborted/reset",
+    "donor_window_death":"receiver reset rather than wait indefinitely",
+    "active_trade_registry":"_active_trades protected by _active_trades_lock"
+  },
+  "trade_watch":{
+    "tab_start":"_start_trade_watch",
+    "tab_ensure":"_ensure_trade_watch",
+    "worker":"don_logic.watch_trade_invites",
+    "watchers_map":"_trade_watchers",
+    "one_watcher_per_receiver":true,
+    "lifetime":"until receiver game window closes",
+    "runs_outside_don":true,
+    "allowed_names":"all managed tool account names",
+    "name_normalization":"lowercase/diacritic stripping/nonalnum cleanup and .S4 removal per normalize_name",
+    "known_inviter":"accept",
+    "unknown_inviter":"reject and continue",
+    "unreadable_or_non_invite":"ignore",
+    "while_receiver_claimed":"watcher yields to _don_flow to avoid MessageBox race"
+  },
+  "persistence":{
+    "section":"DonVang",
+    "keys":["recv_count","recv_<n>_acc","recv_<n>_coord","receiver","recv_coord"],
+    "default_receiver_rows":1,
+    "current_effective_coord":"single shared _recv_coord_var",
+    "conflicting_legacy_per_row_coord_precedence":"EXPLICIT_UNKNOWN"
+  },
+  "captured_ui":{
+    "screenshot_sha256":"dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a",
+    "visible_receiver_rows":2,
+    "shared_don_coord_selector":true,
+    "per_receiver_coord_selector":false
+  },
+  "runtime":{
+    "automove_log_sha256":"17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "line_count":387238,
+    "correlated_receiver_markers":0,
+    "classification":"STATIC_VERIFIED_LIVE_RUNTIME_ENV_REQUIRED"
+  },
+  "unknowns":[
+    "legacy/per-row receiver coordinate load precedence on conflicting values",
+    "stable candidate order before random tie selection",
+    "live receiver-ready/lock timing and race parity"
+  ],
+  "next_task":"L07 — Dồn train-state / receiver-donor lifecycle integration audit"
+}
