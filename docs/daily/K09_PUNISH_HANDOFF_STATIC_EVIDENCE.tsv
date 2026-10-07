@@ -1,0 +1,66 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; CRC clean; 1050 entries/1002 files/48 dirs/260061035 bytes
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_DECODE	.daily_tab size35163 count1186 exact end marker
+duration_widget_seed	0x2903678	VERIFIED_STATIC_UTF8	UI construction seed 15
+duration_load_fallback	0x2909980	VERIFIED_STATIC_DECODE	(daily_punish_duration,5); distinct from UI construction seed
+stop_reason_batch	0x2906850	VERIFIED_STATIC_UTF8	cancel(batch-trừng-ác)
+stop_reason_halt	0x290688c	VERIFIED_STATIC_UTF8	halt(mất-kết-nối)
+stop_reason_event	0x29068a5	VERIFIED_STATIC_UTF8	stop_event(dừng)
+stop_reason_gen	0x29068b9	VERIFIED_STATIC_UTF8	gen(phiên-mới)
+stop_reason_window	0x29068cc	VERIFIED_STATIC_UTF8	window-chết/đổi-process
+stop_reason_respawn	0x29068ea	VERIFIED_STATIC_UTF8	respawn(địa-phủ)
+single_worker	0x29069ad	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Single acc hwnd=... bắt đầu
+single_exec	0x2906a72	VERIFIED_STATIC	_punish_exec_sequence
+single_reconnect_state	0x2906abc	VERIFIED_STATIC_UTF8	Chờ kết nối lại
+single_memory_ready	0x2906b86	VERIFIED_STATIC	wait_memory_ready(45.0,3)
+single_end_diag	0x2906bb7	VERIFIED_STATIC_UTF8	farming=/event=/gen=/kết thúc(...)
+batch_worker	0x2906da0	VERIFIED_STATIC	_punish_run_worker
+batch_no_selection	0x2906dfa	VERIFIED_STATIC_UTF8	Chưa acc nào chọn Trừng ác — bỏ qua
+batch_no_alive	0x2906e53	VERIFIED_STATIC_UTF8	Không còn acc nào sống — dừng
+batch_all_stopped	0x2906e8b	VERIFIED_STATIC_UTF8	Tất cả ... acc đã dừng — tự động dừng
+batch_iteration	0x2906ed0	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] Lần ...
+batch_reconnect_state	0x2906f4a	VERIFIED_STATIC_UTF8	Mất kết nối
+batch_reconnect_timeout	0x2906fac	VERIFIED_STATIC_DECODE	60 seconds
+batch_reconnect_success	0x2906fae	VERIFIED_STATIC_UTF8	Kết nối lại OK → tiếp tục
+batch_reconnect_terminal	0x2906fe5	VERIFIED_STATIC_UTF8	Kết nối lại timeout → dừng
+death_monitor_poll	0x2907027	VERIFIED_STATIC_DECODE	4 seconds
+death_revive_click	0x290708a	VERIFIED_STATIC_DECODE	(792,441)
+death_map87	0x290709b	VERIFIED_STATIC_DECODE	MapID 87
+disconnect_3strike	0x2907235	VERIFIED_STATIC_UTF8	MAT KET NOI (dialog 3/3) → halt
+disconnect_click	0x2907259	VERIFIED_STATIC_DECODE	(616,455)
+cycle_entry_stop	0x29073d5	VERIFIED_STATIC_UTF8	vào vòng đã stop (...) → bỏ vòng
+cycle_respawn_clear	0x290743f	VERIFIED_STATIC_UTF8	respawn_event đang set → clear, cho heal/move rời map 87
+cycle_start_heal_fail	0x2907539	VERIFIED_STATIC_UTF8	Heal thất bại → skip vòng này
+npc_move_fail	0x2908aeb	VERIFIED_STATIC_UTF8	move về bổ đầu thất bại → skip vòng
+quest_full_terminal	0x29076c3	VERIFIED_STATIC_UTF8	NV đã đầy 30/30 → dừng trừng ác cho acc này
+target_missing_item_terminal	0x29081ca	VERIFIED_STATIC_UTF8	túi không có Trừng Ác Lệnh → dừng acc
+target_use_fail_skip	0x2908283	VERIFIED_STATIC_UTF8	gửi lệnh dùng thất bại → skip vòng
+target_no_coords_recover	0x29082ff	VERIFIED_STATIC_UTF8	không bóc được tọa độ mục tiêu → hủy NV rồi sang vòng mới
+target_travel_fail_skip	0x2908451	VERIFIED_STATIC_UTF8	bay tới mục tiêu thất bại → skip vòng
+target_streak_cancel	0x29084af	VERIFIED_STATIC_UTF8	kẹt ... vòng liên tiếp → hủy NV
+summon_missing_item_skip	0x2908721	VERIFIED_STATIC_UTF8	túi không còn Trừng Ác Lệnh → skip vòng
+summon_fail_skip	0x29087c3	VERIFIED_STATIC_SCOPE	use/dialog/button/click failures all lead to skip current cycle
+autotrain_failsoft	0x2907783	VERIFIED_STATIC_UTF8	gửi bật auto train thất bại → vẫn đánh tiếp
+combat_death_break	0x2907800	VERIFIED_STATIC_UTF8	chết giữa lúc đánh → dừng đánh sớm
+combat_drift	0x2907841	VERIFIED_STATIC_DECODE	160px detector; exact branch return effect unknown
+final_heal_fail	0x29078ea	VERIFIED_STATIC_UTF8	Heal cuối vòng thất bại
+cycle_end	0x290791c	VERIFIED_STATIC_UTF8	Kết thúc ===
+discard_scope_doc	0x2905b8a	VERIFIED_STATIC_UTF8	run-scoped periodic background worker; parallel active accounts; per-account inflight
+discard_packet	-	VERIFIED_SHARED_STATIC	bag_filter -> memory_items.abandon_item; command100005 action4 4:dbID full-stack
+reset_ui	0x2908e8b	VERIFIED_STATIC_DECODE	_punish_reset_ui idle tuple (Trừng ác,RoyalBlue,normal)
+all_monitor_reset	0x290624d	VERIFIED_STATIC	_daily_all_monitor references _punish_reset_ui then auto-reset UI after all row sessions stop
+starttab_sync	0x29063c4	VERIFIED_STATIC	_sync_start_tab_btns; StartTab Trừng Ác/Tàng bảo đồ button sync
+movement_wait_boundary	0x2909537	VERIFIED_STATIC_SCOPE	_wait_movement_stopped explicit recovered Daily call belongs to Tàng Bảo Đồ, not Trừng Ác
+handler_coverage	-	VERIFIED_COMPLETE	All top-level Trừng Ác handlers in K01 inventory are covered by K03-K08/K09; no unaccounted top-level Trừng Ác callable remains
+target_fail_surface	0x2908495	VERIFIED_STATIC	_punish_target_fail is state/tracking surface in goto_target, not a top-level handler
+nested_monitor_surface	0x2906f33	VERIFIED_STATIC	_punish_monitor_stops is nested activity-wide recovery surface, not K01 top-level handler
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500
+runtime_daily_correlated	-	NOT_RECOVERED	0 correlated Daily/Trừng Ác lifecycle markers in packaged automove_log; generic lower-level primitives are not end-to-end proof
+contradiction_duration_defaults	-	RESOLVED_LAYERING	UI seed 15 vs config-load fallback 5 are two distinct static layers; not a contradiction
+contradiction_recovery_b08	-	RESOLVED_LAYERING	B08 captured heal/reconnect/respawn state differs from missing-key fallbacks; screenshot state vs load fallback, not contradiction
+contradiction_reconnect_policy	-	RESOLVED_SCOPE	Daily bounded reconnect differs from Train/TrainLSV 5-attempt infinite policy; preserve Daily-specific behavior
+unknown_single_reconnect_timeout	-	EXPLICIT_UNKNOWN	activity-wide exact60s; single worker timeout numeric not independently instruction-bound
+unknown_target_streak_threshold	-	EXPLICIT_UNKNOWN	repeated same-target failure threshold numeric
+unknown_drift_return	-	EXPLICIT_UNKNOWN	>160px branch exact Boolean-return effect
+unknown_runtime	-	EXPLICIT_UNKNOWN	live Windows/game parity
