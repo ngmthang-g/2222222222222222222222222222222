@@ -331,7 +331,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K09 — VERIFIED_TRUNG_AC_INTEGRATED_LIFECYCLE_FAILURE_MATRIX_AND_STATIC_HANDOFF
 - K10 — VERIFIED_TREASURE_CONFIG_SELECTION_BATCH_SINGLE_TOPLEVEL_LOOP_AND_RECOVERY_SHELL
 - K11 — VERIFIED_TREASURE_MOUNT_BAG_MULTIPIXEL_TWO_STAGE_ACTIVATION_AND_MOVEMENT_WAIT
-- K12 — NEXT
+- K12 — VERIFIED_TREASURE_MAP96_MOVE_COMMON_ACTIVE_TOMB_DURATION_NON96_SKIP_AND_FINAL_HEAL_BOUNDARY
+- K13 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -355,5 +356,7 @@ K10 opens the Tàng Bảo Đồ branch at the top-level shell only. It locks the
 
 K11 locks the Treasure activation slice inside `_treasure_map_exec_sequence`. The mount-prep stage reads `IsRiding`, skips if already mounted, checks `common.nguaActive`, and has an exact logged fallback click at (1306,340). The bag stage uses the `tuido.active` readiness pixel and a fixed bag-preparation surface. The current treasure recognizer is explicitly `find_multipixel("tuido","tangBaoDo_multi")` using region (702,163)-(1132,517), offset (20,30), base RGB (2,30,35), offset RGB (228,215,170), timeout 5 and tolerance 1; legacy pixel keys are not the active Daily call. Successful detection is clicked through the shared DLL-sync/PostMessage `mouse.click_at` background stack. First not-found and second not-found are both terminal for the affected Treasure account. Between the two item checkpoints Daily calls `_wait_movement_stopped(stop_check, skip_set)` with no `by_memory` override, so this call uses the MovementDetector 10-pixel branch. After the second successful checkpoint, control enters the MapID/post-activation branch; map96/tomb combat is K12.
 
+K12 locks the post-activation map96/tomb branch. `_treasure_map_exec_sequence` has a direct-helper default `tomb_dur=5`, while the normal K10 UI/config worker layer is 30 seconds and passes its configured `tomb_dur`; these are distinct layers rather than a contradiction. Exact branch text is `MapID=96 (huyệt mộ) → đánh <tomb_dur>` with state `Đánh trong mộ`. Two fixed click surfaces `(1135,124)` and `(955,123)` belong to the tomb-combat block, but their button meanings/order remain explicit UNKNOWN. Treasure duration is a per-tomb time in seconds, not a repeat count, but unlike K06 no `_t_end`/monotonic timer is recovered, so the timing primitive is not copied from Trừng Ác. The same branch contains exact move-to-map96/tile(50,16) semantics through `move_character` values 1600/512, followed by an explicit `common.active` wait and a post-wait MapID outcome. Non-96 logs `không phải huyệt mộ, bỏ qua` and is not an account-terminal stop. The immediate next boundary is Treasure final HP/heal checking; heal internals are deferred to K13.
+
 ## Phase K current
-K12 — Tàng Bảo Đồ map96 movement / tomb combat / post-activation outcome audit.
+K13 — Tàng Bảo Đồ heal / reconnect / respawn recovery audit.
