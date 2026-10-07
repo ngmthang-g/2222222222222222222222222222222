@@ -1,0 +1,209 @@
+{
+  "task": "K07",
+  "status": "VERIFIED_DAILY_PUNISH_HEAL_RESPAWN_AND_RECONNECT_RECOVERY_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_blob": {
+      "marker": "0x2903223",
+      "size_bytes": 35163,
+      "top_level_constants": 1186
+    }
+  },
+  "configuration": {
+    "heal": {
+      "var": "punish_heal_var",
+      "label": "Trị liệu khi HP < 30%",
+      "load_fallback": "0",
+      "current_B08_state": "checked",
+      "threshold_percent": 30
+    },
+    "reconnect": {
+      "var": "punish_dc_reconnect_var",
+      "label": "Tự kết nối lại khi mất mạng",
+      "load_fallback": "1",
+      "exact_gate_placement": "UNKNOWN"
+    },
+    "respawn": {
+      "var": "punish_respawn_var",
+      "label": "Hồi sinh khi chết/Địa phủ",
+      "load_fallback": "1",
+      "exact_gate_placement": "UNKNOWN"
+    }
+  },
+  "death_respawn": {
+    "method": "DailyTab._diaphu_monitor",
+    "poll_seconds": 4,
+    "locals": [
+      "self",
+      "hwnd",
+      "respawn_event",
+      "stop_event",
+      "tag",
+      "detected",
+      "hp_latched",
+      "ci",
+      "hp_pct"
+    ],
+    "hp_zero": {
+      "field": "HpPercent",
+      "state_text": "Về Địa phủ",
+      "click": [792, 441],
+      "log": "HP 0% → click (792, 441) hồi sinh",
+      "latch": "hp_latched",
+      "exact_rearm_expression": "UNKNOWN"
+    },
+    "map87": {
+      "field": "MapID",
+      "map_id": 87,
+      "action": "respawn_event.set()",
+      "latch": "detected",
+      "exact_rearm_expression": "UNKNOWN"
+    },
+    "cycle_reentry": {
+      "action": "if respawn_event is set at cycle entry, clear it and allow heal/move to leave map 87",
+      "terminal_account_stop": false,
+      "combat_interruption": "K06 proves death can end the fight early"
+    }
+  },
+  "healing": {
+    "start_of_cycle": {
+      "reads": "HpPercent",
+      "condition": "heal enabled AND HP < 30%",
+      "action": "DailyTab._punish_heal",
+      "failure": "SKIP_CURRENT_CYCLE"
+    },
+    "end_of_cycle": {
+      "condition": "heal enabled AND HP < 30%",
+      "action": "DailyTab._punish_heal",
+      "failure": "LOG_FAIL_THEN_CYCLE_TAIL_CONTINUES"
+    },
+    "helper": {
+      "method": "DailyTab._punish_heal",
+      "destination": {
+        "map_id": 4,
+        "name": "Tô Châu",
+        "tile": [155, 252],
+        "source": "frozen Daily treatment coordinate table + Daily treatment helper contract"
+      },
+      "reinjection": {
+        "attempted_before_move": true,
+        "failure_policy": "FAIL_OPEN_TRY_DIRECT_MOVE",
+        "log": "inject cho heal thất bại, thử di chuyển trực tiếp"
+      },
+      "move_kwargs": [
+        "wait_for_arrival",
+        "stop_check",
+        "tolerance"
+      ],
+      "tolerance": 10,
+      "move_failure": "returns failure to caller",
+      "exact_treatment_clicks_inside_punish_heal": "UNKNOWN"
+    }
+  },
+  "disconnect_detection": {
+    "method": "DailyTab._punish_disconnect_monitor",
+    "poll_seconds": 2,
+    "window_process_identity_exit": true,
+    "memory": {
+      "helper": "memory_items.is_connected",
+      "source": "TCPGame.Instance.tcpClient.Connected",
+      "true": "veto/reset false-positive strike chain",
+      "false": "still requires persistent dialog evidence",
+      "null": "read error; pixel path decides"
+    },
+    "pixels": [
+      {
+        "key": "login.ngatKetNoi1",
+        "point": [640, 244],
+        "rgb": [160, 145, 52],
+        "configured_timeout": 5,
+        "tolerance": 5
+      },
+      {
+        "key": "login.ngatKetNoi2",
+        "point": [702, 453],
+        "rgb": [212, 28, 34],
+        "configured_timeout": 5,
+        "tolerance": 5
+      }
+    ],
+    "both_pixels_required": true,
+    "consecutive_ticks": 3,
+    "approximate_confirmation_seconds": 6,
+    "confirmed_disconnect": {
+      "signal": "halt",
+      "reconnect_click": [616, 455],
+      "doc": "halt + click after dialog 3/3"
+    }
+  },
+  "reconnect_recovery": {
+    "daily_specific_policy": "DO_NOT_COPY_FARM_5_ATTEMPT_INFINITE_LOOP",
+    "activity_wide_batch": {
+      "nested_surface": "_punish_monitor_stops",
+      "state": "Mất kết nối",
+      "timeout_seconds": 60,
+      "success": "Kết nối lại OK → tiếp tục",
+      "timeout": "Kết nối lại timeout → dừng"
+    },
+    "single_account_worker": {
+      "state": "Chờ kết nối lại",
+      "active_wait": {
+        "helper": "wait_pixel",
+        "key": "common.active",
+        "point": [1330, 33],
+        "rgb": [34, 8, 11],
+        "pixel_config_timeout": 100,
+        "tolerance": 5,
+        "explicit_interval_constant": 0.5,
+        "keyword_surface": [
+          "window_hwnd",
+          "timeout",
+          "interval",
+          "debug"
+        ],
+        "numeric_timeout": "STRONG_STATIC_SHARED_60_BUT_NOT_INDEPENDENTLY_INSTRUCTION_BOUND"
+      },
+      "success_followup": [
+        "invalidate_character_cache(current PID)",
+        "wait_memory_ready(timeout=45.0, need=3)",
+        "resume a fresh outer Trừng Ác cycle"
+      ],
+      "failed_active_wait": "worker/session recovery does not expose a Farm-style retry loop; exact per-row unwind micro-order remains UNKNOWN"
+    },
+    "memory_ready": {
+      "helper": "utils.wait_memory_ready",
+      "timeout_seconds": 45.0,
+      "need_consecutive_valid_reads": 3,
+      "effective_interval_seconds": 1.0,
+      "valid_sample": [
+        "RoleName is clear/non-placeholder",
+        "MapID is not None"
+      ],
+      "cache_invalidated_before_each_sample": true,
+      "timeout_behavior": "False + log + fail-open"
+    },
+    "forced_post_reconnect_reinject": "NOT_PROVEN",
+    "note": "Later heal/NPC movement helpers independently attempt guarded reinjection before movement."
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_k07_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact source-level placement of heal/reconnect/respawn Boolean gates",
+    "exact hp_latched and detected re-arm/reset expressions",
+    "exact treatment-click sequence inside DailyTab._punish_heal",
+    "single-account common.active timeout numeric binding (activity-wide path proves 60s)",
+    "single-account reconnect failure unwind micro-order",
+    "unconditional post-reconnect DLL reinjection edge",
+    "same-scheduling-window disconnect vs death micro-order",
+    "live Windows/game parity"
+  ],
+  "deferred": {
+    "K08": "Trừng Ác discard worker"
+  }
+}
