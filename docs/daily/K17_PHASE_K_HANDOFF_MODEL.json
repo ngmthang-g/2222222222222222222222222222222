@@ -76,7 +76,7 @@
   ],
   "phase_transition": {
     "from": "K — Daily",
-    "to": "L — Đồn",
-    "next_task": "L01 — Đồn authority / visible surface / handler inventory / dependency boundary audit"
+    "to": "L — Dồn",
+    "next_task": "L01 — Dồn authority / visible surface / handler inventory / dependency boundary audit"
   }
 }
