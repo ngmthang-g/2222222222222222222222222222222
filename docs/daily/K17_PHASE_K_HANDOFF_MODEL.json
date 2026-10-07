@@ -1,0 +1,82 @@
+{
+  "task": "K17",
+  "status": "VERIFIED_DAILY_PHASE_K_STATIC_HANDOFF_WITH_RUNTIME_PARITY_MATRIX_PENDING_LIVE_ENV",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "zip_crc_clean": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "automove_log_bytes": 15741058,
+    "automove_log_lines": 387238
+  },
+  "frozen_inputs": {
+    "trung_ac": "K09 static handoff complete",
+    "treasure": "K15 static handoff complete",
+    "shared_daily": "K16 static integration complete"
+  },
+  "static_consistency": {
+    "blocking_contradictions": 0,
+    "activity_specific_reopens_required": false,
+    "shared_top_level_callable_gaps": 0,
+    "top_level_daily_inventory_complete": true
+  },
+  "live_parity": {
+    "status": "PENDING_LIVE_WINDOWS_GAME_ENV",
+    "executable_here": false,
+    "packaged_log_correlated_daily_trace": false,
+    "claim_live_pass": false,
+    "matrix_path": "docs/daily/K17_RUNTIME_PARITY_MATRIX.tsv"
+  },
+  "priority_runtime_boundaries": [
+    "populated roster refresh and HWND/PID reuse",
+    "rapid per-row Stop->Start generation guard",
+    "activity-wide vs per-row same-HWND ownership policy",
+    "manual Tới bổ đầu/Trị liệu overlap with running worker",
+    "mixed all-account Trừng Ác + Treasure start/stop/reset",
+    "singleton monitor and StartTab synchronization",
+    "Trừng Ác reconnect/death runtime recovery",
+    "Treasure reconnect/death runtime recovery and timeout measurement",
+    "config save/reload/destroy behavior",
+    "Tk state marshalling under live concurrency"
+  ],
+  "packaged_runtime_negative_evidence": {
+    "counts": {
+      "[Daily]": 0,
+      "[Bắt đầu]": 0,
+      "[Inject]": 0,
+      "DailyTab": 0,
+      "Tới bổ đầu": 0,
+      "[Trị liệu]": 0,
+      "Trừng ác": 0,
+      "Tàng bảo đồ": 0,
+      "Mất kết nối": 0,
+      "Địa phủ": 0,
+      "Tất cả acc đã dừng": 0
+    },
+    "interpretation": "absence of correlated trace; cannot be converted into runtime parity PASS"
+  },
+  "closure_decision": {
+    "phase_k_static_research_complete": true,
+    "phase_k_live_runtime_parity_complete": false,
+    "phase_k_can_advance_with_runtime_handoff": true,
+    "reason": "all static Daily contracts and top-level callables are accounted for; remaining uncertainties are environment/race/timing observations rather than missing static research",
+    "runtime_handoff_required": true,
+    "reconstruction_rule": "later implementation must preserve K01-K16 contracts and keep K17 live-unknowns configurable/testable rather than inventing behavior"
+  },
+  "unresolved_live_only": [
+    "same-HWND activity-wide vs row mutual exclusion policy",
+    "manual action overlap policy while worker owns HWND",
+    "Treasure reconnect timeout numeric and exact recovery event ordering",
+    "destroy-time cleanup order",
+    "daily_move_mode live persistence/migration behavior",
+    "live thread timing/join ordering",
+    "exact UI synchronization timing under concurrent stops"
+  ],
+  "phase_transition": {
+    "from": "K — Daily",
+    "to": "L — Đồn",
+    "next_task": "L01 — Đồn authority / visible surface / handler inventory / dependency boundary audit"
+  }
+}
