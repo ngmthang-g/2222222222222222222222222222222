@@ -1,0 +1,204 @@
+{
+  "task": "K10",
+  "status": "VERIFIED_TREASURE_CONFIG_SELECTION_BATCH_SINGLE_TOPLEVEL_LOOP_AND_RECOVERY_SHELL_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "zip_crc_clean": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_blob": {
+      "marker": "0x2903223",
+      "size_bytes": 35163,
+      "top_level_constants": 1186,
+      "exact_end": true
+    }
+  },
+  "visible_config": {
+    "duration": {
+      "label": "Thời gian đánh trong huyệt mộ (giây):",
+      "ui_seed": "30",
+      "var": "treasure_map_tomb_dur_var"
+    },
+    "heal": {
+      "label": "Trị liệu sau khi đào nếu HP < 30%",
+      "var": "treasure_heal_var"
+    },
+    "heal_map": {
+      "visible_seed": "Tô Châu",
+      "var": "treasure_heal_map_var",
+      "choices": {
+        "Đại Lý": [
+          43,
+          178
+        ],
+        "Lạc Dương": [
+          255,
+          126
+        ],
+        "Tô Châu": [
+          155,
+          252
+        ],
+        "Lâu Lan": [
+          27,
+          183
+        ]
+      }
+    },
+    "reconnect": {
+      "var": "treasure_dc_reconnect_var"
+    },
+    "respawn": {
+      "var": "treasure_respawn_var"
+    },
+    "apply_all_label": "Áp dụng Tàng bảo đồ cho tất cả acc"
+  },
+  "config_load_fallbacks": {
+    "daily_treasure_map_tomb_dur": "30",
+    "daily_treasure_heal": "0",
+    "daily_treasure_heal_map": "Tô Châu",
+    "daily_treasure_dc_reconnect": "1",
+    "daily_treasure_respawn": "1"
+  },
+  "config_save_keys": [
+    "daily_treasure_map_tomb_dur",
+    "daily_treasure_heal",
+    "daily_treasure_heal_map",
+    "daily_treasure_dc_reconnect",
+    "daily_treasure_respawn"
+  ],
+  "b08_current_state": {
+    "tomb_duration_seconds": 30,
+    "heal_below_30": false,
+    "heal_location": "Tô Châu",
+    "reconnect": true,
+    "respawn": true
+  },
+  "apply_all": {
+    "helper": "_apply_treasure_all",
+    "effect": "set every current row activity combobox to Tàng bảo đồ",
+    "starts_execution": false
+  },
+  "ownership": {
+    "start_wrapper": "_treasure_start_worker",
+    "start_wrapper_semantic": "inject first, then _treasure_map_toggle",
+    "activity_toggle": "_treasure_map_toggle",
+    "activity_worker": "_treasure_map_run_worker",
+    "single_worker": "_treasure_single_worker",
+    "exec_sequence": "_treasure_map_exec_sequence",
+    "disconnect_monitor": "_treasure_map_disconnect_monitor",
+    "reset_helper": "_treasure_map_reset_ui"
+  },
+  "activity_batch": {
+    "duration_snapshot_local": "tomb_dur",
+    "selection": "rows currently selected Tàng bảo đồ at start",
+    "pid_snapshot": "selected_pids",
+    "locals": [
+      "selected",
+      "selected_pids",
+      "loop_idx",
+      "alive",
+      "still_active",
+      "wins",
+      "halt",
+      "threads",
+      "respawn_event",
+      "monitor_stop"
+    ],
+    "no_selection": "bỏ qua",
+    "no_live": "dừng",
+    "all_stopped": "auto-stop",
+    "iteration_log": "[TÀNG BẢO ĐỒ] Lần ...",
+    "user_repeat_count": false,
+    "open_ended_until_stop_or_empty": true,
+    "per_account_parallel_threads": true
+  },
+  "single_worker": {
+    "locals": [
+      "hwnd",
+      "tomb_dur",
+      "row",
+      "gen_snap",
+      "halt",
+      "respawn_event",
+      "monitor_stop",
+      "invalidate_character_cache",
+      "_get_pid_from_hwnd",
+      "wait_memory_ready",
+      "_exit_why"
+    ],
+    "row_generation_guard": "inherits K02 row Event + generation session protection",
+    "call": "_treasure_map_exec_sequence",
+    "exact_explicit_loop_counter_recovered": false,
+    "session_wrapper_not_collapsed_into_batch": true,
+    "exact_repetition_source_form": "STRONG_STATIC_SESSION_LOOP_BOUNDARY_BUT_NO_SINGLE_LOOP_IDX"
+  },
+  "recovery_shell": {
+    "batch_nested_surface": "_treasure_monitor_stops",
+    "batch_disconnect_logs": [
+      "Phát hiện mất kết nối → chờ kết nối lại...",
+      "Kết nối lại OK → tiếp tục",
+      "Kết nối lại timeout → dừng"
+    ],
+    "batch_timeout_numeric": "EXPLICIT_UNKNOWN_K10",
+    "single_disconnect_monitor": "_treasure_map_disconnect_monitor",
+    "single_memory_recovery_surface": [
+      "invalidate_character_cache",
+      "_get_pid_from_hwnd",
+      "wait_memory_ready"
+    ],
+    "death_respawn": {
+      "event": "respawn_event",
+      "exec_entry_behavior": "if set, clear so heal/move can leave map 87",
+      "shared_death_monitor_contract": "present at Daily shared recovery layer; launch micro-order deferred",
+      "exact_thread_launch_order": "UNKNOWN"
+    }
+  },
+  "activity_button": {
+    "dedicated_button": "btn_treasure_start",
+    "reset": {
+      "text": "Tàng bảo đồ",
+      "bg": "RoyalBlue",
+      "state": "normal"
+    },
+    "shared_running_literals": {
+      "text": "Dừng lại",
+      "bg": "FireBrick"
+    },
+    "shared_stopping_literals": {
+      "text": "Đang dừng...",
+      "state": "disabled"
+    },
+    "exact_toggle_assignment_microorder": "UNKNOWN"
+  },
+  "coordinator_boundary": {
+    "bottom_all_account": "K02 launches _treasure_single_worker when row activity is Tàng bảo đồ",
+    "all_monitor": "_daily_all_monitor resets both activity UIs after all row sessions stop",
+    "starttab_sync": "_sync_start_tab_btns synchronizes external Tàng bảo đồ control"
+  },
+  "deferred_deep_logic": [
+    "treasure item/bag recognition and use",
+    "mount/open-bag pixel sequence",
+    "movement-stop internals in treasure call site",
+    "map96 tomb movement/combat",
+    "treasure heal internals",
+    "treasure disconnect detector internals and numeric recovery timeout",
+    "full death-monitor launch/thread micro-order"
+  ],
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_treasure_top_level_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "exact source-level treasure toggle running/stopping assignment order",
+    "single-worker explicit repetition source form and cycle-count logging",
+    "treasure-specific reconnect timeout numeric",
+    "treasure disconnect detector internals",
+    "death-monitor launch/thread ordering in treasure workers",
+    "exact worker teardown/UI reset ordering",
+    "live Windows/game parity"
+  ],
+  "next_task": "K11 — Tàng Bảo Đồ bag/item detection and treasure-map activation audit"
+}
