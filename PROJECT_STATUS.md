@@ -325,7 +325,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K03 — VERIFIED_PUNISH_CONFIG_SELECTION_BATCH_VS_SINGLE_OPEN_ENDED_LOOP
 - K04 — VERIFIED_NPC_RETURN_QUEST_30OF30_AND_STUCK_CANCEL_FLOW
 - K05 — VERIFIED_ITEM40004000_DIALOG_USEITEMDATA_FAST_TRAVEL_STREAK_AND_SUMMON_FLOW
-- K06 — NEXT
+- K06 — VERIFIED_PUNISH_COMBAT_MONOTONIC_DURATION_AUTOTRAIN_FAILSOFT_DRIFT160_AND_MOVEMENT_HELPER_BOUNDARY
+- K07 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -337,5 +338,7 @@ K04 locks map-4 NPC return to tile (224,285) with tolerance 96 and fail-open rei
 
 K05 locks Trừng Ác Lệnh item ID 40004000, internal action-3 item use, two-attempt target-acquisition use, GameDialog→UseItemData target extraction, fast_travel target movement, consecutive stuck-target recovery with unresolved numeric threshold, and the second-use GameDialog summon flow through internal Triệu hồi activation. A repository-wide continuity/build audit also confirmed that Stage S/application source has not started, so there is no reconstructed product build target yet rather than a broken build.
 
+K06 locks the successful-summon → combat segment: `punish_duration` is a monotonic elapsed-time window; combat state is `Đánh ác tặc`; death can end the fight early; shared `start_auto_train` is the enable primitive and its default verification contract is Direction-based with 3 samples at 1.0s and up to 3 send attempts. Daily's exact failure policy is fail-soft (`gửi bật auto train thất bại → vẫn đánh tiếp`). The combat tail owns a 160-pixel `math.hypot` drift detector, final-HP/heal boundary, and normal `Kết thúc` return to the already-proven outer loop. No explicit Daily `stop_game_auto/AUTO_MODE_NONE/stop_auto_train` surface is recovered at combat end. K06 also freezes `_wait_movement_stopped`: `by_memory` defaults False, its memory helper uses timeout 300s / 6 stable polls / 0.5s / 16px defaults, and the explicit recovered Daily call surface is in Tàng Bảo Đồ rather than the Trừng Ác combat block. B08 was rechecked only after static extraction; packaged runtime log contains generic AutoFight primitives but no correlated Daily/K06 trace.
+
 ## Phase K current
-K06 — Trừng Ác combat / movement-stop / auto-train timing and cycle-completion audit.
+K07 — Trừng Ác heal / reconnect / respawn recovery audit.
