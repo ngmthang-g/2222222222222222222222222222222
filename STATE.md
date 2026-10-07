@@ -3997,3 +3997,60 @@ On CONTINUE:
 7. Preserve L02's special Dồn/receiver final leg **no phù**; do not accidentally apply normal return priority there unless direct evidence contradicts L02.
 8. Cross-check screenshots/runtime only after static extraction.
 9. Persist L03 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L03 verification.
+
+
+## L03 VERIFIED RESULTS
+- GitHub-first continuity check passed: no pre-existing L03 artifact/completion file existed before this task; L01/L02 remained unchanged.
+- Exact original authority was revalidated before UI/image cross-check. Uploaded `TLMTool_2.1.2(8).zip` is byte-identical to the frozen archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes; inner `TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Exact Dồn priority option list is `["", "Phù 1", "Phù 2", "Phù 3", "Ngựa"]`; exact defaults are `["Phù 1", "Phù 2", "Phù 3", "Ngựa"]`.
+- The leading empty option is intentional and represents a disabled/unused priority slot.
+- All four priority controls are readonly comboboxes. `_on_nav_priority_changed` exposes exact locals `NAV_OPTIONS, idx, var, used, other_var, val, current, available`, strongly fixing the normal UI duplicate-prevention model: available values are recomputed against the other used selections while preserving current state.
+- Normal UI cannot newly select duplicate nonblank priorities after the available-choice refresh. Exact auto-normalization of a hand-edited/legacy config that is already duplicated remains an explicit config-fixture/runtime microcase rather than being guessed.
+- Priority persistence is exact under `[DonVang]` with keys `nav_priority_1`, `nav_priority_2`, `nav_priority_3`, `nav_priority_4`; save-side prefix is `nav_priority_`.
+- `_get_nav_priority` exact compiled documentation says the UI Phù1/2/3/Ngựa list is passed into `move_character`.
+- Shared `utils.move_character` has `home_priority / has_phu / sel / key_num` state plus the exact `Ngựa` label and a return-home log shape `Về thành: thử <selection> → bấm phím <key_num>`. This fixes Phù entries as ordered hotkey attempts and Ngựa as the non-hotkey ordinary-movement fallback.
+- Shared fast-travel documentation independently confirms `home_priority` passthrough for the return-town/walking leg and that callers forcing horse movement pass `None`.
+- Inside exact `donvang_tab`, the only production `home_priority` literal is in `_sell_acc`, directly beside `_get_nav_priority`. Therefore the configured Dồn return priority applies to the normal/shared sell movement path, not every Dồn move.
+- L02 remains unchanged: `_run_farm_exit` Dồn/receiver final leg is normal horse movement with **no phù**; Truyền back remains shortcut → fresh verify → walking fallback.
+- Screenshot cross-check was performed only after EXE-first extraction. Dồn capture SHA-256 remains `dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a` and visually matches the static default order Phù1/Phù2/Phù3/Ngựa.
+- Frozen packaged runtime log remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`; correlated `Về thành: thử` / DonVang / Dồn priority traces are **0**, so live attempt timing/failure progression is not fabricated.
+- L03 artifacts were committed together at commit **29105d93c3c4c928d2f318bc827b1c7599360217**:
+  - `docs/don/L03_PRIORITY_FLOW.md`
+  - `docs/don/L03_PRIORITY_MODEL.json`
+  - `docs/don/L03_PRIORITY_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/L03.md`
+- All four L03 artifacts were fetched back successfully after commit.
+
+## POST-L03 CODE/BUILD RECHECK
+- Current recursive main tree after L03 artifact commit contains **633 entries** and is not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`; L03 added documentation/evidence only.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- L03 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- Therefore L03 introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- L03 has no known static blocker.
+- Exact migration behavior for an already-duplicated legacy/hand-edited priority config still needs a controlled config fixture or live runtime.
+- Live Phù-attempt timing and transition to Ngựa fallback still require Windows + live Thần Long runtime.
+- Reconstructed product build remains not applicable before Stage S.
+
+## DO_NOT_TOUCH
+- Preserve L01/L02/L03 contracts unless exact new evidence exposes a contradiction.
+- Do not apply `home_priority` to L02's `_run_farm_exit` final Dồn/receiver leg; that leg remains no-phù.
+- Do not reinterpret the blank priority option as missing/corrupt data; it is a real disabled slot.
+- Do not infer inventory thresholds from constants 3/98/100 before L04.
+- Do not deepen receiver/coordinates/train logic during L04 unless directly required by the inventory call path.
+- Do not create Stage-S application/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L04 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L04 — Dồn inventory/full-bag filtering audit** only.
+5. Re-inspect the exact frozen original EXE first, focusing on `_get_bag_slots`, `_filter_before_don`, `get_pickup_preset_keys`, `_pickup_no_cankhon`, the full-bag branch inside `_farm_cycle`, exact nearby constants `3/98/100`, and only directly-called `bag_filter` / `memory_items` helpers needed to resolve the inventory path.
+6. Determine the exact full-bag threshold/state interpretation, filtering/preset behavior, free-space recheck, pickup-mode interaction, and the handoff back into the already-proven return/Dồn boundary without deep-auditing receiver, coordinates or train lifecycle.
+7. Cross-check screenshots/runtime only after static extraction.
+8. Persist L04 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L04 verification.
