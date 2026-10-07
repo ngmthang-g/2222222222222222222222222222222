@@ -332,7 +332,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K10 — VERIFIED_TREASURE_CONFIG_SELECTION_BATCH_SINGLE_TOPLEVEL_LOOP_AND_RECOVERY_SHELL
 - K11 — VERIFIED_TREASURE_MOUNT_BAG_MULTIPIXEL_TWO_STAGE_ACTIVATION_AND_MOVEMENT_WAIT
 - K12 — VERIFIED_TREASURE_MAP96_MOVE_COMMON_ACTIVE_TOMB_DURATION_NON96_SKIP_AND_FINAL_HEAL_BOUNDARY
-- K13 — NEXT
+- K13 — VERIFIED_TREASURE_HEAL_SELECTED_MAP_RECOVERY_ADAPTER_CACHE_READY_AND_RESPAWN
+- K14 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -358,5 +359,7 @@ K11 locks the Treasure activation slice inside `_treasure_map_exec_sequence`. Th
 
 K12 locks the post-activation map96/tomb branch. `_treasure_map_exec_sequence` has a direct-helper default `tomb_dur=5`, while the normal K10 UI/config worker layer is 30 seconds and passes its configured `tomb_dur`; these are distinct layers rather than a contradiction. Exact branch text is `MapID=96 (huyệt mộ) → đánh <tomb_dur>` with state `Đánh trong mộ`. Two fixed click surfaces `(1135,124)` and `(955,123)` belong to the tomb-combat block, but their button meanings/order remain explicit UNKNOWN. Treasure duration is a per-tomb time in seconds, not a repeat count, but unlike K06 no `_t_end`/monotonic timer is recovered, so the timing primitive is not copied from Trừng Ác. The same branch contains exact move-to-map96/tile(50,16) semantics through `move_character` values 1600/512, followed by an explicit `common.active` wait and a post-wait MapID outcome. Non-96 logs `không phải huyệt mộ, bỏ qua` and is not an account-terminal stop. The immediate next boundary is Treasure final HP/heal checking; heal internals are deferred to K13.
 
+K13 locks Treasure healing and recovery. `_treasure_heal` is selected-map driven rather than hardwired to Tô Châu: it requires a configured heal map, resolves coordinates from `TREASURE_HEAL_COORDS`, resolves the map ID dynamically through `MAP_LIST`, moves with the shared movement helper, and fails cleanly for missing selection/coordinates/map ID or movement failure. Its compact move surface passes `wait_for_arrival/stop_check` only, so the shared default tolerance 48 remains the effective default; no Treasure-specific fixed treatment click or `_punish_heal`-style reinjection surface is recovered. Start-of-cycle heal failure skips only the current cycle, while final-heal failure is fail-soft/log-only. `_treasure_map_disconnect_monitor` has a thin event-adapter local model (`halt/respawn_event/stop_event/ev/real_set`) rather than a second full pixel/memory detector; strong static evidence supports reuse of the existing Daily detector layer while preserving adapter micro-order as UNKNOWN. Treasure activity recovery has exact disconnect-wait/OK/timeout messages but no independently bound timeout number, so Trừng Ác's 60s value is not copied. The single-worker owns Reader-cache invalidation and `wait_memory_ready` recovery surfaces, and Treasure reuses the shared death/Map87 `respawn_event` model; exact reconnect overrides, monitor thread ordering and simultaneous death/disconnect priority remain UNKNOWN.
+
 ## Phase K current
-K13 — Tàng Bảo Đồ heal / reconnect / respawn recovery audit.
+K14 — Tàng Bảo Đồ skipped-account / stop-reset / failure-lifecycle audit.
