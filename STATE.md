@@ -3327,4 +3327,26 @@ On CONTINUE:
 8. Preserve K10-K11 ownership and activation contracts unchanged.
 9. Cross-check packaged runtime/B08 only after static extraction.
 10. Persist K12 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after K12 verification.
-
+## K12 STATIC EXTRACTION MILESTONE — IN PROGRESS
+- GitHub-first continuity check passed: no pre-existing K12 artifact/completion commit existed; K01-K11 were preserved.
+- Exact TLMTool_2.1.2(7).zip was revalidated before K12: archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, CRC clean. Inner TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact .daily_tab was decoded again as **35,163 bytes / 1,186 constants**, exact end marker.
+- K12 starts exactly at the K11 post-activation MapID boundary.
+- _treasure_map_exec_sequence hidden helper defaults are statically frozen as **(5,None,None,None)** after required self/hwnd, so direct helper fallback tomb_dur is 5 seconds. This is a helper default layer, not the normal UI worker value.
+- K10 production workers own/pass configured tomb_dur; UI seed/load fallback are both **30 seconds**. Thus normal configured path uses the worker snapshot, while an unparameterized direct helper call would fall back to 5.
+- Exact map96 combat log/state are frozen: MapID=96 (huyệt mộ) → đánh <tomb_dur>... and state Đánh trong mộ.
+- Two fixed coordinates **(1135,124)** and **(955,123)** are serialized in the map96/tomb-combat block. Their exact per-button meaning/order is not independently source-line-bound and remains UNKNOWN.
+- Duration semantic is exact: tomb_dur is seconds for one tomb-combat stage, not a repeat count. Unlike K06 Trừng Ác, Treasure exec has no _t_end local and no Treasure-local monotonic constant; exact timing primitive (sleep/Event.wait/other stop-aware wait) remains UNKNOWN.
+- Exact movement surface is frozen: log Di chuyển đến map 96, tọa độ (50, 16), state Đi huyệt mộ, move x/y constants **1600/512 = tile 50/16 × 32**, and kwargs map_id/x_tile/y_tile/wait_for_arrival/stop_check.
+- Shared utils.move_character optional defaults are exact: wait_for_arrival=False, stop_check=None, home_priority=None, follow_mode=False, tolerance=48. K12 explicitly passes wait_for_arrival and stop_check; exact Boolean value of wait_for_arrival is not separately instruction-bound in this audit.
+- No K12-specific move-failure log/branch is recovered before the later active/MapID outcome checks, so exact caller reaction to move_character False remains UNKNOWN.
+- Exact common.active boundary is frozen: log Chờ common.active..., wait_pixel kwargs window_hwnd/timeout/debug/cancel_flag, and shared key common.active.
+- Frozen common.active pixel remains **(1330,33)** RGB **(34,8,11)**, configured timeout100, tolerance5. K12 passes an explicit timeout override, but its numeric value is not independently instruction-bound; do not assume 100.
+- Shared wait_pixel contract is exact: True if configured pixel appears before timeout, False on timeout/cancel. K12's exact False-return caller effect is not independently text-bound.
+- Post-wait non-tomb outcome is exact: [Tàng bảo đồ] MapID=<...> — không phải huyệt mộ, bỏ qua. No account-terminal dừng text is attached to this branch; it skips the tomb outcome/combat path and reaches the immediate final-heal/cycle-tail boundary.
+- Exact immediate final-heal boundary is frozen: % — kiểm tra trị liệu and [Tàng bảo đồ] Heal cuối vòng thất bại, using the existing _treasure_heal subsystem. Deep heal routing/click behavior remains deferred to K13.
+- Exact Treasure cycle-end prefix [Tàng bảo đồ] === HWND and shared — Kết thúc === tail are present. Exact success return scalar remains UNKNOWN.
+- Packaged automove_log contains **0 correlated K12 markers** for MapID=96, Đánh trong mộ, Đi huyệt mộ, Chờ common.active, tile(50,16), or huyệt mộ.
+- B08 was cross-checked only after static extraction and shows configured duration30/idle controls, not map96 runtime behavior.
+- First K12 artifact committed: docs/daily/K12_TREASURE_MAP96_COMBAT_STATIC_EVIDENCE.tsv at commit e8f51327bf6a1f0b8c2da91b36c9f759288269de.
+- K12 remains IN_PROGRESS until model/flow/task docs, code/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
