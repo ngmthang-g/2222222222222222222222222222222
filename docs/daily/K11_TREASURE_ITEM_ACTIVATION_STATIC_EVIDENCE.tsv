@@ -1,0 +1,57 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901 CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_DECODE	.daily_tab size35163 count1186 exact end marker
+exec_qualified	0x290aa28	VERIFIED_STATIC	DailyTab._treasure_map_exec_sequence
+exec_defaults	0x290aa21	VERIFIED_STATIC_DECODE	(5,None,None,None) immediately before qualified exec name; hidden helper defaults are distinct from K10 UI/config duration30
+exec_locals	0x290b8e8	VERIFIED_STATIC_MAPPING	self,hwnd,tomb_dur,halt,respawn_event,stop_event,hard_stop,stop,ci_hp,hp_pct,ci,found
+mount_step_log	0x2909281	VERIFIED_STATIC_UTF8	[Tàng bảo đồ]   B0: mở ngựa
+mount_riding_field	0x29092aa	VERIFIED_STATIC_DECODE	(IsRiding,0)
+mount_already_riding	0x29092b8	VERIFIED_STATIC_UTF8	Đã cưỡi thú → bỏ qua
+mount_settle	0x29092f0	VERIFIED_STATIC_DECODE	0.3 seconds
+mount_fixed_coords_1	0x29092f9	STRONG_STATIC_SCOPE	(1131,121) serialized inside B0 mount block
+mount_fixed_coords_2	0x2909300	STRONG_STATIC_SCOPE	(1073,123) serialized inside B0 mount block
+mount_active_pixel_key	0x2909307	VERIFIED_STATIC_DECODE	(common,nguaActive)
+mount_not_active_log	0x290931d	VERIFIED_STATIC_UTF8	Ngựa chưa active → click (1306, 340)
+mount_not_active_click	0x2909360	VERIFIED_STATIC_DECODE	(1306,340)
+mount_fixed_coords_3	0x2909368	STRONG_STATIC_SCOPE	(906,688) serialized in B0 mount block
+pixel_common_nguaActive	0x2b97b3e	VERIFIED_PIXEL_DATA	region(903,683) RGB(193,162,96) timeout1 tolerance10
+bag_step_log	0x2909370	VERIFIED_STATIC_UTF8	[Tàng bảo đồ]   B1: mở túi
+bag_wait_kwargs	0x2909397	VERIFIED_STATIC_DECODE	(window_hwnd,timeout)
+bag_open_coord	0x29093af	STRONG_STATIC_SCOPE	(1296,421) serialized immediately inside B1 bag-open block
+bag_active_key	0x29093b7	VERIFIED_STATIC_DECODE	(tuido,active)
+pixel_tuido_active	0x2b97b3e	VERIFIED_PIXEL_DATA	region(1123,631) RGB(150,166,78) timeout5 tolerance10
+bag_drag_from	0x29093c8	STRONG_STATIC_SCOPE	(870,635)
+bag_drag_to	0x29093d0	STRONG_STATIC_SCOPE	(910,145); Daily imports drag_drop, pair is serialized between tuido.active and B2 find
+bag_open_false_effect	-	EXPLICIT_UNKNOWN	wait_pixel bag-open failure branch has no independently bound terminal/skip text in K11
+find_step_log	0x29093d8	VERIFIED_STATIC_UTF8	[Tàng bảo đồ]   B2/2: Find multi tuido.tangBaoDo_multi
+find_helper	0x2909418	VERIFIED_STATIC	find_multipixel
+find_key	0x2909429	VERIFIED_STATIC_DECODE	(tuido,tangBaoDo_multi)
+pixel_tangBaoDo_multi	0x2b97b3e	VERIFIED_PIXEL_DATA	region[702,163,1132,517,20,30] baseRGB[2,30,35] offsetRGB[228,215,170] timeout5 tolerance1
+pixel_tangBaoDo_legacy	0x2b97b3e	VERIFIED_PIXEL_DATA_BUT_NOT_CURRENT_CALL	tangBaoDo single and tangBaoDo_multi_old exist, but K11 exec call explicitly names tangBaoDo_multi
+find_helper_doc	0x2b9584e	VERIFIED_SHARED_STATIC_UTF8	find_multipixel scans configured region, validates base+offset colors with tolerance, returns base (x,y) or None
+found_click_log	0x2909443	VERIFIED_STATIC_UTF8	✓ Found tuido.tangBaoDo_multi at <found> → click
+activation_fixed_coord_1	0x290948a	STRONG_STATIC_SCOPE	(950,370) serialized in activation success block
+activation_fixed_coord_2	0x2909492	STRONG_STATIC_SCOPE	(490,427) serialized in activation success block
+activation_fixed_coord_3	0x290949a	STRONG_STATIC_SCOPE	(1173,105) serialized in activation success block
+activation_click_kwargs	0x29094a1	VERIFIED_STATIC_DECODE	(window_hwnd,count,jitter,delay)
+mouse_click_doc	0x2b798e1	VERIFIED_SHARED_STATIC_UTF8	mouse.click_at is synchronous background click using DLL sync protocol/PostMessage; window_hwnd takes priority; does not require physical cursor movement
+mouse_click_defaults	0x2b7ae95	VERIFIED_SHARED_STATIC_DECODE	click_at defaults count1 delay0.5 left; jitter=True and hung_check=True at helper default layer
+activation_fixed_coord_mapping	-	EXPLICIT_UNKNOWN	Exact source-line purpose/order of fixed coords 950,370 / 490,427 / 1173,105 and exact count/jitter/delay values are not independently instruction-bound
+first_not_found	0x29094c6	VERIFIED_STATIC_UTF8	tangBaoDo_multi not found → dừng tàng bảo đồ cho acc này
+treasure_skipped_state	0x29033d0	VERIFIED_STATIC	_treasure_map_skipped exists as activity account-skip state; exact mutation statement at first/second not-found remains not native-instruction-bound
+pre_wait_fixed_coord	0x2909530	STRONG_STATIC_SCOPE	(1155,108) serialized immediately before movement-stop wait
+movement_wait_call	0x2909537	VERIFIED_STATIC	_wait_movement_stopped
+movement_wait_kwargs	0x290954f	VERIFIED_STATIC_DECODE	(stop_check,skip_set)
+movement_wait_default_mode	0x290a8c5	VERIFIED_STATIC_DECODE	by_memory default False because helper defaults are (None,None,False)
+movement_wait_detector	0x2907b1c	VERIFIED_STATIC	MovementDetector/is_moving fallback branch; helper doc calls it 10-pixel detector
+movement_wait_doc	0x2907b3d	VERIFIED_STATIC_UTF8	True when stopped; False on cancel/timeout; by_memory=True would use Direction+Pos 5-minute path instead
+movement_wait_post_stop_hung	0x2907a44	VERIFIED_STATIC	is_window_hung recovery check after stopped; HUNG_TIMEOUT numeric remains unknown
+movement_stopped_log	0x2909567	VERIFIED_STATIC_UTF8	[Tàng bảo đồ]   Đã dừng
+second_not_found	0x290958c	VERIFIED_STATIC_UTF8	tangBaoDo_multi not found (lần 2) → dừng tàng bảo đồ cho acc này
+two_checkpoint_structure	-	VERIFIED_STATIC_FLOW	There is a first find/use checkpoint before _wait_movement_stopped and a second tangBaoDo_multi presence/use checkpoint after Đã dừng; failure at either checkpoint terminally stops Treasure for that account
+second_success_click_microsequence	-	STRONG_STATIC_REUSE	Success after the second check proceeds into the post-activation MapID outcome path and reuses existing find/click constants; exact repeated click statement sequence is not separately logged
+next_boundary_map96	0x2909600	VERIFIED_STATIC_UTF8	Immediate next deep-flow boundary is MapID=96 (huyệt mộ) → đánh; map96/tomb combat is deferred to K12
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_k11_markers	-	NOT_RECOVERED	0 Tàng bảo đồ, 0 tangBaoDo_multi, 0 B0/B1/B2, 0 movement-stop markers or fixed activation-coordinate strings in packaged automove_log
+b08_scope	-	CROSSCHECKED_FROZEN_B08	B08 shows only idle Daily Treasure configuration; no runtime bag/item activation state, so no hidden K11 behavior inferred from screenshot
