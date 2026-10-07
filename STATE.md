@@ -3830,3 +3830,85 @@ On CONTINUE:
 - PROJECT_STATUS.md closure summary was finalized at commit 03b9f8ec08b0b98cfe770db4b8ab996a7211bbf9.
 - Latest checked commit still has **0 CI statuses** and **0 workflow runs**.
 - NEXT_ACTION remains L01 exactly as recorded above.
+## PHASE-L TERMINOLOGY CORRECTION
+- User correction applied: the project phase/function name is **Dồn**, not Đồn.
+- Internal compiled identifiers remain `donvang_tab` / `DonVangTab` because those are exact original binary/source identifiers and must not be renamed in forensic evidence.
+- Terminology was corrected in the planning/status/handoff documents before L01:
+  - PLAN.md — commit 350c1a1a74bc536a7dd1d4d707d5c90bef5970a0
+  - PROJECT_STATUS.md — commit b6f675177a91f6af4815f8f3629be2024964d495
+  - STATE.md — commit 428d27a822c1f327e46763eb92d187d1bd620279
+  - docs/tasks/K17.md — commit fdc63f99e88e2881556957604e9b477e69537ba9
+  - docs/daily/K17_PHASE_K_HANDOFF.md — commit bf75d1c5a101dff85f83584e502a702961a7164d
+  - docs/daily/K17_PHASE_K_HANDOFF_MODEL.json — commit 7a937862e84147ed5b1fe32b37c151d1310329ea
+
+## L01 VERIFIED RESULTS
+- GitHub-first continuity check passed: no pre-existing L01 artifact/completion commit existed.
+- Exact TLMTool_2.1.2(7).zip was re-inspected before L01; frozen authority remains archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, CRC clean; inner TLMTool.exe SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Active Dồn authority is exact: module `donvang_tab`, source label `donvang_tab.py`, class `DonVangTab`.
+- Frozen module marker `.donvang_tab` is at **0x2920bc1**. Header size field is **65,260 bytes** and header constant-count field is **1,813**; next module marker `.emu_chat` is at **0x2930abd**.
+- Source filename string `donvang_tab.py` is at 0x292e0da; module qualname `<module donvang_tab>` at 0x292e366; class `DonVangTab` at 0x292d1c6.
+- L01 inventories **127 direct top-level DonVangTab methods**. Nested `<locals>` functions are excluded from the top-level handler inventory.
+- Main-app wiring is exact: TLMMainApp owns `donvang_tab`, constructs `DonVangTab`, exposes visible tab label **Dồn**, and owns `_set_donvang_tab_visible`.
+- Static visibility comment describes permission/dev-like gating. The captured run shows Dồn visible; the exact permission state causing that captured visibility remains **UNKNOWN** rather than inferred.
+- StartTab wiring is exact: **Dồn vàng / Tới nơi nhận / Tới chỗ bán / Tới nơi train / Cấu hình**, with direct callables `_goto_donvang_tab`, `_donvang_action`, `_toggle_donvang_cmd`.
+- Visible Dồn surface is frozen at L01 scope:
+  - Cấu hình Về thành: Khi đầy túi / Theo chu kỳ (phút), navigation priority Phù1/Phù2/Phù3/Ngựa.
+  - Cấu hình Train: quay lại train khi chết, dừng khi mất kết nối, tự gỡ kẹt, nhặt đồ không dùng hồ lô, lọc đồ, trị liệu sau khi chết, tọa độ trị liệu.
+  - saved-coordinate editor;
+  - shared Tọa độ dồn and dynamic Acc nhận rows;
+  - per-account Đến tọa độ / Dồn đồ / Tới nơi dồn / Bán đồ;
+  - elapsed-time / gold-donated / gold-per-hour metrics;
+  - all-account Tới nơi nhận / Tới chỗ bán / Tới nơi train and bottom Bắt đầu.
+- Screenshot cross-check was performed only after EXE-first extraction:
+  - Dồn-tab capture SHA-256 dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a, 452x1032.
+  - StartTab capture SHA-256 4f1b126ea4ba0034889545653046f552a226d5f0033d2329a8693342184c28cd, 452x1032.
+  - Captured Dồn state: cycle mode 30 minutes, Phù1/Phù2/Phù3/Ngựa priority surface, Tự gỡ kẹt checked, filter Tất cả, heal map Trị liệu Tô Châu, saved coord Tọa độ1/Đại Lý/0/0, two receiver rows visible, no live game-account rows, bottom Bắt đầu.
+- Persistence authority is frozen: `[DonVang]` settings section and exact autosave documentation of **30 seconds**. Exact per-key behavior is deferred.
+- Direct/current dependency boundary is frozen: tkinter/ttk/font, os/configparser/shared settings, farm_data, start_tab, permission_guard, utils, dll_injector, don_logic, fast_travel, memory_items, bag_filter, pixel, HWND/mouse/window helpers, and constructor-supplied info_tab object.
+- `farm_tab` remains a reference/docstring surface only for L01 and is not promoted to a current runtime import.
+- Existing graph-only `donvang_tab -> emu_input/emu_reader` edges remain **STATIC_REFERENCE_NOT_IMPORT_PROOF**; no direct DonVang literal/call evidence was recovered for those edges.
+- Dồn is therefore **ACTIVE/WIRED, NOT DORMANT**.
+- L01 intentionally does not resolve return mechanism/priority, full-bag inventory logic, receiver selection, selling, train lifecycle, heal/reconnect, all-account execution semantics, or parity.
+- L01 artifacts were committed together at commit **935a5f9645e5d4273b12c56b70eaebf60df9c530**:
+  - docs/don/L01_HANDLER_INVENTORY.tsv
+  - docs/don/L01_DEPENDENCIES.tsv
+  - docs/don/L01_STATIC_EVIDENCE.tsv
+  - docs/don/L01_MODEL.json
+  - docs/don/L01_AUTHORITY_SURFACE.md
+  - docs/tasks/L01.md
+- PROJECT_STATUS.md advanced L01 -> VERIFIED and L02 -> NEXT at commit **971e0ae980384f87a427f973cb672c62992491b2**.
+
+## POST-L01 CODE/BUILD RECHECK
+- Current main tree after L01 status update: **625 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked L01 status commit has **0 CI statuses** and **0 workflow runs**.
+- All six L01 artifacts were fetched back successfully.
+- L01 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- L01 has no known static blocker.
+- Dồn end-to-end behavior will still require live Windows/game parity later in Phase L.
+- Reconstructed product build remains not applicable before Stage S.
+
+## DO_NOT_TOUCH
+- Use **Dồn** in planning/user-facing documentation. Preserve `donvang_tab` / `DonVangTab` as exact original identifiers.
+- Preserve L01 active-authority and 127-handler inventory unless exact new evidence exposes a contradiction.
+- Preserve permission-controlled visibility as a separate layer from the captured visible state; do not infer account entitlement from screenshot text.
+- Do not promote weak farm_tab/emulator references into active runtime dependencies without direct evidence.
+- Do not infer later Dồn return/inventory/receiver/sell/train behavior from UI labels alone.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L02 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L02 — Dồn return mechanism audit** only.
+5. Re-inspect the exact frozen original EXE first, focusing on `_on_town_condition_changed`, `_on_nav_priority_changed`, `_get_nav_priority`, `_move_acc`, `_truyen_move_retry`, `_exec_truyen_steps`, `_move_truyen_to`, `_resolve_truyen_back`, `_run_farm_exit`, and only directly-called helpers needed by the return path.
+6. Determine exact return triggers/mechanisms, route/fallback behavior, stop/cancel ownership, and how return-to-town hands off to receiver/sell/train boundaries without deep-auditing those later tasks.
+7. Keep return **priority ordering** details separated if PLAN requires them for the following task; do not collapse L02 and later Phase-L tasks unnecessarily.
+8. Cross-check screenshots/runtime only after static extraction.
+9. Persist L02 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L02 verification.
