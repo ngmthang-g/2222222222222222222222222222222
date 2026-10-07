@@ -335,7 +335,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K13 — VERIFIED_TREASURE_HEAL_SELECTED_MAP_RECOVERY_ADAPTER_CACHE_READY_AND_RESPAWN
 - K14 — VERIFIED_TREASURE_SKIPPED_ACCOUNT_STOP_RESET_AND_FAILURE_LIFECYCLE
 - K15 — VERIFIED_TREASURE_INTEGRATED_LIFECYCLE_FAILURE_MATRIX_AND_STATIC_HANDOFF
-- K16 — NEXT
+- K16 — VERIFIED_DAILY_SHARED_CROSS_ACTIVITY_LIFECYCLE_PERSISTENCE_COORDINATOR_AND_OWNERSHIP_BOUNDARY
+- K17 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -367,5 +368,7 @@ K14 locks Treasure failure and teardown lifecycle without reopening K10-K13 inte
 
 K15 closes the Tàng Bảo Đồ static handoff by integrating K10-K14 and auditing every Treasure-related top-level callable in K01. No callable remains uncovered. Activity-wide `_treasure_map_run_worker` and per-row `_treasure_single_worker` remain separate ownership models. The integrated cycle preserves respawn-event reentry, optional low-HP treatment, mount/bag preparation, two-stage `tangBaoDo_multi` activation, MovementDetector-based movement stop, the map96/tomb outcome region, optional final treatment, and cycle-tail return. The production duration layer is 30s while the direct exec-helper fallback is 5s; this is a resolved layering distinction, not a contradiction. First/second treasure-item not-found are terminal-current-account, start-heal failure is current-cycle-only, non-96 is a nonterminal tomb-outcome skip, final-heal failure is fail-soft, successful reconnect/death are recoverable, and reconnect timeout is terminal for the affected recovery path. No blocking contradiction was found across K10-K14, no correct artifact required rewriting, and Treasure is now static-handoff-complete while end-to-end runtime parity remains environment-required.
 
+K16 closes the shared Daily static integration layer. It confirms the 5-second roster refresh, HWND+PID anti-reuse identity, row Event+generation stale-worker guard, Tk `after(0)` state marshalling, shared injection, manual all-account `Tới bổ đầu`/`Trị liệu`, bottom Bắt đầu/Dừng lại coordinator, singleton `_daily_all_monitor`, StartTab synchronization, and Daily config load/save persistence. The remaining shared top-level gaps from K01 (`_validate_repeat`, injection helpers, manual movement/heal helpers, and config/destroy methods) are now accounted for. Row activity/PID/session state remains transient and is not persisted. Activity-wide Trừng Ác/Treasure ownership remains separate from row `_farming_acc/_stop_event/_gen` ownership; no unified owner mutex or independently-bound same-HWND mutual-exclusion guard was recovered, so that concurrency boundary is reserved for K17 runtime parity rather than guessed. No blocking contradiction was found across K02/K09/K15.
+
 ## Phase K current
-K16 — Daily shared cross-activity lifecycle / persistence / UI-coordinator integration audit.
+K17 — Daily integrated runtime/parity closure matrix and Phase-K handoff.
