@@ -3912,3 +3912,88 @@ On CONTINUE:
 7. Keep return **priority ordering** details separated if PLAN requires them for the following task; do not collapse L02 and later Phase-L tasks unnecessarily.
 8. Cross-check screenshots/runtime only after static extraction.
 9. Persist L02 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L02 verification.
+## L02 VERIFIED RESULTS
+- GitHub-first continuity check passed: no pre-existing L02 artifact/completion commit existed; L01 remained unchanged.
+- Exact TLMTool_2.1.2(7).zip was re-inspected before L02. Frozen authority remains archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, size **93,715,901** bytes, CRC clean; inner TLMTool.exe SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact `.donvang_tab` was decoded/re-inspected for L02 as **65,260 bytes / 1,813 constants**, exact end.
+- Dồn return trigger has two exact production modes:
+  - internal `cycle` -> visible **Theo chu kỳ (phút)**;
+  - internal `full_bag_timer` -> visible **Khi đầy túi**.
+- Default return mode is `cycle`; default cycle value is **30 minutes**. The farm-cycle block owns `cycle_start/loop_minutes/elapsed/sleep_time` plus constant60, proving minute-based cycle timing while exact poll/sleep micro-order remains UNKNOWN.
+- Full-bag return path reads memory bag-full state, then runs `_filter_before_don` before committing to return/Dồn.
+- Exact full-bag semantics: filter frees space -> stay at farm and wait later cycle; still full after filtering -> continue return/Dồn path.
+- Nearby constants 3/98/100 were preserved but **not interpreted** in L02. Exact inventory/full-bag thresholds are deferred to the later inventory task.
+- `_farm_cycle` exact contract says donor callback replaces the ordinary return-to-town step with Dồn. Therefore donor Dồn and normal sell/town return are separate high-level handoff outcomes.
+- `_resolve_truyen_back` exact return mechanism is frozen:
+  - resolve current MapID first;
+  - fall back to configured farm preset only if memory read fails;
+  - obtain a map-specific `back` route from `farm_data.TRUYEN_DAI_LY_ROUTES`;
+  - route None -> normal movement;
+  - route present -> execute serialized steps -> invalidate Reader cache -> fresh `verify_exited_farm` check;
+  - if verification fails and stop is requested -> abort;
+  - if verification fails without stop -> **walk to the final destination**.
+- Therefore the Truyền back route is an optimization/shortcut, not a mandatory success condition.
+- Frozen back-route data includes:
+  - 85/86 -> map85 tile(226,58);
+  - 43 -> tile(135,168);
+  - 49 -> tile(147,209);
+  - 64 -> tile(196,156);
+  - 60 -> tile(207,200);
+  - 83 -> tile(158,75);
+  - 75/76 -> map75 tile(131,123);
+  - followed by serialized click(892,472), click(480,427) twice, sleep1, wait common.active30.
+- Routes 1300/1400/1700 have serialized entries but empty `back` lists; they do not themselves provide a return-movement sequence.
+- `_run_farm_exit` is the Dồn/receiver-return wrapper. Its direct defaults are `(None, "Về dồn")` for the optional stop/tag surface.
+- `_run_farm_exit` exact behavior: execute Truyền back shortcut when applicable, then perform the final Dồn/receiver leg by **normal horse movement with no phù**. Ordinary maps with no back route use the normal `_move_acc` behavior.
+- The standard sell-return path remains separate: `_sell_acc` resolves selling coordinates, may use the same back-shortcut boundary, and on shortcut failure logs `teleport hụt, vẫn ở farm → đi bộ về điểm bán`.
+- Standard sell movement passes `_get_nav_priority()` to `move_character` as `home_priority` and has one explicit retry after first normal move failure.
+- L02 intentionally freezes only the priority-list handoff. Exact Phù1/Phù2/Phù3/Ngựa ordering, deduplication and fallback semantics are deferred to L03.
+- Automatic return is cooperative: farm-cycle `stop_check` propagates through `_run_farm_exit`, `_resolve_truyen_back`, `_exec_truyen_steps`, `_move_acc` and retry surfaces.
+- Manual `_move_acc` is distinct: it can run with no stop callback, but exact guard rejects a manual move when the account is already auto-farming and asks that farm be stopped first.
+- `_toggle_single_farm` builds a donor callback and passes it into `_farm_cycle`; donor-side state boundary includes **Về dồn -> Đang dồn** and actual Dồn transaction is delegated to `don_logic.don_move_and_execute`.
+- Receiver choice/locking/transaction internals were not expanded. Receiver-cycle boundary from `don_logic` is only recorded as sell -> return to receiver point -> ready -> wait donated -> repeat.
+- Outbound town->farm `to/to_from` routes exist but are train-state scope, not return-mechanism scope.
+- `TEST_SKIP_TOWN` is preserved as a debug/test bypass surface and is not treated as production return policy.
+- Packaged automove_log remains SHA-256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, **15,741,058 bytes / 387,238 lines**. Correlated L02 Dồn-return markers are **0**, so L02 remains **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- L02 artifacts committed together at **de7c624a55d33f1c8bde97a0326b8827d99bfe94**:
+  - docs/don/L02_RETURN_STATIC_EVIDENCE.tsv
+  - docs/don/L02_RETURN_MODEL.json
+  - docs/don/L02_RETURN_FLOW.md
+  - docs/tasks/L02.md
+- PROJECT_STATUS.md advanced L02 -> VERIFIED and L03 -> NEXT at commit **4a7e0d155f1f3fc5cbc8d419790ef09774973434**.
+
+## POST-L02 CODE/BUILD RECHECK
+- Current main tree after L02 status update: **629 entries**.
+- Python executable-code files remain exactly the same **7 forensic scripts** under tools/.
+- No reconstructed application source path exists.
+- No build-system file or GitHub Actions workflow exists.
+- Latest checked L02 status commit has **0 CI statuses** and **0 workflow runs**.
+- All four L02 artifacts were fetched back successfully.
+- L02 changed documentation/evidence only and introduced no executable-code regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- L02 has no known static blocker.
+- Live Dồn return timing/parity still requires Windows + live Thần Long runtime.
+- Exact navigation-priority policy is intentionally deferred to L03, not a blocker.
+
+## DO_NOT_TOUCH
+- Preserve L01 authority/handler inventory and L02 return mechanism unless exact new evidence exposes a contradiction.
+- Preserve Dồn-specific back route as shortcut + fresh verify + walking fallback, not as a mandatory return requirement.
+- Preserve final Dồn/receiver leg as normal horse movement with no phù.
+- Keep normal sell path separate and keep `home_priority` ordering details for L03.
+- Do not infer bag thresholds from constants 3/98/100 before the inventory task.
+- Do not deepen receiver/transaction/train-state logic during L03 unless directly required by the priority call path.
+- Do not create Stage-S source/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L03 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L03 — Dồn return priority audit** only.
+5. Re-inspect the exact frozen original EXE first, focusing on `_on_nav_priority_changed`, `_get_nav_priority`, the UI variables for Phù1/Phù2/Phù3/Ngựa, persistence of priority selection, and the direct `move_character(home_priority=...)` consumers.
+6. Determine exact ordering construction, duplicate/disabled-entry handling, default order, fallback semantics, and whether priority affects only normal return-to-town/sell movement or any other Dồn movement boundary.
+7. Preserve L02's special Dồn/receiver final leg **no phù**; do not accidentally apply normal return priority there unless direct evidence contradicts L02.
+8. Cross-check screenshots/runtime only after static extraction.
+9. Persist L03 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L03 verification.
