@@ -1,0 +1,73 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_blob	0x2903223	VERIFIED_STATIC_DECODE	.daily_tab blob size35163 count1186 exact end marker
+bag_filter_blob	0x28d5db3	VERIFIED_STATIC_DECODE	.bag_filter blob size5162 count145 exact end marker
+discard_var	0x2903357	VERIFIED_STATIC	punish_discard_equip_var
+discard_stop	0x2903371	VERIFIED_STATIC	_punish_discard_stop
+discard_thread	0x2903387	VERIFIED_STATIC	_punish_discard_thread
+discard_gen	0x290339f	VERIFIED_STATIC	_punish_discard_gen
+ui_label	0x2903977	VERIFIED_STATIC_UTF8	Lọc trang bị (vứt vũ khí, trang bị trong quá trình làm nhiệm vụ)
+ui_command	0x29039c9	VERIFIED_STATIC	_toggle_punish_discard
+running_hwnds_ref	0x2905857	VERIFIED_STATIC	_punish_running_hwnds
+running_hwnds_doc	0x290580a	VERIFIED_STATIC_UTF8	Hwnd các acc đang chạy Trừng ác (bỏ acc dừng/mất kết nối).
+start_discard_ref	0x290586e	VERIFIED_STATIC	_start_punish_discard
+start_no_acc_log	0x2905887	VERIFIED_STATIC_UTF8	[Trừng ác] Tick lọc trang bị BẬT — chờ acc chạy
+stop_discard_ref	0x29058c7	VERIFIED_STATIC	_stop_punish_discard
+toggle_save_ref	0x29058dd	VERIFIED_STATIC	_save_config
+toggle_doc	0x29058eb	VERIFIED_STATIC_UTF8	Tick only affects running Trừng ác; ON+running starts worker; ON+none waits; OFF stops immediately; worker rechecks tick; config saved
+worker_ref	0x2905a6f	VERIFIED_STATIC	_punish_discard_worker
+worker_start_log	0x2905a87	VERIFIED_STATIC_UTF8	[Trừng ác] Bật lọc trang bị (quét ... s, acc đang chạy Trừng ác)
+poll_symbol	0x2905ab5	VERIFIED_STATIC	DAILY_DISCARD_POLL
+worker_stop_log	0x2905aef	VERIFIED_STATIC_UTF8	[Trừng ác] Tắt lọc trang bị
+worker_inflight	0x2905b2d	VERIFIED_STATIC	inflight
+worker_child_ref	0x2905b37	VERIFIED_STATIC	_punish_discard_one
+worker_started	0x2905b4c	VERIFIED_STATIC	started
+worker_wait_const	0x2905b55	VERIFIED_STATIC_DECODE	0.5 serialized near worker scheduling/stop shell
+worker_error	0x2905b61	VERIFIED_STATIC_UTF8	[Trừng ác] lọc trang bị lỗi:
+worker_doc	0x2905b9b	VERIFIED_STATIC_UTF8	Periodic while Trừng ác active; all active accounts in parallel; one thread/account; packet pacing 1s/account; preset daily discard_equip; skip account when prior discard still inflight
+bag_filter_call	0x2905d46	VERIFIED_STATIC	discard_for_activity
+daily_activity	0x2905d5c	VERIFIED_STATIC	daily
+daily_preset	0x2905d63	VERIFIED_STATIC	discard_equip
+daily_call_kwargs	0x2905d74	VERIFIED_STATIC_DECODE	keys,delay,stop_check
+one_error	0x2905d8d	VERIFIED_STATIC_UTF8	[Trừng ác] hwnd=... lọc trang bị lỗi:
+one_result_total	0x2905dbf	VERIFIED_STATIC	total
+one_result_ok	0x2905de0	VERIFIED_STATIC	ok
+one_result_fail	0x2905dfc	VERIFIED_STATIC	fail
+one_doc	0x2905e09	VERIFIED_STATIC_UTF8	Vứt trang bị 1 acc đang chạy Trừng ác (trong thread riêng).
+config_load	0x2909a51	VERIFIED_STATIC_DECODE	daily_punish_discard_equip fallback "0"
+config_save	0x2909ba1	VERIFIED_STATIC	daily_punish_discard_equip persisted
+qualified_toggle	0x290a52b	VERIFIED_STATIC	DailyTab._toggle_punish_discard
+qualified_start	0x290a54c	VERIFIED_STATIC	DailyTab._start_punish_discard
+qualified_stop	0x290a56c	VERIFIED_STATIC	DailyTab._stop_punish_discard
+qualified_worker	0x290a58b	VERIFIED_STATIC	DailyTab._punish_discard_worker
+qualified_one	0x290a5ac	VERIFIED_STATIC	DailyTab._punish_discard_one
+one_locals	0x290b144	VERIFIED_STATIC_MAPPING	self,hwnd,stop,BF,res,e
+worker_locals	0x290b163	VERIFIED_STATIC_MAPPING	self,gen,BF,stop,inflight,var,tick_on,hwnds,started,hwnd,th,t,e
+bag_send_guard	0x28d5dde	VERIFIED_STATIC	_SEND_LOCKS_GUARD
+bag_send_locks	0x28d5df1	VERIFIED_STATIC	_SEND_LOCKS per-HWND packet serialization surface
+bag_meta_warning	0x28d5e87	VERIFIED_STATIC_UTF8	If embedded/meta missing, non-weapon filtering drops out; only weapon-ID discard remains
+bag_presets	0x28d5f42	VERIFIED_STATIC	ACTIVITY_PRESETS
+bag_plan_ref	0x28d62ae	VERIFIED_STATIC	plan_discard
+bag_abandon_ref	0x28d630e	VERIFIED_STATIC	abandon_item
+bag_discard_doc	0x28d6345	VERIFIED_STATIC_UTF8	Returns total/ok/fail/skipped/stopped/targets; empty rules touch nothing; stop_check stops early; dry_run sends nothing
+bag_activity_doc	0x28d648f	VERIFIED_STATIC_UTF8	Selected preset keys only; None/[] means no discard; multiple preset rules OR/dedupe by dbID
+bag_rule_doc	0x28d6532	VERIFIED_STATIC_UTF8	Site10 default; rule fields AND, rules OR; weapons protected by default unless explicit match_weapons; protect IDs/names highest priority
+packet_doc	0x28d696f	VERIFIED_STATIC_UTF8	Vứt discards full stack through packet 100005 "4:dbID"
+phoban_preset	0x28d6e55	VERIFIED_STATIC	discard_equip preset family
+daily_preset_family	0x28d6f29	VERIFIED_STATIC	daily activity preset surface
+bag_action4	.bag_filter#87	VERIFIED_STATIC_DECODE	constant 4 used by discard_items / abandon path
+bag_defaults_discard_items	.bag_filter#131	VERIFIED_STATIC_DECODE	discard_items defaults delay=1.0, stop_check=None, on_progress=None, dry_run=False
+bag_defaults_discard_for_activity	.bag_filter#132	VERIFIED_STATIC_DECODE	discard_for_activity defaults keys=None,extra_rules=None,delay=1.0,stop_check=None,on_progress=None,dry_run=False
+bag_activity_locals	.bag_filter#140	VERIFIED_STATIC_MAPPING	hwnd,activity,keys,extra_rules,delay,stop_check,on_progress,dry_run,rules,want,p,r,rr
+bag_items_locals	.bag_filter#141	VERIFIED_STATIC_MAPPING	hwnd,rules,delay,stop_check,on_progress,dry_run,targets,res,MI,i,t
+memory_action_doc	0x2b6a937	VERIFIED_SHARED_STATIC_UTF8	Vứt(4)/xóa(9) one slot by dbID, packet100005
+memory_action_packet	.memory_items#684	VERIFIED_STATIC_DECODE	PKT_ITEM_ACTION=100005
+memory_abandon_symbol	.memory_items#686-688	VERIFIED_STATIC_DECODE	ITEM_ACT_ABANDON=4 contract / ITEM_ACT_DESTROY=9
+b08_discard	-	VERIFIED_IMAGE_REUSE	B08 current visible state punish_discard_equipment=false; no runtime discard evidence
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_action4	-	GENERIC_RUNTIME_ONLY	22734 action=4 records total; 22732 "spts" + 2 plain; no Daily/Trừng ác/discard correlation
+runtime_daily_discard	-	NOT_RECOVERED	0 [Trừng ác], 0 lọc trang bị, 0 DAILY_DISCARD_POLL, 0 discard_for_activity, 0 discard_equip in packaged log
+poll_numeric	-	EXPLICIT_UNKNOWN	DAILY_DISCARD_POLL symbol/log contract proven but numeric value not safely instruction-bound
+gen_mutation_order	-	EXPLICIT_UNKNOWN	generation field and captured gen proven; exact increment/event/thread replacement statement order not native-instruction-bound
+worker_outer_exception_effect	-	EXPLICIT_UNKNOWN	worker-level error text proven; exact continue-vs-exit micro-order after unexpected outer exception not instruction-bound
