@@ -3421,3 +3421,30 @@ On CONTINUE:
 8. Preserve K10-K12 top-level/activation/map96 contracts unchanged.
 9. Cross-check B08/runtime only after static extraction.
 10. Persist K13 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after K13 verification.
+## K13 STATIC EXTRACTION MILESTONE — IN PROGRESS
+- GitHub-first continuity check passed: no pre-existing K13 artifact/completion commit existed; K01-K12 were preserved.
+- Exact TLMTool_2.1.2(7).zip was materialized and revalidated before K13: archive SHA-256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, CRC clean. Inner TLMTool.exe remains SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size **47,450,112** bytes.
+- Exact .daily_tab blob was decoded/re-inspected again: **35,163 bytes / 1,186 constants**, exact end marker.
+- K13 start-of-cycle recovery boundary is exact: if respawn_event is set, Treasure clears it so heal/move can leave map87, then reads HP and if Treasure heal is enabled with HP<30 calls _treasure_heal. Start-heal failure is exact `Heal thất bại → skip vòng này`.
+- Final-heal boundary remains exact from K12: same Treasure heal subsystem, with `Heal cuối vòng thất bại` as fail-soft/log-only cycle-tail behavior.
+- _treasure_heal exact locals are self,hwnd,stop_check,heal_map,coords,heal_tile_x,heal_tile_y,map_id,name,mid,e,ok.
+- Treasure heal exact validation chain is now frozen: selected heal-map required -> coordinate lookup required -> resolve selected name through MAP_LIST to map_id -> reject invalid map_id -> call movement helper -> movement failure returns failure -> success logs `trị liệu tại <map> thành công`.
+- TREASURE_HEAL_COORDS remains exact: Đại Lý=(43,178), Lạc Dương=(255,126), Tô Châu=(155,252), Lâu Lan=(27,183).
+- Treasure heal move surface contains only wait_for_arrival/stop_check kwargs; no tolerance kw is present, so shared move_character default tolerance **48** is the effective default unless later native evidence proves an internal override.
+- No Treasure-specific fixed treatment-click coordinates are serialized in the _treasure_heal compact block. Manual Tô Châu click sequences and _punish_heal click/reinject behavior are **not** copied into Treasure by analogy.
+- Treasure-specific reinjection behavior inside _treasure_heal is NOT_PROVEN; no Treasure-specific reinjection failure/log surface is recovered.
+- Activity-wide Treasure reconnect shell is exact: `_treasure_monitor_stops`, `Phát hiện mất kết nối → chờ kết nối lại...`, `Kết nối lại OK → tiếp tục`, `Kết nối lại timeout → dừng`.
+- The Treasure-specific reconnect timeout numeric is still **EXPLICIT_UNKNOWN**. K13 does not copy the exact Trừng Ác 60s value without an independent Treasure binding.
+- _treasure_map_disconnect_monitor exact local mapping is self,hwnd,halt,respawn_event,stop_event,ev,real_set. This is an event-adapter shape rather than a second full detector local model.
+- Unlike _punish_disconnect_monitor, the Treasure adapter has no local check_pixel/dc_strikes/MI/conn/dc1/dc2 detector state. Strong static evidence therefore supports reuse/delegation to the existing Daily disconnect detector, but the exact native call edge and ev/real_set propagation order remain not line-by-line proven.
+- The shared Daily detector contract itself remains K07-verified: 2s cadence, memory-connected True veto, both exact disconnect pixels for 3 consecutive ticks (~6s), then halt + click(616,455). K13 preserves this as the shared detector layer while keeping Treasure adapter wiring micro-order explicit UNKNOWN.
+- Treasure single-worker exact locals include halt,respawn_event,monitor_stop,rm,invalidate_character_cache,_get_pid_from_hwnd,wait_memory_ready,_exit_why. This freezes a post-reconnect/session memory-refresh boundary.
+- Shared cache/memory-ready semantics remain exact: invalidate stale Reader cache after reconnect; wait_memory_ready requires clear RoleName + MapID!=None and fail-opens on timeout. Shared defaults are 45.0s / need3 / interval1.0, but the exact Treasure call override arguments are not independently instruction-bound.
+- No unconditional post-reconnect Treasure DLL reinjection edge is proven.
+- Shared Daily death/Địa-phủ monitor contract remains exact from K07: 4s cadence, HP0 click(792,441), MapID87 -> respawn_event.set(). Treasure batch/single workers own respawn_event and rm monitor handles, and Treasure exec consumes/clears respawn_event at cycle entry. Exact thread-launch statement order remains UNKNOWN.
+- Death/Map87 is therefore a recoverable Treasure transition: signal respawn_event -> next Treasure exec clears it -> immediate HP/start-heal boundary -> normal movement/activation can leave map87.
+- Exact same-scheduling-window precedence between disconnect halt and respawn_event remains UNKNOWN.
+- B08 was cross-checked only after static extraction: Treasure heal OFF, heal map Tô Châu, reconnect ON, respawn ON.
+- Packaged automove_log has **0 correlated K13 markers** for Treasure heal/reconnect/respawn/Địa-phủ/cache-ready behavior.
+- First K13 artifact committed: docs/daily/K13_TREASURE_RECOVERY_STATIC_EVIDENCE.tsv at commit 36f613669c837fa3b6d0d695ef148dc2deb2b2fa.
+- K13 remains IN_PROGRESS until model/flow/task docs, code/build recheck, STATE closure and PROJECT_STATUS advancement are persisted.
