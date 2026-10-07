@@ -1,0 +1,58 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+daily_payload	0x2903223	VERIFIED_STATIC	.daily_tab / exact Daily serialized constants payload
+exec_sequence_qualified	0x290a817	VERIFIED_STATIC	DailyTab._punish_exec_sequence
+exec_sequence_locals	0x290b216	VERIFIED_STATIC_MAPPING	self,hwnd,punish_duration,use_tele,tele_hotkey,halt,respawn_event,stop_event,hard_stop,stop,ci_hp,hp_pct,_ci0,_fight_pos,_t_end,_ci_f,_ci1,_m0,_x0,_y0,_m1,_x1,_y1,_math,_drift
+entry_stop_log	0x29073d5	VERIFIED_STATIC_UTF8	vào vòng đã stop (...) → bỏ vòng
+cycle_start_log	0x290740e	VERIFIED_STATIC_UTF8	[TRỪNG ÁC] === HWND ... — Bắt đầu ===
+combat_duration_log	0x290772f	VERIFIED_STATIC_UTF8	Đánh ác tặc <punish_duration>s...
+combat_state	0x2907749	VERIFIED_STATIC_UTF8	Đánh ác tặc
+start_auto_train_ref	0x290775b	VERIFIED_STATIC	start_auto_train
+start_auto_train_kwargs	0x290776d	VERIFIED_STATIC_DECODE	(stop_check, verify)
+auto_train_failsoft	0x2907783	VERIFIED_STATIC_UTF8	gửi bật auto train thất bại → vẫn đánh tiếp
+fight_anchor_posx	0x29077df	VERIFIED_STATIC_DECODE	(PosX,)
+fight_anchor_posy	0x29077e7	VERIFIED_STATIC_DECODE	(PosY,)
+fight_anchor_fallback	0x29077ef	VERIFIED_STATIC_DECODE	(None,0,0)
+monotonic_ref	0x29077f5	VERIFIED_STATIC	monotonic
+death_early_break	0x2907800	VERIFIED_STATIC_UTF8	chết giữa lúc đánh → dừng đánh sớm
+drift_math	0x2907834	VERIFIED_STATIC	math / hypot
+drift_threshold	0x2907841	VERIFIED_STATIC_DECODE	160 pixels
+drift_log	0x2907844	VERIFIED_STATIC_UTF8	LỆCH KHỎI BÃI ĐÁNH ... px — nghi bị follow party lôi đi / PK đẩy
+final_hp_check	0x29078be	VERIFIED_STATIC_UTF8	% — kiểm tra trị liệu cuối vòng
+final_heal_fail	0x29078ea	VERIFIED_STATIC_UTF8	[TRỪNG ÁC]   Heal cuối vòng thất bại
+cycle_end_log	0x290791c	VERIFIED_STATIC_UTF8	— Kết thúc ===
+daily_stop_game_auto	-	VERIFIED_STATIC_ABSENCE	No stop_game_auto/set_game_auto/AUTO_MODE_NONE/stop_auto_train symbol in bounded Daily payload; Daily explicitly references start_auto_train only
+wait_helper_qualified	0x290a8ca	VERIFIED_STATIC	DailyTab._wait_movement_stopped
+wait_helper_defaults	0x290a8c5	VERIFIED_STATIC_DECODE	(None,None,False) immediately before helper qualified name; by_memory default is False in recovered signature mapping
+wait_helper_locals	0x290baf4	VERIFIED_STATIC_MAPPING	self,hwnd,cancel_event,tag,stop_check,skip_set,by_memory,_stopped,ok,hung_deadline,recovered,md
+wait_memory_ref	0x290797a	VERIFIED_STATIC	wait_stopped_by_direction
+wait_memory_timeout	0x29079c8	VERIFIED_STATIC_DECODE	300 seconds
+wait_memory_kwargs	0x29079cb	VERIFIED_STATIC_DECODE	(stop_check,timeout)
+wait_cancel_log	0x29079e2	VERIFIED_STATIC_UTF8	Bị huỷ khi đợi movement
+wait_timeout_log	0x2907a0d	VERIFIED_STATIC_UTF8	Quá 5 phút chưa dừng → skip vòng này
+wait_hung_probe	0x2907a44	VERIFIED_STATIC	is_window_hung
+wait_hung_limit_symbol	0x2907aaa	VERIFIED_STATIC	HUNG_TIMEOUT
+wait_hung_error	0x2907afb	VERIFIED_STATIC	WindowHungError
+wait_detector_ref	0x2907b1c	VERIFIED_STATIC	MovementDetector / is_moving fallback branch
+wait_helper_doc	0x2907b3d	VERIFIED_STATIC_UTF8	by_memory=True uses memory Direction+Pos timeout 5 minutes instead of MovementDetector 10-pixel; True stopped / False cancel-timeout
+current_daily_wait_call	0x2909537	STRONG_STATIC_SCOPE	Recovered explicit _wait_movement_stopped call is in Tàng Bảo Đồ block; kwargs at 0x290954f are stop_check/skip_set and no by_memory override is visible
+utils_set_auto_doc	0x2c4f2c7	VERIFIED_SHARED_STATIC_UTF8	mode 0 stop / 1 train / 2 pk / 3 quest / 6 fuben; returns True when command sent
+utils_verify_doc	0x2c4f452	VERIFIED_SHARED_STATIC_UTF8	Direction sampled; any change=True; all same=False; insufficient valid samples=None fail-open
+utils_wait_doc	0x2c4f7a6	VERIFIED_SHARED_STATIC_UTF8	common.active + MapID/Pos; default 0.5s poll; move_eps; stable_needed; timeout/stop=False
+utils_wait_defaults	0x2c5375f	VERIFIED_SHARED_STATIC_DECODE	wait_stopped_by_direction defaults (stop_check=None, timeout=300, stable_needed=6, interval=0.5, move_eps=16)
+utils_start_auto_doc	0x2c4fbc4	VERIFIED_SHARED_STATIC_UTF8	StartAutoFight(Train); Direction verify; retries default 2 = 3 total attempts; stop-aware; verify=False preserves send-only behavior
+utils_start_auto_defaults	0x2c5378d	VERIFIED_SHARED_STATIC_DECODE	start_auto_train defaults (stop_check=None, verify=True, samples=3, interval=1.0, retries=2)
+utils_start_auto_locals	0x2c54527	VERIFIED_SHARED_STATIC_MAPPING	hwnd,stop_check,verify,samples,interval,retries,_stopped,max_attempts,attempt,sent,ok
+utils_stop_game_auto_ref	0x2c500fc	VERIFIED_SHARED_STATIC	stop_game_auto exists in shared utils/movement code, but not referenced by Daily payload
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 size15741058 lines387238
+runtime_daily_markers	-	NOT_RECOVERED	0 [TRỪNG ÁC], 0 Đánh ác tặc, 0 start_auto_train, 0 verify hướng, 0 LỆCH KHỎI BÃI ĐÁNH in packaged automove_log
+runtime_autofight_primitives	-	GENERIC_RUNTIME_ONLY	8511 AutoFight_Main lines, including 6102 :Start lines; not correlated to Daily/K06 so not end-to-end proof
+b08_daily_hash_1	-	VERIFIED_IMAGE_REUSE	217178561894a4205c7b5835ed33c050b384c8f60359f6894165e3400d514834; re-supplied screenshot matches frozen B08 and shows duration 15 only
+b08_daily_hash_2	-	VERIFIED_IMAGE_REUSE	3939691e166fa67d9c50069119e4e3904496cd6769b04cf0d3199c6b3e0f866b; re-supplied screenshot matches frozen B08 variant
+verify_kw_value	-	EXPLICIT_UNKNOWN	Daily call passes explicit verify keyword, but constant-stream evidence alone does not instruction-bind whether value is True or False
+fight_poll_quantum	-	EXPLICIT_UNKNOWN	monotonic bounded fight is proven; exact sleep/wait cadence inside combat loop is not instruction-bound
+hard_stop_boolean_expression	-	EXPLICIT_UNKNOWN	stop/halt/respawn inputs are proven; exact source-level Boolean composition/order remains inherited K03 micro-unknown
+normal_success_return_scalar	-	EXPLICIT_UNKNOWN	normal Kết thúc returns control to outer worker; exact Python return scalar True/None is not instruction-bound
+drift_branch_return_effect	-	EXPLICIT_UNKNOWN	160px detection/log is proven and no direct Daily relocation/auto-off symbol is recovered; exact Boolean-return effect of the branch is not instruction-bound
+hung_timeout_numeric	-	EXPLICIT_UNKNOWN	HUNG_TIMEOUT symbol is proven, numeric value not safely bound here
