@@ -381,7 +381,8 @@ K17 closes Phase K at the static-research level. The original archive, inner EXE
 - L03 — VERIFIED_DON_RETURN_PRIORITY_DEFAULT_DEDUP_DISABLED_SLOT_AND_SELL_ONLY_HOME_PRIORITY
 - L04 — VERIFIED_DON_SITE10_98_100_FULL_BAG_THRESHOLD_TWO_MODE_FILTER_RECHECK_AND_HIDDEN_PICKITEM
 - L05 — VERIFIED_DON_SHARED_COORD_ROLE_SWITCHED_SELECTOR_BUILTIN_MANUAL_PERSISTENCE_AND_STRICT_STALE_SKIP
-- L06 — NEXT
+- L06 — VERIFIED_MULTI_RECEIVER_REGISTRY_PER_RECEIVER_LOCK_LOWEST_SPEED_SELECTION_BACKGROUND_TRADE_WATCH
+- L07 — NEXT
 
 L01 locks `donvang_tab.py` / `DonVangTab` as the active Dồn authority. The exact Nuitka `.donvang_tab` module has size field **65,260 bytes** and count field **1,813**, and **127** direct top-level `DonVangTab` methods are inventoried. `TLMMainApp` constructs the tab under visible label `Dồn`, while StartTab exposes `Dồn vàng / Tới nơi nhận / Tới chỗ bán / Tới nơi train / Cấu hình`. The visible surface includes Về thành conditions/priorities, Train/death/disconnect/unstuck/pickup/filter/heal controls, saved coordinates, receiver rows, a shared Dồn coordinate, per-account move/Dồn/sell controls, and all-account actions. Dồn is current/wired rather than dormant; dedicated-tab visibility is permission-controlled, with the captured run showing it visible while the exact permission state remains unknown. Direct dependency boundaries are frozen, and weak emulator/farm-tab references are not promoted to active runtime imports.
 
@@ -393,5 +394,7 @@ L04 locks Dồn inventory/full-bag behavior. Bag count is occupied Site-10 slots
 
 L05 locks Dồn coordinate architecture: saved coordinate rows are name/map/X/Y with Train apply + delete; exact Dồn and sell built-ins are frozen; one shared Tọa độ dồn is used across receiver rows; the account coordinate selector switches by receiver/donor role; and [DonVang] coordinate persistence uses coord_<n>=preset_name|map_id|x|y with stale/unknown maps skipped.
 
+L06 locks the multi-receiver model. Receiver rows are account-only rows sharing the single L05 Dồn coordinate. don_logic owns independent per-receiver registry state (ready/donated/aborted/donor_hwnd) plus one lock per receiver. recv_cycle is sell -> return -> ready -> wait donated/abort/donor-death -> repeat. Automatic Dồn chooses only ready receivers, excludes the donor, requires valid coordinates, prioritizes the receiver with the lowest current gold/hour and randomizes equal-speed ties. Readiness is rechecked after acquiring the receiver lock; busy receivers are skipped and different receivers can be served in parallel while one receiver is serialized to one donor. Each receiver has one persistent background trade-invite watcher that accepts managed-account names, rejects unknown names, and yields while real Dồn owns that receiver. Legacy/per-row receiver-coordinate conflict precedence remains explicit UNKNOWN.
+
 ## Phase L current
-L06 — Dồn receiver accounts / readiness / selection / locking audit.
+L07 — Dồn train-state / receiver-donor lifecycle integration audit.

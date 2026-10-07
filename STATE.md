@@ -4179,3 +4179,80 @@ On CONTINUE:
 7. Keep deeper donor transaction/train-state behavior deferred unless directly required.
 8. Cross-check screenshots/runtime only after static extraction.
 9. Persist L06 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L06 verification.
+
+
+## L06 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before analysis. No pre-existing L06 artifact/completion existed; L01-L05 remain unchanged.
+- Exact uploaded archive was materialized and revalidated before screenshot/runtime use: SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes, **1,050** ZIP entries, CRC clean. Inner `TLMTool.dist/TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Receiver rows are dynamic account-selection + delete rows. Deleting a row renumbers labels and always preserves at least one row. The one shared L05 Dồn coordinate is outside `_recv_rows` and survives row deletion.
+- `_sync_recv_aliases` keeps old singular receiver APIs compatible with the first receiver row while all rows continue to reference the single shared Dồn coordinate.
+- `_refresh_receiver_combo` rebuilds every receiver combobox from current managed account rows and preserves an existing choice while the account still exists.
+- Strong static mapping of `hwnd_map / dup / " (" / hwnd / _receiver_hwnd_map` fixes duplicate character-name disambiguation as a parenthesized HWND display suffix mapped back to real HWND.
+- No cross-row candidate exclusion was recovered: every receiver combo receives the same account list. `_all_receiver_hwnds` returns a **set**, so repeated selection of the same receiver account collapses for downstream membership.
+- `_is_receiver_hwnd` checks any selected receiver row; `_selected_receiver_hwnd` is the legacy first-selected-row helper; `_find_recv_row_for_hwnd` resolves the receiver configuration row for a HWND.
+- Receiver-selection UI updates style and moves receiver account rows to the top; receiver names/levels are highlighted semantically yellow while nonreceiver names return to black. The button set remains shared.
+- Authoritative receiver readiness lives in `don_logic`, not GUI text. `_recv_registry` is protected by `_recv_reg_lock` and stores per receiver: `ready Event`, `donated Event`, `aborted Event`, and `donor_hwnd`.
+- Receiver registration/unregistration is idempotent/per-loop. `ready_receiver_hwnds()` is the authoritative set of receiver HWNDs whose ready Event is set.
+- `recv_cycle` is frozen as: sell -> move back to receive point -> set ready -> wait donated/abort/donor-death -> repeat; unregister on cycle exit. A failed move back does not mark ready.
+- Receiver GUI phases are exact:
+  - **Sẵn sàng nhận** → `#2e7d32`;
+  - **Chuẩn bị nhận** → `#1565c0`;
+  - **Đang nhận** → `#1565c0`.
+- `prep_cb` represents the claimed receiver preparing while donor moves to the Dồn point. `_on_recv_phase(...,"start")` sets **Đang nhận**; `"done"` restores **Sẵn sàng nhận** only if the row is still in **Đang nhận**.
+- `_receiver_speed` uses receiver tracker speed = donated gold / elapsed hours.
+- `_pick_ready_receiver` only considers ready receivers, excludes the donor itself, requires valid coordinate resolution, selects the **lowest gold/hour** candidate, and uses `random.choice` for equal minimum-speed ties.
+- `_fallback_receiver` is first receiver with valid coordinates and is used beside `_pick_ready_receiver` in the manual/move-only path; it is **not** a replacement for automatic-ready selection.
+- Automatic `don_move_and_execute` waits for ready receiver availability. Frozen static log text explicitly contains `ready=[] trong 5s`; if no receiver becomes ready it skips that Dồn cycle and farming continues.
+- After selecting a candidate, automatic Dồn acquires that receiver's own lock and rechecks readiness. A receiver that became non-ready is rejected after lock. Busy receivers are skipped; if all are busy the cycle is skipped and farm continues.
+- `_don_lock_for(receiver_hwnd)` is a dedicated per-receiver lock. This allows donor A→receiver1 and donor B→receiver2 concurrently, while the same receiver can serve only one donor at a time. Manual `don_single` and automatic `don_move_and_execute` share this lock policy.
+- New attempts clear stale receiver abort state only after the receiver lock is held. Donor stop/disconnect/abort marks only that receiver aborted; a dead claimed donor window causes immediate stale-trade cleanup and receiver-cycle reset instead of indefinite waiting. Other receivers remain isolated.
+- Each receiver is ensured to have **one** background trade-invite watcher. The watcher lives until that game window closes and remains active outside Dồn cycles.
+- Watcher whitelist is all account names managed by the tool. `normalize_name` normalizes case/diacritics/server suffix representation for comparison. Managed inviter → accept; unknown inviter → cancel and continue; unreadable/non-invite → ignore.
+- The watcher explicitly yields while a real donor claim is active on that receiver so it does not race `_don_flow` for the same invitation MessageBox.
+- Persistence surface remains `recv_count`, `recv_<n>_acc`, `recv_<n>_coord`, legacy `receiver`, and legacy `recv_coord`. Current runtime coordinate remains one shared variable. Exact winner for a deliberately conflicting legacy/per-row coordinate config remains **EXPLICIT_UNKNOWN**.
+- Screenshot cross-check was performed only after static extraction. Dồn screenshot SHA-256 remains `dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a`; it visibly shows one shared Dồn coordinate plus Acc nhận 1/2 and per-row delete buttons.
+- Frozen packaged `automove_log.txt` remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, **387,238 lines**. Correlated `[RECV]`, `[RECV-DBG]`, `[DON]`, ready/prep/receiving, watcher, claim and busy markers are all **0**; live timing/race parity is not fabricated.
+- L06 artifacts committed together at **fed8264afe81dd4ae931d9e2548a4ff81d7d7d54**:
+  - `docs/don/L06_RECEIVERS_FLOW.md`
+  - `docs/don/L06_RECEIVERS_MODEL.json`
+  - `docs/don/L06_RECEIVERS_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/L06.md`
+- All four L06 artifacts were fetched back successfully.
+
+## POST-L06 CODE/BUILD RECHECK
+- Recursive main tree after L06 artifact commit contains **645 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- L06 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- L06 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- Exact load precedence when legacy `recv_coord` conflicts with differing per-row `recv_<n>_coord` values remains source-insufficient and requires stronger source recovery or a controlled config fixture.
+- Exact pre-`random.choice` stable ordering of equal-speed candidates is not material to policy and remains unproven.
+- Live ready/claim/lock/watcher race timing requires Windows + live Thần Long runtime.
+- Reconstructed product build remains not applicable before Stage S.
+
+## DO_NOT_TOUCH
+- Preserve L01-L06 contracts unless exact new evidence exposes a contradiction.
+- Preserve one shared Dồn coordinate architecture.
+- Preserve per-receiver registry and per-receiver lock; do not replace it with one global Dồn lock.
+- Preserve lowest-gold/hour ready-receiver selection and random equal-speed tie break.
+- Preserve post-lock readiness recheck and skip/farm-continuation behavior when no ready/all busy.
+- Preserve one background trade watcher per receiver and its yield-to-real-Dồn rule.
+- Do not turn manual `_fallback_receiver` into an automatic no-ready fallback.
+- Keep broader Train/Dồn lifecycle integration for L07.
+- Do not create Stage-S application/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L07 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L07 — Dồn train-state / receiver-donor lifecycle integration audit** only.
+5. Re-inspect the exact frozen original EXE first, focusing on `_toggle_single_farm`, receiver and donor subpaths, `_farm_acc`, `_farm_cycle`, `_run_farm_exit`, `_on_recv_phase`, `_set_state`, `_state_of`, `_start_extra_track`, receiver/donor stop paths, generation guards, and the directly-called `don_logic.recv_cycle / don_move_and_execute` integration boundary.
+6. Determine exact receiver-vs-donor start/stop classification, state transitions, when receiver sell/return loop starts, when donor train cycle substitutes Dồn, generation/stop ownership, what happens if role selection changes while running, and how both roles converge back to stopped/train states.
+7. Preserve L02-L06 return, inventory, coordinate and receiver-locking contracts; do not reopen their internals without contradiction.
+8. Cross-check screenshots/runtime only after static extraction.
+9. Persist L07 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L07 verification.
