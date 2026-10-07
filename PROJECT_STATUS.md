@@ -330,7 +330,8 @@ J14 confirms the current execution environment cannot run the original Windows/g
 - K08 — VERIFIED_DAILY_PUNISH_DISCARD_RUN_SCOPED_PARALLEL_PER_ACCOUNT_PACKET4
 - K09 — VERIFIED_TRUNG_AC_INTEGRATED_LIFECYCLE_FAILURE_MATRIX_AND_STATIC_HANDOFF
 - K10 — VERIFIED_TREASURE_CONFIG_SELECTION_BATCH_SINGLE_TOPLEVEL_LOOP_AND_RECOVERY_SHELL
-- K11 — NEXT
+- K11 — VERIFIED_TREASURE_MOUNT_BAG_MULTIPIXEL_TWO_STAGE_ACTIVATION_AND_MOVEMENT_WAIT
+- K12 — NEXT
 
 K01 locks `.daily_tab` / `daily_tab.py` / `DailyTab` as the active Daily authority, verifies the explicit Trừng Ác versus Tàng Bảo Đồ UI split, freezes the shared account-row/global-control surface, records the exact 70-member top-level callable inventory, and separates direct Daily module references from weaker non-import emulator edges.
 
@@ -352,5 +353,7 @@ K09 closes the Trừng Ác static handoff by integrating K03-K08 into one lifecy
 
 K10 opens the Tàng Bảo Đồ branch at the top-level shell only. It locks the visible/config surface (tomb duration 30, post-dig HP<30 heal, treatment-map selector, reconnect, respawn), exact missing-key fallbacks, and the four treatment-map coordinates. Apply-all is configuration-only: it sets every current row activity to `Tàng bảo đồ`. The activity-wide path is `_treasure_start_worker -> _treasure_map_toggle -> _treasure_map_run_worker`; the batch worker owns `tomb_dur`, `selected`, `selected_pids`, `loop_idx`, live/still-active filtering, halt/respawn state and child threads. Exact no-selection/no-live/all-stopped logs plus `[TÀNG BẢO ĐỒ] Lần ...` prove an open-ended batch loop with no user repeat-count config. The K02 row/bottom coordinator remains a separate `_treasure_single_worker` path with row generation identity, `respawn_event`, reconnect/cache-ready recovery surfaces and direct `_treasure_map_exec_sequence` call. K10 also locks only the top-level reconnect/death shell and the exact idle reset tuple `Tàng bảo đồ / RoyalBlue / normal`; treasure item/bag/mount/map96/combat/heal internals are deferred to K11+.
 
+K11 locks the Treasure activation slice inside `_treasure_map_exec_sequence`. The mount-prep stage reads `IsRiding`, skips if already mounted, checks `common.nguaActive`, and has an exact logged fallback click at (1306,340). The bag stage uses the `tuido.active` readiness pixel and a fixed bag-preparation surface. The current treasure recognizer is explicitly `find_multipixel("tuido","tangBaoDo_multi")` using region (702,163)-(1132,517), offset (20,30), base RGB (2,30,35), offset RGB (228,215,170), timeout 5 and tolerance 1; legacy pixel keys are not the active Daily call. Successful detection is clicked through the shared DLL-sync/PostMessage `mouse.click_at` background stack. First not-found and second not-found are both terminal for the affected Treasure account. Between the two item checkpoints Daily calls `_wait_movement_stopped(stop_check, skip_set)` with no `by_memory` override, so this call uses the MovementDetector 10-pixel branch. After the second successful checkpoint, control enters the MapID/post-activation branch; map96/tomb combat is K12.
+
 ## Phase K current
-K11 — Tàng Bảo Đồ bag/item detection and treasure-map activation audit.
+K12 — Tàng Bảo Đồ map96 movement / tomb combat / post-activation outcome audit.
