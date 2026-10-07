@@ -2915,3 +2915,20 @@ On CONTINUE:
 9. Cross-check B08 only after static extraction; B08 shows the discard checkbox but no discard runtime behavior.
 10. Persist K08 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K08 verification.
 
+## CURRENT CODE/BUILD AUDIT — 2026-10-07 16:36 +07
+- User explicitly requested a full current-code audit before continuing.
+- GitHub tree was re-read from current `main`: **577 entries**.
+- Current code-bearing repository content is exactly **7 Python forensic scripts + 1 shell forensic verifier** under `tools/`; all were fetched in full and reviewed. No blocking source defect was found. One non-blocking cleanup issue exists: unused `defaultdict` import in `D04_BUILD_INTERNAL_GRAPH.py`; it was intentionally left unchanged.
+- No application `src/` tree, reconstructed TLMTool/tab source, `pyproject.toml`, setup/requirements file, Nuitka spec, Make/CMake target, or GitHub Actions workflow exists.
+- Latest pre-audit commit had **0 CI statuses** and **0 workflow runs**. Product build verification is therefore **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not a failed build. PLAN explicitly defers source reconstruction to Stage S and Nuitka build to Stage T.
+- The newly supplied `TLMTool_2.1.2(7).zip` passed the exact A08 forensic contract: SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, CRC clean, 1050 entries / 1002 files / 48 dirs / 260,061,035 uncompressed file bytes.
+- K01-K07 were reclassified as already-correct/complete and were not rewritten.
+- First unfinished work remains exactly **K08 — Trừng Ác discard worker / equipment filtering and discard lifecycle audit**.
+- Persistent audit file: `docs/audits/CURRENT_CODE_BUILD_AUDIT_2026-10-07_1636.md` (commit `2e1b29481b491a77c6c93a76ca7a813e5982ce02`).
+- No code/build regression was introduced by the audit because it added documentation only.
+
+## K08 AUDIT START
+- K08 is now the active task.
+- Preserve K01-K07 unchanged.
+- Do not create Stage-S placeholder application/build files just to manufacture a build result.
+
