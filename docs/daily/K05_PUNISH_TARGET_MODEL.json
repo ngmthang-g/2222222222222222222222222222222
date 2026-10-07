@@ -1,0 +1,135 @@
+{
+  "task": "K05",
+  "status": "VERIFIED_PUNISH_ITEM40004000_TARGET_TRAVEL_STREAK_AND_SUMMON_STATIC_RUNTIME_ENV_REQUIRED",
+  "source": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "daily_payload_marker": "0x2903223"
+  },
+  "item": {
+    "symbol": "TRUNG_AC_LENH_ITEM_ID",
+    "item_id": 40004000,
+    "bag_reader": "memory_items.get_bag",
+    "bag_site": 10,
+    "use_helper": "memory_items.use_item",
+    "item_action": 3,
+    "packet_command": 100005,
+    "packet_payload": "3:<dbID>"
+  },
+  "target_acquisition": {
+    "missing_item": "TERMINAL_CURRENT_ACCOUNT",
+    "use_attempts": 2,
+    "use_exhausted": "SKIP_CURRENT_CYCLE",
+    "extraction_order": [
+      "memory_items.get_dialog_target",
+      "memory_items.get_use_item_target"
+    ],
+    "no_target": "cancel quest then next cycle",
+    "target_fields": [
+      "MapID",
+      "PosX",
+      "PosY",
+      "TargetName"
+    ],
+    "target_name_fallback": "mục tiêu",
+    "range_validation_expression": "EXPLICIT_UNKNOWN"
+  },
+  "dialog_target": {
+    "regex": "-\\s*(.+?)\\s+ở\\s+(.+?)\\s*\\((\\d+)\\s*,\\s*(\\d+)\\)",
+    "map_name_resolver": true,
+    "return_fields": [
+      "MapID",
+      "PosX",
+      "PosY",
+      "TargetName",
+      "MapName",
+      "Title",
+      "Buttons"
+    ]
+  },
+  "use_item_data_fallback": {
+    "query_sources": [
+      "Game.GetDoingTasks()",
+      "Game.GetTaskTemplateData(db.TaskID)",
+      "UseItemData"
+    ],
+    "match": "UseItemData.ItemID == requested item id",
+    "returns": [
+      "MapID",
+      "PosX",
+      "PosY"
+    ]
+  },
+  "travel": {
+    "helper": "fast_travel.goto_map",
+    "tag": "TrừngÁc",
+    "keyword_surfaces": [
+      "wait_for_arrival",
+      "stop_check",
+      "tag"
+    ],
+    "logged_coordinate_name": "tile",
+    "helper_coordinate_contract": "pixel = tile*32",
+    "daily_conversion_expression": "EXPLICIT_UNKNOWN",
+    "stop_result": "SKIP_RETURN",
+    "ordinary_failure": [
+      "stop_character",
+      "increment target-failure state",
+      "skip current cycle"
+    ]
+  },
+  "target_failure_tracking": {
+    "surface": "_punish_target_fail",
+    "is_top_level_method": false,
+    "locals": [
+      "_tkey",
+      "_d",
+      "_last",
+      "_streak"
+    ],
+    "default_state": [
+      null,
+      0
+    ],
+    "semantic": "consecutive failures for same target",
+    "threshold": "EXPLICIT_UNKNOWN",
+    "threshold_action": "cancel current quest and reset tracking",
+    "success_reset": "STRONG_STATIC"
+  },
+  "summon": {
+    "same_item_id": 40004000,
+    "missing_item": "SKIP_CURRENT_CYCLE",
+    "use_attempts_recovered": 1,
+    "use_failure": "SKIP_CURRENT_CYCLE",
+    "expected_dialog_title_from_doc": "Trừng Ác Lệnh",
+    "dedicated_title_equality_branch_proven": false,
+    "documented_buttons": {
+      "2": "Triệu hồi",
+      "3": "Để sau"
+    },
+    "selected_button_text": "Triệu hồi",
+    "click_helper": "memory_items.click_dialog_button",
+    "click_path": "GameDialog:FunctionButtonClicked + verify dialog closed",
+    "dialog_read_or_button_or_click_failure": "SKIP_CURRENT_CYCLE"
+  },
+  "runtime_evidence": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_k05_markers": 0,
+    "classification": "STATIC_VERIFIED_END_TO_END_RUNTIME_ENV_REQUIRED"
+  },
+  "explicit_unknowns": [
+    "target coordinate numeric validity predicate",
+    "Daily tile-to-pixel arithmetic expression before goto_map",
+    "_punish_target_fail exact container/key shape",
+    "stuck target threshold numeric",
+    "exact tracking reset branch/source-line order",
+    "dedicated summon title equality expression",
+    "live Windows/game parity"
+  ],
+  "deferred": {
+    "K06": "combat / movement-stop / auto-train timing and cycle completion",
+    "K07": "heal / reconnect / respawn",
+    "K08": "Trừng Ác discard worker"
+  }
+}
