@@ -2932,3 +2932,23 @@ On CONTINUE:
 - Preserve K01-K07 unchanged.
 - Do not create Stage-S placeholder application/build files just to manufacture a build result.
 
+## K08 STATIC EXTRACTION MILESTONE — IN PROGRESS
+- Full current-code/build audit was completed first and persisted; K01-K07 were not rewritten.
+- Re-inspected exact TLMTool_2.1.2(7).zip and inner EXE before K08 analysis.
+- Fully decoded exact .daily_tab (**35,163 bytes / 1,186 constants**), .bag_filter (**5,162 bytes / 145 constants**), and directly-needed .memory_items evidence.
+- K08 worker ownership is frozen: punish_discard_equip_var, _punish_discard_stop, _punish_discard_thread, _punish_discard_gen.
+- Checkbox/config contract is exact: visible "Lọc trang bị (vứt vũ khí, trang bị trong quá trình làm nhiệm vụ)", persisted key daily_punish_discard_equip, load fallback **"0"**. B08 current captured state is OFF.
+- Exact toggle contract: ON + running Trừng Ác accounts starts worker; ON + no running accounts waits until account start; OFF stops worker immediately; worker rechecks tick; config is saved.
+- Worker scope is only current running Trừng Ác HWNDs, explicitly excluding stopped/disconnected rows.
+- Worker runs one child thread per active account in parallel. Exact doc says packet pacing is 1 second inside each account; per-account inflight prevents a new discard pass when the prior pass for that account is still running.
+- Worker passes activity="daily", preset key discard_equip, and kwargs keys/delay/stop_check to shared bag_filter.discard_for_activity.
+- Daily discard_equip semantic is exact from worker doc: discard all non-weapon equipment + weapons, same equipment preset as Phó Bản.
+- Shared bag_filter is opt-in: empty/no keys means no scan/no packet; rules are OR, fields inside a rule are AND; Site10 is default; dbID targets are deduplicated; weapons are protected unless an explicit weapon rule is used; protected IDs/names have highest priority.
+- Shared discard defaults prove **1.0 second** pacing, stop-aware early termination, per-HWND send-lock surfaces, and action **4** abandon packet 100005 "4:dbID". The action discards the full stack in that slot.
+- Important degradation surface: if embedded/item metadata is missing, non-weapon matching can drop out; the exact bag_filter warning says only weapon-ID discard remains. This is not silently “fixed” in parity work.
+- DAILY_DISCARD_POLL symbol and periodic-worker contract are proven, but its numeric value is **EXPLICIT_UNKNOWN**; no guessing.
+- Exact generation state/captured gen is proven; exact increment/event/thread replacement statement order remains **EXPLICIT_UNKNOWN**.
+- Packaged runtime log contains **22,734** generic action=4 records (22,732 spts + 2 plain) but **0 Daily/Trừng Ác/discard-correlated markers**. These validate the low-level packet primitive only, not K08 end-to-end behavior.
+- First K08 artifact committed: docs/daily/K08_PUNISH_DISCARD_STATIC_EVIDENCE.tsv (commit b82181bc38c66bedcda66d6c49ec7e53fa2903be).
+- K08 remains IN_PROGRESS until flow/model/task docs, B08/runtime cross-check summary, STATE closure and PROJECT_STATUS advancement are persisted.
+
