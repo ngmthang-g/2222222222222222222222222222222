@@ -2846,3 +2846,72 @@ On CONTINUE:
 4. Cross-check packaged automove_log only for correlated K07 runtime traces; generic unrelated logs are not proof.
 5. Close K07 in STATE.md and PROJECT_STATUS.md, then advance NEXT_ACTION to K08.
 
+## K07 VERIFIED RESULTS
+- GitHub-first continuity check passed: no K07 artifact/completion commit existed before this work; K01-K06 were already complete and were not redone.
+- The newly supplied `TLMTool_2.1.2(7).zip` was revalidated first. Archive SHA-256 remains `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes. Inner `TLMTool.dist/TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- The exact `.daily_tab` Nuitka constant blob was fully decoded and consumed exactly: **35,163 bytes / 1,186 top-level constants**. K07 used that Daily authority plus directly-called shared `.utils`, `.memory_items`, and frozen `.pixel_data`.
+- Trừng Ác recovery settings are frozen as three separate controls: low-HP treatment, reconnect, and death/Địa-phủ respawn. Settings-load fallbacks are `daily_punish_heal="0"`, `daily_punish_dc_reconnect="1"`, and `daily_punish_respawn="1"`. B08 current captured state has all three controls checked; current screenshot state is not treated as a fresh-install default.
+- `DailyTab._diaphu_monitor` is exact: **4-second** cadence; HP0 uses state surface `Về Địa phủ` and exact revive click **(792,441)**; MapID **87** sets `respawn_event`. Locals `hp_latched` and `detected` prove duplicate-suppression latches exist; exact re-arm expressions remain UNKNOWN.
+- The Trừng Ác execution cycle consumes death recovery instead of terminally stopping: exact entry text says `respawn_event đang set → clear, cho heal/move rời map 87`. Combined with K06's death-early-break, death/Map87 is a recoverable cycle transition.
+- Start-of-cycle HP treatment is exact: read `HpPercent`; when treatment is enabled and HP<30%, call `_punish_heal`. Exact failure text `Heal thất bại → skip vòng này` makes start-heal failure current-cycle fail-soft, not terminal account stop.
+- The combat tail has a second HP-treatment check and exact `Heal cuối vòng thất bại` text. No independent terminal-account stop surface is attached to final-heal failure.
+- `DailyTab._punish_heal` is bound to the frozen Tô Châu treatment coordinate surface: **map 4, tile (155,252)**. Its movement kwargs are `wait_for_arrival/stop_check/tolerance`; exact tolerance is **10**.
+- Treatment injection repair is fail-open: exact text `inject cho heal thất bại, thử di chuyển trực tiếp`. Injection failure does not terminate treatment before a direct movement attempt.
+- Daily's manual treatment helper independently has exact clicks **(892,474)** and **(514,424)**, but readable static evidence does not independently bind those same two clicks inside automatic `_punish_heal`; automatic treatment-click microsequence remains EXPLICIT_UNKNOWN rather than being copied by analogy.
+- `DailyTab._punish_disconnect_monitor` is exact: **2-second** per-account cadence; it exits on dead/reused window identity instead of reconnecting a stale HWND.
+- Daily directly uses `memory_items.is_connected`, whose shared exact semantics are TCPGame `Connected`: True=connected, False=disconnected, None=read error. Daily's own doc binds memory True as a false-positive veto/reset, not as the sole disconnect detector.
+- Frozen disconnect probes were directly decoded from `.pixel_data`:
+  - `login.ngatKetNoi1`: **(640,244)**, RGB **(160,145,52)**, timeout 5, tolerance 5.
+  - `login.ngatKetNoi2`: **(702,453)**, RGB **(212,28,34)**, timeout 5, tolerance 5.
+- Both disconnect pixels must persist for **3 consecutive 2-second ticks** (~6s). Exact confirmed text is `MAT KET NOI (dialog 3/3) → halt`; exact reconnect click is **(616,455)**.
+- Important Daily-specific correction: no `/5` reconnect counter, five-attempt batch, 30-second retry-batch delay, or infinite retry scheduler is recovered in Daily. Do **not** import H08/I08 Farm reconnect semantics into K07.
+- Activity-wide Trừng Ác recovery owns nested `_punish_monitor_stops`: state `Mất kết nối`, exact **60-second** reconnect wait, exact success `Kết nối lại OK → tiếp tục`, exact failure `Kết nối lại timeout → dừng`.
+- The single-account/per-row Trừng Ác worker owns separate state `Chờ kết nối lại` and directly calls `wait_pixel("common","active",...)`. Exact call metadata proves interval constant **0.5** and kwargs `window_hwnd/timeout/interval/debug`. Frozen `common.active` is **(1330,33)** RGB **(34,8,11)** tolerance 5. The activity-wide path proves Daily's 60s timeout; the single-worker numeric timeout is a strong 60s inference but not independently native-instruction-bound.
+- Single-worker reconnect success directly includes `invalidate_character_cache`, current-PID resolution, and `wait_memory_ready(timeout=45.0, need=3)`.
+- Shared `wait_memory_ready` defaults are exactly **(45.0,3,1.0)**. Daily overrides timeout/need only, so the effective sampling interval is **1.0s**. A valid sample requires a clear RoleName and MapID != None, and the Reader cache is invalidated before each sample.
+- Memory-ready timeout is fail-open: exact shared docs say timeout returns False/logs and lets the caller continue rather than wedging automation indefinitely.
+- No unconditional forced post-reconnect DLL reinjection edge is proven in the Daily single-worker recovery block. Do not invent one. Later `_punish_heal` and `_punish_goto_bodau` independently perform their own guarded reinjection attempts before movement.
+- Only after static extraction, frozen B08 evidence was cross-checked. It confirms the currently captured Daily recovery controls and Tô Châu location, but contains no live reconnect/death/heal runtime behavior.
+- Exact packaged `automove_log.txt` remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, 15,741,058 bytes / 387,238 text lines. Correlated K07 markers for Trừng Ác, disconnect, MemReady, Địa phủ, HP0, heal failure, reconnect OK/timeout, and the reconnect/revive coordinate strings all returned **0**.
+- K07 classification is **STATIC_VERIFIED / END_TO_END_RUNTIME_ENV_REQUIRED**.
+- Stage S reconstructed application source has not started, so product build verification remains **NOT_APPLICABLE_YET**, not failed.
+
+## K07 FILES
+- docs/tasks/K07.md
+- docs/daily/K07_RECOVERY_FLOW.md
+- docs/daily/K07_RECOVERY_MODEL.json
+- docs/daily/K07_RECOVERY_STATIC_EVIDENCE.tsv
+
+## BLOCKERS
+- Phase J live runtime parity remains deferred by environment.
+- K06 and K07 end-to-end Daily runtime parity require a real Windows + live Thần Long environment; no packaged correlated Daily trace exists.
+- Reconstructed application build verification is not applicable yet because Stage S/application source has not started and no product build target exists.
+- No known static blocker for K08.
+
+## DO_NOT_TOUCH
+- Preserve K01-K07 Daily/Trừng Ác contracts unchanged.
+- Preserve Daily-specific reconnect behavior; do not copy Train/TrainLSV's five-attempt/infinite retry scheduler into Daily.
+- Preserve 4s death monitor, revive click (792,441), Map87 respawn_event, and cycle-entry clear/recovery semantics.
+- Preserve HP<30 treatment at cycle start/end, start-heal fail-soft skip, Tô Châu map4 tile (155,252), movement tolerance 10, and fail-open injection repair.
+- Do not copy manual treatment clicks into automatic `_punish_heal` until stronger evidence binds them.
+- Preserve 2s disconnect monitor, memory True veto, both exact disconnect pixels, 3-strike confirmation, and reconnect click (616,455).
+- Preserve activity-wide exact 60s reconnect wait. Keep the single-worker numeric timeout as strong-static/not independently instruction-bound.
+- Preserve post-reconnect Reader-cache invalidation and `wait_memory_ready(45,3)` with effective 1.0s interval and fail-open timeout.
+- Do not invent unconditional post-reconnect DLL reinjection.
+- Keep exact setting-gate placement, latch reset expressions, automatic-heal click microsequence, single-worker timeout binding, reconnect failure unwind micro-order, same-scheduling-window death/disconnect ordering, and live runtime parity as explicit UNKNOWNs.
+- TLMTool 2.1.2 remains sole authority.
+- Do not start Stage S or create placeholder app/build files before PLAN reaches implementation.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any K08 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **K08 — Trừng Ác discard worker / equipment filtering and discard lifecycle audit** only.
+5. Re-inspect the exact frozen original EXE first, primarily `_toggle_punish_discard`, `_start_punish_discard`, `_stop_punish_discard`, `_punish_discard_worker`, `_punish_discard_one`, and only directly-called `bag_filter/memory_items` helpers required by that path.
+6. Audit checkbox/config gating, generation/thread ownership, active-account scope, inventory/equipment filter semantics, packet/action used for discard, pacing/retry/inflight protection, stop behavior, and whether discard is run-scoped or persists across Trừng Ác cycles.
+7. Preserve K01-K07 contracts unchanged; do not reopen reconnect/heal/combat unless a direct discard dependency requires it.
+8. Do not start Tàng Bảo Đồ K10+ work.
+9. Cross-check B08 only after static extraction; B08 shows the discard checkbox but no discard runtime behavior.
+10. Persist K08 artifacts, update STATE.md/PROJECT_STATUS.md, and advance only after K08 verification.
+
