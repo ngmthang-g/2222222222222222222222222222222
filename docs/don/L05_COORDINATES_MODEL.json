@@ -1,0 +1,31 @@
+{
+  "task":"L05",
+  "status":"VERIFIED_DON_SHARED_COORD_ROLE_SWITCHED_SELECTOR_BUILTIN_MANUAL_PERSISTENCE_AND_STRICT_STALE_SKIP_STATIC_RUNTIME_ENV_REQUIRED",
+  "authority":{"archive_sha256":"c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd","archive_size":93715901,"zip_entries":1050,"zip_crc_clean":true,"inner_exe_sha256":"15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22","inner_exe_size":47450112,"module":"donvang_tab","module_size_bytes":65260,"constant_count":1813},
+  "saved_coordinate_row":{"builder":"_add_coord_row","arg_defaults":[null,null,null,null],"fields":["name_var","map_var","x_var","y_var"],"actions":["Train","delete"],"generated_name_prefix":"Tọa độ ","generated_number_start":1,"collision_aware_existing_names":true,"sell_apply_button":false,"max_rows":"NOT_RECOVERED"},
+  "identity":{"name_list":"_coord_name_list","preset_to_vars":"_preset_to_vars","missing_preset":[null,null,null],"rename_propagates_to_current_account_selection":true,"add_delete_rename_refreshes_account_selector_values":true},
+  "resolver":{"helper":"_name_to_coords","result":"(map_id,x,y) or None","families":["SELL_MAP_LIST/SELL_MAP_COORDS","RECV_COORD_LIST/RECV_COORD_COORDS","saved manual preset"],"legacy_sell_normalizer":"_normalize_sell_name","legacy_example":"Bán Đại Lý -> Đại Lý"},
+  "recv_builtins":[
+    {"name":"Dồn Lạc Dương","map_id":3,"x":247,"y":93},
+    {"name":"Dồn Đại Lý","map_id":2,"x":258,"y":124},
+    {"name":"Dồn Tô Châu","map_id":4,"x":416,"y":239},
+    {"name":"Dồn Lâu Lan","map_id":5,"x":249,"y":275}
+  ],
+  "sell_builtins":[
+    {"name":"Đại Lý","map_id":2,"x":103,"y":188},
+    {"name":"Lạc Dương","map_id":3,"x":231,"y":219},
+    {"name":"Tô Châu","map_id":4,"x":191,"y":257},
+    {"name":"Lâu Lan","map_id":5,"x":37,"y":126}
+  ],
+  "shared_don_coordinate":{"ui_label":"Tọa độ dồn:","variable":"_recv_coord_var","one_shared_variable":true,"receiver_rows_reference_same_variable":true,"receiver_row_delete_does_not_delete_shared_coord":true,"resolver":"_don_point_coords","invalid":"None -> donor stays at train/waits later cycle","not_pinned_to_receiver_row_1":true},
+  "account_coordinate_selector":{"current_builder_vars":["farm_var","cb_farm"],"independent_current_sell_var":false,"receiver_role_values":"SELL_MAP_LIST built-ins + manual saved presets","donor_role_values":"manual saved train presets","visible_labels":["Tọa độ bán:","Tọa độ train:"],"role_update_helper":"_show_acc_combos"},
+  "apply_all":{"helper":"_apply_coord_to_all","scope":"train coordinate selector for all accounts","value":"saved preset display name, not copied coordinates"},
+  "separators":{"saved_map_selector":"===== -> next real map","builtin_group":"======Có sẵn====== -> first real SELL_MAP_LIST or RECV_COORD_LIST entry","manual_group":"=====Thủ công===== -> first saved coordinate","readonly_click_opens_dropdown":true,"disabled_permission_state_blocks_open":true},
+  "persistence":{"section":"DonVang","coordinate_key_family":"coord_<n>","coordinate_schema":"preset_name|map_id|x|y","save_map_resolver":"coord_id_for_name","load_parser":"parse_coord_value","load_map_resolver":"coord_name_for_id","unknown_map_save":"skip","stale_map_id_load":"skip","stale_map_name_load":"skip","persistent_row_uuid":false,"account_selector_key":"acc_<character>_farm","account_restore_only_if_exists_in":["saved coordinate names","SELL_MAP_LIST"],"coord_list_visibility_key":"NOT_RECOVERED"},
+  "receiver_config_surface":{"keys":["recv_count","recv_<n>_acc","recv_<n>_coord","receiver","recv_coord"],"load_default_rows":1,"effective_runtime_coord":"_recv_coord_var shared","conflicting_legacy_per_row_coord_precedence":"DEFERRED_L06"},
+  "validation":{"coordinate_numeric_vcmd":"NOT_RECOVERED","invented_range_clamp":false,"invalid_move":"skip/log","invalid_sell_coords":null,"invalid_don_point":null,"unknown_save_map":"skip","stale_load_map":"skip"},
+  "captured_state":{"screenshot_sha256":"dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a","saved_row":["Tọa độ 1","Đại Lý","0","0"],"saved_row_action":"Train","shared_don_coord_widget":true,"receiver_rows_have_coord_widget":false},
+  "runtime":{"automove_log_sha256":"17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500","line_count":387238,"correlated_coordinate_markers":0,"classification":"STATIC_VERIFIED_LIVE_RUNTIME_ENV_REQUIRED"},
+  "unknowns":["receiver-coordinate legacy/per-row conflict precedence during config migration","exact fresh-row map/X/Y defaults independent of captured config state","live movement/runtime parity"],
+  "next_task":"L06 — Dồn receiver accounts / readiness / selection / locking audit"
+}

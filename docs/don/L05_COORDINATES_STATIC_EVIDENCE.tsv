@@ -1,0 +1,59 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; 1050 ZIP entries; CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+donvang_module	0x2920bc1	VERIFIED_STATIC_DECODE	.donvang_tab size65260 constants1813
+legacy_sell_prefix	0x2920bfd	VERIFIED_STATIC_UTF8	old Bán <map> config normalized to bare SELL_MAP_LIST name when valid
+ui_coord_group	0x29218bd	VERIFIED_VISIBLE_STATIC	Cấu hình tọa độ lưu sẵn
+ui_add_coord	0x2921a0e	VERIFIED_VISIBLE_STATIC	+ Thêm tọa độ
+ui_shared_don_coord	0x2921b73	VERIFIED_VISIBLE_STATIC	Tọa độ dồn:
+recv_row_builder_doc	0x29222e2	VERIFIED_STATIC_UTF8	receiver row account combo + delete; all rows reference one shared _recv_coord_var
+recv_row_delete_doc	0x29224e9	VERIFIED_STATIC_UTF8	deleting receiver row does not delete shared Dồn coordinate; at least one receiver row kept
+role_combo_doc	0x2922750	VERIFIED_STATIC_UTF8	receiver -> sell builtins + manual; donor -> manual train coords
+don_point_doc	0x29230e2	VERIFIED_STATIC_UTF8	shared Dồn point; invalid -> donor remains train; not pinned to first receiver
+ui_sell_label	0x29235f3	VERIFIED_VISIBLE_STATIC	Tọa độ bán:
+ui_train_label	0x2923606	VERIFIED_VISIBLE_STATIC	Tọa độ train:
+account_row_farm_var	0x29238b7	VERIFIED_STATIC	current account row coordinate variable farm_var
+account_builder_locals	0x292e5dd	VERIFIED_STATIC_MAPPING	coord_names/farm_var/acc_combos/cb_farm; no current sell_var/cb_sell locals
+coord_name_list_doc	0x29247cb	VERIFIED_STATIC_UTF8	current saved-coordinate name list
+preset_to_vars_doc	0x292481d	VERIFIED_STATIC_UTF8	preset -> live map_var/x_var/y_var; missing -> None triple
+name_to_coords_doc	0x29248cd	VERIFIED_STATIC_UTF8	built-in Sell/Receive or manual saved name -> (map_id,x,y) or None
+name_to_coords_deps	0x2924882	VERIFIED_STATIC	_normalize_sell_name + SELL_MAP_COORDS + RECV_COORD_COORDS + _preset_to_vars
+apply_all_doc	0x2924940	VERIFIED_STATIC_UTF8	apply saved coordinate name to train combobox all accounts
+coord_map_separator_doc	0x292498e	VERIFIED_STATIC_UTF8	selecting ===== jumps to next real map
+sell_recv_separator_doc	0x2924a34	VERIFIED_STATIC_UTF8	Có sẵn -> first SELL_MAP_LIST/RECV_COORD_LIST; Thủ công -> first saved preset
+readonly_open_doc	0x2924bc4	VERIFIED_STATIC_UTF8	readonly combo opens dropdown; disabled permission state blocks binding
+coord_visibility_doc	0x2924d6a	VERIFIED_STATIC_UTF8	hide/show coordinate header+body; toolbar remains visible
+coord_name_prefix	0x2924dbd	VERIFIED_STATIC_DECODE	Tọa độ generated-name prefix
+coord_builder_locals	0x292e469	VERIFIED_STATIC_MAPPING	name/map_val/x_val/y_val/existing/name_var/map_var/x_var/y_var/btn_train/btn_del
+coord_builder_defaults	0x292d6ab	VERIFIED_STATIC_DECODE	_add_coord_row has four None defaults
+coord_rename_doc	0x2924ee1	VERIFIED_STATIC_UTF8	rename updates account combos and selected old name
+coord_add_doc	0x2924fc8	VERIFIED_STATIC_UTF8	add saved-coordinate row
+coord_refresh_doc	0x2925070	VERIFIED_STATIC_UTF8	add/delete/rename refreshes account coordinate options
+coord_delete_doc	0x2925172	VERIFIED_STATIC_UTF8	delete saved-coordinate row
+coord_save_doc	0x29251a3	VERIFIED_STATIC_UTF8	save all coordinates
+get_sell_coords_doc	0x29274d4	VERIFIED_STATIC_UTF8	SELL_MAP_LIST built-in -> map id + SELL_MAP_COORDS; manual -> preset map/x/y; tuple or None
+save_section	0x292c6a0	VERIFIED_PERSISTENCE	DonVang
+save_recv_keys	0x292c72d	VERIFIED_PERSISTENCE	recv_/recv_count/_acc/_coord/receiver/recv_coord surface
+save_account_key	0x292c77f	VERIFIED_PERSISTENCE	acc_ + _farm
+save_coord_key	0x292c78c	VERIFIED_PERSISTENCE	coord_ dynamic key family
+save_map_resolver	0x292c7a4	VERIFIED_PERSISTENCE	coord_id_for_name
+save_unknown_map_log	0x292c7d2	VERIFIED_STATIC_UTF8	unknown map -> skip, do not save
+load_receiver_doc	0x292c9b2	VERIFIED_PERSISTENCE	load receiver rows; default one row if absent
+load_acc_doc	0x292cabb	VERIFIED_PERSISTENCE	load account coordinate only if preset exists in saved names or SELL_MAP_LIST
+load_coord_parser	0x292cb92	VERIFIED_PERSISTENCE	parse_coord_value
+load_coord_name	0x292cba7	VERIFIED_PERSISTENCE	coord_name_for_id
+load_stale_id_log	0x292cbe0	VERIFIED_STATIC_UTF8	retired map_id -> skip
+load_stale_name_log	0x292cc22	VERIFIED_STATIC_UTF8	retired display map -> skip
+load_coords_doc	0x292cc94	VERIFIED_PERSISTENCE	load saved coords from [DonVang] and recreate rows
+shared_parse_doc	0x2c4d0de	VERIFIED_SHARED_STATIC	preset_name|map_id|x|y -> (preset,mid:int,x,y) or None
+shared_id_to_name_doc	0x2c4d145	VERIFIED_SHARED_STATIC	map_id -> current display name or None; no fuzzy mapping
+shared_name_to_id_doc	0x2c4d235	VERIFIED_SHARED_STATIC	display name -> map_id or None
+recv_builtin_block	0x292cea0	VERIFIED_STATIC_DECODE	Dồn Lạc Dương map3 (247,93); Dồn Đại Lý map2 (258,124); Dồn Tô Châu map4 (416,239); Dồn Lâu Lan map5 (249,275)
+sell_builtin_block	0x2939dd5	VERIFIED_SHARED_STATIC_DECODE	Đại Lý map2 (103,188); Lạc Dương map3 (231,219); Tô Châu map4 (191,257); Lâu Lan map5 (37,126)
+coord_numeric_validator	-	NOT_RECOVERED	no dedicated coord _only_digits/vcmd; do not invent clamp/range
+coord_visibility_config_key	-	NOT_RECOVERED	no current [DonVang] key recovered for show/hide state
+receiver_coord_conflict_precedence	-	DEFERRED_L06	legacy/per-row receiver coordinate migration precedence
+screenshot_don	-	CROSSCHECKED_AFTER_STATIC	dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a 452x1032; saved row Train action + one shared Dồn coordinate
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 387238 lines
+runtime_coordinate_markers	-	NOT_RECOVERED	0 correlated Dồn coordinate markers
+classification	-	STATIC_VERIFIED_RUNTIME_ENV_REQUIRED	no correlated live Dồn coordinate trace
