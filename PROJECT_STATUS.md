@@ -477,3 +477,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Monitor persisted under `[Settings] toiuu_monitor_open`; scheduled restart restoration and UI repaint path recorded. B11 screenshot has button but not a detached panel; no false visual parity.
 - Files: `docs/toiuu/N04_DETACHED_MONITOR_FLOW.md`, `docs/toiuu/N04_MODEL.json`, `docs/toiuu/N04_STATIC_EVIDENCE.tsv`, `docs/tasks/N04.md`. 71 evidence items, 16 future tests all NOT_RUN.
 - Application source/build workflow still absent. **NEXT N05 — graphics-mode mapping, per-account configuration and selection-versus-application audit.**
+
+
+## N05 — Mode mapping and select/apply boundary
+- STATIC_MODE_ACCOUNT_CONFIGURATION_AND_SELECTION_APPLY_BOUNDARY_AUDITED / LIVE_PARITY_DEFERRED; frozen original EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22.
+- Không=skip; Thấp vừa/medium=1, Cực thấp/low=2, Cực đại/max=3. Original exact docs establish all-account and per-row gray mode controls select COMBOBOX ONLY; bottom Bắt đầu/row play owns actual perf.
+- toiuu_cfg_<sanitized RoleName> persisted per character; _cfg_touched, _mode_key and trace-save. Exact INI section, default priority and duplicate-name collision UNKNOWN.
+- N06 owns native dll_injector/TLMP_RESTORE/expected_pid details, preserving licensing. 52 evidence records, 18 planned tests all NOT_RUN.
+- Files docs/toiuu/N05_MODE_CONFIG_SELECTION_FLOW.md, docs/toiuu/N05_MODEL.json, docs/toiuu/N05_STATIC_EVIDENCE.tsv and docs/tasks/N05.md. Stage-S application/build remains absent.
+- NEXT N06 — native TLMP command and PID-guarded send/restore audit.

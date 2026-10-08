@@ -1,0 +1,82 @@
+{
+  "task": "N05",
+  "status": "STATIC_MODE_ACCOUNT_CONFIGURATION_AND_SELECTION_APPLY_BOUNDARY_AUDITED_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "repo_parent": "a24d3be5bf9d488f4dee7dba47256d7f9a454e58",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "original_python_ast": false
+  },
+  "mode_mapping": {
+    "none": {
+      "behavior": "skip/keep",
+      "tlmp_command": null
+    },
+    "medium": {
+      "label": "Thấp vừa",
+      "id": 1
+    },
+    "low": {
+      "label": "Cực thấp",
+      "id": 2
+    },
+    "max": {
+      "label": "Cực đại",
+      "id": 3
+    }
+  },
+  "ui": {
+    "bulk_gray_buttons": "selection-only",
+    "per_account_modes": "selection-only",
+    "bottom_start": "separate apply",
+    "row_play": "separate start/stop",
+    "account_combobox_values": [
+      "Không",
+      "Thấp vừa",
+      "Cực thấp",
+      "Cực đại"
+    ]
+  },
+  "config": {
+    "file": "settings.ini",
+    "persistent_name_key": "toiuu_cfg_<sanitized RoleName>",
+    "section": "EXPLICIT_UNKNOWN",
+    "late_name_flags": [
+      "_has_real_name",
+      "_cfg_touched"
+    ],
+    "mode_cache": "_mode_key",
+    "trace_handler": "_on_config_var_changed",
+    "bulk_trace_suppressed": true,
+    "default_setting": "toiuu_default_config",
+    "duplicate_name_winner": "EXPLICIT_UNKNOWN"
+  },
+  "native": {
+    "scope": "N06",
+    "symbols": [
+      "_send_perf_single",
+      "_send_perf_all",
+      "_apply_single_acc",
+      "TLMP_RESTORE"
+    ],
+    "pid_ownership_guard": true,
+    "permission_guard": true
+  },
+  "unknowns": [
+    "INI section",
+    "malformed/duplicate/default config behavior",
+    "late RoleName flag order",
+    "native command success and restore details"
+  ],
+  "acceptance": {
+    "planned": 18,
+    "executed": 0
+  },
+  "product": {
+    "source_exists": false,
+    "workflow_exists": false,
+    "windows": "NOT_RUN",
+    "build": "NOT_APPLICABLE_STAGE_S_NOT_STARTED"
+  },
+  "next_action": "N06 — native TLMP send/restore and PID-guarded execution audit"
+}

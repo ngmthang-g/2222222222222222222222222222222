@@ -5174,3 +5174,23 @@ On CONTINUE:
 2. Execute **N05 — Tối ưu graphics-mode mapping, per-account configuration and selection-versus-application audit** only. Inspect exact frozen original `toiuu_tab` first for MODE_ORDER/MODE_NAMES/MODE_TO_TLMP, `Không`, row combobox, gray bulk buttons, per-account mode, settings persistence and `_cfg_assign_worker`.
 3. Lock distinction selection-only versus native application. Defer `dll_injector` native packet/handshake implementation audit to N06; avoid any functionality bypass.
 4. Compare B11 screenshot only after EXE; persist N05 model/evidence/task; update STATE.md/PROJECT_STATUS.md and recheck build status.
+
+
+## N05 VERIFIED RESULTS — TỐI ƯU MODE CONFIG AND SELECTION VERSUS APPLY
+- GitHub HEAD a24d3be5bf9d488f4dee7dba47256d7f9a454e58 checked first; PLAN.md and STATE.md read, N01–N04 complete and N05 absent. Frozen ZIP SHA c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 entries CRC clean), inner EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 unchanged.
+- Internal medium/low/max map to current Thấp vừa/Cực thấp/Cực đại and tagged TLMP values 1/2/3. Không maps to skip/keep current, not an immediate restore command; _mode_of_row doc returns None for Không.
+- Original _cfg_assign_worker and _set_single_worker docs prove gray all-account/row mode controls only assign combobox values, NO native perf send. _set_all_combobox/_set_single_apply use Tk thread; bulk change saves once; bottom Bắt đầu/row ▶ own actual apply.
+- Per-account toiuu_cfg_ + sanitized RoleName persistent key; temporary Window prefix excluded; load_acc_config restores only valid selections. _has_real_name/_cfg_touched protects delayed restore from user edits, exact mutation order UNKNOWN. _on_config_var_changed caches _mode_key and saves config, with bulk trace/save suppression.
+- _send_perf_single/_send_perf_all/dll_injector/TLMP_RESTORE and expected_pid guard are actual native boundaries, detailed N06, not N05; permissions stay enforced.
+- INI section/default priority, duplicate-character-name winner, malformed config and runtime parity UNKNOWN. B11 screenshot has no account rows.
+- N05 status STATIC_MODE_ACCOUNT_CONFIGURATION_AND_SELECTION_APPLY_BOUNDARY_AUDITED / LIVE_PARITY_DEFERRED. 52 evidence records; 18 future tests all NOT_RUN.
+- Files added: docs/toiuu/N05_MODE_CONFIG_SELECTION_FLOW.md, docs/toiuu/N05_MODEL.json, docs/toiuu/N05_STATIC_EVIDENCE.tsv, docs/tasks/N05.md.
+
+## POST-N05 BUILD/CODE CHECK
+- Only documentation and STATE/PROJECT_STATUS updated. No application source or build workflow. Product build NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED.
+
+## N05 DO_NOT_TOUCH AND BLOCKERS
+- Preserve completed A–M, B11, N01–N04 and original EXE. Proxy remains outside development. No fake buttons, bypasses or claimed Windows parity. N06 must distinguish actual DLL payload from selected UI values.
+
+## NEXT_ACTION
+On CONTINUE read PLAN.md and STATE.md, check GitHub for N06 artifacts, then execute N06 — native TLMP graphics/performance command path, DLL send/restore and expected PID-guarded per-account/all-account execution audit ONLY. Original EXE first; avoid guessing native packet/protocol details. Persist N06 report/model/evidence/task and state, recheck build.

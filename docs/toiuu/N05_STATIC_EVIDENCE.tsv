@@ -1,0 +1,53 @@
+key	offset_hex	tier	evidence
+authority_zip	-	FILE	SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; 1050 archive entries; CRC clean
+authority_exe	-	FILE	Inner EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; 47450112 bytes
+module_tooiu	0x2c01fb5	N01_STATIC	Active ToiuuTab serialized constants
+bulk_header	0x2c02814	EXACT_UTF8	Điều khiển tất cả:
+bulk_mode_order	0x2c02874	EXACT_SYMBOL	MODE_ORDER
+bulk_mode_names	0x2c0288c	EXACT_SYMBOL	MODE_NAMES
+bulk_handler	0x2c029db	EXACT_SYMBOL	_cfg_assign
+bottom_start	0x2c028f2	EXACT_UTF8	Bắt đầu
+bottom_start_thread	0x2c029fb	EXACT_SYMBOL	_start_all_accs worker
+real_role	0x2c02a9f	EXACT_SYMBOL	RoleName
+name_sanitize	0x2c02a30	EXACT_UTF8	<[^>]+>
+late_name_guard	0x2c02d57	EXACT_SYMBOL	_has_real_name
+user_touch_guard	0x2c02d69	EXACT_SYMBOL	_cfg_touched
+load_account_hook	0x2c02d77	EXACT_SYMBOL	load_acc_config
+config_options	0x2c02f27	EXACT_SYMBOL	CONFIG_OPTIONS
+readonly_combo	0x2c02f40	EXACT_SYMBOL	Combobox readonly at 0x2c02f4a
+trace_write	0x2c02f7c	EXACT_SYMBOL	trace_add write
+row_buttons	0x2c0307c	EXACT_STATIC	medium/Thấp vừa low/Cực thấp max/Cực đại
+row_mode_handler	0x2c030bc	EXACT_SYMBOL	_go_mode
+row_cached_mode	0x2c0317f	EXACT_SYMBOL	_mode_key
+name_to_mode	0x2c0318a	EXACT_SYMBOL	NAME_TO_MODE
+row_trace_callback	0x2c03255	EXACT_SYMBOL	_on_config_var_changed
+pseudo_name_boundary	0x2c04906	EXACT_STATIC	startswith Window 
+account_config_prefix	0x2c0491d	EXACT_UTF8	toiuu_cfg_
+restore_doc	0x2c04936	EXACT_DOC	Restore config by character name because HWND changes; only valid value; return True when applied
+trace_save_doc	0x2c04a51	EXACT_DOC	Trace combobox cache mode + save setting; skip bulk-save trace
+native_injector	0x2c04aa4	BOUNDARY_N06	dll_injector, inject_into_pid and send_perf_command nearby
+native_all_doc	0x2c04c20	BOUNDARY_N06	Native TLMP to all alive accounts; not Lua; inject if necessary
+native_one_doc	0x2c04d3b	BOUNDARY_N06	Native TLMP one account; expected_pid validates ownership
+bulk_set_combo_doc	0x2c04dee	EXACT_DOC	Set combobox for all, not send perf; Tk main thread
+bulk_worker_doc	0x2c04e74	EXACT_DOC	Only fill combobox all accounts; Bắt đầu activates according to choices
+bulk_assign_apply	0x2c04f57	EXACT_SYMBOL	_cfg_assign_apply then _set_all_combobox
+bulk_one_save	0x2c04fc4	EXACT_DOC	Main-thread Tk bulk set with one save
+single_select_doc	0x2c05011	EXACT_DOC	Only set single-account combobox; not activate; row play controls execution
+single_apply_ui	0x2c050d0	EXACT_SYMBOL	_set_single_apply
+single_not_activated	0x2c050f2	EXACT_UTF8	(chua kich hoat)
+none_preserve	0x2c05151	EXACT_UTF8	chế độ Không — giữ nguyên cấu hình
+apply_per_account_doc	0x2c051b3	EXACT_DOC	Apply chosen combo on account; Không = skip
+permission_guard	0x2c0520f	EXACT_SYMBOL	has_permission_with_limit; toiuu_tab / toiuu
+mode_doc	0x2c052aa	EXACT_DOC	Mode TLMP (0-3) from _mode_key; None when Không
+native_restore	0x2c0535e	DEFER_N06	TLMP_RESTORE is separate operation
+module_mode_order	0x2c06188	EXACT_STATIC	medium low max
+module_mode_labels	0x2c0619a	EXACT_STATIC	Thấp vừa Cực thấp Cực đại
+module_mode_values	0x2c061e0	EXACT_TAGGED	l01 l02 l03 adjacent mode-map constants; corroborated B11
+module_config_choices	0x2c061e8	EXACT_STATIC	Không Thấp vừa Cực thấp Cực đại
+global_default_config	0x2c05fb6	EXACT_UTF8	toiuu_default_config; default-priority unknown
+settings_file	0x2c0615d	EXACT_UTF8	settings.ini
+pid_identity	0x2c02c3a	EXACT_SYMBOL	bind_window_identity with changed PID invalidation
+duplicate_role_collision	-	UNKNOWN	Same sanitized name may share config key; collision winner unknown
+ini_section	-	UNKNOWN	Exact section of per-character key not directly bound
+original_b11	-	PRIOR_VISUAL	Three gray all-account mode buttons and separate Bắt đầu; zero account rows
+game_runtime	-	NOT_RUN	No Windows game/source/build parity test
