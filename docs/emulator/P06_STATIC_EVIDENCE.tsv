@@ -1,0 +1,64 @@
+id	offset_or_location	tier	observed_fact
+E001	ZIP	SHA256	Original ZIP 1050 entries hash c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+E002	ZIP	CRC	z.testzip() returned None
+E003	ZIP	NEGATIVE_INVENTORY	Zero .apk files in archived package
+E004	inner EXE	SHA256	EXE 47450112 bytes SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+E005	ld_remote.js	SHA256	Original AutoX script SHA256 3bd84a2b433ee679b7a049f5aa5cba2e8725d1e09b14d5deb3f42b6bf919edfb
+E006	0x29387a5	EXACT_REFERENCE	emu_remote references .emu_setup
+E007	0x29387c6	EXACT_SYMBOL	REMOTE_JS_FILES
+E008	0x293880a	EXACT_DOC	Local JS candidates returned with name path size mtime
+E009	0x293884b	EXACT_SYMBOL	socket/AF_INET/SOCK_DGRAM LAN IP helper
+E010	0x2938885	EXACT_LITERAL	8.8.8.8 local route probe constant
+E011	0x293889f	EXACT_DOC	Temporary JS copy with __PC_BASE__ rewritten to LAN IP and remote_port
+E012	0x29388f9	EXACT_LITERAL	__PC_BASE__ token
+E013	0x2938909	EXACT_SYMBOL	emu_remote remote_port configured
+E014	0x293895e	EXACT_SYMBOL	tempfile mkstemp / ld_remote_ suffix .js
+E015	0x2938a29	EXACT_SYMBOL	subprocess with CREATE_NO_WINDOW
+E016	0x2938a6a	EXACT_ERROR	Missing ld_remote*.js beside executable
+E017	0x2938aaa	EXACT_SYMBOL	REMOTE_SCRIPT_DIRS
+E018	0x2938ae2	EXACT_SYMBOL	adb shell mkdir
+E019	0x2938b17	EXACT_SYMBOL	adb push with timeout
+E020	0x2938b39	EXACT_LITERAL	/ld_remote_new.js
+E021	0x2938ba4	EXACT_MESSAGES	pushed or push-error detail
+E022	0x2938bc9	EXACT_DOC	Push to all AutoX-visible Scripts locations
+E023	0x2938c53	EXACT_DOC	Patch PC_BASE on pushed script
+E024	0x2938cfb	EXACT_CFG_KEY	[Emu] remote_apk
+E025	0x2938d07	EXACT_CFG_KEY	[Emu] autox_apk
+E026	0x2938d92	EXACT_DOC	Private remote APK then autox*.apk fallback
+E027	0x2938e0b	EXACT_CFG_KEY	[Emu] remote_pkg
+E028	0x2938eb1	EXACT_SYMBOL	adb list packages timeout
+E029	0x2938ec6	EXACT_LITERAL	package: prefix
+E030	0x2938ef0	EXACT_DOC	detect already installed private APK/AutoX/Auto.js package
+E031	0x2938f57	EXACT_SYMBOL	resolve_adb
+E032	0x2938f66	EXACT_ERROR	Missing adb (setting [Emu] adb_path?)
+E033	0x2938f99	EXACT_SYMBOL	detect_autox_pkg
+E034	0x2938fb4	EXACT_SYMBOL	find_autox_apk
+E035	0x2938fc6	EXACT_ERROR	Missing autox*.apk in tools or [Emu] autox_apk
+E036	0x293901c	EXACT_SYMBOL	adb install
+E037	0x293902e	EXACT_ERROR	install error
+E038	0x293905a	EXACT_ERROR	install completed but package absent
+E039	0x29390a5	EXACT_PERMISSION	android.permission.READ_EXTERNAL_STORAGE
+E040	0x29390cf	EXACT_PERMISSION	android.permission.WRITE_EXTERNAL_STORAGE
+E041	0x29390fa	EXACT_SYMBOL	grant
+E042	0x2939134	EXACT_SYMBOL	push_script
+E043	0x293914e	EXACT_SYMBOL	appops set
+E044	0x293915b	EXACT_PERMISSION	SYSTEM_ALERT_WINDOW allow
+E045	0x2939191	EXACT_ERROR	overlay permission failure; manual one-time action may be needed
+E046	0x29391b2	EXACT_SYMBOL	monkey launch
+E047	0x29391be	EXACT_LITERAL	android.intent.category.LAUNCHER
+E048	0x2939204	EXACT_DOC	Open AutoX and user must click Run ld_remote.js once
+E049	0x2939239	EXACT_DOC	setup_instance returns ok and last status message
+E050	0x2939275	EXACT_DOC	Full per-row remote LD setup description
+E051	0x2939331	EXACT_DOC	All ADB, no root; background thread; log_cb
+E052	0x29393a5	EXACT_LITERAL	/sdcard/Scripts
+E053	0x29393c8	EXACT_LITERAL	ld_remote.js
+E054	0x29393d6	EXACT_LITERAL	ld_remote_new.js
+E055	0x293940d	EXACT_SYMBOL	setup_instance
+E056	0x293942e	EXACT_MODULE_MARKER	<module emu_setup>
+E057	ld_remote.js:6	JS_SOURCE	PC_BASE uses __PC_BASE__ patch token
+E058	ld_remote.js:7	JS_SOURCE	Unpatched PC URL fallback http://172.16.1.2:8765
+E059	ld_remote.js:8	JS_SOURCE	TOKEN defaults tlm
+E060	ld_remote.js:870-889	JS_SOURCE	Guest JSON config written to /sdcard/TLM/tlm_<aid8>.json
+E061	EmuFarmTab compiled	CALLER_REFERENCE	_setup_acc invokes setup_instance, guards with trainld_setup
+E062	RUN	NOT_RUN	No original EXE, ADB, APK installer, LDPlayer or guest UI executed
+E063	Build audit	BLOCKER	Reconstructed application source and Windows build workflow missing
