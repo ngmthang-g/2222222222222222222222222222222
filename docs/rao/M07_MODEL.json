@@ -1,0 +1,125 @@
+{
+  "task": "M07",
+  "title": "Rao parity/reconstruction handoff",
+  "status": "STATIC_RESEARCH_CLOSED_LIVE_RUNTIME_PARITY_DEFERRED",
+  "authority": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "original_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module": "rao_tab",
+    "class": "RaoTab",
+    "source": "Original binary + M01-M06 + screenshot post-static",
+    "app_source_exists": false,
+    "build_workflow_exists": false
+  },
+  "source_artifacts": [
+    "docs/rao/M01_AUTHORITY_SURFACE.md",
+    "docs/rao/M02_MESSAGE_STORAGE_FLOW.md",
+    "docs/rao/M03_CHANNEL_MAPPING_FLOW.md",
+    "docs/rao/M04_INTERVAL_FLOW.md",
+    "docs/rao/M05_ACCOUNT_ASSIGNMENT_FLOW.md",
+    "docs/rao/M06_WORKER_LIFECYCLE_FLOW.md"
+  ],
+  "ui": {
+    "tab": "Rao",
+    "labels": [
+      "Cấu hình rao tự động",
+      "Tên",
+      "Nội dung rao",
+      "Kênh",
+      "Lặp (s)",
+      "Xóa",
+      "+ Thêm rao",
+      "Danh sách tài khoản",
+      "Nhân vật",
+      "Nội dung rao",
+      "Bắt đầu"
+    ],
+    "account_selectors": 4,
+    "account_row_in_screenshot": false,
+    "starttab_rao_quick_action_confirmed": false
+  },
+  "channels": [
+    [
+      "Thế giới",
+      8
+    ],
+    [
+      "Bang hội",
+      2
+    ],
+    [
+      "Môn phái",
+      6
+    ],
+    [
+      "Tổ đội",
+      4
+    ],
+    [
+      "Liên minh",
+      3
+    ],
+    [
+      "Quân đoàn",
+      11
+    ],
+    [
+      "Lân cận",
+      5
+    ]
+  ],
+  "persistence": {
+    "section": "Rao",
+    "definitions": "rao_<trimmed name> JSON {content,channel,sec}",
+    "assignments": "acc_<real sanitized RoleName> JSON list of four names",
+    "definition_identity": "name",
+    "assignment_identity": "real character name",
+    "runtime_identity": "HWND+PID",
+    "rename_alias": false
+  },
+  "timing": {
+    "default_seconds": 30,
+    "load_normalized_min_seconds": 0,
+    "load_normalized_max_seconds": 60,
+    "run_min_seconds": 1,
+    "run_max_seconds": 60,
+    "send_before_wait": true,
+    "interruptible_event_wait": true,
+    "live_edits_take_effect_next_iteration": true
+  },
+  "workers": {
+    "slots_per_account": 4,
+    "account_running_if": "any slot active",
+    "per_account_stop": "_stop_acc",
+    "per_slot_stop": "_stop_slot",
+    "bulk_start": "_start_all_accs selects only assigned accounts",
+    "send_signature": "memory_items.send_chat(hwnd,channel_id,content)",
+    "echo_is_server_proof": false,
+    "permission_enforced": true
+  },
+  "gates": {
+    "phase_m": "STATIC_RESEARCH_CLOSED_LIVE_RUNTIME_PARITY_DEFERRED",
+    "stage_s": "NOT_STARTED",
+    "stage_t": "NOT_STARTED",
+    "u_to_x": "NOT_RUN",
+    "acceptance_case_count": 70,
+    "acceptance_case_counts": {
+      "STATIC": 30,
+      "VISUAL": 5,
+      "WINDOWS": 28,
+      "RESEARCH": 7
+    },
+    "matrix_execution": "NOT_EXECUTED_STAGE_S_NOT_STARTED"
+  },
+  "unknowns": [
+    "Exact source code/control flow and generation comparator",
+    "bulk repeated-click policy",
+    "in-flight send interruption and joins",
+    "partial-slot state paint and stale callback ordering",
+    "invalid saved channel normalization presentation",
+    "malformed JSON and persistence collisions",
+    "exact live UI account-row metrics",
+    "actual Windows/server echo parity"
+  ],
+  "next_action": "N01 — Tối ưu module/active UI authority audit"
+}

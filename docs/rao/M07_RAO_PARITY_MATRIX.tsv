@@ -1,0 +1,71 @@
+id	category	acceptance_requirement	evidence_source	evidence_level	gate	test_result
+001	UI	Rao tab exists only when permission allows it	M01	EXACT_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+002	UI	No new Rao-specific StartTab quick button; absence evidence is current surface only	M01	STATIC_NEGATIVE	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+003	UI	Configuration group is Cấu hình rao tự động	M01	STATIC_AND_CAPTURE	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+004	UI	Header fields exactly Tên, Nội dung rao, Kênh, Lặp (s), Xóa	M01	STATIC_AND_CAPTURE	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+005	UI	Definition row has editable name/message, readonly channel, interval input and red delete	M01/M02	STATIC_AND_CAPTURE	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+006	UI	+ Thêm rao creates a row using the smallest unused positive Rao N	M01/M02	EXACT_STATIC_DOC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+007	UI	Account group shows Nhân vật / Nội dung rao	M01	STATIC_AND_CAPTURE	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+008	UI	When an account exists it owns four account-selection combobox slots, account play button and state label	M01/M05/M06	STATIC_ONLY_SCREENSHOT_EMPTY	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+009	UI	Account stopped surface shows ▶ and Đã dừng	M01/M06	EXACT_STATIC_UTF8	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+010	UI	Bottom dedicated-tab button starts as Bắt đầu; does not invent a global Stop All	M01/M06	EXACT_STATIC_WITH_UNKNOWN_REENTRY	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+011	Definitions	Fresh auto-row name is smallest unused Rao 1, Rao 2, ...; manual duplicate handling not invented	M02	EXACT_STATIC_DOC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+012	Definitions	Definition has name_var, msg_var, chan_var, sec_var with write trace save/option update	M02	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+013	Definitions	Renaming/deleting a definition invalidates old name references; no UUID/alias	M02/M05	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+014	Definitions	Resolver fails closed for blank name, missing definition, blank content/channel/interval	M02	EXACT_STATIC_STRINGS	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+015	Persistence	[Rao] rao_<trimmed name> JSON fields content/channel/sec	M02	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+016	Persistence	Definition save preserves other sections and independent acc_ key family	M02	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+017	Persistence	Definition load scans sorted rao_ names, JSON decode and adds matching rows	M02	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+018	Persistence	Definition payload stores Unicode content with ensure_ascii=False surface	M02	EXACT_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+019	Channels	Exactly seven Rao channels are selectable and in original order	M03	EXACT_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+020	Channels	Mapping: Thế giới 8; Bang hội 2; Môn phái 6; Tổ đội 4; Liên minh 3; Quân đoàn 11; Lân cận 5	M03	EXACT_STATIC_CROSSCHECK	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+021	Channels	Default channel is Thế giới / 8	M03	EXACT_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+022	Channels	Do not expose Đặc biệt, Nói thầm or Liên máy chủ in Rao	M03	STATIC_NEGATIVE	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+023	Channels	Persist channel display name; resolver passes numeric ID to send_chat	M03	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+024	Channels	Invalid non-empty channel cannot silently become arbitrary sendable ID	M03	STATIC_FAIL_CLOSED	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+025	Intervals	Lặp (s) digits-only UI with blank transient editing allowed	M04	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+026	Intervals	Missing/malformed stored interval fallback textual 30 seconds	M04	EXACT_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+027	Intervals	Load normalization semantics 0..60; runnable positive interval 1..60	M04	STATIC_STRONG_EXPRESSION_UNKNOWN	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+028	Intervals	Blank or zero interval does not produce a runaway continuous spam loop	M04	STATIC_FAIL_CLOSED	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+029	Intervals	Valid slot sends before waiting full configured interval	M04/M06	EXACT_STATIC_DOC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+030	Intervals	Four account slots have independent interval timer state	M04/M06	EXACT_STATIC_DOC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+031	Intervals	Stop event interrupts an interval wait (not unconditional sleep)	M04/M06	STATIC_STRONG	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+032	Intervals	Live interval edit takes effect next resolution, does not reschedule ongoing wait	M04/M05	STATIC_STRONG	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+033	Account	Live row keyed by HWND and guarded by expected PID	M05/M06	STATIC_STRONG	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+034	Account	Stored selection key [Rao] acc_<real sanitized RoleName>; never HWND/PID suffix	M05	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+035	Account	Temporary Window ... fallback is not stable account-config restore identity	M05	EXACT_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+036	Account	Exactly four ordered Rao-name strings are stored as JSON list per character	M05	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+037	Account	Restore only Rao references currently defined; unmatched slots remain unassigned	M05	EXACT_STATIC_DOC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+038	Account	User edits mark touched, persist, and resist delayed RoleName restoration overwriting them	M05	STATIC_STRONG_ORDER_UNKNOWN	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+039	Account	Rename/delete clears stale live account selection; no old→new auto-migration	M05	STATIC_STRONG	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+040	Account	Game-window refresh 5 seconds while Rao tab selected; stale/reused row removed	M01/M05	EXACT_STATIC_DOC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+041	Account	HWND reuse with different PID recreates live row; new row may restore name-keyed config	M05	STATIC_STRONG	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+042	Workers	Account ▶ dispatches _toggle_single_acc asynchronously; bottom Bắt đầu dispatches _start_all_accs	M06	EXACT_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+043	Workers	_start_slot starts only a valid selected Rao and returns a boolean started	M06	EXACT_STATIC_DOC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+044	Workers	Four independent slot loops maximum per account; slot stop differs from account stop	M04/M06	EXACT_STATIC_DOC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+045	Workers	Account running status uses any active slot rather than all four	M06	EXACT_STATIC_DOC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+046	Workers	_stop_acc stops all active groups for that account only	M06	EXACT_STATIC_DOC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+047	Workers	One slot becoming invalid is handled by _stop_slot; healthy siblings must be checked in live test	M06	STATIC_STRONG_SIBLING_RUNTIME	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+048	Workers	Bulk Bắt đầu includes assigned rows and skips entirely unassigned accounts	M06	EXACT_STATIC_DOC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+049	Workers	Permission guard has_permission_with_limit(rao_tab,rao) blocks unauthorized start	M01/M06	EXACT_STATIC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+050	Workers	Bulk permission denial warns; account denial displays Không có quyền rao	M06	EXACT_STATIC_STRINGS	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+051	Workers	Slot validates HWND/PID/aliveness and stops on Cửa sổ đã đóng	M05/M06	EXACT_STATIC_STRINGS	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+052	Workers	Stale generation state _gen and slot-running guard prevent old worker UI from becoming authoritative; exact comparison unknown	M06	STATIC_FIELD_EXACT_FLOW_UNKNOWN	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+053	Workers	Tk widget status updates marshal via _ui to main thread	M06	EXACT_STATIC_DOC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+054	Workers	Running state text uses Đang rao <n>/4 nhóm... and Dừng lại button	M06	EXACT_STATIC_STRINGS	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+055	Network	memory_items.send_chat(hwnd, channel_id, content) sends CMD_CLIENT_CHAT with Base64 content	M03/M06	STATIC_STRONG	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+056	Network	send_chat True means command queued, not confirmed server acceptance	M03	EXACT_STATIC_DOC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+057	Network	Echo diagnostic logs unavailable echo/failure; do not infer successful delivery from queue result	M06	EXACT_STATIC	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+058	Network	Live game verifies channel and Unicode message content in actual chat interface	M03/M06	RUNTIME_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+059	Concurrency	Simultaneous account start, stop and bulk start never leave incorrect running state	M06	RUNTIME_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+060	Concurrency	Account disappearing while send/echo is in flight cleans worker state without misrouting reused HWND	M05/M06	RUNTIME_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+061	Uncertainty	Exact _gen increment/equality, stale Tk callback suppression remains unknown	M06	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+062	Uncertainty	Bottom Bắt đầu second press and busy/reentry behavior remains unknown	M06	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+063	Uncertainty	Stop during in-flight send_chat/verify_chat_echo and joins remains unknown	M06	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+064	Uncertainty	Malformed persisted JSON, blank name and duplicate-name collision winner remain unknown	M02/M05	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+065	Uncertainty	Nonempty stale channel load UI normalization and precise default application remain unknown	M03	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+066	Uncertainty	Saved interval min/max exact syntax, internal jitter and same-callback stale-save timing not overclaimed	M04/M05	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+067	Uncertainty	Exact color/font/geometry and partial-slot UI paints require original Windows runtime parity	M01/M06	RUNTIME_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+068	Build	Stage-S source does not currently exist; do not mark Rao implementation or EXE parity complete	STATE/PLAN	REPO_TREE	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+069	Windows	Test one, two, three or more real Windows accounts, distinct HWND/PID lifecycles and game focus/background	M05/M06/PLAN	RUNTIME_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+070	Scope	Proxy development stays excluded; do not add unauthorized feature or StartTab Rao action	PLAN/M01	SCOPE_LOCK	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED

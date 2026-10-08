@@ -130,7 +130,7 @@ IN_PROGRESS
 - `WINDOW_BEHAVIOR_MATRIX.md`
 
 ## CURRENT_TASK
-H13 — Train all-account command orchestration audit.
+N01 — Tối ưu active module/UI authority audit (Phase M handoff complete).
 
 ## C07 VERIFIED RESULTS
 - Auto is the default Start mode (mode_var = auto).
@@ -5044,3 +5044,31 @@ On CONTINUE:
 4. Recheck exact frozen EXE evidence where needed; only after that compare Rao screenshots.
 5. Persist M07 report/model/parity matrix/task, update STATE.md and PROJECT_STATUS.md.
 6. Recheck code/build status; do not claim build until Stage-S reconstructed application source and Stage-T workflow exist.
+
+
+## M07 VERIFIED RESULTS — RAO PHASE HANDOFF
+- GitHub checked first: parent HEAD `e3784b7b23b464632517e2487445e5cd925db53d`; M01–M06 existed and M07 did not. No earlier Phase-M artifacts reimplemented or modified.
+- Supplied archive `TLMTool_2.1.2(9).zip` SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`. Frozen original remains normative.
+- M01–M06 reconciled into an evidence-tiered reconstruction contract. No direct contradiction across six frozen Rao contracts found.
+- UI, [Rao] definition/account config, exact seven chat channel IDs, 30s default/0..60 normalization/positive 1..60 runnable, four independent send-first slot workers, HWND/PID guards, permission limit and UI-state text preserved.
+- `docs/rao/M07_RAO_PARITY_MATRIX.tsv` contains **70 acceptance cases**: 30 STATIC, 5 VISUAL, 28 WINDOWS, 7 RESEARCH. All cases have status NOT_EXECUTED_STAGE_S_NOT_STARTED, never fictitious PASS.
+- Explicit unknowns include bulk double-press policy, generation comparison/order, in-flight send/echo cancellation, stale-PID/UI races, malformed config collision winners and unverified account-row visuals.
+- Phase M gate: **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**. Stage S/T product source/build **NOT_STARTED**.
+- New files: `docs/rao/M07_RECONSTRUCTION_CONTRACT.md`, `docs/rao/M07_MODEL.json`, `docs/rao/M07_RAO_PARITY_MATRIX.tsv`, `docs/tasks/M07.md`.
+
+## POST-M07 CODE/BUILD RECHECK
+- No product source, build scripts or CI workflow added. Only documentation, model and milestone status files changed.
+- Build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS / DO_NOT_TOUCH
+- Live Rao parity needs controlled Windows + actual game; original screenshot has zero account rows.
+- Do not fabricate exact original Python flow where only serialized constants were recovered.
+- Preserve all M01–M06 specs, no extra Rao StartTab button, no Proxy implementation, no unrelated UI changes.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md and STATE.md and check current GitHub first for N01 artifacts.
+2. If N01 exists, audit/skip completed items; else begin **N01 — Tối ưu module/active UI authority audit**.
+3. Inspect original frozen `toiuu_tab` EXE evidence first: active class/UI creation, CPU/GPU monitor, detached monitor, graphics configuration, per-account and global actions and permission guard.
+4. Only after static extraction compare user-supplied Tối ưu screenshot; do not overclaim GPU live data from capture.
+5. Persist N01 task/evidence/model, update STATE.md/PROJECT_STATUS.md, and re-check source/build state.
