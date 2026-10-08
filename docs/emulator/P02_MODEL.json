@@ -1,0 +1,115 @@
+{
+  "task": "P02",
+  "status": "STATIC_ADB_FRIDA_IDENTITY_CONNECTION_LIFECYCLE_AUDITED_LIVE_EMULATOR_PARITY_DEFERRED",
+  "original": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "frida_js_sha256": "384ccee9a2ddf236db377fca3abd36cbc17df81a94a286551a749a3132d02db1",
+    "exe_executed": false,
+    "adb_executed": false
+  },
+  "compiled": {
+    "module_terminator_offset": "0x29361cc",
+    "contracts_location": "0x29333d9e..0x29361a6",
+    "methods": [
+      "AndroidReader.ensure_server",
+      "AndroidReader.connect",
+      "AndroidReader.close",
+      "AndroidReader.ensure_loaded",
+      "AndroidReader.discover",
+      "AndroidReader.pick",
+      "AndroidReader.pick_validated",
+      "AndroidReader.use",
+      "AndroidReader.validate",
+      "AndroidReader.bag_slots",
+      "AndroidReader.read_all",
+      "EmuManager.aid_of",
+      "EmuManager.hwid_of",
+      "EmuManager.ip_of",
+      "EmuManager.serial_for_ip",
+      "EmuManager.serial_for_hwid",
+      "EmuManager.serial_for_aid",
+      "EmuManager.devices",
+      "EmuManager.status_all",
+      "EmuManager._worker",
+      "EmuManager.poll_rows",
+      "EmuManager.active_serials",
+      "EmuManager.force_discover",
+      "EmuManager.get_bag_slots"
+    ]
+  },
+  "device_identity": {
+    "serial": "current ADB transport/device target",
+    "aid": "Android ID, UI key, clones may collide",
+    "ip": "guest IPv4 for reverse serial mapping; unique mapping required",
+    "hwid": "ro.serialno; clones may collide",
+    "role": "RoleID hint per serial, readable live RoleName validates candidate",
+    "documented_aid_cache": "5 minutes",
+    "documented_device_coords_cache": "30 seconds",
+    "vm_names_cache_ttl": "UNKNOWN"
+  },
+  "connection": {
+    "adb_discovery": "resolve_adb -> serial -> game PID",
+    "server": "per VM ensure_binary/ensure_server frida-server root",
+    "frida": "device/session + emu_client.js script create/load",
+    "liveness": "ping == emu-ok; ensure_loaded reload if stale",
+    "candidate": "known RoleID: scanRoleId; else scanShape; pick_validated checks live name",
+    "read": "setBase -> validate/readAll/bagSlots",
+    "states": [
+      "connecting",
+      "scanning",
+      "zero_candidates",
+      "connection_failed",
+      "row_or_none",
+      "read_failed"
+    ]
+  },
+  "rpc": [
+    "ping",
+    "setBase",
+    "readAll",
+    "validate",
+    "scanRoleId",
+    "scanShape",
+    "bagSlots"
+  ],
+  "bag": {
+    "site": 10,
+    "error_value": null,
+    "zero_value": "empty_or_entries_count_unavailable; avoid treating as certain empty",
+    "max_scan_entries": 10000
+  },
+  "permissions": {
+    "train_ld": "emu_tab gated, initially hidden",
+    "debug_android": "developer-only",
+    "proxy_runtime": "excluded"
+  },
+  "verification": {
+    "static_zip_crc": "PASS",
+    "static_original_sha": "PASS",
+    "static_symbols": "PASS",
+    "frida_js_grammar": "PASS",
+    "emulator_live": "NOT_RUN",
+    "windows_app": "NOT_RUN",
+    "acceptance_planned": 25,
+    "acceptance_executed": 0
+  },
+  "unknowns": [
+    "exact_Adb_retry",
+    "frida_detach/dispose_order",
+    "worker_backoff",
+    "VM_NAMES_TTL",
+    "cross_clone_UI_collision",
+    "role_hint_invalidation",
+    "live_root",
+    "current_APK_layout",
+    "live_timing",
+    "real_game_action_parity"
+  ],
+  "build": {
+    "product_application_source_present": false,
+    "windows_workflow_present": false,
+    "status": "BLOCKED_SOURCE_MISSING"
+  },
+  "next_action": "P03 — emu_input ADB event/capture and per-device action/coordinate contract"
+}
