@@ -638,3 +638,13 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - New artifacts docs/resources/R01_RESOURCE_GAP_MATRIX.tsv, R01_DATA_RESOURCE_GAPS.md, R01_MODEL.json, R01_STATIC_EVIDENCE.tsv, docs/tasks/R01.md, tools/R01_VERIFY_RESOURCE_GAPS.py. Local verifier syntax+ZIP-only PASS; optional matrix mode NOT_RUN; zero runtime tests.
 - R01 closes Phase R static Plan fields with UNKNOWN explicitly; still no Stage S rebuilt app or Stage T Windows build: BUILD_BLOCKED_SOURCE_MISSING. No Proxy development or earlier data changed.
 - NEXT_ACTION S01 — smallest real Stage S source bootstrap from verified MainApp/UI/launcher contracts; do not fake feature functionality.
+
+
+## S01 — Real reconstructed source bootstrap, seven tests PASS
+- GitHub first real application files: src/TLMTool.py, src/shell.py, src/settings_store.py and tests/test_s01.py. This replaces earlier “no application source at all” state with **PARTIAL SOURCE PRESENT**. 15 original Notebook slots, Info-only by default, conditional/dev tab visibility, lazy real factories, Info fallback, selected refresh lifecycle; never fake missing feature controls.
+- Shared settings.ini access: RawConfigParser(strict=False), UTF8, atomic same-dir temp replacement, pre-existing file dated backup, no invented backup pruning. Original lock class and sanitization edge cases unverified.
+- User correction **Dồn** applied instead of original static-doc **Đồn**.
+- Tests on latest local byte-matching committed code: compileall PASS; 7/7 unittest PASS; entrypoint exit 2 is intentional until real InfoTab/auth exists; Windows/Tk/exe/LDPlayer runtime NOT_RUN.
+- Artifacts docs/source/S01_BOOTSTRAP.md, S01_MODEL.json, docs/tasks/S01.md and source/test files committed. Frozen ZIP, PLAN, prior research, Proxy exclusion preserved.
+- **CURRENT BLOCKER SOURCE_PARTIAL_APP_STARTUP_BLOCKED_INFO_AUTH_AND_WINDOWS_BUILD_WORKFLOW_MISSING** — genuine source exists but no end-to-end app/EXE build. Do not report old SOURCE_MISSING as current.
+- **NEXT_ACTION S02 — InfoTab/auth permission_guard real minimal service, original source evidence first, fail-closed tests.**
