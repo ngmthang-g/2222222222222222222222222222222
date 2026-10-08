@@ -92,7 +92,134 @@
     "emulator_live": "NOT_RUN",
     "windows_app": "NOT_RUN",
     "acceptance_planned": 25,
-    "acceptance_executed": 0
+    "acceptance_executed": 0,
+    "acceptance_cases": [
+      {
+        "id": "P02-01",
+        "description": "ADB resolution and platform executable fallback",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-02",
+        "description": "Live game PID availability vs emulator process",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-03",
+        "description": "Per-serial guest frida-server existence/permissions",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-04",
+        "description": "Root frida-server liveness/restart",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-05",
+        "description": "Frida Python package missing -> diagnostic",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-06",
+        "description": "Device attach, process selection and session lifecycle",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-07",
+        "description": "Resident JS loaded and RPC ping liveness",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-08",
+        "description": "Old session/new game process invalidation",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-09",
+        "description": "Missing RPC export -> script reload",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-10",
+        "description": "Known RoleID targeted scan match",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-11",
+        "description": "Unknown RoleID blind scan fallback",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-12",
+        "description": "Multiple candidates reject stale RoleName",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-13",
+        "description": "RoleID changed on account relogin",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-14",
+        "description": "readAll stable typed player row",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-15",
+        "description": "readAll error vs truly absent character",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-16",
+        "description": "Site10 bagSlots real occupied bag",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-17",
+        "description": "bagSlots null vs zero distinction",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-18",
+        "description": "ADB serial reboot/remapping",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-19",
+        "description": "Cloned VM android_id/hwid collisions",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-20",
+        "description": "Guest IP to serial unique mapping",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-21",
+        "description": "Per-serial hint cache and invalidation",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-22",
+        "description": "poll_rows asynchronous error / refresh transitions",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-23",
+        "description": "force_discover cache reset retains RoleID",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-24",
+        "description": "Train LD permission and dev-only Debug Android gates",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P02-25",
+        "description": "Reconstructed Windows/LD emulator parity and artifact build",
+        "runtime_status": "NOT_RUN"
+      }
+    ]
   },
   "unknowns": [
     "exact_Adb_retry",
