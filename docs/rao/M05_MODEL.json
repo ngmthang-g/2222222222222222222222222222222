@@ -1,0 +1,120 @@
+{
+  "task":"M05",
+  "status":"VERIFIED_HWND_PID_RUNTIME_IDENTITY_NAME_KEYED_4_SLOT_JSON_ASSIGNMENTS_STALE_CLEAR_REAPPEAR_RESTORE_AND_NEXT_CYCLE_LIVE_EDIT",
+  "authority":{
+    "github_head_checked_first":"5e884a36d59bdd13dcb689aa0e9fa0aaac26f245",
+    "preexisting_m05_artifacts":false,
+    "archive_sha256":"c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256":"15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module":"rao_tab",
+    "class":"RaoTab"
+  },
+  "identity":{
+    "runtime_row_key":"HWND with expected PID validation",
+    "persistent_key_identity":"real sanitized character name",
+    "sanitize":{
+      "helper":"_sanitize_name",
+      "exact_doc":"Loại bỏ HTML tags khỏi tên nhân vật.",
+      "pattern":"<[^>]+>",
+      "casefold_or_lower":"NOT_RECOVERED"
+    },
+    "character_source":"RoleName",
+    "temporary_fallback_prefix":"Window ",
+    "temporary_fallback_is_normal_restore_key":false
+  },
+  "persistence":{
+    "section":"Rao",
+    "key_format":"acc_<real sanitized character name>",
+    "uses_hwnd_in_key":false,
+    "uses_pid_in_key":false,
+    "slot_count":4,
+    "payload":"JSON list preserving four slot positions",
+    "example":["Rao 1","Rao 3","","Rao 2"],
+    "slot_order":["index0=slot1","index1=slot2","index2=slot3","index3=slot4"],
+    "duplicate_rao_selection_between_slots_allowed":"NO_UNIQUENESS_GUARD_RECOVERED",
+    "malformed_json_behavior":"EXPLICIT_UNKNOWN"
+  },
+  "save":{
+    "trace_method":"_on_rao_var_changed",
+    "exact_doc":"Trace combobox nội dung rao: đánh dấu user đổi + lưu setting.",
+    "user_edit_marks_touched":true,
+    "saves_assignment_set":true,
+    "central_helper":"_save_config",
+    "account_save_locals":["cname","_vals","_v"],
+    "json_dumps_surface":true,
+    "whole_Rao_section_replacement":false,
+    "message_family_remains_independent":true
+  },
+  "restore":{
+    "helper":"load_acc_config",
+    "signature_semantic":["character name","four rao_vars"],
+    "rejects_temporary_window_name":true,
+    "reads_key":"acc_<cname>",
+    "json_loads":true,
+    "exact_doc":"Khôi phục 4 combobox nội dung rao đã lưu theo tên nhân vật. Chỉ áp tên rao còn tồn tại. Trả True nếu đã áp ít nhất 1 slot.",
+    "only_existing_rao_names_applied":true,
+    "returns_true_if_any_slot_applied":true,
+    "more_than_four_saved_values_cannot_create_more_slots":true
+  },
+  "rename_delete_reconciliation":{
+    "helper":"_refresh_acc_rao_options",
+    "exact_doc":"Đổ lại combobox nội dung rao của mọi acc theo danh sách tên hiện tại.",
+    "locals":["names","prev","row","cb","var","cur"],
+    "empty_string_constant_in_method_surface":true,
+    "invalid_current_selection_cleared_live":"STATIC_VERIFIED",
+    "old_name_to_new_name_alias":false,
+    "uuid_rename_propagation":false,
+    "automatic_clear_same_callback_disk_persistence":"EXPLICIT_UNKNOWN"
+  },
+  "late_real_name":{
+    "row_fields":["_has_real_name","_rao_touched"],
+    "load_helper":"load_acc_config",
+    "semantics":"late RoleName may trigger saved-name restore only without overwriting a row the user already edited",
+    "exact_boolean_mutation_order":"EXPLICIT_UNKNOWN"
+  },
+  "window_identity":{
+    "bind":"bind_window_identity",
+    "unbind":"unbind_window_identity",
+    "alive_check":"_is_window_alive",
+    "pid_change_log":"[Rao] hwnd=<...> đổi process (pid <old> → <new>) — cửa sổ cũ đã mất, tạo lại row mới",
+    "same_hwnd_new_pid":"recreate runtime row",
+    "closed_or_reused_doc":"Xóa acc của window đã đóng HOẶC đã đổi process (HWND tái sử dụng).",
+    "reappearance":"fresh runtime row may restore by same real character-name key"
+  },
+  "duplicate_character_names":{
+    "runtime_rows_distinct":"by HWND/PID",
+    "persistent_disambiguator":"NONE_RECOVERED",
+    "same_sanitized_name_same_key":true,
+    "independent_persisted_assignments_possible":false,
+    "collision_winner":"EXPLICIT_UNKNOWN"
+  },
+  "live_assignment_edit":{
+    "forced_worker_restart":false,
+    "current_wait_rescheduled":false,
+    "next_loop_rereads_selected_name":true,
+    "valid_new_selection":"next cycle uses new Rao content/channel/interval",
+    "blank_or_invalid_new_selection":"next cycle fails closed and stops affected slot",
+    "exact_stopped_state_label_timing":"DEFERRED_M06"
+  },
+  "refresh":{
+    "cadence_seconds":5,
+    "incremental":true,
+    "row_registry":"_acc_rows",
+    "methods":["_refresh_acc_lists","_add_or_update_row","_remove_stale_accs"],
+    "disappeared_account_config_erased":false,
+    "live_worker_shutdown_order":"DEFERRED_M06"
+  },
+  "runtime":{
+    "automove_log_sha256":"17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "correlated_assignment_markers":0,
+    "live_refresh_pid_races":"RUNTIME_REQUIRED"
+  },
+  "unknowns":[
+    "exact malformed/non-list account JSON fallback",
+    "exact same-callback disk persistence timing of automatic stale-name clearing",
+    "duplicate-character-name persistence collision winner",
+    "exact _has_real_name/_rao_touched mutation order",
+    "window-disappearance worker-stop/UI timing"
+  ],
+  "next_task":"M06 — Rao start/stop worker audit"
+}

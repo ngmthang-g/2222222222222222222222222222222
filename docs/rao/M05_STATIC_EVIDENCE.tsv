@@ -1,0 +1,63 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+sanitize_pattern	0x2bd8867	VERIFIED_STATIC_UTF8	<[^>]+>
+sanitize_doc	0x2bd8870	VERIFIED_STATIC_UTF8	Loại bỏ HTML tags khỏi tên nhân vật.
+get_char_info	0x2bd88a0	VERIFIED_STATIC	get_character_info / _get_char_info
+sanitize_helper	0x2bd88c4	VERIFIED_STATIC	_sanitize_name
+role_name	0x2bd88d6	VERIFIED_STATIC	RoleName
+window_fallback	0x2bd88e7	VERIFIED_STATIC_UTF8	Window 
+pid_helper	0x2bd8935	VERIFIED_STATIC	_pid_of
+bind_identity	0x2bd89cc	VERIFIED_STATIC	bind_window_identity
+pid_change_log	0x2bd89f8	VERIFIED_STATIC_UTF8	[Rao] hwnd=... đổi process (pid ... → ...) — cửa sổ cũ đã mất, tạo lại row mới
+unbind_identity	0x2bd8a6b	VERIFIED_STATIC	unbind_window_identity
+get_char_name	0x2bd8a9b	VERIFIED_STATIC	_get_char_name
+has_real_name	0x2bd8ad1	VERIFIED_STATIC	_has_real_name
+rao_touched	0x2bd8ae3	VERIFIED_STATIC	_rao_touched
+load_acc_call	0x2bd8af1	VERIFIED_STATIC	load_acc_config
+row_rao_vars	0x2bd8b02	VERIFIED_STATIC	rao_vars
+row_initial_state	0x2bd8c87	VERIFIED_VISIBLE_STATIC	Đã dừng
+row_slot_fields	0x2bd8d18	VERIFIED_STATIC	rao_cbs / slot / per-row Rao vars
+add_update_doc	0x2bd8d9b	VERIFIED_STATIC_UTF8	Add row mới nếu chưa có, update tên nếu đã có.
+remove_stale_doc	0x2bd8f02	VERIFIED_STATIC_UTF8	Xóa acc của window đã đóng HOẶC đã đổi process (HWND tái sử dụng).
+refresh_options_names	0x2bd87db	VERIFIED_STATIC	_rao_names
+refresh_options_values	0x2bd87e7	VERIFIED_STATIC	values
+refresh_options_cbs	0x2bd87f1	VERIFIED_STATIC	rao_cbs
+refresh_options_empty	0x2bd8800	VERIFIED_STATIC_DECODE	empty-string constant in account-option refresh surface
+refresh_options_doc	0x2bd8804	VERIFIED_STATIC_UTF8	Đổ lại combobox nội dung rao của mọi acc theo danh sách tên hiện tại.
+refresh_options_locals	0x2bda2e1	VERIFIED_STATIC_MAPPING	self,names,prev,row,cb,var,cur
+refresh_5s_doc	0x2bd916a	REUSED_M01_STATIC	Tự động refresh danh sách acc mỗi 5 giây.
+on_var_changed_doc	0x2bd95c2	VERIFIED_STATIC_UTF8	Trace combobox nội dung rao: đánh dấu user đổi + lưu setting.
+load_startswith	0x2bd960b	VERIFIED_STATIC	startswith
+load_window_prefix	0x2bd9619	VERIFIED_STATIC_UTF8	Window 
+settings_lock	0x2bd9622	VERIFIED_PERSISTENCE	_settings_lock
+read_settings	0x2bd9632	VERIFIED_PERSISTENCE	read_settings
+rao_section	0x2bd9643	VERIFIED_PERSISTENCE	Rao
+account_prefix	0x2bd9650	VERIFIED_PERSISTENCE	acc_
+optionxform	0x2bd9656	VERIFIED_PERSISTENCE	optionxform
+json_loads	0x2bd9663	VERIFIED_PERSISTENCE	json.loads
+four_slot_literal	0x2bd9672	VERIFIED_STATIC_DECODE	integer 4 in load_acc_config surface
+load_acc_doc	0x2bd967e	VERIFIED_STATIC_UTF8	Khôi phục 4 combobox nội dung rao đã lưu theo tên nhân vật. Chỉ áp tên rao còn tồn tại. Trả True nếu đã áp ít nhất 1 slot.
+load_acc_locals	0x2bda608	VERIFIED_STATIC_MAPPING	self,cname,rao_vars,nm,cfg,raw,vals,parsed,names,prev,applied,var
+save_json_dumps	0x2bd974f	REUSED_M02_PERSISTENCE	json.dumps
+save_ensure_ascii	0x2bd976d	REUSED_M02_PERSISTENCE	ensure_ascii=False surface
+save_locals	0x2bda3c1	STRONG_STATIC_MAPPING	self,cfg,cf,...,payload,row,cname,_vals,_v; account selections gathered as ordered list within same save routine
+account_key_format	-	STRONG_STATIC_MAPPING	acc_ prefix + cname parameter; cname is real sanitized character name, no HWND/PID suffix
+account_payload	-	STRONG_STATIC_MAPPING	JSON list of four Rao display-name values in rao_vars slot order; load uses json.loads + literal4 + four vars
+temporary_window_restore	-	VERIFIED_STATIC_SEMANTIC	load_acc_config checks startswith('Window ') before account config restore
+stale_live_clear	-	STRONG_STATIC_SEMANTIC	refresh method has names/current var/current value + exact empty-string constant; stale current selection is cleared when option universe rebuilds
+rename_alias	-	NOT_RECOVERED	no old-name→new-name alias or UUID layer
+late_name_guard	-	STRONG_STATIC_SEMANTIC	_has_real_name + _rao_touched + load_acc_config in add/update path prevent delayed real-name restore overwriting user-edited row
+runtime_row_identity	-	VERIFIED_STATIC_SEMANTIC	_acc_rows runtime registry with HWND/current PID/bind-unbind; same HWND different PID recreates row
+persistent_identity	-	VERIFIED_STATIC_SEMANTIC	character-name key, not HWND/PID
+duplicate_character_names	-	STRONG_STATIC_SEMANTIC	runtime rows remain HWND/PID-distinct but same sanitized character name maps to same acc_ key; exact collision winner unknown
+reappearance_restore	-	STRONG_STATIC_SEMANTIC	stale runtime row removal does not erase name-keyed config; fresh row can load same acc_<name>
+assignment_live_edit	-	STRONG_STATIC_SEMANTIC	_on_rao_var_changed saves only; M04 slot loop re-resolves selected name next cycle; no forced restart surface recovered
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500
+runtime_assignment_markers	-	NOT_RECOVERED	0 [Rao]/Đang rao/assignment/Window traces in frozen packaged log
+malformed_account_json	-	EXPLICIT_UNKNOWN	exact non-list/malformed JSON fallback not safely reconstructed
+auto_clear_disk_timing	-	EXPLICIT_UNKNOWN	UI stale clear is recovered; same-callback persistence timing remains unbound
+duplicate_name_save_winner	-	EXPLICIT_UNKNOWN	exact save winner under two live same-name characters not source-visible
+touch_flag_order	-	EXPLICIT_UNKNOWN	exact _has_real_name/_rao_touched mutation statement order not reconstructed
+window_disappear_worker_timing	-	DEFERRED_M06	row removal identity boundary recovered; worker stop/state timing belongs to M06
+classification	-	STATIC_VERIFIED_ACCOUNT_ASSIGNMENT_WITH_RUNTIME_WORKER_DEFERRED	M06 owns full start/stop lifecycle
