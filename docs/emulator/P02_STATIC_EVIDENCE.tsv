@@ -1,0 +1,43 @@
+id	offset	source	strength	fact
+P02-001	-	ZIP	hash+CRC	ZIP 1050 entries SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd CRC PASS
+P02-002	-	EXE	hash	Inner compiled EXE 47450112 bytes SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+P02-003	-	emu_client.js	hash+syntax	Seven RPC exports; Frida JS grammar PASS; no Frida runtime test
+P02-004	0x29361cc	EXE	exact marker	Module emu_reader terminator; class contracts appear before marker
+P02-005	0x29333d9e	EXE	exact doc	Guest JSON /sdcard/TLM/tlm_*.json read via ADB without listener
+P02-006	0x29333ed3	EXE	exact literal	Root frida-server startup command documented
+P02-007	0x29333f97	EXE	exact string	Missing frida Python package diagnostic
+P02-008	0x29334070	EXE	exact doc	Attach game and load resident script
+P02-009	0x293340b7	EXE	exact doc	ensure_loaded reconnect and reload stale JS exports
+P02-010	0x2933413c	EXE	exact doc	Ping liveness after previous game session dies
+P02-011	0x293341a3	EXE	exact doc	Candidate search list; cached RoleID targeted else blind
+P02-012	0x29334298	EXE	exact string	exact-roleid selection mode
+P02-013	0x293342a6	EXE	exact string	exact-roleid-newest with livecheck caveat
+P02-014	0x293343f0	EXE	exact doc	pick_validated rejects stale relogin candidates with dead name
+P02-015	0x293344d5	EXE	exact doc	Exact runtime validation in reader
+P02-016	0x29334516	EXE	exact doc	bagSlots Site10 None on read errors
+P02-017	0x293346fe	EXE	exact doc	read_all returns PC-shaped character dict
+P02-018	0x29334a43	EXE	exact doc	Android ID cache five minutes
+P02-019	0x29334b9f	EXE	exact doc	Guest IPv4 differentiates LDPlayer clones sharing Android identifiers
+P02-020	0x29334c2c	EXE	exact doc	serial_for_ip reverse lookup returns blank unless unique
+P02-021	0x29334d7a	EXE	exact doc	RoleID hint by serial not aid because clone Android ID may collide
+P02-022	0x29334f53	EXE	exact doc	status_all includes state/error/aid/role/vm
+P02-023	0x293350ab	EXE	exact string	Zero instance candidate status is not proof that VM is offline
+P02-024	0x293351a1	EXE	exact doc	poll_rows list entries (serial, ci|None, status, aid)
+P02-025	0x293351e8	EXE	exact doc	Manager UI row aid stable across serial reboot: clone ambiguity remains
+P02-026	0x29335291	EXE	exact doc	active_serials means game PID-present serials
+P02-027	0x293352d2	EXE	exact doc	force_discover clears status cache preserving RoleID hint
+P02-028	0x29335323	EXE	exact doc	get_bag_slots cached short; None means error
+P02-029	0x29335542	EXE	exact doc	Device coordinate presets cache 30 seconds
+P02-030	0x2933583e	EXE	exact doc	AndroidReader Frida resident RPC over guest process
+P02-031	0x29335bab	EXE	exact method	AndroidReader.connect
+P02-032	0x29335bd7	EXE	exact method	AndroidReader.ensure_loaded
+P02-033	0x29335c2a	EXE	exact method	AndroidReader.pick_validated
+P02-034	0x29335f95	EXE	exact method	EmuManager.poll_rows
+P02-035	0x29335fe6	EXE	exact method	EmuManager.force_discover
+P02-036	0x2933601b	EXE	exact method	EmuManager.get_bag_slots
+P02-037	-	emu_client.js	exact code	readAll null BASE and per-field strict verifyBase
+P02-038	-	emu_client.js	exact code	validate compares RoleID and name readability
+P02-039	-	emu_client.js	exact code	scanRoleId up to 8; scanShape up to 20
+P02-040	-	emu_client.js	exact code	bagSlots Site10; 0 may also mean entries missing or count nonpositive
+P02-041	-	GitHub repository	baseline audit	Stage S app source and Stage T Windows workflow absent; no product build claim
+P02-042	-	LDPlayer live	NOT_RUN	No ADB attach, no process, no RPC, no live parity
