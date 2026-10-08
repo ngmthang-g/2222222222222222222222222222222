@@ -1,0 +1,76 @@
+{
+  "task": "S01",
+  "status": "REAL_SOURCE_FOUNDATION_TESTED_APP_STARTUP_EXPLICITLY_BLOCKED",
+  "authority": [
+    "docs/tasks/A05.md",
+    "docs/tasks/B01.md",
+    "docs/tasks/B02.md",
+    "docs/tasks/E01.md",
+    "docs/tasks/E02.md",
+    "docs/tasks/E03.md",
+    "docs/core/E03_TAB_ORDER.tsv",
+    "docs/tasks/E04.md",
+    "docs/tasks/E05.md",
+    "docs/resources/R01_DATA_RESOURCE_GAPS.md",
+    "SCOPE_LOCK.md"
+  ],
+  "source_files": [
+    "src/TLMTool.py",
+    "src/shell.py",
+    "src/settings_store.py"
+  ],
+  "test_file": "tests/test_s01.py",
+  "functionality": {
+    "original_tab_slots": 15,
+    "default_visible": [
+      "info_tab"
+    ],
+    "production_screenshot_tab_count": 11,
+    "conditional_developer_tabs_hidden": true,
+    "real_feature_controls_faked": false,
+    "tab_factory_required": true,
+    "permission_grants_derived_inside_shell": false,
+    "tab_lazy_build_once": true,
+    "refresh_old_stop_new_start": true,
+    "hidden_selected_info_fallback": true,
+    "root_title": "TLMTool",
+    "root_initial_geometry": "250x20",
+    "root_topmost": true,
+    "default_font": "Segoe UI 9",
+    "notebook_margin_px": 5,
+    "final_geometry_model": "450 x (screen_h-80) + (screen_w-450-10) + 0; HIGH_CONFIDENCE_NOT_SOURCE_PROOF",
+    "user_corrected_label": "Dồn",
+    "settings_path": "%APPDATA%/TLMTool/settings.ini",
+    "settings_duplicate_keys": "last wins",
+    "settings_atomic_replace": true,
+    "settings_dated_backup": true,
+    "settings_backup_prune": "UNVERIFIED_NOT_IMPLEMENTED"
+  },
+  "tests": {
+    "source_compileall": "PASS",
+    "local_unittest_total": 7,
+    "local_unittest_pass": 7,
+    "local_unittest_fail": 0,
+    "windows_tk_live": "NOT_RUN",
+    "windows_app_exe_build": "NOT_RUN",
+    "github_files_verified": true,
+    "github_bytes": {
+      "src/TLMTool.py": 1074,
+      "src/shell.py": 7564,
+      "src/settings_store.py": 2292,
+      "tests/test_s01.py": 5665
+    }
+  },
+  "blockers": [
+    "InfoTab server/auth/service missing; entrypoint deliberately exits with 2",
+    "permission_guard original backend incomplete",
+    "11 full feature tab constructors missing",
+    "root shell not yet exercised against Windows Tk",
+    "exact single-instance/splash/CPU/logger lifecycles incomplete",
+    "settings sanitizer+backup pruning unknown",
+    "Stage T Nuitka Windows build scripts/workflow absent",
+    "original EXE/ZIP immutable resources not packaged in rebuilt source"
+  ],
+  "app_status": "SOURCE_PARTIAL_APP_STARTUP_BLOCKED_INFO_AUTH_AND_WINDOWS_BUILD_WORKFLOW_MISSING",
+  "next_action": "S02 — reconstruct smallest real InfoTab/permission_guard startup service from original evidence, fail closed and add tests"
+}
