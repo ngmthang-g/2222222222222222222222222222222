@@ -112,6 +112,9 @@ class S01Tests(unittest.TestCase):
             self.assertEqual(reread.getint('Settings','grid_cols'),3)
             self.assertEqual(reread.getint('Settings','grid_rows'),4)
             self.assertEqual(list(p.parent.glob('*.tmp')),[])
+            dated_backups = list(p.parent.glob('settings.????????.ini'))
+            self.assertEqual(len(dated_backups),1)
+            self.assertIn('grid_rows = 1',dated_backups[0].read_text(encoding='utf-8'))
             self.assertEqual(settings_path(td),p)
 
     def test_bootstrap_refuses_unverified_fake_info_without_gui(self):
