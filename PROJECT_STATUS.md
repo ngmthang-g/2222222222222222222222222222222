@@ -576,3 +576,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - docs/emulator/P02_READER_MANAGER_CONNECTION_LIFECYCLE.md, P02_MODEL.json (25 deferred runtime cases), P02_STATIC_EVIDENCE.tsv (42 evidence items), docs/tasks/P02.md. Static CRC/hashes/JS syntax PASS; live Windows/LD/ADB/Frida NOT_RUN.
 - No reconstructed app source, no Windows build workflow: BUILD_BLOCKED_SOURCE_MISSING. No Proxy work and original Gate-B UI contract unchanged.
 - **NEXT_ACTION P03 — emu_input ADB event/capture, per-serial control/coordinates/errors static audit.**
+
+
+## P03 — Original ADB input, screenshot and coordinate domain audit
+- `emu_input` original compiled marker 0x293325f and 10 `AdbInput` API method symbols confirmed by direct original EXE. ADB subprocess, hidden console flag, shell `input`, `wm size`, `exec-out screencap -p` raw PNG and Pillow RGB/None error doc statically audited.
+- PC reference 1366x768 conversion to actual Android device pixels is distinct from `DebugAndroidTab` Win32 LDPlayer client viewport mapping (default origin 0,30). Do not hardcode the LD 960x540 example. APK/device runtime and exact rounding/timeout UNKNOWN.
+- Packaged original ZIP does not contain adb.exe; EXE references external LDPlayer adb.exe path and `LD_ADB`, precedence UNKNOWN. Clone-safe device selection and permission gates stay unchanged. **No UI invented from screenshots.**
+- Artifacts docs/emulator/P03_INPUT_CAPTURE_COORDINATES.md, P03_MODEL.json, P03_STATIC_EVIDENCE.tsv, docs/tasks/P03.md; 49 evidence items, 26 planned runtime tests, 0 executed. Original hash+CRC PASS; no game/ADB/Frida/HTTP actions.
+- **Product BUILD_BLOCKED_SOURCE_MISSING**: no rebuilt Stage-S app source or Stage-T Windows workflow in previous code/build audit; this task only added research docs. Proxy excluded.
+- **NEXT_ACTION P04 — emu_chat chat-link UI route, settings calibration and memory destination verification, EXE first.**
