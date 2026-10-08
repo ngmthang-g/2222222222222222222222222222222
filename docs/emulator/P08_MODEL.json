@@ -1,0 +1,323 @@
+{
+  "task": "P08",
+  "status": "STATIC_DEBUG_ANDROID_DEV_WORKBENCH_AND_COORDINATES_AUDITED_LIVE_PARITY_DEFERRED",
+  "original": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "zip_entries": 1050,
+    "zip_crc": "PASS",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "exe_bytes": 47450112,
+    "debug_module_marker": "0x290df6c",
+    "compiled_constant_range": "0x290bb8c–0x290df6b"
+  },
+  "ui": {
+    "visibility": "DEVELOPER_ONLY",
+    "standard_tabs_not_to_expand": true,
+    "controls": [
+      "read-only ADB serial selection",
+      "Refresh serials",
+      "Start frida-server",
+      "Force rescan",
+      "Push script",
+      "Push all",
+      "Toggle listener",
+      "Tap",
+      "Screencap",
+      "RGB read+swatch",
+      "RoleData read",
+      "Bag Site10 read",
+      "Chat @GOTO staged controls",
+      "Live tracking",
+      "Viewport corner calibration",
+      "Log text"
+    ],
+    "actions": [
+      "_start_server",
+      "_emu_scan",
+      "_adb_push_one",
+      "_adb_push_all",
+      "_remote_toggle",
+      "_do_cap",
+      "_do_tap",
+      "_do_rgb",
+      "_do_mem",
+      "_do_bag",
+      "_step_open",
+      "_step_type",
+      "_step_send",
+      "_step_link",
+      "_step_full",
+      "_step_close",
+      "_toggle_track"
+    ]
+  },
+  "mapping": {
+    "windows": [
+      "GetCursorPos",
+      "WindowFromPoint",
+      "GetAncestor(GA_ROOT)",
+      "GetWindowText",
+      "ScreenToClient",
+      "GetClientRect"
+    ],
+    "title_gate": "LDPlayer/dnplayer",
+    "viewport_defaults": {
+      "x1": 0,
+      "y1": 30,
+      "x2": "AUTO",
+      "y2": "AUTO"
+    },
+    "device_reference_example": [
+      960,
+      540
+    ],
+    "alt_two_corners": [
+      "upper-left",
+      "lower-right"
+    ],
+    "middle_click_listener": true,
+    "alt_pin_to_tap": true,
+    "settings_section": "EmuChat",
+    "settings_keys": [
+      "chat_open_x",
+      "chat_open_y",
+      "input_x",
+      "input_y",
+      "send_x",
+      "send_y",
+      "kb_ok_x",
+      "kb_ok_y",
+      "link_x",
+      "link_y",
+      "goto_map",
+      "goto_x",
+      "goto_y",
+      "vp_x1",
+      "vp_y1",
+      "vp_x2",
+      "vp_y2"
+    ]
+  },
+  "capture": {
+    "method": "AdbInput.screencap/save_cap -> PIL RGB",
+    "save_prefix": "emu_cap_",
+    "rgb": "PIL.Image.getpixel sample and Tk Canvas swatch",
+    "failed_capture": "None/error not black pixel"
+  },
+  "memory": {
+    "source": "EmuManager.poll_rows",
+    "bag_source": "get_bag_slots",
+    "status_fields": [
+      "RoleName",
+      "RoleID",
+      "Level",
+      "MapID",
+      "PosX",
+      "PosY",
+      "CurrentHP",
+      "MaxHP",
+      "Exp",
+      "BoundMoney",
+      "ServerID"
+    ],
+    "stale_read_guard": "not proven at runtime"
+  },
+  "checks": {
+    "zip_crc": "PASS",
+    "offset_anchors_checked": 53,
+    "offset_anchors_passed": 53,
+    "evidence_rows": 92,
+    "live_runtime_planned": 33,
+    "live_runtime_run": 0,
+    "cases": [
+      {
+        "id": "P08-01",
+        "requirement": "Dev permission makes Debug Android tab visible, absent otherwise",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-02",
+        "requirement": "Selecting Debug Android uses lazy tab creation exactly once",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-03",
+        "requirement": "Tab Destroy unregisters mouse listener and after() workers safely",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-04",
+        "requirement": "Serial ComboBox Refresh matches live ADB serials and selected target",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-05",
+        "requirement": "Invalid/missing serial causes safe no-op rather than sending to arbitrary VM",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-06",
+        "requirement": "Start frida-server action and status distinction (ADB vs Frida alive)",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-07",
+        "requirement": "Force rescan/status refresh does not claim discovery prematurely",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-08",
+        "requirement": "Push one script targets exactly selected serial",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-09",
+        "requirement": "Push all script targets intended ADB devices, reports partial failures",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-10",
+        "requirement": "Remote listener toggle matches actual started/stopped port state",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-11",
+        "requirement": "Remote toggle does not start for unentitled users",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-12",
+        "requirement": "Direct tap uses device pixel coords, not Windows client coords",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-13",
+        "requirement": "Screencap returns valid RGB image, unlike None/error",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-14",
+        "requirement": "Capture file output saved in known config path without overwriting others",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-15",
+        "requirement": "RGB pixel reading reflects screenshot pixel and visual sample block",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-16",
+        "requirement": "Out-of-bounds RGB coordinate gives clear failure",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-17",
+        "requirement": "Read RoleData fields from fresh Frida data, not stale cache",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-18",
+        "requirement": "Read bag Site10 distinguishes None/error versus actual 0",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-19",
+        "requirement": "User chat calibration fields load/save exact [EmuChat] keys",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-20",
+        "requirement": "Open/type/send/link steps execute in proper order without success-by-ACK",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-21",
+        "requirement": "Goto full validates actual character map/position before success",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-22",
+        "requirement": "TRACK live memory and physical position stale/move/cancel states",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-23",
+        "requirement": "Win32 GetCursorPos -> ScreenToClient mapping handles DPI scaling",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-24",
+        "requirement": "Only LDPlayer/dnplayer windows accepted, rejects other windows",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-25",
+        "requirement": "Viewport first corner upper-left second lower-right via Alt capture",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-26",
+        "requirement": "Viewport invalid corners reject and preserve previous mapping",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-27",
+        "requirement": "Viewport (0,30) default and auto far-corner adapt live window dimensions",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-28",
+        "requirement": "Middle mouse event and Alt pin do not take over physical mouse",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-29",
+        "requirement": "Pin to tap matches current device coords and updates config fields",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-30",
+        "requirement": "Change resolution or emulator rotation yields correct device pixels",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-31",
+        "requirement": "Multiple LDPlayer clones do not cross-target with overlapping Android IDs",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-32",
+        "requirement": "Debugger does not expose nonexistent NPC/fake accounts/plan-limit tests",
+        "runtime_status": "NOT_RUN"
+      },
+      {
+        "id": "P08-33",
+        "requirement": "Windows rebuilt app sources/workflow and release EXE parity",
+        "runtime_status": "NOT_RUN"
+      }
+    ]
+  },
+  "uncertainties": [
+    "actual Win32/LDPlayer runtime UI layout",
+    "dev permission entitlement and grant on a live account",
+    "middle mouse and Alt collision/order",
+    "viewport x2 y2 arithmetic/clip/round rules",
+    "fresh RoleData read and prior Frida attach",
+    "capture file path conflict and I/O error strategy",
+    "worker thread Tk cleanup",
+    "real game map tile conversion",
+    "listener security/account-limit checks"
+  ],
+  "source_app": {
+    "status": "ABSENT",
+    "windows_build_pipeline": "ABSENT",
+    "build_status": "BUILD_BLOCKED_SOURCE_MISSING"
+  },
+  "scope": {
+    "proxy": "EXCLUDED",
+    "existing_modules": "UNCHANGED",
+    "runtime_tests": "NOT_RUN"
+  },
+  "phase_p": "STATIC_RESEARCH_HANDOFF_COMPLETE; LIVE_PARITY_DEFERRED",
+  "next_action": "R01 — gap-focused immutable resource `.dat/.bak/.old` provenance and packaging audit without repeating Gate-A or D06/D07"
+}
