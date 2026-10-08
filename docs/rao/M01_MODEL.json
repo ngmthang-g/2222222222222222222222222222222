@@ -1,0 +1,115 @@
+{
+  "task":"M01",
+  "status":"VERIFIED_ACTIVE_RAO_AUTHORITY_VISIBLE_SURFACE_40_METHOD_INVENTORY_PERMISSION_PERSISTENCE_AND_DEPENDENCY_BOUNDARY",
+  "authority":{
+    "archive_sha256":"c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size":93715901,
+    "zip_entries":1050,
+    "zip_crc_clean":true,
+    "inner_exe_sha256":"15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size":47450112,
+    "module":"rao_tab",
+    "source_filename":"rao_tab.py",
+    "class":"RaoTab",
+    "serialized_header_offset":"0x2bd7850",
+    "serialized_size_bytes":11774,
+    "serialized_constant_count":582,
+    "exact_module_marker_offset":"0x2bd9f72",
+    "direct_class_methods":40
+  },
+  "main_app":{
+    "tab_label":"Rao",
+    "tab_key":"rao_tab",
+    "constructed":true,
+    "initial_create_surface":"hidden",
+    "class_reference":"RaoTab",
+    "visibility_setter":"_set_rao_tab_visible",
+    "visibility_doc":"Show/hide Rao tab — chỉ hiện khi có quyền (như donvang_tab).",
+    "build_policy_doc":"Chỉ build 1 lần khi tab chưa có nội dung.",
+    "captured_visibility":"visible",
+    "exact_server_plan_permission_value_at_capture":"UNKNOWN"
+  },
+  "start_tab":{
+    "rao_specific_controls_recovered":false,
+    "serialized_block":{"offset":"0x2bf8bf7","size_bytes":37643,"constant_count":1536},
+    "case_insensitive_rao_string_count_in_exact_block":0,
+    "note":"rao_tab imports/shared-uses start_tab helper symbols, but no Rao-specific StartTab UI/action surface was recovered"
+  },
+  "visible_surface":{
+    "config_group":"Cấu hình rao tự động",
+    "config_columns":["Tên","Nội dung rao","Kênh","Lặp (s)","Xóa"],
+    "add_button":"+ Thêm rao",
+    "account_group":"Danh sách tài khoản",
+    "account_headers":["Nhân vật","Nội dung rao"],
+    "bottom_main_button":"Bắt đầu",
+    "message_name_pattern":"Rao N",
+    "message_name_generator":"smallest unused positive N",
+    "channel_combobox":"readonly",
+    "channel_names":["Thế giới","Bang hội","Môn phái","Tổ đội","Liên minh","Quân đoàn","Lân cận"],
+    "static_default_channel":"Thế giới",
+    "interval_entry_validation_boundary":"digits-only helper recovered; detailed interval semantics deferred M04",
+    "account_row":{
+      "rao_selection_slots":4,
+      "play_button":"▶",
+      "state_label_initial_surface":"Đã dừng",
+      "exact_assignment_semantics":"DEFERRED_M05",
+      "exact_start_stop_semantics":"DEFERRED_M06"
+    }
+  },
+  "permission":{
+    "tab_visibility":"main-shell permission controlled",
+    "row_permission":"permission_guard.has_permission with rao_tab",
+    "action_guard":"has_permission_with_limit with adjacent rao_tab / rao arguments",
+    "captured_tab_visible":true,
+    "exact_license_plan_state":"UNKNOWN"
+  },
+  "persistence_boundary":{
+    "section":"Rao",
+    "shared_helpers":["_settings_lock","read_settings","write_settings"],
+    "message_key_family":"rao_",
+    "account_key_family":"acc_",
+    "message_storage_schema":"DEFERRED_M02",
+    "account_assignment_schema":"DEFERRED_M05",
+    "destroy_save_hook":"_save_on_destroy",
+    "load_hook":"_load_config",
+    "account_load_hook":"load_acc_config"
+  },
+  "refresh_boundary":{
+    "account_refresh_doc":"Tự động refresh danh sách acc mỗi 5 giây.",
+    "start":"_start_refresh when tab selected",
+    "stop":"_stop_refresh when tab left",
+    "window_identity_refresh":["bind_window_identity","unbind_window_identity"],
+    "deep_assignment_behavior":"DEFERRED_M05"
+  },
+  "worker_boundary":{
+    "module_doc":"send through memory_items.send_chat / Network.SendPacket CMD_CLIENT_CHAT without opening the chat panel",
+    "worker_methods":["_slot_loop","_start_slot","_stop_slot","_toggle_single_acc","_start_all_accs","_stop_acc"],
+    "slot_count_visible_boundary":4,
+    "deep_worker_behavior":"DEFERRED_M06",
+    "channel_mapping":"DEFERRED_M03",
+    "interval_behavior":"DEFERRED_M04"
+  },
+  "dependency_boundary":{
+    "verified_module_surface":["tkinter/ttk/messagebox/font","os","start_tab"],
+    "verified_shared_helpers":["get_windows","get_character_info","_settings_lock","read_settings","write_settings"],
+    "verified_direct_runtime":["threading","time","json","memory_items","utils","win32gui","permission_guard"],
+    "direct_symbol_owner_unresolved":["bind_window_identity","unbind_window_identity"],
+    "constructor_context":["info_tab","notebook/parent surface"],
+    "weak_static_only":["requests","D04 rao_tab->info_tab Tier-B graph edge","D04 party_tab->rao_tab incoming Tier-B edge"]
+  },
+  "captured_ui":{
+    "source":"user-supplied Rao screenshot cross-checked after EXE-first extraction",
+    "active_tab":"Rao",
+    "config_row":{"name":"Rao 1","content":"","channel":"Thế giới","interval":"30"},
+    "account_rows_visible":0,
+    "bottom_button":"Bắt đầu",
+    "captured_values_are_universal_defaults":false,
+    "note":"Thế giới is also statically recovered as RAO_DEFAULT_CHANNEL; interval default semantics are deferred to M04"
+  },
+  "dormant_assessment":{
+    "module_dormant":false,
+    "reason":"TLMMainApp creates the Rao tab, references RaoTab in its current build path, and manages Rao-specific visibility/permission",
+    "permission_controlled":true
+  },
+  "next_task":"M02 — Rao message storage audit"
+}

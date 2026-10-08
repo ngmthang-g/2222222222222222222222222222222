@@ -1,0 +1,50 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; 1050 entries; CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+rao_serialized_header	0x2bd7850	VERIFIED_STATIC_DECODE	.rao_tab header size=0x2dfe=11774 bytes; count=0x0246=582
+rao_source_filename	0x2bd9ea7	VERIFIED_STATIC	rao_tab.py
+rao_exact_module_marker	0x2bd9f72	VERIFIED_STATIC	<module rao_tab>
+rao_direct_methods	0x2bd9af2	VERIFIED_STATIC_INVENTORY	40 direct RaoTab methods including __init__
+main_create_label	0x28d39c1	VERIFIED_MAIN_SHELL	visible tab label Rao
+main_create_key	0x28d39ce	VERIFIED_MAIN_SHELL	tab key rao_tab; initial hidden surface in create_tabs
+main_class_ref	0x28d4a6a	VERIFIED_MAIN_SHELL	RaoTab class referenced by TLMMainApp build/rebuild path
+main_visibility_helper	0x28d47a6	VERIFIED_MAIN_SHELL	_set_rao_tab_visible
+main_visibility_doc	0x28d4ce4	VERIFIED_MAIN_SHELL_UTF8	Show/hide Rao tab — chỉ hiện khi có quyền (như donvang_tab).
+ui_config_group	0x2bd7a61	VERIFIED_VISIBLE_STATIC	Cấu hình rao tự động
+ui_header_name	0x2bd7ad9	VERIFIED_VISIBLE_STATIC	Tên
+ui_header_content	0x2bd7b28	VERIFIED_VISIBLE_STATIC	Nội dung rao
+ui_header_channel	0x2bd7b7d	VERIFIED_VISIBLE_STATIC	Kênh
+ui_header_interval	0x2bd7b9c	VERIFIED_VISIBLE_STATIC	Lặp (s)
+ui_header_delete	0x2bd7bbf	VERIFIED_VISIBLE_STATIC	Xóa
+ui_add_message	0x2bd7c08	VERIFIED_VISIBLE_STATIC	+ Thêm rao
+ui_accounts_group	0x2bd7ca9	VERIFIED_VISIBLE_STATIC	Danh sách tài khoản
+ui_accounts_name	0x2bd7d00	VERIFIED_VISIBLE_STATIC	Nhân vật
+ui_accounts_content	0x2bd7d11	VERIFIED_VISIBLE_STATIC	Nội dung rao
+ui_start_all	0x2bd7f21	VERIFIED_VISIBLE_STATIC	Bắt đầu
+ui_channel_symbol	0x2bd81a2	VERIFIED_VISIBLE_BOUNDARY	RAO_CHANNELS
+ui_default_channel_symbol	0x2bd81b0	VERIFIED_VISIBLE_BOUNDARY	RAO_DEFAULT_CHANNEL
+ui_channel_world	0x2bd9a34	VERIFIED_VISIBLE_STATIC	Thế giới
+ui_channel_guild	0x2bd9a42	VERIFIED_VISIBLE_STATIC	Bang hội
+ui_channel_school	0x2bd9a4e	VERIFIED_VISIBLE_STATIC	Môn phái
+ui_channel_party	0x2bd9a5a	VERIFIED_VISIBLE_STATIC	Tổ đội
+ui_channel_alliance	0x2bd9a67	VERIFIED_VISIBLE_STATIC	Liên minh
+ui_channel_legion	0x2bd9a73	VERIFIED_VISIBLE_STATIC	Quân đoàn
+ui_channel_nearby	0x2bd9a81	VERIFIED_VISIBLE_STATIC	Lân cận
+ui_default_channel	0x2bd9a9b	VERIFIED_STATIC_DECODE	RAO_DEFAULT_CHANNEL serialized as Thế giới
+message_autoname	0x2bd80cd	VERIFIED_VISIBLE_BOUNDARY	Rao 1 pattern; _next_rao_name doc says smallest unused Rao N
+account_stopped_state	0x2bd8c88	VERIFIED_VISIBLE_BOUNDARY	Đã dừng
+account_four_combobox_doc	0x2bd967e	VERIFIED_VISIBLE_BOUNDARY	load_acc_config exact doc restores 4 rao-content comboboxes per character
+account_play_button	0x2bd8b58	VERIFIED_VISIBLE_BOUNDARY	per-account toggle callback; ▶ button serialized in account-row block
+refresh_5s_doc	0x2bd916a	VERIFIED_STATIC_UTF8	Tự động refresh danh sách acc mỗi 5 giây.
+row_permission	0x2bd8e79	VERIFIED_PERMISSION_UTF8	Disable row mới tạo khi không có quyền rao_tab.
+action_permission	0x2bd919f	VERIFIED_PERMISSION_STATIC	has_permission_with_limit with adjacent rao_tab / rao arguments
+config_section	0x2bd9647	VERIFIED_PERSISTENCE	Rao section literal
+config_account_prefix	0x2bd9651	VERIFIED_PERSISTENCE	acc_ key family
+config_message_prefix	0x2bd9746	VERIFIED_PERSISTENCE	rao_ key family
+config_shared_helpers	0x2bd99d1	VERIFIED_PERSISTENCE	_settings_lock/read_settings/write_settings shared helper surface
+module_doc	0x2bd9853	VERIFIED_STATIC_UTF8	Rao tự động; send chat via memory_items.send_chat without opening chat; channel chosen per RAO_CHANNELS row
+start_tab_header	0x2bf8bf7	VERIFIED_STATIC_DECODE	.start_tab size=0x930b=37643; count=0x0600=1536
+start_tab_rao_strings	-	VERIFIED_NEGATIVE_STATIC	0 case-insensitive Rao/rao strings inside exact serialized .start_tab block
+starttab_exposure	-	NOT_RECOVERED_CURRENT	no current Rao-specific StartTab button/action surface recovered
+screenshot_crosscheck	-	CROSSCHECKED_AFTER_STATIC	user-supplied Rao screenshot matches config row headers, + Thêm rao, account-list headers, bottom Bắt đầu; capture shows Rao 1 / empty content / Thế giới / 30 and no account rows
+classification	-	VERIFIED_ACTIVE_CURRENT_MODULE	main app constructs permission-controlled Rao tab; not dormant

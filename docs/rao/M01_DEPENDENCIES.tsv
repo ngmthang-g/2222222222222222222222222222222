@@ -1,0 +1,18 @@
+dependency	evidence_offset_hex	classification	note
+tkinter/ttk/messagebox/font	0x2bd9969	VERIFIED_MODULE_SURFACE	UI toolkit symbols serialized in current Rao block
+os	0x2bd999b	VERIFIED_MODULE_SURFACE	config path environment helpers
+start_tab	0x2bd999f	VERIFIED_SHARED_HELPER_DEPENDENCY	current Rao block directly carries start_tab + get_windows/get_character_info/settings helpers
+get_windows	0x2bd99ac	VERIFIED_DIRECT_SYMBOL	shared account/window discovery helper
+get_character_info	0x2bd99bb	VERIFIED_DIRECT_SYMBOL	shared character info helper
+_settings_lock/read_settings/write_settings	0x2bd99d1	VERIFIED_DIRECT_SHARED_SETTINGS	shared settings persistence boundary
+threading	0x2bd802a	VERIFIED_DIRECT_RUNTIME	bulk/start worker surface
+time	0x2bd8643	VERIFIED_DIRECT_RUNTIME	slot-loop timestamp/timing surface; exact semantics deferred
+json	0x2bd9663	VERIFIED_DIRECT_RUNTIME	persistence serialization surface; schema deferred
+memory_items	0x2bd8548	VERIFIED_DIRECT_RUNTIME	current module doc explicitly sends chat through memory_items.send_chat; worker semantics deferred
+utils	0x2bd88f0	VERIFIED_DIRECT_RUNTIME	current window/PID helper usage
+win32gui	0x2bd8921	VERIFIED_DIRECT_RUNTIME	IsWindow/window validity surface
+permission_guard	0x2bd8e18	VERIFIED_DIRECT_RUNTIME	has_permission / has_permission_with_limit
+bind_window_identity/unbind_window_identity	0x2bd89cc	VERIFIED_DIRECT_SYMBOL_OWNER_UNRESOLVED	identity-binding symbols are direct; exact source module owner not frozen here
+info_tab	0x2bd785f	VERIFIED_CONSTRUCTOR_CONTEXT	RaoTab constructor/context receives info_tab; D04 also carries rao_tab->info_tab Tier-B edge
+requests	-	WEAK_STATIC_REFERENCE_NOT_IMPORT_PROOF	D03 conservative dependency matrix lists requests for rao_tab; do not promote to active import without direct current block evidence
+party_tab -> rao_tab	-	WEAK_INCOMING_REFERENCE_NOT_DEPENDENCY	D04 Tier-B incoming edge only; not a Rao runtime import
