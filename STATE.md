@@ -5247,3 +5247,23 @@ On CONTINUE:
 2. Execute N08 — Tối ưu TLMP-5 ping/watch, Treo tick and Login recovery audit from exact frozen EXE. Inspect _start_watch, _tick_watch_loop, _tick_watch_round, _ping_one, _recover_row, WATCH_INTERVAL, WATCH_PING_WAIT, WATCH_MAX_MISS, packaged Perf ping log and Login tab integration.
 3. Distinguish source-intended recovery from actual runtime; preserve N05–N07, no DLL/proxy changes.
 4. Compare B11 screenshot only after static extraction. Persist N08 report/model/evidence/task; update STATE.md/PROJECT_STATUS.md and recheck build.
+
+## N08 VERIFIED RESULTS — TLMP-5 WATCHDOG, TREO TICK AND LOGIN RECOVERY
+- Read PLAN.md, STATE.md, PROJECT_STATUS.md and verified GitHub parent HEAD 87cf332be49e963239611bd2c9be0910316e3ea0; N01–N07 complete, N08 previously absent.
+- Original ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 entries, CRC clean), inner EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 and packaged automove_log.txt SHA256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 remained unchanged.
+- Original ToiuuTab _start_watch/_tick_watch_loop/_tick_watch_round/_recover_row symbols present; WATCH_INTERVAL, WATCH_PING_WAIT, WATCH_MAX_MISS and WATCH_RECOVER_TIMEOUT exist but exact numeric bindings unproven.
+- Exact embedded doc: TLMP-5 ping for running accounts, 2 consecutive misses -> Treo tick/red -> recovery intent. _ping_miss, _recovering, _auto_revive, _watch_running and login_tab_ref present, default/guard semantics not decompiled.
+- Watcher matches regex \[pid=(\d+)\] Perf: ping from automove_log.txt using getsize/fstat/st_size/seek/finditer/pongs; exact ordering and log-rotation safety unknown.
+- Offline packaged historical log is 15741058 bytes / 387238 newlines, with 4134 Perf: ping lines all matching the watch regex across 88 unique PID labels; no [Toiuu watcher lines. Historical log != current Windows functional test.
+- Original _recover_row documents kill hung game -> LoginTab relogin -> reapply eco+start. Actual LoginTab compiled methods _close_single_account and _login_single_account confirmed. If LoginTab is not connected, mapping of PID to login row fails, or relogin waits too long, explicit manual-recovery strings exist. No unconditional kill/relogin success is inferred.
+- Potential log-delay/truncation/PID reuse/false hang and concurrent recovery races are required runtime tests, not proven bugs. N08 status STATIC_WATCH_PING_AND_LOGIN_RECOVERY_INTERFACE_AUDITED_WITH_HISTORICAL_PING_LOG / LIVE_PARITY_DEFERRED.
+- New artifacts docs/toiuu/N08_WATCH_PING_RECOVERY_FLOW.md, docs/toiuu/N08_MODEL.json, docs/toiuu/N08_STATIC_EVIDENCE.tsv, docs/tasks/N08.md. 82 evidence records, 22 planned Windows/static acceptance tests (all NOT_RUN).
+
+## POST-N08 SOURCE/BUILD CHECK
+- Only documentation/models and STATE.md/PROJECT_STATUS.md changed; no source app or GitHub Actions workflow, and original binaries and completed N01–N07 untouched. Product build NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED.
+
+## N08 BLOCKERS / DO_NOT_TOUCH
+- Exact watch timeout numbers, log acknowledgment freshness, _auto_revive default, safe PID->Login row mapping, permission/relogin retries and real Windows game results remain UNKNOWN. Preserve all completed work, original EXE and Proxy excluded.
+
+## NEXT_ACTION
+On CONTINUE: reread PLAN.md and STATE.md; check GitHub for N09 artifacts before work. Execute **N09 — Tối ưu persisted running-set / tool crash-restart reconciliation and old-game restore/resume audit** using frozen original EXE first: _save_running_set, _load_running_set, _reconcile_stale_running, _reconcile_stale_worker, _resume_running_rows, _game_predates_boot, _restore_targets, toiuu_running/toiuu_was_running and permissions. Distinguish mode selection and watchdog. Compare B11 screenshot only after binary evidence; persist report/model/evidence/task, update STATE.md and PROJECT_STATUS.md, recheck source/build. No previous tasks rewritten.

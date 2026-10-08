@@ -1,0 +1,93 @@
+{
+  "task": "N08",
+  "status": "STATIC_WATCH_PING_AND_LOGIN_RECOVERY_INTERFACE_AUDITED_WITH_HISTORICAL_PING_LOG_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "parent_main_sha": "87cf332be49e963239611bd2c9be0910316e3ea0",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "original_python_ast_available": false
+  },
+  "watcher": {
+    "constructor_fields": [
+      "_auto_revive",
+      "_watch_running",
+      "_closing",
+      "login_tab_ref"
+    ],
+    "start_method": "_start_watch",
+    "loop": "_tick_watch_loop",
+    "round": "_tick_watch_round",
+    "ping_helper": "_ping_one",
+    "mode": 5,
+    "interval_symbol": "WATCH_INTERVAL",
+    "wait_symbol": "WATCH_PING_WAIT",
+    "threshold_symbol": "WATCH_MAX_MISS",
+    "documented_consecutive_misses": 2,
+    "threshold_exact_numeric_binding": "EXPLICIT_UNKNOWN",
+    "watch_log_path": "_watch_log_path (linked to automove_log.txt)",
+    "log_parser_regex": "\\[pid=(\\d+)\\] Perf: ping",
+    "baseline_seek_symbols": [
+      "getsize",
+      "fstat",
+      "st_size",
+      "seek",
+      "finditer"
+    ],
+    "pong_collection": "pongs",
+    "miss_field": "_ping_miss",
+    "hung_status": "Treo tick",
+    "hung_color": "#c62828",
+    "revived_message": "tick sống lại"
+  },
+  "recovery": {
+    "method": "_recover_row",
+    "guard": "_recovering",
+    "auto_revive_field": "_auto_revive",
+    "auto_revive_default": "EXPLICIT_UNKNOWN",
+    "login_tab_ref": "login_tab_ref",
+    "login_mapping": "_tracked_windows with PID -> idx",
+    "close": "LoginTab._close_single_account",
+    "login": "LoginTab._login_single_account",
+    "timeout_symbol": "WATCH_RECOVER_TIMEOUT",
+    "timeout_seconds": "EXPLICIT_UNKNOWN",
+    "saved_selection": "mode_key",
+    "documented_intent": "Kill hung account, login again, reapply mode and start",
+    "unwired_login_fallback": "manual relogin",
+    "missing_row_fallback": "manual relogin",
+    "timeout_fallback": "manual check",
+    "success_code_proven": false
+  },
+  "historical_log": {
+    "path": "TLMTool.dist/data/automove_log.txt",
+    "size_bytes": 15741058,
+    "sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "lines": 387238,
+    "ping_lines": 4134,
+    "regex_matching_ping_lines": 4134,
+    "unique_ping_pids": 88,
+    "toiuu_markers": 0,
+    "proof_tier": "PACKAGED_HISTORICAL_NOT_FRESH_RUNTIME"
+  },
+  "risks": [
+    "old response mistaken as fresh",
+    "log truncation or rotation",
+    "logging blocked or delayed",
+    "PID reuse and new HWND race",
+    "unwired LoginTab or ambiguous PID->row mapping",
+    "auto_revive default and stop-cancellation unknown",
+    "runtime relogin success unverified"
+  ],
+  "acceptance": {
+    "planned": 22,
+    "executed": 0,
+    "status": "NOT_RUN_STAGE_S_NOT_STARTED"
+  },
+  "product": {
+    "reconstructed_source_exists": false,
+    "build_workflow_exists": false,
+    "build": "NOT_APPLICABLE_STAGE_S_NOT_STARTED",
+    "windows_runtime": "NOT_RUN"
+  },
+  "next_action": "N09 — persisted running set and tool restart reconciliation audit"
+}

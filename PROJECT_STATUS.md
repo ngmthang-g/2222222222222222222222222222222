@@ -504,3 +504,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Background-tab lazy scan and targeted unresolved names are documented worker-only. _restore_targets differentiates selected mode and pre-tool-boot survivor; per-HWND PID guard required. Exact concurrency, TODO branch and state paint need Windows tests.
 - 86 static evidence rows, 22 future tests NOT_RUN. Files docs/toiuu/N07_START_STOP_ORCHESTRATION_FLOW.md, docs/toiuu/N07_MODEL.json, docs/toiuu/N07_STATIC_EVIDENCE.tsv, docs/tasks/N07.md. Previous studies unchanged.
 - Stage-S source and Stage-T build absent. **NEXT N08 — TLMP-5 ping/watch, Treo tick and Login recovery audit.**
+
+## N08 — TLMP-5 ping watchdog and LoginTab hung recovery
+- STATIC_WATCH_PING_AND_LOGIN_RECOVERY_INTERFACE_AUDITED_WITH_HISTORICAL_PING_LOG / LIVE_PARITY_DEFERRED.
+- Exact original EXE method markers for _tick_watch_loop/_tick_watch_round/_recover_row; WATCH_INTERVAL/PING_WAIT/MAX_MISS and embedded two-consecutive-misses Treo tick doc. Watcher reads automove_log.txt pongs matching \[pid=(\d+)\] Perf: ping rather than treating send=True as game health.
+- Packaged historical log 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 contains 4134 matching ping lines over 88 PIDs, but no [Toiuu markers; no live game watchdog/relogin run.
+- LoginTab _close_single_account and _login_single_account original methods exist; _recover_row has explicit manual fallback when LoginTab absent, no PID row mapping or timeout. _auto_revive default and exact timing/guard remain unverified.
+- 82 evidence records and 22 acceptance cases (0 run), in docs/toiuu/N08_WATCH_PING_RECOVERY_FLOW.md, N08_MODEL.json, N08_STATIC_EVIDENCE.tsv and docs/tasks/N08.md. No Stage-S rebuilt app source or workflow.
+- NEXT N09 — persisted running set, old-game/old-tool session reconcile and safe restore/resume audit.

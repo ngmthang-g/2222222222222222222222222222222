@@ -1,0 +1,83 @@
+key	offset_hex	tier	evidence
+authority_archive	-	VERIFIED_FILE	Frozen TLMTool_2.1.2(9).zip; 1050 entries, CRC clean, SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+authority_exe	-	VERIFIED_FILE	TLMTool.dist/TLMTool.exe 47450112 bytes; SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+authority_log	-	VERIFIED_FILE	TLMTool.dist/data/automove_log.txt 15741058 bytes, SHA256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500
+module_tooiu	0x2c01fb5	REUSED_N01_EXACT	Active .toiuu_tab compiled module; 22485 payload bytes; 940 constants
+watch_init_ref	0x2c02249	EXACT_SYMBOL	_start_watch starts during constructor initialization
+login_reference	0x2c0206e	EXACT_SYMBOL	login_tab_ref constructor field
+watch_auto_revive_field	0x2c0208c	EXACT_SYMBOL	_auto_revive exists; enabled default unproven
+watch_running_field	0x2c0209a	EXACT_SYMBOL	_watch_running exists
+tab_closing_field	0x2c02052	EXACT_SYMBOL	_closing exists
+rows_field	0x2c0202d	EXACT_SYMBOL	_acc_rows by HWND, expected PID guards from N07
+worker_loop	0x2c05b50	EXACT_SYMBOL	_tick_watch_loop
+worker_interval	0x2c05b62	EXACT_SYMBOL	WATCH_INTERVAL numeric value not source-bound
+watch_round	0x2c05b76	EXACT_SYMBOL	_tick_watch_round
+watch_exception	0x2c05b89	EXACT_UTF8	[Toiuu watch] lỗi: 
+watch_dll_path_helper	0x2c05ba2	EXACT_SYMBOL	get_default_dll_path
+watch_log_filename	0x2c05bb8	EXACT_UTF8	automove_log.txt
+recovering_set	0x2c05bcc	EXACT_SYMBOL	_recovering used by watch
+watch_log_path_helper	0x2c05bd9	EXACT_SYMBOL	_watch_log_path
+watch_log_size	0x2c05bea	EXACT_SYMBOL	getsize
+ping_nested_method	0x2c05bf3	EXACT_SYMBOL	_ping_one nested helper
+ping_nested_marker	0x2c05bfe	EXACT_METHOD_MARKER	ToiuuTab._tick_watch_round.<locals>._ping_one
+ping_wait	0x2c05c31	EXACT_SYMBOL	WATCH_PING_WAIT; actual timeout seconds unknown
+tail_stat	0x2c05c42	EXACT_SYMBOL	fstat, st_size
+tail_seek	0x2c05c52	EXACT_SYMBOL	seek
+regex_scan	0x2c05c58	EXACT_SYMBOL	finditer
+regex_exact	0x2c05c62	EXACT_REGEX	\[pid=(\d+)\] Perf: ping
+pongs_collection	0x2c05c7c	EXACT_SYMBOL	pongs + add + group
+ping_results	0x2c05c8f	EXACT_SYMBOL	results
+miss_field_first	0x2c05c98	EXACT_SYMBOL	_ping_miss
+hang_label	0x2c05ca4	EXACT_UTF8	Treo tick
+watch_hwnd_log	0x2c05caf	EXACT_UTF8	[Toiuu watch] hwnd=
+revived_log	0x2c05cc4	EXACT_UTF8	tick sống lại
+miss_field_second	0x2c05cda	EXACT_SYMBOL	_ping_miss
+max_miss	0x2c05ce8	EXACT_SYMBOL	WATCH_MAX_MISS (unbound actual numeric constant)
+miss_log	0x2c05cf8	EXACT_UTF8	miss ... lần — Treo tick
+call_recover	0x2c05d16	EXACT_SYMBOL	_recover_row
+ping_doc	0x2c05d24	EXACT_DOC	Ping TLMP-5 mọi acc đang chạy; 2 miss liên tiếp → đỏ + tự hồi sinh.
+ping_category	0x2c05d7a	EXACT_UTF8	Ping tag
+recovering_guard	0x2c05d80	EXACT_SYMBOL	_recovering also in recovery method region
+recover_log_hwnd	0x2c05d8d	EXACT_UTF8	[Toiuu recover] hwnd=
+recover_log_acc	0x2c05da4	EXACT_UTF8	acc=
+recover_log_mode	0x2c05dab	EXACT_UTF8	mode=
+login_unwired	0x2c05db5	EXACT_UTF8	chưa nối login_tab — bỏ qua, relogin tay
+login_tracking	0x2c05df6	EXACT_SYMBOL	_tracked_windows inside LoginTab recovery mapping
+pid_map	0x2c05e0a	EXACT_SYMBOL	pid, idx for LoginTab row mapping
+login_missing_row	0x2c05e14	EXACT_UTF8	không map được dòng login cho pid=
+login_manual	0x2c05e4e	EXACT_UTF8	relogin tay fallback
+tk_recover_callback	0x2c05e60	EXACT_METHOD_MARKER	ToiuuTab._recover_row.<locals>.<lambda>
+recover_timeout	0x2c05e90	EXACT_SYMBOL	WATCH_RECOVER_TIMEOUT numeric value unknown
+recover_mode	0x2c05eab	EXACT_SYMBOL	mode_key saved for retry/reapply
+relogged_acc	0x2c05eb5	EXACT_UTF8	acc ... đã login lại (hwnd=...) — start lại
+relog_timeout	0x2c05ef8	EXACT_UTF8	quá ... s chưa login lại — kiểm tra tay
+recover_doc	0x2c05f28	EXACT_DOC	Kill acc treo → relogin qua login_tab → ép lại eco + start.
+login_helper_close	0x2c05f73	EXACT_SYMBOL	_close_single_account LoginTab integration
+login_helper_start	0x2c05f8a	EXACT_SYMBOL	_login_single_account LoginTab integration
+login_actual_close_marker	0x2b679c9	CROSS_MODULE_EXACT	LoginTab._close_single_account actual compiled class-method marker
+login_actual_login_marker	0x2b6798a	CROSS_MODULE_EXACT	LoginTab._login_single_account actual compiled class-method marker
+login_actual_thread	0x2b679aa	CROSS_MODULE_EXACT	LoginTab._single_login_worker marker
+watch_loop_method_marker	0x2c06ab0	EXACT_METHOD_MARKER	ToiuuTab._tick_watch_loop
+watch_log_path_marker	0x2c06acb	EXACT_METHOD_MARKER	ToiuuTab._watch_log_path
+watch_round_marker	0x2c06ae5	EXACT_METHOD_MARKER	ToiuuTab._tick_watch_round
+recover_row_marker	0x2c06b01	EXACT_METHOD_MARKER	ToiuuTab._recover_row
+watch_local_path_baseline	0x2c07613	EXACT_LOCALS	path,size0,results,_ping_one,workers,cur_size,data,pongs regex pid
+recover_local_context	0x2c071ca	EXACT_LOCALS	row,dead_pid,mode_key,role_name,login,idx,ent,alive,deadline,cv_new
+native_ping_mode	0x2919cf7	PRIOR_N06_EXACT_DOC	TLMP numeric 5 diagnostic ping; not graphics mode change
+log_ping_total	-	VERIFIED_HISTORICAL_LOG	4134 historical lines contain Perf: ping
+log_regex_matches	-	VERIFIED_HISTORICAL_LOG	All 4134 packaged ping lines match exact regex
+log_ping_pid_cardinality	-	VERIFIED_HISTORICAL_LOG	88 distinct decimal PID labels in packaged ping lines
+log_ping_format_1	-	VERIFIED_HISTORICAL_LOG	Example [pid=33544] Perf: ping busy=1 pending=0 addhook=0 camblack=0 snap=0
+log_ping_format_2	-	VERIFIED_HISTORICAL_LOG	Example [pid=19804] Perf: ping addhook=1 camblack=0 snap=1 active=2
+log_tooiu_absent	-	VERIFIED_HISTORICAL_LOG	No [Toiuu marker in packaged log (0 occurrences)
+watch_baseline_to_response	-	STRONG_STATIC_MODEL	watch round uses getsize/fstat/st_size/seek then regex for newly written matching PID pongs; exact ordering is not AST-proven
+auto_revive_default	-	EXPLICIT_UNKNOWN	_auto_revive value at startup and exact gate for destructive recovery are not proven
+ping_send_ack	-	EXPLICIT_UNKNOWN	Send success is not proof of new Perf ping line or game's health
+log_rotation_risk	-	RUNTIME_REQUIRED	Truncated/rotated/busy log and delayed buffering risk must be tested; cannot claim bug or guard solved
+pid_reuse_risk	-	RUNTIME_REQUIRED	Stale PID and late ping line may be falsely attributed; exact bounds and identity checks need Windows trace
+recover_idempotence	-	RUNTIME_REQUIRED	_recovering exists; exact cross-thread lock/retry exclusion unknown
+relogin_completion	-	RUNTIME_REQUIRED	LoginTab helper presence does not prove successful relogin/reapply
+numeric_watch_times	-	EXPLICIT_UNKNOWN	WATCH_INTERVAL, WATCH_PING_WAIT, WATCH_MAX_MISS, WATCH_RECOVER_TIMEOUT exact numeric assignments not source-recovered; 2 misses only documented
+screenshot_b11	-	REUSED_B11	Original Tối ưu captured empty account list, no Treo tick row or Login recovery flow
+windows_run	-	NOT_RUN	No new original Windows runtime ping, kill, relogin or recovery parity test
+product_build	-	NOT_APPLICABLE	No Stage S application source or Stage T build workflow in current repository
