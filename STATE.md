@@ -4847,3 +4847,82 @@ On CONTINUE:
 7. Defer account assignment to M05 and start/stop ownership to M06 except where interval scheduling directly depends on slot worker state.
 8. Cross-check the supplied Rao screenshot only after static extraction.
 9. Persist M04 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M04 verification.
+
+
+## M04 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before analysis. No pre-existing M04 artifact/completion existed; M01-M03 and Phase-L contracts remain unchanged.
+- M04 re-inspected the exact frozen `rao_tab` constant/local surfaces before screenshot cross-check.
+- Visible interval is **Lặp (s)** backed by `sec_var`.
+- Rao interval entry uses nested `_only_digits` with Tk `%P` and recovered `isdigit`; normal UI input is decimal digits or temporarily blank text.
+- Exact `_load_config` interval surface contains textual **30** as missing-value default and again as `TypeError/ValueError` fallback.
+- Current default/fallback interval is therefore **30 seconds**.
+- The exact load normalization cluster around `sec` contains:
+  - `min`
+  - integer **0**
+  - integer **60**
+  - `sec`
+  - another integer **0**
+  - `TypeError`
+  - `ValueError`
+  - fallback **30**.
+- Together with the reused module `max` builtin and single `_sec` load local, this freezes the current normalized storage/UI semantic domain as **0..60 seconds**. M04 does not pretend the serialized constant stream is source code; exact min/max expression syntax is not reconstructed.
+- `_resolve_rao` has exact invalid text **'<name>' chưa đặt thời gian lặp** and returns numeric `interval_giây` on success. Blank/zero is therefore not a usable repeat setting; normal runnable interval domain is positive **1..60 seconds**.
+- Exact `_slot_loop` documentation: **Vòng lặp rao độc lập của 1 slot: gửi nội dung slot đó, nghỉ đúng hẹn giờ của dòng rao rồi lặp. Tối đa 4 slot chạy song song / acc.**
+- This fixes first-send timing: **send first, then wait the configured interval, then repeat**. A newly started valid slot does not wait one full interval before its first send.
+- Slot-loop static surface includes `_stop_event -> wait -> max` plus local `interval`; the interval delay is an **interruptible event wait**, not an unconditional `time.sleep(interval)`.
+- Stop can therefore interrupt a long interval wait. Full ownership/stop semantics remain M06.
+- Each account may run up to **4 independent slot loops/timers**; no global Rao timer shared by all slots was recovered.
+- `_slot_loop` locals include `want/resolved/content/interval/chan_id/chan_name` and the loop carries `_resolve_rao` inside the repeating worker surface. It does not cache the resolved Rao definition only once at startup.
+- M02 already proved Rao row edits are live trace writes and do not themselves restart the worker. Therefore changing interval while a slot is running:
+  - does **not** retroactively reschedule the wait already in progress;
+  - is observed when the next loop re-resolves the definition;
+  - does **not** require stop/start for subsequent cycles.
+- Static send sequence contains `send_chat`, send-exception/status/echo surfaces, and then the common interval-wait boundary. No separate fast-retry/backoff interval or retry queue was recovered for normal send/no-echo failure.
+- Normal completed attempts therefore return to the configured interval. Hard invalid/window/stop conditions may terminate the slot instead.
+- Exact doc **Dừng 1 slot (rao bị xóa/lỗi giữa chừng).** plus per-loop re-resolution means a definition deleted/renamed/blanked/otherwise invalid between cycles fails closed/stops the affected slot instead of continuing forever on stale cached content/interval.
+- Persistence field remains `sec`; row source is a StringVar/textual decimal seconds, while runtime resolution yields numeric seconds. No hidden milliseconds/minutes representation was recovered.
+- Screenshot cross-check after static extraction shows **30**, matching the recovered current default/fallback.
+- Frozen runtime log contains no Rao send/interval trace, so exact Windows scheduling jitter and server-echo timing remain runtime-required.
+- M04 artifacts committed at **96e9540ef959e270fb187fb4534e4c5d96cce014**:
+  - `docs/rao/M04_INTERVAL_FLOW.md`
+  - `docs/rao/M04_MODEL.json`
+  - `docs/rao/M04_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/M04.md`
+- All four M04 artifacts were fetched back successfully.
+
+## POST-M04 CODE/BUILD RECHECK
+- Recursive main tree after M04 artifact commit contains **681 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- M04 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- M04 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- M04 has no interval-model blocker.
+- Exact Tk validator boolean expression is not source-reconstructed; accepted-input semantics are frozen.
+- Exact Windows scheduler jitter/server echo latency remains runtime-required.
+- Exact account-row state text after a running slot becomes invalid belongs to M06.
+- Account assignment/persistence is intentionally deferred to M05.
+
+## DO_NOT_TOUCH
+- Preserve M01-M04 Rao authority/storage/channel/interval contracts unless stronger exact evidence contradicts them.
+- Preserve 30s default, 0..60 normalized storage domain, and positive 1..60 runnable domain.
+- Preserve first-send-before-wait behavior and interruptible event wait.
+- Do not replace per-slot timers with one global Rao timer.
+- Do not force a worker restart just to observe a valid live interval edit on the next cycle.
+- Do not invent a separate retry/backoff interval.
+- Do not create Stage-S source/build placeholders during Phase M research.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any M05 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **M05 — Rao account assignment/persistence audit** only.
+5. Re-inspect the exact frozen Rao block first, focusing on `_add_or_update_row`, `_refresh_acc_rao_options`, `_on_rao_var_changed`, `load_acc_config`, `_sanitize_name`, `_get_char_info`, `_get_char_name`, HWND/PID identity binding, four `rao_vars`/comboboxes, `acc_` persistence, stale/renamed Rao reconciliation, and refresh/reuse behavior.
+6. Determine exact per-character key format, slot ordering/count, save encoding, restore rules, duplicate character-name/HWND/PID behavior, what happens when account disappears/reappears, exact immediate stale-name clear/preserve behavior after Rao rename/delete when recoverable, and whether running-slot state changes when assignment is edited.
+7. Defer full slot start/stop ownership to M06 except where assignment edits directly stop/restart a slot.
+8. Cross-check supplied Rao screenshot only after static extraction.
+9. Persist M05 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M05 verification.

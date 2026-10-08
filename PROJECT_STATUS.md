@@ -414,7 +414,8 @@ L10 closes Dồn static research by consolidating L01-L09 into one normative rec
 - M01 — VERIFIED_ACTIVE_RAO_AUTHORITY_VISIBLE_SURFACE_40_METHOD_INVENTORY_PERMISSION_PERSISTENCE_AND_DEPENDENCY_BOUNDARY
 - M02 — VERIFIED_NAME_KEYED_RAO_DEFINITIONS_JSON_CONTENT_CHANNEL_SEC_LIVE_TRACE_AND_STALE_NAME_FAIL_CLOSED
 - M03 — VERIFIED_EXACT_7_CHANNEL_NAME_TO_ID_MAP_DEFAULT_WORLD8_NAME_PERSISTENCE_AND_SEND_CHAT_NUMERIC_ID
-- M04 — NEXT
+- M04 — VERIFIED_30S_DEFAULT_0_60_NORMALIZATION_POSITIVE_1_60_RUNNABLE_SEND_THEN_INTERRUPTIBLE_WAIT_LIVE_NEXT_LOOP_REFRESH
+- M05 — NEXT
 
 M01 locks `rao_tab.py / RaoTab` as the active Rao authority. The exact serialized `.rao_tab` header is at `0x2bd7850`, size **11,774 bytes**, count **582**, with **40** direct top-level RaoTab methods inventoried. TLMMainApp creates the permission-controlled visible tab `Rao / rao_tab` and owns `_set_rao_tab_visible`; the supplied capture shows it visible, while the exact license-plan value remains unknown. The dedicated UI surface is frozen as Cấu hình rao tự động with Tên / Nội dung rao / Kênh / Lặp (s) / Xóa, + Thêm rao, Danh sách tài khoản with Nhân vật / Nội dung rao, four Rao-selection slots per account row, per-account ▶ / Đã dừng surfaces, and the bottom Bắt đầu action. Current channel labels are Thế giới, Bang hội, Môn phái, Tổ đội, Liên minh, Quân đoàn, Lân cận, with statically recovered default channel Thế giới; mapping semantics remain for M03. Persistence boundary is [Rao] with rao_ and acc_ families through shared start_tab settings helpers. No Rao-specific StartTab quick action was recovered: the exact serialized start_tab block contains zero case-insensitive Rao/rao strings, despite rao_tab reusing start_tab helper symbols. Deep message, channel, interval, account-assignment and worker behavior remain deferred.
 
@@ -422,5 +423,7 @@ M02 locks Rao message identity/storage. Each live definition owns name_var/msg_v
 
 M03 locks Rao channel semantics. Exact current mapping is Thế giới→8, Bang hội→2, Môn phái→6, Tổ đội→4, Liên minh→3, Quân đoàn→11, Lân cận→5; RAO_DEFAULT_CHANNEL is Thế giới/8. The mapping independently matches the shared memory_items.CHAT_CHANNELS subset, while Đặc biệt/9, Nói thầm/7 and Liên máy chủ/10 remain intentionally unavailable in Rao. M02's persisted channel field stores the display-name string; _resolve_rao derives and returns the numeric channel_id at runtime. memory_items.send_chat exact argument surface is (hwnd, channel_id, content), and the shared send path builds CMD_CLIENT_CHAT with Base64 content and numeric Channel. A stale non-empty persisted channel's exact load-time UI normalization remains unknown, but only current RAO_CHANNELS members may produce a sendable ID.
 
+M04 locks Rao interval semantics. The UI uses sec_var with digits-only/blank-edit validation. Current load/default fallback is 30 seconds; the exact load normalization cluster binds min + integer 0 + integer 60 + sec + TypeError/ValueError, yielding a normalized 0..60-second storage/UI domain, while blank/zero is not runnable and normal active intervals are positive 1..60 seconds. The exact _slot_loop documentation fixes send-before-wait behavior: each valid slot sends immediately, then performs an interruptible _stop_event.wait around its resolved interval, then repeats. Up to four slots per account have independent timers. A live interval edit does not reschedule the already-running wait; the next cycle re-resolves the Rao definition and uses the edited value without restarting the slot. No separate fast retry/backoff path was recovered for normal send/no-echo failures.
+
 ## Phase M current
-M04 — Rao interval normalization/timing audit.
+M05 — Rao account assignment/persistence audit.
