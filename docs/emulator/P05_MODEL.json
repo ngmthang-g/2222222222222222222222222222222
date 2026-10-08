@@ -1,0 +1,271 @@
+{
+  "task": "P05",
+  "status": "STATIC_EMU_FARM_TAB_PARTIAL_UI_PRESETS_AND_PERMISSION_AUDITED_LIVE_TRAIN_PARITY_DEFERRED",
+  "source": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "zip_entries": 1050,
+    "zip_crc": "PASS",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "exe_bytes": 47450112,
+    "ld_remote_js_sha256": "3bd84a2b433ee679b7a049f5aa5cba2e8725d1e09b14d5deb3f42b6bf919edfb",
+    "module_marker": "0x2932983",
+    "original_executed": false
+  },
+  "architecture": {
+    "visibility": "Train LD registered but hidden initially, emu_tab entitlement",
+    "ui": "Tk LabelFrame scrollable canvas dynamic rows",
+    "refresh": "threading daemon worker, emu_manager.poll_rows, Tk after/_apply, refresh schedule/stop",
+    "row_key": "android_id; clones may collide",
+    "command_target": "ADB serial, may change on reboot",
+    "device_presets": "[EmuCoords:serial]",
+    "selected_preset": "per RoleName, guest overlay updates",
+    "migration": "[EmuFarm] with old [TrainLD] fallback",
+    "legacy_coordinates": "map|x|y",
+    "runtime_metrics": [
+      "HP",
+      "MaxHP",
+      "Level",
+      "MapID",
+      "PosX",
+      "PosY",
+      "RoleID",
+      "RoleName",
+      "BoundMoney",
+      "exp gain",
+      "deaths",
+      "bag slots"
+    ]
+  },
+  "action_surfaces": [
+    {
+      "action": "toggle_play",
+      "compiled_handler": "_toggle_this",
+      "guard": "has_permission emu_tab",
+      "observed": "button/status busy + phase sau marker",
+      "implementation": "FARM_LOOP_NOT_PROVEN"
+    },
+    {
+      "action": "goto_train",
+      "compiled_handler": "_goto_acc",
+      "guard": "has_permission_with_limit emu_tab trainld",
+      "observed": "emu_chat.goto import",
+      "implementation": "CALL_PATH_EXISTS_LIVE_NOT_RUN"
+    },
+    {
+      "action": "setup",
+      "compiled_handler": "_setup_acc",
+      "guard": "emu_tab/trainld_setup",
+      "observed": "emu_setup.setup_instance",
+      "implementation": "SETUP_CALL_PATH_LIVE_NOT_RUN"
+    },
+    {
+      "action": "refresh",
+      "compiled_handler": "_refresh_acc_list",
+      "guard": "none recovered for worker",
+      "observed": "emu_manager.poll_rows and Tk apply",
+      "implementation": "STATIC_PIPELINE_EXISTS"
+    }
+  ],
+  "guest_overlay": {
+    "config": "local tlm_tool + aid JSON file + HTTP config",
+    "seven_step_goto": true,
+    "hardcoded_click_coordinates": true,
+    "step_gap_ms": 350,
+    "status_check": "POST /emu_steps r.ok; no subsequent memory arrival verification in this JS handler",
+    "toggle": "POST /emu_farm_toggle r.ok flips local farmOn; original endpoint ACK only",
+    "farm_worker_proven": false
+  },
+  "excluded_by_original_doc": [
+    "multi-step PC town return",
+    "Phù/Ngựa heavy navigation",
+    "shop HP/MP",
+    "heal combo",
+    "buff F-key",
+    "PC waypoint board"
+  ],
+  "unknowns": [
+    "exact play toggle branch and farm worker (deferred explicitly)",
+    "worker refresh interval and Tk cancellation",
+    "clone identity row rebind",
+    "migration write order",
+    "preset override precedence between overlay and PC",
+    "stats tracking formulas",
+    "bag_limit numeric semantics",
+    "which server actions are actual runtime completion vs ACK",
+    "permission handler exact call arguments",
+    "Windows LDPlayer use"
+  ],
+  "verification": {
+    "static_original_hashes": "PASS",
+    "compiled_offset_checks": 15,
+    "compiled_offset_test": "PASS",
+    "guest_js_checks": 5,
+    "guest_js_test": "PASS",
+    "evidence_items": 81,
+    "live_cases_planned": 30,
+    "live_cases_executed": 0,
+    "cases": [
+      {
+        "id": "P05-01",
+        "requirement": "Train LD tab originally registered but permission hidden",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-02",
+        "requirement": "Developer Debug Android remains hidden for normal permission",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-03",
+        "requirement": "EmuFarmTab builds full scrollable rows only when visible",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-04",
+        "requirement": "_start_refresh/_stop_refresh cancel safely on hide/destroy",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-05",
+        "requirement": "Background poll_rows never updates Tk directly from worker",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-06",
+        "requirement": "Multi-device row create/update/stale removal",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-07",
+        "requirement": "Distinct clone VMs with same android_id do not cross-bind",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-08",
+        "requirement": "ADB serial changes on reboot rebind correct account",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-09",
+        "requirement": "RoleName/RoleID stale data during relogin remains pending",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-10",
+        "requirement": "Bag slots None vs 0 vs actual full state",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-11",
+        "requirement": "town_condition full_bag/never saved and displayed",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-12",
+        "requirement": "Bag threshold actual numeric semantics and validation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-13",
+        "requirement": "HP/deaths counters accurate across transitions",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-14",
+        "requirement": "BoundMoney earned tracking per correct character",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-15",
+        "requirement": "Experience gained rate and time unit display",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-16",
+        "requirement": "[EmuFarm] config writes/reads stable and does not break [TrainLD] fallback",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-17",
+        "requirement": "Overlay preset selected by name matches actual device serial preset",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-18",
+        "requirement": "Legacy map|x|y preserves correct mapping",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-19",
+        "requirement": "Coordinate display handles unknown map, missing X/Y safely",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-20",
+        "requirement": "Selected train goto via EmuChat verifies live map/position",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-21",
+        "requirement": "Selected goto is blocked when emu_tab/trainld permission missing",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-22",
+        "requirement": "Setup install/push/grant/open-device path gated by trainld_setup",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-23",
+        "requirement": "Setup busy prevents concurrent repeated install",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-24",
+        "requirement": "Per-row play permission and disabled state",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-25",
+        "requirement": "Per-row play/stop actually starts/stops farm worker vs text only",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-26",
+        "requirement": "Remote /emu_farm_toggle ACK-only not mislabeled farm started",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-27",
+        "requirement": "Guest 7-step hardcoded GOTO survives UI resolution changes",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-28",
+        "requirement": "Guest POST /emu_steps r.ok not falsely logged as actual arrival",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-29",
+        "requirement": "Guest config local save/remote bridge reconciles after offline/restart",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P05-30",
+        "requirement": "Current LDPlayer live multi-account + Windows reconstructed build parity",
+        "status": "NOT_RUN"
+      }
+    ]
+  },
+  "product": {
+    "source_app": "MISSING",
+    "windows_build_workflow": "MISSING",
+    "build_status": "BUILD_BLOCKED_SOURCE_MISSING"
+  },
+  "scope": {
+    "proxy": "NO_DEVELOPMENT",
+    "ui": "NO_UNVERIFIED_TABS",
+    "previous_completed_tasks": "UNMODIFIED"
+  },
+  "next_action": "P06 — original emu_setup guest installation/push/permissions/open app lifecycle audit"
+}
