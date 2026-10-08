@@ -53,7 +53,7 @@ class S01Tests(unittest.TestCase):
         names=[t.label for t in TAB_SPECS]
         self.assertEqual(len(names),15)
         self.assertEqual([names[i] for i in (0,1,2,3,4,6,7,8,9,10,11)],
-                         ['▶','Login','Party','Train','Train LSV','Phó Bản','Daily','Đồn','Rao','Tối ưu','ℹ'])
+                         ['▶','Login','Party','Train','Train LSV','Phó Bản','Daily','Dồn','Rao','Tối ưu','ℹ'])
         model=TabLifecycle({INFO_KEY:lambda _:StubTab()},self.frames())
         self.assertEqual(model.visible,{INFO_KEY})
         self.assertFalse(DEV_KEYS & model.visible)
