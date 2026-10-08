@@ -568,3 +568,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - P01 static EXE-first: Train LD registered but hidden/license-gated; Debug Android developer-only; seven compiled emulator modules referenced and asset JS verified. Emulator remote farm toggle ACK-only according to original doc, live emulator/RPC/HTTP NOT_RUN.
 - P01 docs/emulator/P01_AUTHORITY_AND_DORMANCY.md, P01_MODEL.json, P01_STATIC_EVIDENCE.tsv and docs/tasks/P01.md: 33 evidence records and 18 future tests NOT_RUN. Stage N/O and Proxy excluded scope unchanged.
 - NEXT_ACTION **P02 — AndroidReader/EmuManager ADB/Frida identity and connection lifecycle**. Build remains blocked pending Stage S/T.
+
+
+## P02 — AndroidReader/EmuManager emulator identity and Frida lifecycle
+- Original TLMTool EXE + Frida JS static authority checked first (same Gate-A/P01 hashes and ZIP CRC PASS). Compiled reader/manager API and connection stages confirmed: ADB serial, per-VM Frida server/session, ping/reload, RoleID targeted/blind scan, stale-character live name validation, poll_rows/force_discover and Site10 slot response.
+- Device identities serial/aid/guest IPv4/hwid differentiated. Clone collision and UID key ambiguities explicitly UNKNOWN. Android ID cache documented 5min and device coordinate cache 30s; exact worker retry timing UNKNOWN.
+- docs/emulator/P02_READER_MANAGER_CONNECTION_LIFECYCLE.md, P02_MODEL.json (25 deferred runtime cases), P02_STATIC_EVIDENCE.tsv (42 evidence items), docs/tasks/P02.md. Static CRC/hashes/JS syntax PASS; live Windows/LD/ADB/Frida NOT_RUN.
+- No reconstructed app source, no Windows build workflow: BUILD_BLOCKED_SOURCE_MISSING. No Proxy work and original Gate-B UI contract unchanged.
+- **NEXT_ACTION P03 — emu_input ADB event/capture, per-serial control/coordinates/errors static audit.**
