@@ -594,3 +594,13 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - P04 artifacts docs/emulator/P04_EMU_CHAT_GOTO_CONTRACT.md, P04_MODEL.json, P04_STATIC_EVIDENCE.tsv, docs/tasks/P04.md; 46 evidence rows, 26 future tests, 0 live executed. Original ZIP/hash/CRC checked; no game/ADB/Frida/Proxy executed.
 - **Stage S product source and Stage T build still absent**: BUILD_BLOCKED_SOURCE_MISSING. This task only wrote P04 documentation/checkpoint.
 - **NEXT_ACTION P05 — emu_farm_tab Train LD device/row/preset and button wiring audit, distinguish working goto from incomplete farm cycle.**
+
+
+## P05 — Train LD per-device UI, presets and partial automation truth
+- Verified current GitHub P05 absent; original inner EXE emu_farm_tab marker 0x2932983 and original ld_remote.js compared before documentation. Source fingerprints/ZIP CRC PASS, 15 compiled offset checks PASS, 5 shipped JS token checks PASS; no game/device run.
+- Tk dynamic account rows/scroll/refresh with daemon worker emu_manager.poll_rows; per-device [EmuCoords:serial] presets, row identity android_id and [EmuFarm]↔[TrainLD] fallback. Original metrics HP/Level/Map/Bag/EXP/money/deaths and per-account settings references recovered; actual runtime accuracy unknown.
+- _toggle_this/btn_play/status is wired but explicit original `farm cycle: phase sau` means cannot claim full farming engine. _goto_acc -> emu_chat.goto (emu_tab/trainld guard); _setup_acc -> emu_setup.setup_instance (trainld_setup guard).
+- Guest AutoX `btnGoTrain` seven-step fixed click route and `/emu_steps` returns success label after transport ACK, without in-handler memory arrival proof. Guest Train On/Off flips local state after `/emu_farm_toggle` ACK-only endpoint. PC EmuChat separately has documented memory-based arrival. These paths must not be conflated.
+- Artifacts docs/emulator/P05_TRAIN_LD_AUTHORITY.md; P05_MODEL.json; P05_STATIC_EVIDENCE.tsv; docs/tasks/P05.md. **81 evidence records; 30 runtime acceptance tests all NOT_RUN**. No Proxy, user-visible tab or old task changes.
+- **BUILD_BLOCKED_SOURCE_MISSING**: Stage S application source and Stage T Windows EXE workflow not present in audit; no built product in this task.
+- **NEXT_ACTION P06 — emu_setup device installation, push, permissions, AutoX and launch lifecycle EXE-first.**
