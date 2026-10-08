@@ -4256,3 +4256,88 @@ On CONTINUE:
 7. Preserve L02-L06 return, inventory, coordinate and receiver-locking contracts; do not reopen their internals without contradiction.
 8. Cross-check screenshots/runtime only after static extraction.
 9. Persist L07 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L07 verification.
+
+
+## L07 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before analysis. No pre-existing L07 artifact/completion existed; L01-L06 remain unchanged.
+- Exact original specimen was revalidated before UI/runtime cross-check: archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes, **1,050** entries, CRC clean; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Dồn full-session state ownership is shared by both roles: global `_farming`, per-account `_farming_acc`, worker collection `_farm_threads`, per-row stop-drain sentinel `_stopping_play`, and row generation `_gen`.
+- Full-session role is selected at start. Receiver role starts `_run_receiver -> don_logic.recv_cycle`; normal/donor role starts `_farm_cycle(..., don_callback=_don_cb)` and uses `don_logic.don_move_and_execute`.
+- `_farm_acc` is not the Dồn Farm FSM. It is only the memory/internal StartAutoFight Train primitive (`start_auto_train`), with no game-UI click.
+- Receiver start also initializes receiver donated-gold/time tracking via `_start_extra_track`; row3 is receiver-only. Receiver worker owns generation snapshot plus death/respawn/disconnect session guards and then enters `recv_cycle`.
+- Receiver engine remains exact: sell -> move back to receive point -> ready -> wait donated/abort/dead donor -> repeat.
+- Dồn state table and colors are frozen exactly:
+  - Đã dừng #555555;
+  - Sẵn sàng nhận #2e7d32;
+  - Chuẩn bị nhận #1565c0;
+  - Đang nhận #1565c0;
+  - Chờ giao #2e7d32;
+  - Chờ dồn #2e7d32;
+  - Về dồn #1565c0;
+  - Đang dồn #1565c0;
+  - Về địa phủ #c62828;
+  - Bán đồ #555555;
+  - Tới nơi nhận #555555;
+  - Trị liệu #555555;
+  - Đi train #555555;
+  - Đang train #555555;
+  - Đang lọc đồ #8e24aa;
+  - Gỡ kẹt #ef6c00;
+  - unknown/default #555555.
+- `_on_recv_phase(receiver,"start")` maps transaction start to **Đang nhận**. `"done"` restores **Sẵn sàng nhận** only if the row is still **Đang nhận**. recv_cycle fixes sell -> move -> ready semantic order; the exact assignment instruction for every first-cycle intermediate GUI label remains explicit UNKNOWN.
+- Donor `_farm_cycle` preserves the normal Train lifecycle and substitutes only its return-town/sell leg with `don_callback`. After Dồn, ordinary move-to-train/fight behavior remains.
+- The per-row donor path exposes **Về dồn** and **Đang dồn** and explicitly sends a failed donor back toward farm/Train with **Đi train**.
+- The global large-button donor callback has an additional static pre-stage/wait surface: `_don_point_coords -> don_mark_waiting -> Chờ dồn -> _any_ready_receiver -> don_move_and_execute`. This static distinction from the single-account callback is preserved for parity instead of being normalized away.
+- Stop remains cooperative. `_stop_acc` stops the character and clears the per-account Farm flag. `_check_stop`, `_is_acc_farming`, stop events, generation, window/PID ownership and relevant halt/hard_stop guards terminate subflows.
+- `_stopping_play` prevents normal restart/projection while an old worker is draining. `_wait_farm_stop` uses `join`: if other accounts remain they continue; if none remain the large control resets after drain.
+- `row._gen` is the stale-worker barrier. Existing worker docs bind generation change to user stop/start. `_restore_play_button` only restores the old worker's button when generation still matches, preventing stale exit from overwriting a newer run.
+- Exact `_gen` increment/assignment statement and mutation order versus `_farming_acc`/thread collection remain source-insufficient and are not invented.
+- Receiver role changes while an account is already running are **not hot worker migration**. `_on_receiver_selected` only restyles/reorders and retains the same button set.
+- Removing receiver role while its `recv_cycle` remains alive does not turn it into a donor; the existing receiver callback has an explicit `[Nhận đồ] ... không nằm trong danh sách acc nhận` failure path.
+- Selecting an already-running donor as receiver does not create `recv_cycle` or a ready registry entry for that current generation. The newly selected role becomes a full worker role on a later stop/start.
+- State writes are worker-safe: canonical row state is `_state`; UI update is marshaled through `_schedule_state_label -> after(0) -> _apply_state_label`.
+- Screenshot cross-check after static extraction preserved hash `dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a`.
+- Frozen runtime log remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, **387,238 lines**. Correlated receiver/donor lifecycle markers are all **0**, so live worker/state timing is not fabricated.
+- L07 artifacts committed together at **8209aa78559f8f44cdc9da2921d9e98e8d6305c2**:
+  - `docs/don/L07_LIFECYCLE_FLOW.md`
+  - `docs/don/L07_LIFECYCLE_MODEL.json`
+  - `docs/don/L07_LIFECYCLE_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/L07.md`
+- All four L07 artifacts were fetched back successfully.
+
+## POST-L07 CODE/BUILD RECHECK
+- Recursive main tree after L07 artifact commit contains **649 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- L07 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- L07 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- Exact `_gen` assignment/increment statement ordering remains static-unknown.
+- Exact first-cycle assignment statement for every receiver intermediate state label remains static-unknown where only engine order/state vocabulary are recovered.
+- Exact Farm worker join timeout/drain timing remains unbound.
+- Live role-change/thread race parity requires Windows + live Thần Long runtime.
+- Reconstructed product build remains not applicable before Stage S.
+
+## DO_NOT_TOUCH
+- Preserve L01-L07 contracts unless exact new evidence contradicts them.
+- Do not replace the start-time receiver/donor worker split with dynamic hot-role migration.
+- Do not reconstruct the full Dồn Farm button as a direct `_farm_acc` call.
+- Preserve cooperative stop/drain and generation stale-worker guard.
+- Preserve the single-account versus global donor callback distinction until runtime parity proves equivalence.
+- Keep death/heal/disconnect/reconnect internals for L08.
+- Do not create Stage-S application/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L08 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L08 — Dồn heal / death / disconnect / reconnect audit** only.
+5. Re-inspect the exact frozen original EXE first, focusing on `_diaphu_monitor`, `_heal_at_death`, `_disconnect_monitor`, `_wait_for_disconnect_or_stop`-style helpers if present, receiver/donor halt/hard_stop integration, the visible respawn/heal/auto-reconnect controls and their config keys, and only directly-called memory/pixel helpers needed by those paths.
+6. Determine exact death triggers (MapID/HP), respawn action, heal routing/click sequence, receiver-vs-donor differences, disconnect detection cadence/thresholds, meaning of the visible auto-reconnect control versus current monitor behavior, and which conditions end the full session versus resume it.
+7. Preserve L02-L07 movement/inventory/receiver/lifecycle contracts; do not reopen them without contradiction.
+8. Cross-check screenshots/runtime only after static extraction.
+9. Persist L08 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L08 verification.

@@ -382,7 +382,8 @@ K17 closes Phase K at the static-research level. The original archive, inner EXE
 - L04 — VERIFIED_DON_SITE10_98_100_FULL_BAG_THRESHOLD_TWO_MODE_FILTER_RECHECK_AND_HIDDEN_PICKITEM
 - L05 — VERIFIED_DON_SHARED_COORD_ROLE_SWITCHED_SELECTOR_BUILTIN_MANUAL_PERSISTENCE_AND_STRICT_STALE_SKIP
 - L06 — VERIFIED_MULTI_RECEIVER_REGISTRY_PER_RECEIVER_LOCK_LOWEST_SPEED_SELECTION_BACKGROUND_TRADE_WATCH
-- L07 — NEXT
+- L07 — VERIFIED_START_TIME_ROLE_SPLIT_RECV_CYCLE_VS_DONOR_FARM_CYCLE_GEN_GUARDED_COOPERATIVE_STOP_AND_NO_DYNAMIC_ROLE_MORPH
+- L08 — NEXT
 
 L01 locks `donvang_tab.py` / `DonVangTab` as the active Dồn authority. The exact Nuitka `.donvang_tab` module has size field **65,260 bytes** and count field **1,813**, and **127** direct top-level `DonVangTab` methods are inventoried. `TLMMainApp` constructs the tab under visible label `Dồn`, while StartTab exposes `Dồn vàng / Tới nơi nhận / Tới chỗ bán / Tới nơi train / Cấu hình`. The visible surface includes Về thành conditions/priorities, Train/death/disconnect/unstuck/pickup/filter/heal controls, saved coordinates, receiver rows, a shared Dồn coordinate, per-account move/Dồn/sell controls, and all-account actions. Dồn is current/wired rather than dormant; dedicated-tab visibility is permission-controlled, with the captured run showing it visible while the exact permission state remains unknown. Direct dependency boundaries are frozen, and weak emulator/farm-tab references are not promoted to active runtime imports.
 
@@ -396,5 +397,7 @@ L05 locks Dồn coordinate architecture: saved coordinate rows are name/map/X/Y 
 
 L06 locks the multi-receiver model. Receiver rows are account-only rows sharing the single L05 Dồn coordinate. don_logic owns independent per-receiver registry state (ready/donated/aborted/donor_hwnd) plus one lock per receiver. recv_cycle is sell -> return -> ready -> wait donated/abort/donor-death -> repeat. Automatic Dồn chooses only ready receivers, excludes the donor, requires valid coordinates, prioritizes the receiver with the lowest current gold/hour and randomizes equal-speed ties. Readiness is rechecked after acquiring the receiver lock; busy receivers are skipped and different receivers can be served in parallel while one receiver is serialized to one donor. Each receiver has one persistent background trade-invite watcher that accepts managed-account names, rejects unknown names, and yields while real Dồn owns that receiver. Legacy/per-row receiver-coordinate conflict precedence remains explicit UNKNOWN.
 
+L07 locks Dồn full-session integration. Both roles share _farming/_farming_acc/_farm_threads/_stopping_play/row._gen ownership, but the worker is chosen at start: receiver -> _run_receiver/recv_cycle; donor -> _farm_cycle(don_callback=_don_cb). _farm_acc is only the StartAutoFight Train memory primitive, not the full FSM. Receiver cycle is sell -> return -> ready -> receive -> repeat; donor Dồn substitutes the return-town leg and then rejoins the Train leg. Stop/drain is cooperative and generation-guarded. Receiver combobox changes while running restyle/reorder only and do not hot-swap the active worker; a full stop/start is required for the newly selected role to receive the corresponding worker. Runtime timing remains environment-required.
+
 ## Phase L current
-L07 — Dồn train-state / receiver-donor lifecycle integration audit.
+L08 — Dồn heal / death / disconnect / reconnect audit.
