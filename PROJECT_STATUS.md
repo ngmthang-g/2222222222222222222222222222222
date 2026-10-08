@@ -585,3 +585,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Artifacts docs/emulator/P03_INPUT_CAPTURE_COORDINATES.md, P03_MODEL.json, P03_STATIC_EVIDENCE.tsv, docs/tasks/P03.md; 49 evidence items, 26 planned runtime tests, 0 executed. Original hash+CRC PASS; no game/ADB/Frida/HTTP actions.
 - **Product BUILD_BLOCKED_SOURCE_MISSING**: no rebuilt Stage-S app source or Stage-T Windows workflow in previous code/build audit; this task only added research docs. Proxy excluded.
 - **NEXT_ACTION P04 — emu_chat chat-link UI route, settings calibration and memory destination verification, EXE first.**
+
+
+## P04 — EmuChat original coordinate chat-link goto and memory-confirmed arrival
+- Original EXE module 0x293100c includes pure-UI `@GOTO_m_x_y` chat-link sequence, calibrated `settings.ini [EmuChat]` ten x/y keys, `goto` returning (ok,msg), early arrival within 2 tiles, 30-second stuck threshold and global timeout status strings. Live movement and detailed branch/timing NOT_RUN/UNKNOWN.
+- Verified `emu_chat` uses EmuManager MapID/PosX/PosY and ADB input; shipped JS exports raw PosX/PosY and X_UI/Y_UI shifted by 5 bits. Exact memory-to-tile arithmetic not recovered. Debug Android calibration and train per-device presets are separate coordinate domains.
+- Original emu_farm_tab imports `emu_chat.goto` and has per-serial [EmuCoords:serial] presets, Android-ID keyed row identity; original contains literal `farm cycle: phase sau`: full automatic farm unproven/partially deferred. Conditional Train LD, developer-only Debug Android preserved.
+- P04 artifacts docs/emulator/P04_EMU_CHAT_GOTO_CONTRACT.md, P04_MODEL.json, P04_STATIC_EVIDENCE.tsv, docs/tasks/P04.md; 46 evidence rows, 26 future tests, 0 live executed. Original ZIP/hash/CRC checked; no game/ADB/Frida/Proxy executed.
+- **Stage S product source and Stage T build still absent**: BUILD_BLOCKED_SOURCE_MISSING. This task only wrote P04 documentation/checkpoint.
+- **NEXT_ACTION P05 — emu_farm_tab Train LD device/row/preset and button wiring audit, distinguish working goto from incomplete farm cycle.**
