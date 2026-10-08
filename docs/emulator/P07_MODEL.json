@@ -1,0 +1,295 @@
+{
+  "task": "P07",
+  "status": "STATIC_EMU_REMOTE_ENDPOINT_AUTH_IDENTITY_AND_ACK_AUDITED_LIVE_PARITY_DEFERRED",
+  "original": {
+    "zip": "TLMTool_2.1.2(10).zip",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "zip_crc": "PASS",
+    "zip_entries": 1050,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_bytes": 47450112,
+    "original_js_sha256": "3bd84a2b433ee679b7a049f5aa5cba2e8725d1e09b14d5deb3f42b6bf919edfb",
+    "emu_remote_marker": "0x2938352",
+    "executed": false
+  },
+  "listener": {
+    "class": "ThreadingHTTPServer",
+    "bind_default": "0.0.0.0",
+    "port_default": 8765,
+    "token_default": "tlm",
+    "token_sources": "JSON or query token from [Emu] remote_token",
+    "autostart": "NOT_PROVEN_OPTIONAL",
+    "start": "idempotent (ok,port|msg) original doc",
+    "stop": "shutdown+server_close",
+    "get_authorization_coverage": "UNKNOWN",
+    "security": "Original defaults not secure deployment guidance"
+  },
+  "identification": {
+    "guest_js_aid": "guest IPv4 for current overlay, unlike historical AndroidID key in PC rows",
+    "socket_peer_ip_priority": true,
+    "serial_match": "EmuManager serial_for_ip, fail if unmatched/multiple",
+    "role_cache": "EmuManager poll_rows may be stale",
+    "spoof_resistance": "not runtime verified"
+  },
+  "get_routes": [
+    "/ping",
+    "/maps",
+    "/emu_status",
+    "/emu_config",
+    "/emu_heal_presets",
+    "/emu_coords"
+  ],
+  "post_routes": [
+    "/emu_goto",
+    "/emu_save_coord",
+    "/emu_del_coord",
+    "/emu_steps",
+    "/emu_act",
+    "/emu_farm_toggle",
+    "/emu_config"
+  ],
+  "post_actions": {
+    "steps": {
+      "types": [
+        "tap",
+        "text",
+        "key",
+        "wait"
+      ],
+      "returns": "(ok,msg) command execution, not game state"
+    },
+    "act": {
+      "values": [
+        "to_train",
+        "sell",
+        "heal"
+      ],
+      "completion": "command attempted; eventual actual game outcome unproven"
+    },
+    "goto": {
+      "response": "accepted; async background thread",
+      "arrival": "separate state verification"
+    },
+    "farm_toggle": {
+      "implementation": "stub: state recorded, farm engine not connected"
+    },
+    "config": {
+      "types": [
+        "bool",
+        "int",
+        "text"
+      ],
+      "allowlist": true
+    }
+  },
+  "guest_js": {
+    "post_body_fields": [
+      "aid",
+      "token"
+    ],
+    "http_timeout_ms": 8000,
+    "get_uses_json_parse": true,
+    "post_uses_json_parse": false,
+    "post_uses_response_status": false,
+    "post_local_ok_expression": "return { ok: true, body: r.body.string() };",
+    "meaning": "no exception reading HTTP => local ok true, independent of server ok field",
+    "http_error_response_exception_behavior": "UNKNOWN until AutoX runtime"
+  },
+  "verification": {
+    "zip_crc": "PASS",
+    "compiled_offset_tokens_checked": 34,
+    "compiled_offset_tokens_passed": 34,
+    "js_tokens_checked": 10,
+    "js_tokens_passed": 10,
+    "evidence_items": 72,
+    "runtime_checks_planned": 33,
+    "runtime_checks_run": 0,
+    "acceptance_cases": [
+      {
+        "id": "P07-01",
+        "requirement": "listener starts only through intended permission-gated entrypoint",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-02",
+        "requirement": "listener idempotence under double Start",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-03",
+        "requirement": "port 8765 bind collision and error return",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-04",
+        "requirement": "stop shutdown/server_close cleans background thread",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-05",
+        "requirement": "network bind interface exposure and documented trust boundary",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-06",
+        "requirement": "auth token JSON correct and incorrect cases",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-07",
+        "requirement": "auth query token correct and incorrect cases",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-08",
+        "requirement": "whether GET endpoints require token, exact endpoint-by-endpoint",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-09",
+        "requirement": "token missing/empty/config malformed semantics",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-10",
+        "requirement": "request Content-Length absent/oversize/malformed JSON handling",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-11",
+        "requirement": "server exception and concurrent HTTP requests",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-12",
+        "requirement": "emulator's real socket peer IP mapped to unique ADB serial",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-13",
+        "requirement": "guest aid spoof/collision does not redirect to another emulator",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-14",
+        "requirement": "duplicate clone IP/ambiguous serial mapping rejects action",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-15",
+        "requirement": "old VM IP or serial after reboot requires fresh identity",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-16",
+        "requirement": "emu_tab permission and account-limit enforced on every action path",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-17",
+        "requirement": "permission service unavailable rejects rather than succeeds",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-18",
+        "requirement": "GET /ping health not mistaken for game health",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-19",
+        "requirement": "GET /maps response correctness and cache",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-20",
+        "requirement": "GET /emu_status live/missing role distinction",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-21",
+        "requirement": "GET /emu_coords mapping per correct emulator",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-22",
+        "requirement": "GET /emu_config and heal presets original schema parity",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-23",
+        "requirement": "POST /emu_steps tap/text/key/wait order and step errors",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-24",
+        "requirement": "steps gap clipping/default and explicit cancellation",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-25",
+        "requirement": "POST /emu_act to_train/sell/heal chosen presets and terminal game state",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-26",
+        "requirement": "POST /emu_goto accepted-vs-arrived state and retry",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-27",
+        "requirement": "POST /emu_save_coord and /emu_del_coord validation/persistence",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-28",
+        "requirement": "POST /emu_config allowlist bool/int/text and rejected values",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-29",
+        "requirement": "POST /emu_farm_toggle ACK stub does not imply live farm",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-30",
+        "requirement": "AutoX post() http nonexceptional error body yields ok:true as coded",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-31",
+        "requirement": "AutoX post() HTTP 401/500 handling behavior for actual AutoX runtime",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-32",
+        "requirement": "AutoX GET offline cache and stale status semantics",
+        "runtime_result": "NOT_RUN"
+      },
+      {
+        "id": "P07-33",
+        "requirement": "Windows reconstructed app EXE build and 3+ LDPlayer integration parity",
+        "runtime_result": "NOT_RUN"
+      }
+    ]
+  },
+  "blockers": [
+    "Original Python source control-flow and GET auth coverage UNKNOWN",
+    "No secure actual deployment test",
+    "AutoX real http library non-2xx exception behavior unknown",
+    "Socket peer IP routes under NAT/clone reboot unknown",
+    "Permission checks per endpoint runtime unverified",
+    "ACK not game state",
+    "Rebuilt product Stage-S/Stage-T absent"
+  ],
+  "product": {
+    "app_source_available": false,
+    "windows_build_workflow_available": false,
+    "build_status": "BUILD_BLOCKED_SOURCE_MISSING"
+  },
+  "scope": {
+    "proxy": "EXCLUDED",
+    "additional_visible_tabs": "FORBIDDEN",
+    "frozen_zip_modified": false
+  },
+  "next_action": "P08 — original debug_android_tab developer-only remote workbench, request/response diagnostics, capture/viewport and permission-gated integration audit"
+}
