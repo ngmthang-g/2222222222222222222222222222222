@@ -1,0 +1,149 @@
+{
+  "task":"L09",
+  "status":"VERIFIED_CURRENT_THREE_QUICK_MOVE_ACTIONS_ROLE_FILTERED_TARGETS_STARTTAB_PARITY_AND_LEGACY_BULK_HELPERS_STATIC_RUNTIME_ENV_REQUIRED",
+  "authority":{
+    "archive_sha256":"c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size":93715901,
+    "zip_entries":1050,
+    "zip_crc_clean":true,
+    "inner_exe_sha256":"15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size":47450112
+  },
+  "current_don_toolbar":{
+    "header":"Điều khiển tất cả:",
+    "buttons":[
+      {"label":"Tới nơi nhận","attribute":"btn_recv_all","method":"_move_all_recv"},
+      {"label":"Tới chỗ bán","attribute":"btn_sell_main","method":"_move_sell_acc"},
+      {"label":"Tới nơi train","attribute":"btn_move_train_all","method":"_move_all"}
+    ],
+    "quick_action_threading":"daemon Thread worker surface recovered",
+    "bottom_main_button":{"label":"Bắt đầu","method":"_toggle_farm","separate_from_quick_actions":true}
+  },
+  "bulk_universe":{
+    "helper":"_checked_rows",
+    "exact_doc":"Tất cả acc trong danh sách (thao tác hàng loạt áp dụng cho mọi acc). Loại trừ acc nhận đồ — acc này không đi farm, vận hành theo luồng riêng.",
+    "receiver_excluded":true,
+    "legacy_checked_wording":"method names/docs still say được tick, but current helper is all listed nonreceiver accounts"
+  },
+  "quick_actions":{
+    "move_train_all":{
+      "method":"_move_all",
+      "target":"configured Train coordinate of each nonreceiver/donor row",
+      "receiver_included":false,
+      "parallel":"EXACT_DOC"
+    },
+    "move_receivers_to_sell":{
+      "method":"_move_sell_acc",
+      "target":"each receiver account's selected sell coordinate",
+      "receiver_only":true,
+      "does_inventory_sell":false,
+      "nested_worker_surface":"_move_sell_acc.<locals>._run",
+      "exact_thread_join_policy":"UNKNOWN"
+    },
+    "move_all_to_receive":{
+      "method":"_move_all_recv",
+      "universe":"full account list with role split",
+      "donor":{
+        "automatic_ready_selection_reused":"ready receiver with minimum gold/hour",
+        "manual_fallback_reused":"first receiver with valid coordinate when ready selection unavailable",
+        "self_receiver_exclusion":"preserved from L06"
+      },
+      "receiver":{
+        "target":"receiver row receive-coordinate variable",
+        "current_effective_coordinate":"all receiver rows alias one shared _recv_coord_var from L05"
+      },
+      "exact_internal_parallelism":"UNKNOWN",
+      "top_level_action_runs_background_thread":true
+    }
+  },
+  "legacy_bulk_helpers":{
+    "_stop_all":{
+      "exists":true,
+      "doc":"Dừng các acc được tick — song song.",
+      "current_universe":"_checked_rows = all nonreceiver accounts",
+      "per_account_helper":"_stop_acc",
+      "current_visible_binding":"NOT_RECOVERED"
+    },
+    "_farm_all":{
+      "exists":true,
+      "doc":"Farm các acc được tick — song song.",
+      "current_universe":"_checked_rows = all nonreceiver accounts",
+      "per_account_helper":"_farm_acc",
+      "_farm_acc_semantic":"StartAutoFight Train memory primitive only",
+      "equivalent_to_current_toggle_farm":false,
+      "current_visible_binding":"NOT_RECOVERED"
+    },
+    "_sell_all":{
+      "exists":true,
+      "doc":"Bán đồ các acc được tick — song song.",
+      "current_universe":"_checked_rows = all nonreceiver accounts",
+      "per_account_helper":"_sell_acc",
+      "equivalent_to_toi_cho_ban":false,
+      "current_visible_binding":"NOT_RECOVERED"
+    }
+  },
+  "authoritative_full_lifecycle_control":{
+    "method":"_toggle_farm",
+    "start":"only rows not yet farming",
+    "stop":"only rows currently farming",
+    "receiver_vs_donor_role_split":"at session start per L07",
+    "partial_stop":"remaining rows continue",
+    "last_stop":"global drain/reset",
+    "starttab_sync":"_sync_start_tab_btn / StartTab _toggle_donvang_cmd"
+  },
+  "starttab":{
+    "section_label":"Dồn vàng",
+    "toggle":{
+      "method":"_toggle_donvang_cmd",
+      "delegates":"DonVangTab._toggle_farm",
+      "sync":"StartTab + DonVangTab button text/state"
+    },
+    "quick_actions":[
+      {"label":"Tới nơi nhận","wrapper":"_donvang_action","method":"_move_all_recv"},
+      {"label":"Tới chỗ bán","wrapper":"_donvang_action","method":"_move_sell_acc"},
+      {"label":"Tới nơi train","wrapper":"_donvang_action","method":"_move_all"}
+    ],
+    "quick_action_wrapper":{
+      "method":"_donvang_action",
+      "argument":"method_name",
+      "threading":"delegated action runs in worker thread"
+    },
+    "config":{"label":"Cấu hình","method":"_goto_donvang_tab"}
+  },
+  "cancellation":{
+    "quick_action_specific_cancel_token":"NOT_RECOVERED",
+    "quick_moves_share_farm_thread_ownership":false,
+    "cross_command_farm_start_stop_overlap":"RUNTIME_REQUIRED",
+    "_stop_all_current_ui_binding":"NOT_RECOVERED"
+  },
+  "captured_ui":{
+    "screenshot_sha256":"dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a",
+    "bottom_controls":["Tới nơi nhận","Tới chỗ bán","Tới nơi train"],
+    "main_button":"Bắt đầu"
+  },
+  "runtime":{
+    "automove_log_sha256":"17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "line_count":387238,
+    "correlated_counts":{
+      "[Tới chỗ bán]":0,
+      "[Tới nơi nhận]":0,
+      "[Farm] Bắt đầu farm":0,
+      "[Farm] Dừng farm":0,
+      "[Đánh]":0,
+      "[Bán đồ]":0,
+      "chưa chọn được acc nhận đồ hợp lệ":0,
+      "Chờ dồn":0,
+      "Về dồn":0,
+      "Đang dồn":0
+    },
+    "classification":"STATIC_VERIFIED_LIVE_RUNTIME_ENV_REQUIRED"
+  },
+  "unknowns":[
+    "internal per-account ordering/join policy inside _move_all_recv",
+    "exact _move_sell_acc per-receiver join policy",
+    "cross-command cancellation/overlap between standalone quick movement and Farm start/stop",
+    "non-visible/plugin reachability of unwired legacy _stop_all/_farm_all/_sell_all helpers",
+    "live StartTab/dedicated-tab synchronization timing"
+  ],
+  "next_task":"L10 — Dồn parity / reconstruction contract audit"
+}

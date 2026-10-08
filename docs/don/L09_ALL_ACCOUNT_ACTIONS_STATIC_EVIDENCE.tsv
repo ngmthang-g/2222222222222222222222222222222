@@ -1,0 +1,66 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; 1050 ZIP entries; CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+ui_bulk_header	0x2921e48	VERIFIED_VISIBLE_STATIC	Điều khiển tất cả:
+ui_recv_label	0x2921e95	VERIFIED_VISIBLE_STATIC	Tới nơi nhận
+ui_recv_attr	0x2921ec4	VERIFIED_VISIBLE_STATIC	btn_recv_all
+ui_sell_label	0x2921ed3	VERIFIED_VISIBLE_STATIC	Tới chỗ bán
+ui_sell_attr	0x2921ee4	VERIFIED_VISIBLE_STATIC	btn_sell_main
+ui_train_label	0x2921ef4	VERIFIED_VISIBLE_STATIC	Tới nơi train
+ui_train_attr	0x2921f05	VERIFIED_VISIBLE_STATIC	btn_move_train_all
+ui_thread_surface	0x2921fa4	VERIFIED_STATIC	threading / Thread
+ui_recv_command	0x2921fb7	STRONG_STATIC_BINDING	_move_all_recv follows first bulk button command surface
+ui_thread_target	0x2921fc9	VERIFIED_STATIC	target / daemon / start
+ui_sell_command	0x2921fe0	STRONG_STATIC_BINDING	_move_sell_acc follows second bulk button command surface
+ui_train_command	0x2921ff0	STRONG_STATIC_BINDING	_move_all follows third bulk button command surface
+ui_main_start	0x2921008	VERIFIED_VISIBLE_STATIC	Bắt đầu
+ui_main_toggle	0x2921015	VERIFIED_STATIC	_toggle_farm
+checked_rows_receivers	0x29257c9	VERIFIED_STATIC	_all_receiver_hwnds used by _checked_rows
+checked_rows_doc	0x29257df	VERIFIED_STATIC_UTF8	all accounts in list for bulk actions
+checked_rows_receiver_exclusion	0x292583b	VERIFIED_STATIC_UTF8	receiver accounts excluded because they do not farm and use separate flow
+move_all_none_log	0x292845d	VERIFIED_STATIC	[Farm] no usable account surface
+move_all_threads	0x2928489	VERIFIED_STATIC	threads local surface
+move_all_doc	0x2928494	VERIFIED_STATIC_UTF8	move configured accounts to configured coordinate in parallel
+move_sell_no_receiver	0x29284ed	VERIFIED_STATIC_UTF8	Tới chỗ bán: no receiver selected
+move_sell_worker	0x292851d	VERIFIED_STATIC	DonVangTab._move_sell_acc.<locals>._run
+move_sell_doc	0x2928547	VERIFIED_STATIC_UTF8	move every receiver account to its own selected sell location
+move_sell_invalid	0x29285a2	VERIFIED_STATIC_UTF8	Tới chỗ bán hwnd has no valid sell coordinate
+move_recv_point_helper	0x29285e5	VERIFIED_STATIC	_move_to_recv_point
+move_all_recv_no_receiver	0x292863b	VERIFIED_STATIC_UTF8	no valid receiver selected
+move_all_recv_doc	0x292867e	VERIFIED_STATIC_UTF8	donor -> best current receiver; receiver -> coordinate attached to corresponding receiver row
+farm_acc_start	0x292879e	VERIFIED_STATIC	start_auto_train
+farm_acc_doc	0x29287ca	VERIFIED_STATIC_UTF8	StartAutoFight Train by memory, no click; primitive not full lifecycle
+stop_all_helper	0x2928c5b	VERIFIED_STATIC	_stop_acc adjacent to stop-all doc
+stop_all_doc	0x2928c67	VERIFIED_STATIC_UTF8	Dừng các acc được tick — song song.
+farm_all_helper	0x2928c94	VERIFIED_STATIC	_farm_acc adjacent to farm-all doc
+farm_all_doc	0x2928ca0	VERIFIED_STATIC_UTF8	Farm các acc được tick — song song.
+sell_all_doc	0x2928ccc	VERIFIED_STATIC_UTF8	Bán đồ các acc được tick — song song.
+stop_all_qualname	0x292dabb	VERIFIED_DIRECT_CLASS_QUALNAME	DonVangTab._stop_all
+farm_all_qualname	0x292dadc	VERIFIED_DIRECT_CLASS_QUALNAME	DonVangTab._farm_all
+sell_all_qualname	0x292dafd	VERIFIED_DIRECT_CLASS_QUALNAME	DonVangTab._sell_all
+current_ui_no_legacy_helper_buttons	-	VERIFIED_NEGATIVE_CURRENT_UI	current Dồn build toolbar constant block binds only _move_all_recv/_move_sell_acc/_move_all plus _toggle_farm; no visible current stop_all/farm_all/sell_all button recovered
+manual_ready_policy	-	REUSED_L06	_move_all_recv manual/move-only donor selection uses ready minimum-gold/hour receiver and _fallback_receiver when ready selection unavailable
+shared_receive_coord	-	REUSED_L05	all receiver rows' compatibility recv_coord_var aliases the one shared _recv_coord_var
+starttab_toggle_label	0x2bfa4bb	VERIFIED_VISIBLE_STATIC	Dồn vàng section
+starttab_toggle_method	0x2bfa4c8	VERIFIED_STATIC	_toggle_donvang_cmd
+starttab_recv_label	0x2bfa4f2	VERIFIED_VISIBLE_STATIC	Tới nơi nhận
+starttab_recv_attr	0x2bfa504	VERIFIED_VISIBLE_STATIC	btn_donvang_recv
+starttab_sell_label	0x2bfa517	VERIFIED_VISIBLE_STATIC	Tới chỗ bán
+starttab_sell_attr	0x2bfa528	VERIFIED_VISIBLE_STATIC	btn_donvang_sell
+starttab_train_label	0x2bfa53b	VERIFIED_VISIBLE_STATIC	Tới nơi train
+starttab_train_attr	0x2bfa54c	VERIFIED_VISIBLE_STATIC	btn_donvang_train
+starttab_config	0x2bfa55f	VERIFIED_STATIC	_goto_donvang_tab
+starttab_action_wrapper	0x2bfaa3b	VERIFIED_STATIC	_donvang_action
+starttab_action_methods	0x2bfaa4f	STRONG_STATIC_MAPPING	_move_all_recv and adjacent Dồn action method constants; _move_all reused from earlier module constant
+starttab_method_name_local	0x2c0191d	VERIFIED_STATIC_MAPPING	_donvang_action generic method_name local
+starttab_goto_doc	0x2bfbb71	VERIFIED_STATIC_UTF8	go to Dồn tab for detailed configuration
+starttab_action_doc	0x2bfbbd5	VERIFIED_STATIC_UTF8	run Dồn bulk action in thread
+starttab_toggle_doc	0x2bfbc55	VERIFIED_STATIC_UTF8	toggle Dồn and synchronize button text StartTab + DonVangTab
+don_sync_starttab	0x29294cb	REUSED_L07_STATIC	DonVangTab syncs StartTab Dồn button from _farming without recursive toggle
+toggle_farm_current	-	REUSED_L07	current lifecycle all-account start/stop; role split at session start; not equivalent to _farm_all
+quick_cancel_token	-	NOT_RECOVERED	no dedicated queue/cancel token for standalone three quick movement commands
+legacy_helper_visible_binding	-	NOT_RECOVERED	no visible Dồn/StartTab binding recovered for _stop_all/_farm_all/_sell_all
+screenshot_don	-	CROSSCHECKED_AFTER_STATIC	dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a; bottom Tới nơi nhận/Tới chỗ bán/Tới nơi train + Bắt đầu
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500; 387238 lines
+runtime_bulk_markers	-	NOT_RECOVERED	0 Tới chỗ bán/Tới nơi nhận/Farm start-stop/Đánh/Bán đồ/Chờ dồn/Về dồn/Đang dồn correlated markers
+classification	-	STATIC_VERIFIED_RUNTIME_ENV_REQUIRED	live ordering/overlap/synchronization require Windows + game
