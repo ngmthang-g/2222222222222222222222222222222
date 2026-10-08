@@ -622,3 +622,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Added docs/emulator/P07_REMOTE_AUTH_ENDPOINTS.md, P07_MODEL.json, P07_STATIC_EVIDENCE.tsv, docs/tasks/P07.md. Prior stages/PLAN untouched, Proxy excluded.
 - Build status BUILD_BLOCKED_SOURCE_MISSING: app reconstruction and Windows workflow absent, no product EXE or runtime parity test.
 - NEXT_ACTION P08 — debug_android_tab developer-only capture/viewport/Frida/remote workbench audit.
+
+
+## P08 — Debug Android developer workbench static research handoff
+- Original compiled debug_android_tab at 0x290df6c checked directly from locked EXE. Static test 53/53 symbol-offset anchors PASS and original ZIP hash/CRC PASS. 92 evidence rows, 33 future runtime checks not executed.
+- Developer-only Tk UI/control inventory: serial/refresh, Frida/rescan, push script, listener control, Tap/Screencap/RGB, RoleData/Site10 bag, chat-goto stages, tracker/log. Win32 cursor-client-viewport device coordinate conversion plus Alt two-corner calibration documented; public tab parity unchanged.
+- Files added docs/emulator/P08_DEBUG_ANDROID_WORKBENCH.md, P08_MODEL.json, P08_STATIC_EVIDENCE.tsv, docs/tasks/P08.md. No original modules, PLAN, prior research, emulator, game or Proxy touched.
+- Phase P01–P08 original static emulator subsystem research complete, runtime Windows/LD parity deferred. Product build **BLOCKED_SOURCE_MISSING** until Stage S app and Stage T Windows workflow exist.
+- NEXT_ACTION R01 — Phase R resource provenance/loader GAP audit building on Gate A/D06/D07; never repeat completed manifest work.
