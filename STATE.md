@@ -5429,3 +5429,20 @@ On CONTINUE read PLAN.md/STATE.md and main GitHub; verify P02 not completed. Exe
 
 ## NEXT_ACTION
 On CONTINUE reread PLAN.md/STATE.md, check GitHub docs/tasks/P03.md first. Execute **P03 — original emu_input ADB tap/swipe/keyevent/screencap and capture/coordinate/timeout/error contract static audit**. Inspect original EXE and shipped scripts FIRST; do not invent emulator UI from screenshots or mark runtime PASS. Publish P03 evidence/model/task, append STATE.md/PROJECT_STATUS.md and recheck Stage-S app source/Stage-T Windows build status.
+
+
+## P03 VERIFIED RESULTS — ORIGINAL EMU_INPUT ADB / CAPTURE / COORDINATE CONTRACT
+- Continued from current NEXT_ACTION after reading PLAN.md, STATE.md, PROJECT_STATUS.md, P01/P02 and D07 source-oriented reports. GitHub docs/tasks/P03.md did not exist before task; no previous completed task was repeated or rewritten.
+- Original user ZIP `TLMTool_2.1.2(10).zip`: SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; 1050 entries, ZIP CRC PASS. Original inner TLMTool.dist/TLMTool.exe SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, 47450112 bytes. No original binary executed/modified.
+- Compiled `emu_input` marker 0x293325f. Static method names `AdbInput.__init__/_run/tap/swipe/key/text/size/screencap/save_cap/from_pc` and ADB subprocess, `CREATE_NO_WINDOW`, `check_output`, timeout, UTF8 errors ignore, keycode/doc, `wm size`, `exec-out screencap -p`, PIL/BytesIO/RGB and capture `None` error contract recovered at 0x2932e35..0x293325f. Exact Python source/exception ordering/timing not recovered.
+- Input operates on actual device pixels (LD example 960x540). `from_pc` has reference PC 1366x768 illustrative x*.7027/y*.7031 based on real wm size. Separate `DebugAndroidTab` Windows `GetCursorPos`+`ScreenToClient`, LDPlayer-only viewport coordinate conversion and default (0,30) origin documented. Do not unify these coordinate domains or hardcode sample scaling.
+- Original ZIP does not package adb.exe; EXE references external `D:\\LDPlayer\\LDPlayer9\\adb.exe` plus `LD_ADB` symbol, exact fallback/precedence UNKNOWN. P02 ADB serial/cloned VM identity guards remain essential. Compiled DebugAndroidTab _do_cap/_do_tap/_do_rgb and EmuChat AdbInput wiring statically recorded.
+- P03 status **STATIC_EMU_INPUT_ADB_AND_VIEWPORT_CONTRACT_AUDITED / LIVE_INPUT_PARITY_DEFERRED**: 49 exact provenance/evidence rows, 26 acceptance cases enumerated, 0 live runtime cases run. Static original ZIP/hash/CRC and symbols PASS; NO emulator input, ADB, Frida, network, capture execution.
+- Files CREATED: docs/emulator/P03_INPUT_CAPTURE_COORDINATES.md, docs/emulator/P03_MODEL.json, docs/emulator/P03_STATIC_EVIDENCE.tsv, docs/tasks/P03.md. STATE.md and PROJECT_STATUS.md checkpoint append only. PLAN.md and earlier P02/P01/N/O/A–D/Gate B original untouched.
+- Stage-S application source and Stage-T Windows EXE workflow still absent per current code/build audit; no app built. Status **BUILD_BLOCKED_SOURCE_MISSING** is not a compiler failure or PASS.
+
+## P03 BLOCKERS / DO_NOT_TOUCH
+- Real ADB executable availability, exact CLI args/timeout/retries, Unicode input, screenshot/PIL error cases, rotation, dynamic viewport rounding, DPI and multi-VM live targeting remain UNVERIFIED. `Train LD` stays entitlement-gated, `Debug Android` dev-only. Proxy Phase Q development forbidden.
+
+## NEXT_ACTION
+On CONTINUE read PLAN.md and STATE.md and confirm GitHub has not already completed P04. Execute **P04 — original `emu_chat` pure-UI chat-link navigation, [EmuChat] coordinate calibration, memory-backed map/tile destination verification and failure/recovery analysis** from original compiled EXE plus shipped JS first. Do not invent UI or replay completed P03. Create P04 report/model/evidence/task, update STATE.md/PROJECT_STATUS.md, recheck source/build and avoid Proxy.
