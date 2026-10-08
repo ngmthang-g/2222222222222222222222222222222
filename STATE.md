@@ -4769,3 +4769,81 @@ On CONTINUE:
 7. Defer interval timing to M04, account assignment to M05, and slot start/stop lifecycle to M06.
 8. Cross-check the supplied Rao screenshot only after static extraction.
 9. Persist M03 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M03 verification.
+
+
+## M03 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before analysis. No pre-existing M03 artifact/completion existed; M01-M02 and Phase-L contracts remain unchanged.
+- The exact frozen original archive was materialized again; inner EXE SHA-256 remained `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- The current `RAO_CHANNELS` constant block was decoded directly from the original EXE. Exact display-name→ID mapping:
+  - **Thế giới → 8**
+  - **Bang hội → 2**
+  - **Môn phái → 6**
+  - **Tổ đội → 4**
+  - **Liên minh → 3**
+  - **Quân đoàn → 11**
+  - **Lân cận → 5**.
+- Exact raw Rao integer sequence immediately after the seven labels is `08,02,06,04,03,0b,05` in the same map order.
+- `RAO_DEFAULT_CHANNEL` is statically **Thế giới**, therefore default Rao channel ID is **8**.
+- The independent shared `memory_items.CHAT_CHANNELS` block was decoded and cross-checks the same IDs:
+  - Đặc biệt 9; Lân cận 5; Nói thầm 7; Tổ đội 4; Thế giới 8; Bang hội 2; Liên minh 3; Môn phái 6; Liên máy chủ 10; Quân đoàn 11.
+- Rao is therefore a strict seven-channel subset. **Đặc biệt/9, Nói thầm/7, Liên máy chủ/10 are not current Rao choices** and must not be added during reconstruction.
+- M02's JSON `channel` field stores the Rao **display-name string**, not the numeric channel ID. The live row owns `chan_var`; runtime resolution maps that string through current `RAO_CHANNELS`.
+- `_resolve_rao` exact documented success contract remains `(content, interval_seconds, channel_id, channel_name)`. Exact no-channel failure text remains `'<name>' chưa chọn kênh`.
+- Shared `memory_items` post-marker local metadata gives the exact `send_chat` parameter order: **hwnd, channel_id, content** followed by internal locals `text/chan/lua_msg/code`.
+- Rao `_slot_loop` independently carries `content, interval, chan_id, chan_name, ok, stamp, hit` and the `MI/send_chat` call surface. The frozen send boundary is therefore:
+  `memory_items.send_chat(hwnd, chan_id, content)`.
+- Do not pass the Vietnamese display-name string directly as the packet channel.
+- Shared send packet constants/doc surface confirms:
+  - packet contains numeric `Channel=`;
+  - content is Base64 encoded in Lua for Vietnamese text;
+  - `Network.SendPacket(G_TCPPacketDefine.CMD_CLIENT_CHAT, packetData)`;
+  - embedded documentation explicitly gives examples **8=Thế giới, 2=Bang hội**;
+  - a True return means the Lua send command was queued, not that server echo is guaranteed.
+- Newly created Rao rows use the `RAO_DEFAULT_CHANNEL` policy. Screenshot cross-check after static extraction shows **Thế giới**, matching default ID 8.
+- Exact load-time UI normalization of a **non-empty stale/retired channel string** remains **EXPLICIT_UNKNOWN**. M03 does not invent whether it is cleared, preserved or defaulted.
+- Exact layer applying the default to missing/empty legacy channel data (load parser versus row constructor) remains **EXPLICIT_UNKNOWN**. Effective current default remains `RAO_DEFAULT_CHANNEL`.
+- Safety/parity boundary is exact: only a current `RAO_CHANNELS` member may yield a normal sendable numeric channel ID. Do not synthesize a replacement ID for stale data.
+- Frozen packaged `automove_log.txt` remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`; correlated Rao/channel/send_chat/CMD_CLIENT_CHAT traces are **0**, so live packet/server-echo parity is not fabricated.
+- M03 artifacts committed at **587ce1211e8ea90e8ccaf76cf3a52254dbeaddd1**:
+  - `docs/rao/M03_CHANNEL_MAPPING_FLOW.md`
+  - `docs/rao/M03_MODEL.json`
+  - `docs/rao/M03_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/M03.md`
+- All four M03 artifacts were fetched back successfully.
+
+## POST-M03 CODE/BUILD RECHECK
+- Recursive main tree after M03 artifact commit contains **677 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- M03 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- M03 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- M03 has no channel-mapping blocker.
+- Exact non-empty stale-channel normalization remains source-insufficient.
+- Exact missing/empty defaulting layer remains source-insufficient.
+- Live packet/server-echo timing requires Windows + live Thần Long runtime.
+- Interval normalization/timing is intentionally deferred to M04.
+
+## DO_NOT_TOUCH
+- Preserve M01-M03 Rao authority/storage/channel contracts unless stronger exact evidence contradicts them.
+- Preserve exact seven-channel Rao subset and IDs.
+- Preserve persisted display-name channel values and runtime numeric mapping.
+- Do not add Đặc biệt, Nói thầm or Liên máy chủ to Rao.
+- Do not pass channel display names into `memory_items.send_chat`.
+- Do not guess stale-channel migration behavior.
+- Do not create Stage-S source/build placeholders during Phase M research.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any M04 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **M04 — Rao interval normalization/timing audit** only.
+5. Re-inspect the exact frozen Rao block first, focusing on `sec_var`, digits-only validation, `_resolve_rao` interval parsing, `_load_config` default/clamp surface, `_slot_loop` wait/sleep logic, current minimum/maximum if any, first-send timing, per-slot independence, and how interval changes while running are observed.
+6. Determine exact default, storage type, parse/clamp policy, invalid/blank handling, send-before-wait versus wait-before-send behavior, timer reset semantics after send failure/success, and whether a live edit affects the next loop without restart.
+7. Defer account assignment to M05 and start/stop ownership to M06 except where interval scheduling directly depends on slot worker state.
+8. Cross-check the supplied Rao screenshot only after static extraction.
+9. Persist M04 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M04 verification.
