@@ -1,0 +1,47 @@
+id	location	source	tier	fact
+E001	0x293100b	EXE	EXACT_MODULE_MARKER	u<module emu_chat>
+E002	0x2930abd	EXE	EXACT_IMPORT	Earlier caller references .emu_chat
+E003	0x2930acd	EXE	EXACT_SYMBOL	utils.read_settings
+E004	0x2930af4	EXE	EXACT_SYMBOL	has_section
+E005	0x2930b03	EXE	EXACT_LITERAL	EmuChat settings section
+E006	0x2930b2b	EXE	EXACT_DOC	Doc cap toa do UI tu [EmuChat], debug calibration
+E007	0x2930b65	EXE	EXACT_LITERAL	@GOTO_
+E008	0x2930b6d	EXE	EXACT_IMPORT	emu_reader -> emu_manager
+E009	0x2930b95	EXE	EXACT_METHOD	poll_rows
+E010	0x2930ba2	EXE	EXACT_FIELDS	PosX PosY MapID
+E011	0x2930bb9	EXE	EXACT_IMPORT	emu_input.AdbInput
+E012	0x2930bda	EXE	EXACT_METHOD	_pos_of
+E013	0x2930be9	EXE	EXACT_LITERAL	tuda o dich
+E014	0x2930bf5	EXE	EXACT_METHOD	_chat_xy
+E015	0x2930bff	EXE	EXACT_KEYS	chat_open_x, chat_open_y, CHAT_PREVIEW
+E016	0x2930c27	EXE	EXACT_KEYS	input_x, input_y, INPUT_ROW
+E017	0x2930c44	EXE	EXACT_KEYS	kb_ok_x, kb_ok_y, KB_OK
+E018	0x2930c5d	EXE	EXACT_KEYS	send_x, send_y, SEND_BTN
+E019	0x2930c77	EXE	EXACT_KEYS	link_x, link_y, LINK_X LINK_Y
+E020	0x2930c97	EXE	EXACT_SYMBOL	tap time sleep key text goto_cmd
+E021	0x2930cdb	EXE	EXACT_STRING	tap loi
+E022	0x2930cf5	EXE	EXACT_SYMBOL	serial; cur; t0
+E023	0x2930d10	EXE	EXACT_SYMBOL	start_map last_move
+E024	0x2930d28	EXE	EXACT_STRING	stuck tai; timeout tai
+E025	0x2930d43	EXE	EXACT_DOC	Move to map tile_x tile_y via chat-link
+E026	0x2930d89	EXE	EXACT_DOC	Already within <=2 tiles => success; do not spam chat
+E027	0x2930dbc	EXE	EXACT_DOC	Returns (ok,msg), memory verification, stuck 30s
+E028	0x2930e13	EXE	EXACT_DOC	Pure UI chat-link goto, no inject in primitive
+E029	0x2930e43	EXE	EXACT_DOC	Open focus clear type @GOTO_m_x_y tile coords
+E030	0x2930e92	EXE	EXACT_DOC	Dismiss keyboard send tap newest own link verify by memory
+E031	0x2930edb	EXE	EXACT_DOC	settings.ini [EmuChat], debug calibrated
+E032	0x2930f23	EXE	EXACT_DOC	Chat open/input/send/kb_ok/link defaults from manual PC reference
+E033	0x2930fe4	EXE	EXACT_SYMBOL	ARRIVE_TILES
+E034	0x2930ff7	EXE	EXACT_SYMBOL	goto callable label
+E035	0x2930ffe	EXE	EXACT_FILE_LABEL	emu_chat.py
+E036	0x293107d	EXE	EXACT_LOCALS	serial map_id tx ty timeout
+E037	0x29310db	EXE	EXACT_LOCALS	last_move last start_map
+E038	0x2932300	EXE	EXACT_IMPORT	EmuFarmTab uses emu_chat and goto
+E039	0x29320a3	EXE	EXACT_DOC	farm cycle: phase sau
+E040	0x293258b	EXE	EXACT_DOC	Train LD moves by chat-link goto + verify memory
+E041	0x29325b8	EXE	EXACT_DOC	[EmuCoords:serial] per emulator presets
+E042	0x29325fb	EXE	EXACT_DOC	Rows keyed by Android ID for reboot serial change
+E043	0x290d2b5	EXE	EXACT_DOC	Debug Android staged chat-goto tests
+E044	0x290d7f4	EXE	EXACT_DOC	Debug Android saved measured settings.ini [EmuChat]
+E045	0x290d932	EXE	EXACT_KEYS	Debug chat_open/input/send/kb_ok/link and goto_map/x/y
+E046	emu_client.js:56	SHIPPED_JS	EXACT_CODE	X_UI=PosX>>5, Y_UI=PosY>>5; map and raw coords separate
