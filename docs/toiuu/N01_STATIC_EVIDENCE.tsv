@@ -1,0 +1,63 @@
+key	offset_hex	level	evidence
+authority_zip	-	VERIFIED_SHA256	Frozen user archive TLMTool_2.1.2(9).zip; 1050 entries; zip CRC clean
+authority_exe	-	VERIFIED_SHA256	Inner standalone TLMTool_2.1.2/TLMTool.dist/TLMTool.exe; 47450112 bytes
+toiuu_header	0x2c01fb5	EXACT_BINARY	Nuitka .toiuu_tab header; 22485-byte payload; 940 constants
+toiuu_marker	0x2c06c69	EXACT_BINARY	<module toiuu_tab> marker
+toiuu_class	0x2c06289	EXACT_BINARY	ToiuuTab class
+toiuu_file	0x2c06b61	EXACT_BINARY	toiuu_tab.py filename marker
+ui_init_build	0x2c021c3	EXACT_SYMBOL	_build_ui, _load_config, <Destroy>/_save_on_destroy, refresh/watch/graphs/restore startup surface
+ui_monitor_group	0x2c022b8	EXACT_UTF8	Giám sát CPU/GPU
+ui_monitor_subtitle	0x2c02327	EXACT_UTF8	Theo dõi hiệu năng.
+ui_detach	0x2c02386	EXACT_UTF8	Tách theo dõi with _toggle_monitor_view adjacent
+graph_deque	0x2c02444	EXACT_SYMBOL	deque + GRAPH_HIST + _cpu_hist/_gpu_hist
+cpu_label	0x2c02485	EXACT_UTF8	CPU: --% placeholder
+graph_cpu_blue	0x2c024a3	EXACT_UTF8	#1565c0
+graph_border	0x2c024e2	EXACT_UTF8	#bbbbbb
+gpu_label	0x2c0252c	EXACT_UTF8	GPU: --% placeholder
+gpu_label_color	0x2c0254a	EXACT_UTF8	#e65100
+ui_accounts_group	0x2c0259b	EXACT_UTF8	Danh sách tài khoản
+ui_character_header	0x2c025f3	EXACT_UTF8	Nhân vật
+ui_config_header	0x2c02604	EXACT_UTF8	Giảm cấu hình
+ui_scroll	0x2c02699	EXACT_SYMBOL	Canvas + Scrollbar account row list
+ui_bulk_label	0x2c02814	EXACT_UTF8	Điều khiển tất cả:
+ui_bulk_modes	0x2c02874	EXACT_SYMBOL	MODE_ORDER + MODE_NAMES buttons
+ui_start	0x2c028f2	EXACT_UTF8	Bottom Bắt đầu
+ui_start_worker	0x2c029fb	EXACT_SYMBOL	threading.Thread target _start_all_accs daemon start
+row_pid_identity	0x2c02c3a	EXACT_SYMBOL	get PID, bind/unbind window identity, HWND PID reuse log
+row_name	0x2c02d21	EXACT_SYMBOL	_get_char_name / RoleName / _has_real_name / load_acc_config
+row_controls	0x2c02f40	EXACT_SYMBOL	Combobox + config_var + state + per-row mode/action buttons
+row_stopped	0x2c03014	EXACT_UTF8	Đã dừng
+row_modes	0x2c03084	EXACT_UTF8	Thấp vừa / Cực thấp / Cực đại row controls
+row_permission	0x2c032ff	EXACT_UTF8	Disable row mới tạo khi không có quyền toiuu_tab.
+refresh_selected	0x2c03509	EXACT_DOC	Bắt đầu refresh loop — gọi khi tab được chọn.
+refresh_unselected	0x2c03555	EXACT_DOC	Dừng refresh loop — gọi khi tab bị chuyển đi.
+sample_graph	0x2c0371d	EXACT_DOC	Sample 1s/lần (thread phụ) + vẽ lại (main thread).
+gpu_reader	0x2c03791	EXACT_STATIC	nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits
+gpu_no_binary	0x2c0394a	EXACT_UTF8	GPU: N/A (không có nvidia-smi)
+detached_doc	0x2c039df	EXACT_DOC	Mở/đóng view bar CPU/GPU tách rời (sát cạnh trái GUI chính, cao 768).
+monitor_saved	0x2c03ad1	EXACT_SYMBOL	toiuu_monitor_open persistent state
+starttab_sync	0x2c03b8c	EXACT_DOC	Đẩy trạng thái Theo dõi / Tối ưu sang 2 nút shortcut trên StartTab.
+running_set	0x2c03c82	EXACT_SYMBOL	toiuu_running; persisted running set
+stale_reconcile	0x2c041fc	EXACT_DOC	Resume stale session only with permission; reset normal if rights lost
+detached_title	0x2c0458d	EXACT_UTF8	CPU / GPU detached window title
+detached_topmost	0x2c04606	EXACT_SYMBOL	-topmost detached window attribute
+detached_close	0x2c046f6	EXACT_UTF8	Đóng theo dõi
+name_persist	0x2c04936	EXACT_DOC	Restore Giảm cấu hình by character name, not HWND
+dll_native	0x2c04aa4	EXACT_SYMBOL	dll_injector, inject_into_pid, send_perf_command
+perf_all_doc	0x2c04c20	EXACT_DOC	Native TLMP send all accounts; not Lua, no game restart; DLL injection if needed
+perf_single_doc	0x2c04d3b	EXACT_DOC	Native TLMP send one account; expected_pid guard
+combo_not_apply	0x2c04e74	EXACT_DOC	CHI đổ chế độ vào combobox mọi acc (không kích hoạt perf).
+start_applies	0x2c04ebf	EXACT_DOC	Nút Bắt đầu mới kích hoạt theo combobox từng acc.
+single_set_not_apply	0x2c05011	EXACT_DOC	Chỉ gán combobox acc đó thành mode (không kích hoạt).
+apply_single	0x2c051b3	EXACT_DOC	Apply selected account config; Không = skip
+permission_limit	0x2c0520f	EXACT_SYMBOL	permission_guard.has_permission_with_limit
+watch_ping	0x2c05d24	EXACT_DOC	Ping TLMP-5 mọi acc đang chạy; 2 miss liên tiếp → đỏ + tự hồi sinh.
+recover_login	0x2c05f28	EXACT_DOC	Kill hung acc -> relogin via login_tab -> reapply eco/start; runtime not tested
+mode_constants	0x2c06188	EXACT_BINARY	MODE_ORDER medium/low/max and names
+mode_four_options	0x2c061e8	EXACT_UTF8	Không, Thấp vừa, Cực thấp, Cực đại
+state_labels	0x2c0621c	EXACT_UTF8	Đã dừng, Đang chạy, Treo tick
+cpu_monitor_separate	0x28d82e9	EXACT_BINARY	Separate .cpu_monitor block, 2019 bytes, 127 constants
+cpu_monitor_warning	0x28d841e	EXACT_UTF8	⚠ CPU cao: --% — Auto có thể hoạt động không chính xác
+cpu_monitor_psutil	0x28d874e	EXACT_SYMBOL	CPUMonitor uses psutil.cpu_percent; separate high-CPU warning service
+capture_reference	-	PRIOR_B11_STATIC_VISUAL	B11 original screenshot 452x1032, current-state CPU 15%, GPU N/A, empty list
+live_test	-	NOT_RUN	No Windows/game runtime, no new reconstructed exe

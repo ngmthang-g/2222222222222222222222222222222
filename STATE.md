@@ -5072,3 +5072,32 @@ On CONTINUE:
 3. Inspect original frozen `toiuu_tab` EXE evidence first: active class/UI creation, CPU/GPU monitor, detached monitor, graphics configuration, per-account and global actions and permission guard.
 4. Only after static extraction compare user-supplied Tối ưu screenshot; do not overclaim GPU live data from capture.
 5. Persist N01 task/evidence/model, update STATE.md/PROJECT_STATUS.md, and re-check source/build state.
+
+
+## N01 VERIFIED RESULTS — TỐI ƯU ACTIVE AUTHORITY / UI
+- Read PLAN.md/STATE.md/PROJECT_STATUS.md and checked GitHub main HEAD `76fc32fb8cc6f3790e30cceaafece18ff1f4e82f` first; no pre-existing N01 artifacts. Reused B11 visual baseline; no previous complete task repeated.
+- Frozen uploaded TLM archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; active inner standalone EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`; 1,050 entries, CRC clean.
+- Original `.toiuu_tab` serialized block starts `0x2c01fb5`, 22,485-byte payload, 940 constant entries; active class `ToiuuTab`, module file marker `toiuu_tab.py`.
+- Distinct `.cpu_monitor` block starts `0x28d82e9`, 2,019-byte payload/127 constants; `CPUMonitor` uses psutil CPU-high warning and is NOT the tab CPU/GPU plotting engine.
+- Tab UI authority recovered: monitor charts, `Tách theo dõi`, account rows, bulk mode buttons, `Bắt đầu`, status labels; B11 screenshot retained as baseline, no populated account row fabricated.
+- Exact original EXE doc confirms **1s CPU/GPU sample worker -> main-thread redraw**, GPU query via nvidia-smi and N/A state.
+- Native performance `dll_injector`/TLMP helper path exists. Original docs distinguish **assigning a mode in combobox only** from **applying native perf upon Start**; no dummy command is permitted.
+- Monitor `toiuu_monitor_open`, running `toiuu_running`, StartTab Theo dõi/Tối ưu button sync, permission guards, account HWND/PID identity, TLMP-5 watch/Treo tick recovery intent inventoried; behavior depth deferred N02–N09.
+- N01 artifacts: `docs/toiuu/N01_AUTHORITY_UI_FLOW.md`, `docs/toiuu/N01_AUTHORITY_MODEL.json`, `docs/toiuu/N01_STATIC_EVIDENCE.tsv`, `docs/tasks/N01.md`.
+- N01 gate **STATIC_AUTHORITY_AND_UI_SURFACE_AUDITED / LIVE_PARITY_DEFERRED**. No Windows game execution, source application or build workflow.
+
+## POST-N01 BUILD/CODE CHECK
+- Changes are documentation/model/status only; original binary and 7 forensic scripts unchanged.
+- Product EXE build **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**. Do not claim PASS or functional parity.
+
+## N01 BLOCKERS / DO_NOT_TOUCH
+- Exact reconstructed source statements, GPU monitoring errors, graph history/timer bounds, populated account UI and DLL native command outcomes require later evidence/runtime.
+- Preserve previous N/M/B11 contracts; no Proxy runtime development; no unrelated UI/code changes.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md/STATE.md, check GitHub main for N02 artifact/commit; skip if complete.
+2. Execute **N02 — CPU monitoring sample/history/redraw audit** only, EXE-first: `ToiuuTab._start_graphs`, `_sample_loop`, `_schedule_redraw`, `_fmt_pct`, `_draw_one`, `_redraw_graphs`, `GRAPH_HIST`, `GRAPH_TICK_MS`, `psutil`, Tk-after and shutdown.
+3. Keep `cpu_monitor.CPUMonitor` high-CPU warning distinct from Tối ưu plotted history. GPU reader is N03, detached view N04, native apply N05 onward.
+4. Compare B11 screenshot after static evidence; never infer unseen populated rows.
+5. Persist N02 model/evidence/task, update STATE.md/PROJECT_STATUS.md, recheck source/build without claiming running parity.

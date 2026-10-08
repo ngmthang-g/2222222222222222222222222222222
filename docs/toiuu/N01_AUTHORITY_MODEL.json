@@ -1,0 +1,105 @@
+{
+  "task": "N01",
+  "status": "STATIC_AUTHORITY_AND_UI_SURFACE_AUDITED_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "active_module": "toiuu_tab",
+    "class": "ToiuuTab",
+    "header_offset": "0x2c01fb5",
+    "serialized_payload_bytes": 22485,
+    "constant_count": 940,
+    "original_python_source_available": false,
+    "source_filename": "toiuu_tab.py",
+    "module_marker_offset": "0x2c06c69"
+  },
+  "related_separate_cpu_monitor": {
+    "module": "cpu_monitor",
+    "header_offset": "0x28d82e9",
+    "payload_bytes": 2019,
+    "constant_count": 127,
+    "role": "high CPU psutil warning service, not Tối ưu CPU/GPU chart"
+  },
+  "ui": {
+    "tab": "Tối ưu",
+    "monitor_group": "Giám sát CPU/GPU",
+    "sample_doc": "Sample 1s/lần (thread phụ) + vẽ lại (main thread).",
+    "detached_button": "Tách theo dõi",
+    "account_group": "Danh sách tài khoản",
+    "headers": [
+      "Nhân vật",
+      "Giảm cấu hình"
+    ],
+    "config_options": [
+      "Không",
+      "Thấp vừa",
+      "Cực thấp",
+      "Cực đại"
+    ],
+    "bulk_options": [
+      "Thấp vừa",
+      "Cực thấp",
+      "Cực đại"
+    ],
+    "bottom_button": "Bắt đầu",
+    "current_capture": {
+      "cpu": "CPU: 15%",
+      "gpu": "GPU: N/A (không có nvidia-smi)",
+      "account_rows": 0
+    }
+  },
+  "modules": {
+    "graphics_read_gpu": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+    "detached_title": "CPU / GPU",
+    "detached_config_key": "toiuu_monitor_open",
+    "native_apply": [
+      "dll_injector.inject_into_pid",
+      "dll_injector.send_perf_command"
+    ],
+    "entry_points": [
+      "_send_perf_single",
+      "_send_perf_all",
+      "_start_all_accs",
+      "_toggle_single_acc"
+    ],
+    "permission": [
+      "permission_guard.has_permission(toiuu_tab)",
+      "has_permission_with_limit"
+    ]
+  },
+  "important_interaction": {
+    "mode_buttons_select_combobox_only": true,
+    "perf_actual_send_requires_apply_path": true,
+    "stop_zero_mode_unknown": false,
+    "starttab_shortcut_sync": true,
+    "window_identity": "HWND+PID expected process",
+    "watch": "TLMP-5 ping / Treo tick after two misses per original embedded doc"
+  },
+  "persistence": {
+    "running_key": "toiuu_running",
+    "prior_running_key": "toiuu_was_running",
+    "monitor_key": "toiuu_monitor_open",
+    "account_config_identity": "sanitized character name"
+  },
+  "confidence_levels": [
+    "EXACT_UTF8",
+    "EXACT_SYMBOL",
+    "EXACT_DOC",
+    "PRIOR_B11_STATIC_VISUAL",
+    "NOT_RUN"
+  ],
+  "unknowns": [
+    "N02 CPU sampling expression and graph history bounds",
+    "N03 full GPU subprocess/error behavior",
+    "N04 detached window geometry multi-monitor and closure ordering",
+    "N05-7 native mode and per-account/all-account command runtime",
+    "N08 persistence/resume/watch/recover race behavior",
+    "live Windows game functional and visual parity"
+  ],
+  "code_build": {
+    "application_source_exists": false,
+    "build_workflow_exists": false,
+    "live_game_test": "NOT_RUN"
+  },
+  "next_action": "N02 — CPU monitoring sample/history/redraw audit"
+}

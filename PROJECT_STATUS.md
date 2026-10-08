@@ -443,3 +443,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Documents: `docs/rao/M07_RECONSTRUCTION_CONTRACT.md`, `docs/rao/M07_MODEL.json`, `docs/tasks/M07.md`.
 - Stage-S application source absent, Stage-T build workflow absent; EXE product status NOT_APPLICABLE_YET, never claimed PASS.
 - **NEXT** N01 — Tối ưu active module/UI authority audit; EXE-first then screenshot.
+
+
+## Phase N — Tối ưu
+- N01 — **STATIC_AUTHORITY_AND_UI_SURFACE_AUDITED / LIVE_PARITY_DEFERRED**. Active original `toiuu_tab.ToiuuTab` (0x2c01fb5; 22,485 bytes; 940 constants), frozen ZIP `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; EXE `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Separate high-CPU warning `CPUMonitor` is not Tối ưu graph. Original tabs show charts, N/A GPU fallback, detached monitor, per-account and bulk configurations. Selecting gray mode buttons is not native apply; actual DLL/TLMP send is separately documented.
+- Permissions, HWND/PID, StartTab Theo dõi/Tối ưu synchronization, persistent monitor/running keys, TLMP watch/recovery intent are static surfaces only. Live runtime parity NOT_RUN.
+- Files: `docs/toiuu/N01_AUTHORITY_UI_FLOW.md`, `docs/toiuu/N01_AUTHORITY_MODEL.json`, `docs/toiuu/N01_STATIC_EVIDENCE.tsv`, `docs/tasks/N01.md`.
+- Stage-S product source and Stage-T build workflow absent; build NOT_APPLICABLE_YET.
+- **NEXT N02 — CPU monitoring sample/history/redraw audit**, EXE-first; leave GPU N03.
