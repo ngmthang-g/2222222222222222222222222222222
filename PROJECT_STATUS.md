@@ -630,3 +630,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Files added docs/emulator/P08_DEBUG_ANDROID_WORKBENCH.md, P08_MODEL.json, P08_STATIC_EVIDENCE.tsv, docs/tasks/P08.md. No original modules, PLAN, prior research, emulator, game or Proxy touched.
 - Phase P01–P08 original static emulator subsystem research complete, runtime Windows/LD parity deferred. Product build **BLOCKED_SOURCE_MISSING** until Stage S app and Stage T Windows workflow exist.
 - NEXT_ACTION R01 — Phase R resource provenance/loader GAP audit building on Gate A/D06/D07; never repeat completed manifest work.
+
+
+## R01 — Resource provenance closure / Stage S handoff
+- Direct frozen ZIP verified SHA/CRC: 1050 entries, 1002 regular files, 48 dirs. Reused Gate A and D06/D07. Added 26-row immutable resource matrix with SHA/size/header/reader/writer/runtime confidence; matched A07 26/26 and D06 24/24.
+- Fourteen opaque .dat and five old/backup DLL basenames have zero exact ASCII or UTF-16LE occurrences in frozen EXE; UNKNOWN readers/writers preserved. Strong relative path dependency: outer launcher CWD TLMTool.dist and dll_injector ./data/resources.dat. Full 1002-file build manifest remains authoritative.
+- New artifacts docs/resources/R01_RESOURCE_GAP_MATRIX.tsv, R01_DATA_RESOURCE_GAPS.md, R01_MODEL.json, R01_STATIC_EVIDENCE.tsv, docs/tasks/R01.md, tools/R01_VERIFY_RESOURCE_GAPS.py. Local verifier syntax+ZIP-only PASS; optional matrix mode NOT_RUN; zero runtime tests.
+- R01 closes Phase R static Plan fields with UNKNOWN explicitly; still no Stage S rebuilt app or Stage T Windows build: BUILD_BLOCKED_SOURCE_MISSING. No Proxy development or earlier data changed.
+- NEXT_ACTION S01 — smallest real Stage S source bootstrap from verified MainApp/UI/launcher contracts; do not fake feature functionality.
