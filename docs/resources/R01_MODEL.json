@@ -1,0 +1,86 @@
+{
+  "task": "R01",
+  "status": "STATIC_RESOURCE_PROVENANCE_MATRIX_COMPLETE_WITH_RUNTIME_UNKNOWNS_PRESERVED",
+  "frozen": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "entries": 1050,
+    "files": 1002,
+    "dirs": 48,
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22"
+  },
+  "matrix": {
+    "path": "docs/resources/R01_RESOURCE_GAP_MATRIX.tsv",
+    "rows": 26,
+    "d06_rows_reused": 24,
+    "js_rows_added": 2,
+    "opaque14": 14,
+    "old_backup5": 5,
+    "original_manifest_matches": 26,
+    "d06_matches": 24,
+    "size_hash_mismatches": 0,
+    "required_columns": [
+      "path",
+      "size_bytes",
+      "sha256",
+      "header_hex16",
+      "magic_class",
+      "reader_or_loader",
+      "writer",
+      "runtime_usage",
+      "confidence",
+      "stage_s_packaging",
+      "evidence"
+    ]
+  },
+  "compiled_name_scan": {
+    "encodings": [
+      "ASCII",
+      "UTF16LE"
+    ],
+    "opaque14_literal_refs": 0,
+    "backup5_literal_refs": 0,
+    "ascii_counts": {
+      "resources.dat": 7,
+      "version.dat": 2,
+      "Default.ppx": 1,
+      "automove_log.txt": 1,
+      "proxy_working.txt": 10,
+      "emu_client.js": 2,
+      "ld_remote.js": 4
+    },
+    "limitation": "NO_LITERAL_REF_DOES_NOT_PROVE_UNUSED"
+  },
+  "confirmed_relative_path": {
+    "launcher_working_directory": "TLMTool.dist",
+    "active_payload": "./data/resources.dat"
+  },
+  "testing": {
+    "zip_crc": "PASS",
+    "zip_sha": "PASS",
+    "local_py_compile": "PASS",
+    "zip_only_readonly_verifier": "PASS",
+    "verifier_optional_matrix_argument": "NOT_RUN",
+    "github_manifest_join": "PASS",
+    "github_d06_join": "PASS",
+    "windows_runtime": "NOT_RUN",
+    "product_build": "BLOCKED_SOURCE_MISSING"
+  },
+  "unresolved": [
+    "14 opaque readers/writers",
+    "5 old backup consumers",
+    "active resource injection runtime",
+    "version.dat exact install",
+    "automove log writer",
+    "Frida AutoX live consumption",
+    "working directory direct-run",
+    "PC guest runtime persistence",
+    "full 1002-file build closure",
+    "dynamic directory loading"
+  ],
+  "scope": {
+    "previous_tasks_unchanged": true,
+    "original_archive_unchanged": true,
+    "proxy_development": "EXCLUDED"
+  },
+  "next_action": "S01 — first real source bootstrap using verified main app and UI contracts; preserve CWD and do not fake feature function"
+}
