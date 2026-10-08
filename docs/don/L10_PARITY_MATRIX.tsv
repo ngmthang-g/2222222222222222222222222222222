@@ -1,0 +1,57 @@
+area	behavior	classification	note
+authority	DonVangTab active authority + don_logic receiver engine	STATIC_VERIFIED	L01
+ui	Dedicated Dồn visible surface and StartTab Dồn controls	STATIC_VERIFIED	Permission-controlled visibility; exact capture permission state unknown
+return	cycle/full_bag_timer trigger modes	STATIC_VERIFIED	cycle default 30
+return	cycle poll/sleep micro-order	EXPLICIT_UNKNOWN	Do not invent
+return	Truyền back route selection + fresh exit verify + walk fallback	STATIC_VERIFIED	L02
+return	live click/teleport timing	RUNTIME_REQUIRED	Windows/game
+priority	4 readonly priority slots; Phù1/2/3/Ngựa defaults	STATIC_VERIFIED	L03
+priority	new duplicate nonblank prevention	STATIC_VERIFIED	readonly recomputed options
+priority	legacy already-duplicated config normalization	EXPLICIT_UNKNOWN	Config fixture required
+inventory	Site10 occupied-slot metric	STATIC_VERIFIED	None on read failure
+inventory	threshold 98 hidden-pickup ON / 100 OFF	STATIC_VERIFIED	L04
+inventory	stop_bag_check default 3 exact meaning	EXPLICIT_UNKNOWN	Not a slot threshold
+inventory	Tất cả / Chỉ vũ khí only	STATIC_VERIFIED	No Dồn Không; no discard_weapons
+inventory	hidden PICKITEM.IsOn True after 5s helper delay	STATIC_VERIFIED	No recurring poll recovered
+inventory	discard packet behavior	STATIC_VERIFIED	action4 opcode100005 whole stack
+inventory	live memory propagation after discard	RUNTIME_REQUIRED	Game memory timing
+coordinates	saved name/map/X/Y + Train apply + delete	STATIC_VERIFIED	L05
+coordinates	one shared Dồn coordinate	STATIC_VERIFIED	All receiver rows alias _recv_coord_var
+coordinates	independent per-receiver Dồn coordinates	NOT_CURRENTLY_WIRED	Must not reconstruct
+coordinates	role-switched account coordinate selector	STATIC_VERIFIED	donor Train / receiver sell
+coordinates	stale map skip/no fuzzy remap	STATIC_VERIFIED	Save/load
+coordinates	legacy/per-row recv_coord conflict precedence	EXPLICIT_UNKNOWN	Migration fixture required
+receiver	per-receiver registry/events	STATIC_VERIFIED	ready/donated/aborted/donor_hwnd
+receiver	lowest gold/hour ready receiver selection	STATIC_VERIFIED	random equal-speed tie
+receiver	stable order before random equal-speed tie	EXPLICIT_UNKNOWN	Not material to policy
+receiver	post-lock readiness recheck	STATIC_VERIFIED	Race guard
+receiver	per-receiver locks / cross-receiver parallelism	STATIC_VERIFIED	No global Dồn lock
+receiver	manual first-valid fallback	STATIC_VERIFIED	Manual Tới nơi nhận only
+receiver	automatic no-ready fallback	NOT_CURRENTLY_WIRED	Auto skips cycle/farms instead
+receiver	one trade watcher per receiver	STATIC_VERIFIED	Known accept, unknown cancel, claimed yield
+lifecycle	start-time receiver/donor worker split	STATIC_VERIFIED	L07
+lifecycle	hot role migration while running	NOT_CURRENTLY_WIRED	Selection only restyles/reorders
+lifecycle	cooperative stop + generation stale-worker guard	STATIC_VERIFIED	No force thread kill
+lifecycle	exact _gen mutation statement/order	EXPLICIT_UNKNOWN	Preserve boundary
+lifecycle	exact worker join timeout/drain timing	EXPLICIT_UNKNOWN	Runtime/source detail
+states	exact state vocabulary/colors	STATIC_VERIFIED	L07
+states	exact first-cycle assignment site for every receiver intermediate state	EXPLICIT_UNKNOWN	FSM order is verified
+death	4s monitor / Map87 respawn event	STATIC_VERIFIED	L08
+death	HP0 one-shot click (792,441) latch	STATIC_VERIFIED	Unreadable HP != 0
+death	donor continuation when respawn option unchecked	EXPLICIT_UNKNOWN	Do not guess
+death	first monitor check immediate vs after first 4s wait	EXPLICIT_UNKNOWN	Timing
+treatment	built-in/manual route + two points x4	STATIC_VERIFIED	L08
+treatment	exact failure next branch	EXPLICIT_UNKNOWN	Do not guess
+disconnect	2s memory-veto + dual-pixel 3-strike stop	STATIC_VERIFIED	Approx 6s persistent dialog
+disconnect	auto reconnect in Dồn	NOT_CURRENTLY_WIRED	Explicitly absent
+disconnect	is_trade_active exact branch semantics	EXPLICIT_UNKNOWN	Helper consulted
+disconnect	same-window death/disconnect arbitration	RUNTIME_REQUIRED	Scheduling race
+bulk	Tới nơi nhận -> _move_all_recv	STATIC_VERIFIED	Current visible quick action
+bulk	Tới chỗ bán -> _move_sell_acc	STATIC_VERIFIED	Movement only
+bulk	Tới nơi train -> _move_all	STATIC_VERIFIED	Nonreceiver parallel
+bulk	visible _stop_all/_farm_all/_sell_all buttons	NOT_CURRENTLY_WIRED	Methods exist but no current binding
+bulk	quick-move internal join/order	EXPLICIT_UNKNOWN	Static detail insufficient
+bulk	quick-move overlap/cancel vs Farm session	RUNTIME_REQUIRED	Different worker ownership
+starttab	StartTab delegates to same Dồn backends	STATIC_VERIFIED	No second implementation
+starttab	live StartTab/Dồn text synchronization timing	RUNTIME_REQUIRED	Windows/Tk runtime
+permission	exact permission state in supplied capture	EXPLICIT_UNKNOWN	Tab visibly present, permission value not frozen
