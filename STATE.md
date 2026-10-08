@@ -5383,3 +5383,17 @@ On CONTINUE reread PLAN.md and STATE.md and verify GitHub for O04 first. Execute
 
 ## NEXT_ACTION
 On CONTINUE read PLAN.md/STATE.md and inspect GitHub for O05; execute O05 original bag_filter activity presets, rule matching, protect_ids/protect_names and allow_weapons, dry_run, stop_check and discard safety; EXE first, no game item action. Persist O05 docs and update STATE/PROJECT_STATUS. Preserve all prior work.
+
+
+## O05 VERIFIED RESULTS — BAG_FILTER PRESETS AND DESTRUCTIVE-ITEM SAFETY
+- GitHub HEAD 76a1d9a47830ccbde501b2e41302eaf0cab01e38 verified with PLAN.md/STATE.md; O01–O04 completed, O05 absent. Frozen ZIP SHA c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd CRC clean and inner EXE SHA 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 read-only; no game or packet.
+- bag_filter original 0x28d5db3: empty rules -> no scan/no packet; field AND / rule OR, default Site10, dbID dedupe, weapon protection default allow_weapons False, match_weapons opt-in, protect_ids/names highest priority by doc. plan_discard returns preview; discard_items has dry_run, counters, stop_check, on_progress, delay, _send_lock_for(hwnd). Packet 100005 4:dbID may discard whole stack; GUI confirm delegated and NOT proven on all callers.
+- Full decoded P204 PHOBAN_DISCARD_ITEM_IDS are O04 Source Items; P10 PHOBAN_DISCARD_MED_IDS are Source Medicines; 214 distinct template IDs, no weapon overlaps. Keep mode none=[discard_weapons,discard_nonweapon], weapons=[discard_nonweapon], all=[], default all. **Keep none is NOT empty-rules** and can discard.
+- Original Farm, Donvang, Phoban, Daily, TrainLSV and Debug callers verified by compiled imports/docs, not Windows runtime. Phoban parallel accounts sequential presets/busy skip; TrainLSV only when full; Debug read-only.
+- O05 = STATIC_BAG_FILTER_RULE_PRESET_AND_DESTRUCTIVE_SAFETY_AUDITED / LIVE_DISCARD_PARITY_DEFERRED; 61 evidence records, 27 future tests NOT_RUN. Created docs/memory/O05_BAG_FILTER_SAFETY_FLOW.md, O05_MODEL.json, O05_STATIC_EVIDENCE.tsv, docs/tasks/O05.md. O01–O04/N01–N10/PLAN unchanged.
+
+## PHASE O RESEARCH HANDOFF / BUILD
+O01 module authority, O02 Reader, O03 bag/trade, O04 metadata/weapons, O05 filter all statically analyzed. Stage-S product app/Stage-T Actions build absent, live parity NOT_RUN. No Proxy development.
+
+## NEXT_ACTION
+On CONTINUE read PLAN.md/STATE.md and GitHub, check for P01. Execute **P01 — emulator subsystem original authority and active vs dormant module audit**: emu_input, emu_reader, emu_remote, emu_setup, emu_chat, emu_farm_tab, debug_android_tab. No invented dormant UI. Save P01 docs/model/evidence/task, update states and build status; Proxy Phase Q excluded.

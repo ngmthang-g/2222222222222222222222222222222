@@ -554,3 +554,10 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Frozen original EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 includes exactly 29983 META records; sources {"Equips":22776,"Items":5289,"Gems":1154,"Medicines":694,"PetEquips":70}; 12835 distinct Names and 4082 Icons. Exactly 5477 unique weapon ItemIDs from twelve types; all matched META Equips/allowed types, no missing/mismatches.
 - Artifacts: docs/memory/O04_EMBEDDED_METADATA_AND_WEAPONS.md, O04_MODEL.json, O04_DATA_METRICS.json, O04_STATIC_EVIDENCE.tsv and docs/tasks/O04.md. 47 evidence entries / 20 NOT_RUN cases. No app code/build or live game test.
 - NEXT O05 — bag_filter rules and safe destructive discard. Proxy excluded.
+
+
+## O05 / Phase O memory/item research handoff
+- Static bag_filter rules/presets and destructive item safeguards audited. Default no rules => no scan/packet; AND/OR, dbID dedupe, Site10 default, weapon-protection and protect list priority, dry_run and stop_check. Packet 100005 action 4:dbID may remove entire stack; no game actions performed.
+- Decoded Phoban 204 Items+10 Medicines unique ItemID templates in O04 META, none weapons. Keep-mode none/weapons/all maps to 2/1/0 discard presets, default all safe.
+- O05 docs/memory/O05_BAG_FILTER_SAFETY_FLOW.md, O05_MODEL.json, O05_STATIC_EVIDENCE.tsv, docs/tasks/O05.md; 61 evidence and 27 acceptance checks NOT_RUN. Stage-S source/Stage-T workflow absent. Phase O STATIC research complete, live parity deferred.
+- **NEXT P01 — emulator module authority/active vs dormant audit.** Proxy excluded.

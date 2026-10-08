@@ -1,0 +1,62 @@
+key	offset_hex	tier	finding
+zip	-	FILE	Original ZIP SHA c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd CRC clean
+exe	-	FILE	Original 47450112-byte EXE SHA 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+module	0x28d5db3	EXACT	bag_filter serialized block 5162 bytes
+locks	0x28d5dde	SYMBOL	_SEND_LOCKS_GUARD,_SEND_LOCKS,Lock
+memimport	0x28d5e15	SYMBOL	memory_items import
+metadata_warning	0x28d5e87	DOC	No metadata, nonweapon filter may fail
+activity_presets	0x28d5f42	SYMBOL	ACTIVITY_PRESETS
+keep_modes_symbols	0x28d5f88	SYMBOL	KEEP_PRESET_KEYS
+sites	0x28d5fd6	SYMBOL	sites BAG_SITE
+item_ids	0x28d5fef	SYMBOL	item_ids vs itemID
+equip_types	0x28d6003	SYMBOL	equip_types metadata type
+source	0x28d6018	SYMBOL	src
+weapon_rule	0x28d6026	SYMBOL	match_weapons is_weapon
+name_rule	0x28d6042	SYMBOL	name_contains genexpr
+no_reader	0x28d60a3	EXACT	Reader None error
+protect_ids	0x28d60e7	SYMBOL	protect_ids
+protect_names	0x28d60ff	SYMBOL	protect_names
+dedupe	0x28d6116	SYMBOL	seen/dbID
+weapon_allow	0x28d6149	SYMBOL	allow_weapons
+target_fields	0x28d617b	EXACT	dbID itemID pos qty name preset_keys
+plan_doc	0x28d61ea	DOC	plan_discard dry-run preview; empty rules []
+result_fields	0x28d627a	SYMBOL	total ok fail skipped stopped targets
+send_lock	0x28d62ed	SYMBOL	_send_lock_for
+stop_check	0x28d62fd	SYMBOL	stop_check
+abandon_item	0x28d630e	SYMBOL	abandon_item action
+progress	0x28d6324	SYMBOL	on_progress
+delay	0x28d6331	SYMBOL	delay/time.sleep
+discard_doc	0x28d6345	DOC	discard_items zeros for empty rules
+dry_run	0x28d6408	DOC	dry_run=True no packet
+activity_doc	0x28d648f	DOC	None/[] keys no discard; extra_rules optional
+zero_rules	0x28d6572	DOC	No rules no scan/no packet
+or_dedupe	0x28d663e	DOC	Multiple presets OR, dedupe dbID
+rule_and	0x28d668b	DOC	Declared fields AND; multiple rules OR
+site10	0x28d66d0	DOC	Default bag Site 10
+weapons_explicit	0x28d67e9	DOC	match_weapons=True deliberate weapon exception
+weapons_default	0x28d68cd	DOC	allow_weapons False by default
+highest_priority	0x28d6908	DOC	protect_ids/names highest priority
+stack_loss	0x28d696f	DOC	Packet 100005 4:dbID may discard entire stack; GUI confirm
+items_204	0x28d69e7	DECODED	P cc 01 => 204 distinct phoban template ItemIDs
+items_source	0x28d6de6	JOIN	_PHOBAN_DISCARD_ITEM_IDS follows; all 204 Source Items in O04 META
+meds_10	0x28d6e00	DECODED	P 0a => 10 distinct phoban medicine template IDs
+meds_source	0x28d6e34	JOIN	_PHOBAN_DISCARD_MED_IDS follows; 10 Source Medicines in META
+non_weapon_overlap	-	FULL_JOIN	214 unique phoban templates, 0 weapon intersection
+phoban_keys	0x28d6e4d	EXACT	phoban: discard_equip/items/meds labels
+train_keys	0x28d6eba	EXACT	train: discard_nonweapon/discard_weapons labels
+daily_key	0x28d6f29	EXACT	daily and discard_equip caller
+keep_keys	0x28d6f31	DECODED	KEEP_MODES none,weapons,all
+keep_labels	0x28d6f53	DECODED	Không,Chỉ vũ khí,Tất cả
+keep_mapping	0x28d6fa5	DECODED	none->2 discard presets,weapons->nonweapon,all->[]
+keep_default	0x28d6ffd	DECODED	KEEP_MODE_DEFAULT=all
+farm	0x2941490	CALLER_DOC	Farm radio Nhặt đồ => train presets
+donvang	0x2928899	CALLER_DOC	Donvang radio Nhặt đồ => train presets
+phoban	0x2b89ded	CALLER_DOC	Phoban parallel accounts, ordered presets, busy skip
+daily	0x2905bda	CALLER_DOC	Daily parallel, discard_equip and busy skip
+trainlsv	0x2c0e1e3	CALLER_DOC	Train LSV check ~10s and discard only bag full
+trainlsv_modes	0x2c0e22a	CALLER_DOC	Keep none/weapons/all mapping explained
+debug	0x2912ee0	CALLER_DOC	Read-only bag discard diagnostic; no packet
+unknown_case	-	UNKNOWN	casefold/Unicode protect names not source-proven
+unknown_order	-	UNKNOWN	exact lock/cancel/payload acknowledgement, GUI approval at each caller unproven
+runtime	-	NOT_RUN	No game/item packet/destroy called
+build	-	NOT_APPLICABLE	No reconstructed product source/workflow

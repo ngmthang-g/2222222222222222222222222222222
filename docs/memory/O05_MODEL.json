@@ -1,0 +1,86 @@
+{
+  "task": "O05",
+  "status": "STATIC_BAG_FILTER_RULE_PRESET_AND_DESTRUCTIVE_SAFETY_AUDITED_LIVE_DISCARD_PARITY_DEFERRED",
+  "authority": {
+    "head_before": "76a1d9a47830ccbde501b2e41302eaf0cab01e38",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module_offset": "0x28d5db3",
+    "module_bytes": 5162,
+    "source_ast": false
+  },
+  "rules": {
+    "default_site": 10,
+    "no_rules_no_scan": true,
+    "no_rules_no_packet": true,
+    "within_rule": "AND",
+    "across_rules": "OR",
+    "dedupe": "dbID",
+    "fields": [
+      "sites",
+      "item_ids",
+      "equip_types",
+      "src",
+      "name_contains",
+      "match_weapons",
+      "allow_weapons",
+      "protect_ids",
+      "protect_names"
+    ],
+    "weapon_protection_default": true,
+    "protected_ids_names_highest_priority": true
+  },
+  "engine": {
+    "preview": "plan_discard",
+    "execution": "discard_items",
+    "dry_run_sends": false,
+    "stop_check": true,
+    "on_progress": true,
+    "send_lock_per_hwnd": true,
+    "packet": 100005,
+    "action": 4,
+    "payload": "4:dbID",
+    "whole_stack_loss": true,
+    "actions_performed": 0
+  },
+  "presets": {
+    "phoban": {
+      "item_id_count": 204,
+      "med_id_count": 10,
+      "source_checks": "Items/Medicines exact",
+      "weapon_overlap": 0
+    },
+    "train": [
+      "discard_nonweapon",
+      "discard_weapons"
+    ],
+    "daily": [
+      "discard_equip"
+    ],
+    "keep_modes": {
+      "none": [
+        "discard_weapons",
+        "discard_nonweapon"
+      ],
+      "weapons": [
+        "discard_nonweapon"
+      ],
+      "all": []
+    },
+    "default_keep": "all"
+  },
+  "runtime_unknown": [
+    "actual source if/else precedence and name Unicode",
+    "GUI confirmations every caller",
+    "PID/dbID changes",
+    "concurrency, packet ACK and actual game loss"
+  ],
+  "acceptance": {
+    "planned": 27,
+    "executed": 0
+  },
+  "phase_o": "STATIC_RESEARCH_COMPLETE",
+  "product_source": false,
+  "build_workflow": false,
+  "next_action": "P01 — emulator original module active/dormant audit"
+}
