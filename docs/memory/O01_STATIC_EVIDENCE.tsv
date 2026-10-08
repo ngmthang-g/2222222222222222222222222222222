@@ -1,0 +1,78 @@
+key	offset_hex	tier	fact_or_limit
+archive	-	VERIFIED_FILE	TLMTool_2.1.2(9).zip; 93715901 bytes; 1050 entries; CRC complete; sha256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+original_exe	-	VERIFIED_FILE	TLMTool.dist/TLMTool.exe size 47450112; SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+memory_reader_module	0x2b7575a	EXACT_COMPILED_MODULE	Serialized memory_reader 11804 bytes; 494 constants; original module marker verified
+memory_items_module	0x2b69c5f	EXACT_COMPILED_MODULE	Serialized memory_items 47850 bytes; 895 constants
+bag_filter_module	0x28d5db3	EXACT_COMPILED_MODULE	Serialized bag_filter 5162 bytes; 145 constants
+item_meta_data_module	0x2977206	EXACT_COMPILED_MODULE	Serialized item_meta_data 1989514 bytes; 7 top-level constants; embedded META payload
+weapon_ids_module	0x2c54798	EXACT_COMPILED_MODULE	Serialized weapon_ids 27719 bytes; 11 constants
+memory_reader_class	0x2b77dda	EXACT_CLASS_METHOD	Reader class method table and __init__, start, close, read_all
+memory_reader_psutil	0x2b75b31	EXACT_SYMBOL	psutil and process_iter in process-selection surface
+memory_reader_process	0x2b75bf2	EXACT_WINAPI	OpenProcess and PROCESS_RIGHTS; API errors logged
+memory_reader_rights	0x2b75d48	EXACT_UTF8	Cần Run as Administrator! error; not proof elevation always required
+memory_reader_module_scan	0x2b75a0c	EXACT_WINAPI	EnumProcessModulesEx and EnumProcessModules with retry
+memory_reader_gameassembly	0x2b75ecd	EXACT_UTF8	gameassembly module match; original GameAssembly.dll diagnostic nearby
+memory_reader_unityplayer	0x2b75fb5	EXACT_SYMBOL	unityplayer module/base in Reader attach context
+memory_reader_storage	0x2b75f37	EXACT_SYMBOL	STORAGE_RVA; exact numeric value deferred O02
+memory_reader_chain	0x2b75f7a	EXACT_SYMBOL	CHAIN; exact chain offsets deferred O02
+memory_reader_ga_cache	0x2b75da0	EXACT_SYMBOL	_ga_cache_lock _ga_cache TTL and stale invalidation
+memory_reader_ptr_read	0x2b76006	EXACT_WINAPI	ReadProcessMemory and _r32/_r64/_r8 accessors
+memory_reader_ptr_write	0x2b76053	EXACT_WINAPI	WriteProcessMemory; Reader also writes fields: not inventory action proof
+memory_reader_region	0x2b7589a	EXACT_WINAPI	VirtualQueryEx memory-state diagnostics committed/protect
+memory_reader_role	0x2b760aa	EXACT_SYMBOL	RoleName and read_all GARBAGE/cache evict surface
+memory_reader_flags	0x2b7617a	EXACT_SYMBOL	AUTO_FLAG_RVA, AUTO_FLAG_CHAIN variants; separate from bag layout
+memory_reader_session	0x2b76ce6	EXACT_SYMBOL	SESSION_ROLE_DATA_RVA; numeric value deferred O02
+memory_reader_itempacks	0x2b77630	EXACT_SYMBOL	SESS_ITEMPACKS_OFF session item-pack location symbol; actual layout deferred
+memory_reader_methods	0x2b77eb2	EXACT_METHOD_MARKER	Reader.read_all; Reader._resolve_chain and related methods
+memory_items_import_reader	0x2b69e3d	EXACT_IMPORT_SYMBOL	memory_items imports memory_reader.Reader
+memory_items_reader_cache	0x2b69dbb	EXACT_SYMBOL	_reader_cache/_reader_lock and READER_CACHE_TTL
+memory_items_get_reader	0x2b69e67	EXACT_SYMBOL	get_reader attaches via HWND -> PID with cached Reader, or None
+memory_items_lua	0x2b69f62	EXACT_SYMBOL	send_lua_with_reader uses own main-game-thread command channel
+memory_items_import_meta	0x2b6a4f8	EXACT_IMPORT_SYMBOL	memory_items imports item_meta_data.META
+memory_items_fallback_csv	0x2b6a528	EXACT_UTF8	item_meta.csv, item_icon_list.csv, out_icons fallback from source/development
+memory_items_meta_doc	0x2b6a5b9	EXACT_EMBEDDED_DOC	Embedded META ItemID -> {name, icon, src, type} preferred; fallback CSV source mode
+memory_items_import_weapon	0x2b6a663	EXACT_IMPORT_SYMBOL	memory_items imports weapon_ids.is_weapon
+memory_items_read_bag	0x2b6a802	EXACT_METHOD_SYMBOL	read_bag returns rows/info with dbID itemID site pos qty
+memory_items_bag_item_fields	0x2b6a77c	EXACT_FIELD_SET	dbID itemID pos qty in read_bag surface
+memory_items_bag_site	0x2b6a814	EXACT_SYMBOL	BAG_SITE; get_bag docs specify Site 10
+memory_items_get_bag	0x2b6a8a2	EXACT_EMBEDDED_DOC	get_bag aggregates Site 10 and enriches item metadata, returns dict or None
+memory_items_action_packet	0x2b6a937	EXACT_EMBEDDED_DOC	Drop action 4/destroy 9 by DB item ID via packet 100005
+memory_items_use_packet	0x2b6a976	EXACT_EMBEDDED_DOC	Use item action 3:dbID via packet 100005; not game GUI click
+memory_items_trade	0x2b6ee7b	EXACT_EMBEDDED_DOC	Trade table Site 200 and count, returns None on read error
+memory_items_free_slot	0x2b6f88c	EXACT_LUA_STRING	Game.GetFreeBagSpace Lua query
+memory_items_trade_filter	0x2b6f12a	EXACT_DOC	Game.GetItemType in-game inventory type query avoids metadata dependency
+memory_items_connected	0x2b71025	EXACT_DOC	Additional memory_items services query SessionData and game state; not all are bag readers
+bag_filter_import_mem	0x28d5e18	EXACT_IMPORT_SYMBOL	bag_filter imports memory_items for get_reader/read_bag/load_meta/actions
+bag_filter_reload_meta	0x28d5e45	EXACT_EMBEDDED_DOC	reload_meta re-reads item metadata after extraction
+bag_filter_empty_meta_warning	0x28d5e87	EXACT_UTF8	Warning when metadata empty: nonweapon filter may fail; not proof original EXE lacks embedded META
+bag_filter_activity_presets	0x28d5f42	EXACT_SYMBOL	ACTIVITY_PRESETS and KEEP_PRESET_KEYS
+bag_filter_rules	0x28d5fd6	EXACT_RULE_SYMBOLS	sites BAG_SITE item_ids equip_types src match_weapons name_contains
+bag_filter_reader_fail	0x28d60a3	EXACT_UTF8	Khong doc duoc memory (reader None)
+bag_filter_protection	0x28d60e7	EXACT_RULE_SYMBOLS	protect_ids and protect_names, plus allow_weapons
+bag_filter_plan_doc	0x28d61ea	EXACT_EMBEDDED_DOC	plan_discard dry-run; empty rules -> []; target {dbID,itemID,pos,qty,name,preset_keys}
+bag_filter_execute_doc	0x28d6345	EXACT_EMBEDDED_DOC	discard_items returns counts total ok fail skipped stopped targets; stop_check/progress/delay/dry_run
+bag_filter_activity_doc	0x28d648f	EXACT_EMBEDDED_DOC	discard_for_activity keys selected; None/[] -> do not discard anything
+bag_filter_no_rule	0x28d6572	EXACT_EMBEDDED_DOC	default no discard; empty rules no memory scan or packet
+bag_filter_weapon_default	0x28d68cd	EXACT_EMBEDDED_DOC	allow_weapons False default; explicit match_weapons True exception
+bag_filter_packet	0x28d696f	EXACT_EMBEDDED_DOC	Discard sends packet 100005 with 4:dbID; all stack may be lost; require user confirmation/dry-run
+bag_filter_train_phoban	0x28d6e4d	EXACT_SYMBOL	phoban and train preset branches
+bag_filter_weapons_preset	0x28d6ef9	EXACT_SYMBOL	discard_weapons named preset: opt-in, not default
+item_meta_embedded_doc	0x2977215	EXACT_EMBEDDED_DOC	Item meta embedded from out_icons/item_meta.csv; generated via tools/gen_item_meta_data.py; do not hand edit
+item_meta_record_shape	0x2977215	EXACT_EMBEDDED_DOC	META[id] = (Name, Icon, Source, EquipType)
+weapon_ids_set	0x2c547aa	EXACT_SYMBOL	WEAPON_ITEM_IDS embedded set; count not parsed
+weapon_ids_types	0x2c547bb	EXACT_EMBEDDED_DOC	Weapon Type 0-8,16,17,100; derived Equips.xml and out_icons/weapon; name is unsafe classifier
+weapon_ids_classify	0x2c5b3b4	EXACT_METHOD_SYMBOL	is_weapon
+direct_farm_refs	0x2941412	CROSS_MODULE_STATIC	farm_tab contains direct bag_filter and discard_for_activity import; keys_for_keep_mode/pickup Radio nearby
+direct_phoban_refs	0x2b89be1	CROSS_MODULE_STATIC	phoban_tab references bag_filter and discard_for_activity
+direct_daily_refs	0x2905b15	CROSS_MODULE_STATIC	daily_tab references bag_filter/discard_for_activity
+direct_donvang_refs	0x2928936	CROSS_MODULE_STATIC	donvang_tab references bag_filter/discard_for_activity
+direct_trainlsv_refs	0x2c0e09f	CROSS_MODULE_STATIC	train_lsv_tab references bag_filter/discard_for_activity
+direct_debug_refs	0x2912ed2	CROSS_MODULE_STATIC	debug_tab references bag_filter
+direct_memitem_refs	-	CROSS_MODULE_STATIC	memory_items direct import symbols in bag_filter daily_tab debug_tab don_logic donvang_tab farm_tab party_tab phoban_tab rao_tab train_lsv_tab utils
+archive_external_meta_missing	-	ZIP_FILE_NEGATIVE	No packaged matching item_meta.csv/item_icon_list.csv/Equips.xml names; embedded META is present; cannot assert runtime metadata empty
+runtime_readbag	-	NOT_RUN	No original game/process attached and no inventory rows observed
+runtime_item_drop	-	NOT_RUN	No item-drop/Lua/native command executed or success measured
+original_pointer_values	-	EXPLICIT_UNKNOWN	Numerical pointer RVA/chain/structure offsets not decoded in O01; O02 scoped
+original_meta_size	-	EXPLICIT_UNKNOWN	Embedded item ID/weapon ID dataset sizes/content accuracy not decoded; O04 scoped
+selected_gui_toggle	-	LIMITED_EVIDENCE	Module references and FarmTab UI link establish live wiring, but not execution in this analysis session
+build_state	-	NOT_APPLICABLE	No Stage-S application source or Stage-T GitHub Actions workflow on main

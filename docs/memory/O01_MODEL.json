@@ -1,0 +1,164 @@
+{
+  "task": "O01",
+  "status": "STATIC_MEMORY_ITEM_MODULE_AUTHORITY_AND_CROSS_TAB_WIRING_AUDITED_DEEP_LAYOUT_AND_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "repo_head_before": "d45a0efb4c781f73e7f465e39dc98425fcda8b40",
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "original_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "archive_entries": 1050,
+    "exe_bytes": 47450112,
+    "original_source_ast_available": false
+  },
+  "modules": [
+    {
+      "name": "memory_reader",
+      "offset": "0x2b7575a",
+      "payload_bytes": 11804,
+      "constants": 494
+    },
+    {
+      "name": "memory_items",
+      "offset": "0x2b69c5f",
+      "payload_bytes": 47850,
+      "constants": 895
+    },
+    {
+      "name": "bag_filter",
+      "offset": "0x28d5db3",
+      "payload_bytes": 5162,
+      "constants": 145
+    },
+    {
+      "name": "item_meta_data",
+      "offset": "0x2977206",
+      "payload_bytes": 1989514,
+      "constants": 7,
+      "data_entry_count": "UNKNOWN"
+    },
+    {
+      "name": "weapon_ids",
+      "offset": "0x2c54798",
+      "payload_bytes": 27719,
+      "constants": 11,
+      "weapon_id_entry_count": "UNKNOWN"
+    }
+  ],
+  "process": {
+    "backend": [
+      "psutil.process_iter",
+      "OpenProcess",
+      "EnumProcessModulesEx",
+      "GameAssembly.dll",
+      "UnityPlayer",
+      "ReadProcessMemory",
+      "VirtualQueryEx"
+    ],
+    "reader": "memory_reader.Reader",
+    "offset_symbols": [
+      "STORAGE_RVA",
+      "CHAIN",
+      "SESSION_ROLE_DATA_RVA",
+      "SESS_ITEMPACKS_OFF"
+    ],
+    "exact_numeric_offsets": "O02_UNVERIFIED",
+    "cache": "_ga_cache TTL with invalidation",
+    "live_attach": "NOT_RUN"
+  },
+  "item_service": {
+    "module": "memory_items",
+    "reader": "memory_reader.Reader via get_reader",
+    "bag_site": 10,
+    "bag_rows_fields": [
+      "dbID",
+      "itemID",
+      "site",
+      "pos",
+      "qty"
+    ],
+    "bag_error": "None",
+    "metadata_keys": [
+      "name",
+      "icon",
+      "src",
+      "type"
+    ],
+    "meta_import": "item_meta_data.META",
+    "weapon_import": "weapon_ids.is_weapon",
+    "item_packet": 100005,
+    "drop_action": 4,
+    "destroy_action": 9,
+    "use_action": 3,
+    "trade_site": 200
+  },
+  "filter": {
+    "module": "bag_filter",
+    "rule_fields": [
+      "sites",
+      "item_ids",
+      "name_contains",
+      "equip_types",
+      "src",
+      "match_weapons",
+      "allow_weapons",
+      "protect_ids",
+      "protect_names"
+    ],
+    "allow_weapons_default": false,
+    "empty_presets_do_nothing": true,
+    "empty_rules_do_not_scan_or_send": true,
+    "dry_run_preview": true,
+    "dedupe": "dbID",
+    "stop_check": true,
+    "drop_may_discard_entire_stack": true
+  },
+  "metadata": {
+    "embedded_meta_present": true,
+    "meta_schema": "META[id]=(Name,Icon,Source,EquipType)",
+    "fallback_csv": [
+      "out_icons/item_meta.csv",
+      "out_icons/item_icon_list.csv"
+    ],
+    "external_metadata_files_in_frozen_zip": 0,
+    "weapon_classifier_by": "ItemID",
+    "weapon_type_doc": "0-8,16,17,100"
+  },
+  "active_callers": {
+    "bag_filter": [
+      "farm_tab",
+      "phoban_tab",
+      "daily_tab",
+      "donvang_tab",
+      "debug_tab",
+      "train_lsv_tab"
+    ],
+    "memory_items": [
+      "bag_filter",
+      "daily_tab",
+      "debug_tab",
+      "don_logic",
+      "donvang_tab",
+      "farm_tab",
+      "party_tab",
+      "phoban_tab",
+      "rao_tab",
+      "train_lsv_tab",
+      "utils"
+    ],
+    "evidence": "original compiled direct imports; runtime paths not all run"
+  },
+  "limits": [
+    "No numeric pointer assignment was recovered in O01",
+    "Module present not necessarily every feature reachable",
+    "Cannot claim real inventory/item action success",
+    "No external metadata CSV does not mean embedded META empty",
+    "No code ported from other games",
+    "No Stage S product source or workflow"
+  ],
+  "tests": {
+    "static_original_evidence": "VERIFIED",
+    "future_acceptance_requirements": 15,
+    "live_game": 0,
+    "application_build": "NOT_APPLICABLE"
+  },
+  "next_action": "O02 — memory_reader process discovery, pointer chains, attach/cache/error audit"
+}

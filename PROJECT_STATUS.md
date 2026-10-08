@@ -527,3 +527,10 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - 152 unique acceptance cases across N01 14, N02 12, N03 8, N04 16, N05 18, N06 18, N07 22, N08 22, N09 22. Gates {"STATIC":13,"VISUAL":9,"WINDOWS":122,"RESEARCH":8}. ALL case results NOT_EXECUTED_STAGE_S_NOT_STARTED.
 - Native send semantics/permissions/row identity, selector-only gray buttons and Không skip, ping/old-session boundaries, N07 TODO and original evidence unknowns preserved.
 - Stage-S product source and Stage-T build workflow absent; no runnable EXE or Windows parity. **NEXT O01 — memory/item subsystem authority audit.** Proxy development excluded.
+
+## O01 — Memory/Item module authority and active cross-tab import edges
+- **STATIC_MEMORY_ITEM_MODULE_AUTHORITY_AND_CROSS_TAB_WIRING_AUDITED / DEEP_LAYOUT_AND_LIVE_PARITY_DEFERRED**. Original ZIP c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 CRC clean) / inner EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 (47450112 bytes) inspected without execution.
+- Exact 5 compiled modules: memory_reader (11804), memory_items (47850), bag_filter (5162), item_meta_data (1989514 embedded data), weapon_ids (27719 embedded set). Actual metadata/weapon entry count and numeric pointer layouts UNKNOWN.
+- Reader uses WinAPI OpenProcess/ReadProcessMemory/GameAssembly and caches; inventory read_bag returns dbID/itemID/site/pos/qty, bag Site10 and metadata. bag_filter opt-in presets and weapon-protection/no-rule-no-packet; compiled import wiring with Farm/Phó bản/Daily/Đôn vàng/Debug/Train LSV confirmed.
+- Artifacts docs/memory/O01_MODULE_AUTHORITY_AND_WIRING.md, docs/memory/O01_MODEL.json, docs/memory/O01_STATIC_EVIDENCE.tsv, docs/tasks/O01.md (77 evidence items). 15 acceptance requirements; live Windows NOT_RUN. No Stage-S product source or build workflow.
+- **NEXT O02 — memory_reader process discovery/attach, GameAssembly base, pointer chains, cache/validation.** Stage N and Proxy lock preserved.

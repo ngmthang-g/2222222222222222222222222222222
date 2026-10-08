@@ -5309,3 +5309,24 @@ On CONTINUE:
 
 ## NEXT_ACTION
 On CONTINUE: read PLAN.md and STATE.md, check GitHub for O01 artifacts first; execute **O01 — memory/item subsystem authority audit** from original frozen EXE. Inspect memory_reader, memory_items, bag_filter, item_meta_data and weapon_ids + active UI/module wiring before inferring features. Do not rework N tasks or develop Proxy. Save O01 model/evidence/task, update state and recheck build.
+
+## O01 VERIFIED RESULTS — MEMORY/ITEM MODULE AUTHORITY AND CROSS-TAB WIRING
+- Read PLAN.md, STATE.md, PROJECT_STATUS.md and verified GitHub main parent `d45a0efb4c781f73e7f465e39dc98425fcda8b40`; Stage N01–N10 complete, O01 absent. No previous work repeated or modified.
+- Frozen `TLMTool_2.1.2(9).zip` SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 entries CRC clean), original inner TLMTool.exe SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 (47450112 bytes) statically scanned read-only, no EXE/game run.
+- Five exact serialized module headers: memory_reader 0x2b7575a (11804 bytes/494 const), memory_items 0x2b69c5f (47850/895), bag_filter 0x28d5db3 (5162/145), item_meta_data 0x2977206 (1989514/7), weapon_ids 0x2c54798 (27719/11). The constants count is NOT item entry count.
+- memory_reader uses process_iter, OpenProcess, GameAssembly/UnityPlayer enumeration, ReadProcessMemory, VirtualQueryEx, cache TTL/invalidation; STORE/CHAIN/ROLE/ITEMPACK offsets present but exact numeric values O02 unknown. Writing helpers also exist but O01 does NOT write memory.
+- memory_items imports Reader, embedded item_meta_data.META and weapon_ids.is_weapon; read_bag rows {dbID,itemID,site,pos,qty}, get_bag Site10 enrich; action packet 100005 with use/drop/destroy commands statically present. No packets sent.
+- bag_filter imports memory_items and defines opt-in presets/rules, dry-run, stop_check/progress. Original docs: empty rules/preset = no discard/no scan/no packet; weapons protected by default except explicit opt-in; protect_ids/protect_names priority. Drop packet 4:dbID may remove complete stack, so never silently invoke.
+- Direct bag_filter references from farm_tab, phoban_tab, daily_tab, donvang_tab, debug_tab and train_lsv_tab; this proves compiled wiring, not actual runtime success. Farm UI references Radio Nhặt đồ -> bag_filter preset selection.
+- item_meta_data is embedded catalog (META[id]=(Name,Icon,Source,EquipType)), weapon_ids classified by integer ItemID. Original ZIP lacks matching separate metadata CSV/XML but embedded data exists; cannot conclude metadata empty.
+- O01 status **STATIC_MEMORY_ITEM_MODULE_AUTHORITY_AND_CROSS_TAB_WIRING_AUDITED / DEEP_LAYOUT_AND_LIVE_PARITY_DEFERRED**. 77 evidence items, 15 future acceptance checks, Windows live NOT_RUN.
+- Created docs/memory/O01_MODULE_AUTHORITY_AND_WIRING.md; O01_MODEL.json; O01_STATIC_EVIDENCE.tsv; docs/tasks/O01.md.
+
+## POST-O01 SOURCE/BUILD CHECK
+- Source application/CI workflow still absent; no Stage-S reconstruction or Stage-T EXE build. Only O01 docs+STATE.md+PROJECT_STATUS.md updated; all Stage N and PLAN intact.
+
+## O01 BLOCKERS / DO_NOT_TOUCH
+- O02 needed for exact process discovery/GA base/RVA pointer validation; O03 for actual bag entries, O04 for embedded META/weapon set, O05 filter rules. Do not use old-game data or infer runtime success from import references. No Proxy development.
+
+## NEXT_ACTION
+On CONTINUE: read PLAN.md/STATE.md and check current GitHub for existing O02. Execute **O02 — memory_reader process discovery, OpenProcess rights, GameAssembly/UnityPlayer module enumeration, GA cache, pointer chain/RVA and memory validation/error audit** from frozen original EXE first, read-only. Reuse O01, do not duplicate or rewrite completed stages. Save O02 report/model/evidence/task, update STATE.md/PROJECT_STATUS.md, recheck product source/build.
