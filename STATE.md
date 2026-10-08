@@ -4500,3 +4500,97 @@ On CONTINUE:
 7. Identify contradictions across L01-L09 and resolve only when exact evidence is stronger; otherwise preserve the uncertainty.
 8. Define the minimum reconstruction acceptance tests for Stage S without writing application source yet.
 9. Persist L10 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance Phase L only after L10 verification.
+
+
+## L10 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before consolidation. No pre-existing L10 artifact/completion existed; L01-L09 remain unchanged.
+- L10 intentionally did **not** redo EXE analysis. It consolidates the already frozen L01-L09 evidence into one Stage-S implementation contract.
+- One authoritative Dồn reconstruction contract now freezes:
+  - visible dedicated-tab and StartTab surfaces;
+  - [DonVang] persistence families;
+  - cycle/full-bag return behavior;
+  - sell-only home-priority semantics;
+  - Site10 inventory thresholds/filtering;
+  - one shared Dồn coordinate and role-switched account coordinate selector;
+  - exact Dồn/sell/treatment coordinate tables;
+  - multi-receiver registry/readiness/locking/watcher behavior;
+  - start-time receiver/donor worker split and cooperative generation-guarded stop;
+  - exact state/color table;
+  - Map87/HP0 death monitor and treatment flow;
+  - current stop-on-disconnect behavior with **no Dồn auto reconnect**;
+  - current three quick all-account movement actions;
+  - StartTab delegation parity.
+- L10 parity matrix classifies every important boundary into:
+  - **STATIC_VERIFIED**
+  - **RUNTIME_REQUIRED**
+  - **EXPLICIT_UNKNOWN**
+  - **NOT_CURRENTLY_WIRED**
+- Cross-L01-L09 apparent contradictions were resolved only where direct/current evidence is stronger:
+  - legacy `auto_reconnect` key -> current **Dừng khi mất kết nối mạng**, not reconnect;
+  - old per-row receiver-coordinate wording -> one current shared `_recv_coord_var`;
+  - old separate Bán/Train wording -> one current role-switched account selector;
+  - old “được tick” wording -> current `_checked_rows` = all listed nonreceiver accounts;
+  - `_farm_all` exists but **Bắt đầu** remains `_toggle_farm`;
+  - `_sell_all` exists but **Tới chỗ bán** remains movement-only `_move_sell_acc`;
+  - manual `_fallback_receiver` remains manual-only and must not alter automatic no-ready Dồn;
+  - sell-home Phù priority remains separate from the no-Phù Dồn/receiver final leg;
+  - duplicate receiver UI rows collapse to HWND-set runtime identity;
+  - “heal/reconnect” phase wording does not override exact no-auto-reconnect behavior.
+- Captured screenshot/config values are explicitly separated from universal defaults where default binding was not proven.
+- 103 minimum Stage-S Dồn acceptance checks were defined. Static Dồn parity and live Dồn parity are separate claims/gates.
+- Remaining unknowns are preserved rather than guessed, including:
+  - stop_bag_check default-3 semantic;
+  - conflicting legacy/per-row receiver-coordinate migration winner;
+  - exact _gen mutation order;
+  - exact receiver intermediate-state assignment sites;
+  - exact worker join/drain timing;
+  - donor continuation when Quay lại train khi chết is unchecked;
+  - treatment-failure next branch;
+  - first death-monitor tick timing;
+  - exact is_trade_active disconnect branch;
+  - same-window death/disconnect ordering;
+  - quick-move join/cancel overlap;
+  - live StartTab synchronization timing;
+  - exact captured permission state.
+- L10 artifacts committed at **a9c1a4285bfbf2cff2a14b513fd49b6cf0b4d3fd**:
+  - `docs/don/L10_RECONSTRUCTION_CONTRACT.md`
+  - `docs/don/L10_PARITY_MATRIX.tsv`
+  - `docs/don/L10_ACCEPTANCE_TESTS.md`
+  - `docs/don/L10_CONTRADICTIONS.md`
+  - `docs/tasks/L10.md`
+- All five L10 artifacts were fetched back successfully.
+
+## POST-L10 CODE/BUILD RECHECK
+- Recursive main tree after L10 artifact commit contains **662 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- L10 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- L10 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## PHASE L GATE
+**STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**
+
+## BLOCKERS
+- Phase L has no remaining static-research blocker.
+- The preserved L10 EXPLICIT_UNKNOWN/RUNTIME_REQUIRED items require either a controlled config fixture, stronger source recovery, or future Windows + live Thần Long parity testing.
+- Reconstructed product build remains not applicable before Stage S.
+
+## DO_NOT_TOUCH
+- Preserve the L10 Dồn reconstruction contract as the normative Stage-S input unless later exact evidence proves a contradiction.
+- Do not reopen L01-L09 merely to restate already frozen behavior.
+- Do not convert EXPLICIT_UNKNOWN or RUNTIME_REQUIRED rows into guessed original behavior.
+- Do not add unwired Dồn UI controls.
+- Do not import ordinary Train reconnect logic into Dồn.
+- Do not create Stage-S source/build placeholders while the research plan is still progressing through later feature phases.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any M01 artifacts/commits; if already complete and verified, do not redo them.
+4. Begin **Phase M — Rao** with **M01 — Rao authority / UI surface audit** only.
+5. Re-inspect the exact frozen original EXE before using screenshots, identify the active Rao module/class, direct methods, main-app construction, StartTab exposure if any, visible controls, current screenshot surface, persistence section, permission/visibility boundary, and direct dependency boundary.
+6. Do not deep-audit message storage/channel/interval/account assignment/start-stop in M01 except to inventory their visible/handler boundaries for later M tasks.
+7. Persist M01 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M01 verification.

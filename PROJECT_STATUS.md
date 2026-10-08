@@ -385,7 +385,7 @@ K17 closes Phase K at the static-research level. The original archive, inner EXE
 - L07 — VERIFIED_START_TIME_ROLE_SPLIT_RECV_CYCLE_VS_DONOR_FARM_CYCLE_GEN_GUARDED_COOPERATIVE_STOP_AND_NO_DYNAMIC_ROLE_MORPH
 - L08 — VERIFIED_4S_MAP87_HP0_LATCHED_RESPAWN_SHARED_HEAL_ROUTE_AND_2S_STOP_ON_DISCONNECT_3STRIKE_NO_RECONNECT
 - L09 — VERIFIED_CURRENT_THREE_QUICK_MOVE_ACTIONS_ROLE_FILTERED_TARGETS_STARTTAB_PARITY_AND_LEGACY_BULK_HELPERS
-- L10 — NEXT
+- L10 — VERIFIED_DON_RECONSTRUCTION_CONTRACT_PARITY_MATRIX_CONTRADICTION_RESOLUTION_AND_STAGE_S_ACCEPTANCE_GATE
 
 L01 locks `donvang_tab.py` / `DonVangTab` as the active Dồn authority. The exact Nuitka `.donvang_tab` module has size field **65,260 bytes** and count field **1,813**, and **127** direct top-level `DonVangTab` methods are inventoried. `TLMMainApp` constructs the tab under visible label `Dồn`, while StartTab exposes `Dồn vàng / Tới nơi nhận / Tới chỗ bán / Tới nơi train / Cấu hình`. The visible surface includes Về thành conditions/priorities, Train/death/disconnect/unstuck/pickup/filter/heal controls, saved coordinates, receiver rows, a shared Dồn coordinate, per-account move/Dồn/sell controls, and all-account actions. Dồn is current/wired rather than dormant; dedicated-tab visibility is permission-controlled, with the captured run showing it visible while the exact permission state remains unknown. Direct dependency boundaries are frozen, and weak emulator/farm-tab references are not promoted to active runtime imports.
 
@@ -405,5 +405,13 @@ L08 locks Dồn death/treatment/disconnect semantics. Both roles run a 4s death 
 
 L09 locks the current Dồn all-account command surface. The dedicated tab exposes exactly three quick movement actions: Tới nơi nhận -> _move_all_recv, Tới chỗ bán -> _move_sell_acc, Tới nơi train -> _move_all; each is dispatched off the Tk main thread, while the separate Bắt đầu button remains _toggle_farm. _checked_rows currently means all listed nonreceiver accounts, despite legacy “được tick” wording. Tới nơi nhận is role-aware and reuses L06 manual receiver selection/fallback; Tới chỗ bán moves receivers only; Tới nơi train moves nonreceiver donors to Train presets in parallel. Real _stop_all/_farm_all/_sell_all helpers remain in the class but no current visible Dồn/StartTab binding was recovered; _farm_all is not equivalent to the full lifecycle and _sell_all is not the visible Tới chỗ bán movement button. StartTab quick controls delegate to the same three backends and its Dồn vàng toggle delegates to _toggle_farm.
 
-## Phase L current
-L10 — Dồn parity / reconstruction contract audit.
+L10 closes Dồn static research by consolidating L01-L09 into one normative reconstruction contract. The parity matrix separates STATIC_VERIFIED, RUNTIME_REQUIRED, EXPLICIT_UNKNOWN and NOT_CURRENTLY_WIRED behavior. Cross-task compatibility traps are resolved without guessing: auto_reconnect is a legacy key for current stop-on-disconnect behavior; receiver rows share one Dồn coordinate; the current account coordinate selector is role-switched; _checked_rows means all listed nonreceivers; Bắt đầu is _toggle_farm rather than _farm_all; Tới chỗ bán is movement-only rather than _sell_all; and the manual receiver fallback is not used by automatic no-ready Dồn. A 103-item minimum Stage-S acceptance suite now defines separate static-parity and live-parity gates. Remaining migration/timing/race edges stay explicit UNKNOWN or runtime-required.
+
+## Phase L gate
+**STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**
+
+## Phase M — Rao
+- M01 — NEXT
+
+## Phase M current
+M01 — Rao authority / UI surface audit.
