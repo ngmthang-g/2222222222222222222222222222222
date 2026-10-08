@@ -1,0 +1,19 @@
+id	source	evidence_type	fact
+R01-E01	frozen original ZIP	SHA256 + CRC	1050 entries, 1002 files, 48 directories, valid archive
+R01-E02	frozen inner EXE	SHA256	47450112 bytes, baseline hash matches
+R01-E03	D06_PACKAGE_DATA.tsv	existing file inventory	24 rows reused not rewritten
+R01-E04	A07 ORIGINAL_MANIFEST.tsv	cross-join	26/26 R01 name/size/SHA rows match
+R01-E05	D06_PACKAGE_DATA.tsv	cross-join	24/24 reused name/size/SHA rows match
+R01-E06	original EXE ASCII + UTF16LE	filename literal scan	14 opaque basenames: zero references
+R01-E07	original EXE ASCII + UTF16LE	filename literal scan	5 historical backup basenames: zero references
+R01-E08	original EXE ASCII	filename literal scan	resources.dat 7, version.dat 2, Default.ppx 1
+R01-E09	original EXE ASCII	filename literal scan	automove_log 1, proxy_working 10, emu_client 2, ld_remote 4
+R01-E10	26 original ZIP members	read-only sha and header	exact 16-byte header and sizes inventoried
+R01-E11	A05 launcher	recovered wrapper source	workDir TLMTool.dist
+R01-E12	D06 runtime refs 0x2919013	compiled path string	dll_injector -> ./data/resources.dat
+R01-E13	D06 runtime refs 0x2bfc36c	compiled path string	Start version-compatible DLL handler
+R01-E14	D06 runtime refs 0x2c05bb8	compiled path string	Toiuu watchdog reader of automove log
+R01-E15	D07 + P06	static support module source	Frida script and temporary-patched AutoX script
+R01-E16	ZIP backups	content comparison	bak-20260923/old-locked identical
+R01-E17	local read-only verifier	py_compile and ZIP-only execution	PASS; optional matrix mode NOT_RUN
+R01-E18	repo build audit	source check	Stage S rebuilt source and Stage T workflow absent
