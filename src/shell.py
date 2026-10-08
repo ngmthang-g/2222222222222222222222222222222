@@ -25,7 +25,7 @@ TAB_SPECS = (
     TabSpec('party_tab', 'Party'), TabSpec('farm_tab', 'Train'),
     TabSpec('trainlsv_tab', 'Train LSV'), TabSpec('emu_farm_tab', 'Train LD'),
     TabSpec('phoban_tab', 'Phó Bản'), TabSpec('daily_tab', 'Daily'),
-    TabSpec('donvang_tab', 'Đồn'), TabSpec('rao_tab', 'Rao'),
+    TabSpec('donvang_tab', 'Dồn'), TabSpec('rao_tab', 'Rao'),
     TabSpec('toiuu_tab', 'Tối ưu'), TabSpec('info_tab', 'ℹ'),
     TabSpec('proxy_tab', 'Proxy'), TabSpec('debug_tab', '🔎'),
     TabSpec('android_tab', '🔍'),
