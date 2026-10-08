@@ -1,0 +1,259 @@
+{
+  "task": "P06",
+  "status": "STATIC_EMU_SETUP_APK_SCRIPT_PERMISSIONS_LAUNCH_AUDITED_LIVE_SETUP_PARITY_DEFERRED",
+  "authority": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "zip_crc": "PASS",
+    "zip_entries": 1050,
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "exe_size": 47450112,
+    "ld_remote_js_sha256": "3bd84a2b433ee679b7a049f5aa5cba2e8725d1e09b14d5deb3f42b6bf919edfb",
+    "exe_module_marker": "0x293942e",
+    "runtime_original_executed": false
+  },
+  "architecture": {
+    "caller": "EmuFarmTab._setup_acc per selected serial, trainld_setup permission",
+    "setup_function": "emu_setup.setup_instance",
+    "root_required_by_setup_documentation": false,
+    "need_manual_script_run_after_launch": true,
+    "setup_sequence_contract": [
+      "resolve ADB",
+      "detect installed AutoX/remote package",
+      "find APK if missing",
+      "adb install as needed",
+      "confirm package installed",
+      "render patched JS copy",
+      "adb mkdir and push script to multiple dirs",
+      "grant storage permissions",
+      "appops overlay grant or manual one-time fallback",
+      "monkey launch AutoX",
+      "user manually Run ld_remote.js"
+    ],
+    "completion_proven": "STATIC_CONTRACT_ONLY"
+  },
+  "apk": {
+    "packaged_apk_count": 0,
+    "config_keys": [
+      "[Emu] remote_apk",
+      "[Emu] autox_apk",
+      "[Emu] remote_pkg",
+      "[Emu] adb_path"
+    ],
+    "candidate_names": [
+      "autox*.apk",
+      "custom remote APK"
+    ],
+    "search_order": "UNKNOWN",
+    "success_after_install_revalidated_package": true
+  },
+  "js_deploy": {
+    "local_candidates": "ld_remote*.js",
+    "script_dirs_symbol": "REMOTE_SCRIPT_DIRS",
+    "known_dir": "/sdcard/Scripts",
+    "named_guest_js_files": [
+      "ld_remote.js",
+      "ld_remote_new.js"
+    ],
+    "all_destinations": "UNKNOWN",
+    "pc_base_source": "__PC_BASE__",
+    "replacement": "http://<lan_ip>:<remote_port>",
+    "rendered_copy": "temporary file; cleanup not runtime verified",
+    "guest_fallback": "http://172.16.1.2:8765",
+    "guest_token": "tlm",
+    "default_listener_documented": "0.0.0.0:8765",
+    "no_listener_started": true
+  },
+  "permissions": {
+    "storage": [
+      "android.permission.READ_EXTERNAL_STORAGE",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ],
+    "overlay": "appops set SYSTEM_ALERT_WINDOW allow",
+    "manual_permission_possible": true,
+    "launch": "monkey android.intent.category.LAUNCHER",
+    "user_manual_run_step": true
+  },
+  "testing": {
+    "static_compiled_offsets_checked": 20,
+    "static_compiled_offsets_passed": 20,
+    "static_js_tokens_checked": 6,
+    "static_js_tokens_passed": 6,
+    "crc_pass": true,
+    "apk_count": 0,
+    "evidence_rows": 63,
+    "acceptance_planned": 29,
+    "live_executed": 0,
+    "acceptance_cases": [
+      {
+        "id": "P06-01",
+        "requirement": "Missing ADB path and offline serial report separate errors",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-02",
+        "requirement": "Live serial correctly selected when multiple emulator clones share Android ID",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-03",
+        "requirement": "Preinstalled matching AutoX detected; unrelated package not falsely selected",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-04",
+        "requirement": "Missing remote APK and missing AutoX APK on a clean installation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-05",
+        "requirement": "Explicit [Emu] remote_apk path preferred when present",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-06",
+        "requirement": "Fallback [Emu] autox_apk/tools candidate resolution and exact precedence",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-07",
+        "requirement": "ADB install success plus re-query installed packages",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-08",
+        "requirement": "ADB install nonzero/error/timeout surfaced",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-09",
+        "requirement": "Installed app package label/version consistency",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-10",
+        "requirement": "Local ld_remote*.js discovery and latest/old file selection",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-11",
+        "requirement": "Replace __PC_BASE__ only in generated temporary deployment copy",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-12",
+        "requirement": "Correct PC LAN IP among multiple adapters/NICs and remote_port",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-13",
+        "requirement": "Failure to determine correct LAN IP flagged; guest fallback not blindly trusted",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-14",
+        "requirement": "Temporary patched JS cleanup after successful/failed push",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-15",
+        "requirement": "mkdir script locations and permissions on Android versions",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-16",
+        "requirement": "Push to every intended AutoX script folder separately with detailed report",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-17",
+        "requirement": "Partial push success versus final aggregate result and duplicate file handling",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-18",
+        "requirement": "Remote JS runnable from AutoX file browser under live selected package",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-19",
+        "requirement": "Grant READ_EXTERNAL_STORAGE and handle permission unavailable on newer Android",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-20",
+        "requirement": "Grant WRITE_EXTERNAL_STORAGE and handle scoped storage restrictions",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-21",
+        "requirement": "SYSTEM_ALERT_WINDOW appops grant and manual overlay permission fallback",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-22",
+        "requirement": "Monkey launcher opens correct remote package (not game or old app)",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-23",
+        "requirement": "Autox must still manually Run ld_remote.js once",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-24",
+        "requirement": "Guest overlay PC HTTP reachability and token checked",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-25",
+        "requirement": "Guest script storage/aid JSON bridge synchronized",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-26",
+        "requirement": "Successful setup does not imply game or remote farm engine running",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-27",
+        "requirement": "Sequential/reentrant setup_busy and live progress log callbacks",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-28",
+        "requirement": "Setup after device reboot / package update / port change",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P06-29",
+        "requirement": "Windows reconstructed executable build/publish and integration testing",
+        "status": "NOT_RUN"
+      }
+    ]
+  },
+  "unknowns": [
+    "full Python setup function exact branch order and final success aggregation",
+    "APK candidate search order/installed package match list",
+    "ADB subprocess timeout and retries",
+    "full REMOTE_SCRIPT_DIRS path list",
+    "partial push returns",
+    "temporary file deletion if push fails",
+    "permission grant behavior per Android API level",
+    "manual startup enforcement",
+    "multiple network interfaces guest PC_BASE correct mapping",
+    "clone identity during reconnect",
+    "setup worker thread cancellation",
+    "runtime app version compatibility"
+  ],
+  "build": {
+    "reconstructed_source_app_present": false,
+    "windows_workflow_present": false,
+    "status": "BUILD_BLOCKED_SOURCE_MISSING"
+  },
+  "scope": {
+    "proxy": "EXCLUDED",
+    "ui_extra_tabs": "NOT AUTHORIZED",
+    "live_game_actions": 0
+  },
+  "next_action": "P07 — emu_remote optional HTTP listener, auth/identity, endpoint acknowledgement vs execution and error/lifecycle static audit"
+}
