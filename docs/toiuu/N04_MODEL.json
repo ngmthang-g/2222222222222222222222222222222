@@ -1,0 +1,113 @@
+{
+  "task": "N04",
+  "status": "STATIC_DETACHED_MONITOR_LIFECYCLE_AND_UI_AUDITED_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "repo_parent_head": "0d18f577b3be9d23893595d8e88c69570642c832",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module": "toiuu_tab",
+    "class": "ToiuuTab",
+    "original_python_source_recovered": false
+  },
+  "lifecycle": {
+    "toggle": "_toggle_monitor_view",
+    "open": "_open_monitor_view",
+    "close": "_close_monitor_view",
+    "update": "_update_monitor_view",
+    "restore": "_restore_monitor_view",
+    "save": "_save_monitor_state",
+    "widget_exist_check": "winfo_exists",
+    "startup_after_hook": true,
+    "exact_after_delay": "EXPLICIT_UNKNOWN",
+    "save_destroy_hook": true
+  },
+  "window": {
+    "type": "tk.Toplevel",
+    "title": "CPU / GPU",
+    "parent_position_symbols": [
+      "winfo_toplevel",
+      "winfo_rootx",
+      "winfo_rooty"
+    ],
+    "geometry_methods": [
+      "geometry",
+      "minsize",
+      "maxsize",
+      "overrideredirect",
+      "attributes"
+    ],
+    "topmost_option": "-topmost",
+    "topmost_bool": "EXPLICIT_UNKNOWN",
+    "overrideredirect_bool": "EXPLICIT_UNKNOWN",
+    "documented_position": "sát cạnh trái GUI chính",
+    "documented_nominal_height_px": 768,
+    "exact_width_px": "EXPLICIT_UNKNOWN",
+    "exact_geometry_equation": "EXPLICIT_UNKNOWN",
+    "close_protocol": "WM_DELETE_WINDOW",
+    "ui_close_button": "Đóng theo dõi"
+  },
+  "visual": {
+    "column_maker": "_make_bar_col",
+    "columns": [
+      "CPU",
+      "GPU"
+    ],
+    "canvas": [
+      "create_rectangle",
+      "create_text",
+      "coords"
+    ],
+    "fallback": "--%",
+    "font": "Segoe UI",
+    "bold": true,
+    "background": "#e0e0e0",
+    "auxiliary_screenshot_exists": false,
+    "main_tab_button_visible_in_B11": true
+  },
+  "persistence": {
+    "section": "Settings",
+    "key": "toiuu_monitor_open",
+    "storage": "settings.ini",
+    "helpers": [
+      "_settings_lock",
+      "read_settings",
+      "write_settings"
+    ],
+    "saved_true_false_tokens_present": true,
+    "load_bool_strings": [
+      "true",
+      "yes",
+      "on"
+    ],
+    "exact_serialized_boolean_syntax": "EXPLICIT_UNKNOWN",
+    "exact_close_save_order": "EXPLICIT_UNKNOWN"
+  },
+  "integration": {
+    "main_graph_update_hook": "_update_monitor_view in _redraw_graphs region",
+    "reuse_chart_sample_stream": "STRONG_STATIC_MODEL_NOT_EXACT_CALL_PROOF",
+    "extra_sampler": "NOT_RECOVERED",
+    "thread_policy": "Tk main thread",
+    "cpu_hist": "_cpu_hist",
+    "gpu_hist": "_gpu_hist"
+  },
+  "acceptance": {
+    "planned": 16,
+    "executed": 0,
+    "result": "NOT_RUN_STAGE_S_NOT_STARTED"
+  },
+  "unknowns": [
+    "Exact Toplevel width/pixel geometry and multi-monitor screen behavior",
+    "Boolean flags actually passed to overrideredirect/topmost",
+    "Restore after delay and startup focus order",
+    "Save/close/destroy callback order and failure recovery",
+    "Exact per-bar percentage-to-pixel mapping",
+    "Rapid re-entry and stale Tk callback cancellation"
+  ],
+  "runtime": {
+    "source_application_exists": false,
+    "workflow_exists": false,
+    "live_windows": "NOT_RUN",
+    "build": "NOT_APPLICABLE_STAGE_S_NOT_STARTED"
+  },
+  "next_action": "N05 — graphics-mode mapping/account config and selection-versus-application audit"
+}

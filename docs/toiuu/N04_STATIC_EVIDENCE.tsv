@@ -1,0 +1,72 @@
+key	offset_hex	confidence	evidence
+zip_identity	-	VERIFIED_FILE	ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; 1050 entries, CRC-clean
+exe_identity	-	VERIFIED_FILE	EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; 47450112 bytes
+module_authority	0x2c01fb5	VERIFIED_BINARY	Serialized .toiuu_tab module; 22485 bytes and 940 constants (N01)
+init_open_saved	0x2c020d1	EXACT_SYMBOL	_monitor_open_saved field
+init_closing	0x2c02052	EXACT_SYMBOL	_closing shared lifecycle guard
+init_build_load	0x2c021c3	EXACT_SYMBOL	_build_ui then _load_config symbols inside __init__ region
+init_save_hook	0x2c021dc	EXACT_SYMBOL	bind <Destroy> _save_on_destroy
+init_refresh_graphs	0x2c02239	EXACT_SYMBOL	_start_refresh / _start_watch / _start_graphs
+init_restore_scheduled	0x2c02266	EXACT_SYMBOL	after + _restore_monitor_view in __init__ region; exact delay not proven
+detached_button	0x2c02386	EXACT_UTF8	Tách theo dõi
+detached_button_handler	0x2c02397	EXACT_SYMBOL	_toggle_monitor_view command context
+graph_cpu_hist	0x2c02461	REUSED_N02	_cpu_hist current graph history
+graph_gpu_hist	0x2c0246c	REUSED_N03	_gpu_hist current graph history
+redraw_detached_hook	0x2c03987	EXACT_SYMBOL	_update_monitor_view directly after _draw_one in redraw symbol region
+toggle_exists	0x2c0399d	EXACT_SYMBOL	winfo_exists
+toggle_close	0x2c039ab	EXACT_SYMBOL	_close_monitor_view
+toggle_open	0x2c039cb	EXACT_SYMBOL	_open_monitor_view
+toggle_doc	0x2c039df	EXACT_DOC	Mở/đóng view bar CPU/GPU tách rời (sát cạnh trái GUI chính, cao 768).
+restore_doc	0x2c03a34	EXACT_DOC	Tự mở lại panel theo dõi nếu lần trước thoát app khi đang mở.
+config_dir	0x2c03a86	EXACT_SYMBOL	CONFIG_DIR + makedirs
+config_lock	0x2c03aa8	EXACT_SYMBOL	_settings_lock / read_settings / write_settings
+config_section	0x2c03ac7	EXACT_UTF8	Settings section
+config_key	0x2c03ad1	EXACT_UTF8	toiuu_monitor_open; nearby encoded 1/0 candidates
+config_write	0x2c03ae9	EXACT_SYMBOL	write_settings
+config_save_error	0x2c03afb	EXACT_UTF8	[TOIUU] Save monitor state error:
+save_doc	0x2c03b22	EXACT_DOC	Lưu trạng thái nút theo dõi vào settings.ini (nhớ cho lần mở app sau).
+starttab_sync	0x2c03b77	EXACT_SYMBOL	_sync_toiuu_buttons and StartTab Theo dõi/Tối ưu shortcut state synchronization (separate behavior)
+parent_toplevel	0x2c04544	EXACT_SYMBOL	winfo_toplevel parent
+root_x	0x2c04554	EXACT_SYMBOL	winfo_rootx
+root_y	0x2c04561	EXACT_SYMBOL	winfo_rooty
+open_dialog	0x2c0457a	EXACT_SYMBOL	tk.Toplevel
+dialog_title_key	0x2c04584	EXACT_SYMBOL	title
+dialog_title	0x2c0458d	EXACT_UTF8	CPU / GPU
+dialog_position_log	0x2c04598	EXACT_UTF8	[Toiuu monitor] mo panel (gui goc x=...)
+dialog_border_override	0x2c045c5	EXACT_SYMBOL	overrideredirect present; passed value not source-recovered
+dialog_geometry	0x2c045d9	EXACT_SYMBOL	geometry
+dialog_minsize	0x2c045e3	EXACT_SYMBOL	minsize
+dialog_maxsize	0x2c045ec	EXACT_SYMBOL	maxsize
+dialog_attrs	0x2c045f8	EXACT_SYMBOL	attributes
+dialog_topmost	0x2c04606	EXACT_UTF8	-topmost; boolean argument not source-recovered
+dialog_geometry_error	0x2c04610	EXACT_UTF8	[Toiuu monitor] geometry loi:
+dialog_close_protocol	0x2c04662	EXACT_SYMBOL	protocol / WM_DELETE_WINDOW
+dialog_close_protocol_name	0x2c0466c	EXACT_UTF8	WM_DELETE_WINDOW
+dialog_column_maker	0x2c046db	EXACT_SYMBOL	_make_bar_col
+dialog_cpu_col	0x2c046ea	EXACT_UTF8	CPU
+dialog_gpu_col	0x2c046ef	EXACT_UTF8	GPU
+dialog_close_label	0x2c046f6	EXACT_UTF8	Đóng theo dõi
+dialog_save_hook	0x2c04708	EXACT_SYMBOL	_save_monitor_state
+bar_canvas_background	0x2c04729	EXACT_UTF8	#e0e0e0
+bar_rectangle	0x2c0474e	EXACT_SYMBOL	Canvas.create_rectangle
+bar_text	0x2c04778	EXACT_SYMBOL	Canvas.create_text
+bar_unknown_pct	0x2c047a9	EXACT_UTF8	--%
+bar_font	0x2c047b1	EXACT_UTF8	Segoe UI; bold token adjacent
+bar_pop_control	0x2c047cc	EXACT_UTF8	Tách theo dõi in auxiliary bar UI resource
+monitor_ui_dispatch	0x2c048ac	EXACT_DOC	Chạy fn trên main thread (Tkinter cấm chạm widget từ thread phụ).
+config_load_key	0x2c05fdf	EXACT_UTF8	toiuu_monitor_open also present in load-config surface
+config_bool_tokens	0x2c05ffe	EXACT_UTF8	true/yes/on tokens adjacent, with 0/1 encodings nearby
+method_marker_toggle	0x2c06552	EXACT_METHOD_MARKER	ToiuuTab._toggle_monitor_view
+method_marker_restore	0x2c06571	EXACT_METHOD_MARKER	ToiuuTab._restore_monitor_view
+method_marker_save	0x2c06591	EXACT_METHOD_MARKER	ToiuuTab._save_monitor_state
+method_marker_open	0x2c06670	EXACT_METHOD_MARKER	ToiuuTab._open_monitor_view
+method_marker_close	0x2c066a5	EXACT_METHOD_MARKER	ToiuuTab._close_monitor_view
+method_marker_update	0x2c066c3	EXACT_METHOD_MARKER	ToiuuTab._update_monitor_view
+open_locals	0x2c070c8	EXACT_LOCAL_NAMES	root,rx,ry,width,height,win,geo,body,col_cpu,col_gpu in local-symbol region
+save_locals	0x2c07364	EXACT_LOCAL_NAMES	self,is_open, cfg in persisted-state local-symbol region; statement order unknown
+geometry_numbers	-	EXPLICIT_UNKNOWN	Exact monitor width and x/y/height equation not source-reconstructed; 768 only in embedded doc
+monitor_visibility_states	-	EXPLICIT_UNKNOWN	Exact overrideredirect/topmost Boolean arguments not source-verified
+persistence_order	-	EXPLICIT_UNKNOWN	Exact callbacks on close vs startup save and timing of writes after failure unverified
+monitor_recreation	-	EXPLICIT_UNKNOWN	Parent teardown, stale Toplevel / double-open handling and multiple displays need runtime
+screenshot_b11	-	PRIOR_VERIFIED_VISUAL	B11 screenshot has tab Tối ưu and Tách theo dõi button; detached window not visible
+windows_live	-	NOT_RUN	No detached-monitor Windows runtime, screen geometry, or reconstructed EXE parity run

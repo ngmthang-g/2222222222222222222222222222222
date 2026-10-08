@@ -5149,3 +5149,28 @@ On CONTINUE:
 
 ## NEXT_ACTION
 On CONTINUE read PLAN.md/STATE.md, check GitHub for existing N04, then execute **N04 — detached CPU/GPU monitor lifecycle/layout/persistence audit** only. EXE-first inspect _toggle_monitor_view, _open_monitor_view, _close_monitor_view, _update_monitor_view, _restore_monitor_view and toiuu_monitor_open; screenshot after binary. Persist N04 model/evidence/task, update state, recheck source/build.
+
+## N04 VERIFIED RESULTS — DETACHED CPU/GPU MONITOR
+- On CONTINUE checked PLAN.md, STATE.md and GitHub HEAD `0d18f577b3be9d23893595d8e88c69570642c832`, confirmed N01–N03 completed and N04 absent. Preserved old evidence unchanged.
+- Revalidated original ZIP SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd` (1,050 entries, CRC clean) and inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Exact ToiuuTab method markers: `_toggle_monitor_view`, `_open_monitor_view`, `_close_monitor_view`, `_update_monitor_view`, `_restore_monitor_view`, `_save_monitor_state`.
+- Toggle uses `winfo_exists` plus open/close; embedded doc **Mở/đóng view bar CPU/GPU tách rời (sát cạnh trái GUI chính, cao 768).** Startup has `after/_restore_monitor_view` and exact auto-reopen doc.
+- Real Tk `Toplevel` titled `CPU / GPU`; `winfo_rootx/y`, `geometry`, `minsize/maxsize`, `overrideredirect`, `-topmost`, `WM_DELETE_WINDOW`; CPU/GPU columns built via `_make_bar_col`, `Đóng theo dõi`, `create_rectangle/create_text`.
+- Open-state settings key `[Settings] toiuu_monitor_open`, shared read/write lock, `_save_monitor_state`, error trace, truth-like parsing. Exact method-call flags/serialized expression and save/close order remain UNKNOWN.
+- `_update_monitor_view` is in original `_redraw_graphs` symbol region; reuse N02/N03 histories is a strong static architectural model, not source-level call-order proof.
+- Reused B11 Tối ưu screenshot AFTER EXE inspection; screenshot has pop-out **button** but no detached Toplevel. No invented detached-window geometry/visuals.
+- N04 status **STATIC_DETACHED_MONITOR_LIFECYCLE_AND_UI_AUDITED / LIVE_PARITY_DEFERRED**. 71 evidence rows, 16 future acceptance cases all NOT_RUN.
+- N04 files: `docs/toiuu/N04_DETACHED_MONITOR_FLOW.md`, `docs/toiuu/N04_MODEL.json`, `docs/toiuu/N04_STATIC_EVIDENCE.tsv`, `docs/tasks/N04.md`.
+
+## POST-N04 BUILD/CODE CHECK
+- N04 modifies documentation and STATE/PROJECT_STATUS only; no source app, build workflow or original EXE changed. Build **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**; Windows parity NOT_RUN.
+
+## N04 BLOCKERS / DO_NOT_TOUCH
+- Detached panel not shown in B11 screenshot; width/position equation, multi-monitor DPI, Tk teardown and exact Boolean flags not source-reconstructed. Keep N01–N03, B11, A–M, Proxy scope exclusion unchanged; do not simulate fake functional controls.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md/STATE.md and inspect current GitHub for N05 artifacts; skip if complete.
+2. Execute **N05 — Tối ưu graphics-mode mapping, per-account configuration and selection-versus-application audit** only. Inspect exact frozen original `toiuu_tab` first for MODE_ORDER/MODE_NAMES/MODE_TO_TLMP, `Không`, row combobox, gray bulk buttons, per-account mode, settings persistence and `_cfg_assign_worker`.
+3. Lock distinction selection-only versus native application. Defer `dll_injector` native packet/handshake implementation audit to N06; avoid any functionality bypass.
+4. Compare B11 screenshot only after EXE; persist N05 model/evidence/task; update STATE.md/PROJECT_STATUS.md and recheck build status.
