@@ -1,0 +1,39 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+ui_interval_label	0x2bd7b9b	VERIFIED_VISIBLE_STATIC	Lặp (s)
+sec_var	0x2bd8361	VERIFIED_STATIC	sec_var live StringVar
+digits_validator	0x2bd820f	VERIFIED_STATIC	_only_digits nested validator
+validator_percent_P	0x2bd8248	VERIFIED_STATIC	Tk %P proposed-value validation
+isdigit_surface	0x2bd83e2	VERIFIED_STATIC	isdigit used by row interval validation family
+resolve_missing_interval	0x2bd8493	VERIFIED_STATIC_UTF8	'<name>' chưa đặt thời gian lặp
+resolve_doc	0x2bd84d0	VERIFIED_STATIC_UTF8	Tên rao -> (nội dung, interval_giây, channel_id, tên_kênh)
+slot_memory_items	0x2bd8548	VERIFIED_STATIC	memory_items in slot loop
+slot_stop_event	0x2bd86bf	VERIFIED_STATIC	_stop_event
+slot_wait	0x2bd86cc	VERIFIED_STATIC	wait
+slot_max	0x2bd86d2	VERIFIED_STATIC	max
+slot_doc	0x2bd86e7	VERIFIED_STATIC_UTF8	Vòng lặp rao độc lập của 1 slot: gửi nội dung slot đó, nghỉ đúng hẹn giờ của dòng rao rồi lặp. Tối đa 4 slot chạy song song / acc.
+slot_stop_doc	0x2bd87a6	VERIFIED_STATIC_UTF8	Dừng 1 slot (rao bị xóa/lỗi giữa chừng).
+slot_loop_locals	0x2bda43d	VERIFIED_STATIC_MAPPING	self,hwnd,slot,gen,MI,row,_running,want,resolved,reason,content,interval,chan_id,chan_name,ok,stamp,hit
+load_sec_field	0x2bd97d3	VERIFIED_PERSISTENCE	sec load field
+load_default_30	0x2bd97da	VERIFIED_PERSISTENCE	textual 30 default
+load_min	0x2bd97e0	VERIFIED_STATIC	min
+load_bound_0_a	0x2bd97e5	VERIFIED_STATIC_DECODE	integer 0 adjacent to load interval normalization
+load_bound_60	0x2bd97e7	VERIFIED_STATIC_DECODE	integer 60 adjacent to load interval normalization
+load_sec_again	0x2bd97eb	VERIFIED_STATIC	sec field in normalization surface
+load_bound_0_b	0x2bd97f0	VERIFIED_STATIC_DECODE	second integer 0 in same load interval normalization surface
+load_type_error	0x2bd97f3	VERIFIED_STATIC	TypeError
+load_value_error	0x2bd9800	VERIFIED_STATIC	ValueError
+load_fallback_30	0x2bd980b	VERIFIED_PERSISTENCE	textual 30 error fallback
+load_seconds_kw	0x2bd9835	VERIFIED_PERSISTENCE	seconds keyword passed to _add_rao_row
+load_sec_local	0x2bda23b	VERIFIED_STATIC_MAPPING	_load_config locals include _sec
+normalized_0_60_semantic	-	STRONG_STATIC_SEMANTIC	load interval cluster binds min + 0 + 60 + sec + error fallback; semantic clamp domain frozen, exact source syntax not reconstructed
+runnable_positive_domain	-	STRONG_STATIC_SEMANTIC	blank/zero cannot represent usable repeat; resolve fail text + positive wait floor make normal runnable domain 1..60
+first_send_before_wait	-	VERIFIED_STATIC_DOC	_slot_loop exact doc orders send then sleep configured interval then repeat
+interruptible_wait	-	VERIFIED_STATIC_SEMANTIC	_stop_event.wait(max(... interval ...)); no unconditional interval sleep surface recovered
+per_slot_parallel	-	VERIFIED_STATIC_DOC	exact doc: independent loop per slot, max four slots parallel per account
+live_edit_next_cycle	-	STRONG_STATIC_SEMANTIC	_slot_loop re-resolves want each iteration; current interval stored in local before wait; row trace does not restart worker
+fast_retry_backoff	-	NOT_RECOVERED	no distinct retry-delay/backoff constant or queue after normal send/no-echo result
+screenshot_interval	-	CROSSCHECKED_AFTER_STATIC	captured Rao row shows 30, matching static default
+runtime_rao_trace	-	NOT_RECOVERED	frozen automove_log has no Rao/send interval trace
+classification	-	STATIC_VERIFIED_INTERVAL_WITH_RUNTIME_SCHEDULER_DEFERRED	account assignment M05, lifecycle M06

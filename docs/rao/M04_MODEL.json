@@ -1,0 +1,85 @@
+{
+  "task":"M04",
+  "status":"VERIFIED_30S_DEFAULT_0_60_NORMALIZATION_POSITIVE_1_60_RUNNABLE_SEND_THEN_INTERRUPTIBLE_WAIT_LIVE_NEXT_LOOP_REFRESH",
+  "authority":{
+    "archive_sha256":"c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256":"15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module":"rao_tab",
+    "class":"RaoTab"
+  },
+  "ui":{
+    "label":"Lặp (s)",
+    "var":"sec_var",
+    "validator":"_only_digits via Tk %P",
+    "normal_input":"decimal digits or blank",
+    "unit":"seconds"
+  },
+  "default":{
+    "seconds":30,
+    "stored_text":"30",
+    "evidence":"_load_config missing-value and TypeError/ValueError fallback"
+  },
+  "normalization":{
+    "stored_ui_domain":{"min":0,"max":60},
+    "confidence":"STRONG_STATIC_SEMANTIC",
+    "evidence":["_load_config min","integer 0","integer 60","sec","TypeError","ValueError","fallback 30"],
+    "exact_expression":"NOT_RECONSTRUCTED_FROM_CONSTANT_STREAM",
+    "malformed_fallback_seconds":30
+  },
+  "resolution":{
+    "helper":"_resolve_rao",
+    "success":"(content, interval_seconds, channel_id, channel_name)",
+    "missing_interval_error":"'<Rao name>' chưa đặt thời gian lặp",
+    "zero_is_runnable":false,
+    "runnable_domain_seconds":{"min":1,"max":60}
+  },
+  "loop":{
+    "helper":"_slot_loop",
+    "doc":"gửi nội dung slot đó, nghỉ đúng hẹn giờ của dòng rao rồi lặp",
+    "first_send":"immediate-before-first-wait",
+    "order":["resolve current definition","send","status/optional echo handling","interruptible interval wait","repeat"],
+    "wait_surface":["_stop_event","wait","max","interval"],
+    "uses_time_sleep_for_interval":false,
+    "stop_can_interrupt_wait":true
+  },
+  "parallelism":{
+    "slots_per_account":4,
+    "independent_slot_loops":true,
+    "shared_global_interval_timer":false,
+    "different_intervals_per_slots":true
+  },
+  "live_edit":{
+    "row_write_restart_required":false,
+    "current_wait_rescheduled":false,
+    "next_loop_re_resolves_definition":true,
+    "edited_interval_applies":"after current wait, on next resolved cycle"
+  },
+  "send_result":{
+    "common_normal_wait_after_attempt":true,
+    "separate_fast_retry_backoff":"NOT_RECOVERED",
+    "send_or_echo_failure":"logged then normal interval path unless hard stop/error terminates slot",
+    "hard_invalid_definition":"slot stops/fails closed"
+  },
+  "persistence":{
+    "field":"sec",
+    "storage_semantic":"textual decimal seconds from StringVar",
+    "runtime_semantic":"numeric interval seconds",
+    "milliseconds":false,
+    "minutes":false
+  },
+  "captured_ui":{
+    "interval":"30",
+    "matches_static_default":true
+  },
+  "runtime":{
+    "live_rao_trace_recovered":false,
+    "scheduler_jitter":"RUNTIME_REQUIRED",
+    "server_echo_latency":"RUNTIME_REQUIRED"
+  },
+  "unknowns":[
+    "exact Tk validator return expression",
+    "exact Windows scheduling jitter",
+    "exact account-row state text after a running slot becomes invalid"
+  ],
+  "next_task":"M05 — Rao account assignment/persistence audit"
+}
