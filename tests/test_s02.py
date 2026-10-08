@@ -5,6 +5,7 @@ import unittest
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / 'src'))
 from permission_guard import PermissionGuard, PermissionSnapshot, VerifiedClaims
 from info_state import InfoState
+from shell import TLMMainApp
 
 
 def fake_test_verifier(token: str) -> VerifiedClaims:
@@ -68,6 +69,21 @@ class S02PermissionTests(unittest.TestCase):
         self.assertFalse(i.permission_guard.has_permission('farm_tab'))
         self.assertEqual(i.server_last_result,'SERVER_UNAVAILABLE')
         self.assertGreaterEqual(len(events),2)
+
+    def test_shell_permission_bridge_marshals_to_tk_loop(self):
+        class Root:
+            def __init__(self): self.delays=[]
+            def after(self,ms,callback): self.delays.append(ms); callback()
+        app=TLMMainApp.__new__(TLMMainApp)
+        app.root=Root()
+        received=[]
+        app.apply_verified_permissions=lambda *args,**kw:received.append((args,kw))
+        locked=PermissionSnapshot()
+        app.apply_info_snapshot(locked)
+        self.assertEqual(app.root.delays,[0])
+        self.assertTrue(received[-1][1]['blocked'])
+        self.assertEqual(received[-1][0],(set(),))
+        with self.assertRaises(TypeError): app.apply_info_snapshot({'permissions':['farm_tab']})
 
     def test_server_error_cannot_retain_previous_entitlements(self):
         i=InfoState()
