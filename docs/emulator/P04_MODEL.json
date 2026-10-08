@@ -1,0 +1,263 @@
+{
+  "task": "P04",
+  "status": "STATIC_EMU_CHAT_GOTO_COORDINATE_AND_MEMORY_VERIFICATION_AUDITED_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "zip_entries": 1050,
+    "zip_crc": "PASS",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "exe_bytes": 47450112,
+    "frida_js_sha256": "384ccee9a2ddf236db377fca3abd36cbc17df81a94a286551a749a3132d02db1",
+    "original_executed": false
+  },
+  "provenance": {
+    "emu_chat_compiled_module_marker": "0x293100c",
+    "emu_chat_constants_before_marker": [
+      "0x2930abd",
+      "0x293100b"
+    ],
+    "emu_farm_reference": [
+      "0x2932300",
+      "0x2932312"
+    ],
+    "debug_android_calibration": [
+      "0x290d889",
+      "0x290db27"
+    ]
+  },
+  "goto": {
+    "signature_doc": "serial,map,tile_x,tile_y; result (ok: bool, msg: str)",
+    "command_format": "@GOTO_m_x_y",
+    "steps": [
+      "read recent character state; early exit near target",
+      "open chat",
+      "focus input",
+      "clear text",
+      "type tile goto-link",
+      "dismiss keyboard",
+      "send",
+      "tap newest self link",
+      "verify movement/map/near target via memory"
+    ],
+    "already_arrived_threshold_tiles": 2,
+    "stuck_seconds_doc": 30,
+    "overall_timeout_default": "UNKNOWN",
+    "distance_metric": "UNKNOWN",
+    "poll_period": "UNKNOWN",
+    "cancel_semantics": "UNKNOWN",
+    "position_source": "EmuManager.poll_rows (MapID,PosX,PosY)",
+    "returns": [
+      "already there",
+      "arrived",
+      "tap error",
+      "stuck",
+      "timeout"
+    ]
+  },
+  "calibration": {
+    "file": "settings.ini",
+    "section": "EmuChat",
+    "properties": [
+      "chat_open_x",
+      "chat_open_y",
+      "input_x",
+      "input_y",
+      "kb_ok_x",
+      "kb_ok_y",
+      "send_x",
+      "send_y",
+      "link_x",
+      "link_y"
+    ],
+    "fallback_names": [
+      "CHAT_PREVIEW",
+      "INPUT_ROW",
+      "KB_OK",
+      "SEND_BTN",
+      "LINK_X",
+      "LINK_Y"
+    ],
+    "numeric_defaults": "UNKNOWN",
+    "per_device_storage": "NOT PROVEN",
+    "developer_workbench": "DebugAndroidTab._save_cfg",
+    "coordinate_domains": [
+      "Windows LDPlayer client / viewport",
+      "ADB device pixels",
+      "PC reference pixels",
+      "game map tile coords",
+      "raw memory PosX/PosY",
+      "Frida X_UI=PosX>>5/Y_UI=PosY>>5"
+    ]
+  },
+  "integration": {
+    "farm_tab_calls": "emu_chat.goto",
+    "farm_tab_method": "EmuFarmTab._goto_acc",
+    "farm_presets": "[EmuCoords:serial]",
+    "farm_settings": "[EmuFarm] with [TrainLD] legacy fallback",
+    "farm_rows": "Android ID key with clone collision risk",
+    "farm_cycle": "original farm cycle: phase sau — incomplete",
+    "train_ld_visibility": "hidden unless emu_tab permission",
+    "debug_android": "developer-only",
+    "network_toggle": "ACK-only in original D07"
+  },
+  "evidence_rows": 46,
+  "unknowns": [
+    "actual Python control-flow and catch ordering",
+    "exact 2-tile distance formula",
+    "raw-memory to tile conversion",
+    "per-device UI coordinate key semantics",
+    "default numeric click coordinates",
+    "how clear-input is implemented",
+    "link newest-row match rule",
+    "what counts as movement for stuck clock",
+    "stuck timeout start/reset",
+    "overall timeout default",
+    "poll cadence/freshness",
+    "cross-map matching edge cases",
+    "target PID/clone collisions",
+    "live current APK/game parity"
+  ],
+  "acceptance": {
+    "planned": 26,
+    "live_executed": 0,
+    "cases": [
+      {
+        "id": "P04-01",
+        "requirement": "EmuChat module binary fingerprint, markers and dependencies",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-02",
+        "requirement": "Read [EmuChat] calibrated coordinates in original runtime",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-03",
+        "requirement": "Configuration missing section/defaults without accidental taps",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-04",
+        "requirement": "Open panel tap actual LDPlayer device pixels",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-05",
+        "requirement": "Focus input and clear stale user text",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-06",
+        "requirement": "Generate @GOTO_m_x_y with exact tile values",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-07",
+        "requirement": "Send text with non-ASCII keyboard active",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-08",
+        "requirement": "Dismiss keyboard then send chat message",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-09",
+        "requirement": "Identify newly sent self-coordinate link and tap",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-10",
+        "requirement": "Wrong/old message link is not chosen",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-11",
+        "requirement": "Early success within 2 tiles without sending",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-12",
+        "requirement": "2-tile distance metric boundary and diagonal cases",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-13",
+        "requirement": "Map match required for successful arrival",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-14",
+        "requirement": "Raw PosX/Y vs shifted X_UI/Y_UI tile conversion",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-15",
+        "requirement": "Frida memory unavailable vs same old cached position",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-16",
+        "requirement": "Character moves on same map verified to target",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-17",
+        "requirement": "Cross-map glide transition verified to target",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-18",
+        "requirement": "Stuck after 30s independent of global timeout",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-19",
+        "requirement": "Global timeout and messaging",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-20",
+        "requirement": "ADB link tap error propagation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-21",
+        "requirement": "Cancellation/stop mid navigation",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-22",
+        "requirement": "Selected ADB serial matches intended account on clones",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-23",
+        "requirement": "Change screen resolution/UI-scale/keyboard offsets",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-24",
+        "requirement": "Debug Android staged goto/calibration save/reload",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-25",
+        "requirement": "Train LD goto functional while farm loop deferred and permission-gated",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "P04-26",
+        "requirement": "Reconstructed Windows EXE build and live parity",
+        "status": "NOT_RUN"
+      }
+    ]
+  },
+  "product": {
+    "application_source_present": false,
+    "windows_workflow_present": false,
+    "build_status": "BUILD_BLOCKED_SOURCE_MISSING"
+  },
+  "proxy_development": "EXCLUDED",
+  "next_action": "P05 — emulator Train LD EmuFarmTab partial farm control, presets, device binding and goto workflow authority audit"
+}
