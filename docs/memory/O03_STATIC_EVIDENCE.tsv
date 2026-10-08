@@ -1,0 +1,74 @@
+key	offset_hex	tier	recovered_fact_or_limit
+archive_identity	-	VERIFIED_FILE	Frozen archive 93715901 bytes, 1050 entries; ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; CRC clean from O01/O02
+exe_identity	-	VERIFIED_FILE	Frozen inner EXE 47450112 bytes SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; verified again in O03
+active_memory_items_module	0x2b69c5f	EXACT_COMPILED_MODULE	memory_items serialized block, 47850 bytes and 895 constants established O01
+get_reader_import	0x2b69e3d	EXACT_SYMBOL	memory_reader.Reader direct import
+get_reader_lock	0x2b69dbb	EXACT_SYMBOL	_reader_cache/_reader_cache_ts/_reader_lock/READER_CACHE_TTL
+get_reader_hwid	0x2b69e5e	EXACT_SYMBOL	_pid_of HWND -> PID followed by cached Reader
+get_reader_readall	0x2b69e77	EXACT_SYMBOL	read_all probe on cached Reader
+get_reader_start	0x2b69e86	EXACT_SYMBOL	Reader.start and target_pid
+get_reader_doc	0x2b69e9f	EXACT_EMBEDDED_DOC	Return attached Reader by HWND or None
+reader_unattached	0x2b6a6da	EXACT_STRING	Reader chua attach
+reader_r64	0x2b6a6ee	EXACT_SYMBOL	_r64 for RoleData.Items pointer
+reader_role_ptr	0x2b6a6f4	EXACT_SYMBOL	rd/roledata live pointer
+reader_items_off_candidate	0x2b6a6f8	ADJACENT_TAGGED_INT	Encoded 0xC8 appears adjacent to rd/_r64 and Items pointer; O02 original mount doc independently confirms rd+0xC8
+items_pointer_null	0x2b6a6fb	EXACT_STRING	Items null (nhan vat chua load?)
+array_count_reader	0x2b6a71f	EXACT_SYMBOL	_r32 count/data-member inspection
+array_count_zero	0x2b6a725	EXACT_STRING	Tui rong (count=0)
+array_entries	0x2b6a742	EXACT_SYMBOL	entries array local structure
+candidate_18	0x2b6a71e	ADJACENT_TAGGED_INT	0x18 appears before _r32; assignment is NOT reconstructed
+candidate_20	0x2b6a725	ADJACENT_TAGGED_INT	0x20 appears as tagged integer near empty count; not source-bound
+candidate_10000	0x2b6a740	ADJACENT_TAGGED_INT	Encoded 10000 appears near min/entries; cannot certify original capacity policy from proximity
+candidate_65536	0x2b6a757	ADJACENT_TAGGED_INT	Encoded 65536 appears in nearby entry-read constants; binding unknown
+candidate_1000000	0x2b6a766	ADJACENT_TAGGED_INT	Encoded 1000000 adjacent to KNOWN_SITES; exact interpretation unknown
+known_sites	0x2b6a760	EXACT_SYMBOL	KNOWN_SITES constant appears in reader
+bag_output_field_dbid	0x2b6a77c	EXACT_FIELD	dbID in emitted item row
+bag_output_field_itemid	0x2b6a782	EXACT_FIELD	itemID in emitted row
+bag_output_field_pos	0x2b6a78a	EXACT_FIELD	pos in emitted row, not screen pixel coordinate
+bag_output_field_qty	0x2b6a78f	EXACT_FIELD	qty in emitted row
+bag_info_count_log	0x2b6a794	EXACT_STRING	OK (... dict count=... ) original read diagnostics
+read_bag_doc	0x2b6a7ad	EXACT_EMBEDDED_DOC	(rows, info). rows: [{dbID,itemID,site,pos,qty}]; old method name retained for compatibility
+read_bag_symbol	0x2b6a802	EXACT_SYMBOL	read_bag
+sorted_bag	0x2b6a80c	EXACT_SYMBOL	sorted in get_bag area
+bag_site_symbol	0x2b6a814	EXACT_SYMBOL	BAG_SITE
+get_bag_local_lambda	0x2b6a828	EXACT_LOCAL_NAME	get_bag.<locals>.<lambda> sorting behavior exists; key expression unknown
+get_bag_meta_name	0x2b6a84c	EXACT_FIELD	name enriched by metadata
+get_bag_meta_icon	0x2b6a856	EXACT_FIELD	icon enriched by metadata
+get_bag_meta_src	0x2b6a860	EXACT_FIELD	src enriched by metadata
+get_bag_meta_type	0x2b6a869	EXACT_FIELD	type and etype metadata fields
+get_bag_slots	0x2b6a877	EXACT_FIELD	slots in get_bag output
+get_bag_distinct	0x2b6a87e	EXACT_FIELD	distinct item/template summary field
+get_bag_total_qty	0x2b6a888	EXACT_FIELD	total_qty field
+get_bag_nonbag	0x2b6a893	EXACT_FIELD	non_bag field (non-Site10 rows accounted separately)
+get_bag_info	0x2b6a89c	EXACT_FIELD	info diagnostic field
+get_bag_doc	0x2b6a8a2	EXACT_EMBEDDED_DOC	Aggregate bag Site 10 and enrich names; return dict or None
+get_bag_genexpr	0x2b6a8e5	EXACT_LOCAL_NAME	get_bag.<locals>.<genexpr>
+item_meta_import	0x2b6a4f8	EXACT_SYMBOL	item_meta_data.META imports for embedded name/icon/src/type
+item_meta_fallback	0x2b6a528	EXACT_STRING	item_meta.csv/item_icon_list.csv fallback only in source/development
+item_meta_doc	0x2b6a5b9	EXACT_EMBEDDED_DOC	ItemID -> {name,icon,src,type}; prefer embedded catalog
+weapon_classifier	0x2b6a663	EXACT_IMPORT_SYMBOL	weapon_ids.is_weapon
+reader_mount_site	0x2b7719d	CROSS_MODULE_O02	read_mount uses RoleData.Items rd+0xC8 Dictionary<int,DBItemData> Site 2; Site2 is not Site10
+trade_site_const	0x2b6ee6f	EXACT_SYMBOL	TRADE_SITE
+trade_script	0x2b6edb0	EXACT_LUA	Game.GetItemsAtSite(%d) enumerated with pairs(t) for trade
+trade_itemid_qty	0x2b6ee2d	EXACT_LUA	v.ItemID and v.Quantity used for trade rows
+trade_doc	0x2b6ee7d	EXACT_EMBEDDED_DOC	Read table Site 200 -> list [{dbID,itemID,qty}]; [] empty; None read error
+trade_func	0x2b6eef4	EXACT_SYMBOL	get_trade_items
+trade_count_doc	0x2b6ef05	EXACT_EMBEDDED_DOC	Trade count returns -1 if read failure
+bag_types_lua	0x2b6ef5c	EXACT_LUA	Game.GetItemsAtSite with Game.GetItemType for filtered bag query
+bag_types_doc	0x2b6f0e3	EXACT_EMBEDDED_DOC	get_bag_items_by_type filters Site 10 by in-game ItemType, independent of CSV/weapon_ids; list [{dbID,itemID,qty,pos}] or None error
+trade_enqueue_doc	0x2b7056c	EXACT_EMBEDDED_DOC	PutItemTrade by db_id is fire-and-forget; True means command sent only
+trade_confirmation_doc	0x2b70611	EXACT_EMBEDDED_DOC	Verify actual trade placement by get_trade_items/count_trade_items; requires separate query
+trade_gui_lua	0x2b6f229	EXACT_LUA	GUI.FindUI('Trade') and PutItemTrade(it) is trade UI path, not bag scan
+free_bag_query	0x2b6f88c	EXACT_LUA	Game.GetFreeBagSpace() returns in-game free slots; not inferred from slots field alone
+item_action_doc	0x2b6a937	EXACT_EMBEDDED_DOC	Drop action 4 / destroy 9 by dbID packet 100005, out-of-scope destructive actions
+use_action_doc	0x2b6a976	EXACT_EMBEDDED_DOC	Use action 3:dbID via packet 100005, not a memory read proof
+bag_filter_import	0x28d5e18	CROSS_MODULE_O01	bag_filter imports memory_items and reads bag via shared reader
+bag_empty_rules	0x28d6572	CROSS_MODULE_O01	bag_filter no rules -> no read/no packet; filters do not imply default dropping
+memory_snapshot_race	-	RUNTIME_REQUIRED	Items ptr/array/count can change during concurrent game writes; exact retry/snapshot logic not source recovered
+same_dbid_new_session	-	RUNTIME_REQUIRED	dbID and itemID must be refreshed before any destructive action; no revalidation demonstrated
+slot_capacity	-	EXPLICIT_UNKNOWN	Slots and free bag space are distinct; precise capacity / occupied semantics not source-recovered
+dictionary_layout	-	EXPLICIT_UNKNOWN	Exact pointer chasing, per-entry byte offsets, key/value slots not reconstructable from nearby serialized constants
+return_failure_layout	-	EXPLICIT_UNKNOWN	read_bag info status strings present; complete error/tuple return shape under failures not AST-proven
+valid_sites	-	EXPLICIT_UNKNOWN	Complete KNOWN_SITES membership unverified; Site10/200/2 are evidence-backed separate domains
+runtime_item_io	-	NOT_RUN	No running game attach, no original memory read, no Lua query, no trade/item action
+stage_s_code	-	NOT_APPLICABLE	No recreated product source, no GitHub Actions workflow; no executable parity or build test

@@ -1,0 +1,133 @@
+{
+  "task": "O03",
+  "status": "STATIC_BAG_SITE10_SCHEMA_AND_TRADE_SITE200_BOUNDARY_AUDITED_LIVE_MEMORY_PARITY_DEFERRED",
+  "authority": {
+    "repo_parent_head": "98678985ca5c857e3dc57d98c5dee34232b2983f",
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module": "memory_items",
+    "offset": "0x2b69c5f",
+    "serialized_bytes": 47850,
+    "constants": 895,
+    "executable_not_run": true,
+    "source_ast_not_recovered": true
+  },
+  "reader": {
+    "factory": "get_reader(hwnd)",
+    "imports": "memory_reader.Reader",
+    "cache": [
+      "_reader_cache",
+      "_reader_cache_ts",
+      "_reader_lock",
+      "READER_CACHE_TTL"
+    ],
+    "failure": "None when not attached",
+    "live_PID_revalidation": "NOT_TESTED"
+  },
+  "read_bag": {
+    "raw_return_doc": "(rows, info)",
+    "fields": [
+      "dbID",
+      "itemID",
+      "site",
+      "pos",
+      "qty"
+    ],
+    "origin": "RoleData.Items dictionary",
+    "roledata_items_offset_documented": "0xC8",
+    "failure_messages": [
+      "Reader chua attach",
+      "Items null (nhan vat chua load?)",
+      "Tui rong (count=0)"
+    ],
+    "count_entry_numeric_mapping": "EXPLICIT_UNKNOWN",
+    "known_sites_contents": "EXPLICIT_UNKNOWN",
+    "error_return_variants": "EXPLICIT_UNKNOWN"
+  },
+  "get_bag": {
+    "site": 10,
+    "return": "dict or None",
+    "metadata_fields": [
+      "name",
+      "icon",
+      "src",
+      "type",
+      "etype"
+    ],
+    "summary_field_names": [
+      "slots",
+      "distinct",
+      "total_qty",
+      "non_bag",
+      "info"
+    ],
+    "summary_arithmetic": "EXPLICIT_UNKNOWN",
+    "sorting_exact_key": "EXPLICIT_UNKNOWN",
+    "free_slots_query_is_separate": true
+  },
+  "trade": {
+    "site": 200,
+    "read_method": "get_trade_items",
+    "transport": "Lua Game.GetItemsAtSite(%d)",
+    "fields": [
+      "dbID",
+      "itemID",
+      "qty"
+    ],
+    "empty": [],
+    "failure": null,
+    "count_failure": -1,
+    "place_method": "PutItemTrade",
+    "placement_ack": "queued/sent command only",
+    "verification": "get_trade_items/count_trade_items separate query"
+  },
+  "bag_by_type": {
+    "method": "get_bag_items_by_type",
+    "transport": "Lua Game.GetItemType",
+    "default_site": 10,
+    "fields": [
+      "dbID",
+      "itemID",
+      "qty",
+      "pos"
+    ],
+    "requires_embedded_meta": false,
+    "read_failure": null
+  },
+  "identity": {
+    "dbID": "live instance DBItemData.ID",
+    "itemID": "template/category ID",
+    "site": "inventory container",
+    "pos": "slot/index, not UI screen pixel",
+    "qty": "quantity/stack"
+  },
+  "non_goals": {
+    "item_action_packet": 100005,
+    "use_action": 3,
+    "drop_action": 4,
+    "destroy_action": 9,
+    "any_action_performed": false,
+    "no_default_discard": true
+  },
+  "unknowns": [
+    "Exact dictionary offsets and key/value stride",
+    "count/array len cap semantics",
+    "read_bag failure tuple variants",
+    "site filtering and KNOWN_SITES membership",
+    "get_bag sorting and summary arithmetic",
+    "concurrent mutation handling",
+    "full game version stability"
+  ],
+  "acceptance": {
+    "planned": 20,
+    "executed": 0,
+    "result": "NOT_RUN_STAGE_S_NOT_STARTED"
+  },
+  "product": {
+    "source_exists": false,
+    "workflow_exists": false,
+    "build": "NOT_APPLICABLE",
+    "windows_live": "NOT_RUN"
+  },
+  "next_action": "O04 — embedded item metadata and weapon ItemID dataset audit"
+}

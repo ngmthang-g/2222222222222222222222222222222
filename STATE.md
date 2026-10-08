@@ -5350,3 +5350,24 @@ On CONTINUE: read PLAN.md/STATE.md and check current GitHub for existing O02. Ex
 
 ## NEXT_ACTION
 On CONTINUE read PLAN.md and STATE.md, verify GitHub for O03 first. Execute **O03 — original memory_items bag Site10 schema, read_bag/get_bag, RoleData/SessionData dictionary and error/race analysis**, distinct from Site200 trade. Do original EXE static analysis first; preserve O01/O02 and Stage-N; document O03 model/evidence/task, update state, recheck source/build.
+
+## O03 VERIFIED RESULTS — MEMORY_ITEMS BAG SITE10 / TRADE SITE200
+- GitHub main HEAD 98678985ca5c857e3dc57d98c5dee34232b2983f checked with PLAN.md/STATE.md and O01/O02; O03 not previously present. Frozen ZIP c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 entries CRC-clean prior) and inner EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 (47450112 bytes) directly inspected without execution.
+- Original memory_items block (0x2b69c5f, 47850 bytes/895 constants) imports memory_reader.Reader, caches Reader by HWND/PID. `get_reader` returns attached Reader or None; a missing Reader does not imply empty bag.
+- `read_bag` embedded return doc `(rows, info)` and rows `{dbID,itemID,site,pos,qty}`. Exact diagnostics `Reader chua attach`, `Items null (nhan vat chua load?)`, `Tui rong (count=0)` establish distinct failure/unloaded/empty states. Live dictionary pointer reads not run.
+- `_r64`, `rd`, tagged `0xC8`, `_r32`, entries, KNOWN_SITES, candidate 0x18/0x20 and caps found; O02 original doc separately corroborates RoleData.Items (rd+0xC8). Exact C-level entry stride/count/array offsets NOT source reconstructed; do not guess from serialized-order neighbors.
+- `get_bag` exact doc is Site 10 metadata-enriched dict or None. Surface fields `name, icon, src, type, etype, slots, distinct, total_qty, non_bag, info`; sort and aggregate formulas remain unknown. `pos` is container position, not screen click coordinates; `dbID` is instance identity vs ItemID template.
+- Separate `get_trade_items` uses `Game.GetItemsAtSite` via Lua Site 200 with rows `{dbID,itemID,qty}`, `[]` empty and `None` read error; `count_trade_items` returns -1 on error. `put_item_trade` True means command sent, not success; follow-up trade query required.
+- `get_bag_items_by_type` is different Lua Site10 path via Game.GetItemType independent of local embedded metadata; `Game.GetFreeBagSpace()` is its own query, not computed blindly from summary `slots`.
+- Item packet 100005 drop(4), destroy(9), use(3) exists but is out of this task. NO game process attach, action, trade, packet or unsafe item loss performed. O01 bag_filter default no-drop and weapon protection preserved.
+- O03 status **STATIC_BAG_SITE10_SCHEMA_AND_TRADE_SITE200_BOUNDARY_AUDITED / LIVE_MEMORY_PARITY_DEFERRED**. 73 static/evidence/unknown rows, 20 planned acceptance cases NOT_RUN.
+- New docs/memory/O03_BAG_TRADE_READ_FLOW.md; O03_MODEL.json; O03_STATIC_EVIDENCE.tsv; docs/tasks/O03.md.
+
+## POST-O03 SOURCE/BUILD CHECK
+- No Stage-S reconstructed app code, no Stage-T GitHub build workflow. Original frozen source artifacts/Stage N/O01/O02/PLAN unchanged; build NOT_APPLICABLE.
+
+## O03 BLOCKERS / DO_NOT_TOUCH
+- Dictionary memory offsets/caps, pointer race, read_bag exception shapes, result aggregate arithmetic and actual Windows accuracy require deeper proof. O04 owns embedded ItemID/weapon metadata; O05 owns filter/discard safety. No Proxy development.
+
+## NEXT_ACTION
+On CONTINUE reread PLAN.md and STATE.md and verify GitHub for O04 first. Execute **O04 — item_meta_data.META / weapon_ids embedded record, ItemID coverage, source fallback, weapon classification and schema validation audit** (original EXE first, do not invent data counts). Persist O04 docs/model/evidence/task, update STATE.md/PROJECT_STATUS.md, recheck product source/build. Preserve O01–O03 and all N stages.

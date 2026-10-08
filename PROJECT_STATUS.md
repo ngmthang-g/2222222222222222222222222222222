@@ -541,3 +541,10 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - WinAPI module discovery/read, cache validation, VirtualQueryEx error states and close/elevation diagnostics audited. Exact PROCESS_RIGHTS/GA cache TTL/process predicate and Windows portability UNKNOWN. Original Reader contains writes/inject but none performed by O02.
 - docs/memory/O02_READER_PROCESS_POINTER_FLOW.md, O02_MODEL.json, O02_STATIC_EVIDENCE.tsv and docs/tasks/O02.md (104 evidence records, 20 acceptance tests all NOT_RUN). No rebuilt product source/build workflow.
 - NEXT O03 — memory_items bag Site10 and separate trade Site200 structure/error audit.
+
+## O03 — Memory Items Bag Site 10 versus Trade Site 200
+- STATIC_BAG_SITE10_SCHEMA_AND_TRADE_SITE200_BOUNDARY_AUDITED / LIVE_MEMORY_PARITY_DEFERRED (original inner EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 read only).
+- `read_bag` tuple rows/info {dbID,itemID,site,pos,qty}; Reader unattached, Items null and genuine count=0 are different states. `get_bag` summarizes Site10 and enriches embedded metadata with slots/distinct/total_qty/non_bag/info; exact memory entry offsets/arithmetic unproven.
+- Trade Site200 separately queries Lua `Game.GetItemsAtSite`: [] no items, None failure, count -1 error, PutItemTrade acknowledgment send-only; `get_bag_items_by_type` uses Lua Game.GetItemType on Site10. No live game requests sent.
+- Artifacts docs/memory/O03_BAG_TRADE_READ_FLOW.md, O03_MODEL.json, O03_STATIC_EVIDENCE.tsv and docs/tasks/O03.md; 73 evidence rows, 20 planned tests NOT_RUN; reconstructed product source/build absent.
+- NEXT O04 — embedded META/weapon ItemID data/classifier audit; no Proxy development.
