@@ -1,0 +1,73 @@
+id	location	source	evidence_tier	fact
+01	0x29369f6	EXE	SERIALIZED_IMPORT	.emu_remote module binding
+02	0x2936a5a	EXE	EXACT_SYMBOL	remote_port [Emu] config key
+03	0x2936a76	EXE	EXACT_SYMBOL	remote_token [Emu] config key
+04	0x2936af1	EXE	EXACT_LITERAL	application/json; charset=utf-8 response
+05	0x2936b48	EXE	EXACT_SYMBOL	Content-Length request/body processing
+06	0x2936b82	EXE	EXACT_SYMBOL	urlparse and parse_qs
+07	0x2936bba	EXE	EXACT_ROUTE	GET /ping
+08	0x2936bce	EXE	EXACT_ROUTE	GET /maps
+09	0x2936c1d	EXE	EXACT_ROUTE	GET /emu_status
+10	0x2936c42	EXE	EXACT_ROUTE	GET /emu_config
+11	0x2936c5c	EXE	EXACT_ROUTE	GET /emu_heal_presets
+12	0x2936c87	EXE	EXACT_ROUTE	GET /emu_coords
+13	0x2936cd9	EXE	EXACT_METHOD	_auth
+14	0x2936ced	EXE	EXACT_ERROR	token sai
+15	0x2936cfc	EXE	EXACT_SYMBOL	client_address
+16	0x2936d0c	EXE	EXACT_METHOD	_peer_ip
+17	0x2936d27	EXE	EXACT_ROUTE	POST /emu_goto
+18	0x2936d3d	EXE	EXACT_ROUTE	POST /emu_save_coord
+19	0x2936d5f	EXE	EXACT_ROUTE	POST /emu_del_coord
+20	0x2936d7f	EXE	EXACT_ROUTE	POST /emu_steps
+21	0x2936d97	EXE	EXACT_ROUTE	POST /emu_act
+22	0x2936dab	EXE	EXACT_ROUTE	POST /emu_farm_toggle
+23	0x2936f0e	EXE	EXACT_DOC	/emu_steps action list do tap/text/key/wait
+24	0x2936fe8	EXE	EXACT_DOC	Ordered steps return (ok,msg), game success unproven
+25	0x293703e	EXE	EXACT_METHOD	EmuManager devices
+26	0x2937047	EXE	EXACT_METHOD	EmuManager ip_of
+27	0x29370b1	EXE	EXACT_PERMISSION	emu_tab
+28	0x2937104	EXE	EXACT_METHOD	check_account_limit
+29	0x2937259	EXE	EXACT_METHOD	_guard_permission
+30	0x2937279	EXE	EXACT_METHOD	_serial_for_aid
+31	0x29373c1	EXE	EXACT_DOC	to_train/sell/heal remote actions
+32	0x2937426	EXE	EXACT_DOC	farm toggle phase sau: state only, engine not connected
+33	0x293746e	EXE	EXACT_METHOD	serial_for_ip
+34	0x29374ae	EXE	EXACT_DOC	Use socket peer IP to map emulator
+35	0x29375bf	EXE	EXACT_METHOD	EmuManager poll_rows
+36	0x29375ca	EXE	EXACT_METHOD	get_bag_slots
+37	0x293763a	EXE	EXACT_STATUS	chua discovery (doi 1-2 phut)
+38	0x29376a7	EXE	EXACT_SYMBOL	Thread for asynchronous _cmd_goto
+39	0x29376d3	EXE	EXACT_LITERAL	accepted
+40	0x293798d	EXE	EXACT_METHOD	get_dev_coords
+41	0x2937a96	EXE	EXACT_SYMBOL	config input validation branch
+42	0x2937b94	EXE	EXACT_SYMBOL	_CONFIG_BOOL
+43	0x2937bb0	EXE	EXACT_SYMBOL	_CONFIG_INT
+44	0x2937be0	EXE	EXACT_SYMBOL	_CONFIG_TEXT
+45	0x2937c70	EXE	EXACT_ERROR	key khong ho tro
+46	0x2937cf2	EXE	EXACT_DOC	POST /emu_config {key,value} allowlist+validate
+47	0x2937d49	EXE	EXACT_CLASS	ThreadingHTTPServer
+48	0x2937d5e	EXE	EXACT_LITERAL	0.0.0.0 listener
+49	0x2937dd8	EXE	EXACT_DOC	idempotent listener start returns (ok,port|msg)
+50	0x2937e0a	EXE	EXACT_METHOD	shutdown
+51	0x2937e14	EXE	EXACT_METHOD	server_close
+52	0x2937e95	EXE	EXACT_DOC	GET /ping returns {ok:true}
+53	0x2937efb	EXE	EXACT_DOC	GET /emu_status role/map/tile/hp/bag
+54	0x2937f46	EXE	EXACT_DOC	POST /emu_goto asynchronous accepted
+55	0x2937f94	EXE	EXACT_DOC	POST /emu_save_coord input contract
+56	0x2937fdb	EXE	EXACT_DOC	POST /emu_farm_toggle future ACK only
+57	0x293801a	EXE	EXACT_DOC	JSON/query token; configured [Emu] remote_token default tlm
+58	0x293806a	EXE	EXACT_DOC	[Emu] remote_port defaults 8765; listens 0.0.0.0
+59	0x293821b	EXE	EXACT_METHOD	_Handler.do_GET
+60	0x2938235	EXE	EXACT_METHOD	_Handler.do_POST
+61	0x2938352	EXE	EXACT_MODULE_MARKER	<module emu_remote>
+62	ld_remote.js:7-11	JS	EXACT_SOURCE	PC BASE placeholder/fallback, token tlm, AID is guest IPv4
+63	ld_remote.js:487-496	JS	EXACT_SOURCE	post() inserts AID/token and returns ok:true for nonexceptional http.postJson
+64	ld_remote.js:498-502	JS	EXACT_SOURCE	getp() parses HTTP JSON; null if exception
+65	ld_remote.js:509-545	JS	EXACT_SOURCE	/ping host probe and parallel host candidate selection
+66	ld_remote.js:934	JS	EXACT_ROUTE	GET /emu_coords?aid=...
+67	ld_remote.js:1044-1054	JS	EXACT_SOURCE	/emu_steps success label based on local post().ok, not game state
+68	ld_remote.js:1061-1062	JS	EXACT_SOURCE	/emu_act UI only indicates command sent
+69	ld_remote.js:1097-1105	JS	EXACT_SOURCE	farmOn toggles on local post().ok, not remote engine confirmation
+70	ld_remote.js:1211-1217	JS	EXACT_SOURCE	GET /emu_config and local cache fallback
+71	LDPlayer	RUNTIME_NOT_RUN	DEFERRED	No real HTTP listener started; no live device action
+72	Current repo audit	BUILD_BLOCKER	CONFIRMED	Stage-S app source and Stage-T Windows build unavailable
