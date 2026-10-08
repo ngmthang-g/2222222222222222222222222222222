@@ -1,0 +1,87 @@
+key	offset_hex	evidence_tier	exact_original_or_limit
+authority_zip	-	VERIFIED_FILE	Original TLMTool_2.1.2(9).zip, 1050 entries, CRC clean, sha c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+authority_exe	-	VERIFIED_FILE	TLMTool.dist/TLMTool.exe 47450112 bytes, sha 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+toiuu_module	0x2c01fb5	REUSED_N01_BINARY	Current ToiuuTab compiled module
+constructor_rows	0x2c0202d	EXACT_SYMBOL	_acc_rows per-account HWND row dictionary
+constructor_monitor_running	0x2c0205c	EXACT_SYMBOL	_monitor_running state
+constructor_bulk_set	0x2c020aa	EXACT_SYMBOL	_bulk_set suppresses per-row save on combobox bulk change; N05
+constructor_start_busy	0x2c020b5	EXACT_SYMBOL	_start_all_busy bulk-operation state
+constructor_scan_seq	0x2c020c6	EXACT_SYMBOL	_scan_seq scan validity sequencing field
+start_tab_button	0x2c028f2	EXACT_UTF8	Bắt đầu displayed bottom action
+start_thread	0x2c029fb	EXACT_SYMBOL	_start_all_accs threaded/daemon start command surface
+row_pid	0x2c02acf	EXACT_SYMBOL	_pid runtime identity
+row_window_pid_check	0x2c02c3a	EXACT_SYMBOL	bind_window_identity and PID reuse guard
+row_reused_window	0x2c02c66	EXACT_UTF8	hwnd changed process PID and old row recreated
+row_stop_event	0x2c02cd9	EXACT_SYMBOL	_stop_event constructed on rows
+row_unbind_pid	0x2c02ce8	EXACT_SYMBOL	unbind_window_identity on row deletion
+row_toggle_handler	0x2c02de9	EXACT_SYMBOL	_toggle_this row button callback
+row_play_initial	0x2c02e2a	EXACT_UTF8	▶ start icon
+row_state_stopped	0x2c03014	EXACT_UTF8	Đã dừng
+row_state_dot_gray	0x2c02fde	EXACT_UTF8	#555555
+row_mode_cache	0x2c0317f	EXACT_SYMBOL	_mode_key per-row cached selection
+row_state_model	0x2c03198	EXACT_SYMBOL	_state per-row state
+row_gen	0x2c031b4	EXACT_SYMBOL	_gen per-row generation field; exact updates unknown
+row_toggle_thread	0x2c03229	EXACT_SYMBOL	_toggle_single_acc/target/args/daemon in row callback
+row_permission	0x2c032ff	EXACT_DOC	Disable new row if no toiuu_tab permission
+row_remove_stale	0x2c03394	EXACT_DOC	Remove closed game window or HWND reused with different PID
+refresh_worker	0x2c033eb	EXACT_SYMBOL	_refresh_acc_lists incremental worker
+refresh_active	0x2c034e5	EXACT_SYMBOL	_refresh_active tab-selected refresh state
+refresh_selected_doc	0x2c03509	EXACT_DOC	Start refresh loop when Tối ưu tab selected
+refresh_hidden_doc	0x2c03555	EXACT_DOC	Stop refresh loop when another tab selected
+running_set_save	0x2c03c82	EXACT_SYMBOL	toiuu_running persisted current running {name:mode_key}
+running_set_previous	0x2c03c98	EXACT_SYMBOL	toiuu_was_running older session marker
+running_set_save_doc	0x2c03cce	EXACT_DOC	Persist running account set across tool killed/restarted
+stale_session_resume	0x2c03e51	EXACT_SYMBOL	_reconcile_stale_worker separate startup recovery; N09
+stale_permission	0x2c03f7a	EXACT_SYMBOL	_check_perm in stale-session reconciliation
+stale_no_perm	0x2c040d0	EXACT_UTF8	No permission -> restore normal config, separate N09 flow
+restore_targets_method	0x2c04123	EXACT_SYMBOL	_restore_targets
+restore_targets_join	0x2c04196	EXACT_SYMBOL	join in recovery/stale restoration cluster; exact usage/timeout unknown
+restore_state_ui	0x2c04143	EXACT_UTF8	Đang khôi phục...
+stale_session_resume_color	0x2c04359	EXACT_UTF8	#f44336 running button/status
+stale_session_resume_label	0x2c04379	EXACT_UTF8	Dừng lại in stale-resume context
+state_label_logic	0x2c047ee	EXACT_SYMBOL	STATE_STYLE and _state label/style table
+state_ui_dispatch	0x2c048ac	EXACT_DOC	Tk widgets only mutated on main thread
+permission_limit	0x2c0520f	EXACT_SYMBOL	has_permission_with_limit(toiuu_tab,toiuu) from N05
+mode_of_row_none	0x2c052aa	EXACT_DOC	Mode cached from _mode_key; None for Không; retains original settings
+native_send_per_account	0x2c05184	EXACT_SYMBOL	_send_perf_single from N06 with expected_pid
+restore_staged	0x2c0534c	EXACT_SYMBOL	STAGE_DOWN_DELAY stage-down before TLMP_RESTORE (N06)
+toggle_stop_color	0x2c05434	EXACT_UTF8	#f44336
+toggle_stop_btn	0x2c05426	EXACT_UTF8	Dừng lại in _toggle_single_acc symbol region
+toggle_todo_literal	0x2c05450	EXACT_UTF8	acc hwnd=... bắt đầu — TODO logic
+toggle_genexpr_marker	0x2c0546e	EXACT_SYMBOL	ToiuuTab._toggle_single_acc.<locals>.<genexpr>
+toggle_method_marker	0x2c06990	EXACT_METHOD_MARKER	ToiuuTab._toggle_single_acc
+unresolved_name_refresh	0x2c054d5	EXACT_DOC	Refresh rows missing real names with targeted memory reads, not EnumWindows
+unresolved_name_apply	0x2c055b1	EXACT_DOC	_apply_name_infos on Tk main thread
+lazy_full_scan_log	0x2c05600	EXACT_UTF8	Tab not yet scanned accounts — scan once
+row_scan_seq	0x2c0563a	EXACT_SYMBOL	_start_seq / _last_targeted per bulk scan context
+ensure_rows_loaded	0x2c05681	EXACT_DOC	Background tab refresh lazy: full scan, targeted unresolved names, early False if zero rows, worker-only
+ensure_rows_method_marker	0x2c069ed	EXACT_METHOD_MARKER	ToiuuTab._ensure_rows_loaded
+restore_targets_eligible_doc	0x2c05853	EXACT_DOC	Restore live accounts with real mode OR game that predates tool launch
+reentry_guard_log	0x2c0590f	EXACT_UTF8	Đang xử lý lệnh trước — bỏ qua
+scan_progress	0x2c05946	EXACT_UTF8	Đang quét...
+scan_progress_color	0x2c05956	EXACT_UTF8	#ef6c00
+scan_disabled	0x2c0595f	EXACT_SYMBOL	disabled UI during scan
+none_eligible	0x2c0596b	EXACT_UTF8	Không acc nào cần chạy
+bulk_stop_dispatch	0x2c05993	EXACT_UTF8	Gửi lệnh dừng tất cả acc...
+bulk_label_reset	0x2c059c2	EXACT_SYMBOL	_schedule_state_label_reset
+bulk_stopped_message	0x2c059e1	EXACT_UTF8	Đã dừng tất cả acc
+bulk_process_changed	0x2c05a05	EXACT_UTF8	đã đổi process (pid ...
+bulk_start_one	0x2c05a28	EXACT_SYMBOL	_start_one nested worker routine
+bulk_start_one_marker	0x2c05a34	EXACT_METHOD_MARKER	ToiuuTab._start_all_accs.<locals>._start_one
+bulk_started_message	0x2c05a62	EXACT_UTF8	Đã chạy ... acc
+bulk_start_method_marker	0x2c06a26	EXACT_METHOD_MARKER	ToiuuTab._start_all_accs
+bulk_runtime_locals	0x2c0755a	EXACT_LOCAL_NAMES	any_running,need_scan,targets,hwnd2,row,workers,fresh,cur,exp,_start_one,tlmp
+monitor_method_marker	0x2c06a80	EXACT_METHOD_MARKER	ToiuuTab._all_monitor
+monitor_reset	0x2c05ae8	EXACT_UTF8	Tất cả acc đã dừng — tự động reset UI
+monitor_genexpr	0x2c05b26	EXACT_METHOD_MARKER	ToiuuTab._all_monitor.<locals>.<genexpr>
+watch_separate	0x2c05b50	EXACT_SYMBOL	_tick_watch_loop (N08) is separate from _all_monitor
+watch_ping	0x2c05d24	EXACT_DOC	TLMP-5 ping, two misses leads Treo tick/recovery; defer N08
+source_ast_not_available	-	EXPLICIT_UNKNOWN	Serialized constants cannot establish exact toggle TODO branch control-flow or _gen compare
+TODO_completion	-	EXPLICIT_UNKNOWN	TODO literal does not prove complete per-row start or prove it never functions
+state_paint_race	-	RUNTIME_REQUIRED	Late Tk state paint after stop/reopen/unbind PID not verified
+global_busy_reentry_policy	-	RUNTIME_REQUIRED	Busy string exists; exact lock acquisition and button double-click semantics not proven
+worker_concurrency	-	RUNTIME_REQUIRED	Exact thread pool/joins/stop_event cancellation and worker results not source-recovered
+global_stop_targets	-	RUNTIME_REQUIRED	Exact all stop inclusion/ordering across active/predating sessions requires Windows parity
+B11_main_visual	-	REUSED_B11_VISUAL	Main Tối ưu screenshot only gray bulk mode controls, green Bắt đầu; 0 account rows
+windows_live	-	NOT_RUN	No game or original EXE launched; no per-account start-stop runtime verified
+build_status	-	NOT_APPLICABLE	No Stage-S reconstructed source or Stage-T build workflow on GitHub main

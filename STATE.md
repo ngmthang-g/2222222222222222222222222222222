@@ -5221,3 +5221,29 @@ On CONTINUE:
 3. Preserve N05 selection-only semantics and N06 mode/restore contract, no DLL/source guesses.
 4. Compare screenshots only after static extraction; account rows absent from B11 capture.
 5. Save N07 docs/model/evidence/task, update STATE.md/PROJECT_STATUS.md and recheck build status.
+
+
+## N07 VERIFIED RESULTS — TỐI ƯU START/STOP LIFECYCLE
+- GitHub main parent HEAD 5ac47f041091fff57d0b33826427126738033172 checked first; PLAN.md/STATE.md/PROJECT_STATUS.md read. N01–N06 completed, N07 absent. Frozen ZIP sha256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 CRC clean) and inner EXE sha256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22.
+- ToiuuTab row creates ▶ initial Đã dừng, _toggle_single_acc dispatched via daemon thread; row _state, _stop_event, _gen, _mode_key and PID binding; main-thread UI state marshal.
+- EXACT original single-row region contains acc bắt đầu — TODO logic; cannot prove entire per-account start works or is broken. Separate native _apply_single_acc/_send_perf_single/_stop_restore_single exist; requires live test.
+- Bulk green Bắt đầu -> _start_all_accs background, _start_all_busy, scan/disabled/Đang quét..., no-account skip, _start_one, bulk stop/restored messages and _all_monitor auto reset. Exact second-click arbitration and partial state UI UNKNOWN.
+- Background tab rows can be stale/empty; original _ensure_rows_loaded doc requires worker-only full scan + targeted real-name refresh, immediate false after empty completed scan. _restore_targets doc filters alive accounts with mode OR pre-tool-boot survivor; detailed ordering/eligibility UNKNOWN.
+- HWND reuse with different PID invalidates old row; source running records keyed by real character names but cannot override PID guard. Permission with limits persists.
+- N05 selection-only gray buttons and Không=skip, N06 TLMP+staged max->low->restore preserved unchanged; N08 watch/ping and N09 prior-session reconcile explicitly separated.
+- Prior B11 Tối ưu screenshot has no account rows: no functional transition/parity claimed.
+- N07 status STATIC_START_STOP_WORKER_STATE_AND_PID_BOUNDARY_AUDITED_WITH_TODO_UNCERTAINTY / LIVE_PARITY_DEFERRED. 86 evidence records, 22 acceptance checks NOT_RUN.
+- New artifacts: docs/toiuu/N07_START_STOP_ORCHESTRATION_FLOW.md, docs/toiuu/N07_MODEL.json, docs/toiuu/N07_STATIC_EVIDENCE.tsv, docs/tasks/N07.md.
+
+## POST-N07 CODE/BUILD CHECK
+- No product app source or build/CI workflow exists. Only N07 docs/models and existing STATE/PROJECT_STATUS updated. No original native binary, scripts, N01–N06 or PLAN changed. Build NOT_APPLICABLE_YET/STAGE_S_NOT_STARTED.
+
+## N07 BLOCKERS / DO_NOT_TOUCH
+- Exact TODO branch, worker generation/timing, bulk concurrency, GUI start/stop paint on populated rows, native ack and Windows performance parity remain unknown. Preserve all completed components and Proxy development exclusion; do not fake controls or mark live PASS.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md and STATE.md; verify GitHub main for completed N08 before work.
+2. Execute N08 — Tối ưu TLMP-5 ping/watch, Treo tick and Login recovery audit from exact frozen EXE. Inspect _start_watch, _tick_watch_loop, _tick_watch_round, _ping_one, _recover_row, WATCH_INTERVAL, WATCH_PING_WAIT, WATCH_MAX_MISS, packaged Perf ping log and Login tab integration.
+3. Distinguish source-intended recovery from actual runtime; preserve N05–N07, no DLL/proxy changes.
+4. Compare B11 screenshot only after static extraction. Persist N08 report/model/evidence/task; update STATE.md/PROJECT_STATUS.md and recheck build.

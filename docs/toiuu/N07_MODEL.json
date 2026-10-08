@@ -1,0 +1,104 @@
+{
+  "task": "N07",
+  "status": "STATIC_START_STOP_WORKER_STATE_AND_PID_BOUNDARY_AUDITED_WITH_TODO_UNCERTAINTY_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "parent_git_head": "5ac47f041091fff57d0b33826427126738033172",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module": "toiuu_tab",
+    "class": "ToiuuTab",
+    "original_source_recovered": false
+  },
+  "single": {
+    "button": "▶",
+    "initial_state": "Đã dừng",
+    "threaded_handler": "_toggle_single_acc",
+    "per_row_fields": [
+      "_pid",
+      "_stop_event",
+      "_gen",
+      "_state",
+      "_mode_key"
+    ],
+    "native_apply": "_apply_single_acc/_send_perf_single",
+    "native_restore": "_stop_restore_single",
+    "todo_literal": "acc hwnd=... bắt đầu — TODO logic",
+    "todo_branch_confirmed_activated": false,
+    "full_single_start_parity": "EXPLICIT_UNKNOWN"
+  },
+  "bulk": {
+    "button": "Bắt đầu",
+    "worker": "_start_all_accs",
+    "busy_flag": "_start_all_busy",
+    "scan_seq": "_scan_seq",
+    "nested_helper": "_start_one",
+    "lazy_rows_method": "_ensure_rows_loaded",
+    "restore_targets": "_restore_targets",
+    "monitor": "_all_monitor",
+    "visible_states": [
+      "Đang quét...",
+      "Không acc nào cần chạy",
+      "Gửi lệnh dừng tất cả acc...",
+      "Đã dừng tất cả acc",
+      "Đã chạy ... acc"
+    ],
+    "reentry_exact_policy": "EXPLICIT_UNKNOWN",
+    "all_stop_eligibility_exact": "EXPLICIT_UNKNOWN"
+  },
+  "lazy_refresh": {
+    "full_scan_for_hidden_tab": true,
+    "targeted_unknown_names": true,
+    "zero_rows_returns_early": true,
+    "work_on_worker_thread": true,
+    "main_thread_applies_name_updates": true
+  },
+  "identity": {
+    "runtime": "HWND + expected PID",
+    "persistent": "sanitized RoleName",
+    "changed_pid_unbind": true
+  },
+  "ui": {
+    "stopped": "Đã dừng",
+    "stopped_color": "#555555",
+    "running": "Đang chạy",
+    "red_stop": "Dừng lại",
+    "red_color": "#f44336",
+    "scan_color": "#ef6c00",
+    "Tk_marshalling": true,
+    "auto_reset": "Tất cả acc đã dừng — tự động reset UI"
+  },
+  "interfaces": {
+    "N05_selection_only": true,
+    "N05_none_skip": true,
+    "N06_native_mode_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "N06_stage_down_before_restore": true,
+    "N08_ping_watch_separate": true,
+    "N09_stale_session_separate": true
+  },
+  "acceptance": {
+    "planned": 22,
+    "executed": 0
+  },
+  "unknowns": [
+    "TODO branch executed under each per-account click",
+    "Exact _gen/stop_event/thread synchronization",
+    "Exact bulk busy/scan/stop transition order",
+    "Which stop targets include prior-session survivors",
+    "Partial failure UI paint and state races",
+    "Native DLL ack is not game success"
+  ],
+  "build": {
+    "app_source": false,
+    "workflow": false,
+    "windows": "NOT_RUN",
+    "status": "NOT_APPLICABLE_STAGE_S_NOT_STARTED"
+  },
+  "next_action": "N08 — TLMP-5 ping/watch, Treo tick and Login recovery audit"
+}

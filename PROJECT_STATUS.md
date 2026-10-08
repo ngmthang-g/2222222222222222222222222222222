@@ -496,3 +496,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Single-account TODO logic string flagged as unknown, not marked complete. Detailed bulk/row concurrency will be N07.
 - New docs/toiuu/N06_NATIVE_TLMP_DLL_FLOW.md, N06_MODEL.json, N06_STATIC_EVIDENCE.tsv and docs/tasks/N06.md (79 evidence records; 18 future tests NOT_RUN). Stage-S source/workflow absent.
 - **NEXT N07 — per-account/all-account start-stop orchestration and UI-state audit.**
+
+
+## N07 — Single/all-account start-stop and worker state audit
+- STATIC_START_STOP_WORKER_STATE_AND_PID_BOUNDARY_AUDITED_WITH_TODO_UNCERTAINTY / LIVE_PARITY_DEFERRED. Frozen original EXE SHA 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22.
+- Per-row ▶ invokes threaded _toggle_single_acc with _stop_event/_gen; original TODO logic literal means individual start is not proven complete, even though separate _send_perf_single and restore helpers exist. Bulk Bắt đầu invokes _start_all_accs with busy scan/eligible start, global stop and _all_monitor auto-reset surfaces.
+- Background-tab lazy scan and targeted unresolved names are documented worker-only. _restore_targets differentiates selected mode and pre-tool-boot survivor; per-HWND PID guard required. Exact concurrency, TODO branch and state paint need Windows tests.
+- 86 static evidence rows, 22 future tests NOT_RUN. Files docs/toiuu/N07_START_STOP_ORCHESTRATION_FLOW.md, docs/toiuu/N07_MODEL.json, docs/toiuu/N07_STATIC_EVIDENCE.tsv, docs/tasks/N07.md. Previous studies unchanged.
+- Stage-S source and Stage-T build absent. **NEXT N08 — TLMP-5 ping/watch, Treo tick and Login recovery audit.**
