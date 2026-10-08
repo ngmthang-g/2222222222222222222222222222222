@@ -1,0 +1,82 @@
+id	original_location	source	tier	fact
+01	0x2932983	exe	MODULE_MARKER	<module emu_farm_tab>
+02	0x293111f	exe	NAME	read_settings in _ld_cfg
+03	0x2931130	exe	NAME	EmuFarm setting section
+04	0x2931139	exe	NAME	TrainLD fallback section
+05	0x293116c	exe	DOC	fallback migrate from [TrainLD]
+06	0x293119d	exe	NAME	_settings_lock
+07	0x29311d3	exe	NAME	write_settings
+08	0x293123d	exe	NAME	_acc_rows
+09	0x2931248	exe	NAME	_refresh_id
+10	0x2931255	exe	NAME	_refresh_active
+11	0x293134f	exe	NAME	LabelFrame list container
+12	0x29313c9	exe	NAME	Canvas
+13	0x29313fd	exe	NAME	Scrollbar vertical
+14	0x293159a	exe	LITERAL	MouseWheel binding
+15	0x29315c4	exe	METHOD	_refresh_acc_list
+16	0x293160b	exe	CLOSURE	EmuFarmTab._refresh_acc_list._worker
+17	0x2931645	exe	NAME	Thread daemon start
+18	0x293168e	exe	METHOD	emu_manager.poll_rows
+19	0x29316a1	exe	CLOSURE	worker UI _apply
+20	0x2931707	exe	FIELD	RoleID
+21	0x2931728	exe	METHOD	get_bag_slots
+22	0x2931737	exe	METHOD	_add_or_update_row
+23	0x2931779	exe	CONFIG	town_condition full_bag/never
+24	0x29317fa	exe	METHOD	get_dev_coords
+25	0x293182f	exe	DOC	selected Sell/Train presets by character, overlay edits
+26	0x293189e	exe	METHOD	get_dev_coord
+27	0x29318ad	exe	DOC	legacy map|x|y and placeholder when not found
+28	0x293194d	exe	UI	six sell/train labels preset/map/x/y
+29	0x29319c7	exe	DOC	repaint six coordinate labels after overlay change
+30	0x2931a1a	exe	FIELD	CurrentHP
+31	0x2931a37	exe	FIELD	_deaths
+32	0x2931a64	exe	FIELD	BoundMoney
+33	0x2931a88	exe	FIELD	_earned
+34	0x2931ab0	exe	FIELD	_last_exp
+35	0x2931be6	exe	METHOD	_toggle_this
+36	0x2931c29	exe	WIDGET	Button
+37	0x2931e77	exe	LABEL	Train:
+38	0x2931fef	exe	IMPORT	permission_guard
+39	0x2932027	exe	PERMISSION	emu_tab
+40	0x2932045	exe	FIELD	btn_play
+41	0x2932067	exe	FIELD	busy
+42	0x2932096	exe	METHOD	_set_status
+43	0x29320a3	exe	DOC	farm cycle: phase sau
+44	0x29320c3	exe	METHOD	_goto_acc
+45	0x2932108	exe	FIELD	bag_limit, followed by numeric constant 100 (meaning unknown)
+46	0x2932137	exe	FIELD	MapID
+47	0x2932156	exe	FIELD	MaxHP
+48	0x2932171	exe	FIELD	Level
+49	0x2932288	exe	METHOD	has_permission_with_limit
+50	0x29322c0	exe	PERMISSION	emu_tab for goto
+51	0x29322c9	exe	PERMISSION	trainld limit
+52	0x2932300	exe	IMPORT	emu_chat
+53	0x293230c	exe	METHOD	goto
+54	0x293233a	exe	PERMISSION	trainld_setup
+55	0x293237c	exe	METHOD	emu_setup.setup_instance
+56	0x29323cf	exe	DOC	install/push/grant/open app in setup
+57	0x2932448	exe	DOC	not porting heavy PC actuator workflow
+58	0x29324fe	exe	DOC	minimal train config/three display lines per row
+59	0x293258b	exe	DOC	chat-link goto + memory verify
+60	0x29325b8	exe	DOC	[EmuCoords:serial] separate per device
+61	0x29325fb	exe	DOC	rows keyed Android ID; serial can change
+62	0x293262d	exe	DOC	[EmuFarm] fallback [TrainLD]
+63	0x293273a	exe	METHOD	_start_refresh
+64	0x2932764	exe	METHOD	_stop_refresh
+65	0x293277e	exe	METHOD	_schedule_refresh
+66	0x293285d	exe	METHOD	_track_text
+67	0x29328af	exe	METHOD	_by_key
+68	0x29328db	exe	METHOD	_goto_acc
+69	0x29328f1	exe	METHOD	_setup_acc
+70	ld_remote.js:53-56	AutoX_JS	SOURCE	btnGoTrain, btnPlay initial labels
+71	ld_remote.js:998-1010	AutoX_JS	SOURCE	preset selector Bán/Train
+72	ld_remote.js:1030-1043	AutoX_JS	SOURCE	buildGoSeq fixed click coords + GOTO text
+73	ld_remote.js:1044-1054	AutoX_JS	SOURCE	runSteps POST/emu_steps; r.ok -> movement success label
+74	ld_remote.js:1057-1066	AutoX_JS	SOURCE	sell/heal POST /emu_act send ACK only
+75	ld_remote.js:1086-1109	AutoX_JS	SOURCE	farmOn toggled after POST /emu_farm_toggle r.ok
+76	ld_remote.js:1153-1168	AutoX_JS	SOURCE	snapCfg keys and toggles
+77	ld_remote.js:870-904	AutoX_JS	SOURCE	/sdcard/TLM/ aid file; local coords cache
+78	ld_remote.js:1068-1084	AutoX_JS	SOURCE	700ms debounced local save
+79	P01+D07	github_docs	STATIC_DOC	Original /emu_farm_toggle future ACK only
+80	repository audit	github_docs	BLOCKER	No Stage S source, Stage T workflow; app build unavailable
+81	LDPlayer Windows	runtime	NOT_RUN	No game, ADB, Frida, user-game runtime checks
