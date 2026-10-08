@@ -1,0 +1,110 @@
+{
+  "task":"L08",
+  "status":"VERIFIED_4S_MAP87_HP0_LATCHED_RESPAWN_SHARED_HEAL_ROUTE_AND_2S_STOP_ON_DISCONNECT_3STRIKE_NO_RECONNECT_STATIC_RUNTIME_ENV_REQUIRED",
+  "authority":{
+    "archive_sha256":"c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size":93715901,
+    "zip_entries":1050,
+    "zip_crc_clean":true,
+    "inner_exe_sha256":"15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size":47450112
+  },
+  "config":{
+    "return_after_death":{"var":"respawn_var","key":"respawn","label":"Quay lại train khi chết","captured_checked":false},
+    "disconnect_stop":{"var":"auto_reconnect_var","key":"auto_reconnect","label":"Dừng khi mất kết nối mạng","legacy_name_mismatch":true,"captured_checked":false},
+    "treatment":{"var":"trist_var","key":"trist","label":"Trị liệu sau khi chết","captured_checked":false},
+    "treatment_destination":{"var":"heal_map_var","key":"heal_map","captured_value":"Trị liệu Tô Châu"}
+  },
+  "death_monitor":{
+    "method":"_diaphu_monitor",
+    "cadence_seconds":4,
+    "starts_with_full_session":true,
+    "map_signal":{"map_id":87,"event":"respawn_event","latch":"detected","set_once_per_continuous_map87":true,"rearm":"after leaving map 87"},
+    "hp_signal":{"field":"HpPercent","trigger":"real numeric 0 only","unreadable_is_zero":false,"click_client":[792,441],"clicks_per_zero_episode":1,"latch":"hp_latched","rearm":"HP becomes nonzero"},
+    "state_surface":"Về địa phủ",
+    "map87_does_not_itself_prove_click":true
+  },
+  "receiver_recovery":{
+    "event":"respawn_event",
+    "log":"acc nhận đang ở Địa phủ → hồi sinh",
+    "optional_treatment":"_heal_at_death",
+    "treatment_cancel":"hard_stop",
+    "train_target_move_surface_in_receiver_runner":false,
+    "post_recovery":"re-enter receiver lifecycle unless stop/halt/other failure ends worker",
+    "disconnect_result":"mất kết nối → dừng acc nhận"
+  },
+  "donor_recovery":{
+    "event":"respawn_event",
+    "log":"đang ở Địa phủ → hồi sinh",
+    "optional_treatment":"_heal_at_death",
+    "return_option":"respawn / Quay lại train khi chết",
+    "return_option_semantic":"post-death relocation intent, not the HP0 respawn-click gate",
+    "unchecked_exact_worker_continuation":"EXPLICIT_UNKNOWN",
+    "disconnect_result":"mất kết nối → dừng acc"
+  },
+  "treatment":{
+    "helper":"_heal_at_death",
+    "state":"Trị liệu",
+    "shared_coords_symbol":"TRAIN_HEAL_COORDS",
+    "supports":["built-in destination","saved manual coordinate"],
+    "builtins":[
+      {"name":"Trị liệu Đại Lý","map_id":2,"x":43,"y":178},
+      {"name":"Trị liệu Lạc Dương","map_id":3,"x":255,"y":126},
+      {"name":"Trị liệu Tô Châu","map_id":4,"x":155,"y":252},
+      {"name":"Trị liệu Lâu Lan","map_id":5,"x":294,"y":170}
+    ],
+    "movement":"move_character",
+    "interaction":{"client_points":[[892,474],[514,424]],"repeat_count":4,"pacing_constant":0.2,"pacing_exact_binding":"UNKNOWN","readiness_pair":["common","active"],"readiness_exact_placement":"UNKNOWN"},
+    "failure_cases":["no selection","invalid built-in MapID","missing built-in coordinate","manual unresolved","movement failed","stopped/canceled"],
+    "failure_next_lifecycle_branch":"EXPLICIT_UNKNOWN"
+  },
+  "disconnect":{
+    "method":"_disconnect_monitor",
+    "cadence_seconds":2,
+    "feature_gate":"visible stop-on-disconnect checkbox stored under legacy auto_reconnect key",
+    "memory":{"helper":"is_connected","source":"TCPGame.Instance.tcpClient.Connected","true":"reset/veto false positive","false_or_null":"still require pixel evidence; memory alone does not halt"},
+    "pixels":[
+      {"key":"login.ngatKetNoi1","point":[640,244],"rgb":[160,145,52],"tolerance":5},
+      {"key":"login.ngatKetNoi2","point":[702,453],"rgb":[212,28,34],"tolerance":5}
+    ],
+    "both_pixels_required":true,
+    "consecutive_strikes":3,
+    "approximate_confirm_seconds":6,
+    "halt":"halt",
+    "movement_stop":"stop_character",
+    "receiver_effect":"full receiver session exits/stops; registry cycle resets through existing lifecycle cleanup",
+    "donor_effect":"full donor session exits/stops",
+    "auto_reconnect":false,
+    "user_restart_required":true,
+    "negative_surfaces":["no reconnect_ok","no reconnect click 616,455","no wait_pixel/common.active retry batch","no 5-attempt reconnect loop"],
+    "exit_conditions":["user/session stop","_farming_acc/gen invalidation","real window/process death","Dừng khi mất kết nối mạng tick turned off"],
+    "trade_active_helper":"is_trade_active",
+    "trade_active_exact_branch_semantic":"EXPLICIT_UNKNOWN"
+  },
+  "death_disconnect_overlap":{
+    "confirmed_disconnect_halt_interrupts_hard_stop_aware_subflows":true,
+    "same_tick_pre_halt_order":"EXPLICIT_UNKNOWN"
+  },
+  "captured_ui":{
+    "screenshot_sha256":"dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a",
+    "respawn_checked":false,
+    "disconnect_stop_checked":false,
+    "treatment_checked":false,
+    "unstuck_checked":true,
+    "heal_map":"Trị liệu Tô Châu"
+  },
+  "runtime":{
+    "automove_log_sha256":"17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "line_count":387238,
+    "correlated_markers":{"HP Monitor":0,"MAT KET NOI":0,"Donvang":0,"Địa phủ":0,"trị liệu sau chết thất bại":0,"mất kết nối":0,"Trị liệu":0},
+    "classification":"STATIC_VERIFIED_LIVE_RUNTIME_ENV_REQUIRED"
+  },
+  "unknowns":[
+    "donor continuation when respawn/return-to-train option is unchecked",
+    "treatment failure next lifecycle branch",
+    "first 4s-monitor tick timing",
+    "is_trade_active exact disconnect-monitor branch behavior",
+    "same-tick death/disconnect arbitration"
+  ],
+  "next_task":"L09 — Dồn all-account actions audit"
+}

@@ -1,0 +1,95 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; 1050 ZIP entries; CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+ui_respawn_var	0x29215c0	VERIFIED_VISIBLE_STATIC	respawn_var
+ui_respawn_label	0x29215db	VERIFIED_VISIBLE_STATIC	Quay lại train khi chết
+ui_disconnect_var	0x2921621	VERIFIED_VISIBLE_STATIC	auto_reconnect_var legacy internal name
+ui_disconnect_label	0x2921635	VERIFIED_VISIBLE_STATIC	Dừng khi mất kết nối mạng
+ui_treatment_var	0x292179a	VERIFIED_VISIBLE_STATIC	trist_var
+ui_treatment_label	0x29217a5	VERIFIED_VISIBLE_STATIC	Trị liệu sau khi chết
+ui_heal_label	0x29217c4	VERIFIED_VISIBLE_STATIC	Tọa độ trị liệu:
+ui_heal_default_visible	0x2921804	VERIFIED_VISIBLE_STATIC	Trị liệu Tô Châu
+ui_heal_var	0x292181c	VERIFIED_VISIBLE_STATIC	heal_map_var
+ui_heal_builtin_sep	0x292182a	VERIFIED_VISIBLE_STATIC	======Có sẵn======
+ui_heal_manual_sep	0x2921854	VERIFIED_VISIBLE_STATIC	=====Thủ công=====
+ui_heal_coords_symbol	0x292187d	VERIFIED_STATIC	TRAIN_HEAL_COORDS
+config_respawn	0x292c6da	VERIFIED_PERSISTENCE	[DonVang] respawn
+config_disconnect_legacy	0x292c6e3	VERIFIED_PERSISTENCE	[DonVang] auto_reconnect persists current stop-on-disconnect control
+config_treatment	0x292c6f3	VERIFIED_PERSISTENCE	[DonVang] trist
+config_heal_map	0x292c723	VERIFIED_PERSISTENCE	[DonVang] heal_map
+config_load_respawn	0x292c89c	VERIFIED_PERSISTENCE	respawn load surface
+config_load_disconnect	0x292c8a5	VERIFIED_PERSISTENCE	auto_reconnect load surface
+config_load_treatment	0x292c8b5	VERIFIED_PERSISTENCE	trist load surface
+config_load_heal	0x292c8bc	VERIFIED_PERSISTENCE	heal_map load surface
+heal_state	0x292a0d0	VERIFIED_STATIC	Trị liệu state
+heal_log_prefix	0x292a0de	VERIFIED_STATIC	[Trị liệu] hwnd=
+heal_no_selection	0x292a0f4	VERIFIED_STATIC	chưa chọn map trị liệu — bỏ qua
+heal_invalid_map	0x292a132	VERIFIED_STATIC	map_id không hợp lệ
+heal_missing_builtin	0x292a152	VERIFIED_STATIC	ko có tọa độ cho
+heal_manual_unresolved	0x292a16d	VERIFIED_STATIC	không resolve được map/tọa độ
+heal_move	0x292a1a1	VERIFIED_STATIC	move_character
+heal_click	0x292a1b1	VERIFIED_STATIC	click_at
+heal_move_fail	0x292a1bb	VERIFIED_STATIC	di chuyển đến map trị liệu thất bại
+heal_common_active	0x292a209	VERIFIED_STATIC	common + active pair
+heal_success	0x292a219	VERIFIED_STATIC	hoàn thành trị liệu tại
+heal_doc	0x292a23c	VERIFIED_STATIC_UTF8	move treatment map + click 2 points x4
+heal_manual_doc	0x292a2a2	VERIFIED_STATIC_UTF8	supports TRAIN_HEAL_COORDS and saved manual coords
+heal_locals	0x292f352	VERIFIED_STATIC_MAPPING	self/hwnd/stop_check/heal_sel/heal_tile_x/heal_tile_y/map_id/_heal_map_name/name/mid/mv/xv/yv/m_sel/move_character/click_at/wait_pixel/ok
+heal_builtin_daili	0x2939e88	REUSED_SHARED_H06	Trị liệu Đại Lý -> map2 tile(43,178)
+heal_builtin_luoyang	0x2939ea1	REUSED_SHARED_H06	Trị liệu Lạc Dương -> map3 tile(255,126)
+heal_builtin_suzhou	0x2939ebd	REUSED_SHARED_H06	Trị liệu Tô Châu -> map4 tile(155,252)
+heal_builtin_loulan	0x2939ed5	REUSED_SHARED_H06	Trị liệu Lâu Lan -> map5 tile(294,170)
+heal_click_points	-	REUSED_H06_SAME_FROZEN_EXE	(892,474) and (514,424), repeated 4; Dồn function carries same treatment doc/locals/shared TRAIN_HEAL_COORDS contract
+heal_pacing	-	REUSED_H06_UNBOUND_CONSTANT	0.2 exists in shared treatment interaction constant block; exact binding remains unknown
+death_state	0x292a4b4	VERIFIED_STATIC	Về địa phủ
+death_hp_field	0x292a49d	VERIFIED_STATIC	HpPercent
+death_hp_latch	0x292a4a8	VERIFIED_STATIC	hp_latched
+death_hp_log	0x292a4c7	VERIFIED_STATIC	[HP Monitor] hwnd=
+death_hp_action	0x292a4db	VERIFIED_STATIC_UTF8	HP 0% -> set respawn_event + click (792,441)
+death_detected	0x292a51f	VERIFIED_STATIC	detected
+death_map87_log	0x292a52b	VERIFIED_STATIC_UTF8	Địa phủ map87 detection
+death_monitor_doc	0x292a56c	VERIFIED_STATIC_UTF8	4s monitor from Farm start; MapID87 event + real HP0 single click
+death_map87_rule	0x292a5bc	VERIFIED_STATIC_UTF8	MapID==87 -> set respawn_event
+death_hp0_rule	0x292a600	VERIFIED_STATIC_UTF8	real numeric HP==0 -> one click (792,441)
+death_map_latch_doc	0x292a673	VERIFIED_STATIC_UTF8	detected set once per map87 episode; clear after leaving 87
+death_hp_latch_doc	0x292a73a	VERIFIED_STATIC_UTF8	hp_latched blocks repeated HP0 click and resets when HP nonzero
+death_monitor_locals	0x292eaee	VERIFIED_STATIC_MAPPING	self/hwnd/respawn_event/stop_event/detected/hp_latched/click_at/get_character_info/ci/hp_pct
+receiver_monitors	0x2925bec	VERIFIED_STATIC	receiver runner starts _diaphu_monitor and _disconnect_monitor
+receiver_respawn_event	0x2925d82	VERIFIED_STATIC	receiver runner consumes respawn_event
+receiver_death_log	0x2925d98	VERIFIED_STATIC_UTF8	acc nhận đang ở Địa phủ -> hồi sinh
+receiver_heal_call	0x2925dcb	VERIFIED_STATIC	_heal_at_death
+receiver_heal_cancel	0x2925ddb	VERIFIED_STATIC	hard_stop
+receiver_heal_fail	0x2925de6	VERIFIED_STATIC	trị liệu sau chết thất bại
+receiver_disconnect_stop	0x2925e13	VERIFIED_STATIC_UTF8	mất kết nối -> dừng acc nhận
+donor_respawn_surface	0x292a7be	VERIFIED_STATIC_UTF8	donor farm cycle consumes “đang ở Địa phủ -> hồi sinh”
+donor_disconnect_stop	0x292a80f	VERIFIED_STATIC_UTF8	mất kết nối -> dừng acc
+disconnect_stop_character	0x292ac0a	VERIFIED_STATIC	stop_character
+disconnect_window_dead	0x292ac35	VERIFIED_STATIC_UTF8	window gone/process changed -> stop disconnect monitor
+disconnect_trade_active	0x292ac97	VERIFIED_STATIC	is_trade_active consulted; exact branch semantics not frozen
+disconnect_memory	0x292acb9	VERIFIED_STATIC	is_connected
+disconnect_pixel1	0x292acd0	VERIFIED_STATIC	login.ngatKetNoi1
+disconnect_pixel2	0x292acf5	VERIFIED_STATIC	login.ngatKetNoi2
+disconnect_strikes	0x292ad02	VERIFIED_STATIC	dc_strikes
+disconnect_3of3	0x292ad0e	VERIFIED_STATIC_UTF8	MAT KET NOI (dialog 3/3) -> dừng acc
+disconnect_doc	0x292ad4a	VERIFIED_STATIC_UTF8	2s disconnect watchdog runs parallel with farm loop
+disconnect_memory_veto	0x292ad9c	VERIFIED_STATIC_UTF8	memory True veto + pixel dialog 3-strike
+disconnect_dual_pixel	0x292adf1	VERIFIED_STATIC_UTF8	both pixels for 3 consecutive ticks (~6s) before halt
+disconnect_halt_effect	0x292ae4c	VERIFIED_STATIC_UTF8	halt makes stop lambda true so sub-cycle/Dồn flows exit immediately
+disconnect_receiver_reset	0x292aea0	VERIFIED_STATIC_UTF8	receiver resets if donor drops network mid-Dồn; account ends stopped
+disconnect_no_reconnect	0x292af27	VERIFIED_STATIC_UTF8	KHÔNG tự kết nối lại — user bấm Start để chạy lại
+disconnect_exit_doc	0x292af77	VERIFIED_STATIC_UTF8	exit on user stop/session/gen, real window death, or stop-on-disconnect tick off
+disconnect_monitor_locals	0x292eb57	VERIFIED_STATIC_MAPPING	self/row/stop_event/halt/hwnd/win32gui/check_pixel/stop_character/gen_snap/dc_strikes/is_trade_active/MI/conn/dc1/dc2
+disconnect_pixel1_cfg	0x2b97cf9	REUSED_H08_PIXEL_STATIC	login.ngatKetNoi1=(640,244), RGB(160,145,52), tolerance5
+disconnect_pixel2_cfg	0x2b97d33	REUSED_H08_PIXEL_STATIC	login.ngatKetNoi2=(702,453), RGB(212,28,34), tolerance5
+connected_semantic	0x2b70e50	REUSED_H08_SHARED_STATIC	TCPGame.Instance.tcpClient.Connected; True/False/None
+no_reconnect_ok	-	VERIFIED_NEGATIVE_STATIC	no reconnect_ok symbol in Dồn module/function surface
+no_reconnect_click	-	VERIFIED_NEGATIVE_STATIC	no reconnect click/wait_pixel/common.active batch in Dồn disconnect monitor locals/constants
+screenshot_don	-	CROSSCHECKED_AFTER_STATIC	dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a; respawn/disconnect/treatment unchecked; unstuck checked
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500; 387238 lines
+runtime_markers	-	NOT_RECOVERED	0 HP Monitor / MAT KET NOI / Donvang / Địa phủ / treatment-fail / mất kết nối / Trị liệu markers
+respawn_unchecked_branch	-	EXPLICIT_UNKNOWN	post-death donor continuation when return-to-train option unchecked not safely source-visible
+treatment_failure_branch	-	EXPLICIT_UNKNOWN	treatment failure surface recovered, exact caller next action not fully bound
+first_monitor_tick	-	EXPLICIT_UNKNOWN	4s cadence exact; immediate check vs first wait not frozen
+trade_active_branch	-	EXPLICIT_UNKNOWN	is_trade_active is local dependency; exact conditional effect in disconnect monitor not frozen
+death_disconnect_same_tick	-	EXPLICIT_UNKNOWN	halt interrupts hard_stop-aware work once set; same scheduling-window pre-halt order unknown
+classification	-	STATIC_VERIFIED_RUNTIME_ENV_REQUIRED	live timing/parity requires Windows + game
