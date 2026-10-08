@@ -1,0 +1,48 @@
+key	offset_hex	tier	finding
+original_zip	-	VERIFIED_FILE	SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; 1050 entries; CRC clean
+original_exe	-	VERIFIED_FILE	SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; size 47450112 bytes
+meta_module	0x2977206	EXACT	Serialized item_meta_data; 1989514 bytes
+meta_doc	0x297721c	EXACT_DOC	META[id]=(Name,Icon,Source,EquipType)
+meta_dict	0x29772d3	FULL_DECODE	D 9f ea 01 => unsigned varint 29983
+meta_keys	0x29772d7	FULL_DECODE	29983 unique u-tagged numeric UTF8 keys
+meta_values	0x29c060d	FULL_DECODE	29983 consecutive T4 tuples
+meta_end	0x2b5cd71	EXACT_BOUNDARY	aMETA marker after final tuple
+meta_names	-	FULL_COUNT	12835 distinct nonblank Names, names repeat
+meta_icons	-	FULL_COUNT	4082 distinct nonblank Icons, icons repeat
+meta_null	-	FULL_COUNT	7207 non-Equips EquipType None
+meta_equips	-	FULL_COUNT	22776 Equips records have non-null EquipType
+source_Equips	-	FULL_COUNT	Equips=22776
+source_Items	-	FULL_COUNT	Items=5289
+source_Gems	-	FULL_COUNT	Gems=1154
+source_Medicines	-	FULL_COUNT	Medicines=694
+source_PetEquips	-	FULL_COUNT	PetEquips=70
+weapon_module	0x2c54798	EXACT	weapon_ids 27719 bytes
+weapon_doc	0x2c547bb	EXACT_DOC	Weapon by ItemID, not Name; Equips.xml + out_icons/weapon
+weapon_types	0x2c54890	FULL_DECODE	L 0c contains 12 types 0-8,16,17,100
+weapon_set	0x2c548b8	FULL_DECODE	S e5 2a => 5477 unique l-tagged ItemIDs
+weapon_end	0x2c5b3b4	EXACT_BOUNDARY	ais_weapon directly follows set
+weapon_in_meta	-	FULL_JOIN	5477/5477 weapon IDs found in META
+weapon_equips	-	FULL_JOIN	5477/5477 are META Source Equips
+weapon_typed	-	FULL_JOIN	5477/5477 have one of twelve weapon EquipTypes
+weapon_reverse	-	FULL_JOIN	All Equips+weapon type META IDs are in set; zero mismatch
+nonweapon_equips	-	FULL_JOIN	17299 Equips not in WEAPON_ITEM_IDS
+type_0	-	FULL_COUNT	0=600
+type_1	-	FULL_COUNT	1=736
+type_2	-	FULL_COUNT	2=1056
+type_3	-	FULL_COUNT	3=601
+type_4	-	FULL_COUNT	4=618
+type_5	-	FULL_COUNT	5=627
+type_6	-	FULL_COUNT	6=213
+type_7	-	FULL_COUNT	7=213
+type_8	-	FULL_COUNT	8=208
+type_16	-	FULL_COUNT	16=218
+type_17	-	FULL_COUNT	17=202
+type_100	-	FULL_COUNT	100=185
+embedded_import	0x2b6a4f8	EXACT_SYMBOL	memory_items imports item_meta_data.META
+fallback_csv	0x2b6a52e	EXACT_SYMBOL	item_meta.csv, item_icon_list.csv fallback in dev/source mode
+weapon_classifier	0x2b6a663	EXACT_SYMBOL	memory_items imports weapon_ids.is_weapon
+weapon_safe	0x28d68cd	PRIOR_O01	bag_filter default allow_weapons=False
+int_normalization	-	RESEARCH_LIMIT	META serialized keys are strings; audit casts int solely for set join; runtime expression unknown
+version_limit	-	RESEARCH_LIMIT	Other game versions / unknown ItemIDs unverified
+live_game	-	NOT_RUN	No game EXE launch, memory read or item packet performed
+product_build	-	NOT_APPLICABLE	No rebuilt Stage-S app source or Stage-T workflow

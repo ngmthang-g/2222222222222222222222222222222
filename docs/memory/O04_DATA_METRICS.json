@@ -1,0 +1,74 @@
+{
+  "authority": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "zip_entries": 1050,
+    "exe_bytes": 47450112,
+    "original_exe_never_executed": true
+  },
+  "metadata": {
+    "module_offset": "0x2977206",
+    "module_bytes": 1989514,
+    "dict_count_marker": "0x29772d3",
+    "value_start": "0x29c060d",
+    "value_end": "0x2b5cd71",
+    "entries": 29983,
+    "unique_itemids": 29983,
+    "serialized_key_type": "u-tagged UTF-8 decimal strings",
+    "value_record": "T4 (Name,Icon,Source,EquipType)",
+    "unique_names": 12835,
+    "unique_icons": 4082,
+    "blank_names": 0,
+    "blank_icons": 0,
+    "source_counts": {
+      "Equips": 22776,
+      "Items": 5289,
+      "Gems": 1154,
+      "Medicines": 694,
+      "PetEquips": 70
+    },
+    "null_equiptype": 7207
+  },
+  "weapon": {
+    "module_offset": "0x2c54798",
+    "module_bytes": 27719,
+    "type_list_marker": "0x2c54890",
+    "set_count_marker": "0x2c548b8",
+    "set_end": "0x2c5b3b4",
+    "unique_itemids": 5477,
+    "types": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      16,
+      17,
+      100
+    ],
+    "type_counts": {
+      "0": 600,
+      "1": 736,
+      "2": 1056,
+      "3": 601,
+      "4": 618,
+      "5": 627,
+      "6": 213,
+      "7": 213,
+      "8": 208,
+      "16": 218,
+      "17": 202,
+      "100": 185
+    },
+    "missing_in_meta": 0,
+    "source_mismatch": 0,
+    "type_mismatch": 0,
+    "meta_eligible_not_in_weapon_set": 0,
+    "nonweapon_equips": 17299
+  },
+  "proof_scope": "full original binary read-only decoder, not current live game catalog or rebuilt app test"
+}

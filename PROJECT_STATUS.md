@@ -548,3 +548,9 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Trade Site200 separately queries Lua `Game.GetItemsAtSite`: [] no items, None failure, count -1 error, PutItemTrade acknowledgment send-only; `get_bag_items_by_type` uses Lua Game.GetItemType on Site10. No live game requests sent.
 - Artifacts docs/memory/O03_BAG_TRADE_READ_FLOW.md, O03_MODEL.json, O03_STATIC_EVIDENCE.tsv and docs/tasks/O03.md; 73 evidence rows, 20 planned tests NOT_RUN; reconstructed product source/build absent.
 - NEXT O04 — embedded META/weapon ItemID data/classifier audit; no Proxy development.
+
+
+## O04 — Complete embedded ItemID / weapon audit
+- Frozen original EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 includes exactly 29983 META records; sources {"Equips":22776,"Items":5289,"Gems":1154,"Medicines":694,"PetEquips":70}; 12835 distinct Names and 4082 Icons. Exactly 5477 unique weapon ItemIDs from twelve types; all matched META Equips/allowed types, no missing/mismatches.
+- Artifacts: docs/memory/O04_EMBEDDED_METADATA_AND_WEAPONS.md, O04_MODEL.json, O04_DATA_METRICS.json, O04_STATIC_EVIDENCE.tsv and docs/tasks/O04.md. 47 evidence entries / 20 NOT_RUN cases. No app code/build or live game test.
+- NEXT O05 — bag_filter rules and safe destructive discard. Proxy excluded.

@@ -5371,3 +5371,15 @@ On CONTINUE read PLAN.md and STATE.md, verify GitHub for O03 first. Execute **O0
 
 ## NEXT_ACTION
 On CONTINUE reread PLAN.md and STATE.md and verify GitHub for O04 first. Execute **O04 — item_meta_data.META / weapon_ids embedded record, ItemID coverage, source fallback, weapon classification and schema validation audit** (original EXE first, do not invent data counts). Persist O04 docs/model/evidence/task, update STATE.md/PROJECT_STATUS.md, recheck product source/build. Preserve O01–O03 and all N stages.
+
+
+## O04 VERIFIED RESULTS — COMPLETE EMBEDDED META/WEAPON DECODE
+- GitHub main parent 38e7629d9110c73aa237c13b9a45bc372b4d626d, PLAN.md/STATE.md verified before O04; previous O01–O03 and Phase N complete and left unchanged. Frozen ZIP SHA c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd CRC clean and inner EXE SHA 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 read-only.
+- Full 29983-entry META D map decoded from 0x29772d3: 29983 unique numeric-text keys, 29983 T4 Name/Icon/Source/EquipType tuples through aMETA 0x2b5cd71. Sources {"Equips":22776,"Items":5289,"Gems":1154,"Medicines":694,"PetEquips":70}; 12835 distinct names, 4082 distinct icons and 7207 None types.
+- Full WEAPON_TYPES 0,1,2,3,4,5,6,7,8,16,17,100 and 5477 unique ID set S at 0x2c548b8 decoded through ais_weapon 0x2c5b3b4; all 5477 in META Source Equips with allowed type, all eligible META in weapon set; zero mismatch, 17299 other Equips.
+- Actual runtime string-key/int normalization, unknown ID/fallback and newer game coverage UNKNOWN. O01 protection no-weapon-default/no-rule-discard preserved; no item/game actions executed.
+- O04 research status EMBEDDED_META_AND_WEAPON_DATA_FULLY_DECODED_STATIC_AUDIT / LIVE_CLASSIFIER_AND_BAG_PARITY_DEFERRED; 47 evidence records, 20 future test cases NOT_RUN on rebuilt app.
+- Created docs/memory/O04_EMBEDDED_METADATA_AND_WEAPONS.md, O04_MODEL.json, O04_DATA_METRICS.json, O04_STATIC_EVIDENCE.tsv and docs/tasks/O04.md. No Stage-S product source or Stage-T Actions workflow, build NOT_APPLICABLE. No Proxy development.
+
+## NEXT_ACTION
+On CONTINUE read PLAN.md/STATE.md and inspect GitHub for O05; execute O05 original bag_filter activity presets, rule matching, protect_ids/protect_names and allow_weapons, dry_run, stop_check and discard safety; EXE first, no game item action. Persist O05 docs and update STATE/PROJECT_STATUS. Preserve all prior work.
