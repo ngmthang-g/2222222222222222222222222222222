@@ -1,0 +1,93 @@
+id	binary_offset_or_source	evidence_tier	observation
+P08-001	0x290df6c	BIN_EXACT	<module debug_android_tab> module marker
+P08-002	0x290bb8c	BIN_EXACT	Reference .debug_android_tab in preceding compiled block
+P08-003	0x290bbb4	BIN_EXACT	EmuChat calibration section
+P08-004	0x290bc58	BIN_EXACT	Tk <Destroy> event
+P08-005	0x290bc84	BIN_EXACT	pynput Listener on_click
+P08-006	0x290bcd1	BIN_EXACT	Button.middle coordinate-capture event
+P08-007	0x290bda1	BIN_DOC	Arm viewport two-corners; first upper-left second lower-right via Alt
+P08-008	0x290bf06	BIN_EXACT	vp_x1/y1/x2/y2 values
+P08-009	0x290c066	BIN_EXACT	_to_device coordinate conversion
+P08-010	0x290c0a8	BIN_EXACT	emulator-5554 serial example
+P08-011	0x290c113	BIN_EXACT	_alt_freeze_pin status update
+P08-012	0x290c172	BIN_DOC	Alt pins currently measured device coordinate into Tap
+P08-013	0x290c1f1	BIN_EXACT	_settings_lock read_settings write_settings
+P08-014	0x290c2b0	BIN_EXACT	_parse_xy accepts X,Y text input
+P08-015	0x290c30b	BIN_EXACT	chat_open_x/y
+P08-016	0x290c33d	BIN_EXACT	input_x/y
+P08-017	0x290c369	BIN_EXACT	send_x/y
+P08-018	0x290c393	BIN_EXACT	kb_ok_x/y
+P08-019	0x290c3bf	BIN_EXACT	link_x/y
+P08-020	0x290c3ed	BIN_EXACT	goto_map/x/y
+P08-021	0x290c4bc	BIN_EXACT	ttk.Combobox readonly for emulator serial
+P08-022	0x290c544	BIN_UI	Refresh serial action
+P08-023	0x290c55e	BIN_UI	Start frida-server button
+P08-024	0x290c57f	BIN_EXACT	_emu_scan callback
+P08-025	0x290c5b8	BIN_UI	Push script button
+P08-026	0x290c5e2	BIN_EXACT	push_all_btn widget
+P08-027	0x290c604	BIN_EXACT	_remote_toggle listener control
+P08-028	0x290c6c7	BIN_UI	Screencap button
+P08-029	0x290c717	BIN_EXACT	RGB canvas
+P08-030	0x290c79e	BIN_UI	Memory RoleData group
+P08-031	0x290c81c	BIN_UI	Chat @GOTO staged test group
+P08-032	0x290c937	BIN_UI	4 Tap link stage
+P08-033	0x290c944	BIN_UI	Goto full stage
+P08-034	0x290c9de	BIN_EXACT	_toggle_track tracking control
+P08-035	0x290cafa	BIN_EXACT	_refresh_serials button action
+P08-036	0x290cb41	BIN_EXACT	_do_tap callback
+P08-037	0x290cb4a	BIN_EXACT	_do_cap callback
+P08-038	0x290cb53	BIN_EXACT	_do_rgb callback
+P08-039	0x290cb5c	BIN_EXACT	_do_mem callback
+P08-040	0x290cb65	BIN_EXACT	_do_bag callback
+P08-041	0x290cc3a	BIN_EXACT	emu_reader.adb_devices and emu_manager
+P08-042	0x290cd59	BIN_EXACT	_server_start via EmuManager
+P08-043	0x290cdc4	BIN_EXACT	force_discover in scan action
+P08-044	0x290ce53	BIN_EXACT	emu_setup.push_script integration
+P08-045	0x290cf45	BIN_EXACT	emu_remote listener integration
+P08-046	0x290d0a6	BIN_EXACT	save_cap output
+P08-047	0x290d0dc	BIN_EXACT	screencap FAIL separate from valid image
+P08-048	0x290d0fe	BIN_EXACT	Pillow screenshot getpixel RGB
+P08-049	0x290d193	BIN_EXACT	emu_manager.poll_rows for character state
+P08-050	0x290d1f3	BIN_EXACT	RoleName/RoleID/Level/MapID/PosX/PosY/CurrentHP/MaxHP etc
+P08-051	0x290d284	BIN_EXACT	get_bag_slots Site10
+P08-052	0x290d2b5	BIN_DOC	Staged chat link open/type/send/link and memory monitoring
+P08-053	0x290d3de	BIN_EXACT	_track_loop
+P08-054	0x290d411	BIN_EXACT	GetCursorPos
+P08-055	0x290d434	BIN_EXACT	WindowFromPoint + GetAncestor root
+P08-056	0x290d47c	BIN_EXACT	ldplayer/dnplayer title filters
+P08-057	0x290d4a4	BIN_EXACT	ScreenToClient
+P08-058	0x290d4ce	BIN_DOC	Windows client position mapping avoids pyautogui DPI displacement
+P08-059	0x290d57c	BIN_DOC	Default viewport origin (0,30); dynamic far corner, device 960x540 example
+P08-060	0x290d6de	BIN_DOC	Dev-only Android workbench, not public feature surface
+P08-061	0x290d7b3	BIN_DOC	No NPC test, Fake accounts or plan limit test in this workbench
+P08-062	0x290d7f4	BIN_DOC	Calibrated settings.ini [EmuChat] persists for navigation
+P08-063	0x290d9c6	BIN_EXACT	Example Tap text 200,505; example defaults not universal
+P08-064	0x290da3d	BIN_METHOD	_on_destroy cleanup
+P08-065	0x290da5b	BIN_METHOD	_on_mouse_click listener
+P08-066	0x290da9e	BIN_METHOD	_arm_corners
+P08-067	0x290daca	BIN_METHOD	_capture_corner
+P08-068	0x290daeb	BIN_METHOD	_alt_freeze_pin
+P08-069	0x290db27	BIN_METHOD	_save_cfg
+P08-070	0x290dc41	BIN_METHOD	_refresh_serials
+P08-071	0x290dc80	BIN_METHOD	_start_server
+P08-072	0x290dcba	BIN_METHOD	_adb_push_one
+P08-073	0x290dcd9	BIN_METHOD	_adb_push_all
+P08-074	0x290dcf8	BIN_METHOD	_remote_toggle
+P08-075	0x290dd18	BIN_METHOD	_do_cap
+P08-076	0x290dd7f	BIN_METHOD	_do_mem
+P08-077	0x290dd98	BIN_METHOD	_do_bag
+P08-078	0x290ddb1	BIN_METHOD	_step_open
+P08-079	0x290ddcd	BIN_METHOD	_step_type
+P08-080	0x290dde9	BIN_METHOD	_step_send
+P08-081	0x290de05	BIN_METHOD	_step_link
+P08-082	0x290de21	BIN_METHOD	_step_full
+P08-083	0x290de3d	BIN_METHOD	_step_close
+P08-084	0x290de74	BIN_METHOD	_toggle_track
+P08-085	0x290de93	BIN_METHOD	_emu_client_pos
+P08-086	0x290deb4	BIN_METHOD	_to_device
+P08-087	0x290defa	BIN_METHOD	_pin_to_tap
+P08-088	0x28d2010	MAIN_DOC_FROM_P01	TLMMainApp references dev DebugAndroidTab class
+P08-089	0x28d2222	MAIN_DOC_FROM_P01	Developer permission gates visibility
+P08-090	ARCHIVE	CRYPTO	Original ZIP hash and CRC verified and original inner EXE sha256 locked
+P08-091	RECONSTRUCTED_WINDOWS	RUNTIME_NOT_RUN	No Windows/dev permission/game/LDPlayer actions performed
+P08-092	GITHUB_AUDIT	BUILD_BLOCKED	Stage-S product app and Stage-T Windows workflow not present
