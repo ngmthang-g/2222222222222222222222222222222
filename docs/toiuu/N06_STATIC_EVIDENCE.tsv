@@ -1,0 +1,80 @@
+key	offset_hex	tier	evidence
+archive_sha	-	VERIFIED_FILE	Original ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; 1050 archive entries; CRC clean
+original_exe	-	VERIFIED_FILE	TLMTool.dist/TLMTool.exe SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; 47450112 bytes
+dll_payload_archive_path	-	VERIFIED_FILE	TLMTool.dist/data/resources.dat, 39424 bytes; SHA256 1375240c85abb9c211c66d3e8157a6dbfbc5551aabec465375b68e5301e645d4
+payload_pe_x64	-	VERIFIED_PE_HEADER	resources.dat starts MZ; PE signature at 0x80; machine 0x8664, optional header 0x20b; DLL flag
+payload_packed	-	STATIC_TOOL_READ	objdump section headers include UPX2; packed state means native handler implementation not established from wrapper
+payload_export_names	-	STATIC_TOOL_READ	PE export table exposes MinHook-related names including MH_CreateHook; not proof of successful hook installation
+dll_module_marker	0x2918f40	EXACT_BINARY	Compiled .dll_injector block
+dll_default_path	0x2919013	EXACT_UTF8	resources.dat
+dll_default_path_doc	0x2919022	EXACT_DOC	Bundled injected payload path ./data/resources.dat
+dll_window_selector	0x29190f7	EXACT_UTF8	UnityWndClass
+dll_pid_window_doc	0x291913d	EXACT_DOC	Find main game HWND owned by pid; prefer UnityWndClass/game title
+copydata_type	0x29192a3	EXACT_SYMBOL	COPYDATASTRUCT
+copydata_api	0x2919305	EXACT_SYMBOL	SendMessageTimeoutW and WM_COPYDATA in module
+copydata_timeout_doc	0x29193c8	EXACT_DOC	SendMessageTimeoutW prevents indefinite blocking if game window unresponsive
+perf_cmd_structure	0x2919bf4	EXACT_SYMBOL	PerfCmd type
+perf_wm_token	0x2919bfd	EXACT_SYMBOL	WM_PERF_TOKEN
+perf_native_doc	0x2919c0c	EXACT_DOC	Native perf command via WM_COPYDATA/TLMP, not Lua
+perf_mode0	0x2919c52	EXACT_DOC	Mode 0 normal 40 fps plus restore
+perf_mode1	0x2919c52	EXACT_DOC	Mode 1 Thấp vừa 30 fps and eco GameSetting
+perf_mode2	0x2919ca3	EXACT_DOC	Mode 2 Cực thấp adds AA/lod/far/URP shadow optimizations
+perf_mode3	0x2919ca3	EXACT_DOC	Mode 3 Cực đại includes background darkening
+perf_mode4	0x2919cf7	EXACT_DOC	Mode 4 restore original snapshot
+perf_mode5	0x2919cf7	EXACT_DOC	Mode 5 diagnostic ping; log only
+perf_on_tick	0x2919d44	EXACT_DOC	Injected DLL handles perf command on main game thread OnTick
+send_perf_signature	0x291ab3b	EXACT_LOCAL_METADATA	send_perf_command(pid,mode) -> bool surface
+dll_is_loaded	0x2919dfa	EXACT_DOC	is_dll_loaded compares normalized module path via EnumProcessModulesEx
+inject_missing_dll	0x2919f0a	EXACT_UTF8	DLL not found
+injection_doc	0x291a12e	EXACT_DOC	inject_into_pid uses running process, existing module guard
+inject_timeout	0x291a0d4	EXACT_UTF8	LoadLibrary didn't finish in ... ms
+inject_method_metadata	0x291abd0	EXACT_LOCAL_METADATA	inject_into_pid(pid,dll_path,timeout_ms) -> (bool,int,str) shape
+no_native_code_source	-	NOT_RECOVERED	Original DLL source / exact full TLMP listener source not recovered by static wrapper review
+toiuu_import_helper	0x2c04aa4	EXACT_SYMBOL	dll_injector helpers get_default_dll_path/is_dll_loaded/inject_into_pid/send_perf_command
+toiuu_all_none	0x2c04b4f	EXACT_UTF8	Không có acc nào
+toiuu_all_missing_dll	0x2c04b66	EXACT_UTF8	Thiếu ... version_build.py trước
+toiuu_inject_error	0x2c04bab	EXACT_UTF8	Inject error diagnostic
+toiuu_dll_old	0x2c04bc0	EXACT_UTF8	DLL không nhận (DLL cũ chưa có TLMP? build lại + restart game)
+toiuu_all_ok_label	0x2c04c17	EXACT_UTF8	acc OK counter
+toiuu_all_doc	0x2c04c20	EXACT_DOC	Send CPU config native to all alive accounts; inject if needed; returns (ok_count,total)
+toiuu_missing_pid	0x2c04cd2	EXACT_UTF8	không có pid
+toiuu_pid_changed	0x2c04ce3	EXACT_UTF8	đã đổi chủ (pid ...); skip and wait refresh
+toiuu_single_doc	0x2c04d3b	EXACT_DOC	Single account native TLMP; returns True/False; expected_pid HWND owner guard
+toiuu_single_pid_meta	0x2c07004	EXACT_LOCAL_METADATA	expected_pid in per-account helper
+toiuu_send_helper_locals	0x2c073e7	EXACT_LOCAL_METADATA	get_default_dll_path/is_dll_loaded/inject_into_pid/send_perf_command; one helper area
+toiuu_single_send_locals	0x2c0746f	EXACT_LOCAL_METADATA	expected_pid beside send helper variables
+toiuu_permission	0x2c0520f	EXACT_SYMBOL	has_permission_with_limit(toiuu_tab,toiuu)
+mode_cached_none	0x2c052aa	EXACT_DOC	Mode from _mode_key; None for Không; keeps current settings
+restore_stage_mode	0x2c05322	EXACT_SYMBOL	_perf_mode in stop/restore area
+restore_stage_low	0x2c05333	EXACT_UTF8	Hạ bậc Cực thấp
+restore_wait_symbol	0x2c0534c	EXACT_SYMBOL	STAGE_DOWN_DELAY exact numeric value unresolved
+restore_flag	0x2c0535e	EXACT_SYMBOL	TLMP_RESTORE
+restore_doc	0x2c05386	EXACT_DOC	When stopping Cực đại, reduce via Cực thấp and wait model rebuild frames before restore
+stop_restore_method	0x2c06971	EXACT_METHOD_MARKER	ToiuuTab._stop_restore_single
+toggle_method	0x2c06990	EXACT_METHOD_MARKER	ToiuuTab._toggle_single_acc
+toggle_todo_log	0x2c05450	EXACT_UTF8	acc bắt đầu — TODO logic; current specific branch uncertain/incomplete indicator
+bulk_method	0x2c06a26	EXACT_METHOD_MARKER	ToiuuTab._start_all_accs
+restore_targets_method	0x2c06a0b	EXACT_METHOD_MARKER	ToiuuTab._restore_targets
+row_scan_lazy_doc	0x2c05681	EXACT_DOC	Background tab can have empty/stale rows; full scan and targeted name refresh
+bulk_busy	0x2c0590f	EXACT_UTF8	Đang xử lý lệnh trước — bỏ qua
+bulk_scan_state	0x2c05946	EXACT_UTF8	Đang quét...
+bulk_no_eligible	0x2c0596b	EXACT_UTF8	Không acc nào cần chạy
+bulk_stop_log	0x2c05993	EXACT_UTF8	Gửi lệnh dừng tất cả acc...
+bulk_all_stopped	0x2c059e1	EXACT_UTF8	Đã dừng tất cả acc
+bulk_start_one	0x2c05a28	EXACT_SYMBOL	_start_one subroutine in bulk worker
+bulk_all_started	0x2c05a62	EXACT_UTF8	Đã chạy ... acc
+live_running_config	0x2c03c82	EXACT_UTF8	toiuu_running and toiuu_was_running in running-set persistence
+pid_boot_identity	0x2c042ff	EXACT_SYMBOL	_game_predates_boot used by stale-session reconciliation; detailed behavior defer N08+
+historical_log_file	-	VERIFIED_FILE	Packaged data/automove_log.txt SHA256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 bytes 15741058
+historical_perf_count	-	VERIFIED_PACKAGED_LOG	71247 log lines contain Perf: across 122 distinct PID labels
+historical_ping_count	-	VERIFIED_PACKAGED_LOG	4134 lines contain Perf: ping
+historical_snapshot_restore	-	VERIFIED_PACKAGED_LOG	737 lines contain Perf: snapshot restored
+historical_unity_low	-	VERIFIED_PACKAGED_LOG	1282 lines contain Perf: unity-low applied
+historical_cam_black	-	VERIFIED_PACKAGED_LOG	532 lines contain Perf: cam black ON
+log_tooiu_markers	-	VERIFIED_PACKAGED_LOG	0 lines with [Toiuu in packaged log; native Perf prefix alone does not establish matching UI action in this run
+native_ack	-	EXPLICIT_UNKNOWN	Native send helper bool not proof TLMP applied, even if historically logged in other sessions
+original_dll_live_target	-	NOT_RUN	No DLL execution or injection in current analysis
+stage_down_seconds	-	EXPLICIT_UNKNOWN	STAGE_DOWN_DELAY numeric binding not recovered
+mode_payload_layout	-	EXPLICIT_UNKNOWN	Exact COPYDATASTRUCT.dwData/PerfCmd field packing and target return semantics require deeper analysis
+single_todo_relevance	-	EXPLICIT_UNKNOWN	TODO logic string has uncertain active branch and cannot prove full or absent account start
+stage_s_build	-	NOT_APPLICABLE	No reconstructed product source or build workflow on GitHub main

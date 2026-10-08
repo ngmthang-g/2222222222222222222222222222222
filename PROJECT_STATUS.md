@@ -486,3 +486,13 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - N06 owns native dll_injector/TLMP_RESTORE/expected_pid details, preserving licensing. 52 evidence records, 18 planned tests all NOT_RUN.
 - Files docs/toiuu/N05_MODE_CONFIG_SELECTION_FLOW.md, docs/toiuu/N05_MODEL.json, docs/toiuu/N05_STATIC_EVIDENCE.tsv and docs/tasks/N05.md. Stage-S application/build remains absent.
 - NEXT N06 — native TLMP command and PID-guarded send/restore audit.
+
+
+## N06 — Native TLMP + bundled DLL
+- STATIC_NATIVE_TLMP_AND_DLL_BOUNDARY_AUDITED_WITH_HISTORICAL_PERF_LOG / LIVE_PARITY_DEFERRED. Original EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 inspected read-only.
+- Compiled dll_injector documents native WM_COPYDATA/TLMP PerfCmd and mode 0 normal, 1 medium, 2 low, 3 max, 4 restore, 5 ping. Combobox Không still skip. _send_perf_single expected_pid guard, _send_perf_all (ok_count,total), stage-down from max to low before TLMP_RESTORE documented.
+- resources.dat is 39424-byte x64 PE DLL SHA256 1375240c85abb9c211c66d3e8157a6dbfbc5551aabec465375b68e5301e645d4, native handler/hook success unverified.
+- Historical automove_log.txt 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500 contains 71247 Perf lines (4134 pings etc). NOT a fresh live Windows test or tool UI proof.
+- Single-account TODO logic string flagged as unknown, not marked complete. Detailed bulk/row concurrency will be N07.
+- New docs/toiuu/N06_NATIVE_TLMP_DLL_FLOW.md, N06_MODEL.json, N06_STATIC_EVIDENCE.tsv and docs/tasks/N06.md (79 evidence records; 18 future tests NOT_RUN). Stage-S source/workflow absent.
+- **NEXT N07 — per-account/all-account start-stop orchestration and UI-state audit.**

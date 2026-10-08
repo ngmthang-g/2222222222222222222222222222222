@@ -1,0 +1,135 @@
+{
+  "task": "N06",
+  "status": "STATIC_NATIVE_TLMP_AND_DLL_BOUNDARY_AUDITED_WITH_HISTORICAL_PERF_LOG_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "head_before": "d0d6bfd1148b267386575b9f35d55139bcefaeb0",
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "original_source_recovered": false,
+    "raw_binary_executed": false
+  },
+  "native_transport": {
+    "module": "dll_injector",
+    "module_offset": "0x2918f40",
+    "function": "send_perf_command",
+    "signature": "(pid,mode) -> bool (compiled local metadata)",
+    "message_type": "WM_COPYDATA",
+    "token": "TLMP",
+    "struct": "PerfCmd",
+    "token_symbol": "WM_PERF_TOKEN",
+    "game_thread": "OnTick (embedded doc)",
+    "success_ack": "EXPLICIT_UNKNOWN"
+  },
+  "mode_contract": [
+    {
+      "id": 0,
+      "meaning": "normal FPS40 + partial restore"
+    },
+    {
+      "id": 1,
+      "meaning": "Thấp vừa FPS30 + eco GameSetting"
+    },
+    {
+      "id": 2,
+      "meaning": "Cực thấp + AA/LOD/far/URP"
+    },
+    {
+      "id": 3,
+      "meaning": "Cực đại + black background"
+    },
+    {
+      "id": 4,
+      "meaning": "restore original snapshotted config"
+    },
+    {
+      "id": 5,
+      "meaning": "diagnostic ping only"
+    }
+  ],
+  "none_combobox": {
+    "behavior": "skip and retain current",
+    "sends_tlmp_mode": false
+  },
+  "payload": {
+    "relative_path": "./data/resources.dat",
+    "size": 39424,
+    "sha256": "1375240c85abb9c211c66d3e8157a6dbfbc5551aabec465375b68e5301e645d4",
+    "format": "PE32+ DLL x86-64",
+    "packed_section_hint": "UPX2",
+    "has_min_hook_exports": true,
+    "source_verified": false,
+    "actual_loaded_listener_tested": false
+  },
+  "send_helpers": {
+    "single": {
+      "name": "_send_perf_single",
+      "result": "bool",
+      "pid_guard": "expected_pid"
+    },
+    "bulk": {
+      "name": "_send_perf_all",
+      "result": "ok_count,total",
+      "only_live": true,
+      "load_if_needed": true
+    },
+    "permission": "has_permission_with_limit(toiuu_tab,toiuu)",
+    "failure_strings": [
+      "không có pid",
+      "đã đổi chủ pid",
+      "inject lỗi",
+      "DLL không nhận"
+    ]
+  },
+  "restore": {
+    "handler": "_stop_restore_single",
+    "stage_down_from": "Cực đại",
+    "intermediate": "Cực thấp",
+    "delay_symbol": "STAGE_DOWN_DELAY",
+    "delay_numeric": "EXPLICIT_UNKNOWN",
+    "restore_symbol": "TLMP_RESTORE",
+    "restore_transport_mode": 4,
+    "full_success_proven": false
+  },
+  "orchestration_boundary": {
+    "entry": "_start_all_accs",
+    "per_account": "_toggle_single_acc",
+    "busy_log": true,
+    "scan_lazy_background": true,
+    "todo_single_start_literal": "acc bắt đầu — TODO logic",
+    "todo_active_branch_proven": false,
+    "next_task": "N07"
+  },
+  "historical_log": {
+    "sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "bytes": 15741058,
+    "perf_lines": 71247,
+    "pid_labels": 122,
+    "ping_lines": 4134,
+    "snapshot_restored_lines": 737,
+    "unity_low_lines": 1282,
+    "cam_black_on_lines": 532,
+    "has_Toiuu_marker": false,
+    "evidence_tier": "PACKAGED_HISTORICAL_RUNTIME_NOT_CURRENT_RUN"
+  },
+  "unverified": [
+    "Exact PerfCmd struct fields/token numeric values and acknowledgment",
+    "DLL hook installation and TLMP dispatcher logic",
+    "Game-side actual effect of every sent mode in current target",
+    "STAGE_DOWN_DELAY numeric and failure cleanup",
+    "Single-account TODO active code meaning",
+    "Bulk orchestrator concurrency/reentry and UI state, N07",
+    "Current Windows game runtime and executable parity"
+  ],
+  "acceptance": {
+    "planned": 18,
+    "executed": 0,
+    "status": "NOT_RUN_STAGE_S_NOT_STARTED"
+  },
+  "project": {
+    "source_application_exists": false,
+    "build_workflow_exists": false,
+    "build": "NOT_APPLICABLE",
+    "live_windows": "NOT_RUN"
+  },
+  "next_action": "N07 — per-account/all-account start-stop lifecycle, worker state and orchestration audit"
+}

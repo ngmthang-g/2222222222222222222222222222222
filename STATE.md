@@ -5194,3 +5194,30 @@ On CONTINUE:
 
 ## NEXT_ACTION
 On CONTINUE read PLAN.md and STATE.md, check GitHub for N06 artifacts, then execute N06 — native TLMP graphics/performance command path, DLL send/restore and expected PID-guarded per-account/all-account execution audit ONLY. Original EXE first; avoid guessing native packet/protocol details. Persist N06 report/model/evidence/task and state, recheck build.
+
+
+## N06 VERIFIED RESULTS — NATIVE TLMP, DLL AND EXPECTED PID
+- Checked PLAN.md, STATE.md, PROJECT_STATUS.md and GitHub main HEAD d0d6bfd1148b267386575b9f35d55139bcefaeb0 first; N01–N05 complete, N06 absent. No completed module rewritten.
+- Frozen ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 entries CRC clean); original EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22.
+- Original compiled .dll_injector at 0x2918f40 documents WM_COPYDATA with PerfCmd and WM_PERF_TOKEN TLMP, native OnTick handling. Modes: 0 normal/FPS40; 1 Thấp vừa/FPS30; 2 Cực thấp AA/LOD/far/URP; 3 Cực đại black background; 4 restore original snapshot; 5 diagnostic ping. N05 Không selection remains SKIP, not mode 0 or 4.
+- Bundled data/resources.dat is real x64 PE DLL, 39424 bytes SHA256 1375240c85abb9c211c66d3e8157a6dbfbc5551aabec465375b68e5301e645d4; packed UPX2 sections and MinHook-like exports. DLL original handler source not recovered and was NOT executed.
+- _send_perf_single returns bool with expected_pid HWND-owner guard; _send_perf_all returns ok_count,total and injects if needed. Original failure logs cover missing PID, changed ownership, missing DLL, injection error, outdated/nonresponding TLMP. Bool result not proven as game-state success.
+- _stop_restore_single doc contains staged Cực đại -> Cực thấp -> wait STAGE_DOWN_DELAY -> TLMP_RESTORE to avoid model rebuild visual hang. Numeric delay and exact error branches UNKNOWN.
+- _start_all_accs busy/scan/start/stop strings recovered but scheduling belongs N07. Single-account code has literal acc bắt đầu — TODO logic; investigate rather than assume complete or broken.
+- Historical packed data/automove_log.txt SHA256 17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500, 71247 Perf lines with 122 PID labels, 4134 ping lines, 737 snapshot restored, 1282 unity-low applies, 532 cam black ON. This is **PACKAGED HISTORICAL RUNTIME EVIDENCE**, not current Windows validation. No [Toiuu marker found in packaged log.
+- N06 status STATIC_NATIVE_TLMP_AND_DLL_BOUNDARY_AUDITED_WITH_HISTORICAL_PERF_LOG / LIVE_PARITY_DEFERRED.
+- N06 artifacts: docs/toiuu/N06_NATIVE_TLMP_DLL_FLOW.md, docs/toiuu/N06_MODEL.json, docs/toiuu/N06_STATIC_EVIDENCE.tsv, docs/tasks/N06.md. 79 evidence records; 18 planned tests all NOT_RUN.
+
+## POST-N06 CODE/BUILD CHECK
+- No product app source or workflow exists, only existing 7 forensic Python tools. Changed only N06 docs/model and STATE.md / PROJECT_STATUS.md. No native binary changed. Product build NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED.
+
+## N06 BLOCKERS / DO_NOT_TOUCH
+- Exact PerfCmd packet field/value and acknowledgment, DLL hook behavior, current Windows test, native stop/race behavior not source-proof. No bypass, no Proxy development, no arbitrary edits to N01–N05 / A–M / PLAN / original EXE.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md and STATE.md and check GitHub for N07 before work.
+2. Execute **N07 — Tối ưu per-account/all-account start-stop lifecycle, worker concurrency, UI-state and HWND/PID/permission orchestration audit** only, original EXE-first. Focus _start_all_accs, _toggle_single_acc, _all_monitor, _restore_targets, _ensure_rows_loaded, and TODO-logic branch.
+3. Preserve N05 selection-only semantics and N06 mode/restore contract, no DLL/source guesses.
+4. Compare screenshots only after static extraction; account rows absent from B11 capture.
+5. Save N07 docs/model/evidence/task, update STATE.md/PROJECT_STATUS.md and recheck build status.
