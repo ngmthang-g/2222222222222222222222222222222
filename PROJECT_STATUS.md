@@ -604,3 +604,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Artifacts docs/emulator/P05_TRAIN_LD_AUTHORITY.md; P05_MODEL.json; P05_STATIC_EVIDENCE.tsv; docs/tasks/P05.md. **81 evidence records; 30 runtime acceptance tests all NOT_RUN**. No Proxy, user-visible tab or old task changes.
 - **BUILD_BLOCKED_SOURCE_MISSING**: Stage S application source and Stage T Windows EXE workflow not present in audit; no built product in this task.
 - **NEXT_ACTION P06 — emu_setup device installation, push, permissions, AutoX and launch lifecycle EXE-first.**
+
+
+## P06 — Setup research checkpoint
+- P06 completed as static research only, with original package checksum and ZIP integrity verified.
+- Added docs/emulator/P06_EMU_SETUP_DEPLOYMENT.md, P06_MODEL.json, P06_STATIC_EVIDENCE.tsv, and docs/tasks/P06.md.
+- Recorded 63 static evidence items and 29 deferred runtime acceptance checks.
+- No reconstructed application source or Windows build pipeline exists yet; build remains blocked pending implementation.
+- Previous completed research and project scope remain unchanged.
+- NEXT_ACTION: P07 — audit original emulator remote service protocol and runtime boundaries.
