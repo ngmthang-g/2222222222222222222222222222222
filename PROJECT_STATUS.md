@@ -412,9 +412,12 @@ L10 closes Dồn static research by consolidating L01-L09 into one normative rec
 
 ## Phase M — Rao
 - M01 — VERIFIED_ACTIVE_RAO_AUTHORITY_VISIBLE_SURFACE_40_METHOD_INVENTORY_PERMISSION_PERSISTENCE_AND_DEPENDENCY_BOUNDARY
-- M02 — NEXT
+- M02 — VERIFIED_NAME_KEYED_RAO_DEFINITIONS_JSON_CONTENT_CHANNEL_SEC_LIVE_TRACE_AND_STALE_NAME_FAIL_CLOSED
+- M03 — NEXT
 
 M01 locks `rao_tab.py / RaoTab` as the active Rao authority. The exact serialized `.rao_tab` header is at `0x2bd7850`, size **11,774 bytes**, count **582**, with **40** direct top-level RaoTab methods inventoried. TLMMainApp creates the permission-controlled visible tab `Rao / rao_tab` and owns `_set_rao_tab_visible`; the supplied capture shows it visible, while the exact license-plan value remains unknown. The dedicated UI surface is frozen as Cấu hình rao tự động with Tên / Nội dung rao / Kênh / Lặp (s) / Xóa, + Thêm rao, Danh sách tài khoản with Nhân vật / Nội dung rao, four Rao-selection slots per account row, per-account ▶ / Đã dừng surfaces, and the bottom Bắt đầu action. Current channel labels are Thế giới, Bang hội, Môn phái, Tổ đội, Liên minh, Quân đoàn, Lân cận, with statically recovered default channel Thế giới; mapping semantics remain for M03. Persistence boundary is [Rao] with rao_ and acc_ families through shared start_tab settings helpers. No Rao-specific StartTab quick action was recovered: the exact serialized start_tab block contains zero case-insensitive Rao/rao strings, despite rao_tab reusing start_tab helper symbols. Deep message, channel, interval, account-assignment and worker behavior remain deferred.
 
+M02 locks Rao message identity/storage. Each live definition owns name_var/msg_var/chan_var/sec_var and the trimmed visible Rao name is the account-facing identity; no persistent row UUID is recovered. Auto naming chooses the smallest unused Rao N. Row writes trigger immediate message-family save plus account-option refresh; deletion removes the row and rewrites the Rao definition family. Current persistence is name-keyed under [Rao] as rao_<trimmed display name>=JSON with content/channel/sec and ensure_ascii=False; account acc_ keys are a separate family that must survive Rao-definition saves. Load sorts rao_ keys, derives the display name from the key suffix, json.loads the payload and recreates rows through _add_rao_row(name/content/seconds/channel). No manual duplicate-name validation is recovered, so duplicate display names are not stable independent persistence identities. Renamed/deleted old names become invalid references; exact immediate account StringVar clear-vs-preserve behavior remains deferred to M05.
+
 ## Phase M current
-M02 — Rao message storage audit.
+M03 — Rao channel selection/mapping audit.

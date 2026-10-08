@@ -4676,3 +4676,96 @@ On CONTINUE:
 6. Determine exact row identity/name behavior, content storage, add/delete/rename behavior, persistence encoding/order, invalid/duplicate/stale handling, and what account selections do when a referenced Rao definition is renamed/deleted — but defer channel ID semantics to M03, interval normalization/timing to M04, and account assignment persistence to M05 except where message-row identity directly affects it.
 7. Cross-check the supplied Rao screenshot only after static extraction.
 8. Persist M02 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M02 verification.
+
+
+## M02 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before analysis. No pre-existing M02 artifact/completion existed; M01 and Phase-L contracts remain unchanged.
+- M02 re-inspected the exact frozen `rao_tab` serialized block and its post-marker local-variable metadata before screenshot cross-check.
+- Live Rao definition row identity is name-based:
+  - `name_var`
+  - `msg_var`
+  - `chan_var`
+  - `sec_var`
+  - no persistent message-row UUID recovered.
+- Exact `_rao_names` documentation: **Danh sách tên rao hiện có (giữ thứ tự dòng).**
+- Exact `_next_rao_name` documentation: **Tên tự động Rao 1, Rao 2, ... (số nhỏ nhất chưa dùng).**
+- Automatic names therefore choose the smallest unused positive `Rao N`. No current manual duplicate-name validation/warning surface was recovered.
+- `_add_rao_row` owns nested `_rao_save`; compiled row surface exposes `trace_add("write", ...)`, the four row variables, `_save_config`, and `_refresh_acc_rao_options`. Rao row edits therefore save live and refresh account Rao-name options.
+- `_remove_rao_row` exact documentation: **Xóa một dòng rao (nút ✕ đỏ).** Static surface includes row destroy/pop and the same save/refresh family; no tombstone/hidden persistent ID layer is recovered.
+- `_resolve_rao(rao_name)` exact contract is **Tên rao → (nội dung, interval_giây, channel_id, tên_kênh); (None, lý_do) nếu không dùng được.**
+- Exact fail-closed resolution reasons recovered:
+  - **Chưa chọn nội dung rao**
+  - **Rao '<name>' chưa có nội dung**
+  - **'<name>' chưa chọn kênh**
+  - **'<name>' chưa đặt thời gian lặp**
+  - **'<name>' không còn tồn tại**.
+- Account Rao combobox options are rebuilt through `_refresh_acc_rao_options`; exact doc: **Đổ lại combobox nội dung rao của mọi acc theo danh sách tên hiện tại.** Recovered locals include `names/prev/row/cb/var/cur`, proving reconciliation of current selection state against the new name universe rather than a static options-only constant.
+- No old-name→new-name alias/UUID rename propagation surface was recovered. After a Rao rename/delete, the old name is no longer a valid definition and cannot resolve. Later `load_acc_config` only applies Rao names that still exist.
+- Exact immediate account StringVar behavior after rename/delete (clear immediately versus retain stale text until subsequent assignment handling) remains **EXPLICIT_UNKNOWN / deferred M05**; M02 does not invent it.
+- Persistence is under **[Rao]**, with separate dynamic families:
+  - `rao_` = Rao definitions
+  - `acc_` = account selections.
+- Current Rao definition storage is strongly mapped as **name-keyed**:
+  `rao_<trimmed Rao display name> = JSON payload`.
+  Evidence: save locals include `cname` but no row-index local; payload literals are `content/channel/sec`; load uses a dynamic key plus `split` and `name/content/seconds/channel` row reconstruction.
+- Current JSON payload fields are:
+  - `content`
+  - `channel`
+  - `sec`.
+- `json.dumps(..., ensure_ascii=False)` is exact static evidence, preserving Vietnamese/unicode content in config.
+- The name is carried by the `rao_<name>` option-key suffix rather than a separate persistent UUID. M02 recovered no separate row-order field.
+- Message-definition save rewrites the `rao_` family while preserving the distinct `acc_` family in the same section; deletion/rename therefore removes/replaces the prior message key without wiping account settings.
+- `_load_config` exact surface includes `sorted`, a load lambda, `json.loads`, dynamic keys, `split`, default text `30`, `TypeError/ValueError`, and call keywords `name/content/seconds/channel`.
+- High-level load contract is frozen:
+  1. collect/sort `rao_` keys;
+  2. derive display name from key suffix;
+  3. JSON-decode;
+  4. recover content/channel/sec with validation/defaults;
+  5. recreate through `_add_rao_row(name=..., content=..., seconds=..., channel=...)`.
+- Exact sort comparator and malformed-JSON fallback/skip branch remain **EXPLICIT_UNKNOWN**.
+- Interval scalar type/default/clamp/timing remains deferred to M04; channel fallback/ID mapping remains M03.
+- Because storage is name-keyed, two live rows with the same trimmed name cannot persist as two independent definition records. Auto-generated names avoid this collision, but exact manual-duplicate save winner and live duplicate-resolution winner remain **EXPLICIT_UNKNOWN**.
+- Blank Rao name is not a normal addressable account-selection identity. Exact save behavior for a manually blank row remains **EXPLICIT_UNKNOWN**.
+- `_saving_enabled` and `_save_on_destroy`/`<Destroy>` surfaces are recovered. Exact trace-suppression transition order and destroy-event filtering remain implementation-detail UNKNOWN rather than guessed.
+- Screenshot cross-check after static extraction remains consistent with one definition row **Rao 1 / empty content / Thế giới / 30**. M02 does not promote interval behavior before M04.
+- M02 artifacts committed at **eb0cac2e0726315a26c1fdd1903264ee324bd150**:
+  - `docs/rao/M02_MESSAGE_STORAGE_FLOW.md`
+  - `docs/rao/M02_MODEL.json`
+  - `docs/rao/M02_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/M02.md`
+- All four M02 artifacts were fetched back successfully.
+
+## POST-M02 CODE/BUILD RECHECK
+- Recursive main tree after M02 artifact commit contains **673 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- M02 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- M02 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- M02 has no message-storage authority blocker.
+- Exact immediate stale account StringVar clear/preserve behavior belongs to M05.
+- Exact manual duplicate-name winner, blank-name save behavior, sorted-key comparator and malformed-record fallback remain static-insufficient.
+- Channel mapping and interval normalization are intentionally deferred by PLAN.
+
+## DO_NOT_TOUCH
+- Preserve M01 authority/UI boundary and Phase-L gate.
+- Treat the visible trimmed Rao name as message identity unless later exact evidence proves otherwise.
+- Preserve name-keyed `rao_<name>` + JSON `content/channel/sec` storage and `ensure_ascii=False`.
+- Do not invent a hidden row UUID or rename alias table.
+- Do not collapse M03 channel or M04 interval behavior into M02 guesses.
+- Do not create Stage-S application/build placeholders during Phase M research.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any M03 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **M03 — Rao channel selection/mapping audit** only.
+5. Re-inspect the exact frozen Rao block first, focusing on `RAO_CHANNELS`, `RAO_DEFAULT_CHANNEL`, `_resolve_rao`, `memory_items.send_chat` call surface, channel display names, recovered channel IDs/constants, invalid/stale channel handling, and persistence interaction only where channel value participates.
+6. Determine exact display-name→chat-channel-ID mapping, default/fallback behavior, whether persisted values are names or IDs, how invalid/retired values fail or normalize, and what argument is passed to `send_chat`.
+7. Defer interval timing to M04, account assignment to M05, and slot start/stop lifecycle to M06.
+8. Cross-check the supplied Rao screenshot only after static extraction.
+9. Persist M03 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M03 verification.
