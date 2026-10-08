@@ -4594,3 +4594,85 @@ On CONTINUE:
 5. Re-inspect the exact frozen original EXE before using screenshots, identify the active Rao module/class, direct methods, main-app construction, StartTab exposure if any, visible controls, current screenshot surface, persistence section, permission/visibility boundary, and direct dependency boundary.
 6. Do not deep-audit message storage/channel/interval/account assignment/start-stop in M01 except to inventory their visible/handler boundaries for later M tasks.
 7. Persist M01 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M01 verification.
+
+
+## M01 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before analysis. No pre-existing M01 artifact/completion existed.
+- The exact original archive was materialized and revalidated before screenshot use: SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes, **1,050** entries, CRC clean. Inner `TLMTool.dist/TLMTool.exe` remains SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Active Rao authority is `rao_tab.py / RaoTab`.
+- Exact serialized `.rao_tab` header at `0x2bd7850` decodes to size **11,774 bytes** and constant count **582**. Source filename `rao_tab.py` is at `0x2bd9ea7`; exact `<module rao_tab>` marker is at `0x2bd9f72`.
+- **40** direct top-level `RaoTab` methods, including `__init__`, were inventoried and divided into UI, message/storage, channel/interval, account assignment, identity/refresh, permission and worker boundaries.
+- TLMMainApp current shell integrates Rao:
+  - visible label **Rao**;
+  - tab key `rao_tab`;
+  - `RaoTab` class reference in current build/rebuild path;
+  - `_set_rao_tab_visible`;
+  - exact visibility documentation: **Show/hide Rao tab — chỉ hiện khi có quyền (như donvang_tab).**
+- Rao is therefore current/wired, not dormant. The supplied screenshot shows the tab visible/active; exact server/license-plan value at capture remains UNKNOWN.
+- No current Rao-specific StartTab quick action was recovered. Exact `.start_tab` serialized block is size **37,643 bytes / 1,536 constants** and contains **0** case-insensitive Rao/rao strings. This does not contradict Rao's `start_tab` dependency, because Rao directly reuses shared `get_windows`, `get_character_info`, settings-lock/read/write helpers rather than a StartTab Rao button.
+- Dedicated visible Rao surface frozen from EXE before screenshot cross-check:
+  - **Cấu hình rao tự động**;
+  - columns **Tên / Nội dung rao / Kênh / Lặp (s) / Xóa**;
+  - **+ Thêm rao**;
+  - **Danh sách tài khoản**;
+  - headers **Nhân vật / Nội dung rao**;
+  - bottom **Bắt đầu**.
+- Current module carries `RAO_CHANNELS` and `RAO_DEFAULT_CHANNEL`. Visible labels are **Thế giới / Bang hội / Môn phái / Tổ đội / Liên minh / Quân đoàn / Lân cận**; static default channel is **Thế giới**. Channel ID/packet mapping is deliberately deferred to M03.
+- Rao auto-name boundary is `Rao 1, Rao 2, ...`, with exact docs saying the smallest unused positive number is chosen. Detailed message/storage semantics remain M02.
+- Static account-row surface exposes exactly **4 Rao-selection combobox slots**, a per-account **▶** control and stopped state **Đã dừng**. Account assignment semantics remain M05; start/stop semantics remain M06.
+- Exact account refresh documentation says **Tự động refresh danh sách acc mỗi 5 giây.** Tab refresh has start/stop/schedule methods and HWND/PID identity cleanup including bind/unbind window-identity symbols.
+- Permission boundary is frozen:
+  - shell visibility is permission-controlled;
+  - newly created rows are disabled without `rao_tab` permission;
+  - `_check_perm` contains `has_permission_with_limit` with adjacent `rao_tab / rao` arguments.
+- Persistence boundary is frozen to section **[Rao]**, shared `_settings_lock/read_settings/write_settings`, dynamic `rao_` message family and `acc_` account family. Exact schemas remain M02/M05.
+- The module's own embedded documentation says Rao sends through **memory_items.send_chat / Network.SendPacket CMD_CLIENT_CHAT** in the background and does not need to open the chat panel. M01 inventories this send boundary only; worker/channel/interval behavior remains deferred.
+- Direct/current dependency boundary:
+  - module surface: tkinter/ttk/messagebox/font, os, start_tab;
+  - shared direct helpers: get_windows, get_character_info, settings lock/read/write;
+  - runtime symbols: threading, time, json, memory_items, utils, win32gui, permission_guard;
+  - bind/unbind window-identity symbols are direct but their exact owner module is not frozen here;
+  - info_tab/notebook/parent are constructor/context surfaces;
+  - D03 requests and D04 graph edges remain weak/static-only, not import proof.
+- Screenshot cross-check was performed only after static extraction. It matches the exact group/column/button layout and shows captured row **Rao 1 / empty content / Thế giới / 30**, no account rows, bottom **Bắt đầu**. The captured **30** is not promoted to final interval semantics before M04.
+- M01 artifacts committed at **6c8f0662cb742aa05c00c98fa6ac6b3a125b9160**:
+  - `docs/rao/M01_AUTHORITY_SURFACE.md`
+  - `docs/rao/M01_MODEL.json`
+  - `docs/rao/M01_HANDLER_INVENTORY.tsv`
+  - `docs/rao/M01_DEPENDENCIES.tsv`
+  - `docs/rao/M01_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/M01.md`
+- All six M01 artifacts were fetched back successfully.
+
+## POST-M01 CODE/BUILD RECHECK
+- Recursive main tree after M01 artifact commit contains **669 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- M01 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- M01 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- M01 has no static authority/UI blocker.
+- Exact license/plan permission value at the screenshot capture is not recovered.
+- Current StartTab negative finding is strong static evidence, but hidden/plugin invocation paths are not claimed absent.
+- Message serialization, channel IDs, interval normalization, account assignment and worker semantics remain intentionally deferred by PLAN.
+
+## DO_NOT_TOUCH
+- Preserve Phase-L gate and L10 Dồn contract.
+- Preserve M01 Rao authority/module/UI/permission/persistence boundaries unless stronger exact evidence contradicts them.
+- Do not invent a Rao StartTab button.
+- Do not deep-freeze Rao message/channel/interval/account/worker semantics from M01 boundary strings.
+- Do not create Stage-S source/build placeholders during Phase M research.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any M02 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **M02 — Rao message storage audit** only.
+5. Re-inspect the exact frozen Rao block first, focusing on `_rao_names`, `_next_rao_name`, `_add_rao_row`, `_remove_rao_row`, `_resolve_rao`, `_save_config`, `_load_config`, `_save_on_destroy`, message-row trace callbacks, section `[Rao]`, and `rao_` dynamic key serialization.
+6. Determine exact row identity/name behavior, content storage, add/delete/rename behavior, persistence encoding/order, invalid/duplicate/stale handling, and what account selections do when a referenced Rao definition is renamed/deleted — but defer channel ID semantics to M03, interval normalization/timing to M04, and account assignment persistence to M05 except where message-row identity directly affects it.
+7. Cross-check the supplied Rao screenshot only after static extraction.
+8. Persist M02 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M02 verification.

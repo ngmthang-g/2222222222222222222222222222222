@@ -411,7 +411,10 @@ L10 closes Dồn static research by consolidating L01-L09 into one normative rec
 **STATIC_RESEARCH_CLOSED / LIVE_RUNTIME_PARITY_DEFERRED**
 
 ## Phase M — Rao
-- M01 — NEXT
+- M01 — VERIFIED_ACTIVE_RAO_AUTHORITY_VISIBLE_SURFACE_40_METHOD_INVENTORY_PERMISSION_PERSISTENCE_AND_DEPENDENCY_BOUNDARY
+- M02 — NEXT
+
+M01 locks `rao_tab.py / RaoTab` as the active Rao authority. The exact serialized `.rao_tab` header is at `0x2bd7850`, size **11,774 bytes**, count **582**, with **40** direct top-level RaoTab methods inventoried. TLMMainApp creates the permission-controlled visible tab `Rao / rao_tab` and owns `_set_rao_tab_visible`; the supplied capture shows it visible, while the exact license-plan value remains unknown. The dedicated UI surface is frozen as Cấu hình rao tự động with Tên / Nội dung rao / Kênh / Lặp (s) / Xóa, + Thêm rao, Danh sách tài khoản with Nhân vật / Nội dung rao, four Rao-selection slots per account row, per-account ▶ / Đã dừng surfaces, and the bottom Bắt đầu action. Current channel labels are Thế giới, Bang hội, Môn phái, Tổ đội, Liên minh, Quân đoàn, Lân cận, with statically recovered default channel Thế giới; mapping semantics remain for M03. Persistence boundary is [Rao] with rao_ and acc_ families through shared start_tab settings helpers. No Rao-specific StartTab quick action was recovered: the exact serialized start_tab block contains zero case-insensitive Rao/rao strings, despite rao_tab reusing start_tab helper symbols. Deep message, channel, interval, account-assignment and worker behavior remain deferred.
 
 ## Phase M current
-M01 — Rao authority / UI surface audit.
+M02 — Rao message storage audit.
