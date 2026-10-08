@@ -1,0 +1,118 @@
+{
+  "task":"M02",
+  "status":"VERIFIED_NAME_KEYED_RAO_DEFINITIONS_JSON_CONTENT_CHANNEL_SEC_LIVE_TRACE_AND_STALE_NAME_FAIL_CLOSED_STATIC_INTERVAL_CHANNEL_DETAILS_DEFERRED",
+  "authority":{
+    "archive_sha256":"c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256":"15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module":"rao_tab",
+    "class":"RaoTab",
+    "serialized_header_offset":"0x2bd7850",
+    "serialized_size_bytes":11774,
+    "serialized_constant_count":582
+  },
+  "live_row":{
+    "vars":["name_var","msg_var","chan_var","sec_var"],
+    "identity":"trimmed visible Rao name",
+    "persistent_uuid":false,
+    "name_list_helper":"_rao_names",
+    "name_list_doc":"Danh sách tên rao hiện có (giữ thứ tự dòng).",
+    "auto_name_helper":"_next_rao_name",
+    "auto_name_rule":"Rao N using smallest unused positive N",
+    "manual_duplicate_validation":"NOT_RECOVERED"
+  },
+  "row_editing":{
+    "add":"_add_rao_row",
+    "delete":"_remove_rao_row",
+    "write_trace":"_rao_save via trace_add('write', ...)",
+    "write_trace_effects":["_save_config","_refresh_acc_rao_options"],
+    "rename_is_identity_change":true,
+    "rename_alias_table":false,
+    "delete_tombstone":false
+  },
+  "resolution":{
+    "helper":"_resolve_rao",
+    "input":"Rao name string",
+    "success":"(content, interval_seconds, channel_id, channel_name)",
+    "failure":"(None, reason)",
+    "recovered_failure_reasons":[
+      "Chưa chọn nội dung rao",
+      "Rao '<name>' chưa có nội dung",
+      "'<name>' chưa chọn kênh",
+      "'<name>' chưa đặt thời gian lặp",
+      "'<name>' không còn tồn tại"
+    ],
+    "duplicate_name_live_winner":"EXPLICIT_UNKNOWN"
+  },
+  "account_reference_effect":{
+    "option_refresh_helper":"_refresh_acc_rao_options",
+    "option_refresh_doc":"Đổ lại combobox nội dung rao của mọi acc theo danh sách tên hiện tại.",
+    "locals":["names","prev","row","cb","var","cur"],
+    "old_name_after_rename_or_delete":"no longer a valid definition name",
+    "old_to_new_propagation":"NOT_RECOVERED",
+    "later_reload_rule":"load_acc_config applies only Rao names that still exist",
+    "immediate_stale_stringvar_clear_vs_preserve":"DEFERRED_M05_EXPLICIT_UNKNOWN"
+  },
+  "persistence":{
+    "section":"Rao",
+    "message_family":"rao_",
+    "account_family":"acc_",
+    "shared_helpers":["_settings_lock","read_settings","write_settings"],
+    "message_key_semantic":"rao_<trimmed Rao display name>",
+    "message_key_confidence":"STRONG_STATIC_MAPPING",
+    "payload_format":"JSON",
+    "payload_fields":["content","channel","sec"],
+    "ensure_ascii":false,
+    "name_in_payload":false,
+    "name_from_key_suffix":true,
+    "whole_message_family_rewrite":"STRONG_STATIC_SEMANTIC",
+    "account_family_preserved":true,
+    "row_order_field":false,
+    "load_sorts_definition_keys":true,
+    "sort_comparator":"EXPLICIT_UNKNOWN"
+  },
+  "load":{
+    "helper":"_load_config",
+    "steps":[
+      "collect/sort rao_ keys",
+      "derive display name from key suffix",
+      "json.loads payload",
+      "recover content/channel/sec with defaults/validation",
+      "_add_rao_row(name=..., content=..., seconds=..., channel=...)"
+    ],
+    "recovered_defaults_surface":{"sec_text":"30"},
+    "type_errors":["TypeError","ValueError"],
+    "malformed_payload_exact_fallback":"EXPLICIT_UNKNOWN",
+    "interval_rules":"DEFERRED_M04",
+    "channel_rules":"DEFERRED_M03"
+  },
+  "duplicate_and_blank":{
+    "auto_generated_duplicates_prevented":true,
+    "manual_duplicate_rejection":"NOT_RECOVERED",
+    "duplicate_persistence":"cannot produce independent records under one name-keyed option",
+    "duplicate_save_winner":"EXPLICIT_UNKNOWN",
+    "blank_name_normal_selection":"not addressable",
+    "blank_name_save_behavior":"EXPLICIT_UNKNOWN"
+  },
+  "trace_lifecycle":{
+    "saving_enabled_field":"_saving_enabled",
+    "initial_load_trace_suppression_semantic":"STRONG_STATIC_SEMANTIC",
+    "exact_boolean_transition_order":"EXPLICIT_UNKNOWN",
+    "destroy_hook":"_save_on_destroy bound to <Destroy>",
+    "destroy_event_filter":"EXPLICIT_UNKNOWN"
+  },
+  "captured_ui":{
+    "row":{"name":"Rao 1","content":"","channel":"Thế giới","interval":"30"},
+    "crosscheck":"MATCHES_STATIC_ROW_MODEL",
+    "interval_semantics":"DEFERRED_M04"
+  },
+  "unknowns":[
+    "exact immediate StringVar clear/preserve behavior after referenced Rao rename/delete",
+    "exact duplicate-name winner during save and live resolution",
+    "exact blank-name save behavior",
+    "exact sorted-key comparator",
+    "malformed JSON record fallback/skip details",
+    "exact _saving_enabled transition order",
+    "destroy-event filtering"
+  ],
+  "next_task":"M03 — Rao channel selection/mapping audit"
+}

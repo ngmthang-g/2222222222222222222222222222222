@@ -1,0 +1,61 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+rao_names_doc	0x2bd8078	VERIFIED_STATIC_UTF8	Danh sách tên rao hiện có (giữ thứ tự dòng).
+next_name_prefix	0x2bd80b2	VERIFIED_STATIC	Rao 
+next_name_doc	0x2bd80ba	VERIFIED_STATIC_UTF8	Tên tự động Rao 1, Rao 2, ... (số nhỏ nhất chưa dùng).
+add_row_doc	0x2bd8392	VERIFIED_STATIC_UTF8	Thêm một dòng cấu hình rao. name=None → tự đặt Rao 1, Rao 2, ...
+remove_row_doc	0x2bd840a	VERIFIED_STATIC_UTF8	Xóa một dòng rao (nút ✕ đỏ).
+add_row_locals	0x2bda093	VERIFIED_STATIC_MAPPING	self,name,content,seconds,channel,row_frame,name_var,msg_var,chan_var,chan_cb,_only_digits,vcmd,sec_var,btn_del,_rao_save,_v
+row_trace	0x2bd8334	VERIFIED_STATIC	trace_add
+row_trace_write	0x2bd833f	VERIFIED_STATIC	write
+row_vars	0x2bd834e	VERIFIED_STATIC	msg_var/chan_var/sec_var plus name_var local
+row_save_callback	0x2bd8301	VERIFIED_STATIC	_rao_save
+row_save_effect_save	0x2bd836a	VERIFIED_STATIC	_save_config
+row_save_effect_refresh	0x2bd8378	VERIFIED_STATIC	_refresh_acc_rao_options
+remove_destroy	0x2bd83fc	VERIFIED_STATIC	destroy
+remove_pop	0x2bd8405	VERIFIED_STATIC	pop
+resolve_missing_selection	0x2bd8435	VERIFIED_STATIC_UTF8	Chưa chọn nội dung rao
+resolve_empty_content	0x2bd8452	VERIFIED_STATIC_UTF8	Rao '<name>' chưa có nội dung
+resolve_no_channel	0x2bd847d	VERIFIED_STATIC_UTF8	'<name>' chưa chọn kênh
+resolve_no_interval	0x2bd8493	VERIFIED_STATIC_UTF8	'<name>' chưa đặt thời gian lặp
+resolve_not_found	0x2bd84b5	VERIFIED_STATIC_UTF8	'<name>' không còn tồn tại
+resolve_doc	0x2bd84d0	VERIFIED_STATIC_UTF8	Tên rao → (nội dung, interval_giây, channel_id, tên_kênh); (None, lý_do) nếu không dùng được.
+resolve_locals	0x2bda392	VERIFIED_STATIC_MAPPING	self,rao_name,want,rd,content,chan_name,total
+refresh_options_doc	0x2bd8804	VERIFIED_STATIC_UTF8	Đổ lại combobox nội dung rao của mọi acc theo danh sách tên hiện tại.
+refresh_options_locals	0x2bda2e3	VERIFIED_STATIC_MAPPING	self,names,prev,row,cb,var,cur
+load_acc_existing_only_doc	0x2bd967e	VERIFIED_STATIC_UTF8	Khôi phục 4 combobox ... Chỉ áp tên rao còn tồn tại.
+section_rao	0x2bd9643	VERIFIED_PERSISTENCE	Rao section literal
+account_prefix	0x2bd9650	VERIFIED_PERSISTENCE	acc_
+message_prefix_save	0x2bd9745	VERIFIED_PERSISTENCE	rao_
+save_json	0x2bd974f	VERIFIED_PERSISTENCE	json.dumps
+save_payload_content	0x2bd9756	VERIFIED_PERSISTENCE	content
+save_payload_channel	0x2bd975f	VERIFIED_PERSISTENCE	channel
+save_payload_sec	0x2bd9768	VERIFIED_PERSISTENCE	sec
+save_ensure_ascii	0x2bd9772	VERIFIED_PERSISTENCE	ensure_ascii with False constant immediately adjacent
+message_prefix_rewrite	0x2bd9780	VERIFIED_PERSISTENCE	second rao_ constant in save family
+save_write	0x2bd978d	VERIFIED_PERSISTENCE	write_settings
+save_locals	0x2bda3c3	VERIFIED_STATIC_MAPPING	self,cfg,cf,row,cname,_vals,_v
+name_keyed_schema	-	STRONG_STATIC_MAPPING	Save has cname but no row-index local; payload literals are content/channel/sec; load has key split + name keyword. Current schema is rao_<trimmed display name>=JSON payload.
+load_sorted	0x2bd979d	VERIFIED_PERSISTENCE	sorted
+load_lambda	0x2bd97a5	VERIFIED_PERSISTENCE	RaoTab._load_config.<locals>.<lambda>
+load_key	0x2bd97ce	VERIFIED_PERSISTENCE	key
+load_sec_default	0x2bd97da	VERIFIED_PERSISTENCE	30 default surface
+load_min	0x2bd97e0	DEFERRED_M04	min plus integer constants; exact interval normalization deferred
+load_errors	0x2bd97f4	VERIFIED_STATIC	TypeError / ValueError
+load_kw_name	0x2bd9811	VERIFIED_PERSISTENCE	name
+load_kw_content	0x2bd981a	VERIFIED_PERSISTENCE	content
+load_kw_seconds	0x2bd9835	VERIFIED_PERSISTENCE	seconds
+load_kw_channel	0x2bd9840	VERIFIED_PERSISTENCE	channel
+load_key_split	0x2bd9847	VERIFIED_PERSISTENCE	split
+load_locals	0x2bda23b	VERIFIED_STATIC_MAPPING	self,prev,cfg,sect,keys,key,da_ch,_sec
+save_on_destroy	0x2bd79f1	VERIFIED_PERSISTENCE	_save_on_destroy bound from constructor
+destroy_event	0x2bd79e6	VERIFIED_PERSISTENCE	<Destroy>
+saving_enabled	0x2bd79b6	VERIFIED_STATIC	_saving_enabled
+duplicate_manual_guard	-	NOT_RECOVERED	No duplicate-name validation/warning surface recovered
+duplicate_persistence	-	STRONG_STATIC_SEMANTIC	Name-keyed storage cannot persist two independent rows with same trimmed key; exact assignment winner unknown
+blank_name_save	-	EXPLICIT_UNKNOWN	Normal selection requires named definition; exact save behavior for manually blank name not frozen
+sort_comparator	-	EXPLICIT_UNKNOWN	Load uses sorted + lambda, exact comparator not recovered from constants
+malformed_json_fallback	-	EXPLICIT_UNKNOWN	json.loads + TypeError/ValueError surface recovered, exact skip/fallback branch not frozen
+immediate_stale_var_behavior	-	DEFERRED_M05	Refresh reconciles names/current vars; exact immediate clear-vs-preserve behavior deferred
+classification	-	STATIC_VERIFIED_MESSAGE_STORAGE_WITH_EXPLICIT_EDGES	Channel IDs M03, interval M04, account persistence M05
