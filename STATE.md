@@ -4419,3 +4419,84 @@ On CONTINUE:
 7. Preserve L02-L08 movement/receiver/lifecycle/recovery contracts; do not reopen them without contradiction.
 8. Cross-check screenshots/runtime only after static extraction.
 9. Persist L09 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L09 verification.
+
+
+## L09 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before analysis. No pre-existing L09 artifact/completion existed; L01-L08 remain unchanged.
+- Exact original specimen was revalidated before screenshot/runtime use: archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes, **1,050** entries, CRC clean; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Current Dồn all-account toolbar is exactly **Điều khiển tất cả:** with three visible quick movement buttons:
+  - **Tới nơi nhận** -> `_move_all_recv`;
+  - **Tới chỗ bán** -> `_move_sell_acc`;
+  - **Tới nơi train** -> `_move_all`.
+- The exact current UI constant block shows these quick commands dispatched through `threading.Thread` / `target` / `daemon` / `start`, keeping them off the Tk main thread.
+- The separate bottom **Bắt đầu** button is wired to `_toggle_farm`; it is not one of the quick movement commands.
+- `_checked_rows` exact documentation says current bulk helper scope is **all account rows in the list except receiver accounts**. The old “được tick” wording is legacy naming and must not be reconstructed as a missing current checkbox requirement.
+- `_move_all` exact documentation says configured-account movement is **parallel**. Combined with current `_checked_rows`, **Tới nơi train** targets all nonreceiver/donor rows and moves each toward its configured Train preset.
+- `_move_sell_acc` exact documentation says it moves **all receiver accounts** to each receiver's selected sell destination. It is move-only and is not the actual inventory-selling helper `_sell_all`.
+- `_move_all_recv` exact documentation is role-aware:
+  - donor accounts move to the receiver selected by the current manual receiver-selection policy;
+  - receiver accounts move to the receive coordinate attached to their receiver row.
+- L06 manual selection remains authoritative for **Tới nơi nhận**: prefer a ready receiver with the lowest current gold/hour and random equal-speed tie; if ready selection is unavailable, the manual/move-only path may use `_fallback_receiver` = first receiver with valid coordinates. This fallback must not be imported into automatic Dồn no-ready behavior.
+- L05 remains authoritative for receiver coordinates: every receiver row's compatibility `recv_coord_var` currently aliases the one shared `_recv_coord_var`, so old “tọa độ riêng của dòng” wording resolves to the same shared current Dồn point.
+- Real class helpers `_stop_all`, `_farm_all`, `_sell_all` remain present with exact docs:
+  - **Dừng các acc được tick — song song.**
+  - **Farm các acc được tick — song song.**
+  - **Bán đồ các acc được tick — song song.**
+- Their effective current ordinary universe is the same `_checked_rows` nonreceiver set.
+- `_farm_all` wraps `_farm_acc`; L07 already proves `_farm_acc` is only the internal StartAutoFight Train primitive, so `_farm_all` is **not** equivalent to the current full **Bắt đầu/_toggle_farm** lifecycle.
+- `_sell_all` is the actual selling-flow helper and is **not** the visible **Tới chỗ bán** movement action.
+- No current visible Dồn toolbar or StartTab binding was recovered for `_stop_all/_farm_all/_sell_all`. They must be preserved as real methods without inventing new visible buttons.
+- StartTab Dồn parity is frozen:
+  - **Dồn vàng** -> `_toggle_donvang_cmd` -> Dồn `_toggle_farm`, with StartTab + DonVangTab text/state synchronization;
+  - **Tới nơi nhận** -> `_donvang_action("_move_all_recv")`;
+  - **Tới chỗ bán** -> `_donvang_action("_move_sell_acc")`;
+  - **Tới nơi train** -> `_donvang_action("_move_all")`;
+  - **Cấu hình** -> `_goto_donvang_tab`.
+- `_donvang_action` is a generic `method_name` worker-thread wrapper, so StartTab reuses the same Dồn backends rather than implementing a second behavior.
+- No dedicated quick-action cancel token/queue was recovered. The three standalone movement commands are not the same worker ownership as `_toggle_farm`; exact cross-command overlap/cancellation if Farm is started/stopped while a quick move is already running remains runtime-required.
+- Screenshot cross-check was performed only after static extraction. Capture SHA-256 remains `dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a`; it visibly shows the three quick buttons plus **Bắt đầu** and no visible Dừng/Farm/Bán-all helper buttons.
+- Frozen `automove_log.txt` remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, **387,238 lines**. Correlated current Dồn bulk-action markers are all **0**, so live action ordering/timing is not fabricated.
+- L09 artifacts committed at **db1bcf3f81b71f644b17aeb28740aae7401b4b1f**:
+  - `docs/don/L09_ALL_ACCOUNT_ACTIONS_FLOW.md`
+  - `docs/don/L09_ALL_ACCOUNT_ACTIONS_MODEL.json`
+  - `docs/don/L09_ALL_ACCOUNT_ACTIONS_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/L09.md`
+- All four L09 artifacts were fetched back successfully.
+
+## POST-L09 CODE/BUILD RECHECK
+- Recursive main tree after L09 artifact commit contains **657 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- L09 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- L09 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- Exact internal ordering/join policy inside `_move_all_recv` remains source-insufficient.
+- Exact `_move_sell_acc` per-receiver worker join policy remains source-insufficient.
+- Standalone quick-action overlap/cancellation against concurrent Farm start/stop remains runtime-required.
+- Hidden/plugin reachability of currently unwired `_stop_all/_farm_all/_sell_all` is not recovered from the current visible UI surface.
+- Live StartTab/Dồn-tab synchronization timing requires Windows + live Thần Long runtime.
+
+## DO_NOT_TOUCH
+- Preserve L01-L09 contracts unless exact new evidence contradicts them.
+- Do not add visible Dừng/Farm/Bán-all buttons just because the helper methods exist.
+- Do not use `_farm_all` in place of the full `_toggle_farm` lifecycle.
+- Do not use `_sell_all` for **Tới chỗ bán**; that button is movement-only via `_move_sell_acc`.
+- Preserve manual **Tới nơi nhận** fallback separately from automatic no-ready Dồn behavior.
+- Preserve the one shared Dồn receive coordinate.
+- Keep parity/reconstruction consolidation for L10.
+- Do not create Stage-S application/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L10 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L10 — Dồn parity / reconstruction contract audit** only.
+5. Consolidate L01-L09 into one exact reconstruction contract without redoing their analyses: visible UI, config schema, state table, receiver architecture, movement, inventory thresholds, recovery/disconnect, quick controls, StartTab parity, and all explicit UNKNOWN/runtime-required edges.
+6. Build a Dồn parity matrix that marks each behavior as STATIC_VERIFIED, RUNTIME_REQUIRED, EXPLICIT_UNKNOWN, or NOT_CURRENTLY_WIRED.
+7. Identify contradictions across L01-L09 and resolve only when exact evidence is stronger; otherwise preserve the uncertainty.
+8. Define the minimum reconstruction acceptance tests for Stage S without writing application source yet.
+9. Persist L10 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance Phase L only after L10 verification.
