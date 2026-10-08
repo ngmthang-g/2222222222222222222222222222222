@@ -5412,3 +5412,20 @@ On CONTINUE read PLAN.md/STATE.md and GitHub, check for P01. Execute **P01 — e
 
 ## NEXT_ACTION
 On CONTINUE read PLAN.md/STATE.md and main GitHub; verify P02 not completed. Execute P02 — original AndroidReader/EmuManager ADB/Frida data flow, device identity/cache/connect lifecycle and error semantics, original EXE+JS first. Preserve permissions/hidden/dev UI and Proxy no-development scope. Publish P02 docs/model/evidence/task, append STATE.md/PROJECT_STATUS.md. Recheck Stage-S source/build; do not claim EXE can build until source and workflow exist.
+
+
+## P02 VERIFIED RESULTS — ANDROIDREADER / EMUMANAGER ADB+FRIDA IDENTITY/LIFECYCLE
+- Continued from P01 after rereading PLAN.md/STATE.md/PROJECT_STATUS.md. Checked GitHub: docs/tasks/P02.md was absent before this milestone. Earlier gates and Proxy exclusion untouched.
+- Current uploaded TLMTool_2.1.2(10).zip SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, 1050 entries CRC PASS; original frozen inner EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 (47,450,112 bytes) and original emu_client.js 384ccee9a2ddf236db377fca3abd36cbc17df81a94a286551a749a3132d02db1 matched previous Gate A/P01.
+- Read ORIGINAL compiled AndroidReader/EmuManager constants/methods around 0x29333d9e..0x29361a6 (module terminator 0x29361cc), not merely the UI screenshots. ADB discovery; per-VM frida-server ensure/start; device attach, script ping/reload; target RoleID scan or blind shape scan; pick_validated rejecting stale character names; per-serial background poll/force discovery. Static documentation does NOT reconstruct exact Python branch/order.
+- EmuManager identity: serial current transport; aid Android ID used as UI key and cached approx 5min; guest IP can disambiguate LDPlayer clones sharing Android ID/hwid; serial reverse mapping must be unique. UI-key-by-aid clone collision remains unproven. Per-device preset cache 30s, worker retry cadence UNKNOWN.
+- Shipped Frida JS has 7 exports ping/setBase/readAll/validate/scanRoleId/scanShape/bagSlots; static syntax check PASS, live Frida NOT_RUN. RoleID+readable name candidate validation, bag Site10 occupied slot counting, read error None vs possible 0 ambiguity documented. No game/ADB/Frida/HTTP/remote action run.
+- P02 status **STATIC_ADB_FRIDA_IDENTITY_CONNECTION_LIFECYCLE_AUDITED / LIVE_EMULATOR_PARITY_DEFERRED**. Evidence 42 rows; 25 future acceptance tests enumerated, all runtime NOT_RUN.
+- Files created docs/emulator/P02_READER_MANAGER_CONNECTION_LIFECYCLE.md, docs/emulator/P02_MODEL.json, docs/emulator/P02_STATIC_EVIDENCE.tsv and docs/tasks/P02.md. STATE.md/PROJECT_STATUS.md updated as checkpoint.
+- Existing earlier code/build audit remains true: Gate S application source absent, Gate T Windows build workflow absent, so product EXE cannot yet be built; **BUILD_BLOCKED_SOURCE_MISSING**. This is not a successful product build and not an encountered compiler error.
+
+## P02 BLOCKERS / SCOPE
+- Windows LDPlayer/ADB/Frida and current APK real-world validation not available; runtime timing, colliding aid row identity, session cleanup, Root/ACL, exact retries and live bag counts remain UNKNOWN. Preserve original conditional Train LD + developer-only Debug Android. Do not write Proxy functionality. Do not rewrite previously completed studies.
+
+## NEXT_ACTION
+On CONTINUE reread PLAN.md/STATE.md, check GitHub docs/tasks/P03.md first. Execute **P03 — original emu_input ADB tap/swipe/keyevent/screencap and capture/coordinate/timeout/error contract static audit**. Inspect original EXE and shipped scripts FIRST; do not invent emulator UI from screenshots or mark runtime PASS. Publish P03 evidence/model/task, append STATE.md/PROJECT_STATUS.md and recheck Stage-S app source/Stage-T Windows build status.
