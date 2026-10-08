@@ -1,0 +1,153 @@
+id	module	area	requirement	original_gate	source_evidence	evidence_level	future_gate	result
+N01-01	N01	UI_AUTHORITY	Active Tối ưu UI authority is ToiuuTab and permission gated	N01 original EXE / B11	N01/B11	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-02	N01	UI_AUTHORITY	Giám sát CPU/GPU and Tách theo dõi controls match original tab	N01 original EXE / B11	N01/B11	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-03	N01	UI_AUTHORITY	Separate high-CPU CPUMonitor is not the Tối ưu chart	N01 original EXE / B11	N01/B11	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-04	N01	UI_AUTHORITY	CPU and GPU have separate bounded history and dynamic Canvas series	N01 original EXE / B11	N01/B11	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-05	N01	UI_AUTHORITY	Original CPU-blue GPU-orange palette and N/A markers rendered correctly	N01 original EXE / B11	N01/B11	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-06	N01	UI_AUTHORITY	Danh sách tài khoản scrollable, Nhân vật / Giảm cấu hình headers	N01 original EXE / B11	N01/B11	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-07	N01	UI_AUTHORITY	Four config options, Không and three named modes, original order	N01 original EXE / B11	N01/B11	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-08	N01	UI_AUTHORITY	Điều khiển tất cả: three gray choices and bottom green Bắt đầu	N01 original EXE / B11	N01/B11	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-09	N01	UI_AUTHORITY	Zero account rows in B11 not misrepresented as proof of populated rows	N01 original EXE / B11	N01/B11	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-10	N01	UI_AUTHORITY	Per-account live HWND/PID validation is not replaced with character-name identity	N01 original EXE / B11	N01/B11	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-11	N01	UI_AUTHORITY	Entitlement checks disable account controls and gate worker actions	N01 original EXE / B11	N01/B11	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-12	N01	UI_AUTHORITY	StartTab Theo dõi / Tối ưu quick controls share running state	N01 original EXE / B11	N01/B11	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-13	N01	UI_AUTHORITY	Graph CPU: --% GPU: --% placeholders are replaced after valid sampling	N01 original EXE / B11	N01/B11	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N01-14	N01	UI_AUTHORITY	B11 screenshot 452x1032 and client 450x1000 used only as original capture	N01 original EXE / B11	N01/B11	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-01	N02	CPU_SAMPLER	Correct active chart authority	Static source parity after Stage-S	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-02	N02	CPU_SAMPLER	psutil non-blocking CPU read	Runtime sample tracing	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-03	N02	CPU_SAMPLER	Worker updates history, not direct Tk mutation	Thread-safe instrumented Windows run	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-04	N02	CPU_SAMPLER	Bounded deque history	Numeric capacity binding/live trace	N02	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-05	N02	CPU_SAMPLER	Schedule redraw on main Tk thread	Live thread-ID checks	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-06	N02	CPU_SAMPLER	CPU label and graph colors/guide lines	Screenshot pixel parity	N02	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-07	N02	CPU_SAMPLER	Dynamic actual plotting	Live changing CPU load	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-08	N02	CPU_SAMPLER	Exact tick `GRAPH_TICK_MS`	Source assignment/traced timing	N02	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-09	N02	CPU_SAMPLER	Fallback for unavailable CPU source	psutil missing/failure test	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-10	N02	CPU_SAMPLER	Stop/rebuild without Tk callbacks after destroy	Repeated tab/destroy stress	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-11	N02	CPU_SAMPLER	Separate CPUMonitor warning	Cross-module integration test	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N02-12	N02	CPU_SAMPLER	Separate GPU reader and history	N03 scope; do not test in N02	N02	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N03-01	N03	GPU_READER	Exact command argument/timeout/creation flags and stderr behavior.	Windows GPU/visual	N03	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N03-02	N03	GPU_READER	Working numeric single-GPU output; zero versus unavailable None.	Windows GPU/visual	N03	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N03-03	N03	GPU_READER	Missing executable, nonzero exit, timeout, empty/invalid output.	Windows GPU/visual	N03	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N03-04	N03	GPU_READER	Multiple-GPU output selection/aggregation follows original.	Windows GPU/visual	N03	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N03-05	N03	GPU_READER	Availability changes do not leave stale data/labels.	Windows GPU/visual	N03	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N03-06	N03	GPU_READER	Bounded GPU graph history, orange plotted samples, main-thread Tk updates.	Windows GPU/visual	N03	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N03-07	N03	GPU_READER	Detached monitor uses correct shared data without duplicate workers (N04).	Windows GPU/visual	N03	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N03-08	N03	GPU_READER	Original-vs-reconstructed Windows visual and live functional parity.	Windows GPU/visual	N03	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-01	N04	DETACHED_MONITOR	`Tách theo dõi` toggles real Toplevel rather than placeholder	Stage-S + Windows	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-02	N04	DETACHED_MONITOR	Title CPU / GPU, two CPU/GPU bar columns and close control	Stage-S + visual	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-03	N04	DETACHED_MONITOR	Placement anchored left of parent with documented 768 height	Windows multi-display	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-04	N04	DETACHED_MONITOR	Compare exact width, offsets, DPI, clamp/min/max and edge behavior	Original Windows trace	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-05	N04	DETACHED_MONITOR	Test `overrideredirect` and `-topmost` effective flags	Original Windows trace	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-06	N04	DETACHED_MONITOR	WM_DELETE_WINDOW/window X and `Đóng theo dõi` close same correct state	Windows	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-07	N04	DETACHED_MONITOR	Rapid button toggling does not leak multiple Toplevels or crash	Windows stress	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-08	N04	DETACHED_MONITOR	`[Settings] toiuu_monitor_open` save/reload round-trip	Config round-trip	N04	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-09	N04	DETACHED_MONITOR	Restore old-open window only when persisted state and current UI permit	Windows restart	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-10	N04	DETACHED_MONITOR	Handling when save fails or config value is malformed	Windows fault injection	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-11	N04	DETACHED_MONITOR	CPU/GPU bar values stay synchronized with main graph histories	Windows live	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-12	N04	DETACHED_MONITOR	GPU None/unavailable displays correct auxiliary state (not fake 0%)	Windows live	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-13	N04	DETACHED_MONITOR	Update/destroy callbacks remain on Tk thread	Windows thread instrumentation	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-14	N04	DETACHED_MONITOR	Closing main TLMTool leaves no orphan panel or callback to dead widgets	Windows teardown	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-15	N04	DETACHED_MONITOR	Hidden/off-screen/minimized main GUI and multiple monitors place panel acceptably	Windows layout	N04	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N04-16	N04	DETACHED_MONITOR	Original-vs-reconstructed auxiliary screenshot and functional parity	Stages V/W/X	N04	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-01	N05	MODE_CONFIG	Exactly three ordered gray mode buttons.	Static/UI	N05	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-02	N05	MODE_CONFIG	Four readonly combobox choices including Không.	Static/UI	N05	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-03	N05	MODE_CONFIG	Correct medium/low/max and TLMP 1/2/3 mappings.	Static/UI	N05	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-04	N05	MODE_CONFIG	Không does not send restore or apply a new mode.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-05	N05	MODE_CONFIG	Bulk gray choice changes selection only.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-06	N05	MODE_CONFIG	Single-row gray choice changes only that row.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-07	N05	MODE_CONFIG	Bulk change persists one save round.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-08	N05	MODE_CONFIG	Separate bottom start performs application.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-09	N05	MODE_CONFIG	Row play controls execution/restore separately.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-10	N05	MODE_CONFIG	Permission guard rejects unauthorized execution.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-11	N05	MODE_CONFIG	Saved config restores by real sanitized RoleName.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-12	N05	MODE_CONFIG	Temporary Window ... is not used as persistent ID.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-13	N05	MODE_CONFIG	Invalid saved selection fails closed.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-14	N05	MODE_CONFIG	Late RoleName does not overwrite user-touched selection.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-15	N05	MODE_CONFIG	HWND reused by changed PID does not inherit old target.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-16	N05	MODE_CONFIG	Default/invalid/collision config matches original behavior.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-17	N05	MODE_CONFIG	Window/account refresh and Tk main-thread actions remain stable.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N05-18	N05	MODE_CONFIG	Native TLMP original-vs-new parity after N06/Windows runtime.	Windows/config	N05	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-01	N06	NATIVE_TLMP	Exact mode 0..5 semantics differentiated	Original binary/static	N06	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-02	N06	NATIVE_TLMP	Không/None skips without TLMP mode 0/4	N05 + Windows	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-03	N06	NATIVE_TLMP	Native PerfCmd and WM_COPYDATA token behavior matches original	Windows with instrumented test target	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-04	N06	NATIVE_TLMP	Correct bundled resources.dat path, x64 binary and hash	Static packaging	N06	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-05	N06	NATIVE_TLMP	Not loaded -> controlled DLL load, loaded -> no duplicate	Windows testing	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-06	N06	NATIVE_TLMP	Missing file, load failure and outdated DLL produce clear failure	Windows fault injection	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-07	N06	NATIVE_TLMP	Per-account hwnd owner PID mismatch fails closed	Multi-process HWND test	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-08	N06	NATIVE_TLMP	Bulk helper only counts intended live accounts	N07/Windows	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-09	N06	NATIVE_TLMP	Native wrapper False is not mislabelled real applied success	Windows log/state	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-10	N06	NATIVE_TLMP	Lower Cực đại to Cực thấp before restore where original does	Windows visual/state	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-11	N06	NATIVE_TLMP	Mode 4 restores snapshot and mode 5 pings without changing mode	Windows/original	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-12	N06	NATIVE_TLMP	Save/restoration respects prior snapshot/no snapshot	Windows/original	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-13	N06	NATIVE_TLMP	Busy/reentry and lazy background-tab refresh avoid duplicate sends	N07/Windows	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-14	N06	NATIVE_TLMP	Verify TODO logic account branch is actually connected	N07/Windows	N06	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-15	N06	NATIVE_TLMP	Permission guard/limit remains effective on all actions	Windows entitlement	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-16	N06	NATIVE_TLMP	Native packaged historical Perf evidence distinguished from new live test	Evidence review	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-17	N06	NATIVE_TLMP	Game-window/sending race and stop-during-send cannot corrupt state	Windows stress	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N06-18	N06	NATIVE_TLMP	Reconstructed Windows product builds and matches functional behavior	Stages S/T/U/V/W/X	N06	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-01	N07	WORKER_START_STOP	Account ▶ spawns proper worker and correctly executes selected TLMP mode	Windows live	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-02	N07	WORKER_START_STOP	Identify whether TODO logic path is reached and whether it skips native apply	Windows trace	N07	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-03	N07	WORKER_START_STOP	Individual Dừng lại stops that account and restores safely without other rows	Windows	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-04	N07	WORKER_START_STOP	_gen and stop Event prevent stale generation UI/worker resurrection	Race instrumentation	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-05	N07	WORKER_START_STOP	Invalid or closed HWND and PID mismatch fail closed	HWND/PID reuse test	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-06	N07	WORKER_START_STOP	Row creation/refresh preserves valid account config on real RoleName	Windows/config	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-07	N07	WORKER_START_STOP	Global Start skips none/invalid modes and permission-denied accounts	Windows	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-08	N07	WORKER_START_STOP	Global scan refreshes stale or empty rows from background tab	Windows	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-09	N07	WORKER_START_STOP	Empty full scan exits promptly without artificial timeout delay	Windows	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-10	N07	WORKER_START_STOP	Deferred real-name resolution does not block Tk	Windows thread	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-11	N07	WORKER_START_STOP	Second Start/Stop action during busy period follows original reentry policy	Windows	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-12	N07	WORKER_START_STOP	Bulk nested worker/counts match real successful TLMP sends, not merely eligible rows	Windows	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-13	N07	WORKER_START_STOP	Bulk stop differentiates mode-None fresh versus old-session survivor	Windows old/new game	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-14	N07	WORKER_START_STOP	Cực đại stage-down and restore remain correct during global stop	Windows visual	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-15	N07	WORKER_START_STOP	Monitor resets to Bắt đầu only when no active account remains	Windows state	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-16	N07	WORKER_START_STOP	Mixed account success/failure paints exact statuses/button styles	Windows visual	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-17	N07	WORKER_START_STOP	Native send in progress during stop/window loss cannot target reused PID	Windows stress	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-18	N07	WORKER_START_STOP	Main thread only mutates Tk, despite worker and targeted refresh	Windows thread	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-19	N07	WORKER_START_STOP	Permission limit enforced per action and per eligible account	Windows	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-20	N07	WORKER_START_STOP	StartTab shortcut state matches current Tối ưu tab state	Windows integration	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-21	N07	WORKER_START_STOP	Real tool/app restart and recovered running-session state are not conflated	N09/Windows	N07	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N07-22	N07	WORKER_START_STOP	Full original-vs-new functional and screenshot parity	Stages S/T/U/V/W/X	N07	EXE_AND_ORIGINAL_B11_VISUAL	VISUAL	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-01	N08	WATCH_AND_LOGIN	Watcher starts for correct active account set, no duplicate watch threads	Windows/instrumented	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-02	N08	WATCH_AND_LOGIN	TLMP 5 sends diagnostic without mode alteration	Windows/native	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-03	N08	WATCH_AND_LOGIN	Watch reads correct runtime automove_log path	Windows/filesystem	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-04	N08	WATCH_AND_LOGIN	Fresh response regex matches exact PID and variable suffix fields	Unit + Windows	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-05	N08	WATCH_AND_LOGIN	Old pong lines before baseline do not mask new missed pings	Log isolation	N08	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-06	N08	WATCH_AND_LOGIN	Valid new pong resets _ping_miss and prevents false Treo tick	Windows	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-07	N08	WATCH_AND_LOGIN	Two *consecutive* misses produce Treo tick and red state	Windows/timing	N08	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-08	N08	WATCH_AND_LOGIN	Exact interval, ping wait, threshold, recover timeout values match original	Original runtime trace	N08	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-09	N08	WATCH_AND_LOGIN	Slow/absent log, truncation, rotation and unreadable file are safe	Fault injection	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-10	N08	WATCH_AND_LOGIN	Concurrent accounts/pings do not misattribute PID acknowledgements	Stress	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-11	N08	WATCH_AND_LOGIN	Exited/reused PID cannot trigger wrong-account recovery	HWND/PID race	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-12	N08	WATCH_AND_LOGIN	_recovering prevents overlapping recovery attempts	Windows stress	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-13	N08	WATCH_AND_LOGIN	No LoginTab connection falls back to manual action safely	Windows	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-14	N08	WATCH_AND_LOGIN	No unique login-row PID mapping does not close another account	Windows	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-15	N08	WATCH_AND_LOGIN	Correct LoginTab close_single/login_single integration	Windows/integration	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-16	N08	WATCH_AND_LOGIN	Timeout waiting for new HWND produces manual-attention state	Windows/timing	N08	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-17	N08	WATCH_AND_LOGIN	After genuine relogin, remembered mode and native TLMP apply actually succeed	Windows/game	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-18	N08	WATCH_AND_LOGIN	_auto_revive default/permission/disable flow mirrors original	Windows/config	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-19	N08	WATCH_AND_LOGIN	Tk error/status repaint and account worker cancellation are main-thread safe	Stress	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-20	N08	WATCH_AND_LOGIN	N07 stop/all-stop does not cause false hang/relogin cycle	Windows	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-21	N08	WATCH_AND_LOGIN	Watcher vs N09 previous-session restoration has correct ownership	Stage N09/Windows	N08	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N08-22	N08	WATCH_AND_LOGIN	Rebuilt EXE original-vs-new functional parity and error messages	Stages S/T/U/V/W/X	N08	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-01	N09	OLD_SESSION_RESUME	Serialize active real names/mode keys, not current HWND identifiers	Config/static	N09	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-02	N09	OLD_SESSION_RESUME	No active rows yields `{}` without phantom old session	Config	N09	ORIGINAL_EXE_STATIC	STATIC	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-03	N09	OLD_SESSION_RESUME	Handle valid JSON and malformed/unexpected saved types safely	Fault injection	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-04	N09	OLD_SESSION_RESUME	Preserve old session if the first full account scan is incomplete	Windows/scan	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-05	N09	OLD_SESSION_RESUME	Resume only saved real names with game create_time before tool boot	Windows/PID	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-06	N09	OLD_SESSION_RESUME	Fresh game after boot never inherits old red stop button	Windows/PID	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-07	N09	OLD_SESSION_RESUME	Reused HWND/PID and same name cannot accept stale restore commands	Windows/stress	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-08	N09	OLD_SESSION_RESUME	A newly started optimizer session prevents overwriting by old reconcile	Windows/race	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-09	N09	OLD_SESSION_RESUME	Authorized survivor gets running/red `Dừng lại` and correct saved mode	Windows/UI	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-10	N09	OLD_SESSION_RESUME	Missing old process cleans stale intended-running record correctly	Windows	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-11	N09	OLD_SESSION_RESUME	Permission initially unavailable retries without premature destructive cleanup	Windows/auth	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-12	N09	OLD_SESSION_RESUME	`/5` retries and 60s messages match actual original timing/counter policy	Original runtime	N09	EXPLICIT_UNKNOWN	RESEARCH	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-13	N09	OLD_SESSION_RESUME	Incomplete scan retries after original declared 30s without erasing data	Original runtime	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-14	N09	OLD_SESSION_RESUME	Permission permanently absent invokes restore for eligible survivors only	Windows/permission	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-15	N09	OLD_SESSION_RESUME	Max-mode restoration retains N06 low-stage-down then TLMP_RESTORE semantics	Windows/native	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-16	N09	OLD_SESSION_RESUME	Cleanup reaches green `Bắt đầu`, correct StartTab shortcut sync	Windows/UI	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-17	N09	OLD_SESSION_RESUME	Start/stop saved-set roundtrip survives forced tool termination	Windows/crash	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-18	N09	OLD_SESSION_RESUME	Multiple names, duplicate names, stale config and partial survivors are handled	Windows/config	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-19	N09	OLD_SESSION_RESUME	No psutil/process create_time does not falsely classify game as old	Windows/fault	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-20	N09	OLD_SESSION_RESUME	N08 hung-relogin new game is not incorrectly resurrected as old	Integration	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-21	N09	OLD_SESSION_RESUME	No stale worker updates destroyed Tk UI; no overlapping restoration	Windows/stress	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED
+N09-22	N09	OLD_SESSION_RESUME	Original-versus-new EXE live parity including statuses/cleanup	Stages S/T/U/V/W/X	N09	EXE_STATIC_OR_LOG_LIVE_REQUIRED	WINDOWS	NOT_EXECUTED_STAGE_S_NOT_STARTED

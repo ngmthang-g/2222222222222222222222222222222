@@ -520,3 +520,10 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - `_reconcile_stale_worker` has scan incomplete retry 30s; no-permission try `/5` retry 60s; later safe restore to normal/start after definitive missing permission. Times from original status strings, not new runtime trace.
 - `84` binary evidence/unknown records, 22 future acceptance cases all NOT_RUN. Artifacts `docs/toiuu/N09_STALE_RUNNING_RECONCILE_FLOW.md`, `docs/toiuu/N09_MODEL.json`, `docs/toiuu/N09_STATIC_EVIDENCE.tsv`, `docs/tasks/N09.md`.
 - Stage-S source and Stage-T build workflow still absent. **NEXT N10 — Tối ưu reconstruction contract/parity handoff**, then Phase O.
+
+## N10 / Phase N Tối ưu research handoff
+- N01–N09 research consolidated without changing completed work. N10 gate PHASE_N_STATIC_RESEARCH_HANDOFF_COMPLETE / LIVE_PARITY_DEFERRED.
+- New docs/toiuu/N10_RECONSTRUCTION_CONTRACT.md, N10_MODEL.json, N10_TOIUU_PARITY_MATRIX.tsv and docs/tasks/N10.md.
+- 152 unique acceptance cases across N01 14, N02 12, N03 8, N04 16, N05 18, N06 18, N07 22, N08 22, N09 22. Gates {"STATIC":13,"VISUAL":9,"WINDOWS":122,"RESEARCH":8}. ALL case results NOT_EXECUTED_STAGE_S_NOT_STARTED.
+- Native send semantics/permissions/row identity, selector-only gray buttons and Không skip, ping/old-session boundaries, N07 TODO and original evidence unknowns preserved.
+- Stage-S product source and Stage-T build workflow absent; no runnable EXE or Windows parity. **NEXT O01 — memory/item subsystem authority audit.** Proxy development excluded.

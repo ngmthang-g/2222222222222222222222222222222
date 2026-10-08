@@ -5293,3 +5293,19 @@ On CONTINUE:
 3. Include unknowns and failure paths; mark all unexecuted product tests NOT_RUN. Keep B11 evidence fixed and Proxy excluded.
 4. Persist N10 report/model/matrix/task; update STATE.md and PROJECT_STATUS.md; recheck main/source/build state.
 5. When N10 is complete, next plan phase is O01 — memory/item subsystem authority audit.
+
+## N10 VERIFIED RESULTS — PHASE N TỐI ƯU RECONSTRUCTION HANDOFF
+- GitHub HEAD 7b1a728c7dae4c91b461b217a1cb975ce6eee6c0 verified and PLAN.md / STATE.md read; N01–N09 pre-existed and N10 was absent. Reused nine original static reports, all earlier evidence unchanged.
+- Frozen original ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 members/CRC proven in prior milestones), inner EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22. Active ToiuuTab and original B11 empty-account screenshot retained as authority.
+- N10 consolidated UI/CPU/GPU/detached monitor/config selection/native TLMP/per-account and global worker/ping watchdog/Login recovery/old-tool-session reconciliation.
+- Unified parity matrix 152 UNIQUE cases: N01=14, N02=12, N03=8, N04=16, N05=18, N06=18, N07=22, N08=22, N09=22; verification gates STATIC=13, VISUAL=9, WINDOWS=122, RESEARCH=8. ALL results NOT_EXECUTED_STAGE_S_NOT_STARTED.
+- Cross-component invariants: gray modes assign combobox only, Không is skip, TLMP mode4 restore/5 ping distinct, live HWND/PID guard, real-name config vs running set, fresh log ping health, old game predates new tool boot, no authorization bypass.
+- Known original uncertainties preserved: CPU 1s/750, GPU fallback/multi-GPU, detached geometry, config collisions, native ACK, N07 TODO, N08 ping/log/rel-login races, N09 stale-session clock/retry/collision.
+- New docs/toiuu/N10_RECONSTRUCTION_CONTRACT.md, docs/toiuu/N10_MODEL.json, docs/toiuu/N10_TOIUU_PARITY_MATRIX.tsv, docs/tasks/N10.md; this STATE.md and PROJECT_STATUS.md appended.
+- **N10 STATUS PHASE_N_STATIC_RESEARCH_HANDOFF_COMPLETE / LIVE_PARITY_DEFERRED.** Research handoff is NOT implementation or a Windows PASS.
+
+## POST-N10 SOURCE/BUILD CHECK
+- Repo continues with forensic helper scripts but no reconstructed Stage-S app source, no Stage-T build workflow, no new Windows test. Original binary, PLAN, completed N01–N09 and Proxy exclusion untouched.
+
+## NEXT_ACTION
+On CONTINUE: read PLAN.md and STATE.md, check GitHub for O01 artifacts first; execute **O01 — memory/item subsystem authority audit** from original frozen EXE. Inspect memory_reader, memory_items, bag_filter, item_meta_data and weapon_ids + active UI/module wiring before inferring features. Do not rework N tasks or develop Proxy. Save O01 model/evidence/task, update state and recheck build.

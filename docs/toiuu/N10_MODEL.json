@@ -1,0 +1,174 @@
+{
+  "task": "N10",
+  "status": "PHASE_N_STATIC_RESEARCH_HANDOFF_COMPLETE_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "repo_head_before": "7b1a728c7dae4c91b461b217a1cb975ce6eee6c0",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "exe_size": 47450112,
+    "active_module": "toiuu_tab.ToiuuTab",
+    "module_offset": "0x2c01fb5",
+    "constant_count": 940,
+    "original_python_source_recovered": false
+  },
+  "sources": [
+    {
+      "task": "N01",
+      "report": "docs/toiuu/N01_AUTHORITY_UI_FLOW.md",
+      "source_case_count": 14
+    },
+    {
+      "task": "N02",
+      "report": "docs/toiuu/N02_CPU_SAMPLE_REDRAW_FLOW.md",
+      "source_case_count": 12
+    },
+    {
+      "task": "N03",
+      "report": "docs/toiuu/N03_GPU_COLLECTION_FLOW.md",
+      "source_case_count": 8
+    },
+    {
+      "task": "N04",
+      "report": "docs/toiuu/N04_DETACHED_MONITOR_FLOW.md",
+      "source_case_count": 16
+    },
+    {
+      "task": "N05",
+      "report": "docs/toiuu/N05_MODE_CONFIG_SELECTION_FLOW.md",
+      "source_case_count": 18
+    },
+    {
+      "task": "N06",
+      "report": "docs/toiuu/N06_NATIVE_TLMP_DLL_FLOW.md",
+      "source_case_count": 18
+    },
+    {
+      "task": "N07",
+      "report": "docs/toiuu/N07_START_STOP_ORCHESTRATION_FLOW.md",
+      "source_case_count": 22
+    },
+    {
+      "task": "N08",
+      "report": "docs/toiuu/N08_WATCH_PING_RECOVERY_FLOW.md",
+      "source_case_count": 22
+    },
+    {
+      "task": "N09",
+      "report": "docs/toiuu/N09_STALE_RUNNING_RECONCILE_FLOW.md",
+      "source_case_count": 22
+    }
+  ],
+  "visual": {
+    "baseline": "docs/ui/B11_TOIUU_VISIBLE_STATE.json",
+    "screen_raster": [
+      452,
+      1032
+    ],
+    "client": [
+      450,
+      1000
+    ],
+    "account_rows_visible": 0,
+    "detached_visible": false
+  },
+  "contracts": [
+    {
+      "task": "N01",
+      "system": "UI/authority",
+      "rule": "Active ToiuuTab, monitor and account areas; separate CPU-high warning; permissions, B11 empty-list baseline"
+    },
+    {
+      "task": "N02",
+      "system": "CPU",
+      "rule": "Guarded psutil CPU read; bounded deque history; worker sampling and Tk Canvas main-thread redraw"
+    },
+    {
+      "task": "N03",
+      "system": "GPU",
+      "rule": "nvidia-smi utilization.gpu CSV query; unavailable None/N/A; orange bounded GPU series"
+    },
+    {
+      "task": "N04",
+      "system": "Detached",
+      "rule": "Toplevel CPU / GPU; CPU/GPU bars, close control, left-side 768-height intent, toiuu_monitor_open"
+    },
+    {
+      "task": "N05",
+      "system": "Selection",
+      "rule": "Medium/low/max = 1/2/3; three gray bulk/per-account mode controls only select; Không=skip; toiuu_cfg_<name>"
+    },
+    {
+      "task": "N06",
+      "system": "Native",
+      "rule": "WM_COPYDATA TLMP 0 normal,1 medium,2 low,3 max,4 restore,5 ping; PE64 resources.dat; PID guard; max->low->restore"
+    },
+    {
+      "task": "N07",
+      "system": "Workers",
+      "rule": "Row ▶ and global Bắt đầu thread/busy/lazy scan/stop/reset; TODO logic must be traced"
+    },
+    {
+      "task": "N08",
+      "system": "Watchdog",
+      "rule": "TLMP-5 and new Perf: ping log lines; two-miss Treo tick, safe Login mapping/manual fallback"
+    },
+    {
+      "task": "N09",
+      "system": "Prior session",
+      "rule": "toiuu_running JSON {name:mode}, live PID/create_time earlier than tool boot and permission-gated resume/restore"
+    }
+  ],
+  "invariants": [
+    "bulk/single gray mode choice is selection-only",
+    "Không is skip, not native 0 or 4",
+    "TLMP 0..5 modes distinct including restore=4 ping=5",
+    "native send status cannot prove actual applied effect",
+    "Tk redraw on main thread",
+    "HWND/PID validated for live target",
+    "persisted RoleName config different from running session",
+    "watch fresh PID ping line rather than stale log",
+    "Login row mapping must be unambiguous",
+    "tool restart resume only game created before new tool boot",
+    "enforce permission and Proxy exclusion"
+  ],
+  "unknowns": [
+    "N02: CPU 1-second embedded documentation versus unbound 750/GRAPH_TICK_MS; exact GRAPH_HIST not recovered",
+    "N03: nvidia-smi timeout, exception handling, first/multiple-GPU aggregation and None/0% history behavior",
+    "N04: detached Tk Toplevel exact width/geometry, close/destroy timing, multi-display and no popped screenshot",
+    "N05: config INI section/default priority, sanitized RoleName collisions, late real-name user-edit order",
+    "N06: TLMP PerfCmd packed structure/ACK and actual game-side effect, numeric STAGE_DOWN_DELAY; DLL listener source absent",
+    "N07: _toggle_single_acc contains a literal TODO logic branch; actual reachability/native execution and worker race unverified",
+    "N08: original ping timing, log rotation/freshness, auto_revive default, PID-to-LoginTab row mapping and relogin outcomes",
+    "N09: toiuu_was_running legacy semantics, exact boot-time comparison and /5 30s/60s retry implementation"
+  ],
+  "parity": {
+    "path": "docs/toiuu/N10_TOIUU_PARITY_MATRIX.tsv",
+    "count": 152,
+    "by_source": {
+      "N01": 14,
+      "N02": 12,
+      "N03": 8,
+      "N04": 16,
+      "N05": 18,
+      "N06": 18,
+      "N07": 22,
+      "N08": 22,
+      "N09": 22
+    },
+    "by_gate": {
+      "STATIC": 13,
+      "VISUAL": 9,
+      "WINDOWS": 122,
+      "RESEARCH": 8
+    },
+    "all_result": "NOT_EXECUTED_STAGE_S_NOT_STARTED",
+    "unique_case_ids": true
+  },
+  "product_status": {
+    "stage_s_source_exists": false,
+    "stage_t_build_workflow_exists": false,
+    "windows_game_testing": "NOT_RUN",
+    "build": "NOT_APPLICABLE_YET"
+  },
+  "next_action": "O01 — memory/item subsystem authority audit"
+}
