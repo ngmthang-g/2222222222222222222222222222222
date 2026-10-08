@@ -1,0 +1,50 @@
+id	offset_or_source	evidence_tier	verified_observation
+P03-001	ZIP	sha256	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd; 1050 entries; no CRC errors
+P03-002	EXE	sha256	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22; 47450112 bytes
+P03-003	0x293325f	EXACT_MODULE_MARKER	<module emu_input> (serialized module marker)
+P03-004	0x2932e35	EXACT_IMPORT	Farm tab references .emu_input
+P03-005	0x2932e46	EXACT_SYMBOL	subprocess
+P03-006	0x2932e52	EXACT_SYMBOL	CREATE_NO_WINDOW
+P03-007	0x2932e64	EXACT_SYMBOL	serial
+P03-008	0x2932e78	EXACT_SYMBOL	check_output
+P03-009	0x2932e94	EXACT_SYMBOL	timeout
+P03-010	0x2932e9d	EXACT_SYMBOL	creationflags
+P03-011	0x2932eac	EXACT_SYMBOL	decode; near utf-8/ignore/errors
+P03-012	0x2932ed5	EXACT_SYMBOL	shell; input; tap; swipe; keyevent
+P03-013	0x2932ef9	EXACT_DOC	KEYCODE_* accepts numeric or label; 4/BACK; 3/HOME; KEYCODE_BACK
+P03-014	0x2932f35	EXACT_SYMBOL	text; replace and %s near
+P03-015	0x2932f59	EXACT_SYMBOL	size; strip and split near wm
+P03-016	0x2932f7f	EXACT_DOC	(w,h) device pixels
+P03-017	0x2932f98	EXACT_SYMBOL	exec-out
+P03-018	0x2932fa2	EXACT_SYMBOL	screencap; -p near
+P03-019	0x2932fbf	EXACT_SYMBOL	raw
+P03-020	0x2932fc4	EXACT_SYMBOL	PIL; Image; BytesIO
+P03-021	0x2932fe2	EXACT_SYMBOL	convert; RGB
+P03-022	0x2932ff2	EXACT_DOC	PIL Image RGB; None when capture error
+P03-023	0x2933030	EXACT_SYMBOL	screencap; save; size
+P03-024	0x2933047	EXACT_DOC	AdbInput class documentation phase B
+P03-025	0x2933077	EXACT_DOC	ADB taps/swipes/keyevents/capture use device pixels; LD example 960x540
+P03-026	0x29330c2	EXACT_DOC	PC1366x768 -> example LD960x540 x*.7027 y*.7031 from actual wm size
+P03-027	0x2933129	EXACT_LITERAL	D:\LDPlayer\LDPlayer9\adb.exe
+P03-028	0x2933148	EXACT_SYMBOL	LD_ADB
+P03-029	0x2933173	EXACT_METHOD	AdbInput.__init__
+P03-030	0x2933198	EXACT_METHOD	AdbInput._run
+P03-031	0x29331a8	EXACT_METHOD	AdbInput.tap
+P03-032	0x29331bb	EXACT_METHOD	AdbInput.swipe
+P03-033	0x29331d0	EXACT_METHOD	AdbInput.key
+P03-034	0x29331de	EXACT_METHOD	AdbInput.text
+P03-035	0x29331ed	EXACT_METHOD	AdbInput.size
+P03-036	0x29331fc	EXACT_METHOD	AdbInput.screencap
+P03-037	0x293321a	EXACT_METHOD	AdbInput.save_cap
+P03-038	0x293323e	EXACT_METHOD	AdbInput.from_pc
+P03-039	0x290d4ce	EXACT_DOC	Debug Android GetCursorPos ScreenToClient and DPI offset prevention
+P03-040	0x290d57c	EXACT_DOC	Debug Android client->device 960x540 viewport default (0,30); far corner window dependent
+P03-041	0x290dc25	EXACT_METHOD	DebugAndroidTab._adb_input
+P03-042	0x290dd18	EXACT_METHOD	DebugAndroidTab._do_cap
+P03-043	0x290dd31	EXACT_METHOD	DebugAndroidTab._do_tap
+P03-044	0x290dd4a	EXACT_METHOD	DebugAndroidTab._do_rgb
+P03-045	0x2930bb9	EXACT_IMPORT	EmuChat imports emu_input/AdbInput
+P03-046	0x2930e13	EXACT_DOC	EmuChat chat-link primitive pure UI no inject
+P03-047	ZIP_ENTRIES	NEGATIVE_FILE_INVENTORY	No adb.exe bundled; external system path or LD_ADB must be resolved
+P03-048	LIVE_DEVICE	NOT_RUN	No LDPlayer, ADB, Frida, tap/capture/WinDPI runtime testing
+P03-049	GITHUB	BUILD_BLOCKER	Stage-S app source absent; Stage-T workflow absent per repository code/build audit
