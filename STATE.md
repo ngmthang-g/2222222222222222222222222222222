@@ -5330,3 +5330,23 @@ On CONTINUE: read PLAN.md and STATE.md, check GitHub for O01 artifacts first; ex
 
 ## NEXT_ACTION
 On CONTINUE: read PLAN.md/STATE.md and check current GitHub for existing O02. Execute **O02 — memory_reader process discovery, OpenProcess rights, GameAssembly/UnityPlayer module enumeration, GA cache, pointer chain/RVA and memory validation/error audit** from frozen original EXE first, read-only. Reuse O01, do not duplicate or rewrite completed stages. Save O02 report/model/evidence/task, update STATE.md/PROJECT_STATUS.md, recheck product source/build.
+
+## O02 VERIFIED RESULTS — MEMORY_READER PROCESS / RVA / CHAIN AUDIT
+- GitHub HEAD ccb9def1b1cdd2db2e1e4f95995632bab308fa04 and PLAN.md/STATE.md checked first; O01 complete, O02 previously absent. Frozen original ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 entries CRC-clean), original EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 (47450112 bytes) examined read-only; no process attached.
+- Active .memory_reader module at 0x2b7575a, payload start 0x2b7576f (11804 bytes/494 constants); exact original Reader.start/_enum_modules/_r32/_r64/read_all/_resolve_chain/session_block method markers.
+- Process discovery psutil.process_iter and name normalization tokens; OpenProcess + rights/elevation probe; EnumProcessModulesEx(LIST_MODULES_ALL) retry fallback and GetModuleBaseNameW GameAssembly.dll/UnityPlayer identification. Exact process predicate, rights bitmask and retry counts not source-decompiled.
+- VirtualQueryEx distinguishes unmapped/committed/query-fail; ReadProcessMemory 8/32/64 and UTF16 primitives; GA cache lock/TTL, stale rd/unmapped base rescan and garbage RoleName evict. GA_CACHE_TTL numeric UNKNOWN; mount TTL separately documented 30 seconds.
+- Original Reader v10 embedded doc **GA+0x355B208 -> +0xB8 -> +0x88 -> RoleData**. Generic _resolve_chain: deref chain[:-1], returns object before last offset, 0 if broken. AutoFlag paths GA+0x356ED08 / GA+0x356E288 final +0x2C, use -1 on broken; read_auto_state uses None when invalid.
+- Original anchored SessionData: get_RoleData GA+0x6F4030; SessionData.RoleData @0x88 must equal live rd, then dict offsets Monsters@0x20 NPCs@0x50 ItemPacks@0x18. Getter first RIP relative match can be wrong; validation required. All RVAs are specific to original compiled/game version, not live proof.
+- Reader also exposes WriteProcessMemory and injection/AutoPath helpers but O02 does NOT run/use them; Proxy development excluded. Bag Site10 schema deferred O03.
+- O02 status STATIC_MEMORY_READER_PROCESS_GA_RVA_CHAIN_AND_VALIDATION_AUDITED / WINDOWS_PARITY_DEFERRED. 104 evidence rows, 20 acceptance cases all NOT_RUN on reconstructed app.
+- Files: docs/memory/O02_READER_PROCESS_POINTER_FLOW.md; O02_MODEL.json; O02_STATIC_EVIDENCE.tsv; docs/tasks/O02.md.
+
+## POST-O02 SOURCE/BUILD CHECK
+- No Stage-S product app source and no Stage-T workflow; build NOT_APPLICABLE. Prior O01, N01–N10, PLAN, original ZIP/EXE unchanged.
+
+## O02 BLOCKERS / DO_NOT_TOUCH
+- PID matching criteria, PROCESS_RIGHTS bitmask, module enumerate exact retry/timing, GA_CACHE_TTL, unknown assignments and Windows/RPM outcomes require further proof. No read failure may be silently converted to empty bag; no unsafe game writes; no Proxy.
+
+## NEXT_ACTION
+On CONTINUE read PLAN.md and STATE.md, verify GitHub for O03 first. Execute **O03 — original memory_items bag Site10 schema, read_bag/get_bag, RoleData/SessionData dictionary and error/race analysis**, distinct from Site200 trade. Do original EXE static analysis first; preserve O01/O02 and Stage-N; document O03 model/evidence/task, update state, recheck source/build.

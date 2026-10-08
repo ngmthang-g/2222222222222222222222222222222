@@ -1,0 +1,153 @@
+{
+  "task": "O02",
+  "status": "STATIC_MEMORY_READER_PROCESS_GA_RVA_CHAIN_AND_VALIDATION_AUDITED_WINDOWS_PARITY_DEFERRED",
+  "authority": {
+    "repo_parent_head": "ccb9def1b1cdd2db2e1e4f95995632bab308fa04",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "exe_bytes": 47450112,
+    "main_module": "memory_reader",
+    "module_header": "0x2b7575a",
+    "module_payload_bytes": 11804,
+    "serialized_constant_count": 494,
+    "source_ast_recovered": false,
+    "original_game_executed": false
+  },
+  "process": {
+    "process_discovery_symbols": [
+      "psutil.process_iter",
+      "unicodedata.NFD",
+      "ascii",
+      "than",
+      "long",
+      "mobile"
+    ],
+    "exact_name_match_predicate": "EXPLICIT_UNKNOWN",
+    "handle_open": "OpenProcess",
+    "rights_symbol": "PROCESS_RIGHTS",
+    "exact_rights_mask": "EXPLICIT_UNKNOWN",
+    "probe_elevation": [
+      "OpenProcessToken",
+      "TokenIsElevated"
+    ],
+    "failure_message": "Cần Run as Administrator! (conditional)",
+    "module_enum": [
+      "EnumProcessModulesEx",
+      "EnumProcessModules",
+      "GetModuleBaseNameW"
+    ],
+    "enum_doc": "LIST_MODULES_ALL with retry",
+    "exact_retry_count": "EXPLICIT_UNKNOWN"
+  },
+  "memory": {
+    "reader_class": "Reader",
+    "reader_methods": [
+      "_r8",
+      "_r32",
+      "_r64",
+      "read_all",
+      "_resolve_chain",
+      "session_block",
+      "read_auto_flags",
+      "read_auto_state"
+    ],
+    "module_names": [
+      "GameAssembly.dll",
+      "UnityPlayer"
+    ],
+    "api": [
+      "ReadProcessMemory",
+      "VirtualQueryEx"
+    ],
+    "winapi_write_present_but_out_of_scope": "WriteProcessMemory",
+    "formats": [
+      "<I",
+      "<Q",
+      "utf-16-le"
+    ],
+    "region_outcomes": [
+      "unmapped",
+      "committed protect",
+      "query-fail"
+    ]
+  },
+  "cache": {
+    "fields": [
+      "_ga_cache_lock",
+      "_ga_cache",
+      "GA_CACHE_TTL"
+    ],
+    "numeric_GA_CACHE_TTL": "EXPLICIT_UNKNOWN",
+    "invalidation": [
+      "unmapped ga_base",
+      "invalid rd",
+      "garbage RoleName"
+    ],
+    "mount_ttl_seconds_embedded_doc": 30,
+    "ga_and_mount_ttl_not_interchangeable": true
+  },
+  "pointer": {
+    "documented_roledata_chain": {
+      "module_base": "GameAssembly",
+      "rva": "0x355B208",
+      "steps": [
+        "0xB8",
+        "0x88"
+      ],
+      "result": "RoleData"
+    },
+    "generic_contract": "dereference chain[:-1], return object address before final offset; 0 if broken",
+    "numeric_variable_assignment_ast": "NOT_RECOVERED",
+    "flags": {
+      "start_rvas": [
+        "0x356ED08",
+        "0x356E288"
+      ],
+      "end_offset": "0x2C",
+      "failure": -1
+    },
+    "auto_state": {
+      "path_enum_offset": "0x38",
+      "playzone_enabled_offset": "0x20",
+      "out_of_range": null
+    }
+  },
+  "session": {
+    "static_getter_scan_max_bytes": 64,
+    "first_rip_match_may_be_false": true,
+    "role_getter_rva": "0x6F4030",
+    "role_offset": "0x88",
+    "must_equal_live_roledata_pointer": true,
+    "dict_offsets": {
+      "Monsters": "0x20",
+      "NPCs": "0x50",
+      "ItemPacks": "0x18"
+    },
+    "mount_dict": {
+      "RoleData_Items_offset": "0xC8",
+      "site": 2
+    },
+    "actual_current_game_verified": false
+  },
+  "unknowns": [
+    "Exact process selector, retry counts and bitmask rights",
+    "GA_CACHE_TTL numeric",
+    "Serialized constant to every named RVA mapping not source-recovered",
+    "Getter signature matching and chain validation on running game",
+    "When psutil/RPM fail, exact error/cancellation order",
+    "Multiple game versions/RVA volatility",
+    "Memory_items bag site 10 payload and item type O03"
+  ],
+  "acceptance": {
+    "cases": 20,
+    "executed": 0,
+    "all": "NOT_RUN_STAGE_S_NOT_STARTED"
+  },
+  "build": {
+    "app_source_exists": false,
+    "build_workflow_exists": false,
+    "windows_game_test": "NOT_RUN",
+    "product_build": "NOT_APPLICABLE_YET"
+  },
+  "next_action": "O03 — memory_items inventory reader and bag Site 10 structure audit"
+}

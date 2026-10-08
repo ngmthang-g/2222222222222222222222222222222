@@ -534,3 +534,10 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Reader uses WinAPI OpenProcess/ReadProcessMemory/GameAssembly and caches; inventory read_bag returns dbID/itemID/site/pos/qty, bag Site10 and metadata. bag_filter opt-in presets and weapon-protection/no-rule-no-packet; compiled import wiring with Farm/Phó bản/Daily/Đôn vàng/Debug/Train LSV confirmed.
 - Artifacts docs/memory/O01_MODULE_AUTHORITY_AND_WIRING.md, docs/memory/O01_MODEL.json, docs/memory/O01_STATIC_EVIDENCE.tsv, docs/tasks/O01.md (77 evidence items). 15 acceptance requirements; live Windows NOT_RUN. No Stage-S product source or build workflow.
 - **NEXT O02 — memory_reader process discovery/attach, GameAssembly base, pointer chains, cache/validation.** Stage N and Proxy lock preserved.
+
+## O02 — Memory reader process/GameAssembly/chain validation
+- STATIC_MEMORY_READER_PROCESS_GA_RVA_CHAIN_AND_VALIDATION_AUDITED / WINDOWS_PARITY_DEFERRED; frozen EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 examined read-only.
+- Actual EXE documentation: GA+0x355B208 -> +0xB8/+0x88 RoleData; AutoFlag GA+0x356ED08/0x356E288 +0x2C; SessionData get_RoleData GA+0x6F4030 anchored RoleData+0x88 and collections ItemPacks+0x18 Monsters+0x20 NPCs+0x50.
+- WinAPI module discovery/read, cache validation, VirtualQueryEx error states and close/elevation diagnostics audited. Exact PROCESS_RIGHTS/GA cache TTL/process predicate and Windows portability UNKNOWN. Original Reader contains writes/inject but none performed by O02.
+- docs/memory/O02_READER_PROCESS_POINTER_FLOW.md, O02_MODEL.json, O02_STATIC_EVIDENCE.tsv and docs/tasks/O02.md (104 evidence records, 20 acceptance tests all NOT_RUN). No rebuilt product source/build workflow.
+- NEXT O03 — memory_items bag Site10 and separate trade Site200 structure/error audit.

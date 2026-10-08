@@ -1,0 +1,105 @@
+key	offset_hex	tier	fact_or_limitation
+archive_identity	-	VERIFIED_ORIGINAL_FILE	Frozen ZIP CRC clean with 1050 entries; SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+original_exe_identity	-	VERIFIED_ORIGINAL_FILE	Inner EXE 47450112 bytes SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+memory_reader_header	0x2b7575a	EXACT_MODULE_HEADER	Serialized .memory_reader module; payload 11804 bytes, 494 constants
+module_body	0x2b7576f	EXACT_BINARY	Serialized payload starts here, ends 0x2b7858b
+diag_log	0x2b7577b	EXACT_STRING	tlm_memory.log diagnostics file name
+diag_truncation	0x2b757db	EXACT_EMBEDDED_DOC	Log diagnostically, truncate over 1 MB for target machine troubleshooting
+MBI_struct	0x2b7588a	EXACT_SYMBOL	_MBI VirtualQueryEx MEMORY_BASIC_INFORMATION wrapper
+kernel32	0x2b75890	EXACT_SYMBOL	kernel32
+virtual_query_ex	0x2b7589a	EXACT_SYMBOL	VirtualQueryEx
+query_fail	0x2b758c3	EXACT_STRING	query-fail status
+region_state	0x2b758cf	EXACT_SYMBOL	State, Protect, BaseAddress queried
+region_doc	0x2b75922	EXACT_DOC	unmapped / committed protect=0x... / query-fail region states
+reader_state_fields	0x2b7599b	EXACT_SYMBOL	ga_base/up_base/rd/ok/last_data Reader fields
+module_enum_ex	0x2b75a0c	EXACT_SYMBOL	EnumProcessModulesEx
+module_enum_old	0x2b75a22	EXACT_SYMBOL	EnumProcessModules legacy fallback symbol
+get_last_error	0x2b75a3c	EXACT_SYMBOL	GetLastError
+enum_retry_log	0x2b75a5c	EXACT_STRING	EnumProcessModules attempt X failed: ok/err
+enum_sleep	0x2b75a8e	EXACT_SYMBOL	sleep/delay in retry region
+enum_doc	0x2b75ad1	EXACT_DOC	EnumProcessModulesEx(LIST_MODULES_ALL) with retry, flaky on some Windows 1909 systems
+psutil_selector	0x2b75b31	EXACT_SYMBOL	psutil + process_iter
+unicode_normalization	0x2b75b39	EXACT_SYMBOL	unicodedata NFD; ascii ignore/strip name normalization
+selector_than	0x2b75bab	EXACT_STRING	than process-name token
+selector_long	0x2b75bb1	EXACT_STRING	long process-name token
+selector_mobile	0x2b75bb7	EXACT_STRING	mobile process-name token
+game_not_running	0x2b75bc0	EXACT_STRING	Game không chạy
+handle_cleanup	0x2b75bd3	EXACT_SYMBOL	CloseHandle exists
+open_process	0x2b75bf2	EXACT_WINAPI	OpenProcess and PROCESS_RIGHTS
+open_process_rights	0x2b75bff	EXACT_SYMBOL	PROCESS_RIGHTS exact numerical bitmask not bound
+open_process_fail	0x2b75c0f	EXACT_STRING	OpenProcess(pid=, rights=) FAILED err=
+privilege_probe	0x2b75c3b	EXACT_WINAPI	OpenProcessToken and GetCurrentProcess
+token_elevated	0x2b75cfc	EXACT_WINAPI	TokenIsElevated, GetTokenInformation, advapi32
+admin_message	0x2b75d4d	EXACT_STRING	Cần Run as Administrator! (conditional diagnostic, not universal requirement)
+open_process_ok	0x2b75d81	EXACT_STRING	OpenProcess OK pid= ... handle=
+GA_lock	0x2b75da0	EXACT_SYMBOL	_ga_cache_lock protects _ga_cache
+GA_cache	0x2b75db0	EXACT_SYMBOL	_ga_cache
+GA_cache_ttl	0x2b75dd4	EXACT_SYMBOL	GA_CACHE_TTL exact seconds not recovered
+cache_r32_probe	0x2b75de2	EXACT_SYMBOL	_r32 in cached Reader validation
+cache_hit	0x2b75dea	EXACT_STRING	cache HIT pid=... GA=... rd=...
+cache_stale_rd	0x2b75e0a	EXACT_STRING	cache stale rd invalid => rescan
+cache_stale_ga	0x2b75e34	EXACT_STRING	cache stale ga_base unmapped => rescan
+enum_reader_modules	0x2b75e5d	EXACT_SYMBOL	_enum_modules
+module_basename_w	0x2b75ea9	EXACT_WINAPI	GetModuleBaseNameW for process module name
+gameassembly_token	0x2b75ecd	EXACT_STRING	gameassembly identifier, GameAssembly.dll missing diagnostic
+ga_base_diagnostic	0x2b75f1d	EXACT_STRING	GameAssembly base=
+r64_before_storage	0x2b75f31	EXACT_SYMBOL	_r64
+storage_RVA_symbol	0x2b75f37	EXACT_SYMBOL	STORAGE_RVA; neighboring tagged numeric 0x10000 must NOT be asserted as its value
+storage_null	0x2b75f48	EXACT_STRING	Storage null (RPM err=... @ GA+)
+chain_symbol	0x2b75f7a	EXACT_SYMBOL	CHAIN
+chain_break	0x2b75f86	EXACT_STRING	Chain break at + offset and memory region
+region_details	0x2b75fa7	EXACT_SYMBOL	_region_info checks memory region
+unityplayer	0x2b75fb5	EXACT_STRING	unityplayer second module/base tracking
+reader_success	0x2b75fc2	EXACT_STRING	start OK pid= ... UP= ... cached
+readprocessmemory	0x2b76006	EXACT_WINAPI	ReadProcessMemory and create_string_buffer
+int32_unpacked	0x2b7602b	EXACT_STRING	<I 32-bit unsigned format
+int64_unpacked	0x2b7603d	EXACT_STRING	<Q 64-bit unsigned format
+writeprocessmemory_exists	0x2b76053	OUT_OF_SCOPE_SYMBOL	WriteProcessMemory exists, but O02 only analyzes reads and must not execute writes
+utf16_decoder	0x2b7607b	EXACT_STRING	utf-16-le character read support
+bad_role_validation	0x2b760bb	EXACT_STRING	read_all GARBAGE RoleName => evict ga_cache
+role_coords	0x2b760f8	EXACT_FIELD_NAMES	PosX PosY X_UI Y_UI and many RoleData fields
+flag_rva_names	0x2b7617a	EXACT_SYMBOL	AUTO_FLAG_RVA AUTO_FLAG_CHAIN and _2 variants
+flag_scan_span	0x2b761d3	EXACT_SYMBOL	FLAG_SCAN_SPAN for neighboring DWORD diagnostics
+write_field_methods	0x2b76252	OUT_OF_SCOPE_SYMBOL	_w32/write_field_u32/string present; not needed to prove any inventory read
+chain_generic_doc	0x2b7649d	EXACT_DOC	Resolve GA+rva through chain[:-1] dereferences; return object before last field offset; 0 if broken
+auto_flag_doc	0x2b76543	EXACT_DOC	AutoFlag two pointer chains ED08 + E288, terminal DWORD +0x2C, -1 when broken/error
+flag_nearby_doc	0x2b76616	EXACT_DOC	Scan flag DWORD 0/1 within +/-span returns flag address and candidate relative offsets
+autopath_module_offsets_doc	0x2b773a0	EXACT_DOC	Reader v10: GA+0x355B208 -> +0xB8 -> +0x88 -> RoleData; tile = pixel >>5
+storage_candidate_0	0x2b77568	EXACT_TAGGED_NUMERIC	0x355B208 appears in module constants and explicitly in Reader v10 doc
+chain_candidate_b8	0x2b7756d	EXACT_TAGGED_NUMERIC	0xB8 adjacent RVA and in Reader v10 doc
+flag_rva_doc_1	0x2b76f2a	EXACT_DOC	AutoFlag base GA+0x356ED08
+flag_rva_doc_2	0x2b76f2a	EXACT_DOC	AutoFlag2 base GA+0x356E288
+auto_flag_mode_off	0x2b76f2a	EXACT_DOC	AutoPathManager autoPathType enum at +0x38, 0 idle and 1/2 pathing
+playzone_state	0x2b76f2a	EXACT_DOC	PlayZone EnableAutoF1 bool +0x20; out of range -> None
+getter_static_doc	0x2b76abe	EXACT_DOC	Getter static backing: match mov rax,[rip+rel], 64B scan; first match can be false, validate
+session_role_rva	0x2b76ce6	EXACT_SYMBOL	SESSION_ROLE_DATA_RVA
+session_anchor_doc	0x2b76d6e	EXACT_DOC	SessionData.RoleData @0x88 equals live rd; get_RoleData GA+0x6F4030 getter anchor
+session_collections_doc	0x2b76d6e	EXACT_DOC	When anchored, Monsters+0x20 NPCs+0x50 ItemPacks+0x18
+session_block	0x2b76cd9	EXACT_SYMBOL	_sess_block / session_block
+valid_state_rva	0x2b76ed9	EXACT_SYMBOL	PLAYZONE_GET_INSTANCE_RVA etc; exact numeric binding unproven
+connected_doc	0x2b7706d	EXACT_DOC	Game TCP Connected returns bool/None if unresolved or build changed
+mount_bag_doc	0x2b7719d	EXACT_DOC	RoleData.Items rd+0xC8 Dictionary<int, DBItemData> Site=MOUNT_SITE(2)
+mount_cache_doc	0x2b772e7	EXACT_DOC	read_mount cache TTL nominal 30s; per-mount scan hundreds of RPM
+mount_ttl_numeric	0x2b77680	EXACT_DOUBLE	30.0 tagged double near MOUNT_CACHE_TTL name; doc corroborates nominal TTL
+session_offsets_names	0x2b775f1	EXACT_SYMBOL	SESSION_ROLE_DATA_OFF, DECObots, GROWPOINTS, ITEMPACKS, MONSTERS, NPCS, OTHERROLES names; binding to numeric neighbors unresolved
+method_reader_class	0x2b77dda	EXACT_CLASS_MARKER	Reader class
+method_start	0x2b77e28	EXACT_METHOD_MARKER	Reader.start
+method_r32	0x2b77e36	EXACT_METHOD_MARKER	Reader._r32
+method_r64	0x2b77e43	EXACT_METHOD_MARKER	Reader._r64
+method_read_all	0x2b77eb2	EXACT_METHOD_MARKER	Reader.read_all
+method_resolve_chain	0x2b77f1b	EXACT_METHOD_MARKER	Reader._resolve_chain
+method_session_block	0x2b78038	EXACT_METHOD_MARKER	Reader.session_block
+method_read_auto_state	0x2b7805f	EXACT_METHOD_MARKER	Reader.read_auto_state
+method_read_connected	0x2b78087	EXACT_METHOD_MARKER	Reader.read_connected
+module_source_ref	0x2b780cb	EXACT_MODULE_MARKER	memory_reader.py filename marker, no original Python AST
+local_resolve_vars	0x2b781b3	EXACT_LOCALS	self,rva,chain,ptr,off,nxt
+local_process_selection	0x2b78452	EXACT_LOCALS	target_pid,psutil,unicodedata,re,_time,pid,pr,nn,...
+ttl_unknown	-	EXPLICIT_UNKNOWN	GA_CACHE_TTL exact value not source-bound, unlike mount 30s doc
+rights_numeric_unknown	-	EXPLICIT_UNKNOWN	PROCESS_RIGHTS numeric bitmask assignment not proven
+module_enum_retry_unknown	-	EXPLICIT_UNKNOWN	Exact WinAPI enum retry counts and all Windows variants not reconstructed
+process_match_unknown	-	EXPLICIT_UNKNOWN	Exact process-name substring/elevation/sort/multiple-instance selection needs control flow
+offset_assignment_unknown	-	EXPLICIT_UNKNOWN	Original docs confirm specific RVAs but exact assignment of each constant to every named symbol and build version cannot be inferred by order
+null_semantics_varied	-	STATIC_LIMITATION	_resolve_chain returns 0, read_auto_flags -1, read_auto_state None; do not normalize into successful zero
+game_attach_notrun	-	NOT_RUN	No original EXE or game started; no live PID/GA base observed
+game_memory_writes_notrun	-	NOT_RUN	No WriteProcessMemory/remote injection executed
+reconstruction_notrun	-	NOT_APPLICABLE	No Stage S app source or Stage T build workflow
