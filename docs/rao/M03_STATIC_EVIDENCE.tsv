@@ -1,0 +1,46 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+rao_channel_world	0x2bd9a33	VERIFIED_STATIC_UTF8	Thế giới
+rao_channel_guild	0x2bd9a41	VERIFIED_STATIC_UTF8	Bang hội
+rao_channel_school	0x2bd9a4d	VERIFIED_STATIC_UTF8	Môn phái
+rao_channel_party	0x2bd9a59	VERIFIED_STATIC_UTF8	Tổ đội
+rao_channel_alliance	0x2bd9a66	VERIFIED_STATIC_UTF8	Liên minh
+rao_channel_legion	0x2bd9a72	VERIFIED_STATIC_UTF8	Quân đoàn
+rao_channel_nearby	0x2bd9a80	VERIFIED_STATIC_UTF8	Lân cận
+rao_channel_ids	0x2bd9a8c	VERIFIED_STATIC_DECODE	l08,l02,l06,l04,l03,l0b,l05 in same constant-map order as seven Rao labels
+rao_default_channel	0x2bd9a9a	VERIFIED_STATIC_UTF8	Thế giới serialized immediately after RAO_CHANNELS mapping block
+rao_channels_symbol	0x2bd81a3	VERIFIED_STATIC	RAO_CHANNELS used by readonly channel combobox
+rao_default_symbol	0x2bd81b1	VERIFIED_STATIC	RAO_DEFAULT_CHANNEL used in _add_rao_row construction surface
+resolve_no_channel	0x2bd847d	VERIFIED_STATIC_UTF8	'<name>' chưa chọn kênh
+resolve_doc	0x2bd84d0	VERIFIED_STATIC_UTF8	Tên rao -> (nội dung, interval_giây, channel_id, tên_kênh); unusable -> (None, reason)
+resolve_locals	0x2bda392	VERIFIED_STATIC_MAPPING	self,rao_name,want,rd,content,chan_name,total; channel ID derived from mapping rather than persisted field
+persist_channel_field	0x2bd975f	VERIFIED_PERSISTENCE	channel JSON field
+persist_row_source	0x2bda3c3	REUSED_M02	row live chan_var/display-name storage; no channel-id persistence local
+memory_chat_special	0x2b72972	VERIFIED_SHARED_STATIC	Đặc biệt
+memory_chat_nearby	0x2b72981	VERIFIED_SHARED_STATIC	Lân cận
+memory_chat_whisper	0x2b7298d	VERIFIED_SHARED_STATIC	Nói thầm
+memory_chat_party	0x2b7299a	VERIFIED_SHARED_STATIC	Tổ đội
+memory_chat_world	0x2b729a7	VERIFIED_SHARED_STATIC	Thế giới
+memory_chat_guild	0x2b729b5	VERIFIED_SHARED_STATIC	Bang hội
+memory_chat_alliance	0x2b729c1	VERIFIED_SHARED_STATIC	Liên minh
+memory_chat_school	0x2b729cd	VERIFIED_SHARED_STATIC	Môn phái
+memory_chat_crossserver	0x2b729d9	VERIFIED_SHARED_STATIC	Liên máy chủ
+memory_chat_legion	0x2b729eb	VERIFIED_SHARED_STATIC	Quân đoàn
+memory_chat_ids	0x2b729f9	VERIFIED_SHARED_STATIC_DECODE	09,05,07,04,08,02,03,06,10,11 in same order; confirms Rao subset IDs
+send_chat_locals	0x2b75535	VERIFIED_SHARED_STATIC_MAPPING	T7 locals: hwnd,channel_id,content,text,chan,lua_msg,code -> send signature order
+slot_loop_send_symbol	0x2bd8604	VERIFIED_STATIC	MI + send_chat in Rao _slot_loop constant surface
+slot_loop_locals	0x2bda440	VERIFIED_STATIC_MAPPING	self,hwnd,slot,gen,MI,row,_running,want,resolved,reason,content,interval,chan_id,chan_name,ok,stamp,hit...
+packet_lua_prefix	0x2b6a033	VERIFIED_SHARED_STATIC	packetData construction with Base64 content
+packet_channel_field	0x2b6a0ac	VERIFIED_SHARED_STATIC	Channel=
+packet_command	0x2b6a0bf	VERIFIED_SHARED_STATIC	Network.SendPacket(G_TCPPacketDefine.CMD_CLIENT_CHAT, packetData)
+send_doc_channel	0x2b6a199	VERIFIED_SHARED_STATIC_UTF8	channel_id int theo C_ChatChannel; example 8=Thế giới, 2=Bang hội
+send_doc_content	0x2b6a1e3	VERIFIED_SHARED_STATIC_UTF8	content Base64 in Lua to support Vietnamese
+send_doc_return	0x2b6a230	VERIFIED_SHARED_STATIC_UTF8	True means Lua command queued, server echo not guaranteed
+rao_excludes_extra_channels	-	VERIFIED_STATIC_SEMANTIC	Đặc biệt/9, Nói thầm/7, Liên máy chủ/10 exist in shared CHAT_CHANNELS but not RAO_CHANNELS/UI list
+stale_nonempty_channel_normalization	-	EXPLICIT_UNKNOWN	exact load-time behavior for retired non-empty channel string not source-visible
+missing_empty_default_layer	-	EXPLICIT_UNKNOWN	effective default is RAO_DEFAULT_CHANNEL, exact load-vs-add layer not frozen
+screenshot_channel	-	CROSSCHECKED_AFTER_STATIC	captured Rao row shows Thế giới; static map gives ID8
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500
+runtime_channel_markers	-	NOT_RECOVERED	0 Rao/channel/send_chat/CMD_CLIENT_CHAT correlated traces
+classification	-	STATIC_VERIFIED_LIVE_PACKET_ECHO_RUNTIME_REQUIRED	interval/account/worker details remain deferred
