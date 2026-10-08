@@ -165,6 +165,25 @@ class TLMMainApp:
             self.notebook.select(self._tab_frames[INFO_KEY])
         self._on_tab_changed()
 
+    def apply_info_snapshot(self, snapshot: Any) -> None:
+        """Bridge the Info/permission_guard snapshot back onto Tk's UI thread.
+
+        Only the future real Info transport may supply verified token claims.
+        No client-side permission validation or fake license policy is added.
+        """
+        from permission_guard import PermissionSnapshot
+        if type(snapshot) is not PermissionSnapshot:
+            raise TypeError('Info permission snapshot required')
+
+        def update_on_tk_thread() -> None:
+            self.apply_verified_permissions(
+                set(snapshot.authorized_keys) if snapshot.has_verified_payload else set(),
+                dev_allowed=snapshot.developer and not snapshot.blocked,
+                blocked=snapshot.blocked,
+            )
+
+        self.root.after(0, update_on_tk_thread)
+
     def position_window_top_right(self) -> None:
         """E02 high-confidence *model*, not original source-equivalent arithmetic."""
         self.root.update_idletasks()
