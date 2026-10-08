@@ -416,7 +416,8 @@ L10 closes Dồn static research by consolidating L01-L09 into one normative rec
 - M03 — VERIFIED_EXACT_7_CHANNEL_NAME_TO_ID_MAP_DEFAULT_WORLD8_NAME_PERSISTENCE_AND_SEND_CHAT_NUMERIC_ID
 - M04 — VERIFIED_30S_DEFAULT_0_60_NORMALIZATION_POSITIVE_1_60_RUNNABLE_SEND_THEN_INTERRUPTIBLE_WAIT_LIVE_NEXT_LOOP_REFRESH
 - M05 — VERIFIED_HWND_PID_RUNTIME_IDENTITY_NAME_KEYED_4_SLOT_JSON_ASSIGNMENTS_STALE_CLEAR_REAPPEAR_RESTORE_AND_NEXT_CYCLE_LIVE_EDIT
-- M06 — NEXT
+- M06 — STATIC_WORKER_CONTRACT_AUDITED_LIVE_PARITY_DEFERRED
+- M07 — NEXT
 
 M01 locks `rao_tab.py / RaoTab` as the active Rao authority. The exact serialized `.rao_tab` header is at `0x2bd7850`, size **11,774 bytes**, count **582**, with **40** direct top-level RaoTab methods inventoried. TLMMainApp creates the permission-controlled visible tab `Rao / rao_tab` and owns `_set_rao_tab_visible`; the supplied capture shows it visible, while the exact license-plan value remains unknown. The dedicated UI surface is frozen as Cấu hình rao tự động with Tên / Nội dung rao / Kênh / Lặp (s) / Xóa, + Thêm rao, Danh sách tài khoản with Nhân vật / Nội dung rao, four Rao-selection slots per account row, per-account ▶ / Đã dừng surfaces, and the bottom Bắt đầu action. Current channel labels are Thế giới, Bang hội, Môn phái, Tổ đội, Liên minh, Quân đoàn, Lân cận, with statically recovered default channel Thế giới; mapping semantics remain for M03. Persistence boundary is [Rao] with rao_ and acc_ families through shared start_tab settings helpers. No Rao-specific StartTab quick action was recovered: the exact serialized start_tab block contains zero case-insensitive Rao/rao strings, despite rao_tab reusing start_tab helper symbols. Deep message, channel, interval, account-assignment and worker behavior remain deferred.
 
@@ -429,4 +430,7 @@ M04 locks Rao interval semantics. The UI uses sec_var with digits-only/blank-edi
 M05 locks Rao account assignment/persistence. Live account rows are HWND/PID-bound, while persisted assignments are keyed by real sanitized character name as [Rao] acc_<name>; temporary Window ... fallback names are not normal restore identities. Each account owns exactly four ordered Rao slots saved as one JSON list of four Rao display-name strings. load_acc_config restores only Rao names that still exist. Rename/delete rebuilds every account combobox and clears stale selected names from the live UI; there is no old-name→new-name alias/UUID propagation. _has_real_name/_rao_touched protect delayed RoleName restore from overwriting user edits. Same HWND with a new PID recreates the runtime row; a disappeared/reappeared character can restore from the same name-keyed config. Duplicate real character names remain separate live HWND/PID rows but collide on the same persistent acc_<name> key, with exact collision winner left UNKNOWN. Changing a running slot's assigned Rao does not force restart; the next loop observes the new selection.
 
 ## Phase M current
-M06 — Rao start/stop worker audit.
+M07 — Rao parity/reconstruction handoff.
+
+
+M06 static audit closed: original EXE's four independent Rao slot workers, per-account/bulk entry points, stop semantics, generation/stop Event, Tk UI-state marshal, permission guard and HWND/PID liveness gates are documented. See docs/rao/M06_WORKER_LIFECYCLE_FLOW.md and docs/rao/M06_STATIC_EVIDENCE.tsv. This is static analysis, not verified original-vs-reconstructed runtime parity; no application source or build workflow exists yet.

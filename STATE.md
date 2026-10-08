@@ -5003,3 +5003,44 @@ On CONTINUE:
 7. Preserve M01-M05 message/channel/interval/account-assignment contracts; do not reopen them unless direct contradiction appears.
 8. Cross-check screenshots/runtime only after static extraction.
 9. Persist M06 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M06 verification.
+
+
+## M06 VERIFIED RESULTS
+- Checked GitHub `main` first (HEAD `eedf0a1f31fc27ae4b63b582b1967785a70d8037`); M01–M05 already existed, M06 did not.
+- Supplied `TLMTool_2.1.2(9).zip` is byte-identical to Gate-A frozen authority: ZIP SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Binary-first audit of exact `rao_tab` block: bottom `Bắt đầu` delegates to `_start_all_accs` on a daemon Thread; account ▶ delegates to `_toggle_single_acc` via background work.
+- Four independent per-account slot loops, `row._stop_event`, `_gen`, `_slot_running`; one-slot stop `_stop_slot`, per-account all-slot stop `_stop_acc`.
+- `_start_slot` starts only a valid definition and returns a started boolean. `_any_slot_running` is true if **at least one** of four slots remains active.
+- Current worker resolves/send_chat/optional echo-diagnostic and performs send-first then interruptible Event.wait; preserves M02–M05 interval, ID and live-edit behavior.
+- `_ui` marshals Tk status changes; original status/button surfaces include `Đã dừng`, `Đang rao ... /4 nhóm...`, `Dừng lại`.
+- Bulk start's exact doc says to start every account with assigned content and skip accounts without it. Per-account and bulk permission-denial surfaces are explicitly present.
+- Loop guards current HWND/PID and yields `Cửa sổ đã đóng` for invalid window; exact generation/race/worker interruption ordering remains UNKNOWN.
+- User Rao screenshot was consulted only after static extraction; it has no account rows, so worker state and colors remain visually/runtime-unverified.
+- Packaged runtime automove_log has no Rao traces. Windows live runtime parity **NOT_RUN**, and source reconstruction **NOT_STARTED**.
+- M06 status = **STATIC_WORKER_CONTRACT_AUDITED_LIVE_PARITY_DEFERRED**.
+- M06 artifacts: `docs/rao/M06_WORKER_LIFECYCLE_FLOW.md`, `docs/rao/M06_MODEL.json`, `docs/rao/M06_STATIC_EVIDENCE.tsv`, `docs/tasks/M06.md`.
+
+## POST-M06 CODE/BUILD RECHECK
+- No application source, build script, or GitHub Actions workflow was introduced or modified.
+- The seven forensic scripts under `tools/` remain the only Python executable-code sources on main.
+- Product build **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED** — not a claimed PASS.
+
+## BLOCKERS
+- Exact `_gen` increment/comparator and stale Tk callback ordering are not directly reconstructed.
+- Bottom-button repeat/reentrancy behavior remains unknown despite `_start_all_busy` evidence.
+- Exact in-flight send/echo cancellation, thread join behavior, multiple-slot partial-stop UI state, and HWND/PID race ordering require deeper evidence or Windows runtime.
+
+## DO_NOT_TOUCH
+- Preserve Phase M01–M05 Rao contracts: channel IDs, 30s default, per-slot timings, name-keyed persistence and live edits.
+- Preserve permission checks; no bypass.
+- No global Rao stop-all behavior may be invented from the `Bắt đầu` button.
+- No Stage-S source/EXE placeholders and no unrelated UI changes.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md and STATE.md.
+2. Check GitHub for M07 artifacts and recent commits; do not redo if complete.
+3. Execute **M07 — Rao parity/reconstruction handoff** only: reconcile M01–M06 message/channel/interval/account/worker contracts into one evidence-tiered reconstruction contract plus an acceptance matrix distinguishing static checks, Windows live tests and explicit unknowns.
+4. Recheck exact frozen EXE evidence where needed; only after that compare Rao screenshots.
+5. Persist M07 report/model/parity matrix/task, update STATE.md and PROJECT_STATUS.md.
+6. Recheck code/build status; do not claim build until Stage-S reconstructed application source and Stage-T workflow exist.

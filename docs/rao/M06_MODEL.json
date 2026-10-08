@@ -1,0 +1,86 @@
+{
+  "task": "M06",
+  "status": "STATIC_WORKER_CONTRACT_AUDITED_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "github_head_before": "eedf0a1f31fc27ae4b63b582b1967785a70d8037",
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module": "rao_tab",
+    "class": "RaoTab"
+  },
+  "entry_points": {
+    "bottom_label": "Bắt đầu",
+    "bottom_thread_dispatch": "threading.Thread(_start_all_accs),daemon",
+    "account_button_initial": "▶",
+    "account_toggle": "_toggle_single_acc",
+    "account_dispatch_thread": true,
+    "bulk_fields": [
+      "_bulk_set",
+      "_start_all_busy"
+    ]
+  },
+  "account_state": {
+    "identity": "HWND and expected PID",
+    "four_selection_slots": 4,
+    "row_fields": [
+      "_stop_event",
+      "_gen",
+      "_slot_running",
+      "rao_vars"
+    ],
+    "running_rule": "any active slot",
+    "stopped_label": "Đã dừng",
+    "running_label_pattern": "Đang rao <n>/4 nhóm...",
+    "active_button_label": "Dừng lại",
+    "ui_update": "_ui / Tk main-thread marshal"
+  },
+  "workers": {
+    "slot_loop": "_slot_loop(self,hwnd,slot,gen)",
+    "slot_independent": true,
+    "slot_start": "_start_slot",
+    "start_requires_valid_definition": true,
+    "slot_stop": "_stop_slot",
+    "per_account_stop": "_stop_acc",
+    "per_account_stop_all_its_slots": true,
+    "send": "memory_items.send_chat",
+    "send_first": true,
+    "wait": "_stop_event.wait(max(... interval ...))",
+    "echo": "verify_chat_echo",
+    "window_validation": true,
+    "per_slot_generation_field": true,
+    "interval_live_change": "next loop only"
+  },
+  "permission": {
+    "action_guard": "has_permission_with_limit(rao_tab,rao)",
+    "account_no_permission_state": "Không có quyền rao",
+    "bulk_warning": "Không có quyền rao (rao_tab) hoặc vượt giới hạn acc."
+  },
+  "bulk_start": {
+    "bottom_action": "_start_all_accs",
+    "only_rows_with_selected_content": true,
+    "skip_unassigned": true,
+    "exact_global_stop_action": "NOT_RECOVERED",
+    "repeat_click_policy": "EXPLICIT_UNKNOWN"
+  },
+  "screenshot": {
+    "checked_after_binary": true,
+    "account_rows_visible": 0,
+    "active_worker_state_visually_testable": false
+  },
+  "runtime": {
+    "packaged_log_rao_markers": 0,
+    "package_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "live_windows_test": "NOT_RUN",
+    "application_build": "NOT_APPLICABLE_STAGE_S_NOT_STARTED"
+  },
+  "unknowns": [
+    "slot generation exact checks/updates",
+    "concurrent active-slot state paint",
+    "bulk reentry/second press semantics",
+    "in-flight send cancellation",
+    "stale HWND/PID cleanup order",
+    "thread joining/timing",
+    "runtime echo and scheduling jitter"
+  ],
+  "next_task": "M07 — Rao parity/reconstruction handoff"
+}

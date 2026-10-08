@@ -1,0 +1,45 @@
+key	offset_hex	confidence	evidence
+authority_zip_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd
+authority_inner_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+constructor_bulk_set	0x2bd790d	EXACT_STATIC	_bulk_set
+constructor_bulk_busy	0x2bd7918	EXACT_STATIC	_start_all_busy
+bottom_start_label	0x2bd7f20	EXACT_STATIC_UTF8	Bắt đầu
+bulk_thread_surface	0x2bd802a	EXACT_STATIC	threading/Thread/_start_all_accs/target/daemon/start
+slot_loop_row_gen	0x2bd8556	EXACT_STATIC	row/_gen/_slot_running/slot/_is_window_alive/hwnd/_pid
+slot_loop_stop_reason	0x2bd85a6	EXACT_STATIC_UTF8	Cửa sổ đã đóng
+slot_send	0x2bd85ff	EXACT_STATIC	MI/send_chat
+send_exception	0x2bd8625	EXACT_STATIC_UTF8	slot: send_chat EXC
+slot_echo_probe	0x2bd8676	EXACT_STATIC	verify_chat_echo
+echo_exception	0x2bd8688	EXACT_STATIC_UTF8	echo check EXC
+echo_missing	0x2bd869f	EXACT_STATIC_UTF8	không echo
+send_failure	0x2bd86af	EXACT_STATIC_UTF8	lỗi gửi
+slot_interruptible_wait	0x2bd86bf	STRONG_STATIC	_stop_event/wait/max/_ui_after_stop
+slot_loop_doc	0x2bd86e7	EXACT_STATIC_DOC	Independent slot loop; send then wait; maximum four parallel per account
+stop_slot_doc	0x2bd87a6	EXACT_STATIC_DOC	Dừng 1 slot (rao bị xóa/lỗi giữa chừng).
+tk_main_thread_doc	0x2bd8963	EXACT_STATIC_DOC	Chạy fn trên main thread (Tkinter cấm chạm widget từ thread phụ).
+row_play_button	0x2bd8b89	EXACT_STATIC_UTF8	▶
+row_initial_status	0x2bd8c87	EXACT_STATIC_UTF8	Đã dừng
+row_event_gen	0x2bd8d65	EXACT_STATIC	Event / _gen
+row_toggle_thread	0x2bd8dd7	EXACT_STATIC	_toggle_single_acc/target/args/daemon
+permission_limit	0x2bd919f	EXACT_STATIC	has_permission_with_limit / rao_tab / rao
+set_state	0x2bd9215	EXACT_STATIC	lbl_state via nested _set_state callback
+any_slot_running_doc	0x2bd9250	EXACT_STATIC_DOC	True nếu acc còn ít nhất 1 nhóm đang chạy.
+after_stop	0x2bd9286	EXACT_STATIC	_ui_after_stop / _paint_stopped / genexpr
+account_stop_doc	0x2bd9318	EXACT_STATIC_DOC	Dừng tất cả nhóm đang chạy của 1 acc.
+start_slot_doc	0x2bd937c	EXACT_STATIC_DOC	Bật 1 nhóm (slot) nếu nội dung hợp lệ. Trả True nếu đã bật.
+toggle_permission_denial	0x2bd940d	EXACT_STATIC_UTF8	Không có quyền rao
+toggle_start_stop	0x2bd9425	EXACT_STATIC	_stop_acc / clear / _start_slot / started
+toggle_no_selection	0x2bd944d	EXACT_STATIC_UTF8	Chưa chọn nội dung rao
+toggle_running_state	0x2bd9479	EXACT_STATIC_UTF8	Đang rao ... /4 nhóm...
+toggle_stop_label	0x2bd9494	EXACT_STATIC_UTF8	Dừng lại
+bulk_warning	0x2bd94cb	EXACT_STATIC_UTF8	Không có quyền rao (rao_tab) hoặc vượt giới hạn acc.
+bulk_doc	0x2bd9547	EXACT_STATIC_DOC	Bắt đầu rao mọi acc đã chọn nội dung (bỏ qua acc chưa chọn).
+slot_loop_locals	0x2bda43d	EXACT_STATIC_MAPPING	self,hwnd,slot,gen,MI,row,_running,want,resolved,reason,content,interval,chan_id,chan_name,ok,stamp,hit
+account_running_rule	-	STATIC_DOC	_any_slot_running any slot; not all 4
+stop_during_wait	-	STRONG_STATIC_SEMANTIC	Event.wait supports interruption; in-flight send not proven interruptible
+bulk_second_click	-	EXPLICIT_UNKNOWN	start_all_busy exists but no exact repeat-click behavior proof
+slot_gen_comparator	-	EXPLICIT_UNKNOWN	_gen is present but exact increment/compare not source-visible
+single_slot_ui_races	-	EXPLICIT_UNKNOWN	partial stop while sibling is active needs runtime
+loss_of_hwnd_order	-	RUNTIME_REQUIRED	row cleanup/callback/thread order not proven
+live_runtime_trace	-	NOT_RUN	packaged log contains no Rao traces; no Windows game execution
+build_status	-	NOT_APPLICABLE	no reconstructed source or build workflow on main
