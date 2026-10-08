@@ -613,3 +613,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - No reconstructed application source or Windows build pipeline exists yet; build remains blocked pending implementation.
 - Previous completed research and project scope remain unchanged.
 - NEXT_ACTION: P07 — audit original emulator remote service protocol and runtime boundaries.
+
+
+## P07 — Emulator HTTP remote research checkpoint
+- P07 compiled EXE/AutoX script static authority verified: 34/34 exact symbol-offset checks, 10/10 JS token checks, original SHA/CRC PASS; 72 evidence records and 33 deferred runtime acceptance tests.
+- Original emu_remote optional ThreadingHTTPServer listens 0.0.0.0:8765 default with token tlm, socket peer IPv4 serial selection, emu_tab permission/limit references. Six GET and seven POST route contracts documented. GET auth coverage and actual network security unverified; no listener started.
+- /emu_goto accepts asynchronous work (not arrived); /emu_farm_toggle original engine ACK-only. AutoX ld_remote.js post() returns local ok:true on nonthrowing postJson/body read without parsing server ok or status code. UI train/move confirmation may not represent game success.
+- Added docs/emulator/P07_REMOTE_AUTH_ENDPOINTS.md, P07_MODEL.json, P07_STATIC_EVIDENCE.tsv, docs/tasks/P07.md. Prior stages/PLAN untouched, Proxy excluded.
+- Build status BUILD_BLOCKED_SOURCE_MISSING: app reconstruction and Windows workflow absent, no product EXE or runtime parity test.
+- NEXT_ACTION P08 — debug_android_tab developer-only capture/viewport/Frida/remote workbench audit.
