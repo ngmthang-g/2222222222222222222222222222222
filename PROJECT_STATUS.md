@@ -648,3 +648,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Artifacts docs/source/S01_BOOTSTRAP.md, S01_MODEL.json, docs/tasks/S01.md and source/test files committed. Frozen ZIP, PLAN, prior research, Proxy exclusion preserved.
 - **CURRENT BLOCKER SOURCE_PARTIAL_APP_STARTUP_BLOCKED_INFO_AUTH_AND_WINDOWS_BUILD_WORKFLOW_MISSING** — genuine source exists but no end-to-end app/EXE build. Do not report old SOURCE_MISSING as current.
 - **NEXT_ACTION S02 — InfoTab/auth permission_guard real minimal service, original source evidence first, fail-closed tests.**
+
+
+## S02 — Auth state source slice / optional game client DATA lookup
+- Continuation from S01: current GitHub and original EXE info/permission modules audited. User-authorized data client repo (ngmthang-g/clinent-game-than-long-DATA-2222) README/bootstrap/router consulted READ-ONLY; TLM license server claims are not inferred from game client data.
+- Added src/permission_guard.py and src/info_state.py with verified-token adapter boundary, deny-by-default snapshot, dev/banned/version/expiry/limit gates, Info change callback. src/shell.py add root.after(0, ...) for UI permission updates. No token signature or endpoint faked; src/TLMTool.py still intentionally exits 2.
+- Tests PASS: combined Python source compileall and **15/15** headless tests (S01 7 + S02 8). Real Windows InfoTab/heartbeat/HTTP/auth and GUI/EXE not tested.
+- Artifacts: docs/source/S02_AUTH_STATE.md, S02_MODEL.json, docs/tasks/S02.md, tests/test_s02.py. Original ZIP, PLAN and completed research unchanged; no Proxy implementation.
+- S02 status SOURCE_PARTIAL_AUTH_VERIFIER_INFO_UI_FEATURES_AND_WINDOWS_BUILD_MISSING. Original default FREE permissions + heartbeat grace unknown, so conservative denial is explicitly partial parity, not original exact behavior. Stage-T build still missing.
+- NEXT_ACTION S03 — recover genuine InfoTab token verification/RPC/FREE and heartbeat contract, then implement only evidenced read-only Info UI controller/tests; user client DATA permitted only for client-specific unknowns.
