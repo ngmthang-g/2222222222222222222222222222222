@@ -4926,3 +4926,80 @@ On CONTINUE:
 7. Defer full slot start/stop ownership to M06 except where assignment edits directly stop/restart a slot.
 8. Cross-check supplied Rao screenshot only after static extraction.
 9. Persist M05 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M05 verification.
+
+
+## M05 VERIFIED RESULTS
+- User explicitly asked to check GitHub first and skip anything already correct. GitHub was re-checked before M05: `main` HEAD was **5e884a36d59bdd13dcb689aa0e9fa0aaac26f245**, M01-M04 were complete, M05 was still NEXT, and **no M05 artifacts/task existed**. No completed Rao work was repeated.
+- Exact frozen archive was revalidated again: ZIP SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`.
+- Rao runtime account identity and persistence identity are separate:
+  - live row registry uses **HWND + expected PID**;
+  - persisted account assignment uses the **real sanitized character name**.
+- `_sanitize_name` exact documentation is **Loại bỏ HTML tags khỏi tên nhân vật.** with current pattern `<[^>]+>`. `RoleName` is the real character-name source. No lower/casefold normalization surface was recovered.
+- The account path has an explicit temporary pseudo-name prefix **Window **. `load_acc_config` contains `startswith("Window ")`, so this fallback is not a normal persistent restore identity.
+- Persistent key format is frozen as **[Rao] acc_<real sanitized character name>**. No HWND/PID suffix belongs to the persistent key.
+- Each account owns exactly **4 Rao-selection slots**. Exact load documentation: **Khôi phục 4 combobox nội dung rao đã lưu theo tên nhân vật. Chỉ áp tên rao còn tồn tại. Trả True nếu đã áp ít nhất 1 slot.**
+- Save/load surfaces (`cname/_vals/_v`, `json.dumps`, `raw/vals/parsed`, `json.loads`, literal 4 and four `rao_vars`) establish one **ordered JSON list of four Rao display-name strings** under the single `acc_<name>` key.
+- Slot order is positional 1→4. No separate `acc_<name>_1..4` family was recovered. No uniqueness guard between the four selected Rao names was recovered.
+- `_on_rao_var_changed` exact documentation: **Trace combobox nội dung rao: đánh dấu user đổi + lưu setting.** Manual account assignment edits therefore mark the row user-touched and persist current selections.
+- M02's family boundary remains valid: `rao_` definitions and `acc_` account assignments coexist independently under `[Rao]`; message-definition rewrites do not replace the whole section.
+- M02's unresolved immediate stale-name behavior was narrowed in M05. `_refresh_acc_rao_options` has current `names/row/cb/var/cur` locals plus an exact empty-string constant and documentation **Đổ lại combobox nội dung rao của mọi acc theo danh sách tên hiện tại.** A selected Rao name that is no longer in the current definition universe is therefore **cleared from the live account combobox**.
+- Rename/delete does **not** propagate old name to new name: no alias table or row UUID exists. `Rao X -> Rao Y` makes the old `Rao X` reference stale and it is cleared.
+- Exact disk-save timing of this automatic stale clear remains **EXPLICIT_UNKNOWN** because the `prev` local is consistent with temporary trace/save suppression during option refresh. Later reload is safe because `load_acc_config` only restores names that still exist.
+- Row state includes both `_has_real_name` and `_rao_touched`. In the add/update path these sit directly beside delayed RoleName resolution and `load_acc_config`; the frozen semantic boundary is that late real-name config restore must not overwrite a row the user already edited manually.
+- Exact boolean statement ordering for `_has_real_name/_rao_touched` remains unknown and is not invented.
+- Same HWND reused by a different PID is explicitly treated as a dead old process. Exact log surface: **[Rao] hwnd=... đổi process (pid ... → ...) — cửa sổ cũ đã mất, tạo lại row mới**. Rao uses bind/unbind window identity and recreates the runtime row.
+- Exact stale-row documentation: **Xóa acc của window đã đóng HOẶC đã đổi process (HWND tái sử dụng).**
+- Because persistence is real-name keyed and the Rao section is not replaced with only current live accounts, a disappeared account's saved `acc_<name>` assignment remains available. When the same real character reappears in a new window/PID, the fresh row can restore its four slots by name.
+- Duplicate real character names are separate live HWND/PID rows but **not** separate persistence identities. No Rao HWND suffix/disambiguator was recovered; both map to the same `acc_<name>` key. Exact save winner if their assignments differ remains **EXPLICIT_UNKNOWN**.
+- Editing a slot's Rao assignment while that slot is already running does not have a recovered forced restart surface. Combined with M04's per-loop re-resolution:
+  - current in-progress wait is not rescheduled;
+  - next loop reads the new selected Rao name;
+  - a valid new name changes subsequent content/channel/interval;
+  - blank/stale/invalid new name fails closed and the slot stops on the next resolution.
+- Exact state-label/worker shutdown timing belongs to M06.
+- Supplied Rao screenshot contains no account rows, so M05 account behavior is EXE-static evidence rather than inferred from an empty capture.
+- Frozen packaged `automove_log.txt` remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`; correlated Rao assignment/window traces are **0**, so live PID/refresh races are not fabricated.
+- M05 artifacts committed at **b417cb3da063422a1ba0a4353bc9cc18615b32a0**:
+  - `docs/rao/M05_ACCOUNT_ASSIGNMENT_FLOW.md`
+  - `docs/rao/M05_MODEL.json`
+  - `docs/rao/M05_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/M05.md`
+- All four M05 artifacts were fetched back successfully.
+
+## POST-M05 CODE/BUILD RECHECK
+- Recursive main tree after M05 artifact commit contains **685 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- M05 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- M05 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- Exact malformed/non-list account JSON fallback remains source-insufficient.
+- Exact same-callback disk-save timing of automatic stale-selection clearing remains source-insufficient.
+- Duplicate-character-name persistent collision winner remains source-insufficient.
+- Exact `_has_real_name/_rao_touched` mutation order remains source-insufficient.
+- Live window-disappearance worker/state timing is intentionally deferred to M06.
+
+## DO_NOT_TOUCH
+- Preserve M01-M05 Rao authority/storage/channel/interval/account-assignment contracts unless stronger exact evidence contradicts them.
+- Keep runtime row identity HWND/PID separate from persistent real-character-name identity.
+- Do not add HWND/PID suffixes to current Rao `acc_<name>` persistence.
+- Preserve exactly four ordered account Rao slots and JSON-list semantics.
+- Preserve immediate live stale-selection clearing without inventing old→new rename propagation.
+- Do not guess duplicate-name collision winner or stale-clear disk timing.
+- Do not force a worker restart for a valid live assignment edit unless M06 exact evidence contradicts the next-cycle model.
+- Do not create Stage-S source/build placeholders during Phase M research.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any M06 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **M06 — Rao start/stop worker audit** only.
+5. Re-inspect the exact frozen Rao block first, focusing on `_slot_loop`, `_stop_slot`, `_set_state`, `_any_slot_running`, `_ui_after_stop`, `_paint_stopped`, `_stop_acc`, `_start_slot`, `_toggle_single_acc`, `_start_all_accs`, row `_state`, `_stop_event`, per-slot generation/running state, account play button, permission limit guard, window/PID loss, and thread ownership.
+6. Determine exact per-slot start/stop ownership, account ▶/stop toggle semantics, start-all inclusion/exclusion, slot-generation stale-worker guard, state text/color transitions, what happens when one of four slots fails, when the account is considered running/stopped, handling of window/PID loss, permission failure, and stop behavior during interval wait/send.
+7. Preserve M01-M05 message/channel/interval/account-assignment contracts; do not reopen them unless direct contradiction appears.
+8. Cross-check screenshots/runtime only after static extraction.
+9. Persist M06 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after M06 verification.
