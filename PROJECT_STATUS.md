@@ -452,3 +452,13 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Files: `docs/toiuu/N01_AUTHORITY_UI_FLOW.md`, `docs/toiuu/N01_AUTHORITY_MODEL.json`, `docs/toiuu/N01_STATIC_EVIDENCE.tsv`, `docs/tasks/N01.md`.
 - Stage-S product source and Stage-T build workflow absent; build NOT_APPLICABLE_YET.
 - **NEXT N02 — CPU monitoring sample/history/redraw audit**, EXE-first; leave GPU N03.
+
+
+## N02 — Tối ưu CPU sampling/history/redraw
+- **STATIC_CPU_SAMPLE_HISTORY_REDRAW_AUDITED_WITH_EXPLICIT_TIMER_UNCERTAINTY / LIVE_RUNTIME_DEFERRED** (frozen EXE `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`).
+- Tab chart uses guarded psutil CPU sampling; `deque(maxlen=GRAPH_HIST)`, per-series `_cpu_hist`; main-thread `_schedule_redraw/_redraw_graphs` and Canvas lines/grid.
+- Original doc “Sample 1s/lần”; exact EXE also has `GRAPH_TICK_MS`, `sleep`, numeric tagged 750/64 and double 1000.0. These numerical mappings are not decompiled; exact tick/history remain UNKNOWN, not invented.
+- `cpu_monitor.CPUMonitor` psutil high-CPU warning is a separate service, not the chart. Reused B11 screenshot CPU 15%/blue plot only for static visual crosscheck.
+- Artifacts: `docs/toiuu/N02_CPU_SAMPLE_REDRAW_FLOW.md`, `docs/toiuu/N02_MODEL.json`, `docs/toiuu/N02_STATIC_EVIDENCE.tsv`, `docs/tasks/N02.md`.
+- Stage-S reconstructed app/build workflow absent; Windows functional parity NOT_RUN.
+- **NEXT N03 — GPU collection / nvidia-smi failure and chart integration audit.**

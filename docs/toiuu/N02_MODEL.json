@@ -1,0 +1,108 @@
+{
+  "task": "N02",
+  "status": "STATIC_CPU_SAMPLE_HISTORY_REDRAW_AUDITED_WITH_EXPLICIT_TIMER_UNCERTAINTY_LIVE_RUNTIME_DEFERRED",
+  "authority": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "header_offset": "0x2c01fb5",
+    "module": "toiuu_tab",
+    "class": "ToiuuTab",
+    "source_python_recovered": false
+  },
+  "sampler": {
+    "backend": "psutil.cpu_percent",
+    "signature": "interval=None",
+    "signature_confidence": "STRONG_STATIC_LOCAL_NOT_SOURCE_AST",
+    "availability_guard": "HAS_PSUTIL_TOIUU",
+    "loop_method": "_sample_loop",
+    "bootstrap": "_start_graphs",
+    "worker_sample_doc": "Sample 1s/lần (thread phụ) + vẽ lại (main thread).",
+    "sampling_period_measured": false
+  },
+  "timing": {
+    "tick_symbol": "GRAPH_TICK_MS",
+    "sleep_symbol": true,
+    "milliseconds_conversion_double": 1000,
+    "module_integer_constants": [
+      {
+        "value": 750,
+        "offset": "0x2c0612d",
+        "variable_mapping": "UNPROVEN"
+      },
+      {
+        "value": 64,
+        "offset": "0x2c06130",
+        "variable_mapping": "UNPROVEN"
+      }
+    ],
+    "doc_one_second": true,
+    "exact_tick_milliseconds": "EXPLICIT_UNKNOWN",
+    "documented_seconds_vs_candidate_750ms": "POSSIBLE_CONFLICT_UNRESOLVED"
+  },
+  "history": {
+    "type": "collections.deque",
+    "maxlen_keyword": true,
+    "symbol": "GRAPH_HIST",
+    "cpu_field": "_cpu_hist",
+    "gpu_field": "_gpu_hist",
+    "numeric_capacity": "EXPLICIT_UNKNOWN"
+  },
+  "draw": {
+    "scheduler": "_schedule_redraw",
+    "renderer": "_redraw_graphs",
+    "formatter": "_fmt_pct",
+    "primitive": "_draw_one",
+    "Tk_thread_doc": true,
+    "canvas_commands": [
+      "delete",
+      "create_line"
+    ],
+    "percentage_formatter": ".0f",
+    "unavailable_label": "--%",
+    "guide_fractions": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "percentage_bound_float": 100,
+    "other_local_int_200_role": "UNPROVEN",
+    "palette": {
+      "cpu": "#1565c0",
+      "grid": "#e0e0e0",
+      "border": "#bbbbbb"
+    },
+    "graph_id": "_graph_id",
+    "close_guard": "_closing",
+    "graph_specific_after_cancel_sequence": "EXPLICIT_UNKNOWN"
+  },
+  "separated_service": {
+    "module": "cpu_monitor",
+    "class": "CPUMonitor",
+    "role": "high CPU warning psutil service NOT tab graph"
+  },
+  "screenshot": {
+    "baseline": "B11",
+    "cpu_text": "CPU: 15%",
+    "gpu_text": "GPU: N/A (không có nvidia-smi)",
+    "dynamic_sample_rate_inferable": false
+  },
+  "acceptance": {
+    "case_count": 12,
+    "all": "NOT_RUN_STAGE_S_NOT_STARTED"
+  },
+  "unknowns": [
+    "Exact tick assignment: documented 1s versus candidate 750",
+    "GRAPH_HIST exact numeric assignment",
+    "psutil missing/error/None sample behavior",
+    "Timer/UI redraw coalescing and cancellation order",
+    "Exact CPU formatting/graph pixel math",
+    "Live accuracy, history/cadence, thread-safety"
+  ],
+  "product": {
+    "app_source_exists": false,
+    "workflow_exists": false,
+    "build": "NOT_APPLICABLE_STAGE_S_NOT_STARTED",
+    "windows_runtime": "NOT_RUN"
+  },
+  "next_action": "N03 — GPU collection / nvidia-smi failure and chart integration audit"
+}

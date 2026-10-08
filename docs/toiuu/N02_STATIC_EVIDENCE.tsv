@@ -1,0 +1,48 @@
+key	offset_hex	evidence_tier	original_exe_or_prior_baseline_fact
+archive_zip	-	EXACT_SHA256	Frozen 1050-entry TLMTool_2.1.2(9).zip; full CRC test returned None
+inner_exe	-	EXACT_SHA256	Inner TLMTool.dist/TLMTool.exe 47450112 bytes
+toiuu_module_header	0x2c01fb5	EXACT_BINARY	Serialized .toiuu_tab, payload 22485 bytes, 940 constants; N01 authority reused
+sample_bootstrap	0x2c02249	EXACT_SYMBOL	_start_watch then _start_graphs referenced during ToiuuTab construction
+graph_hist_ctor_deque	0x2c02444	EXACT_SYMBOL	deque, GRAPH_HIST, maxlen, _cpu_hist, _gpu_hist in graph UI-construction constant cluster
+cpu_history_field	0x2c02461	EXACT_SYMBOL	_cpu_hist
+gpu_history_field	0x2c0246c	EXACT_SYMBOL	_gpu_hist; GPU consumption deferred to N03
+gpu_available_state	0x2c02477	EXACT_SYMBOL	_gpu_avail variable
+cpu_initial_text	0x2c02485	EXACT_UTF8	CPU: --%
+cpu_label_color	0x2c024a3	EXACT_UTF8	#1565c0
+graph_canvas_class	0x2c024d1	EXACT_SYMBOL	tk Canvas and GRAPH_H symbol
+canvas_border_color	0x2c024e2	EXACT_UTF8	#bbbbbb
+cpu_canvas_ref	0x2c02522	EXACT_SYMBOL	cv_cpu
+draw_scheduler_id	0x2c02570	EXACT_SYMBOL	_graph_id
+cpu_sampler_has_psutil	0x2c036cf	EXACT_SYMBOL	HAS_PSUTIL_TOIUU guard
+cpu_percent_primitive	0x2c036e1	EXACT_SYMBOL	cpu_percent
+cpu_percent_none_interval	0x2c036ed	STRONG_STATIC_LOCAL	T1 None plus T1 interval directly adjacent cpu_percent; supports nonblocking psutil.cpu_percent(interval=None), not AST proof
+sample_worker	0x2c036fd	EXACT_SYMBOL	_sample_loop directly after cpu_percent initialization surface
+redraw_scheduler	0x2c0370b	EXACT_SYMBOL	_schedule_redraw
+worker_doc	0x2c0371d	EXACT_UTF8_DOC	Sample 1s/lần (thread phụ) + vẽ lại (main thread).
+time_sleep	0x2c0389a	EXACT_SYMBOL	sleep adjacent GRAPH_TICK_MS/1000.0 numeric surface in sample-loop constant region
+graph_tick_symbol	0x2c038a1	EXACT_SYMBOL	GRAPH_TICK_MS
+ms_conversion	0x2c038b0	EXACT_BINARY_DOUBLE	Tagged float 1000.0; consistent with milliseconds->seconds conversion
+module_value_750	0x2c0612d	EXACT_BINARY_INTEGER	Tagged varint 0xEE 0x05 = 750 in module constant region; exact binding to GRAPH_TICK_MS is unproven
+module_value_64	0x2c06130	EXACT_BINARY_INTEGER	Tagged integer 0x40 = 64 in module constant region; exact association with GRAPH_H/GRAPH_HIST unproven
+graph_tick_ambiguity	-	EXPLICIT_UNKNOWN	Embedded doc says 1s per sample; module numeric 750 and GRAPH_TICK_MS suggest a different interval; never assert measured 1s or hardcode 750ms before binding proven
+redraw_method	0x2c038bb	EXACT_SYMBOL	_redraw_graphs
+format_unknown_placeholder	0x2c038cb	EXACT_UTF8	--% placeholder for unavailable percentage
+format_0f	0x2c038d0	EXACT_UTF8	.0f numeric percent format string
+graph_clear	0x2c038d8	EXACT_SYMBOL	delete (Canvas clear)
+graph_value_200	0x2c038df	EXACT_BINARY_INTEGER	Tagged 200 in draw-local constants; exact role/geometry not source-proven
+guide_fractions	0x2c038e4	EXACT_BINARY_FLOATS	Three tagged doubles 0.25, 0.5, 0.75 in drawing surface
+line_creation	0x2c03900	EXACT_SYMBOL	create_line Canvas primitive
+grid_color	0x2c0390e	EXACT_UTF8	#e0e0e0
+min_ymax	0x2c03916	EXACT_SYMBOL	min followed by tagged double 100.0 at 0x2c0391c; percentage-range bound
+redraw_label_cpu	0x2c03937	EXACT_UTF8	CPU: label prefix, followed by _fmt_pct
+pct_formatter	0x2c0393e	EXACT_SYMBOL	_fmt_pct
+shared_drawer	0x2c03973	EXACT_SYMBOL	_draw_one
+ui_thread_marshalling	0x2c048af	EXACT_UTF8_DOC	Chạy fn trên main thread (Tkinter cấm chạm widget từ thread phụ).
+stop_refresh_cancel	0x2c03547	EXACT_SYMBOL	after_cancel observed in tab refresh; graph-specific cancellation order not proven
+closing_field	0x2c02053	EXACT_SYMBOL	_closing lifecycle flag; exact redraw cancellation behavior unknown
+psutil_module_import	0x2c06125	EXACT_SYMBOL	Module-level psutil import surface
+cpu_monitor_separate	0x28d82e9	EXACT_BINARY	Separate .cpu_monitor module, 2019 bytes, 127 constants, original N01 evidence
+warning_cpu_string	0x28d841e	EXACT_UTF8	High-CPU warning label belongs to separate cpu_monitor service
+cpu_visual_b11	-	REUSED_VERIFIED_VISUAL	Tối ưu screenshot 452x1032, CPU: 15%, blue fluctuating plot, graph interior and grid; not a runtime timing measurement
+gpu_visual_b11	-	REUSED_VERIFIED_VISUAL	GPU N/A with empty GPU plot in same screenshot, N03 owns GPU-reading interpretation
+windows_runtime	-	NOT_RUN	No Windows/game or reconstructed source; plotted waveform functional parity not tested

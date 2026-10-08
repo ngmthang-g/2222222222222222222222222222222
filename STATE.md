@@ -5101,3 +5101,32 @@ On CONTINUE:
 3. Keep `cpu_monitor.CPUMonitor` high-CPU warning distinct from Tối ưu plotted history. GPU reader is N03, detached view N04, native apply N05 onward.
 4. Compare B11 screenshot after static evidence; never infer unseen populated rows.
 5. Persist N02 model/evidence/task, update STATE.md/PROJECT_STATUS.md, recheck source/build without claiming running parity.
+
+
+## N02 VERIFIED RESULTS — CPU SAMPLING / GRAPH HISTORY / REDRAW
+- Re-read PLAN.md/STATE.md/PROJECT_STATUS.md, checked GitHub main HEAD `bddfbcb8a20641b3b53c1abee45a4273552f24d6` and confirmed N02 absent before work. N01/B11 artifacts were reused unchanged.
+- Original frozen uploaded ZIP SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`; ZIP CRC clean, 1,050 entries.
+- ToiuuTab original graph path statically recovered: `HAS_PSUTIL_TOIUU`, `cpu_percent`, `interval=None`-like local signature, `_sample_loop`, `_schedule_redraw`, `_redraw_graphs`, `_fmt_pct`, `_draw_one`, `Canvas.delete/create_line`.
+- Original doc states **“Sample 1s/lần (thread phụ) + vẽ lại (main thread).”** Worker-to-Tk separation is recorded, no live timing is claimed.
+- Bounded graph history uses `deque(maxlen=GRAPH_HIST)` family with distinct `_cpu_hist` and `_gpu_hist`.
+- Crucial unresolved timer detail: original EXE stores `GRAPH_TICK_MS`, `sleep`, double 1000.0 and separately tagged numeric values 750 and 64. Exact variable assignment was not decompiled; **documented 1s vs candidate 750ms remains EXPLICIT_UNKNOWN**. Exact `GRAPH_HIST` buffer size also UNKNOWN. Never silently bind these values.
+- Plotting primitives `delete`, `create_line`, `.0f`/unavailable `--%`, grid fractions 0.25/0.5/0.75, bound 100.0, CPU #1565c0 and guide grid #e0e0e0 recovered. B11 visual baseline (CPU 15%, blue line) cross-checked only after binary review.
+- Separate `cpu_monitor.CPUMonitor` high-CPU warning intentionally NOT merged into Tối ưu graph; GPU deep reader remains N03.
+- N02 status **STATIC_CPU_SAMPLE_HISTORY_REDRAW_AUDITED_WITH_EXPLICIT_TIMER_UNCERTAINTY / LIVE_RUNTIME_DEFERRED**.
+- Artifacts: `docs/toiuu/N02_CPU_SAMPLE_REDRAW_FLOW.md`, `docs/toiuu/N02_MODEL.json`, `docs/toiuu/N02_STATIC_EVIDENCE.tsv`, `docs/tasks/N02.md`.
+
+## POST-N02 CODE/BUILD RECHECK
+- Documentation/status files only. No product source, launcher, workflow or previous implementation code altered.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, no live Windows result or runtime PASS asserted.
+
+## N02 BLOCKERS / DO_NOT_TOUCH
+- Exact GRAPH_TICK_MS assignment (1s documentation vs potential 750ms), history length, CPU-error sample policy, render/update coalescing and close races require source-level or live instrumentation. Never mark DONE for functionality based solely on UI/evidence.
+- Preserve A–M, B11, N01 and original executable; Proxy remains explicitly outside development scope.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md and STATE.md; check GitHub first for N03 artifacts and skip if already verified.
+2. Execute **N03 — GPU collection / nvidia-smi failure and chart integration audit** only. Inspect exact frozen `toiuu_tab._read_gpu` original EXE block: command argv, CREATE_NO_WINDOW, subprocess timeout, decode/CSV parse, missing executable, invalid values/None, GPU history availability, label and drawing.
+3. Preserve N02 CPU sampler; do not merge CPUMonitor; detached window belongs to N04; native TLMP belongs to N05+.
+4. Cross-check GPU N/A screenshot only after static analysis, not as proof of all GPU error paths.
+5. Persist N03 report/model/evidence/task, update STATE.md/PROJECT_STATUS.md and re-check source/build status.
