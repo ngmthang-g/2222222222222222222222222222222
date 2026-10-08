@@ -5446,3 +5446,20 @@ On CONTINUE reread PLAN.md/STATE.md, check GitHub docs/tasks/P03.md first. Execu
 
 ## NEXT_ACTION
 On CONTINUE read PLAN.md and STATE.md and confirm GitHub has not already completed P04. Execute **P04 — original `emu_chat` pure-UI chat-link navigation, [EmuChat] coordinate calibration, memory-backed map/tile destination verification and failure/recovery analysis** from original compiled EXE plus shipped JS first. Do not invent UI or replay completed P03. Create P04 report/model/evidence/task, update STATE.md/PROJECT_STATUS.md, recheck source/build and avoid Proxy.
+
+
+## P04 VERIFIED RESULTS — ORIGINAL EMU_CHAT CHAT-LINK GOTO AND MEMORY VERIFICATION
+- Read current PLAN.md/STATE.md/PROJECT_STATUS.md, confirmed GitHub docs/tasks/P04.md absent before execution, then used original archived EXE and shipped emu_client.js read-only. ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 entries CRC PASS), EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 (47,450,112 bytes), Frida JS SHA256 384ccee9a2ddf236db377fca3abd36cbc17df81a94a286551a749a3132d02db1 match prior frozen originals.
+- Compiled `emu_chat` module marker 0x293100c with serialized constants at 0x2930abd–0x293100b: original `goto` described pure UI chat-link `@GOTO_m_x_y` in TILE coordinates, steps open/focus/clear/type/dismiss keyboard/send/tap newly sent own link, verify movement/map change via EmuManager `poll_rows` MapID PosX PosY.
+- Original embedded docs say already within <=2 tiles => success without spamming chat; return (ok,msg), stuck 30s => failure, timeout/tap error outcomes. Exact default global timeout, arrival distance metric, stuck clock reset, retry/cancel/sleep order and Python source control-flow remain UNKNOWN. Not a successful live movement test.
+- `settings.ini [EmuChat]` calibration: chat_open_x/y, input_x/y, kb_ok_x/y, send_x/y, link_x/y; original DebugAndroidTab `_save_cfg` and step-wise goto workbench support. Numeric default positions and global vs per-device storage details unproven; do not guess from screenshots.
+- Distinct coordinate units: chat-link input is tile coordinates; shipped Frida JS `readAll` has raw PosX/PosY and X_UI=PosX>>5, Y_UI=PosY>>5. Actual EmuChat conversion between raw/shifted/tile units NOT recovered. Do not silently compare incompatible units.
+- Real compiled `emu_farm_tab` references `emu_chat.goto` (0x2932300..0x2932312) and docs say goto+memory verify, [EmuCoords:serial] presets, android_id keyed rows and [EmuFarm]/[TrainLD] fallback; critically original source text `farm cycle: phase sau` at 0x29320a3 indicates the main farm loop was deferred/partial, not a proven complete original feature.
+- P04 status **STATIC_EMU_CHAT_GOTO_COORDINATE_AND_MEMORY_VERIFICATION_AUDITED / LIVE_PARITY_DEFERRED**. Created docs/emulator/P04_EMU_CHAT_GOTO_CONTRACT.md, P04_MODEL.json, P04_STATIC_EVIDENCE.tsv (46 static records), docs/tasks/P04.md; 26 runtime acceptance cases listed, all NOT_RUN. No Windows/LD/game/ADB/Frida/proxy action executed.
+- Existing complete static research and original ZIP unchanged. Gate-S app source and Gate-T Windows build workflow still absent according to repo audit; only docs/checkpoints introduced: **BUILD_BLOCKED_SOURCE_MISSING**, NOT a compiler PASS/FAIL.
+
+## P04 BLOCKERS / SCOPE LOCK
+- Exact chat-text keyboard clearing/tapping behavior, per-device calibration, moving map IDs/position readiness, stale Frida readings, collision between android_ids, 30s stuck timing and overall timeout require Windows/game runtime. Train LD permission emu_tab/Debug Android dev-only unchanged. Proxy Phase Q not developed.
+
+## NEXT_ACTION
+On CONTINUE reread PLAN.md and STATE.md, check GitHub for existing P05 artifacts; execute **P05 — original emu_farm_tab Train LD UI and per-device account/preset management, permissions, button/worker wiring, actual implemented versus 'farm cycle: phase sau' stub/ACK**. First analyze original compiled EXE and packaged JS, preserve previous stages and avoid Proxy. Save P05 model/evidence/task, update STATE.md/PROJECT_STATUS.md and recheck Stage-S source/Stage-T build.
