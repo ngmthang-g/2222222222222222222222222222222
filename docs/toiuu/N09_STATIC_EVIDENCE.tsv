@@ -1,0 +1,85 @@
+key	offset_hex	evidence_level	recovered_fact_or_limit
+authority_zip	-	VERIFIED_FILE	ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd, 1050 entries, CRC test None
+authority_exe	-	VERIFIED_FILE	EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, size 47450112 bytes
+active_module	0x2c01fb5	N01_VERIFIED	Compiled ToiuuTab module, not Python source AST
+boot_timestamp	0x2c02023	EXACT_UTF8	_boot_ts field initialized alongside time symbol
+row_store	0x2c0202d	EXACT_UTF8	_acc_rows field
+closing_flag	0x2c02052	EXACT_UTF8	_closing
+running_monitor	0x2c0205c	EXACT_UTF8	_monitor_running
+try_counter	0x2c020e6	EXACT_UTF8	_reconcile_tries
+init_restore_hook	0x2c02287	EXACT_UTF8	_reconcile_stale_running scheduled in constructor context after graph/monitor initialization
+process_accessor	0x2c02afb	EXACT_UTF8	_get_pid_from_hwnd
+psutil_backend	0x2c02b0f	EXACT_UTF8	_psutil
+psutil_process	0x2c02b18	EXACT_UTF8	Process
+process_create_time	0x2c02b21	EXACT_UTF8	create_time
+before_boot_doc	0x2c02b2e	EXACT_DOC	True for game process started before tool opened and surviving tool kill
+fresh_boot_doc	0x2c02be7	EXACT_DOC	Game started after tool boot is fresh; should not be mistaken for stale optimization
+runtime_identity_changed	0x2c02c66	N07_VERIFIED	HWND different process PID triggers row recreation
+real_name_source	0x2c02d4d	N05_VERIFIED	RoleName and _has_real_name guard for stable character identity
+save_name_mode	0x2c03c3c	EXACT_UTF8	_farming_acc / name / _mode_key / data in saved session builder
+saved_format	0x2c03c65	EXACT_UTF8	json dumps + ensure_ascii
+running_key	0x2c03c82	EXACT_UTF8	toiuu_running persistent key
+prior_marker_key	0x2c03c98	EXACT_UTF8	toiuu_was_running, near pop; legacy marker semantics not source-proven
+save_error	0x2c03cab	EXACT_UTF8	[TOIUU] Save running set error:
+save_doc	0x2c03cce	EXACT_DOC	Persist running {name: mode_key} across tool kill; next startup red resume
+load_cfg	0x2c03d7c	EXACT_UTF8	cfg in load cluster
+load_running_key	0x2c03d83	EXACT_UTF8	toiuu_running read
+load_json	0x2c03d92	EXACT_UTF8	loads
+load_doc	0x2c03d9a	EXACT_DOC	Read interrupted prior running set; {} indicates none
+load_method	0x2c03df1	EXACT_SYMBOL	_load_running_set
+detect_prior_log	0x2c03e04	EXACT_UTF8	Prior session interrupted, restoring with count
+stale_worker_call	0x2c03e51	EXACT_SYMBOL	_reconcile_stale_worker
+stale_worker_doc	0x2c03e6a	EXACT_DOC	Once after tool launch, resume prior optimization session red rather than forget
+already_new_log	0x2c03f07	EXACT_UTF8	New running session in progress -> skip stale recovery
+ensure_rows	0x2c03f4f	EXACT_SYMBOL	_ensure_rows_loaded, prior N07 lazy scan worker
+scan_timeout_symbol	0x2c03f71	EXACT_UTF8	timeout keyword; numeric assignment not source-proof
+permission_checker	0x2c03f7a	EXACT_SYMBOL	_check_perm
+perm_namespace	0x2c03f89	EXACT_UTF8	toiuu
+resume_call	0x2c03f90	EXACT_SYMBOL	_resume_running_rows
+scan_incomplete	0x2c03fa8	EXACT_UTF8	No full scan completed: keep old saved session, retry after 30s
+save_running_again	0x2c03ffb	EXACT_SYMBOL	_save_running_set
+old_session_gone	0x2c04010	EXACT_UTF8	Previous game exited/restarted; start fresh when needed
+perm_attempt_log	0x2c04072	EXACT_UTF8	No permission (try N/5), retry after 60s
+permission_final	0x2c040d0	EXACT_UTF8	No optimization permission -> restore ordinary game config
+restore_targets	0x2c04123	EXACT_SYMBOL	_restore_targets
+restore_ui	0x2c04143	EXACT_UTF8	Đang khôi phục...
+restore_orange	0x2c0415a	EXACT_UTF8	#ef6c00
+restore_worker	0x2c04180	EXACT_SYMBOL	_stop_restore_single
+restore_join	0x2c04196	EXACT_SYMBOL	join nearby worker/restore; exact join timeout/order unknown
+restore_normal	0x2c0419c	EXACT_UTF8	normal transition
+sync_shortcuts	0x2c041a4	EXACT_SYMBOL	_sync_start_tab_toiuu_btns
+cleanup_result	0x2c041c2	EXACT_UTF8	Old session cleaned, button returns to Bắt đầu
+stale_policy_doc	0x2c041fc	EXACT_DOC	Resume prior running rows red if permitted; otherwise restore ordinary and green
+saved_shape_doc	0x2c04254	EXACT_DOC	saved = {name: mode_key} from prior session
+reconciler_genexpr	0x2c042b8	EXACT_METHOD_MARKER	ToiuuTab._reconcile_stale_worker.<locals>.<genexpr>
+alive_check	0x2c042ed	EXACT_SYMBOL	_is_window_alive
+boot_predates_check	0x2c042ff	EXACT_SYMBOL	_game_predates_boot
+tlmp_map	0x2c04314	EXACT_SYMBOL	MODE_TO_TLMP
+row_native_perf	0x2c04322	EXACT_SYMBOL	_perf_mode
+running_row	0x2c0432e	EXACT_UTF8	Đang chạy
+running_red_button_color	0x2c04359	EXACT_UTF8	#f44336
+resume_label	0x2c04379	EXACT_UTF8	Dừng lại
+ensure_monitor	0x2c04398	EXACT_SYMBOL	_ensure_monitor
+resumed_result	0x2c043a9	EXACT_UTF8	Resumed X accounts optimizing; click Dừng lại to stop
+resume_filter_doc	0x2c0440b	EXACT_DOC	Match saved real name AND game process predates current tool boot; don't resume newly opened game
+resume_returns_count	0x2c044ba	EXACT_DOC	Return resumed-account count
+resume_method_local	0x2c04512	EXACT_METHOD_MARKER	ToiuuTab._resume_running_rows.<locals>.<genexpr>
+restore_eligible_doc	0x2c05858	EXACT_DOC	Restore targets alive AND (real selected mode OR game predates tool boot), differs from resume
+config_ini	0x2c0615d	EXACT_UTF8	settings.ini in module runtime config context
+method_preboot	0x2c06344	EXACT_METHOD_MARKER	ToiuuTab._game_predates_boot
+method_save	0x2c065d4	EXACT_METHOD_MARKER	ToiuuTab._save_running_set
+method_load	0x2c065f0	EXACT_METHOD_MARKER	ToiuuTab._load_running_set
+method_reconcile	0x2c0660c	EXACT_METHOD_MARKER	ToiuuTab._reconcile_stale_running
+method_worker	0x2c0662f	EXACT_METHOD_MARKER	ToiuuTab._reconcile_stale_worker
+method_resume	0x2c06651	EXACT_METHOD_MARKER	ToiuuTab._resume_running_rows
+local_saved_scan	0x2c07192	EXACT_LOCALS	saved, scanned, targets, workers adjacent to recovery context
+local_saved_count	0x2c0730d	EXACT_LOCALS	saved, resumed and rows in local metadata
+legacy_marker_semantics	-	EXPLICIT_UNKNOWN	_was_running key pop and legacy migration exact behavior not reconstructed
+settings_section	-	EXPLICIT_UNKNOWN	Exact settings.ini section containing toiuu_running not AST-proven
+counter_limit	-	EXACT_LITERAL_PLUS_UNKNOWN	/5 visible in log, but precise retry increment/reset order not proved
+retry_duration	-	EXACT_LOG_PLUS_UNKNOWN	30s and 60s appear in original logs; actual timer callback schedule unverified
+partial_resume	-	RUNTIME_REQUIRED	Handling duplicate names, partial matched saved set and state-clearing order after each outcome
+psutil_fallback	-	RUNTIME_REQUIRED	_psutil unavailable, create_time unreadable or boot time clock skew behavior untested
+game_native_effect	-	NOT_RUN	No original game state inspected during resumed red session
+screenshot	-	REUSED_B11	B11 Tối ưu screenshot has no accounts or red resumed state; cannot visually confirm startup resume
+app_source	-	NOT_APPLICABLE	No reconstructed app source/CI in GitHub; product build not runnable

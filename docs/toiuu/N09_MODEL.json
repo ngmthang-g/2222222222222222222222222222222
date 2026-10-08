@@ -1,0 +1,91 @@
+{
+  "task": "N09",
+  "status": "STATIC_STALE_RUNNING_PERSISTENCE_BOOT_GUARD_AND_PERMISSION_RECONCILE_AUDITED_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "parent_head": "d3ee4531e324a619444e913dd5ba7987c196085c",
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "original_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "original_exe_bytes": 47450112,
+    "zip_entries": 1050,
+    "crc_check": "PASS",
+    "original_source_ast_recovered": false
+  },
+  "persistence": {
+    "key": "toiuu_running",
+    "format": "JSON",
+    "map_shape": "{real_character_name: mode_key}",
+    "load": "_load_running_set",
+    "save": "_save_running_set",
+    "empty_meaning": "no interrupted session",
+    "legacy_neighbor_key": "toiuu_was_running",
+    "legacy_mutation_semantics": "EXPLICIT_UNKNOWN",
+    "settings_section": "EXPLICIT_UNKNOWN"
+  },
+  "boot_guard": {
+    "field": "_boot_ts",
+    "predicate": "_game_predates_boot",
+    "process_reader": "psutil.Process(pid).create_time",
+    "criteria_intent": "game created before current tool boot",
+    "exact_comparison_expression": "EXPLICIT_UNKNOWN",
+    "new_process_resume_allowed": false
+  },
+  "reconcile": {
+    "initial": "_reconcile_stale_running",
+    "worker": "_reconcile_stale_worker",
+    "scan": "_ensure_rows_loaded",
+    "permission": "_check_perm(toiuu)",
+    "resume": "_resume_running_rows",
+    "restore_targets": "_restore_targets",
+    "stopped_restore": "_stop_restore_single",
+    "synchronize_starttab": "_sync_start_tab_toiuu_btns",
+    "old_workers": "_reconcile_tries",
+    "prior_current_new_session_guard": true
+  },
+  "documented_branches": {
+    "incomplete_scan": "keep saved; retry after 30s",
+    "authorization_pending": "try N/5; retry after 60s",
+    "active_new_session": "skip prior stale restore",
+    "old_game_missing": "clear old session and await new start",
+    "permission_granted_survivor": "red Dừng lại and row Đang chạy",
+    "permission_denied_final": "restore ordinary graphics and green Bắt đầu"
+  },
+  "runtime_contract": {
+    "resume_requires": [
+      "saved real name",
+      "live game process",
+      "game predates current tool boot"
+    ],
+    "restore_filter": "alive AND (real selected mode OR game predates boot)",
+    "restoration_selection_not_start": true,
+    "transport_bool_not_game_success": true,
+    "exact_retry_timing": "NOT_VERIFIED_ON_WINDOWS"
+  },
+  "view": {
+    "resumed_label": "Dừng lại",
+    "resumed_color": "#f44336",
+    "running_status": "Đang chạy",
+    "restoration_label": "Đang khôi phục...",
+    "restoration_color": "#ef6c00",
+    "clean_start_label": "Bắt đầu"
+  },
+  "unknowns": [
+    "INI section and toiuu_was_running migration or cleanup",
+    "Malformed JSON and duplicate saved character handling",
+    "Explicit numeric process timestamp comparison and missing psutil fallbacks",
+    "Exact retry timer scheduling and _reconcile_tries behavior",
+    "Partial stale match/order and native restore success",
+    "GUI callback races and live game parity"
+  ],
+  "acceptance": {
+    "planned": 22,
+    "executed": 0,
+    "all": "NOT_RUN_STAGE_S_NOT_STARTED"
+  },
+  "source_and_build": {
+    "application_source_exists": false,
+    "actions_workflow_exists": false,
+    "windows_live": "NOT_RUN",
+    "product_build": "NOT_APPLICABLE_YET"
+  },
+  "next_action": "N10 — Tối ưu reconstruction contract and parity matrix handoff"
+}

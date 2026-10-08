@@ -5267,3 +5267,29 @@ On CONTINUE:
 
 ## NEXT_ACTION
 On CONTINUE: reread PLAN.md and STATE.md; check GitHub for N09 artifacts before work. Execute **N09 — Tối ưu persisted running-set / tool crash-restart reconciliation and old-game restore/resume audit** using frozen original EXE first: _save_running_set, _load_running_set, _reconcile_stale_running, _reconcile_stale_worker, _resume_running_rows, _game_predates_boot, _restore_targets, toiuu_running/toiuu_was_running and permissions. Distinguish mode selection and watchdog. Compare B11 screenshot only after binary evidence; persist report/model/evidence/task, update STATE.md and PROJECT_STATUS.md, recheck source/build. No previous tasks rewritten.
+
+## N09 VERIFIED RESULTS — TỐI ƯU INTERRUPTED SESSION / RESTART RECOVERY
+- Read PLAN.md and STATE.md, verified GitHub main parent HEAD `d3ee4531e324a619444e913dd5ba7987c196085c` and confirmed N01–N08 complete, N09 absent. Reused all completed research without redoing or modifying it.
+- Frozen original ZIP SHA256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, 1050 entries and CRC test clean; inner EXE SHA256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, 47450112 bytes. Examined exact binary static constants and embedded docs; did not execute original EXE/DLL.
+- `_save_running_set` persists `{tên: mode_key}` using JSON under `toiuu_running`; `_load_running_set` returns empty set for no interrupted session. `toiuu_was_running` also appears near cleanup/pop but migration semantics unproven.
+- `_boot_ts`, `_game_predates_boot` and `psutil.Process.create_time` plus explicit original doc establish critical survivor test: only saved name AND live game started before current tool boot may resume; new game started after tool boot is fresh and must not inherit red state.
+- `_reconcile_stale_running/_reconcile_stale_worker`, `_ensure_rows_loaded`, `_check_perm`, `_resume_running_rows`, `_restore_targets`, `_stop_restore_single` and `_reconcile_tries` recovered. A new session already running skips old reconciliation.
+- Original logs document keeping old saved intent if no scan completed then retry after 30s, uncertain permission attempts numbered `/5` then retry after 60s, and eventual loss of permission leading to native safe restore of old game, green Bắt đầu, and shortcut sync. These are literal strings, NOT observed runtime scheduling.
+- Authorized surviving matching rows get `Đang chạy` and red `Dừng lại` #f44336; `_resume_running_rows` returns count. Other cases (old process gone/new PID) should not inherit running state.
+- Distinguish N08 relogin (new game process) from N09 tool restart (old surviving game), and N05 saved combo choices from N09 actual interrupted running intent.
+- B11 screenshot has empty account rows; cannot show red resumed screen. N09 status **STATIC_STALE_RUNNING_PERSISTENCE_BOOT_GUARD_AND_PERMISSION_RECONCILE_AUDITED / LIVE_PARITY_DEFERRED**.
+- New N09 artifacts `docs/toiuu/N09_STALE_RUNNING_RECONCILE_FLOW.md`, `docs/toiuu/N09_MODEL.json`, `docs/toiuu/N09_STATIC_EVIDENCE.tsv`, `docs/tasks/N09.md`. 84 evidence rows, 22 acceptance cases all NOT_RUN.
+
+## POST-N09 SOURCE/BUILD CHECK
+- Original binary/PLAN/N01–N08 unchanged. Only new N09 docs/models and existing STATE.md/PROJECT_STATUS.md updated. Stage-S reconstructed app source and Stage-T build workflow absent; product build NOT_APPLICABLE_YET, not PASS.
+
+## N09 BLOCKERS / DO_NOT_TOUCH
+- Legacy `_was_running` semantics, precise retry clock/counter, permission stability, malformed JSON, partial multiple-account name collision, PID timestamp races and native restoration outcome remain UNKNOWN. Do not implement Proxy or license bypass or falsely assert Windows tests.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md and STATE.md and check current GitHub N10 artifacts; skip if already done.
+2. Execute **N10 — Tối ưu reconstruction contract and parity-matrix phase handoff** only. Reconcile N01–N09 evidence into stable UI/CPU/GPU/detached monitor/config/TLMP/worker/watchdog/stale-session contracts and an acceptance matrix separated by STATIC, VISUAL, WINDOWS and RESEARCH.
+3. Include unknowns and failure paths; mark all unexecuted product tests NOT_RUN. Keep B11 evidence fixed and Proxy excluded.
+4. Persist N10 report/model/matrix/task; update STATE.md and PROJECT_STATUS.md; recheck main/source/build state.
+5. When N10 is complete, next plan phase is O01 — memory/item subsystem authority audit.

@@ -512,3 +512,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - LoginTab _close_single_account and _login_single_account original methods exist; _recover_row has explicit manual fallback when LoginTab absent, no PID row mapping or timeout. _auto_revive default and exact timing/guard remain unverified.
 - 82 evidence records and 22 acceptance cases (0 run), in docs/toiuu/N08_WATCH_PING_RECOVERY_FLOW.md, N08_MODEL.json, N08_STATIC_EVIDENCE.tsv and docs/tasks/N08.md. No Stage-S rebuilt app source or workflow.
 - NEXT N09 — persisted running set, old-game/old-tool session reconcile and safe restore/resume audit.
+
+## Phase N09 — Tối ưu persisted running set and stale-game reconciliation
+- **STATIC_STALE_RUNNING_PERSISTENCE_BOOT_GUARD_AND_PERMISSION_RECONCILE_AUDITED / LIVE_PARITY_DEFERRED**; exact original EXE `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22` audited read-only.
+- Real running-session JSON `{name: mode_key}` stored under `toiuu_running`, distinct from selected `toiuu_cfg_` and auxiliary `toiuu_monitor_open`. `toiuu_was_running` detected but exact legacy role unverified.
+- `psutil.Process.create_time`, `_boot_ts` and `_game_predates_boot` establish saved-name + living old-game condition before relabel red Dừng lại. New games after tool boot never qualify by name alone.
+- `_reconcile_stale_worker` has scan incomplete retry 30s; no-permission try `/5` retry 60s; later safe restore to normal/start after definitive missing permission. Times from original status strings, not new runtime trace.
+- `84` binary evidence/unknown records, 22 future acceptance cases all NOT_RUN. Artifacts `docs/toiuu/N09_STALE_RUNNING_RECONCILE_FLOW.md`, `docs/toiuu/N09_MODEL.json`, `docs/toiuu/N09_STATIC_EVIDENCE.tsv`, `docs/tasks/N09.md`.
+- Stage-S source and Stage-T build workflow still absent. **NEXT N10 — Tối ưu reconstruction contract/parity handoff**, then Phase O.
