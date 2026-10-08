@@ -1,0 +1,68 @@
+{
+  "task": "N03",
+  "status": "STATIC_GPU_READER_FAILURE_INTERFACE_AUDITED_LIVE_PARITY_DEFERRED",
+  "authority": {
+    "head_before": "326090e7b7ec8b44a4f9bf767bd0f50ac9ca8831",
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module": "toiuu_tab",
+    "python_source_recovered": false
+  },
+  "reader": {
+    "method": "_read_gpu",
+    "tool": "nvidia-smi",
+    "args": [
+      "--query-gpu=utilization.gpu",
+      "--format=csv,noheader,nounits"
+    ],
+    "subprocess": "check_output",
+    "symbols": [
+      "CREATE_NO_WINDOW",
+      "STDOUT",
+      "timeout",
+      "stderr",
+      "creationflags"
+    ],
+    "timeout_seconds": "EXPLICIT_UNKNOWN",
+    "nearby_tagged_integer_3_is_timeout_proof": false,
+    "embedded_doc": "% GPU qua nvidia-smi; None nếu không có/không đọc được."
+  },
+  "parser": {
+    "symbols": [
+      "decode",
+      "utf-8",
+      "ignore",
+      "errors",
+      "replace",
+      "split",
+      "isdigit"
+    ],
+    "locals": [
+      "self",
+      "flags",
+      "out",
+      "vals"
+    ],
+    "multi_gpu": "EXPLICIT_UNKNOWN",
+    "bad_csv": "EXPLICIT_UNKNOWN"
+  },
+  "ui": {
+    "gpu_avail": "_gpu_avail",
+    "history": "_gpu_hist",
+    "bounded": "deque(maxlen=GRAPH_HIST) family",
+    "redraw": "_redraw_graphs",
+    "draw": "_draw_one",
+    "color": "#e65100",
+    "missing_label": "GPU: N/A (không có nvidia-smi)",
+    "none_history": "EXPLICIT_UNKNOWN"
+  },
+  "acceptance": {
+    "planned": 8,
+    "run": 0
+  },
+  "runtime": {
+    "windows": "NOT_RUN",
+    "app_build": "NOT_APPLICABLE_STAGE_S_NOT_STARTED"
+  },
+  "next_action": "N04 — detached CPU/GPU monitor lifecycle/layout/persistence audit"
+}

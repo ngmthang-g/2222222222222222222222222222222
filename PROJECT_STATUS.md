@@ -462,3 +462,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Artifacts: `docs/toiuu/N02_CPU_SAMPLE_REDRAW_FLOW.md`, `docs/toiuu/N02_MODEL.json`, `docs/toiuu/N02_STATIC_EVIDENCE.tsv`, `docs/tasks/N02.md`.
 - Stage-S reconstructed app/build workflow absent; Windows functional parity NOT_RUN.
 - **NEXT N03 — GPU collection / nvidia-smi failure and chart integration audit.**
+
+
+## N03 — GPU reader/failure/graph integration
+- STATIC_GPU_READER_FAILURE_INTERFACE_AUDITED / LIVE_PARITY_DEFERRED; frozen original EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22.
+- Exact nvidia-smi utilization/CSV args, check_output/timeout/CREATE_NO_WINDOW, utf-8 parsing vocabulary and embedded None-if-unreadable doc; UI _gpu_avail/_gpu_hist, orange chart and GPU N/A status documented.
+- Exact timeout and multi-GPU parsing plus None history remain UNKNOWN. No live GPU/runtime test or product build.
+- New docs/toiuu/N03_GPU_COLLECTION_FLOW.md, N03_MODEL.json, N03_STATIC_EVIDENCE.tsv and docs/tasks/N03.md; source app/CI absent.
+- **NEXT N04 — detached CPU/GPU monitor lifecycle/layout/persistence audit.**

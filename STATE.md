@@ -5130,3 +5130,22 @@ On CONTINUE:
 3. Preserve N02 CPU sampler; do not merge CPUMonitor; detached window belongs to N04; native TLMP belongs to N05+.
 4. Cross-check GPU N/A screenshot only after static analysis, not as proof of all GPU error paths.
 5. Persist N03 report/model/evidence/task, update STATE.md/PROJECT_STATUS.md and re-check source/build status.
+
+
+## N03 VERIFIED RESULTS — GPU COLLECTION / GRAPH INTEGRATION
+- Checked PLAN.md and STATE.md and GitHub HEAD 326090e7b7ec8b44a4f9bf767bd0f50ac9ca8831 first; N01/N02 complete, N03 absent. Original ZIP c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd (1050 entries, CRC clean); inner EXE 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 unchanged.
+- Exact ToiuuTab._read_gpu command strings: nvidia-smi, --query-gpu=utilization.gpu, --format=csv,noheader,nounits, plus subprocess.check_output, CREATE_NO_WINDOW, STDOUT/stderr, timeout/creationflags.
+- Parse symbols decode/utf-8/ignore/errors/replace/split/isdigit, locals self/flags/out/vals; original embedded doc: % GPU qua nvidia-smi; None nếu không có/không đọc được.
+- GPU UI uses _gpu_avail, bounded _gpu_hist, _sample_loop/_redraw_graphs/_draw_one, orange #e65100, GPU: N/A (không có nvidia-smi). Reused B11 screenshot after binary-first review.
+- Exact timeout, stderr routing, multi-GPU selection, error/zero-None and missing-history semantics EXPLICIT_UNKNOWN. Tagged integer 3 near command is not proven timeout. N02 timer unresolved unchanged.
+- N03 status STATIC_GPU_READER_FAILURE_INTERFACE_AUDITED / LIVE_PARITY_DEFERRED. 43 row evidence table and eight future tests (all NOT_RUN).
+- New docs: docs/toiuu/N03_GPU_COLLECTION_FLOW.md; docs/toiuu/N03_MODEL.json; docs/toiuu/N03_STATIC_EVIDENCE.tsv; docs/tasks/N03.md.
+
+## POST-N03 CODE/BUILD CHECK
+- Four new docs/models + status files only. No original EXE or code modified. Application source/workflow absent, build NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED.
+
+## BLOCKERS / DO_NOT_TOUCH
+- Actual GPU/Windows execution, original timeout/error path, multi-GPU parser and history gaps still unverified. Preserve N01/N02/B11, A–M, and Proxy exclusion; no fake runtime PASS.
+
+## NEXT_ACTION
+On CONTINUE read PLAN.md/STATE.md, check GitHub for existing N04, then execute **N04 — detached CPU/GPU monitor lifecycle/layout/persistence audit** only. EXE-first inspect _toggle_monitor_view, _open_monitor_view, _close_monitor_view, _update_monitor_view, _restore_monitor_view and toiuu_monitor_open; screenshot after binary. Persist N04 model/evidence/task, update state, recheck source/build.

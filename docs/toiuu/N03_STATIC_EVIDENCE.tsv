@@ -1,0 +1,44 @@
+key	offset_hex	tier	evidence
+zip	-	FILE_VERIFIED	Original ZIP 1050 entries CRC clean
+exe	-	FILE_VERIFIED	Original inner EXE 47450112 bytes
+module	0x2c01fb5	REUSED_N01	ToiuuTab serialized authority
+subprocess	0x2c0375a	EXACT	subprocess
+create_no_window	0x2c03766	EXACT	CREATE_NO_WINDOW
+check_output	0x2c03778	EXACT	check_output
+STDOUT	0x2c03786	EXACT	STDOUT
+nearby_3	0x2c0378a	UNBOUND	Candidate integer3 not proven timeout
+nvidia_smi	0x2c03792	EXACT	nvidia-smi
+query	0x2c0379e	EXACT	--query-gpu=utilization.gpu
+format	0x2c037bb	EXACT	--format=csv,noheader,nounits
+stderr	0x2c037dc	EXACT	stderr
+timeout	0x2c037e4	EXACT	timeout
+creationflags	0x2c037ed	EXACT	creationflags
+decode	0x2c037fc	EXACT	decode
+utf8	0x2c03806	EXACT	utf-8
+ignore	0x2c0380d	EXACT	ignore
+errors	0x2c03817	EXACT	errors
+replace	0x2c0381f	EXACT	replace
+percent_token	0x2c0382a	EXACT_BYTES	Percent-related parser token; expression unknown
+split	0x2c0382d	EXACT	split
+isdigit	0x2c0383b	EXACT	isdigit
+reader_doc	0x2c03843	EXACT_DOC	% GPU qua nvidia-smi; None nếu không có/không đọc được.
+read_gpu	0x2c03889	EXACT	_read_gpu
+locals	0x2c07170	EXACT_LOCAL	self flags out vals
+gpu_avail	0x2c02477	EXACT	_gpu_avail
+gpu_hist	0x2c0246c	EXACT	_gpu_hist
+history_bound	0x2c02444	EXACT	deque GRAPH_HIST maxlen
+sample_loop	0x2c036fd	EXACT	_sample_loop
+redraw	0x2c038bc	EXACT	_redraw_graphs
+gpu_na	0x2c0394b	EXACT	GPU: N/A (không có nvidia-smi)
+gpu_prefix	0x2c0396d	EXACT	GPU: 
+draw_one	0x2c03974	EXACT	_draw_one
+gpu_color	0x2c0397f	EXACT	#e65100
+detached_hook	0x2c03988	EXACT	_update_monitor_view N04
+visual	-	REUSED_B11	GPU N/A label and empty GPU graph
+runtime_timeout	-	UNKNOWN	Exact timeout seconds unproven
+stderr_policy	-	UNKNOWN	Exact stdout stderr routing unproven
+multi_gpu	-	UNKNOWN	Aggregation or first-row choice unproven
+malformed_output	-	UNKNOWN	Error/invalid/zero-value control-flow unproven
+missing_history	-	UNKNOWN	Whether None sample appended or skipped unproven
+alternate_GPU	-	NOT_RECOVERED	No AMD Intel reader in exact _read_gpu block
+real_windows	-	NOT_RUN	Live utility and game testing not run
