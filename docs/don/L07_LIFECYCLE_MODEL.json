@@ -1,0 +1,169 @@
+{
+  "task": "L07",
+  "status": "VERIFIED_START_TIME_ROLE_SPLIT_RECV_CYCLE_VS_DONOR_FARM_CYCLE_GEN_GUARDED_COOPERATIVE_STOP_AND_NO_DYNAMIC_ROLE_MORPH_STATIC_RUNTIME_ENV_REQUIRED",
+  "authority": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "archive_size": 93715901,
+    "zip_entries": 1050,
+    "zip_crc_clean": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112,
+    "donvang_module_size_bytes": 65260,
+    "donvang_constant_count": 1813
+  },
+  "session_ownership": {
+    "global_running": "_farming",
+    "per_account_membership": "_farming_acc",
+    "worker_collection": "_farm_threads",
+    "stopping_rows": "_stopping_play",
+    "generation": "row._gen",
+    "receiver_registry": "don_logic._recv_registry is additional receiver-state ownership, not a replacement for _farming_acc"
+  },
+  "role_split": {
+    "decision_time": "full-session start",
+    "receiver_selected": {
+      "runner": "_run_receiver",
+      "engine": "don_logic.recv_cycle",
+      "starts_extra_tracker": true,
+      "session_guards": ["death/respawn monitor","disconnect/halt monitor","generation/membership/window checks"]
+    },
+    "donor_normal": {
+      "runner": "_farm_cycle",
+      "don_callback": "_don_cb -> don_logic.don_move_and_execute",
+      "semantic": "normal Train loop with return-town/sell leg substituted by Dồn when callback is used"
+    },
+    "manual_fight_primitive": {
+      "helper": "_farm_acc",
+      "implementation": "start_auto_train / StartAutoFight Train by memory",
+      "ui_click": false,
+      "full_session_fsm": false
+    }
+  },
+  "single_start_stop": {
+    "helper": "_toggle_single_farm",
+    "permission_guard": ["has_permission_with_limit","donvang_tab","farm"],
+    "receiver_surfaces": ["recv_cycle","_run_receiver"],
+    "donor_surfaces": ["don_move_and_execute","_don_cb","_farm_cycle","don_callback"],
+    "thread_daemon_surface": true,
+    "last_account_stop": "enters global stop/drain workflow",
+    "start_log": "[Farm] Bắt đầu farm acc hwnd=",
+    "stop_log": "[Farm] Dừng farm acc hwnd="
+  },
+  "global_start_stop": {
+    "helper": "_toggle_farm",
+    "start": "only rows not already farming",
+    "stop": "only rows currently farming",
+    "role_specific_receiver_engine": "recv_cycle",
+    "role_specific_donor_engine": "don_move_and_execute callback into _farm_cycle",
+    "explicit_global_donor_wait_surface": ["_don_point_coords","don_mark_waiting","Chờ dồn","_any_ready_receiver"],
+    "partial_stop": "remaining accounts continue; global Dồn Farm stays running",
+    "full_stop": "after worker drain reset tab button to Bắt đầu and StartTab projection to Dồn vàng"
+  },
+  "receiver_lifecycle": {
+    "engine_order": ["sell","move back to receive point","mark ready","wait donated/abort/dead donor","repeat"],
+    "tracker": {
+      "start_helper": "_start_extra_track",
+      "meaning": "receiver elapsed time + BoundMoney baseline/positive donated-gold deltas",
+      "row3_visible_only_for_receiver_mapping": true
+    },
+    "state_projection": {
+      "verified_vocabulary_order": ["Bán đồ","Tới nơi nhận","Sẵn sàng nhận","Chuẩn bị nhận","Đang nhận"],
+      "transaction_start": "Đang nhận",
+      "transaction_done": "Sẵn sàng nhận only if current state is still Đang nhận",
+      "prep": "Chuẩn bị nhận",
+      "sell_move_ready_order": "verified by recv_cycle semantics; exact assignment site for every intermediate label not fully source-visible"
+    },
+    "stop_result": "receiver loop unregisters; worker finalization returns session to stopped projection"
+  },
+  "donor_lifecycle": {
+    "farm_engine": "_farm_cycle",
+    "farm_doc": "sell/medicine/move/farm -> wait cycle; don_callback substitutes return-town leg for donor",
+    "manual_fight_helper": "_farm_acc",
+    "states": {
+      "move_to_don": "Về dồn",
+      "transaction": "Đang dồn",
+      "global_wait_at_shared_point": "Chờ dồn",
+      "return_to_train": "Đi train -> Đang train"
+    },
+    "failure": "Dồn failure after receive point explicitly sends donor back toward farm/train",
+    "no_ready_or_invalid_coord": "skip Dồn for that cycle and continue/return to farm path"
+  },
+  "state_table": {
+    "Đã dừng": "#555555",
+    "Sẵn sàng nhận": "#2e7d32",
+    "Chuẩn bị nhận": "#1565c0",
+    "Đang nhận": "#1565c0",
+    "Chờ giao": "#2e7d32",
+    "Chờ dồn": "#2e7d32",
+    "Về dồn": "#1565c0",
+    "Đang dồn": "#1565c0",
+    "Về địa phủ": "#c62828",
+    "Bán đồ": "#555555",
+    "Tới nơi nhận": "#555555",
+    "Trị liệu": "#555555",
+    "Đi train": "#555555",
+    "Đang train": "#555555",
+    "Đang lọc đồ": "#8e24aa",
+    "Gỡ kẹt": "#ef6c00",
+    "default": "#555555"
+  },
+  "state_threading": {
+    "canonical_row_field": "_state",
+    "current_reader": "_state_of",
+    "ui_apply": "_schedule_state_label -> Tk after(0) -> _apply_state_label",
+    "cross_thread_direct_widget_mutation": false
+  },
+  "stop_and_drain": {
+    "helper": "_stop_acc",
+    "semantic": "stop character + clear per-account Farm flag",
+    "cooperative": true,
+    "guards": ["_check_stop","_is_acc_farming","stop_event","generation","window/PID ownership","halt/hard_stop where applicable"],
+    "stopping_sentinel": "_stopping_play",
+    "worker_wait": "_wait_farm_stop uses join",
+    "partial_stop": "keep global running",
+    "full_stop": "reset global control after drain",
+    "force_thread_kill": false
+  },
+  "generation": {
+    "session_snapshot": "gen_snap",
+    "old_worker_exit_condition": "account stopped or generation changed",
+    "doc_binds_change_to": "user stop/start",
+    "restore_play_guard": "only restore if current row generation still matches worker generation",
+    "exact_increment_statement": "EXPLICIT_UNKNOWN",
+    "exact_order_vs_membership_and_thread_collection": "EXPLICIT_UNKNOWN"
+  },
+  "play_projection": {
+    "active": {"text":"II","bg":"#f44336"},
+    "inactive_donor": {"text":"▶","bg":"#388e3c"},
+    "inactive_receiver": {"text":"▶","bg":"#B48608"},
+    "stopping": "_stopping_play excluded from normal refresh until old worker exits",
+    "restore_helper": "_restore_play_button"
+  },
+  "role_change_while_running": {
+    "selection_handler": "_on_receiver_selected",
+    "handler_semantic": "restyle/reorder only; same button set",
+    "dynamic_worker_reclassification": false,
+    "receiver_removed_mid_run": "existing recv_cycle is not converted to donor; its receiver callback can hit explicit not-in-receiver-list guard",
+    "donor_added_as_receiver_mid_run": "existing donor _farm_cycle is not replaced with recv_cycle and is not registered ready solely by selection",
+    "new_role_effective_for_full_worker": "next stop/start",
+    "generation_changed_by_role_selection_alone": "NOT_RECOVERED"
+  },
+  "single_vs_global_donor_callback": {
+    "single_surface": ["_pick_recv","_move_don","_move_recv_don","Về dồn","Đang dồn","don_move_and_execute"],
+    "global_surface": ["_don_point_coords","don_mark_waiting","Chờ dồn","_any_ready_receiver","don_move_and_execute"],
+    "classification": "STATIC_DISTINCTION_PRESERVE_FOR_PARITY"
+  },
+  "runtime": {
+    "automove_log_sha256": "17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500",
+    "line_count": 387238,
+    "correlated_lifecycle_markers": 0,
+    "classification": "STATIC_VERIFIED_LIVE_RUNTIME_ENV_REQUIRED"
+  },
+  "unknowns": [
+    "exact _gen mutation statement/order",
+    "exact assignment statement for every intermediate receiver state label",
+    "exact worker join timeout/drain timing",
+    "live role-change and thread-race parity"
+  ],
+  "next_task": "L08 — Dồn heal / death / disconnect / reconnect audit"
+}

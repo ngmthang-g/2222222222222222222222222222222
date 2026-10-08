@@ -1,0 +1,82 @@
+key	offset_hex	status	evidence
+archive_sha	-	VERIFIED_FILE	c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd size93715901; 1050 ZIP entries; CRC clean
+inner_exe_sha	-	VERIFIED_FILE	15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 size47450112
+global_farming_init	0x2920d49	VERIFIED_STATIC	_farming field in DonVangTab init
+farm_threads_init	0x2920dc4	VERIFIED_STATIC	_farm_threads field in DonVangTab init
+row_state_field	0x292403d	VERIFIED_STATIC	_state stored per account row
+row_gen_field	0x2924052	VERIFIED_STATIC	_gen stored per account row
+receiver_style_doc	0x2923637	VERIFIED_STATIC_UTF8	receiver name/level highlighted; nonreceiver reset; role presentation only
+receiver_selected_doc	0x29236ee	VERIFIED_STATIC_UTF8	receiver selection change updates style + moves receiver row to top; buttons remain same
+all_receiver_doc	0x29257de	VERIFIED_STATIC_UTF8	manual batch universe excludes receiver accounts because they run a separate flow
+single_stopping_surface	0x2925898	VERIFIED_STATIC	_stopping_play in per-row toggle surface
+single_stop_log	0x29258a8	VERIFIED_STATIC	[Farm] Dừng farm acc hwnd=
+single_permission_helper	0x29258c8	VERIFIED_STATIC	has_permission_with_limit
+single_permission_scope	0x2925900	VERIFIED_STATIC	donvang_tab / farm permission path
+single_receiver_engine	0x29259b1	VERIFIED_STATIC	recv_cycle in _toggle_single_farm start surface
+single_receiver_runner	0x29259cc	VERIFIED_STATIC	DonVangTab._toggle_single_farm.<locals>._run_receiver
+single_donor_engine	0x2925a1b	VERIFIED_STATIC	don_move_and_execute in per-row donor callback
+single_donor_callback	0x2925a3a	VERIFIED_STATIC	DonVangTab._toggle_single_farm.<locals>._don_cb
+single_farm_cycle	0x2925a6b	VERIFIED_STATIC	_farm_cycle + don_callback
+single_thread_daemon	0x2925a9e	VERIFIED_STATIC	daemon thread surface
+single_start_log	0x2925ab7	VERIFIED_STATIC	[Farm] Bắt đầu farm acc hwnd=
+single_toggle_doc	0x2925af2	VERIFIED_STATIC_UTF8	per-row start/stop; last account stop enters global stop workflow
+receiver_death_monitor	0x2925bec	VERIFIED_STATIC	_diaphu_monitor in receiver runner
+receiver_disconnect_monitor	0x2925bfd	VERIFIED_STATIC	_disconnect_monitor in receiver runner
+receiver_gen_snapshot	0x2925d78	VERIFIED_STATIC	gen_snap in receiver runner
+receiver_disconnect_stop	0x2925e13	VERIFIED_STATIC_UTF8	lost connection -> stop receiver account
+receiver_final_state_surface	0x2925e54	VERIFIED_STATIC	_set_state in receiver runner finalization surface
+receiver_restore_button	0x2925e60	VERIFIED_STATIC	_restore_play_button in receiver runner finalization surface
+receiver_end_log	0x2925e76	VERIFIED_STATIC_UTF8	kết thúc acc nhận đồ
+receiver_membership_guard_log	0x2925eb2	VERIFIED_STATIC_UTF8	[Nhận đồ] hwnd=... không nằm trong danh sách acc nhận
+receiver_state_receiving	0x2925f2b	VERIFIED_STATIC	Đang nhận
+receiver_state_ready	0x2925f39	VERIFIED_STATIC	Sẵn sàng nhận
+receiver_state_prep	0x2925f4d	VERIFIED_STATIC	Chuẩn bị nhận
+single_don_failure	0x29260dc	VERIFIED_STATIC_UTF8	Dồn fail after receive point -> send donor back toward farm
+single_return_train_state	0x292612a	VERIFIED_STATIC	Đi train
+single_no_ready	0x2926139	VERIFIED_STATIC_UTF8	no valid ready receiver
+single_self_receiver_guard	0x2926170	VERIFIED_STATIC_UTF8	selected receiver equals donor -> skip
+single_state_move_don	0x29261f3	VERIFIED_STATIC	Về dồn
+single_state_donating	0x292620d	VERIFIED_STATIC	Đang dồn
+play_sync_doc	0x292624b	VERIFIED_STATIC_UTF8	row play buttons mirror _farming_acc and skip _stopping_play until cycle exits
+restore_gen_guard	0x2926309	VERIFIED_STATIC_UTF8	restore play button only when generation still matches; receiver inactive button gold, normal inactive green
+run_farm_exit_doc	0x2927188	REUSED_L02	return/Dồn leg uses Truyền back first then ordinary horse movement, no phù
+stop_acc_doc	0x29273e6	VERIFIED_STATIC_UTF8	stop character + clear per-account Farm flag
+farm_acc_start	0x292879c	VERIFIED_STATIC	start_auto_train
+farm_acc_doc	0x29287ca	VERIFIED_STATIC_UTF8	StartAutoFight Train by memory, no click; helper is a primitive, not full session FSM
+global_toggle_start_log	0x2929707	VERIFIED_STATIC	[Farm] Bắt đầu farm ... acc
+global_toggle_doc	0x292983b	VERIFIED_STATIC_UTF8	large button starts only not-yet-farming rows and stops only currently-farming rows
+global_receiver_engine	0x2930781	STRONG_STATIC_MAPPING	recv_cycle in _toggle_farm local surface
+global_donor_engine	0x29307eb	STRONG_STATIC_MAPPING	don_move_and_execute in _toggle_farm local surface
+global_wait_state	0x2929bbe	VERIFIED_STATIC	Chờ dồn
+global_wait_mark	0x2929b72	VERIFIED_STATIC	don_mark_waiting
+global_ready_check	0x2929c25	VERIFIED_STATIC	_any_ready_receiver
+partial_stop_log	0x2929f09	VERIFIED_STATIC_UTF8	selected stopped accounts drained; remaining accounts continue
+full_stop_log	0x2929f5f	VERIFIED_STATIC_UTF8	Farm fully stopped
+wait_stop_join	0x2929e99	VERIFIED_STATIC	join in _wait_farm_stop
+wait_stop_doc	0x2929fa2	VERIFIED_STATIC_UTF8	remaining keeps global running; none remaining resets Bắt đầu
+farm_cycle_doc	0x292ab51	VERIFIED_STATIC_UTF8	per-account loop; don_callback replaces return-town step with Dồn for donor
+disconnect_gen_doc	0x292ad4a	VERIFIED_STATIC_UTF8	monitor exits on user stop/_farming_acc/gen change; halt stops subflows; reconnect detail deferred L08
+buff_gen_doc	0x292b8e6	VERIFIED_STATIC_UTF8	buff worker exits when account stops or gen changes from user stop/start
+check_stop_doc	0x292bcbf	VERIFIED_STATIC_UTF8	stop request -> caller must exit immediately
+is_acc_farming_doc	0x292bd0c	VERIFIED_STATIC_UTF8	per-account Farm membership check
+state_apply_doc	0x292bd7c	VERIFIED_STATIC_UTF8	apply state style; unknown -> default gray
+state_thread_marshal	0x292beb3	VERIFIED_STATIC_UTF8	all state UI updates marshaled to Tk main thread via after(0)
+state_of_doc	0x292bfb8	VERIFIED_STATIC_UTF8	current account state string or None
+recv_phase_doc	0x292c03a	VERIFIED_STATIC_UTF8	transaction start -> Đang nhận; done -> Sẵn sàng nhận only if still Đang nhận
+extra_track_doc	0x292c3c5	VERIFIED_STATIC_UTF8	start donated-gold/time tracking when receiver is started
+extra_row_doc	0x292c496	VERIFIED_STATIC_UTF8	row3 visible for receiver, hidden for normal account
+state_table	0x292cfce	VERIFIED_STATIC_DECODE	16-state ordered table: Đã dừng, Sẵn sàng nhận, Chuẩn bị nhận, Đang nhận, Chờ giao, Chờ dồn, Về dồn, Đang dồn, Về địa phủ, Bán đồ, Tới nơi nhận, Trị liệu, Đi train, Đang train, Đang lọc đồ, Gỡ kẹt
+state_colors	0x292d0c0	VERIFIED_STATIC_DECODE	ordered colors: #555555,#2e7d32,#1565c0,#1565c0,#2e7d32,#2e7d32,#1565c0,#1565c0,#c62828,#555555,#555555,#555555,#555555,#555555,#8e24aa,#ef6c00; default #555555
+receiver_runner_locals	0x293014a	STRONG_STATIC_MAPPING	monitor_stop/respawn_event/halt/gen_snap/hard_stop/stop_check/_sell_cb/_move_recv_cb/_prep_cb/recv_cycle
+global_toggle_locals	0x2930742	STRONG_STATIC_MAPPING	_toggle_farm owns recv_cycle and don_move_and_execute role-specific subpaths
+single_toggle_locals	0x2930850	STRONG_STATIC_MAPPING	_toggle_single_farm owns recv_cycle/_run_receiver and don_move_and_execute/_don_cb in one start/stop method
+role_change_no_reclassify	-	VERIFIED_STATIC_SEMANTIC	_on_receiver_selected only restyles/reorders; active worker was created as recv_cycle or _farm_cycle at start; no restart/reclassification surface recovered
+receiver_removed_midrun	-	VERIFIED_STATIC_SEMANTIC	existing recv_cycle remains receiver worker; next receiver callback can hit explicit not-in-receiver-list guard rather than morphing to donor
+donor_selected_receiver_midrun	-	VERIFIED_STATIC_SEMANTIC	selection alone does not create recv_cycle/ready registry for existing donor worker; new full role takes effect on later start
+gen_exact_mutation	-	EXPLICIT_UNKNOWN	generation semantics verified; exact increment/assignment order vs membership/thread collection not source-visible
+recv_intermediate_assignment	-	EXPLICIT_UNKNOWN	recv_cycle order and state vocabulary verified; exact source statement assigning every first-cycle intermediate UI label not fully recovered
+join_timeout	-	EXPLICIT_UNKNOWN	join surface verified; exact timeout/drain timing not safely bound
+screenshot_don	-	CROSSCHECKED_AFTER_STATIC	dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a
+runtime_log_sha	-	VERIFIED_FILE	17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500; 387238 lines
+runtime_lifecycle_markers	-	NOT_RECOVERED	0 [RECV]/[RECV-DBG]/[DON]/[DON-DBG]/DonVang/Donvang/ready/prep/receiving/Chờ dồn/Về dồn/Đang dồn/per-row Farm start-stop markers
+classification	-	STATIC_VERIFIED_RUNTIME_ENV_REQUIRED	live thread timing/state-label ordering/role-change races require Windows + game
