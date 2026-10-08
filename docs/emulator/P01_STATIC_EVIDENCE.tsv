@@ -1,0 +1,34 @@
+key	offset_hex	tier	original_fact_or_limit
+ZIP	-	VERIFIED_FILE	Original ZIP SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd CRC clean
+EXE	-	VERIFIED_FILE	Inner EXE SHA256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22
+main_tabs	0x28d0dba	EXACT_SYMBOL	TLMMainApp.create_tabs enumerates emu_farm_tab
+train_label	0x28d0f3c	EXACT_STRING	Train LD tab label
+train_hidden	0x28d0f46	EXACT_SYMBOL	Train LD is initially hidden
+train_class	0x28d1f91	EXACT_SYMBOL	Main class references EmuFarmTab
+dev_tab	0x28d2010	EXACT_SYMBOL	Main references DebugAndroidTab
+dev_visibility	0x28d2222	EXACT_DOC	Debug Android show/hide according to developer permission
+all_tab_permissions	0x28d2389	EXACT_DOC	Only Info always shown; other tabs hidden when no entitlement
+emu_gate	0x28d1df8	EXACT_SYMBOL	emu_tab permission in main UI
+lazy_tab	0x28d20a0	EXACT_DOC	Build tab once, if content not already created
+main_refresh	0x28d29ee	EXACT_SYMBOL	emu_farm_tab refresh selection and active-tab control
+chat_class	0x2930b03	EXACT_CLASS	EmuChat compiled class
+chat_coordinates	0x2930edb	EXACT_DOC	Chat uses [EmuChat] calibrated settings
+farm_class	0x29326f1	EXACT_CLASS	EmuFarmTab with row and callback methods
+farm_doc	0x2932411	EXACT_DOC	Emulator farm tab intended with per-device serial presets
+adb_class	0x2933150	EXACT_CLASS	AdbInput
+adb_doc	0x2933077	EXACT_DOC	ADB tap/swipe/keyevent/screencap device coordinates
+reader_doc	0x2935b05	EXACT_DOC	AndroidReader uses Frida RPC RoleData
+reader_manager	0x2935d40	EXACT_CLASS	EmuManager
+reader_slots	0x293601b	EXACT_METHOD	EmuManager.get_bag_slots
+remote_gate	0x29370b1	EXACT_DOC	emu_tab entitlement prevents unauthorized control
+remote_ack	0x2937fdb	EXACT_DOC	Original /emu_farm_toggle future-phase ACK only
+remote_token	0x293801a	EXACT_DOC	Token default tlm; review security before any live listener
+remote_bind	0x293806a	EXACT_DOC	0.0.0.0 default listener port 8765 in original
+setup_doc	0x2939275	EXACT_DOC	EmuSetup ADB APK install / remote JS copy
+debug_doc	0x290d6de	EXACT_DOC	Debug Android is original developer workbench
+debug_remote	0x290dcf8	EXACT_METHOD	DebugAndroidTab._remote_toggle
+asset_frida	-	VERIFIED_ASSET	emu_client.js size 5368 sha 384ccee9a2ddf236db377fca3abd36cbc17df81a94a286551a749a3132d02db1
+asset_remote	-	VERIFIED_ASSET	ld_remote.js size 56174 sha 3bd84a2b433ee679b7a049f5aa5cba2e8725d1e09b14d5deb3f42b6bf919edfb
+asset_autoX	-	LIMITATION	ld_remote.js uses AutoX layout, cannot assert Node.js syntax error is an AutoX failure
+runtime_unverified	-	NOT_RUN	No emulator or ADB/Frida/HTTP service executed
+product_build	-	BLOCKED	No reconstructed app source or Windows build pipeline

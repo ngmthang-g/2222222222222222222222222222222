@@ -5397,3 +5397,18 @@ O01 module authority, O02 Reader, O03 bag/trade, O04 metadata/weapons, O05 filte
 
 ## NEXT_ACTION
 On CONTINUE read PLAN.md/STATE.md and GitHub, check for P01. Execute **P01 — emulator subsystem original authority and active vs dormant module audit**: emu_input, emu_reader, emu_remote, emu_setup, emu_chat, emu_farm_tab, debug_android_tab. No invented dormant UI. Save P01 docs/model/evidence/task, update states and build status; Proxy Phase Q excluded.
+
+## AUDIT 2026-10-08 — CURRENT REPOSITORY CODE/BUILD
+- User requested full actual-code audit before continuing. GitHub baseline `00f95aea9acf1c24f4dcae710fc229ce5cc20004`, 756 tree entries/173 task files A01–O05: reviewed seven D01–D07 Python forensic scripts + A08 shell and source tree. No rebuilt TLMTool application source/entrypoint/packager/Windows workflow. This is **BUILD_BLOCKED_SOURCE_MISSING**, not a compiler failure and not build PASS.
+- A08 SHA256/ZIP CRC/inventory PASS on frozen original, inner EXE hash verified. Local standalone O04 Python verifier py_compile and run PASS (29983 META +5477 weapons). Confirmed O04 verifier was missing from GitHub and added EXACT existing read-only source in commit `fe23b809d55641351fa7dcd69a70e0b767b47799`, with no rewrite of O04 or earlier docs.
+- Other seven Python scripts statically reviewed, but not individually py_compiled or executed from GitHub source in this audit: do not mark PASS. emu_client.js node --check PASS; ld_remote.js AutoX XML layout is not Node-compatible, not an established runtime bug.
+- Audit file docs/audit/CODE_BUILD_BASELINE_2026-10-08.md lists completed/research, missing source/build, actual blockers, unproven runtime risks. Original ZIP/EXE, N/O docs, PLAN and Proxy lock unchanged.
+
+## P01 VERIFIED RESULTS — ORIGINAL EMULATOR MODULES AND CONDITIONAL UI
+- Parent HEAD fe23b809d55641351fa7dcd69a70e0b767b47799 used; original compiled 7 modules: emu_chat 0x293100c, emu_farm_tab 0x2932983, emu_input 0x293325f, emu_reader 0x29361cc, emu_remote 0x2938352, emu_setup 0x293942e, debug_android_tab 0x290df6c. Static EXE/module references verified.
+- `TLMMainApp.create_tabs` registers Train LD via EmuFarmTab but hidden initially, emu_tab permission; DebugAndroidTab dev-only. Neither is permanently dormant in original UI registration, neither proved fully functioning in Windows/LD test.
+- Support: ADB input, AndroidReader/EmuManager Frida RPC, EmuChat coords, optional setup and emulator remote. /emu_farm_toggle original doc says future ACK only; no HTTP listener started or network/runtime logic developed. RPC/JS original assets hash-verified.
+- P01 status STATIC_EMULATOR_MODULE_AUTHORITY_AND_CONDITIONAL_UI_AUDITED / LIVE_EMULATOR_PARITY_DEFERRED. 33 static evidence records and 18 planned acceptance cases all NOT_RUN. docs/emulator/P01_AUTHORITY_AND_DORMANCY.md, P01_MODEL.json, P01_STATIC_EVIDENCE.tsv, docs/tasks/P01.md created.
+
+## NEXT_ACTION
+On CONTINUE read PLAN.md/STATE.md and main GitHub; verify P02 not completed. Execute P02 — original AndroidReader/EmuManager ADB/Frida data flow, device identity/cache/connect lifecycle and error semantics, original EXE+JS first. Preserve permissions/hidden/dev UI and Proxy no-development scope. Publish P02 docs/model/evidence/task, append STATE.md/PROJECT_STATUS.md. Recheck Stage-S source/build; do not claim EXE can build until source and workflow exist.

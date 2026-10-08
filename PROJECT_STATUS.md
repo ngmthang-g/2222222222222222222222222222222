@@ -561,3 +561,10 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Decoded Phoban 204 Items+10 Medicines unique ItemID templates in O04 META, none weapons. Keep-mode none/weapons/all maps to 2/1/0 discard presets, default all safe.
 - O05 docs/memory/O05_BAG_FILTER_SAFETY_FLOW.md, O05_MODEL.json, O05_STATIC_EVIDENCE.tsv, docs/tasks/O05.md; 61 evidence and 27 acceptance checks NOT_RUN. Stage-S source/Stage-T workflow absent. Phase O STATIC research complete, live parity deferred.
 - **NEXT P01 — emulator module authority/active vs dormant audit.** Proxy excluded.
+
+## Code/build audit and P01 original emulator conditional UI — 2026-10-08
+- Full original GitHub code/tree audited: seven Python D01–D07 forensic scripts, A08 shell; **no Stage-S application source and no Stage-T Windows workflow**, product build **BLOCKED_SOURCE_MISSING**, Windows app tests NOT_RUN. Original SHA/CRC verified PASS, standalone O04 verifier tested and missing script restored in earlier one-file commit.
+- docs/audit/CODE_BUILD_BASELINE_2026-10-08.md records precise code/source counts, blockers, no invented runtime bugs. No existing application code overwritten (none exists).
+- P01 static EXE-first: Train LD registered but hidden/license-gated; Debug Android developer-only; seven compiled emulator modules referenced and asset JS verified. Emulator remote farm toggle ACK-only according to original doc, live emulator/RPC/HTTP NOT_RUN.
+- P01 docs/emulator/P01_AUTHORITY_AND_DORMANCY.md, P01_MODEL.json, P01_STATIC_EVIDENCE.tsv and docs/tasks/P01.md: 33 evidence records and 18 future tests NOT_RUN. Stage N/O and Proxy excluded scope unchanged.
+- NEXT_ACTION **P02 — AndroidReader/EmuManager ADB/Frida identity and connection lifecycle**. Build remains blocked pending Stage S/T.

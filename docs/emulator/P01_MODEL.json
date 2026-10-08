@@ -1,0 +1,103 @@
+{
+  "task": "P01",
+  "status": "STATIC_EMULATOR_MODULE_AUTHORITY_AND_CONDITIONAL_UI_AUDITED_LIVE_EMULATOR_PARITY_DEFERRED",
+  "parent_head": "fe23b809d55641351fa7dcd69a70e0b767b47799",
+  "original": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "game_not_run": true
+  },
+  "main_ui": {
+    "train_ld": {
+      "class": "EmuFarmTab",
+      "key": "emu_farm_tab",
+      "initially_hidden": true,
+      "permission": "emu_tab",
+      "registered": true
+    },
+    "debug_android": {
+      "class": "DebugAndroidTab",
+      "key": "android_tab",
+      "developer_only": true,
+      "initially_hidden": true,
+      "registered": true
+    }
+  },
+  "modules": [
+    {
+      "module": "emu_input",
+      "marker": "0x293325f",
+      "class_or_entry": "AdbInput",
+      "role": "ADB tap/swipe/keyevent/screencap device pixels",
+      "classification": "REFERENCED_SERVICE"
+    },
+    {
+      "module": "emu_reader",
+      "marker": "0x29361cc",
+      "class_or_entry": "AndroidReader; EmuManager",
+      "role": "Frida RPC read/validate/bagSlots, device discovery",
+      "classification": "REFERENCED_SERVICE"
+    },
+    {
+      "module": "emu_remote",
+      "marker": "0x2938352",
+      "class_or_entry": "Remote listener",
+      "role": "Optional HTTP listener, emu_tab entitlement and ACK-only branch",
+      "classification": "CONDITIONAL_SERVICE"
+    },
+    {
+      "module": "emu_setup",
+      "marker": "0x293942e",
+      "class_or_entry": "setup helpers",
+      "role": "APK/AutoX and ld_remote.js push, template PC_BASE",
+      "classification": "REFERENCED_ON_SETUP"
+    },
+    {
+      "module": "emu_chat",
+      "marker": "0x293100c",
+      "class_or_entry": "EmuChat",
+      "role": "Coordinates [EmuChat], UI chat-goto sequence",
+      "classification": "REFERENCED_SERVICE"
+    },
+    {
+      "module": "emu_farm_tab",
+      "marker": "0x2932983",
+      "class_or_entry": "EmuFarmTab",
+      "role": "Train LD account rows, device presets, start/stop refresh",
+      "classification": "CONDITIONAL_REGISTERED_TAB"
+    },
+    {
+      "module": "debug_android_tab",
+      "marker": "0x290df6c",
+      "class_or_entry": "DebugAndroidTab",
+      "role": "Capture/viewport calibration/ADB/Frida/remote workbench",
+      "classification": "DEVELOPER_ONLY_TAB"
+    }
+  ],
+  "assets": [
+    {
+      "name": "emu_client.js",
+      "sha256": "384ccee9a2ddf236db377fca3abd36cbc17df81a94a286551a749a3132d02db1"
+    },
+    {
+      "name": "ld_remote.js",
+      "sha256": "3bd84a2b433ee679b7a049f5aa5cba2e8725d1e09b14d5deb3f42b6bf919edfb"
+    }
+  ],
+  "remote": {
+    "farm_toggle": "ACK_ONLY_ORIGINAL_DOC",
+    "bind_default": "0.0.0.0",
+    "token_default": "tlm",
+    "started": false
+  },
+  "acceptance": {
+    "planned": 18,
+    "executed": 0
+  },
+  "product": {
+    "source_app_exists": false,
+    "build_workflow_exists": false,
+    "build_status": "BLOCKED_SOURCE_MISSING"
+  },
+  "next_action": "P02 — emulator AndroidReader/EmuManager and ADB/Frida lifecycle audit"
+}
