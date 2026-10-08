@@ -4341,3 +4341,81 @@ On CONTINUE:
 7. Preserve L02-L07 movement/inventory/receiver/lifecycle contracts; do not reopen them without contradiction.
 8. Cross-check screenshots/runtime only after static extraction.
 9. Persist L08 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L08 verification.
+
+
+## L08 VERIFIED RESULTS
+- PLAN.md and STATE.md were read first and GitHub was checked before analysis. No pre-existing L08 artifact/completion existed; L01-L07 remain unchanged.
+- Exact original specimen was revalidated before screenshot/runtime use: archive SHA-256 `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`, size **93,715,901** bytes, **1,050** entries, CRC clean; inner EXE SHA-256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`, size **47,450,112** bytes.
+- Current Dồn controls/config mapping is frozen:
+  - `respawn_var` / `respawn` → **Quay lại train khi chết**;
+  - legacy `auto_reconnect_var` / `auto_reconnect` → current visible **Dừng khi mất kết nối mạng**;
+  - `trist_var` / `trist` → **Trị liệu sau khi chết**;
+  - `heal_map_var` / `heal_map` → treatment destination.
+- Both receiver and donor full sessions start the same Dồn `_diaphu_monitor` and `_disconnect_monitor` surfaces.
+- Dồn death monitor cadence is **4s**. `MapID == 87` raises `respawn_event` once per continuous map-87 episode using `detected`; leaving map 87 rearms it.
+- A real numeric `HpPercent == 0` causes exactly one client click at **(792,441)** per zero-HP episode; `hp_latched` blocks repeat clicks until HP becomes nonzero. Unreadable HP is not treated as zero.
+- Map87 recovery event and HP0 click are separate semantics: map87 signals recovery intent; HP0 performs the one-shot respawn click.
+- Receiver recovery explicitly logs **acc nhận đang ở Địa phủ → hồi sinh**, may invoke `_heal_at_death`, and then returns to its receiver lifecycle unless stop/halt/failure ends it. No Train-target move surface exists in the receiver runner.
+- Donor Farm consumes the same `respawn_event` and exposes **đang ở Địa phủ → hồi sinh**. The `respawn` checkbox is post-death return/relocation policy, not the HP0 click gate. Exact unchecked donor continuation remains explicit UNKNOWN.
+- Dồn treatment uses the shared `TRAIN_HEAL_COORDS` contract:
+  - Đại Lý map2 **(43,178)**;
+  - Lạc Dương map3 **(255,126)**;
+  - Tô Châu map4 **(155,252)**;
+  - Lâu Lan map5 **(294,170)**.
+- `_heal_at_death` supports built-in or saved manual coordinates, moves with shared `move_character`, then uses the frozen two-point treatment interaction **(892,474)** and **(514,424)** repeated **4** times. Exact 0.2 pacing binding/readiness placement remains unbound.
+- Treatment failure surface **trị liệu sau chết thất bại** is recovered, but the exact next lifecycle branch remains explicit UNKNOWN.
+- Critical Dồn-specific correction: **Dồn does not automatically reconnect**. The old internal/config name `auto_reconnect` is compatibility only; current visible semantics are stop-on-disconnect.
+- Dồn disconnect watchdog cadence is **2s**. `TCPGame.Instance.tcpClient.Connected == True` vetoes/reset false positives. Otherwise both pixel probes must match for **3 consecutive ticks (~6s)**:
+  - `login.ngatKetNoi1` → **(640,244)**, RGB **(160,145,52)**, tolerance **5**;
+  - `login.ngatKetNoi2` → **(702,453)**, RGB **(212,28,34)**, tolerance **5**.
+- On 3/3 confirmation Dồn logs **MAT KET NOI**, asserts `halt`, uses `stop_character`, and hard-stop-aware movement/treatment/Dồn subflows exit. Receiver path says **mất kết nối → dừng acc nhận**; donor path says **mất kết nối → dừng acc**.
+- Negative static evidence is decisive: Dồn disconnect monitor has **no** `reconnect_ok`, no reconnect click **(616,455)**, no `wait_pixel(common.active)` retry path, no five-attempt batch and no infinite reconnect retry loop.
+- The EXE's exact embedded text states: **KHÔNG tự kết nối lại — user bấm Start để chạy lại.**
+- Disconnect monitor exits when user/session/gen ends, real window/process dies, or **Dừng khi mất kết nối mạng** is turned off. No hot re-arm after re-enabling is assumed without stronger evidence.
+- `is_trade_active` is consulted by the disconnect monitor, but its exact conditional branch semantics are not source-visible enough and remain explicit UNKNOWN.
+- Confirmed disconnect halt can interrupt death-treatment/movement once halt becomes visible. Exact same-scheduling-window death/disconnect arbitration before halt remains runtime-required.
+- Screenshot cross-check was performed only after static extraction. Capture SHA-256 remains `dffb4da895d21dea87dd72a6601c29104f519dca89c2f716f5a7445bcbe4421a`; it shows respawn unchecked, stop-on-disconnect unchecked, treatment unchecked, unstuck checked and **Trị liệu Tô Châu** selected.
+- Frozen `automove_log.txt` remains SHA-256 `17f6daf02916e42b562e09a41afdf6affbdad8129c3f3bd25b92f80e9d259500`, **387,238 lines**. Correlated HP/death/treatment/disconnect Dồn markers are all **0**, so live timing is not fabricated.
+- L08 artifacts committed at **13efed0fadc49c909a50f5f18b572cfb922e0373**:
+  - `docs/don/L08_RECOVERY_DISCONNECT_FLOW.md`
+  - `docs/don/L08_RECOVERY_DISCONNECT_MODEL.json`
+  - `docs/don/L08_RECOVERY_DISCONNECT_STATIC_EVIDENCE.tsv`
+  - `docs/tasks/L08.md`
+- All four L08 artifacts were fetched back successfully.
+
+## POST-L08 CODE/BUILD RECHECK
+- Recursive main tree after L08 artifact commit contains **653 entries**, not truncated.
+- Python executable-code files remain exactly the same **7 forensic scripts** under `tools/`.
+- No reconstructed application source directory exists.
+- No build-system file and no GitHub Actions workflow exists.
+- L08 artifact commit has **0 combined CI statuses** and **0 workflow runs**.
+- L08 changed documentation/evidence only and introduced no executable-code/build regression.
+- Product build remains **NOT_APPLICABLE_YET / STAGE_S_NOT_STARTED**, not PASS/FAIL.
+
+## BLOCKERS
+- Exact donor continuation when **Quay lại train khi chết** is unchecked remains source-insufficient.
+- Exact treatment-failure next lifecycle branch remains source-insufficient.
+- Exact first 4s monitor tick timing and `is_trade_active` branch semantics remain unresolved.
+- Same-tick death/disconnect arbitration and live stop timing require Windows + live Thần Long runtime.
+- Reconstructed product build remains not applicable before Stage S.
+
+## DO_NOT_TOUCH
+- Preserve L01-L08 contracts unless exact new evidence contradicts them.
+- Do not import ordinary Train's reconnect loop into Dồn.
+- Preserve the legacy config key `auto_reconnect` while implementing current **Dừng khi mất kết nối mạng** semantics.
+- Do not gate the HP0 respawn click on `Quay lại train khi chết`; that option is post-death relocation policy.
+- Preserve receiver recovery as receiver lifecycle, not Train-role conversion.
+- Keep all-account action behavior for L09.
+- Do not create Stage-S application/build placeholders before PLAN reaches reconstruction.
+
+## NEXT_ACTION
+On CONTINUE:
+1. Read PLAN.md.
+2. Read STATE.md.
+3. Check GitHub first for any L09 artifacts/commits; if already complete and verified, do not redo them.
+4. Execute **L09 — Dồn all-account actions audit** only.
+5. Re-inspect the exact frozen original EXE first, focusing on `_move_all`, `_move_all_recv`, `_farm_all`, `_sell_all`, `_stop_all`, the bottom all-account buttons, StartTab Dồn quick controls, per-role filtering, concurrency/thread ownership, and only directly-called movement/Dồn/sell helpers required by those actions.
+6. Determine exact target universe for each all-account action, whether receiver accounts are included/excluded per action, parallel vs sequential behavior, how current shared receiver coordinate/role mapping affects action dispatch, stop/cancel semantics, and StartTab parity.
+7. Preserve L02-L08 movement/receiver/lifecycle/recovery contracts; do not reopen them without contradiction.
+8. Cross-check screenshots/runtime only after static extraction.
+9. Persist L09 artifacts, update STATE.md/PROJECT_STATUS.md, re-check code/build state, and advance only after L09 verification.

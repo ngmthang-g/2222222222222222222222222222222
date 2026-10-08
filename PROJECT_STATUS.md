@@ -383,7 +383,8 @@ K17 closes Phase K at the static-research level. The original archive, inner EXE
 - L05 — VERIFIED_DON_SHARED_COORD_ROLE_SWITCHED_SELECTOR_BUILTIN_MANUAL_PERSISTENCE_AND_STRICT_STALE_SKIP
 - L06 — VERIFIED_MULTI_RECEIVER_REGISTRY_PER_RECEIVER_LOCK_LOWEST_SPEED_SELECTION_BACKGROUND_TRADE_WATCH
 - L07 — VERIFIED_START_TIME_ROLE_SPLIT_RECV_CYCLE_VS_DONOR_FARM_CYCLE_GEN_GUARDED_COOPERATIVE_STOP_AND_NO_DYNAMIC_ROLE_MORPH
-- L08 — NEXT
+- L08 — VERIFIED_4S_MAP87_HP0_LATCHED_RESPAWN_SHARED_HEAL_ROUTE_AND_2S_STOP_ON_DISCONNECT_3STRIKE_NO_RECONNECT
+- L09 — NEXT
 
 L01 locks `donvang_tab.py` / `DonVangTab` as the active Dồn authority. The exact Nuitka `.donvang_tab` module has size field **65,260 bytes** and count field **1,813**, and **127** direct top-level `DonVangTab` methods are inventoried. `TLMMainApp` constructs the tab under visible label `Dồn`, while StartTab exposes `Dồn vàng / Tới nơi nhận / Tới chỗ bán / Tới nơi train / Cấu hình`. The visible surface includes Về thành conditions/priorities, Train/death/disconnect/unstuck/pickup/filter/heal controls, saved coordinates, receiver rows, a shared Dồn coordinate, per-account move/Dồn/sell controls, and all-account actions. Dồn is current/wired rather than dormant; dedicated-tab visibility is permission-controlled, with the captured run showing it visible while the exact permission state remains unknown. Direct dependency boundaries are frozen, and weak emulator/farm-tab references are not promoted to active runtime imports.
 
@@ -399,5 +400,7 @@ L06 locks the multi-receiver model. Receiver rows are account-only rows sharing 
 
 L07 locks Dồn full-session integration. Both roles share _farming/_farming_acc/_farm_threads/_stopping_play/row._gen ownership, but the worker is chosen at start: receiver -> _run_receiver/recv_cycle; donor -> _farm_cycle(don_callback=_don_cb). _farm_acc is only the StartAutoFight Train memory primitive, not the full FSM. Receiver cycle is sell -> return -> ready -> receive -> repeat; donor Dồn substitutes the return-town leg and then rejoins the Train leg. Stop/drain is cooperative and generation-guarded. Receiver combobox changes while running restyle/reorder only and do not hot-swap the active worker; a full stop/start is required for the newly selected role to receive the corresponding worker. Runtime timing remains environment-required.
 
+L08 locks Dồn death/treatment/disconnect semantics. Both roles run a 4s death monitor: MapID 87 raises a latched respawn_event and real numeric HP==0 performs one client click at (792,441) per zero-HP episode. Optional post-death treatment reuses TRAIN_HEAL_COORDS plus the exact two-point ×4 treatment interaction. Crucially, Dồn's legacy auto_reconnect_var / auto_reconnect config no longer means reconnect: the visible control is Dừng khi mất kết nối mạng. The 2s watchdog uses connected-memory as a veto plus both disconnect pixels for 3 consecutive ticks (~6s), then halts/stops the account. Dồn contains no reconnect_ok/click/common.active retry loop; its own embedded documentation says KHÔNG tự kết nối lại — user bấm Start để chạy lại. Live timing remains environment-required.
+
 ## Phase L current
-L08 — Dồn heal / death / disconnect / reconnect audit.
+L09 — Dồn all-account actions audit.
