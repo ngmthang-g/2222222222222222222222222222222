@@ -1,0 +1,245 @@
+{
+  "task": "P03",
+  "status": "STATIC_EMU_INPUT_ADB_AND_VIEWPORT_CONTRACT_AUDITED_LIVE_INPUT_PARITY_DEFERRED",
+  "authority": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "zip_entries": 1050,
+    "zip_crc": "PASS",
+    "exe_path": "TLMTool_2.1.2/TLMTool.dist/TLMTool.exe",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "module_marker_hex": "0x293325f",
+    "module_constant_span": [
+      "0x2932e35",
+      "0x293325f"
+    ]
+  },
+  "input_api": {
+    "AdbInput.__init__": "0x2933173",
+    "AdbInput._run": "0x2933198",
+    "AdbInput.tap": "0x29331a8",
+    "AdbInput.swipe": "0x29331bb",
+    "AdbInput.key": "0x29331d0",
+    "AdbInput.text": "0x29331de",
+    "AdbInput.size": "0x29331ed",
+    "AdbInput.screencap": "0x29331fc",
+    "AdbInput.save_cap": "0x293321a",
+    "AdbInput.from_pc": "0x293323e"
+  },
+  "transport": {
+    "type": "external ADB subprocess (original compiled constants)",
+    "serial": "selected current ADB serial, P02 identity constraints",
+    "adb_path_example": "D:\\LDPlayer\\LDPlayer9\\adb.exe",
+    "adb_override_symbol": "LD_ADB",
+    "adb_bundled_in_original_zip": false,
+    "invocations": [
+      "shell input tap",
+      "shell input swipe",
+      "shell input keyevent",
+      "shell input text",
+      "shell wm size",
+      "exec-out screencap -p"
+    ],
+    "no_console_symbol": true,
+    "utf8_decode_errors_ignore_symbols": true,
+    "subprocess_timeout_value": "UNKNOWN",
+    "retry_policy": "UNKNOWN"
+  },
+  "capture": {
+    "transport": "raw binary screenshot PNG",
+    "library": "PIL.Image + BytesIO",
+    "color": "RGB",
+    "error_value": null,
+    "save_cap_return": "UNKNOWN"
+  },
+  "coordinates": {
+    "device": "actual wm size device pixels",
+    "sample_device": [
+      960,
+      540
+    ],
+    "reference_pc": [
+      1366,
+      768
+    ],
+    "example_factors": [
+      0.7027,
+      0.7031
+    ],
+    "factors_universal": false,
+    "debug_viewport_default_origin": [
+      0,
+      30
+    ],
+    "debug_method": "GetCursorPos -> ScreenToClient -> LDPlayer viewport -> device pixels",
+    "rounding": "UNKNOWN",
+    "clip": "UNKNOWN"
+  },
+  "callees": {
+    "farm": "EmuFarmTab -> .emu_input reference only",
+    "debug": "DebugAndroidTab._adb_input, _do_cap/_do_tap/_do_rgb",
+    "chat": "EmuChat -> AdbInput; chat-link higher-level verification distinct from tap",
+    "remote": "ACK not game action proof"
+  },
+  "unknowns": [
+    "actual Python call graph and ordering",
+    "ADB path precedence",
+    "timeout/error mapping",
+    "exact swipe duration",
+    "text escaping UTF8 and special chars",
+    "exact wm size failure return",
+    "from_pc rounding and out-of-viewport behavior",
+    "capture save path",
+    "DPI parity on live Windows",
+    "ADB concurrency/retry",
+    "live current APK orientation"
+  ],
+  "test": {
+    "static_zip_sha_crc": "PASS",
+    "static_inner_exe_sha": "PASS",
+    "module_markers": "PASS",
+    "static_evidence_rows": 49,
+    "acceptance_planned": 26,
+    "acceptance_live_executed": 0,
+    "acceptance_cases": [
+      {
+        "id": "P03-01",
+        "requirement": "Confirm external adb.exe resolution, user path/env fallback",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-02",
+        "requirement": "Detect offline/missing ADB transport and do not target another VM",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-03",
+        "requirement": "Select exact current ADB serial when multiple LDPlayer clones",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-04",
+        "requirement": "Subprocess no-window flag / Windows spawn behavior",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-05",
+        "requirement": "Timeout value and exception/status reporting",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-06",
+        "requirement": "tap lands on exact device pixel",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-07",
+        "requirement": "swipe start/end/timing matches original",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-08",
+        "requirement": "numeric keyevent e.g. 4 and 3",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-09",
+        "requirement": "label KEYCODE_BACK normalization",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-10",
+        "requirement": "text ASCII space escaping",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-11",
+        "requirement": "text accented Vietnamese/Unicode and shell-unsafe characters",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-12",
+        "requirement": "wm size 960x540 actual tuple",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-13",
+        "requirement": "wm size resized/rotated/parse failure",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-14",
+        "requirement": "from_pc scales 1366x768->dynamic wm size",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-15",
+        "requirement": "from_pc rounding/clamp/out-of-bounds",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-16",
+        "requirement": "exec-out PNG raw bytes and valid Pillow RGB",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-17",
+        "requirement": "truncated/no-game/invalid PNG returns None not black success",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-18",
+        "requirement": "save_cap path, write error and overwrite behavior",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-19",
+        "requirement": "Debug GetCursorPos+ScreenToClient DPI parity",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-20",
+        "requirement": "Debug client viewport (0,30) default and dynamic far corner",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-21",
+        "requirement": "Reject clicks outside the valid viewport",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-22",
+        "requirement": "Debug Android _do_cap,_do_tap,_do_rgb real actions",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-23",
+        "requirement": "EmuChat ADB click vs memory state verification",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-24",
+        "requirement": "Permission-gated UI hides Train LD/Debug Android appropriately",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-25",
+        "requirement": "Stop/close/reconnect concurrent ADB calls",
+        "live_result": "NOT_RUN"
+      },
+      {
+        "id": "P03-26",
+        "requirement": "Windows reconstructed Stage-S/Stage-T EXE build and live parity",
+        "live_result": "NOT_RUN"
+      }
+    ],
+    "live_windows": "NOT_RUN",
+    "live_ldplayer": "NOT_RUN"
+  },
+  "scope": {
+    "proxy_development": "FORBIDDEN",
+    "emulator_tab_ui": "conditional emu_tab and dev-only",
+    "product_source": "ABSENT",
+    "build": "BUILD_BLOCKED_SOURCE_MISSING"
+  },
+  "next_action": "P04 — emu_chat pure-UI chat-link navigation, per-device calibrated coordinates and memory verification original EXE first"
+}
