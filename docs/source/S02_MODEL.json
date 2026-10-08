@@ -1,0 +1,71 @@
+{
+  "task": "S02",
+  "status": "SOURCE_PARTIAL_VERIFIED_CLAIMS_GATE_TESTED_NO_PRODUCTION_TOKEN_VERIFIER",
+  "authorities": {
+    "original_info_marker": "0x2975ca9",
+    "original_permission_marker": "0x2b84c35",
+    "original_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "docs": [
+      "E01",
+      "E04",
+      "E05",
+      "E07",
+      "E08",
+      "B12"
+    ],
+    "client_reference_repo": "ngmthang-g/clinent-game-than-long-DATA-2222",
+    "client_docs": [
+      "README.md",
+      "AI_BOOTSTRAP.md",
+      "AI_ROUTER.md"
+    ],
+    "client_used_for_auth_claims": false,
+    "client_repo_modified": false
+  },
+  "source_changed": [
+    "src/permission_guard.py",
+    "src/info_state.py",
+    "src/shell.py",
+    "tests/test_s02.py"
+  ],
+  "behavior": {
+    "default_permissions": [
+      "info_tab"
+    ],
+    "server_verified_token_required": true,
+    "real_token_verifier_present": false,
+    "test_stub_verifier_only": true,
+    "raw_json_rejected": true,
+    "malformed_token_rejected": true,
+    "dev_requires_grant_and_flag": true,
+    "max_windows_from_server_only": true,
+    "unverified_limit_denied": true,
+    "tk_after_ui_bridge": true,
+    "original_free_permissions_unverified": true,
+    "heartbeat_grace_unverified": true,
+    "normal_main_exit": 2
+  },
+  "tests": {
+    "local_compileall": "PASS",
+    "old_s01_tests": 7,
+    "new_s02_tests": 8,
+    "combined_tests_passed": 15,
+    "combined_tests_failed": 0,
+    "actual_server": "NOT_RUN",
+    "tk_windows": "NOT_RUN",
+    "windows_exe_build": "NOT_RUN",
+    "github_files_verified": true
+  },
+  "blockers": [
+    "unknown signed token format/public key policy and server endpoints",
+    "original FREE permissions not recovered",
+    "original heartbeat token expiry and grace behavior not source-recovered",
+    "InfoTab widgets/activation/startup RPC missing",
+    "actual multi-client PC+emulator count not implemented",
+    "feature tab controllers not reconstructed",
+    "Stage T Windows build absent"
+  ],
+  "build_status": "SOURCE_PARTIAL_AUTH_VERIFIER_INFO_UI_FEATURES_AND_WINDOWS_BUILD_MISSING",
+  "proxy_development": "EXCLUDED",
+  "next_action": "S03 — investigate exact original InfoTab token verification / RPC / FREE+heartbeat contracts, then build real read-only Info UI controller with tests where supported"
+}
