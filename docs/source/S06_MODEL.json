@@ -1,0 +1,112 @@
+{
+  "task": "S06",
+  "status": "NATIVE_WINDOWS_B12_INFO_ANCHORS_37_TESTS_PASS_FULL_PARITY_BLOCKED",
+  "source": [
+    "src/info_tab.py",
+    "tests/test_s06.py",
+    "tools/S06_WINDOWS_INFO_LAYOUT.py",
+    ".github/workflows/s06-native-info-layout.yml"
+  ],
+  "verified_original": {
+    "B12_client": [
+      450,
+      1000
+    ],
+    "B12_screenshot_sha256": "e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc",
+    "style": "original conditional checking palette; not original live dev-mode purple",
+    "status": [
+      3,
+      51,
+      416,
+      44
+    ],
+    "version": [
+      107,
+      105,
+      312,
+      19
+    ],
+    "device": [
+      107,
+      130,
+      256,
+      19
+    ],
+    "key": [
+      107,
+      155,
+      256,
+      19
+    ],
+    "license": [
+      107,
+      180,
+      312,
+      19
+    ],
+    "windows": [
+      107,
+      205,
+      312,
+      19
+    ],
+    "validity": [
+      107,
+      230,
+      312,
+      19
+    ],
+    "changelog": [
+      3,
+      295,
+      416,
+      109
+    ]
+  },
+  "github_ci": {
+    "run_id": 37869205674,
+    "job_id": 113623105567,
+    "run_url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37869205674",
+    "commit": "09302f5c241d302c5ebfe68c282b2bfaeeba438b",
+    "conclusion": "success",
+    "python": "3.10",
+    "windows": true,
+    "compileall": "PASS",
+    "test_total": 37,
+    "tests_passed": 37,
+    "tests_seconds": 0.018,
+    "native_status": "PASS_NATIVE_READONLY_LAYOUT_ANCHORS",
+    "native_scrollbar": true,
+    "root_destroy": true
+  },
+  "artifact": {
+    "id": 11589915070,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37869205674/artifacts/11589915070",
+    "files": [
+      "native_info_layout.png",
+      "native_info_layout.json"
+    ]
+  },
+  "limitations": {
+    "desktop": [
+      1024,
+      768
+    ],
+    "reconstructed_client": [
+      450,
+      688
+    ],
+    "original_client": [
+      450,
+      1000
+    ],
+    "full_pixel_diff": "NOT_RUN",
+    "original_11_visible_tab_parity": false,
+    "real_server": "NOT_RUN",
+    "original_exe_runtime": "NOT_RUN",
+    "product_exe": "NOT_BUILT",
+    "user_correction_don": "Dồn preserved",
+    "proxy": "EXCLUDED"
+  },
+  "next_action": "S07 — B12 evidenced remaining passive Info price/contact/catalog areas without invented server data or fake button actions, verify Windows and then proceed original-backed functional Start/Login"
+}
