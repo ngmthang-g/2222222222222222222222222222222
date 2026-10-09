@@ -47,6 +47,19 @@ class TkScheduleCountdownPreview:
         self._closed = False
         self._status = "IDLE"
         self._last_text = ""
+        # S44: Tk may destroy Label before the next 1-second after callback.
+        # Subscribe on the real widget so active timers are invalidated now.
+        self._destroy_binding = self._label.bind(
+            "<Destroy>", self._on_label_destroy, add="+")
+
+    def _on_label_destroy(self, event) -> None:
+        # Tk sends Destroy for descendants/ancestors during teardown; only
+        # the actual owned label may terminate this preview.
+        if getattr(event, "widget", None) is self._label:
+            self.shutdown()
+
+    def _live(self, epoch: int) -> bool:
+        return not self._closed and self.active and epoch == self._epoch
 
     @property
     def active(self) -> bool:
@@ -88,7 +101,11 @@ class TkScheduleCountdownPreview:
             clock = LoginScheduleClock(
                 close_hhmm=settings.close_hhmm,
                 open_hhmm=settings.open_hhmm)
+            before_now = self._epoch
             clock.enable(self._now())
+            # A caller-supplied time provider may re-enter stop()/shutdown.
+            if self._closed or self._epoch != before_now:
+                return False
             self._clock = clock
             self._epoch += 1
             self._cancel.clear()
@@ -98,29 +115,46 @@ class TkScheduleCountdownPreview:
             return self.active
         except Exception:
             # Tk, clock and caller-provided now() failures are not logged.
-            # The existing INI may contain passwords, so never format exc.
-            self._stop_internal("BLOCKED_PREVIEW")
+            # Re-entrant shutdown must NOT be downgraded to BLOCKED_PREVIEW.
+            if not self._closed:
+                self._stop_internal("BLOCKED_PREVIEW")
             return False
 
     def _refresh(self, epoch: int) -> None:
         """Run on Tk thread; stale or cancelled callbacks are no-ops."""
-        if (self._closed or not self.active or epoch != self._epoch):
+        if not self._live(epoch):
             return
         try:
             self._main_thread_only()
             now = self._now()
+            if not self._live(epoch):
+                return
             if not isinstance(now, datetime):
                 raise TypeError("INVALID_PREVIEW_CLOCK")
             # Pure daily rollover only. Drop any returned due events; no
             # F05/F06 callback exists and NONE is implicitly authorized.
             self._clock.poll(now)
+            if not self._live(epoch):
+                return
             rendered = self._clock.countdown(now)
             self._label.configure(text=rendered)
+            if not self._live(epoch):
+                return
             self._last_text = rendered
-            self._after_id = self._label.after(
+            new_id = self._label.after(
                 REFRESH_MS, lambda: self._scheduled_refresh(epoch))
+            # Even if an injected callback re-entered stop() from .after(),
+            # do not orphan a timer that did not exist when stop() ran.
+            if not self._live(epoch):
+                try:
+                    self._label.after_cancel(new_id)
+                except Exception:
+                    pass
+                return
+            self._after_id = new_id
         except Exception:
-            self._stop_internal("BLOCKED_PREVIEW")
+            if self._live(epoch):
+                self._stop_internal("BLOCKED_PREVIEW")
 
     def _scheduled_refresh(self, epoch: int) -> None:
         # The timer executing now no longer has a pending Tcl after id.
