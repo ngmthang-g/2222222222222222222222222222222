@@ -116,8 +116,8 @@ class F09ScheduleEvaluationWorker:
                 clock.enable(self._now())
                 # S46: an external no-wait shutdown request can arrive while
                 # the injected time source is blocked inside clock.enable().
-                if self._closed:
-                    self._status = "CLOSED"
+                if self._closed or self._stop_requested.is_set():
+                    self._status = "CLOSED" if self._closed else "STOPPING"
                     return False
             except Exception:
                 # Do not print exceptions: caller settings may contain secrets.
@@ -127,13 +127,11 @@ class F09ScheduleEvaluationWorker:
             self._audit.clear()
             self._ticks = 0
             self._cancel.clear()
-            if self._closed:
-                # A lock-free request_shutdown() raced cancellation clear.
-                # The permanent closed latch wins, never spawn a new thread.
+            if self._closed or self._stop_requested.is_set():
                 self._cancel.set()
                 self._clock.disable()
                 self._clock = None
-                self._status = "CLOSED"
+                self._status = "CLOSED" if self._closed else "STOPPING"
                 return False
             self._status = "EVALUATING_ONLY_NO_ACTIONS"
             worker = threading.Thread(
@@ -149,11 +147,9 @@ class F09ScheduleEvaluationWorker:
                 self._thread = None
                 self._status = "BLOCKED_THREAD"
                 return False
-            if self._closed:
-                # request_shutdown() may arrive while the new thread starts;
-                # cancellation is one-way and takes precedence.
+            if self._closed or self._stop_requested.is_set():
                 self._cancel.set()
-                self._status = "CLOSED"
+                self._status = "CLOSED" if self._closed else "STOPPING"
                 return False
             return True
 
