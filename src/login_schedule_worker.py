@@ -199,28 +199,27 @@ class F09ScheduleEvaluationWorker:
             return blocked
 
     def stop(self, timeout: float = 2.0) -> bool:
-        """Cancel + join before permitting restart. Never kill game windows.
+        """Bound BOTH lifecycle-mutex acquisition and worker join time.
 
-        Returns False if worker hasn't exited; start() then refuses a second
-        thread until it exits. timeout bounds wait even for a hung clock
-        provider. No Event.wait() runaway loop survives normal cancellation.
+        Cancellation is sent before the lock wait. On mutex timeout, the
+        pending-stop fence stays set so an in-progress start cannot rearm.
         """
         if type(timeout) not in (int, float) or not 0 <= timeout <= 30:
             raise ValueError("INVALID_STOP_TIMEOUT")
-        # S43: the lifecycle lock prevents a concurrent start() from replacing
-        # _thread/_clock between join() and cleanup. Set cancellation before
-        # trying to acquire _lock: a user-supplied clock may be hung inside
-        # poll_once() while holding _lock, and timeout must still be honored.
-        with self._lifecycle_lock:
-            self._cancel.set()
+        deadline = time.monotonic() + timeout
+        self._stop_requested.set()
+        self._cancel.set()
+        remaining = max(0.0, deadline - time.monotonic())
+        if not self._lifecycle_lock.acquire(timeout=remaining):
+            self._status = "STOPPING"
+            return False
+        try:
             thread = self._thread
             if thread is not None and thread is threading.current_thread():
                 raise RuntimeError("CANNOT_JOIN_OWN_F09_WORKER")
             if thread is not None and thread.is_alive():
-                thread.join(timeout)
+                thread.join(max(0.0, deadline - time.monotonic()))
             if thread is not None and thread.is_alive():
-                # Never wait indefinitely for the poll lock after timed join.
-                # No game actions can occur even if the provider stays hung.
                 self._status = "STOPPING"
                 return False
             with self._lock:
@@ -228,7 +227,10 @@ class F09ScheduleEvaluationWorker:
                     self._clock.disable()
                     self._clock = None
                 self._status = "CLOSED" if self._closed else "STOPPED"
+                self._stop_requested.clear()
                 return True
+        finally:
+            self._lifecycle_lock.release()
 
     def request_shutdown(self) -> None:
         """S46: permanently cancel WITHOUT acquiring locks or joining.
