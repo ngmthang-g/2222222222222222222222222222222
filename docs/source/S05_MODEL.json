@@ -1,0 +1,106 @@
+{
+  "task": "S05",
+  "status": "S05_NATIVE_WINDOWS_INFO_TK_PASS_B12_PIXEL_PARITY_NOT_YET_VERIFIED",
+  "native_ci": {
+    "workflow": ".github/workflows/s05-native-info-preview.yml",
+    "run_id": 37868251319,
+    "job_id": 113620048879,
+    "commit": "88d99b18a7e6a21e49b8fe23dea2c41d20b5f9c0",
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37868251319",
+    "conclusion": "success",
+    "windows": true,
+    "python": "3.10",
+    "compileall": "PASS",
+    "existing_unittests": 31,
+    "unittests_passed": 31,
+    "smoke": "PASS_NATIVE_TK_INFO_ONLY_SMOKE"
+  },
+  "window": {
+    "screen": [
+      1024,
+      768
+    ],
+    "root_geometry": "450x688+564+0",
+    "client": [
+      450,
+      688
+    ],
+    "B12_client": [
+      450,
+      1000
+    ],
+    "B12_full_raster": [
+      452,
+      1032
+    ],
+    "e02_model_height": 688,
+    "model_geometry_match": true
+  },
+  "tk": {
+    "potential_tabs": 15,
+    "visible": [
+      "info_tab"
+    ],
+    "selected": "info_tab",
+    "notebook_screen": {
+      "x": 577,
+      "y": 36,
+      "width": 440,
+      "height": 678
+    },
+    "info_frame_screen": {
+      "x": 578,
+      "y": 59,
+      "width": 436,
+      "height": 652
+    },
+    "version_value_screen": {
+      "x": 694,
+      "y": 123,
+      "width": 28,
+      "height": 19
+    },
+    "all_captures_are_screen_coordinates": true,
+    "root_destroy_cleanup_pass": true
+  },
+  "evidence_artifact": {
+    "id": 11589735180,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37868251319/artifacts/11589735180",
+    "files": [
+      "windows_tk_report.json",
+      "info_only_native_tk.png"
+    ],
+    "image_size": [
+      450,
+      688
+    ],
+    "image_capture": "CAPTURED_CLIENT_BBOX_NOT_ORIGINAL_MATCH"
+  },
+  "b12": {
+    "original_screenshot_file": "TLMTool_f8iidp8FS8.png",
+    "original_screenshot_sha256": "e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc",
+    "original_raster_loaded": false,
+    "full_raster_parity": "NOT_RUN",
+    "info_status_panel_parity": "INCOMPLETE",
+    "scrollable_changelog_parity": "INCOMPLETE",
+    "licensed_11_visible_tabs": "BLOCKED_MISSING_REAL_AUTH_FACTORIES",
+    "exact_text_values": "SERVER_DEPENDENT"
+  },
+  "product": {
+    "normal_TLMTool_entrypoint_returns": 2,
+    "nuitka_exe": "NOT_BUILT",
+    "real_auth_server": "NOT_RUN",
+    "feature_runtime": "NOT_RUN",
+    "proxy_development": "EXCLUDED"
+  },
+  "changed": [
+    "tools/S05_WINDOWS_TK_SMOKE.py",
+    ".github/workflows/s05-native-info-preview.yml",
+    "docs/source/S05_NATIVE_TK_PREVIEW.md",
+    "docs/source/S05_MODEL.json",
+    "docs/tasks/S05.md",
+    "STATE.md",
+    "PROJECT_STATUS.md"
+  ],
+  "next_action": "S06 — improve verified read-only B12 Info panel/rows/changelog layout and native Tk geometry checks; preserve fail-closed server and no fake action buttons"
+}
