@@ -657,3 +657,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Artifacts: docs/source/S02_AUTH_STATE.md, S02_MODEL.json, docs/tasks/S02.md, tests/test_s02.py. Original ZIP, PLAN and completed research unchanged; no Proxy implementation.
 - S02 status SOURCE_PARTIAL_AUTH_VERIFIER_INFO_UI_FEATURES_AND_WINDOWS_BUILD_MISSING. Original default FREE permissions + heartbeat grace unknown, so conservative denial is explicitly partial parity, not original exact behavior. Stage-T build still missing.
 - NEXT_ACTION S03 — recover genuine InfoTab token verification/RPC/FREE and heartbeat contract, then implement only evidenced read-only Info UI controller/tests; user client DATA permitted only for client-specific unknowns.
+
+
+## S03 — Original Info authorization research and passive real Tk fields
+- Direct frozen EXE static scan confirmed Info RPC, token verification branch and permission guard/grace variables: 18/18 selected binary string offsets PASS; original ZIP CRC PASS; no secret reuse, no live server calls.
+- Real partial source src/info_tab.py and tests/test_s03.py committed. Info screen fields are B12-original headings and safe explicit unknown values, no fake activation or Copy controls. New S03 headless unit tests 6/6 PASS; previous S01/S02 15/15 are historical (NOT rerun combined in S03).
+- Artifacts docs/source/S03_INFO_VIEW_AND_AUTH_BOUNDARY.md, S03_MODEL.json, S03_STATIC_EVIDENCE.tsv (21 entries), docs/tasks/S03.md. No prior modules/PLAN/Proxy changed.
+- Product still partial source with blocked authentic server verification and incomplete feature tabs, no Windows EXE or screenshot parity. Status S03_READONLY_INFO_VIEW_6_TESTS_PASS_AUTH_RPC_RUNTIME_UNVERIFIED.
+- NEXT_ACTION S04: Info state-to-Tk binding, full combined regressions, preserve original license boundaries and no fake grants.
