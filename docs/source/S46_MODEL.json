@@ -1,0 +1,30 @@
+{
+  "task": "S46",
+  "status": "WINDOWS_NATIVE_PENDING",
+  "sources": [
+    "docs/tasks/F09.md",
+    "docs/tasks/S45.md"
+  ],
+  "worker": "src/login_schedule_worker.py",
+  "tab_lifetime": "src/login_schedule_lifetime.py",
+  "method": "F09ScheduleEvaluationWorker.request_shutdown",
+  "intent": "real Tk <Destroy> must not block on concurrently held worker lifecycle lock",
+  "worker_join_in_tk": false,
+  "worker_cancel_lock_free": true,
+  "preview_shutdown_exception_fail_closed": true,
+  "actual_F09_worker_check_sec": 20,
+  "actual_tk_preview_ms": 1000,
+  "unit": "tests/test_s46.py",
+  "new_unit_tests": 15,
+  "native_smoke": "tools/S46_WINDOWS_TK_LIFECYCLE_MUTEX_SMOKE.py",
+  "workflow": ".github/workflows/s46-native-tk-lifecycle-mutex.yml",
+  "game_actions": "NOT_CONNECTED",
+  "signed_info": "NOT_CONNECTED",
+  "real_F05_F06": "MISSING",
+  "product_ui_binding": false,
+  "proxy_runtime": "EXCLUDED",
+  "legacy_accounts_writer": false,
+  "original_boolean_encoding": "UNKNOWN",
+  "product_exe": "NOT_PRODUCT",
+  "next_action": "S47 concurrency audit finish_close(timeout) lifecycle lock budget and reentrant cancel"
+}
