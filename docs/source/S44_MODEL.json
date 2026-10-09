@@ -1,0 +1,27 @@
+{
+  "task": "S44",
+  "status": "WINDOWS_NATIVE_VERIFICATION_PENDING",
+  "baseline": "S43 686/686 Python units",
+  "new_unit_methods": 18,
+  "source_changed": "src/login_schedule_countdown.py",
+  "updated_test_fixture": "tests/test_s41.py",
+  "test_file": "tests/test_s44.py",
+  "native_smoke": "tools/S44_WINDOWS_TK_DESTROY_COUNTDOWN_SMOKE.py",
+  "workflow": ".github/workflows/s44-native-tk-destroy-countdown.yml",
+  "original_f09_reference": "docs/tasks/F09.md",
+  "fixes": [
+    "Native Tk Label <Destroy> binding automatically cancels pending countdown",
+    "Generation checks after reentrant now/clock/label callbacks",
+    "Explicit orphan after-id cancel when stop called during after registration",
+    "Initial source time provider cannot re-arm following stop/shutdown"
+  ],
+  "f05_f06_actual_handlers": "MISSING",
+  "genuine_info": "MISSING",
+  "game_actions": "NOT_CONNECTED",
+  "product_tab_binding": "NOT_DONE",
+  "product_exe": "NOT_PRODUCT",
+  "f02_accounts_mutated": false,
+  "persisted_f09_booleans": "UNKNOWN_NO_AUTO_ARM",
+  "proxy_runtime": "EXCLUDED",
+  "next_action": "S45: audit shutdown ordering between separately verified Tk countdown and 20s blocked worker; no product actions until authenticated handlers."
+}
