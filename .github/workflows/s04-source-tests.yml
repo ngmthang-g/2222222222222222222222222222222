@@ -1,0 +1,33 @@
+name: Stage S source regression tests
+
+on:
+  push:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - ".github/workflows/s04-source-tests.yml"
+  pull_request:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - ".github/workflows/s04-source-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-regression:
+    runs-on: windows-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Install Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile Stage S source and tests
+        run: python -m compileall -q src tests
+      - name: Run all S01–S04 unit tests
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
