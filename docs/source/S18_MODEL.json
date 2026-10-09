@@ -1,0 +1,60 @@
+{
+  "task": "S18",
+  "status": "NATIVE_TEST_OWNED_GRID_MASTER_210_TESTS_PASS_REAL_GAME_NOT_RUN",
+  "evidence": [
+    "docs/tasks/C05.md",
+    "docs/tasks/C08.md",
+    "docs/tasks/C06.md"
+  ],
+  "implementation": {
+    "grid_controls": "actual Cột/Hàng +/- ttk buttons; 3/4 default; local safe 1..12",
+    "settings_path": "APPDATA/TLMTool/settings.ini",
+    "section": "Settings",
+    "keys": [
+      "grid_cols",
+      "grid_rows"
+    ],
+    "master": "dynamic HWND/PID keyed ttk Radiobutton",
+    "fallback": "first current source; local unknown-original policy",
+    "worker": "S17 background native layout; cancel earlier generation upon grid/master changes",
+    "character_info": "S09 only source HWND title; RoleName unavailable"
+  },
+  "tests": {
+    "unit_total": 210,
+    "unit_pass": 210,
+    "new_unit_tests": 23,
+    "run": 37888218013,
+    "conclusion": "success",
+    "native": "PASS_NATIVE_S18_REAL_GRID_BUTTONS_RADIOS_PERSISTENCE_AND_REVOKE",
+    "native_hwnds": 4,
+    "unrelated_untouched": true,
+    "grid_changed_while_running": true,
+    "master_changed_by_radio": true,
+    "settings_persist": true,
+    "revoke_no_late_move": true,
+    "s17_native_rerun": true
+  },
+  "same_head_runs": {
+    "stage_s": 37888217990,
+    "s10": 37888218099,
+    "s11": 37888218101,
+    "s12": 37888217997,
+    "s13": 37888218042,
+    "s14": 37888218020,
+    "s15": 37888218026,
+    "s16": 37888217987,
+    "s17": 37888218065,
+    "s18": 37888218013
+  },
+  "unknown": [
+    "exact original +/- minimum maximum",
+    "exact original automatic master selection",
+    "exact original per-window label format",
+    "exact grid XY arithmetic",
+    "original C18 interval",
+    "C19 real input payload and listener state",
+    "real game and server",
+    "product EXE"
+  ],
+  "next_action": "S19 C19 scoped coordinate scaling, serialized input queue, cancellation safety with test-owned Windows only; no fake unknown custom game messages or Proxy"
+}
