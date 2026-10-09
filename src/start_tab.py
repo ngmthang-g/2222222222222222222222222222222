@@ -1,10 +1,11 @@
 """S10–S17: Start DWM previews, guarded WM_CLOSE and native layout worker.
 
-Only S08 Win32-observed HWND/PID/title snapshots delivered by S09's worker
-are displayed. S11 DWM previews use actual Win32 HWND+PID and real compositor
-thumbnail API. No game command, character-memory read, master selection,
-mouse binding, layout buttons or entitlement is reconstructed here.
-The shell must grant the Start tab from a separately verified server snapshot.
+S08 Win32-observed HWND/PID/title snapshots arrive from the S09 worker.
+S11 DWM thumbnails are live; S16 posts WM_CLOSE only after native HWND/PID
+verification; S17 offers a bounded, verified-limit C18 layout mover on its
+own worker thread. Original C18 geometry/cadence and C19 keyboard/mouse sync
+are NOT reconstructed. No game memory reader, Proxy or local license grant.
+The shell must grant Start from an independently verified server snapshot.
 """
 from __future__ import annotations
 
