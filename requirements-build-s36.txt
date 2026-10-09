@@ -1,0 +1,3 @@
+# S36 diagnostic packaging tool ONLY; not a production EXE dependency set.
+# Python 3.10 x64 Windows; CI pins the Python runtime via setup-python.
+PyInstaller==6.16.0

@@ -1,0 +1,108 @@
+name: S36 Windows standalone diagnostic packaging — NOT PRODUCT
+
+on:
+  push:
+    paths:
+      - "src/**"
+      - "tests/test_s36.py"
+      - "tools/S36_VERIFY_STANDALONE.py"
+      - "requirements-build-s36.txt"
+      - ".github/workflows/s36-native-packaging-diagnostic.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  s36-packaged-proof:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Python 3.10 x64 matching original frozen runtime family
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          architecture: "x64"
+      - name: Compile all existing Stage S source and test code
+        run: python -m compileall -q src tests tools/S36_VERIFY_STANDALONE.py
+      - name: Re-run S01-S36 full unit regression first
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Install PINNED diagnostic packager only
+        run: python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Build isolated EXPLICITLY NOT PRODUCT diagnostic exe (one-dir)
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S36_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT
+          --distpath artifacts/s36/dist
+          --workpath artifacts/s36/build
+          --specpath artifacts/s36/spec
+          --paths src
+          src/TLMTool.py
+      - name: Run actual standalone diagnostic from outside source directory
+        run: >
+          python tools/S36_VERIFY_STANDALONE.py
+          artifacts/s36/dist
+          artifacts/s36/verification.json
+      - name: S35 REAL Tk Start/Login native regression
+        run: python tools/S35_WINDOWS_E03_REAL_TAB_SMOKE.py
+      - name: S34 offline intake regression
+        run: python tools/S34_WINDOWS_OFFLINE_INTAKE_SMOKE.py
+      - name: S33 offline connection epoch regression
+        run: python tools/S33_WINDOWS_ADB_EPOCH_SMOKE.py
+      - name: S32 hint freshness regression
+        run: python tools/S32_WINDOWS_HINT_PROVENANCE_SMOKE.py
+      - name: S31 offline ADB identity regression
+        run: python tools/S31_WINDOWS_OFFLINE_ADB_IDENTITY_SMOKE.py
+      - name: S30 Toolhelp provenance regression
+        run: python tools/S30_WINDOWS_COUNT_PROVENANCE_SMOKE.py
+      - name: S29 native process count
+        run: python tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py
+      - name: S28 launcher PE/env only
+        run: python tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py
+      - name: S27 HWND wait
+        run: python tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py
+      - name: S26 native preflight
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S25 Login folder
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 Tk shutdown
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 central tee
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 native diagnostics
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 native mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 three HWND integration
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 native Start view
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Upload clearly labeled build artifact and native evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: S36_DIAGNOSTIC_ONLY_NOT_PRODUCT_windows-x64
+          path: |
+            artifacts/s36/dist/
+            artifacts/s36/verification.json
+            artifacts/s35/
+            artifacts/s34/
+            artifacts/s33/
+            artifacts/s32/
+            artifacts/s31/
+            artifacts/s30/
+            artifacts/s29/
+            artifacts/s28/
+            artifacts/s27/
+            artifacts/s26/
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
