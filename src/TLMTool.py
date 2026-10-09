@@ -8,6 +8,7 @@ from __future__ import annotations
 import sys
 
 from shell import MissingFeatureError, TLMMainApp
+from source_backed_tab_builders import source_backed_tab_builders
 from single_instance import SingleInstanceMutex
 from startup_diagnostics import StartupDiagnostics
 from session_logger import SessionTee
@@ -30,7 +31,7 @@ def run_with_info_factory(info_factory) -> None:
                 import tkinter as tk
                 root = tk.Tk()
                 try:
-                    app = TLMMainApp(root, {'info_tab':info_factory})
+                    app = TLMMainApp(root, source_backed_tab_builders(info_factory))
                     app.position_window_top_right()
                     root.mainloop()
                 finally:
