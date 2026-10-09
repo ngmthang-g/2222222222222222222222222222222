@@ -1,0 +1,58 @@
+name: S25 F04 native Login game directory selection
+
+on:
+  push:
+    paths:
+      - "src/login_path.py"
+      - "src/login_tab.py"
+      - "tests/test_s25.py"
+      - "tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py"
+      - ".github/workflows/s25-native-login-folder.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-login-folder:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout exact repository head
+        uses: actions/checkout@v4
+      - name: Set up Python 3.10 on Windows
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S sources and tests
+        run: python -m compileall -q src tests tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py tools/S24_WINDOWS_DESTROY_SMOKE.py tools/S23_WINDOWS_TEE_SMOKE.py tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py tools/S21_WINDOWS_MUTEX_SMOKE.py tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: S01-S25 full unit regression suite
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S25 genuine Tk Login path resolver persistence Windows smoke
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 Tk destroy DWM regression
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 session logger regression
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 early diagnostics regression
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 two-process mutex regression
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 three TEST-owned HWND DWM regression
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 real read-only discovery gate
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Upload S25 native evidence and source regressions
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s25-native-login-path-regressions
+          path: |
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
