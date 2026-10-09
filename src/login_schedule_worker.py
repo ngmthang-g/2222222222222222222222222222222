@@ -111,6 +111,11 @@ class F09ScheduleEvaluationWorker:
                     close_hhmm=self._settings.close_hhmm,
                     open_hhmm=self._settings.open_hhmm)
                 clock.enable(self._now())
+                # S46: an external no-wait shutdown request can arrive while
+                # the injected time source is blocked inside clock.enable().
+                if self._closed:
+                    self._status = "CLOSED"
+                    return False
             except Exception:
                 # Do not print exceptions: caller settings may contain secrets.
                 self._status = "BLOCKED_CLOCK"
@@ -119,6 +124,14 @@ class F09ScheduleEvaluationWorker:
             self._audit.clear()
             self._ticks = 0
             self._cancel.clear()
+            if self._closed:
+                # A lock-free request_shutdown() raced cancellation clear.
+                # The permanent closed latch wins, never spawn a new thread.
+                self._cancel.set()
+                self._clock.disable()
+                self._clock = None
+                self._status = "CLOSED"
+                return False
             self._status = "EVALUATING_ONLY_NO_ACTIONS"
             worker = threading.Thread(
                 target=self._run, name="F09-S42-evaluation-only",
@@ -132,6 +145,12 @@ class F09ScheduleEvaluationWorker:
                 self._clock = None
                 self._thread = None
                 self._status = "BLOCKED_THREAD"
+                return False
+            if self._closed:
+                # request_shutdown() may arrive while the new thread starts;
+                # cancellation is one-way and takes precedence.
+                self._cancel.set()
+                self._status = "CLOSED"
                 return False
             return True
 
@@ -212,9 +231,19 @@ class F09ScheduleEvaluationWorker:
                 self._status = "CLOSED" if self._closed else "STOPPED"
                 return True
 
-    def shutdown(self, timeout: float = 2.0) -> bool:
-        """Permanently refuse start after requesting cancellation."""
-        # A permanently closed flag is a one-way latch. Even if a start()
-        # races this call, stop() cancels that run before returning.
+    def request_shutdown(self) -> None:
+        """S46: permanently cancel WITHOUT acquiring locks or joining.
+
+        Safe on the Tk creator thread even if a different caller owns the
+        lifecycle lock in stop(). The permanent closed latch is checked by
+        start() before/after any external clock/start callback; cancelling
+        an existing Event.wait(20) is immediate. This never touches Tk,
+        game windows, accounts or OS process actions.
+        """
         self._closed = True
+        self._cancel.set()
+
+    def shutdown(self, timeout: float = 2.0) -> bool:
+        """Permanently refuse start; join separately, not on Tk GUI thread."""
+        self.request_shutdown()
         return self.stop(timeout)
