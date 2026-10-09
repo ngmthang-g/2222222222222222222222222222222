@@ -53,6 +53,7 @@ class F09ScheduleEvaluationWorker:
         self._lifecycle_lock = threading.Lock()
         self._cancel = threading.Event()
         self._cancel.set()
+        self._stop_requested = threading.Event()  # S47: guard pending stop vs idle
         self._thread: threading.Thread | None = None
         self._clock: LoginScheduleClock | None = None
         self._audit: list[BlockedScheduleOccurrence] = []
@@ -102,7 +103,8 @@ class F09ScheduleEvaluationWorker:
 
     def _start_locked(self) -> bool:
         with self._lock:
-            if self._closed or (self._thread is not None and self._thread.is_alive()):
+            if (self._closed or self._stop_requested.is_set()
+                    or (self._thread is not None and self._thread.is_alive())):
                 return False
             if not self._settings.preview_available:
                 self._status = "BLOCKED_SETTINGS"
