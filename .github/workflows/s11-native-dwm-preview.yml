@@ -1,0 +1,39 @@
+name: S11 native DWM read-only thumbnail lifecycle
+
+on:
+  push:
+    paths:
+      - "src/dwm_preview.py"
+      - "src/start_tab.py"
+      - "tests/test_s11.py"
+      - "tools/S11_WINDOWS_DWM_SMOKE.py"
+      - ".github/workflows/s11-native-dwm-preview.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-dwm-readonly:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v4
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S source/tests
+        run: python -m compileall -q src tests tools/S11_WINDOWS_DWM_SMOKE.py
+      - name: Run combined S01 to S11 regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Real Windows DWM owner and test-owned source lifecycle
+        run: python tools/S11_WINDOWS_DWM_SMOKE.py
+      - name: Upload native DWM evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s11-dwm-native-evidence
+          path: artifacts/s11/
+          if-no-files-found: warn
