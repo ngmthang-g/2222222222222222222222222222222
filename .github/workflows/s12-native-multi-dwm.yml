@@ -1,0 +1,39 @@
+name: S12 Native three-window DWM preview and authorization
+
+on:
+  push:
+    paths:
+      - "src/start_tab.py"
+      - "src/dwm_preview.py"
+      - "tests/test_s12.py"
+      - "tools/S12_WINDOWS_MULTI_DWM_SMOKE.py"
+      - ".github/workflows/s12-native-multi-dwm.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  three-hwnd-dwm:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v4
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile project Python source and tests
+        run: python -m compileall -q src tests tools/S12_WINDOWS_MULTI_DWM_SMOKE.py
+      - name: Run combined S01–S12 regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Test Win32 DWM three-window and Tk auth lifecycle
+        run: python tools/S12_WINDOWS_MULTI_DWM_SMOKE.py
+      - name: Upload native S12 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s12-native-three-hwnd-dwm
+          path: artifacts/s12/
+          if-no-files-found: warn

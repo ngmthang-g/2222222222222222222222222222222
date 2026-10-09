@@ -95,6 +95,16 @@ class TLMStartTab:
         self._preview_after = None
         self._preview_controller = None
         self._preview_backend_factory = preview_backend_factory or NativeDwmBackend
+        # C03/C04: root movement changes screen origin without resizing Tk
+        # thumbnail anchors. Register lifecycle-safe root/child observers.
+        self._top = self.container.winfo_toplevel()
+        self._top_handlers = [
+            ("<Configure>", self._top.bind("<Configure>", self._on_top_configure, add="+")),
+            ("<Unmap>", self._top.bind("<Unmap>", self._on_top_unmap, add="+")),
+            ("<Map>", self._top.bind("<Map>", self._on_top_map, add="+")),
+        ]
+        self.container.bind("<Unmap>", self._on_container_unmap, add="+")
+        self.container.bind("<Map>", self._on_container_map, add="+")
         self.poller = TkStartCachePoller(
             self.container, producer if producer is not None else StartWindowProducer(),
             self._on_cache_event, interval_ms=interval_ms,
@@ -162,13 +172,34 @@ class TLMStartTab:
             text=f"{len(windows)} cửa sổ có nguồn DWM thực" if windows
             else "Chưa có cửa sổ game")
 
+    def _on_top_configure(self, event) -> None:
+        # The root can MOVE without resizing the child preview surfaces.
+        if event.widget is self._top:
+            self._schedule_preview()
+
+    def _on_top_unmap(self, event) -> None:
+        if event.widget is self._top:
+            self._drop_previews()
+
+    def _on_top_map(self, event) -> None:
+        if event.widget is self._top:
+            self._schedule_preview()
+
+    def _on_container_unmap(self, event) -> None:
+        if event.widget is self.container:
+            self._drop_previews()
+
+    def _on_container_map(self, event) -> None:
+        if event.widget is self.container:
+            self._schedule_preview()
+
     def _schedule_preview(self) -> None:
         if self._closed or not self.poller.active or not self._active_windows:
             return
         if self._preview_after is not None:
             return
-        # Debounce Tk geometry changes; not a game capture/frame timer.
-        self._preview_after = self.container.after(80, self._refresh_dwm)
+        # Original C04 recovers 60ms reposition debounce, not a DWM FPS.
+        self._preview_after = self.container.after(60, self._refresh_dwm)
 
     def _refresh_dwm(self) -> None:
         self._preview_after = None
@@ -248,4 +279,12 @@ class TLMStartTab:
             return
         self._closed = True
         self._drop_previews()
+        for sequence, binding in self._top_handlers:
+            if binding:
+                try:
+                    self._top.unbind(sequence, binding)
+                except Exception:
+                    # Tk may already be destroyed during shutdown.
+                    pass
+        self._top_handlers.clear()
         self.poller.shutdown()
