@@ -1,0 +1,38 @@
+{
+  "task": "S24",
+  "phase": "E08_NORMAL_DESTROY",
+  "status": "S24_NATIVE_WIN32_TK_DESTROY_315_UNIT_PASS_GAME_NOT_RUN",
+  "original_evidence": [
+    "docs/tasks/E08.md",
+    "docs/core/E08_SHUTDOWN_FLOW.md",
+    "docs/core/E07_THREAD_FLOW.md"
+  ],
+  "modified_source": [
+    "src/shell.py",
+    "src/start_tab.py"
+  ],
+  "new_tests": [
+    "tests/test_s24.py",
+    "tools/S24_WINDOWS_DESTROY_SMOKE.py"
+  ],
+  "workflow": ".github/workflows/s24-native-destroy.yml",
+  "gate": {
+    "normal_tk_destroy": "PASS_TEST_OWNED_WIN32_TK",
+    "tab_shutdown_idempotent": true,
+    "dwm_destination_released": true,
+    "worker_stop_once": true,
+    "late_grant_denied": true,
+    "independent_signed_service": "NOT_IMPLEMENTED",
+    "real_game": "NOT_RUN",
+    "product_exe": "NOT_BUILT",
+    "proxy": "EXCLUDED"
+  },
+  "tests": {
+    "combined_unit_total": 315,
+    "native_windows_success_run": 37899237476,
+    "native_job_id": 113717657783,
+    "source_run": 37899237521,
+    "artifact_id": 11601159680
+  },
+  "next_action": "S25 read PLAN/STATE; inspect F01/F04/E05 Login game-folder UI/path selection and persistence; implement only real evidenced working narrow slice with isolated Windows tests and no Proxy."
+}
