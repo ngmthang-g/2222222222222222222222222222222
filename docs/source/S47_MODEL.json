@@ -1,6 +1,6 @@
 {
   "task": "S47",
-  "status": "WINDOWS_CI_PENDING",
+  "status": "S47_NATIVE_WINDOWS_754_UNIT_PASS_TOTAL_MUTEX_JOIN_DEADLINE",
   "source": "src/login_schedule_worker.py",
   "lifetime": "src/login_schedule_lifetime.py",
   "actual_total_deadline": "time.monotonic remaining budget for lifecycle acquire and join",
@@ -17,5 +17,15 @@
   "signed_info": "MISSING",
   "F05_F06": "MISSING",
   "proxy_runtime": "EXCLUDED",
-  "next_action": "S48 audit concurrent start/stop epoch and bounded worker lifecycle under S47; keep game actions blocked"
+  "next_action": "S48 audit concurrent start/stop epoch and bounded worker lifecycle under S47; keep game actions blocked",
+  "total_python_tests": 754,
+  "new_test_methods": 16,
+  "windows_run": 37942444233,
+  "windows_job": 113859999702,
+  "windows_artifact": 11622740614,
+  "native_result": "PASS_NATIVE_S47_FINISH_CLOSE_TOTAL_TIMEOUT_LOCK_BUDGET",
+  "s36_fail_closed_packaging_run": 37942348540,
+  "s36_job": 113859667141,
+  "s36_artifact": 11622935310,
+  "s36_status": "EXPLICITLY_BLOCKED_NO_GUI_EXIT_2_NOT_PRODUCT"
 }
