@@ -261,6 +261,8 @@ class F09ScheduleEvaluationWorker:
         while stopper B had signalled stop but was still awaiting the mutex.
         S48 tracks pending stoppers so no start may slip into that gap.
         """
+        # S54: timeouts must not demote a permanent S46 shutdown to STOPPING.
+        # The one-way _closed gate can be signalled without taking locks.
         if type(timeout) not in (int, float) or not 0 <= timeout <= 30:
             raise ValueError("INVALID_STOP_TIMEOUT")
         deadline = time.monotonic() + timeout
@@ -271,7 +273,7 @@ class F09ScheduleEvaluationWorker:
             remaining = max(0.0, deadline - time.monotonic())
             acquired = self._lifecycle_lock.acquire(timeout=remaining)
             if not acquired:
-                self._status = "STOPPING"
+                self._status = "CLOSED" if self._closed else "STOPPING"
                 return False
             thread = self._thread
             if thread is not None and thread is threading.current_thread():
@@ -279,7 +281,7 @@ class F09ScheduleEvaluationWorker:
             if thread is not None and thread.is_alive():
                 thread.join(max(0.0, deadline - time.monotonic()))
             if thread is not None and thread.is_alive():
-                self._status = "STOPPING"
+                self._status = "CLOSED" if self._closed else "STOPPING"
                 return False
             # S53: an independent poll_once() can own _lock even after
             # the background worker has been joined. Include this LAST
@@ -287,7 +289,7 @@ class F09ScheduleEvaluationWorker:
             # "with self._lock" could hang finish_close on a blocked clock.
             remaining = max(0.0, deadline - time.monotonic())
             if not self._lock.acquire(timeout=remaining):
-                self._status = "STOPPING"
+                self._status = "CLOSED" if self._closed else "STOPPING"
                 return False
             try:
                 if self._clock is not None:
