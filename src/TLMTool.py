@@ -8,23 +8,31 @@ from __future__ import annotations
 import sys
 
 from shell import MissingFeatureError, TLMMainApp
+from single_instance import SingleInstanceMutex
 
 
 def run_with_info_factory(info_factory) -> None:
-    """Only a genuine, separately verified InfoTab/service may open this UI."""
-    import tkinter as tk
-    root = tk.Tk()
-    try:
-        app = TLMMainApp(root, {'info_tab':info_factory})
-        app.position_window_top_right()
-        root.mainloop()
-    finally:
-        if 'app' in locals():
-            app.shutdown()
+    """Guard the real Tk lifecycle; a missing Info service still fails closed.
+
+    S21 single-instance mutex is held for the ENTIRE GUI lifetime and
+    released on normal shutdown, startup exception or mainloop exception.
+    The production main() entrypoint remains BLOCKED until genuine
+    InfoTab/server authorization exists; this helper never grants it.
+    """
+    with SingleInstanceMutex():
+        import tkinter as tk
+        root = tk.Tk()
         try:
-            root.destroy()
-        except tk.TclError:
-            pass
+            app = TLMMainApp(root, {'info_tab':info_factory})
+            app.position_window_top_right()
+            root.mainloop()
+        finally:
+            if 'app' in locals():
+                app.shutdown()
+            try:
+                root.destroy()
+            except tk.TclError:
+                pass
 
 
 def main() -> int:
