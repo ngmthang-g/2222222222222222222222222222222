@@ -1,6 +1,6 @@
 {
   "task": "S42",
-  "status": "WINDOWS_CI_PENDING",
+  "status": "S42_NATIVE_WINDOWS_F09_WORKER_672_UNIT_PASS_BLOCKED_ONLY",
   "evidence": [
     "docs/tasks/F09.md",
     "docs/login/F09_SCHEDULER_STATIC_EVIDENCE.tsv"
@@ -26,5 +26,12 @@
   "new_unit_methods": 29,
   "native_smoke": "tools/S42_WINDOWS_F09_EVENT_WORKER_SMOKE.py",
   "workflow": ".github/workflows/s42-native-f09-evaluation-worker.yml",
-  "next_action": "S43: verify F09 action/authorization readiness; otherwise improve legitimate worker lifecycle race guard without fake game dispatch."
+  "next_action": "S43: verify F09 action/authorization readiness; otherwise improve legitimate worker lifecycle race guard without fake game dispatch.",
+  "total_python_unit_tests": 672,
+  "unit_result": "PASS",
+  "windows_run": 37927222472,
+  "windows_job": 113808955798,
+  "windows_artifact": 11614153857,
+  "native_result": "PASS_NATIVE_S42_REAL_EVENT_WAIT20_BLOCKED_ONLY",
+  "s36_fail_closed_packaging_run": 37927029048
 }
