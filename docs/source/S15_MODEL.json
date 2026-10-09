@@ -1,0 +1,67 @@
+{
+  "task": "S15",
+  "status": "S15_NATIVE_WINDOWS_FULL_DWM_REFRESH_142_UNIT_TESTS_PASS_GAME_NOT_RUN",
+  "original_evidence": [
+    "docs/tasks/C15.md",
+    "docs/tasks/C03.md",
+    "docs/tasks/C04.md",
+    "docs/tasks/C09.md",
+    "docs/tasks/C17.md"
+  ],
+  "implementation": {
+    "existing_file": "src/start_tab.py",
+    "new_button": "btn_refresh_preview",
+    "label": "Làm mới",
+    "method": "refresh_window_preview_list",
+    "clear": "_clear_window_preview_list",
+    "source": "StartWindowProducer.read_snapshot O(1), no game scan",
+    "unregister_before_destroy": true,
+    "retain_columns": true,
+    "retain_hwnd_order": true,
+    "fail_closed": true,
+    "auth_gate": "E03 selected Start only"
+  },
+  "tests": {
+    "unit_file": "tests/test_s15.py",
+    "new_cases": 14,
+    "regressions_total": 142,
+    "ci_run": 37883868392,
+    "ci_job": 113669391783,
+    "ci_status": "success",
+    "windows_python": "3.10",
+    "compileall": "PASS",
+    "native_status": "PASS_NATIVE_S15_MANUAL_FULL_DWM_REFRESH_AND_REVOCATION",
+    "sources": "FOUR_REAL_TEST_OWNED_TK_TOP_LEVEL_HWND_NOT_GAME",
+    "full_cycles": 3,
+    "freed_per_cycle": 4,
+    "reregistered_per_cycle": 4,
+    "grid_and_order_preserved": true,
+    "empty_cache_restored": true,
+    "pid_guard": true,
+    "revoked_button_refused": true,
+    "registration_lifecycle_balanced": true,
+    "initial_run": {
+      "id": 37883811777,
+      "conclusion": "failure",
+      "root_cause": "Windows cp1252 console UnicodeEncodeError after successful native test",
+      "fix_commit": "d6098800f4bb8e79a02ac8abac490df122c7f3b7"
+    }
+  },
+  "regressions": {
+    "s10": 37883811742,
+    "s11": 37883811596,
+    "s12": 37883811690,
+    "s13": 37883811878,
+    "s14": 37883811757,
+    "all": 37883811678,
+    "conclusion": "success"
+  },
+  "not_verified": [
+    "Actual Thần Long game-positive",
+    "Original full screenshot pixel parity",
+    "Actual original instant scan semantics",
+    "Real signed entitlement service and heartbeat",
+    "Full production EXE"
+  ],
+  "next_action": "S16: original C16 authenticated game-window close (WM_CLOSE), native tests only test-owned HWNDs, distinguish preview teardown, no unknown crash handler kill; retain all 142 tests."
+}
