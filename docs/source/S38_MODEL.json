@@ -1,0 +1,35 @@
+{
+  "task": "S38",
+  "source": "F02/F03 verified format",
+  "parse_only": true,
+  "settings_section": "Settings",
+  "settings_key": "accounts",
+  "fields": [
+    "check_raw",
+    "username",
+    "password",
+    "captcha_raw",
+    "proxy_raw"
+  ],
+  "capacity": 100,
+  "captcha_raw_allowed": [
+    "Không",
+    "Tool",
+    "Proxy",
+    "Có"
+  ],
+  "saved_check_semantics": "UNKNOWN",
+  "legacy_co_mapping": "UNKNOWN",
+  "hydrate_credential_fields": true,
+  "hydrate_check_boolean": false,
+  "captcha_co_literal_display": true,
+  "proxy_runtime": "EXCLUDED",
+  "settings_account_writes": false,
+  "real_game": "NOT_RUN",
+  "signed_info": "NOT_AVAILABLE",
+  "product_exe": "NOT_BUILT",
+  "unit_file": "tests/test_s38.py",
+  "native_smoke": "tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py",
+  "ci": "s38-native-login-legacy-readonly.yml",
+  "next_action": "S39: recover check token and Có migration evidence without guesses before any writer; otherwise next source-backed Login functional slice."
+}
