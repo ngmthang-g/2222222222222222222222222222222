@@ -242,6 +242,7 @@ class F09ScheduleEvaluationWorker:
         game windows, accounts or OS process actions.
         """
         self._closed = True
+        self._stop_requested.set()
         self._cancel.set()
 
     def shutdown(self, timeout: float = 2.0) -> bool:
