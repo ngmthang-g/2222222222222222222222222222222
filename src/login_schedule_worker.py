@@ -202,6 +202,13 @@ class F09ScheduleEvaluationWorker:
                 BlockedScheduleOccurrence(event.kind, event.planned_time)
                 for event in events
             )
+            # S51: request_shutdown() and stop() signal cancellation without
+            # waiting for _lock, so Tk Destroy stays non-blocking. That
+            # signal can arrive AFTER the earlier cancel check while blocked
+            # audit records are being constructed. Recheck immediately
+            # before publication and discard this now-cancelled evaluation.
+            if self._cancel.is_set() or self._closed:
+                return ()
             if blocked:
                 self._audit.extend(blocked)
                 del self._audit[:-AUDIT_CAP]
