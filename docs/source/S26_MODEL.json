@@ -1,0 +1,41 @@
+{
+  "task": "S26",
+  "status": "S26_NATIVE_WINDOWS_F05_PREFLIGHT_348_UNIT_PASS_GAME_NOT_RUN",
+  "implemented": [
+    "src/login_launch_preflight.py",
+    "tests/test_s26.py",
+    "tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py"
+  ],
+  "native_backend_reused": "src/start_windows.py S08",
+  "actual_working_exe_launch": false,
+  "source_evidence": [
+    "docs/tasks/F05.md",
+    "docs/tasks/F04.md",
+    "src/permission_guard.py",
+    "src/start_windows.py"
+  ],
+  "required_exe": "Thần Long  Mobile.exe",
+  "window_limit_extra": 1,
+  "unknown_count_denied": true,
+  "verified_info_production": false,
+  "permission_snapshot_is_verifier": false,
+  "PID_window_finder_native_test": true,
+  "class_title_priority_is_local_choice": true,
+  "real_game": "NOT_RUN",
+  "unit_tests": 348,
+  "unit_added": 17,
+  "Windows_native_run": 37901273260,
+  "Windows_native_job": 113724161744,
+  "evidence_artifact": 11602416816,
+  "stage_source_run": 37901273207,
+  "all_native_regressions": [
+    "S25",
+    "S24",
+    "S23",
+    "S22",
+    "S21",
+    "S20",
+    "S10"
+  ],
+  "next_action": "S27: 25-second bounded PID→HWND ready handoff after external PID, native delayed Tk HWND and cancellation; preserve original unknown stabilization and no game launch/injection/Proxy."
+}
