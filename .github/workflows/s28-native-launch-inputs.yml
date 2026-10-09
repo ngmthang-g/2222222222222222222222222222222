@@ -1,0 +1,65 @@
+name: S28 F05/D06 Windows environment and x64 PE input preflight
+
+on:
+  push:
+    paths:
+      - "src/login_launch_inputs.py"
+      - "tests/test_s28.py"
+      - "tools/S28_TEST_PE_FIXTURE.py"
+      - "tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py"
+      - ".github/workflows/s28-native-launch-inputs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  s28-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Compile Stage S
+        run: python -m compileall -q src tests tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py tools/S28_TEST_PE_FIXTURE.py
+      - name: S01-S28 complete unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S28 real Windows environment and synthetic PE32+ structural test
+        run: python tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py
+      - name: S27 native deferred HWND
+        run: python tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py
+      - name: S26 native PID selection
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S25 native Login path
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 native Tk destroy
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 native session logger
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 native early diagnostics
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 native mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 native three HWND
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 native Start read-only
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Evidence upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s28-native-f05-d06-inputs-and-regressions
+          path: |
+            artifacts/s28/
+            artifacts/s27/
+            artifacts/s26/
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
