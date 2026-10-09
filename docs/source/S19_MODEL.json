@@ -1,0 +1,76 @@
+{
+  "task": "S19",
+  "status": "S19_TEST_OWNED_WIN32_CLIENT_RECT_FIFO_239_PASS_REAL_GAME_NOT_RUN",
+  "original_evidence": [
+    "docs/tasks/C19.md",
+    "docs/tasks/C05.md",
+    "docs/tasks/C08.md"
+  ],
+  "changes": {
+    "production_new": [
+      "src/input_sync_core.py"
+    ],
+    "tests": [
+      "tests/test_s19.py",
+      "tools/S19_WINDOWS_CLIENT_FIFO_SMOKE.py"
+    ],
+    "workflow": ".github/workflows/s19-native-input-model.yml",
+    "existing_production_changes": [],
+    "read_only_win32": "GetClientRect + IsWindow + PID"
+  },
+  "proven_original": {
+    "proportional_client_scaling": true,
+    "queued_serial_down_up": true,
+    "keepalive_input_seconds": 1.5,
+    "watchdog_seconds": 10,
+    "master_change_stops_input": true
+  },
+  "local_policy": {
+    "scaling_round": "integer floor/clamp (original unknown)",
+    "safe_sink": "explicit TEST-OWNED Tk callback only",
+    "native_posting": false,
+    "model_not_live_input_sync": true,
+    "logical_watchdog_not_dll_unlock": true
+  },
+  "ci": {
+    "workflow_run": 37889666893,
+    "job_id": 113687490762,
+    "conclusion": "success",
+    "compileall": "PASS",
+    "unit_tests_total": 239,
+    "unit_tests_pass": 239,
+    "native": "PASS_NATIVE_S19_WIN32_CLIENTRECT_TEST_OWNED_FIFO_REVOKE",
+    "real_test_hwnds": 3,
+    "native_client_sizes": [
+      [
+        280,
+        190
+      ],
+      [
+        410,
+        260
+      ],
+      [
+        360,
+        310
+      ]
+    ],
+    "slave_count": 2,
+    "queue_order": "down A down B up A up B",
+    "revoke_blocks": true,
+    "stale_hwnd_refused": true,
+    "source_regression_run": 37889666867,
+    "source_regression_conclusion": "success"
+  },
+  "not_done": [
+    "pynput live listeners",
+    "native WM_MY_SYNC_KEY payload",
+    "SendMessage game input",
+    "DLL slave lock/unlock",
+    "exact original rounding and throttle",
+    "actual game and token server",
+    "production EXE",
+    "Proxy (excluded)"
+  ],
+  "next_action": "S20 combined three TEST-OWNED HWND preview/layout/master and pure input-model separation; C20 screenshot invariant; no original game claims"
+}
