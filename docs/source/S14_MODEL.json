@@ -1,0 +1,73 @@
+{
+  "task": "S14",
+  "status": "S14_WINDOWS_REAL_DWM_PREVIEW_GRID_128_TESTS_PASS_NO_GAME",
+  "original_contracts": [
+    "docs/tasks/C09.md",
+    "docs/tasks/C17.md",
+    "docs/tasks/C03.md"
+  ],
+  "files": [
+    "src/preview_layout.py",
+    "src/start_tab.py",
+    "tests/test_s14.py",
+    "tools/S14_WINDOWS_PREVIEW_GRID_SMOKE.py",
+    ".github/workflows/s14-native-preview-grid.yml"
+  ],
+  "grid": {
+    "choices": [
+      "1x",
+      "2x",
+      "3x",
+      "4x",
+      "5x"
+    ],
+    "default": "2x",
+    "materialized": true,
+    "original_other_mode_pixel_parity": "NOT_RUN"
+  },
+  "order": {
+    "keys": "source HWND with PID reuse guard",
+    "arrow_delta": [
+      -1,
+      1
+    ],
+    "edges": "S14_NO_WRAP_UNKNOWN_ORIGINAL",
+    "new_hwnd": "S14_APPEND_UNKNOWN_ORIGINAL",
+    "pid_reuse": "append after current surviving HWNDs",
+    "persists_across_snapshot_order": "YES",
+    "persists_across_app_restart": "NOT_RECOVERED"
+  },
+  "native_windows_ci": {
+    "run": 37881002761,
+    "job": 113660441462,
+    "source_sha": "82e871d3023464b738944ef9760df47d8d16c3d5",
+    "conclusion": "success",
+    "compileall": "PASS",
+    "unit_total": 128,
+    "unit_pass": 128,
+    "smoke": "PASS_NATIVE_S14_REAL_DWM_GRID_AND_ORDER_LIFECYCLE",
+    "test_owned_native_hwnds": 4,
+    "all_modes": true,
+    "real_dwm_identity_preserved": true,
+    "arrow_and_restore": true,
+    "cache_refresh_preserves_manual_order": true,
+    "stale_pid_rejected": true,
+    "auth_revocation_teardown": true
+  },
+  "regressions": {
+    "stage_s": 37881002704,
+    "s10": 37881002747,
+    "s11": 37881002713,
+    "s12": 37881002772,
+    "s13": 37881002748,
+    "all": "success"
+  },
+  "blockers": [
+    "Actual game HWND runtime NOT_RUN",
+    "1x/3x/4x/5x pixel geometry parity NOT_RUN",
+    "Exact original edge/new insertion UNKNOWN",
+    "Real signed server authentication NOT_IMPLEMENTED",
+    "Functional production EXE NOT_BUILT"
+  ],
+  "next_action": "S15 verified C15 manual full DWM refresh UI; real cache-only re-register/rebuild, preserve grid and manual ordering, do not invent fresh game memory reads or authorization"
+}
