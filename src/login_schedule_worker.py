@@ -47,6 +47,9 @@ class F09ScheduleEvaluationWorker:
         self._settings = settings
         self._now = now or datetime.now
         self._lock = threading.RLock()
+        # S43: serialize the ENTIRE start/stop lifecycle, including join().
+        # start() refuses while stop() is still cleaning up an older worker.
+        self._lifecycle_lock = threading.Lock()
         self._cancel = threading.Event()
         self._cancel.set()
         self._thread: threading.Thread | None = None
@@ -88,6 +91,14 @@ class F09ScheduleEvaluationWorker:
         Repeated start while active is a no-op. First due evaluation occurs
         after Event.wait(20), not immediately upon starting.
         """
+        if not self._lifecycle_lock.acquire(blocking=False):
+            return False
+        try:
+            return self._start_locked()
+        finally:
+            self._lifecycle_lock.release()
+
+    def _start_locked(self) -> bool:
         with self._lock:
             if self._closed or (self._thread is not None and self._thread.is_alive()):
                 return False
@@ -169,25 +180,32 @@ class F09ScheduleEvaluationWorker:
         """
         if type(timeout) not in (int, float) or not 0 <= timeout <= 30:
             raise ValueError("INVALID_STOP_TIMEOUT")
-        with self._lock:
+        # S43: the lifecycle lock prevents a concurrent start() from replacing
+        # _thread/_clock between join() and cleanup. Set cancellation before
+        # trying to acquire _lock: a user-supplied clock may be hung inside
+        # poll_once() while holding _lock, and timeout must still be honored.
+        with self._lifecycle_lock:
             self._cancel.set()
             thread = self._thread
-        if thread is not None and thread is threading.current_thread():
-            raise RuntimeError("CANNOT_JOIN_OWN_F09_WORKER")
-        if thread is not None and thread.is_alive():
-            thread.join(timeout)
-        with self._lock:
+            if thread is not None and thread is threading.current_thread():
+                raise RuntimeError("CANNOT_JOIN_OWN_F09_WORKER")
             if thread is not None and thread.is_alive():
+                thread.join(timeout)
+            if thread is not None and thread.is_alive():
+                # Never wait indefinitely for the poll lock after timed join.
+                # No game actions can occur even if the provider stays hung.
                 self._status = "STOPPING"
                 return False
-            if self._clock is not None:
-                self._clock.disable()
-                self._clock = None
-            self._status = "CLOSED" if self._closed else "STOPPED"
-            return True
+            with self._lock:
+                if self._clock is not None:
+                    self._clock.disable()
+                    self._clock = None
+                self._status = "CLOSED" if self._closed else "STOPPED"
+                return True
 
     def shutdown(self, timeout: float = 2.0) -> bool:
         """Permanently refuse start after requesting cancellation."""
-        with self._lock:
-            self._closed = True
+        # A permanently closed flag is a one-way latch. Even if a start()
+        # races this call, stop() cancels that run before returning.
+        self._closed = True
         return self.stop(timeout)
