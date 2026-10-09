@@ -31,5 +31,9 @@
   "windows_job": 113832286506,
   "windows_artifact": 11617551321,
   "s36_ci_trigger_fix": ".github/workflows/s36-native-packaging-diagnostic.yml",
-  "s36_current_run": 37934597454
+  "s36_current_run": 37934597454,
+  "s36_diagnostic_packaging_run": 37934597454,
+  "s36_diagnostic_job": 113833375510,
+  "s36_diagnostic_artifact": 11617885616,
+  "s36_diagnostic_status": "PASS_FAIL_CLOSED_NOT_PRODUCT_EXIT_2_NO_GUI"
 }
