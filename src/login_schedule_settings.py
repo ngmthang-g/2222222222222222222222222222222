@@ -62,7 +62,7 @@ def _bounded_opaque_token(value: str | None) -> bool:
     """Opaque values must be bounded; no login credentials in diagnostics."""
     return (value is None or
             (type(value) is str and len(value) <= MAX_UNKNOWN_TOKEN_LENGTH
-             and not any(ch in value for ch in ("\\r", "\\n", "\\x00"))))
+             and not any(ch in value for ch in ("\r", "\n", "\x00"))))
 
 
 def read_schedule_settings(settings_file: str | Path | None = None) -> ReadOnlyScheduleSettings:
