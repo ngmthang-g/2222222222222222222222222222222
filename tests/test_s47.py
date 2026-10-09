@@ -183,7 +183,9 @@ class S47DeadlineTests(unittest.TestCase):
             began=time.monotonic()
             self.assertFalse(life.finish_close(timeout=0.02))
             self.assertLess(time.monotonic()-began,0.25)
-            self.assertEqual(life.status,"CLOSING_WORKER")
+            # Worker may have exited while another stopper still holds
+            # its cleanup lock: closed-but-pending-join is also correct.
+            self.assertIn(life.status,("CLOSING_WORKER","CLOSED_PENDING_JOIN"))
         finally:
             life.worker._lifecycle_lock.release()
         self.assertTrue(life.finish_close(timeout=2))
