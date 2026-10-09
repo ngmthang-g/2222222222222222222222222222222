@@ -196,7 +196,11 @@ class TLMMainApp:
                 and 'start_tab' in snapshot.authorized_keys
                 and type(snapshot.max_windows) is int and snapshot.max_windows > 0
                 else 0)
-            instance = self.lifecycle._instances.get('start_tab')
+            # S02 tests use an intentionally unconstructed shell (__new__)
+            # to verify UI-thread marshaling. Never invent lifecycle access.
+            lifecycle = getattr(self, 'lifecycle', None)
+            instance = (lifecycle._instances.get('start_tab')
+                        if lifecycle is not None else None)
             setter = getattr(instance, 'set_layout_max_windows', None)
             if callable(setter):
                 setter(self._verified_max_windows)
