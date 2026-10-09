@@ -7,6 +7,8 @@ on:
       - "src/start_tab.py"
       - "src/shell.py"
       - "tests/test_s17.py"
+      - "tests/test_s10.py"
+      - "tests/test_s02.py"
       - "tools/S17_WINDOWS_TEST_OWNED_LAYOUT_SMOKE.py"
       - ".github/workflows/s17-native-layout-sync.yml"
   workflow_dispatch:
