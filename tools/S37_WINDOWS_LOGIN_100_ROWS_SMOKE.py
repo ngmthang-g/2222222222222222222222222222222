@@ -65,7 +65,7 @@ def run():
             model.entry_user[99].insert(0,"S37_TEST_USER")
             model.entry_pass[99].insert(0,"S37_TEST_PASSWORD")
             r["readonly_captcha_modes"]=(
-                tuple(model.captcha_boxes[0].cget("values"))==CAPTCHA_MODES
+                tuple(model.captcha_boxes[0].tk.splitlist(\n                    model.captcha_boxes[0].cget("values")))==CAPTCHA_MODES
                 and all(w.cget("state")=="readonly" for w in model.captcha_boxes))
             r["mask_toggle_preserves_in_memory_password"]=(
                 model.snapshot(99).password=="S37_TEST_PASSWORD")
