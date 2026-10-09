@@ -83,7 +83,8 @@ class F09ReadOnlyTabLifetime:
             self._status = "BLOCKED_SETTINGS"
             return False
         if not self._preview.preview_start(self._settings):
-            self._status = "BLOCKED_PREVIEW"
+            if not self._closed:
+                self._status = "BLOCKED_PREVIEW"
             return False
         # Reentrant Label callbacks may destroy this widget during start.
         if self._closed or not self._preview.active:
