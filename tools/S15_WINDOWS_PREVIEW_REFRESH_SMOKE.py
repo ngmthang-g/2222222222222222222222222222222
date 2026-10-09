@@ -341,7 +341,9 @@ def run():
         REPORT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
         for key, val in result.items():
             if key != "traceback":
-                print("S15_" + key.upper() + "=" + json.dumps(val, ensure_ascii=False))
+                # Console on GitHub Windows can be cp1252; keep Unicode in JSON file,
+                # print ASCII-escaped telemetry to avoid log-only CI failure.
+                print("S15_" + key.upper() + "=" + json.dumps(val, ensure_ascii=True))
     return 0 if result["status"] == "PASS_NATIVE_S15_MANUAL_FULL_DWM_REFRESH_AND_REVOCATION" else 1
 
 
