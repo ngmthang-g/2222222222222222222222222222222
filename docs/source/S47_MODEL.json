@@ -1,0 +1,21 @@
+{
+  "task": "S47",
+  "status": "WINDOWS_CI_PENDING",
+  "source": "src/login_schedule_worker.py",
+  "lifetime": "src/login_schedule_lifetime.py",
+  "actual_total_deadline": "time.monotonic remaining budget for lifecycle acquire and join",
+  "pending_stop_fence": true,
+  "persisted_flags": "OPAQUE_UNCHANGED",
+  "F02_accounts": "READ_ONLY_UNKNOWN_CONVERSIONS",
+  "worker_dispatch": "BLOCKED_ACTION_UNAVAILABLE",
+  "game_actions": "NONE",
+  "native_smoke": "tools/S47_WINDOWS_FINISH_CLOSE_MUTEX_DEADLINE_SMOKE.py",
+  "unit_test": "tests/test_s47.py",
+  "new_unit_tests": 16,
+  "workflow": ".github/workflows/s47-native-finish-close-deadline.yml",
+  "product_exe": "NOT_PRODUCT",
+  "signed_info": "MISSING",
+  "F05_F06": "MISSING",
+  "proxy_runtime": "EXCLUDED",
+  "next_action": "S48 audit concurrent start/stop epoch and bounded worker lifecycle under S47; keep game actions blocked"
+}
