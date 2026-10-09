@@ -1,0 +1,30 @@
+{
+  "task": "S42",
+  "status": "WINDOWS_CI_PENDING",
+  "evidence": [
+    "docs/tasks/F09.md",
+    "docs/login/F09_SCHEDULER_STATIC_EVIDENCE.tsv"
+  ],
+  "module": "src/login_schedule_worker.py",
+  "real_thread": true,
+  "actual_worker_check_cadence_seconds": 20,
+  "cancellation": "threading.Event.wait(20) interrupted by Event.set()",
+  "worker_auto_start": false,
+  "persisted_boolean_encoding": "UNKNOWN_OPAQUE",
+  "game_open_dispatch": "BLOCKED_ACTION_UNAVAILABLE",
+  "game_close_dispatch": "BLOCKED_ACTION_UNAVAILABLE",
+  "os_shutdown_dispatch": "NOT_AVAILABLE",
+  "real_signed_info": "NOT_CONNECTED",
+  "f05_f06_handlers": "NOT_CONNECTED",
+  "blocked_event_audit_limit_local": 64,
+  "tk_countdown_existing": "S41 isolated after(1000) preview",
+  "login_ui_binding": false,
+  "real_game_runtime": "NOT_TESTED",
+  "product_exe": "NOT_PRODUCT",
+  "proxy_runtime": "EXCLUDED",
+  "tests": "tests/test_s42.py",
+  "new_unit_methods": 29,
+  "native_smoke": "tools/S42_WINDOWS_F09_EVENT_WORKER_SMOKE.py",
+  "workflow": ".github/workflows/s42-native-f09-evaluation-worker.yml",
+  "next_action": "S43: verify F09 action/authorization readiness; otherwise improve legitimate worker lifecycle race guard without fake game dispatch."
+}
