@@ -1,6 +1,6 @@
 {
   "task": "S40",
-  "status": "CI_PENDING",
+  "status": "S40_NATIVE_WINDOWS_E05_F09_READONLY_617_UNITS_PASS_NO_REAL_ACTIONS",
   "evidence": [
     "docs/tasks/F01.md",
     "docs/tasks/F09.md",
@@ -36,5 +36,12 @@
   "tests": "tests/test_s40.py",
   "native_smoke": "tools/S40_WINDOWS_LOGIN_SCHEDULE_SETTINGS_SMOKE.py",
   "ci": ".github/workflows/s40-native-login-schedule-settings.yml",
-  "next_action": "S41: source-backed schedule controller with genuine action guards or verified Tk main-thread countdown; never fake game actions."
+  "next_action": "S41: source-backed schedule controller with genuine action guards or verified Tk main-thread countdown; never fake game actions.",
+  "total_python_unit_tests": 617,
+  "unit_result": "PASS",
+  "windows_run": 37925270259,
+  "windows_job": 113802576969,
+  "windows_artifact": 11613194482,
+  "native_result": "PASS_NATIVE_S40_E05_F09_READONLY_CONFIG_CLOCK",
+  "s36_packaged_fail_closed_windows_run": 37925025741
 }
