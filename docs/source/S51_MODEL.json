@@ -1,0 +1,24 @@
+{
+  "task": "S51",
+  "phase": "F09 read-only safety",
+  "status": "IMPLEMENTED_NATIVE_WINDOWS_PENDING",
+  "baseline": "S50 verified 784/784 native Windows",
+  "source": "src/login_schedule_worker.py",
+  "defect": "poll_once checks cancel immediately after clock.poll then builds BlockedScheduleOccurrence records; Tk Destroy may cancel during projection and old code still append/return stale events",
+  "fix": "recheck cancel and closed immediately after blocked projection before audit append",
+  "semantics": "no stale events in reproduced projection-delay race; no blanket global atomicity claim",
+  "tests": [
+    "tests/test_s51.py",
+    "tools/S51_WINDOWS_TK_CANCEL_AUDIT_SMOKE.py"
+  ],
+  "github_workflow": ".github/workflows/s51-native-tk-cancel-due-audit.yml",
+  "run_id_to_verify": 37952621242,
+  "forbidden": [
+    "Proxy runtime",
+    "account/settings writes",
+    "guess unknown saved flags",
+    "unauthenticated game/OS actions",
+    "fake product Login scheduler"
+  ],
+  "next_action": "Verify actual S51 and S36 Windows success and update STATE/PROJECT_STATUS"
+}
