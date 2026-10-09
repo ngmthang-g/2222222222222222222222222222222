@@ -1,0 +1,81 @@
+{
+  "task": "S12",
+  "status": "S12_THREE_NATIVE_DWM_HWND_98_TESTS_PASS_GAME_NOT_RUN",
+  "resumed_from": "STATE.md S11 NEXT_ACTION",
+  "original_evidence": [
+    "docs/tasks/C03.md",
+    "docs/tasks/C04.md",
+    "docs/tasks/C17.md",
+    "docs/tasks/S11.md"
+  ],
+  "files_changed": [
+    "src/start_tab.py",
+    "tests/test_s12.py",
+    ".github/workflows/s12-native-multi-dwm.yml",
+    "tools/S12_WINDOWS_MULTI_DWM_SMOKE.py",
+    "docs/tasks/S12.md",
+    "docs/source/S12_THREE_HWND_LIFECYCLE.md",
+    "docs/source/S12_MODEL.json",
+    "STATE.md",
+    "PROJECT_STATUS.md"
+  ],
+  "unchanged": [
+    "PLAN.md",
+    "SCOPE_LOCK.md",
+    "src/dwm_preview.py",
+    "src/start_polling.py",
+    "src/permission_guard.py",
+    "src/TLMTool.py"
+  ],
+  "scope": "Three real test-owned native Tk top-level windows; no game process",
+  "fixes": [
+    "Root Configure move tracked independently from Tk child Configure",
+    "Top-level/root Unmap releases owned DWM thumbnails",
+    "Root Map schedules fresh DWM preview",
+    "Original C04 60ms debounce used rather than S11 provisional 80ms",
+    "Registered Tk root Configure/Map/Unmap observer bindings removed on shutdown"
+  ],
+  "ci": {
+    "run": 37878962348,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37878962348",
+    "head_sha": "b5b68ed3ea198c71148190f13b64905234241e74",
+    "conclusion": "success",
+    "python": "3.10",
+    "compileall": "PASS",
+    "unit_tests": 98,
+    "unit_pass": 98,
+    "native_status": "PASS_NATIVE_S12_THREE_HWND_DWM_AND_AUTH_LIFECYCLE",
+    "native_source_hwnds": [
+      524308,
+      262264,
+      196736
+    ],
+    "native_source_pid": 4792,
+    "three_dwm_register": true,
+    "move_without_recreate": true,
+    "resize_geometry": true,
+    "one_close_other_two_live": true,
+    "wrong_pid_removed": true,
+    "hide_restore": true,
+    "resources_created": 5,
+    "resources_destroyed": 5,
+    "start_two_source_ui": true,
+    "tk_root_move_reposition": true,
+    "revocation_fallback": true
+  },
+  "regressions": {
+    "s10": 37878962283,
+    "s11": 37878962259,
+    "all_s_source": 37878962249,
+    "status": "success"
+  },
+  "unknowns": [
+    "Actual 3-game HWND positive and game rendering NOT_RUN",
+    "Original DWM raster/pixel parity NOT_RUN",
+    "Occluded/minimized game rendering behavior NOT_RUN",
+    "Original C04 800/2000ms boundary at 6 accounts remains UNKNOWN",
+    "Server token and heartbeat NOT_IMPLEMENTED",
+    "Full TLMTool source/working Windows EXE NOT_BUILT"
+  ],
+  "next_action": "S13: Read C04/C03/E03 and inspect existing Start timers. Add bounded selected-tab-only C04 preview maintenance loop (800ms/2000ms adaptive, boundary at count 6 explicit unknown), periodic stale/geometry reconciliation without fake DWM FPS; native Windows Tk tests, preserve S01-S12."
+}
