@@ -1,0 +1,15 @@
+id	source	tier	observation
+S07-E01	STATE.md	checkpoint	S07 requested remaining passive Info sections
+S07-E02	docs/tasks/B12.md	original static+raster	Pricing is server-fed and current screenshot does NOT establish package constants
+S07-E03	docs/tasks/B12.md	original static+raster	Facebook and Zalo hardcoded label family; click destination behavior out of scope
+S07-E04	docs/tasks/B12.md	original static+raster	Tool catalog derived from server price_tools and screenshot snapshot
+S07-E05	docs/ui/B12_INFO_GEOMETRY.tsv	original coordinate table	Price y486..573, contact y598..610, catalog y715..772 in full raster
+S07-E06	src/info_tab.py	new source	Passive price/catalog UNKNOWN values and static support labels only
+S07-E07	tests/test_s07.py	unit tests	Six new cases test no fake values/actions and safe revocation
+S07-E08	tools/S07_WINDOWS_INFO_SECTIONS.py	native test	Measured place_info on actual Windows Tk and 0 action buttons
+S07-E09	GitHub Actions 37869958702	Windows CI	43/43 combined unittests and compileall PASS
+S07-E10	GitHub Actions 37869958702	native CI	S06 previous original anchor regression PASS
+S07-E11	GitHub Actions 37869958702	native CI	S07 PASS_NATIVE_PASSIVE_SECTIONS, callback close true
+S07-E12	GitHub Actions 37869958702	measured gap	1024x768 runner; catalog_fully_within_frame=false
+S07-E13	GitHub artifact 11589688653	image and metrics	PNG+JSON captured; original B12 pixel diff NOT_RUN
+S07-E14	src/TLMTool.py	existing source	Default production entrypoint still returns 2 and never grants unverified tabs
