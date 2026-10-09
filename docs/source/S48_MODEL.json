@@ -1,0 +1,35 @@
+{
+  "task": "S48",
+  "scope": "F09 source-backed concurrent stop cancellation safety, read-only test-owned",
+  "status": "IMPLEMENTED_WINDOWS_NOT_VERIFIED",
+  "original_f09_claims": [
+    "20s cooperative independent schedule check",
+    "1s Tk countdown and cancellation"
+  ],
+  "bug": "successful stopper A could clear shared pending Event while concurrent stopper B awaited lifecycle lock",
+  "fix": {
+    "path": "src/login_schedule_worker.py",
+    "new_fields": [
+      "_stop_request_lock",
+      "_pending_stop_callers"
+    ],
+    "registration": "lock-protected pending increment + cancel fence before lifecycle acquisition",
+    "cleanup": "decrement on every path; clear only on successful cleanup, zero pending, and not permanently closed",
+    "deadline": "S47 mutex+join total budget preserved",
+    "shutdown": "S46 lock-free request_shutdown preserved"
+  },
+  "tests": [
+    "tests/test_s48.py",
+    "tools/S48_WINDOWS_TWO_STOP_CALLERS_SMOKE.py"
+  ],
+  "workflow": ".github/workflows/s48-native-two-stoppers-fence.yml",
+  "parity": {
+    "windows": "UNVERIFIED",
+    "s36_diagnostic": "NOT_PRODUCT",
+    "real_game": "BLOCKED",
+    "proxy": "OUT_OF_SCOPE",
+    "settings_writes": false,
+    "actual_ui": false
+  },
+  "next_action": "Inspect S48 Actions, correct failures if any; certify only with passing Windows native and S36 fail-closed runs"
+}
