@@ -1,0 +1,60 @@
+{
+  "task": "S21",
+  "status": "S21_WIN32_TEST_ONLY_TWO_PROCESS_MUTEX_267_UNIT_PASS_REAL_GAME_NOT_RUN",
+  "evidence": [
+    "docs/tasks/E01.md",
+    "src/TLMTool.py",
+    "STATE.md"
+  ],
+  "original": {
+    "mutex_name": "TLMTool_SingleInstance",
+    "win32_calls": [
+      "CreateMutexW",
+      "GetLastError"
+    ],
+    "unknown": [
+      "exact compiled numeric comparison",
+      "duplicate-instance dialog text",
+      "Tk root/splash instruction order"
+    ]
+  },
+  "local_implementation": {
+    "module": "src/single_instance.py",
+    "entrypoint": "src/TLMTool.py run_with_info_factory",
+    "api": [
+      "CreateMutexW",
+      "ctypes.get_last_error (captured GetLastError)",
+      "CloseHandle"
+    ],
+    "already_exists": 183,
+    "duplicate_closes_own_new_handle": true,
+    "held_for_gui_lifetime": true,
+    "main_still_blocked_without_real_info": true
+  },
+  "tests": {
+    "new_cases": 15,
+    "unit_total": 267,
+    "unit_pass": 267,
+    "windows_job": 113695841265,
+    "windows_run": 37892342942,
+    "conclusion": "success",
+    "native": "PASS_NATIVE_S21_TWO_PROCESS_MUTEX_COLLISION_AND_CLEANUP",
+    "real_two_distinct_processes": true,
+    "isolated_test_names_only": true,
+    "production_mutex_untouched": true,
+    "graceful_release_verified": true,
+    "forced_test_child_death_releases": true,
+    "s20_native_rerun": "PASS_NATIVE_S20_THREE_HWND_DWM_MASTER_LAYOUT_INPUT_MODEL",
+    "stage_s_run": 37892342899,
+    "stage_s_conclusion": "success"
+  },
+  "not_done": [
+    "real server signature/heartbeat",
+    "original mutex collision message",
+    "original splash lifecycle",
+    "finished product EXE",
+    "live game features",
+    "Proxy explicitly excluded"
+  ],
+  "next_action": "S22 E01 early diagnostics faulthandler/thread exception capture; test-only log paths, preserve auth blocker, native mutex, 267 tests and S20 native"
+}
