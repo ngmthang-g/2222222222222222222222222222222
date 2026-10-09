@@ -1,0 +1,79 @@
+{
+  "task": "S23",
+  "status": "S23_WINDOWS_TWO_SESSION_TEE_306_PASS_REAL_GAME_NOT_RUN",
+  "original_evidence": [
+    "docs/tasks/E06.md",
+    "docs/tasks/E01.md"
+  ],
+  "source_changes": {
+    "new": [
+      "src/session_logger.py"
+    ],
+    "modified": [
+      "src/TLMTool.py",
+      "tests/test_s21.py",
+      "tests/test_s22.py"
+    ],
+    "new_test_files": [
+      "tests/test_s23.py",
+      "tools/S23_WINDOWS_TEE_SMOKE.py",
+      ".github/workflows/s23-native-session-tee.yml"
+    ]
+  },
+  "verified_original": {
+    "frozen_log_relative_path": "log/tlmtool.log",
+    "tee_stdout_stderr": true,
+    "also_write_original_console": true,
+    "append_sessions": true,
+    "markers": [
+      "============================================================",
+      "=== Start ... ===",
+      "exe: ...",
+      "python: ...",
+      "=== End ... ==="
+    ],
+    "backup_symbols": [
+      "sys._fl_tee_out",
+      "sys._fl_tee_err"
+    ],
+    "atexit_restore": true,
+    "trim_oldest_if_bounded": true
+  },
+  "unknown_original": [
+    "MAX_SIZE numeric",
+    "KEEP_SIZE numeric",
+    "timestamp partial-write formatting",
+    "writer mutex or queue implementation",
+    "precise logger/mutex/diagnostics/splash startup order"
+  ],
+  "local_policy": {
+    "nonfrozen_project_log_fallback": true,
+    "threading_RLock_for_safety": true,
+    "production_auto_trim": "DISABLED until proven numeric bounds",
+    "explicit_testing_trim_only": true,
+    "main_real_info": "BLOCKED",
+    "native_tests_temp_log_only": true
+  },
+  "validation": {
+    "initial_run": 37894850605,
+    "initial_conclusion": "failure two S23 test fixture expectations",
+    "corrected_commit": "45d3adab874a6903cf2d5d6c7255ee535e9a7f4a",
+    "passing_run": 37894932947,
+    "job": 113704034986,
+    "conclusion": "success",
+    "unit_total": 306,
+    "unit_pass": 306,
+    "native": "PASS_NATIVE_S23_TWO_SESSION_STDOUT_STDERR_TEE_AND_FAILURE_CLEANUP",
+    "two_sessions_console_mirror": true,
+    "log_file_append": true,
+    "worker_streams_captured": true,
+    "bad_log_no_gui": true,
+    "bootstrap_failure_separate_crash_log": true,
+    "mutex_reacquired_after_each": true,
+    "s22_native_rerun": "PASS_NATIVE_S22_DIAGNOSTICS_THREAD_FAULT_MUTEX_RECOVERY",
+    "s21_native_rerun": "PASS_NATIVE_S21_TWO_PROCESS_MUTEX_COLLISION_AND_CLEANUP",
+    "s20_native_rerun": "PASS_NATIVE_S20_THREE_HWND_DWM_MASTER_LAYOUT_INPUT_MODEL",
+    "stage_s_success": 37894932886
+  },
+  "next_action": "S24 E08 normal Tk Destroy tab-owned lifecycle integration; native TEST-OWNED HWNDs; do not confuse forced heartbeat/update/forwarder relaunch with normal close; preserve 306 tests and no Proxy"
+}
