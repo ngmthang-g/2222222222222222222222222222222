@@ -1,0 +1,56 @@
+name: S24 E08 normal Tk destroy and owner cleanup native Windows
+
+on:
+  push:
+    paths:
+      - "src/shell.py"
+      - "src/start_tab.py"
+      - "src/TLMTool.py"
+      - "tests/test_s24.py"
+      - "tools/S24_WINDOWS_DESTROY_SMOKE.py"
+      - ".github/workflows/s24-native-destroy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-destroy:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - name: Checkout exact GitHub commit
+        uses: actions/checkout@v4
+      - name: Windows Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S sources tests and natives
+        run: python -m compileall -q src tests tools/S24_WINDOWS_DESTROY_SMOKE.py tools/S23_WINDOWS_TEE_SMOKE.py tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py tools/S21_WINDOWS_MUTEX_SMOKE.py tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Run full Stage S unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S24 actual Windows Tk root Destroy and owner DWM cleanup
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 normal logger sessions and cleanup
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 startup diagnostics and mutex cleanup
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 two-process mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 three TEST-OWNED HWND DWM and layout
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 native Start polling and permission revoke
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Upload S24 and regression evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s24-native-destroy-owner-evidence
+          path: |
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
