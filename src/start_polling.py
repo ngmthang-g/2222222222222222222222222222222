@@ -142,6 +142,9 @@ class StartWindowProducer:
             backend = self._backend_factory()
         except Exception as exc:
             self._publish(epoch, stop_event, (), f"BACKEND_ERROR:{type(exc).__name__}")
+            with self._guard:
+                if epoch == self._epoch and not stop_event.is_set():
+                    self._active = False
             return
         while not stop_event.is_set():
             try:
@@ -203,7 +206,7 @@ class TkStartCachePoller:
             return
         try:
             self._after_id = self.root.after(delay, lambda: self._tick(generation))
-        except (RuntimeError, Exception) as exc:
+        except Exception:
             # Root may have been destroyed; never schedule retry on it.
             self._stop_refresh()
 
