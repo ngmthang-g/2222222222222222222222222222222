@@ -1,0 +1,73 @@
+name: S31 offline ADB identity clone collision and account count denial
+
+on:
+  push:
+    paths:
+      - "src/adb_identity_evidence.py"
+      - "tests/test_s31.py"
+      - "tools/S31_WINDOWS_OFFLINE_ADB_IDENTITY_SMOKE.py"
+      - ".github/workflows/s31-native-offline-adb-identity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  s31-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Compile all Stage S
+        run: python -m compileall -q src tests tools/S31_WINDOWS_OFFLINE_ADB_IDENTITY_SMOKE.py
+      - name: S01-S31 complete unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S31 native Windows captured ADB identity and Win32 process proof
+        run: python tools/S31_WINDOWS_OFFLINE_ADB_IDENTITY_SMOKE.py
+      - name: S30 native Win32 process provenance
+        run: python tools/S30_WINDOWS_COUNT_PROVENANCE_SMOKE.py
+      - name: S29 native read-only Toolhelp partial count
+        run: python tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py
+      - name: S28 native x64 PE launch input checks
+        run: python tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py
+      - name: S27 native PID HWND ready wait
+        run: python tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py
+      - name: S26 native PID selection
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S25 native Login game folder
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 native Tk Destroy
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 native session tee
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 native startup diagnostics
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 native mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 native three HWND
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 native Start read-only
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Upload test-owned evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s31-offline-adb-identity-windows-evidence
+          path: |
+            artifacts/s31/
+            artifacts/s30/
+            artifacts/s29/
+            artifacts/s28/
+            artifacts/s27/
+            artifacts/s26/
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
