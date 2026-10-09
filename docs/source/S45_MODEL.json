@@ -1,0 +1,31 @@
+{
+  "task": "S45",
+  "status": "CI_PENDING",
+  "scope": "test-owned real Tk/worker cancellation integration",
+  "evidence": [
+    "docs/tasks/F09.md",
+    "docs/tasks/S44.md",
+    "docs/tasks/S43.md"
+  ],
+  "source": "src/login_schedule_lifetime.py",
+  "settings": "src/login_schedule_settings.py",
+  "countdown": "src/login_schedule_countdown.py",
+  "worker": "src/login_schedule_worker.py",
+  "original_20s": true,
+  "original_1s": true,
+  "timer_cancel_on_label_destroy": true,
+  "worker_cancel_tk_blocking_join": false,
+  "worker_finish_join_after_gui": true,
+  "persisted_boolean_auto_start": false,
+  "real_game_dispatch": false,
+  "authorized_info": "MISSING",
+  "f05_f06": "MISSING",
+  "real_live_game_test": false,
+  "proxy_runtime": "EXCLUDED",
+  "legacy_F02_account_write": false,
+  "product_exe": false,
+  "unit_tests": "tests/test_s45.py",
+  "native_windows": "tools/S45_WINDOWS_TK_WORKER_LIFETIME_SMOKE.py",
+  "workflow": ".github/workflows/s45-native-tk-worker-lifetime.yml",
+  "next_action": "S46: review evidenced failure in S45 lifecycle; only real native-proven fixes, no product game controls until F05/F06/Info authorized"
+}
