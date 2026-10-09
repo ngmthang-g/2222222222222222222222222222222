@@ -83,8 +83,11 @@ class S10ReadOnlyStateTests(unittest.TestCase):
         lifecycle.shutdown()
 
     def test_view_exposes_no_click_action_methods(self):
+        # S17 reconstructed original C18 native layout with verified max
+        # window gate; it is no longer an unimplemented fake action. Preserve
+        # S10's prohibition on unrelated game/input/activation methods.
         forbidden = (
-            "_activate_game_window", "_toggle_input", "_toggle_layout",
+            "_activate_game_window", "_toggle_input",
             "_arrange_grid", "_register_dwm_thumbnail", "_on_master_change",
         )
         for name in forbidden:
