@@ -1,0 +1,44 @@
+name: S18 Windows C05 master radio and C08 persisted grid controls
+
+on:
+  push:
+    paths:
+      - "src/grid_master.py"
+      - "src/start_tab.py"
+      - "src/settings_store.py"
+      - "tests/test_s18.py"
+      - "tests/test_s10.py"
+      - "tools/S18_WINDOWS_GRID_MASTER_SMOKE.py"
+      - "tools/S17_WINDOWS_TEST_OWNED_LAYOUT_SMOKE.py"
+      - ".github/workflows/s18-native-master-grid.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-master-grid:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact committed source
+        uses: actions/checkout@v4
+      - name: Python 3.10 Windows
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile entire Stage S source and native fixtures
+        run: python -m compileall -q src tests tools/S18_WINDOWS_GRID_MASTER_SMOKE.py tools/S17_WINDOWS_TEST_OWNED_LAYOUT_SMOKE.py
+      - name: Unit regressions S01-S18
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Native Tk masters, grid buttons, ini and permission revocation
+        run: python tools/S18_WINDOWS_GRID_MASTER_SMOKE.py
+      - name: Recheck S17 native layout with actual S18 radio selector
+        run: python tools/S17_WINDOWS_TEST_OWNED_LAYOUT_SMOKE.py
+      - name: Upload S18 native/ini proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s18-master-grid-native
+          path: artifacts/s18/
+          if-no-files-found: warn

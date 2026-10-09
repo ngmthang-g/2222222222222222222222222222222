@@ -1,8 +1,7 @@
-"""S17 Windows native: real SetWindowPos grid moves, TEST-OWNED HWNDs only.
+"""S18 native C05/C08: functional radios, grid +/- and persisted grid.
 
-C18 exact arithmetic/timer/mode integration unavailable. Exercise bounded
-move-only 3x4 local policy against real Tk top-level Windows with a TEST-ONLY
-source identity shim. No actual game windows, production license or C19 input.
+Uses only real TEST-OWNED native Tk HWNDs, isolated settings.ini, verified
+test-only PermissionSnapshot. No real game or C19 input-sync.
 """
 from __future__ import annotations
 
@@ -11,17 +10,18 @@ import os
 from pathlib import Path
 import sys
 import traceback
+import tempfile
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"src"))
-OUT=ROOT/"artifacts"/"s17"
+OUT=ROOT/"artifacts"/"s18"
 OUT.mkdir(parents=True,exist_ok=True)
-REPORT=OUT/"native_layout_sync.json"
+REPORT=OUT/"native_grid_master_settings.json"
 
 
 def run():
     report={
-        "task":"S17", "status":"NOT_RUN",
+        "task":"S18", "status":"NOT_RUN",
         "source_type":"FOUR_REAL_TEST_OWNED_WIN32_TK_HWND_NOT_GAME",
         "real_game":"NOT_RUN","real_server":"NOT_RUN",
         "product_exe":"NOT_BUILT","input_sync":"NOT_IMPLEMENTED",
@@ -33,6 +33,7 @@ def run():
     app=None
     sources=[]
     extra=None
+    sandbox_ini=None
     try:
         if os.name!="nt":
             raise RuntimeError("Windows required")
@@ -47,6 +48,7 @@ def run():
         from start_polling import WindowSnapshot
         from dwm_preview import NativeDwmBackend
         from layout_windows import C18LayoutSync,NativeLayoutBackend
+        from grid_master import GridSettingsStore,GridSettings
 
         root=tk.Tk()
         root.title("S17 native test tool - not a game")
@@ -112,10 +114,13 @@ def run():
             def read_snapshot(self):
                 return WindowSnapshot(self.revision,self.windows if self.active else (),self.active)
         cache=TestOnlyCache()
+        sandbox_ini=tempfile.TemporaryDirectory(prefix="s18_settings_test_")
+        store=GridSettingsStore(Path(sandbox_ini.name)/"TLMTool"/"settings.ini")
         built=[]
         def make_start(frame):
             item=TLMStartTab(frame,producer=cache,
-                layout_service_factory=lambda:C18LayoutSync(guarded_backend))
+                layout_service_factory=lambda:C18LayoutSync(guarded_backend),
+                grid_settings_store=store)
             built.append(item)
             return item
         app=TLMMainApp(root,{"info_tab":lambda f:TLMInfoTab(f),"start_tab":make_start})
@@ -127,7 +132,7 @@ def run():
 
         guard=PermissionGuard()
         def grant(limit):
-            assert guard.receive_token("S17_TEST_ONLY_VERIFIER",lambda _:
+            assert guard.receive_token("S18_TEST_ONLY_VERIFIER",lambda _:
                 VerifiedClaims(permissions=frozenset({"info_tab","start_tab"}),
                                plan_status="TEST_ONLY",max_windows=limit))
             app.apply_info_snapshot(guard.snapshot)
@@ -141,6 +146,21 @@ def run():
         root.update()
         pump(240)
         tab=built[0]
+        report["initial_grid_defaults"]=(tab.grid_cols,tab.grid_rows)==(3,4)
+        assert report["initial_grid_defaults"]
+        report["radio_count_4"]=len(tab._master_radio_buttons)==4
+        assert report["radio_count_4"]
+        # Actual buttons: 3x4 to 2x2; persistence uses E05 settings.ini.
+        tab.btn_decrease_cols.invoke()
+        tab.btn_decrease_rows.invoke()
+        tab.btn_decrease_rows.invoke()
+        report["actual_grid_buttons_2x2"]=(tab.grid_cols,tab.grid_rows)==(2,2)
+        report["initial_settings_saved"]=store.load()==GridSettings(2,2)
+        assert report["actual_grid_buttons_2x2"]
+        assert report["initial_settings_saved"]
+        report["label_updated"]=(tab.grid_cols_label.cget("text")=="Cột: 2"
+                                   and tab.grid_rows_label.cget("text")=="Hàng: 2")
+        assert report["label_updated"]
         report["limit3_passed_to_start"]=tab.layout_max_windows==3
         assert report["limit3_passed_to_start"]
         report["over_limit_refuses_to_start"]=not tab._toggle_layout() and not guarded_backend.moves
@@ -173,8 +193,8 @@ def run():
         expected={
             targets[2]:(0,0),
             targets[0]:(w+8,0),
-            targets[1]:(2*(w+8),0),
-            targets[3]:(0,master_rect[3]-master_rect[1]+8),
+            targets[1]:(0,master_rect[3]-master_rect[1]+8),
+            targets[3]:(w+8,master_rect[3]-master_rect[1]+8),
         }
         report["actual_layout_xy"]={str(h):actual[h][:2] for h in targets}
         report["expected_local_layout_xy"]={str(h):xy for h,xy in expected.items()}
@@ -187,6 +207,48 @@ def run():
         assert native.window_rect(extra_hwnd)==unrelated_before
         report["unrelated_window_untouched"]=True
 
+        # Adjust column and row count WHILE native sync is active; worker
+        # must cancel old-generation geometry and re-layout from actual GUI.
+        tab.btn_increase_cols.invoke()
+        tab.btn_increase_rows.invoke()
+        assert (tab.grid_cols,tab.grid_rows)==(3,3)
+        assert store.load()==GridSettings(3,3)
+        expected_after={
+            targets[2]:(0,0),
+            targets[0]:(w+8,0),
+            targets[1]:(2*(w+8),0),
+            targets[3]:(0,master_rect[3]-master_rect[1]+8),
+        }
+        for _ in range(18):
+            pump(190)
+            if all(native.window_rect(h)[:2]==xy for h,xy in expected_after.items()):
+                break
+        report["regrid_from_button_while_running"]=all(
+            native.window_rect(h)[:2]==xy for h,xy in expected_after.items())
+        assert report["regrid_from_button_while_running"]
+
+        # Real RADIO invocation changes native grid index0 master. No
+        # character-name guess or test-only property injection.
+        tab._master_radio_buttons[1].invoke()
+        assert tab.layout_master_hwnd==targets[1]
+        master_next={
+            targets[1]:(0,0),
+            targets[0]:(w+8,0),
+            targets[2]:(2*(w+8),0),
+            targets[3]:(0,master_rect[3]-master_rect[1]+8),
+        }
+        for _ in range(18):
+            pump(190)
+            if all(native.window_rect(h)[:2]==xy for h,xy in master_next.items()):
+                break
+        report["real_radio_changes_native_master"]=all(
+            native.window_rect(h)[:2]==xy for h,xy in master_next.items())
+        assert report["real_radio_changes_native_master"]
+        report["master_identity_pid_safe"]=(tab.master_selection.selected==(targets[1],pid))
+        assert report["master_identity_pid_safe"]
+        report["persisted_grid_after_changes"]=store.load()==GridSettings(3,3)
+        assert report["persisted_grid_after_changes"]
+
         # External manual move; existing S13 housekeeping triggers worker
         # *again* using cached source list. No invented original C18 timer.
         target=targets[0]
@@ -194,10 +256,10 @@ def run():
         assert native.window_rect(target)[:2]==(510,330)
         for i in range(16):
             pump(200)
-            if native.window_rect(target)[:2]==expected[target]:
+            if native.window_rect(target)[:2]==master_next[target]:
                 break
         report["layout_sync_restored_external_move"]=(
-            native.window_rect(target)[:2]==expected[target])
+            native.window_rect(target)[:2]==master_next[target])
         assert report["layout_sync_restored_external_move"]
         report["native_move_count"]=len(guarded_backend.moves)
 
@@ -218,10 +280,12 @@ def run():
         report["revocation_no_late_moves"]=(len(guarded_backend.moves)==saved and
                                             native.window_rect(target)[:2]==(480,320))
         assert report["revocation_no_late_moves"]
+        report["master_not_persisted_to_ini"]="master" not in store.path.read_text(encoding="utf-8").lower()
+        assert report["master_not_persisted_to_ini"]
         report["no_input_or_game_events"]=True
-        report["status"]="PASS_NATIVE_S17_TEST_OWNED_LAYOUT_SYNC_REVOKE"
+        report["status"]="PASS_NATIVE_S18_REAL_GRID_BUTTONS_RADIOS_PERSISTENCE_AND_REVOKE"
     except Exception as exc:
-        report["status"]="FAIL_NATIVE_S17_TEST_OWNED_LAYOUT_SYNC"
+        report["status"]="FAIL_NATIVE_S18_GRID_MASTER"
         report["error"]=f"{type(exc).__name__}: {exc}"
         report["traceback"]=traceback.format_exc(limit=17)
     finally:
@@ -241,11 +305,13 @@ def run():
             except Exception as exc:
                 report["destroy_error"]=str(exc)
                 report["status"]="FAIL_CLEANUP"
+        if sandbox_ini is not None:
+            sandbox_ini.cleanup()
         REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
         for k,v in report.items():
             if k!="traceback":
-                print("S17_"+k.upper()+"="+json.dumps(v,ensure_ascii=True))
-    return 0 if report["status"]=="PASS_NATIVE_S17_TEST_OWNED_LAYOUT_SYNC_REVOKE" else 1
+                print("S18_"+k.upper()+"="+json.dumps(v,ensure_ascii=True))
+    return 0 if report["status"]=="PASS_NATIVE_S18_REAL_GRID_BUTTONS_RADIOS_PERSISTENCE_AND_REVOKE" else 1
 
 
 if __name__=="__main__":

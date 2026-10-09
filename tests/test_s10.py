@@ -88,7 +88,7 @@ class S10ReadOnlyStateTests(unittest.TestCase):
         # S10's prohibition on unrelated game/input/activation methods.
         forbidden = (
             "_activate_game_window", "_toggle_input",
-            "_arrange_grid", "_register_dwm_thumbnail", "_on_master_change",
+            "_arrange_grid", "_register_dwm_thumbnail",
         )
         for name in forbidden:
             self.assertFalse(hasattr(TLMStartTab, name), name)

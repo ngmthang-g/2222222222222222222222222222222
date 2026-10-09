@@ -1,4 +1,4 @@
-"""S10–S17: Start DWM previews, guarded WM_CLOSE and native layout worker.
+"""S10–S18: Start DWM, close, bounded layout and master/grid controls.
 
 S08 Win32-observed HWND/PID/title snapshots arrive from the S09 worker.
 S11 DWM thumbnails are live; S16 posts WM_CLOSE only after native HWND/PID
@@ -15,6 +15,7 @@ import threading
 from layout_windows import (
     C18LayoutSync, GRID_COLS_DEFAULT, GRID_ROWS_DEFAULT,
 )
+from grid_master import GridSettingsStore, MasterSelection, update_dimension
 from close_windows import C16CloseAll
 from preview_maintenance import TkPreviewMaintenance
 from preview_layout import (
@@ -69,7 +70,7 @@ class TLMStartTab:
     def __init__(self, parent, *, producer: StartWindowProducer | None = None,
                  interval_ms: int = START_UI_POLL_MS,
                  preview_backend_factory=None, close_service_factory=None,
-                 layout_service_factory=None):
+                 layout_service_factory=None, grid_settings_store=None):
         from tkinter import ttk
         self.parent = parent
         self.container = ttk.Frame(parent)
@@ -129,8 +130,12 @@ class TLMStartTab:
         # Original C18 cadence and grid arithmetic UNKNOWN. This bounded
         # S17 worker consumes the immutable cache and uses local MOVE-ONLY
         # geometry. No server max_windows => no operational layout action.
-        self.grid_cols = GRID_COLS_DEFAULT
-        self.grid_rows = GRID_ROWS_DEFAULT
+        self._grid_settings = (grid_settings_store if grid_settings_store is not None
+                               else GridSettingsStore())
+        loaded_grid = self._grid_settings.load()
+        self.grid_cols = loaded_grid.cols
+        self.grid_rows = loaded_grid.rows
+        self.master_selection = MasterSelection()
         self.layout_max_windows = 0
         self.layout_master_hwnd = None
         self.layout_active = False
@@ -151,11 +156,36 @@ class TLMStartTab:
             background="#f44336", foreground="#ffffff",
             command=self._toggle_layout)
         self.btn_layout.pack(side="left", padx=5, pady=4)
-        ttk.Label(self.layout_controls, text="Cột: 3  Hàng: 4").pack(
-            side="left", padx=6)
+        self.btn_decrease_cols = ttk.Button(
+            self.layout_controls, text="−", width=2, command=self._decrease_cols)
+        self.btn_decrease_cols.pack(side="left", padx=(5, 0))
+        self.grid_cols_label = ttk.Label(self.layout_controls, text="")
+        self.grid_cols_label.pack(side="left", padx=(2, 2))
+        self.btn_increase_cols = ttk.Button(
+            self.layout_controls, text="+", width=2, command=self._increase_cols)
+        self.btn_increase_cols.pack(side="left")
+        self.btn_decrease_rows = ttk.Button(
+            self.layout_controls, text="−", width=2, command=self._decrease_rows)
+        self.btn_decrease_rows.pack(side="left", padx=(8, 0))
+        self.grid_rows_label = ttk.Label(self.layout_controls, text="")
+        self.grid_rows_label.pack(side="left", padx=(2, 2))
+        self.btn_increase_rows = ttk.Button(
+            self.layout_controls, text="+", width=2, command=self._increase_rows)
+        self.btn_increase_rows.pack(side="left")
         self.layout_status = ttk.Label(
             self.layout_controls, text="Chưa có quyền số cửa sổ", anchor="w")
         self.layout_status.pack(side="left", padx=5)
+        # C05: live HWND-backed master radios; not a dropdown nor a saved HWND.
+        self.master_radio_group = ttk.LabelFrame(
+            self.container, text="Cửa sổ chính:")
+        self.master_radio_group.pack(fill="x", padx=9, pady=(0, 5))
+        self._master_radio_frame = ttk.Frame(self.master_radio_group)
+        self._master_radio_frame.pack(fill="x", padx=4, pady=3)
+        self._master_var = tk.StringVar(value="")
+        self._master_hwnd_cache = ()
+        self._master_radio_buttons = []
+        self._hwnd_by_name = {}
+        self._on_grid_change()
         self.preview_order = PreviewOrder()
         self._observed_windows = ()
         self.preview_status = ttk.Label(
@@ -212,6 +242,8 @@ class TLMStartTab:
         windows = snapshot.windows if snapshot.valid else ()
         if windows != self._observed_windows:
             self._sync_tiles(windows)
+        elif hasattr(self, "master_selection"):
+            self._update_master_combobox(windows)
 
     def _on_cache_event(self, event: StartCacheEvent) -> None:
         if self._closed or not self.poller.active:
@@ -243,6 +275,7 @@ class TLMStartTab:
         import tkinter as tk
         from tkinter import ttk
         windows = tuple(windows)
+        self._update_master_combobox(windows)
         ordered = self.preview_order.update(windows)
         self._observed_windows = windows
         wanted = {(w.hwnd, w.pid) for w in ordered}
@@ -408,6 +441,113 @@ class TLMStartTab:
             text=f"Đóng hết: đã gửi WM_CLOSE {len(result.posted)}/{result.requested}"
             if result.posted else "Đóng hết: không có cửa sổ hợp lệ để đóng")
         return result
+
+    def _on_grid_change(self) -> None:
+        """C08 original label updater, using strictly local safety bounds."""
+        self.grid_cols_label.configure(text=f"Cột: {self.grid_cols}")
+        self.grid_rows_label.configure(text=f"Hàng: {self.grid_rows}")
+
+    def _change_grid(self, axis: str, delta: int) -> bool:
+        if self._closed or not self.poller.active:
+            return False
+        try:
+            field = "grid_cols" if axis == "cols" else "grid_rows"
+            current = getattr(self, field)
+            changed = update_dimension(current, delta)
+        except (ValueError, AttributeError):
+            return False
+        if changed == current:
+            return False
+        setattr(self, field, changed)
+        self._on_grid_change()
+        try:
+            self._grid_settings.save(self.grid_cols, self.grid_rows)
+        except (OSError, RuntimeError, ValueError):
+            self.layout_status.configure(text="Lỗi lưu cấu hình lưới")
+        if self.layout_active:
+            self._reschedule_layout_for_user_choice()
+        return True
+
+    def _decrease_cols(self) -> bool:
+        return self._change_grid("cols", -1)
+
+    def _increase_cols(self) -> bool:
+        return self._change_grid("cols", 1)
+
+    def _decrease_rows(self) -> bool:
+        return self._change_grid("rows", -1)
+
+    def _increase_rows(self) -> bool:
+        return self._change_grid("rows", 1)
+
+    def _update_master_combobox(self, windows) -> None:
+        """C05 name is historical: UI is dynamic RADIOs keyed by HWND + PID."""
+        from tkinter import ttk
+        if not hasattr(self, "master_selection"):
+            return
+        windows = tuple(windows)
+        previous = self.master_selection.selected
+        try:
+            changed = self.master_selection.update(windows)
+        except ValueError:
+            # Invalid cache cannot result in a new HWND identity choice.
+            return
+        if self.layout_active and self.master_selection.selected != previous:
+            # A vanished/reused chosen HWND must cancel pending native work
+            # against the old generation before any new layout pass.
+            self._reschedule_layout_for_user_choice()
+        self.layout_master_hwnd = self.master_selection.hwnd
+        identity = self.master_selection.selected
+        self._master_var.set(
+            f"{identity[0]}:{identity[1]}" if identity else "")
+        self._hwnd_by_name = {}
+        if changed:
+            for radio in self._master_radio_buttons:
+                radio.destroy()
+            self._master_radio_buttons.clear()
+        for index, window in enumerate(windows):
+            # S09 does NOT yet expose actual RoleName/HP; only real titles
+            # can be shown. The suffix guarantees non-colliding labels.
+            title = (window.title or "Cửa sổ").strip()
+            label = f"{title} [HWND {window.hwnd}]"
+            self._hwnd_by_name[label] = window.hwnd
+            key = f"{window.hwnd}:{window.pid}"
+            if changed:
+                radio = ttk.Radiobutton(
+                    self._master_radio_frame, text=label,
+                    variable=self._master_var, value=key,
+                    command=lambda h=window.hwnd,p=window.pid:
+                    self._on_master_change(h, p))
+                radio.pack(side="top", anchor="w", padx=(2, 5), pady=1)
+                self._master_radio_buttons.append(radio)
+            else:
+                self._master_radio_buttons[index].configure(text=label)
+
+    def _on_master_change(self, hwnd: int, pid: int) -> bool:
+        """C05 manual master; no C19 input sync to stop/unlock yet."""
+        if self._closed or not self.poller.active:
+            return False
+        if not self.container.winfo_viewable():
+            return False
+        if not self.master_selection.choose(hwnd, pid):
+            return False
+        self.layout_master_hwnd = hwnd
+        self._master_var.set(f"{hwnd}:{pid}")
+        if self.layout_active:
+            self._reschedule_layout_for_user_choice()
+        return True
+
+    def _reschedule_layout_for_user_choice(self) -> None:
+        """Discard worker's old generation, keep layout sync enabled.
+
+        C05 only verifies input-sync must stop on changing master; it does
+        not say layout sync stops. Existing S13 tick starts new generation.
+        """
+        old = self._layout_allow
+        old.clear()
+        self.sync_loop_id += 1
+        self._layout_allow = threading.Event()
+        self._layout_allow.set()
 
     def set_layout_max_windows(self, max_windows: int) -> None:
         """Only shell's verified PermissionSnapshot should call this.
