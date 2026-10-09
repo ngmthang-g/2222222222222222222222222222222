@@ -862,3 +862,9 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - **[S33 Windows CI 37911372037](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37911372037) COMPLETED SUCCESS: 497/497 full S01–S33 units + native S33 PASS, all S32/S31/S30/S29/S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native PASS**. Evidence artifact 11606572419; Stage S 37911371950 SUCCESS.
 - No real adb.exe/server, LDPlayer/game, license bypass, Proxy or injection; S01–S32 functional source, original ZIP/PLAN/Dồn remain unchanged. Product executable still not built.
 - **NEXT_ACTION S34:** offline facade enforcing S31→S32→S33 provenance and replay checks, without exposing authority or guessing emulator counts.
+
+## S34 — Ordered offline ADB intake (S31→S32→S33), 523/523 PASS
+- NEW `src/adb_offline_intake.py` ensures caller-provided offline ADB capture passes S31 transport/clone parsing, S32 per-hint provenance and S33 per-serial epoch boundaries in order. Missing/stale/replayed/bad frames reset history; strict diagnostic-only lookup calls S33, never direct weaker S31/S32. Receipt doesn't expose raw legacy structs or authority; no serial can be used to grant device control or compute an authenticated emulator count.
+- **[S34 Windows CI 37913166723](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37913166723) SUCCESS: 523/523 S01–S34 units, native S34 PASS and all S33/S32/S31/S30/S29/S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native regressions PASS**. Artifact 11607239078; independent Stage S 37913166829 SUCCESS.
+- No actual ADB/LDPlayer/game, original signed Info, launcher injection or product EXE. PLAN/frozen ZIP/Dồn and existing S01–S33 working code unchanged; Proxy runtime excluded.
+- **NEXT_ACTION S35:** audit real app/bootstrap and build path first; prioritize smallest actually verifiable functional UI/runtime slice rather than another purely diagnostic ADB safety abstraction.
