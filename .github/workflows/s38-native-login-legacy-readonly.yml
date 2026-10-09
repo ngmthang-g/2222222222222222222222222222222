@@ -22,11 +22,11 @@ jobs:
         with:
           python-version: "3.10"
       - name: Compile Stage S and S38
-        run: python -m compileall -q src tests tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+        run: python -m compileall -q src tests tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
       - name: Run complete S01-S38 regression
         run: python -m unittest discover -s tests -p "test_s*.py" -v
       - name: S38 genuine Tk legacy read-only hydration and file unchanged
-        run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+        run: python tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
       - name: S37 native 100-row account UI regression
         run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
       - name: S35 genuine Windows Start/Login gated bootstrap
