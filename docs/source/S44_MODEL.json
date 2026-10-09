@@ -1,6 +1,6 @@
 {
   "task": "S44",
-  "status": "WINDOWS_NATIVE_VERIFICATION_PENDING",
+  "status": "S44_NATIVE_WINDOWS_TK_DESTROY_704_UNITS_PASS",
   "baseline": "S43 686/686 Python units",
   "new_unit_methods": 18,
   "source_changed": "src/login_schedule_countdown.py",
@@ -23,5 +23,13 @@
   "f02_accounts_mutated": false,
   "persisted_f09_booleans": "UNKNOWN_NO_AUTO_ARM",
   "proxy_runtime": "EXCLUDED",
-  "next_action": "S45: audit shutdown ordering between separately verified Tk countdown and 20s blocked worker; no product actions until authenticated handlers."
+  "next_action": "S45: audit shutdown ordering between separately verified Tk countdown and 20s blocked worker; no product actions until authenticated handlers.",
+  "total_python_unit_tests": 704,
+  "unit_result": "PASS",
+  "native_result": "PASS_NATIVE_S44_TK_DESTROY_CANCELS_COUNTDOWN",
+  "windows_run": 37934270854,
+  "windows_job": 113832286506,
+  "windows_artifact": 11617551321,
+  "s36_ci_trigger_fix": ".github/workflows/s36-native-packaging-diagnostic.yml",
+  "s36_current_run": 37934597454
 }
