@@ -1,0 +1,44 @@
+{
+  "task": "S22",
+  "status": "S22_WIN32_NATIVE_THREAD_DIAGNOSTICS_285_UNIT_PASS_REAL_GAME_NOT_RUN",
+  "original_evidence": [
+    "docs/tasks/E01.md",
+    "docs/tasks/E06.md"
+  ],
+  "production": {
+    "new": "src/startup_diagnostics.py",
+    "changed": "src/TLMTool.py",
+    "policy_default_crash_file": "LOCALAPPDATA/TLMTool/crash_fault.log (original exact directory UNKNOWN)",
+    "faulthandler": "enable only if previously disabled; disable only if owned",
+    "threading_hook": "capture traceback, chain previous, restore only if owned",
+    "fail_closed": true,
+    "auth": "main() still returns 2"
+  },
+  "tests": {
+    "new_units": 18,
+    "unit_total": 285,
+    "unit_pass": 285,
+    "workflow_run": 37893509454,
+    "job_id": 113699507051,
+    "conclusion": "success",
+    "native": "PASS_NATIVE_S22_DIAGNOSTICS_THREAD_FAULT_MUTEX_RECOVERY",
+    "real_test_only_thread_exception": true,
+    "real_faulthandler_dump": true,
+    "test_only_startup_exception": true,
+    "test_only_log_open_failure": true,
+    "mutex_reacquired_by_new_process_after_each": true,
+    "s21_native_rerun": "PASS_NATIVE_S21_TWO_PROCESS_MUTEX_COLLISION_AND_CLEANUP",
+    "s20_native_rerun": "PASS_NATIVE_S20_THREE_HWND_DWM_MASTER_LAYOUT_INPUT_MODEL",
+    "independent_s21_run": 37893509414,
+    "stage_s_run": 37893509490
+  },
+  "unknowns": [
+    "original debug_logger setup source and exact rotation thresholds",
+    "exact original crash log location/format",
+    "original splash/diagnostic ordering",
+    "real signed Info server",
+    "real game runtime",
+    "product EXE"
+  ],
+  "next_action": "S23 E06 original-backed central stdout/stderr tee log/tlmtool.log (source evidence already recovered), test-only directory, size constants UNKNOWN, preserve real startup auth gate, 285 unit and native rechecks"
+}
