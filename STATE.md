@@ -6297,3 +6297,24 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 
 ## S48 VERIFIED GATE / NEXT_ACTION on CONTINUE — S49
 - Re-read LIVE PLAN.md/STATE.md. S48 Windows native 763/763 and S36 diagnostic both green (runs above); avoid reimplementation. Before S49, inspect current authentic Info/F05/F06 blockers and the actual F09 state/lifecycle concurrency; implement only independently reproduced narrow safety defect with real unit/native Windows proof or authenticated original-backed feature, no fake game functionality/Proxy. No unknown F02/F09 persisted bool conversion. Preserve 763 tests and Windows S48–S10 chain, checkpoint specific files, CI IDs, blockers, NEXT_ACTION.
+
+## S49 VERIFIED — F09 PERMANENT SHUTDOWN FENCE AFTER IN-FLIGHT STOP CLEAR / 772 WINDOWS TESTS PASS
+- Continued from LIVE S48 VERIFIED NEXT_ACTION after re-reading PLAN.md, STATE.md, F09 original static proof, S48 worker source and S46–S48 lifecycle/Tk tests. docs/tasks/S49.md was absent initially.
+- Independently reproduced S48 source-level TOCTOU: successful stopper checks !closed and enters Event.clear while concurrent S46 lock-free Tk request_shutdown sets closed/fence/cancel; old clearer may then clear the permanently set fence. Reproduced with a deterministic equivalent Python threading.Event interleaving: closed=True, cancel=True, pending=0, shutdown_fence_lost=True. This is a verified source-design bug, NOT claimed to be original game's precise behavior; closed latch did continue to deny start.
+- NARROW production correction ONLY in src/login_schedule_worker.py: after S48 successful stop-fence clear, re-check one-way _closed and restore _stop_requested.set() when true. S46 request_shutdown retains zero-lock immediate Tk cancellation; S47 total stop timeout, S48 outstanding stopper-count, S42 true 20s read-only worker, S41/S45 real Tk lifetimes preserved. No Proxy runtime, F02 account settings write, F09 guessed Boolean decode, actual game launch/close/poweroff or fake Login UI.
+- NEW tests/test_s49.py **9** deterministic cases: paused Event.clear concurrent shutdown, FakeLabel Tk Destroy during clear, normal explicit stop/restart, two stopper permanent close, due-event BLOCKED_ONLY and no real actions.
+- NEW tools/S49_WINDOWS_TK_SHUTDOWN_FENCE_SMOKE.py actual Windows Tk mainloop and Label.destroy while second real stopper is paused before Event.clear; .github/workflows/s49-native-tk-shutdown-fence.yml runs full Stage S tests and S49–S10 native regressions; NEW docs/tasks/S49.md, docs/login/S49_PERMANENT_SHUTDOWN_FENCE_FLOW.md, docs/source/S49_MODEL.json.
+- **ACTUAL [S49 native Windows run 37946781496](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37946781496), job 113874986410 COMPLETED SUCCESS**: compileall PASS, **772/772 Python unit tests PASS**, real PASS_NATIVE_S49_LOCKFREE_TK_CLOSE_FENCE, S48 real Tk and S47/S46/S45/S44/S43/S42/S41/S40/S39/S38/S37/S35/S34/S33/S32/S31/S30/S29/S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native Windows regressions ALL PASS. Artifact **11624436578**.
+- **ACTUAL [S36 Windows run 37946685182](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37946685182), job 113874652524 COMPLETED SUCCESS** on S49 source + unit tests: 772/772 Python tests PASS, packaged S36 diagnostic normal/unverified CLI = EXPLICITLY_BLOCKED_NO_GUI, unverified exit 2. Artifact **11624825970**. EXE remains **FAIL-CLOSED NOT PRODUCT**; actual signed Info, native F05/F06 login/launcher, game open/close, original runtime/pixel parity still MISSING.
+- **STATUS S49_NATIVE_WINDOWS_772_TESTS_PASS_PERMANENT_STOP_FENCE**.
+
+## S49 CHANGED FILES
+- src/login_schedule_worker.py (one narrow permanent-closure post-clear correction)
+- tests/test_s49.py NEW
+- tools/S49_WINDOWS_TK_SHUTDOWN_FENCE_SMOKE.py NEW
+- .github/workflows/s49-native-tk-shutdown-fence.yml NEW
+- docs/tasks/S49.md; docs/login/S49_PERMANENT_SHUTDOWN_FENCE_FLOW.md; docs/source/S49_MODEL.json NEW
+- STATE.md; PROJECT_STATUS.md append-only
+
+## NEXT_ACTION on CONTINUE — S50
+- Reread LIVE PLAN.md and STATE.md; check docs/tasks/S50.md before writing. Audit S49 worker exception/cleanup paths, particularly whether a throwing injected clock or thread failure can leave a stale STOPPING / pending cancel or block bounded stop, and whether S46 Tk Destroy remains strictly non-blocking. Implement ONLY independently reproduced narrow source bug or genuine original-backed feature with real functional verification; don't invent Login schedule game actions or create fake controls. Preserve 772 tests, Windows S49–S10 green, S36 diagnostic fail-closed NOT PRODUCT, no Proxy, no F02/F09 uncertain persistence, no unrelated source changes. Update checkpoint exact files/blockers/NEXT_ACTION.
