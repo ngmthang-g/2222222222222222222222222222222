@@ -161,9 +161,12 @@ class S52ExceptionAfterCancellationTests(unittest.TestCase):
             self.assertTrue(entered.wait(1))
             self.worker.request_shutdown()
             release.set()
+            self.worker._thread.join(2)
+            self.assertFalse(self.worker.thread_alive)
+            # Observe the status BEFORE a subsequent stop() can normalize it.
+            self.assertEqual(self.worker.status, "CLOSED")
             self.assertTrue(self.worker.stop(2))
         self.assertEqual(self.worker.status, "CLOSED")
-        self.assertFalse(self.worker.thread_alive)
 
     def test_run_wait_exception_without_shutdown_is_blocked_worker(self):
         entered, release = threading.Event(), threading.Event()
