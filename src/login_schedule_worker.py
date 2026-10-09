@@ -61,19 +61,20 @@ class F09ScheduleEvaluationWorker:
 
     @property
     def status(self) -> str:
-        with self._lock:
-            return self._status
+        # S43: a stalled clock provider may own _lock. Status is read-only
+        # diagnostic data and must not hang behind poll_once().
+        return self._status
 
     @property
     def active(self) -> bool:
-        with self._lock:
-            return (self._thread is not None and self._thread.is_alive()
-                    and not self._cancel.is_set())
+        thread = self._thread
+        return (thread is not None and thread.is_alive()
+                and not self._cancel.is_set() and not self._closed)
 
     @property
     def thread_alive(self) -> bool:
-        with self._lock:
-            return self._thread is not None and self._thread.is_alive()
+        thread = self._thread
+        return thread is not None and thread.is_alive()
 
     @property
     def ticks(self) -> int:
@@ -156,7 +157,15 @@ class F09ScheduleEvaluationWorker:
             if self._cancel.is_set() or self._clock is None or self._closed:
                 return ()
             try:
-                events = self._clock.poll(self._now())
+                current = self._now()
+                # stop() sets Event without acquiring this lock. A source
+                # that finally unblocks after cancellation must never yield
+                # a new due-event record, even a BLOCKED-only audit record.
+                if self._cancel.is_set() or self._closed:
+                    return ()
+                events = self._clock.poll(current)
+                if self._cancel.is_set() or self._closed:
+                    return ()
                 self._ticks += 1
             except Exception:
                 self._cancel.set()
