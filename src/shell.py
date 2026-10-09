@@ -56,8 +56,11 @@ class TabLifecycle:
         self.visible = {INFO_KEY}
         self.current = INFO_KEY
         self._active_refresh: str | None = None
+        self._closed = False
 
     def ensure_built(self, key: str) -> Any:
+        if self._closed:
+            raise MissingFeatureError('Closed tab lifecycle cannot build widgets')
         if key not in self.visible or key not in self._builders:
             raise MissingFeatureError('Unapproved or unimplemented tab: ' + key)
         if key not in self._instances:
@@ -71,6 +74,8 @@ class TabLifecycle:
 
         No guessed fallback when no Info heartbeat / license data is available.
         """
+        if self._closed:
+            return frozenset({INFO_KEY})
         if not set(authorized) <= ALL_KEYS:
             raise ValueError('Unknown keys in permission snapshot')
         new_visible = {INFO_KEY}
@@ -84,6 +89,8 @@ class TabLifecycle:
         return frozenset(new_visible)
 
     def select(self, key: str) -> Any:
+        if self._closed:
+            raise MissingFeatureError('Closed tab lifecycle cannot select widgets')
         if key not in self.visible:
             key = INFO_KEY
         instance = self.ensure_built(key)
@@ -97,15 +104,39 @@ class TabLifecycle:
         return instance
 
     def _stop_old_refresh(self) -> None:
-        if self._active_refresh is not None:
-            obj = self._instances.get(self._active_refresh)
+        key, self._active_refresh = self._active_refresh, None
+        if key is not None:
+            obj = self._instances.get(key)
             cb = getattr(obj, '_stop_refresh', None)
             if callable(cb):
                 cb()
-            self._active_refresh = None
 
     def shutdown(self) -> None:
-        self._stop_old_refresh()
+        """E08: stop the active refresh, then close each built tab OWNER once.
+
+        A failing owner must not prevent cleanup of other owners. This is
+        local bounded cleanup, not a game-window or forwarder-kill policy.
+        """
+        if self._closed:
+            return
+        self._closed = True
+        error = None
+        try:
+            self._stop_old_refresh()
+        except Exception as exc:
+            error = exc
+        for obj in reversed(tuple(self._instances.values())):
+            close = getattr(obj, 'shutdown', None)
+            if callable(close):
+                try:
+                    close()
+                except Exception as exc:
+                    if error is None:
+                        error = exc
+        self.visible = {INFO_KEY}
+        self.current = INFO_KEY
+        if error is not None:
+            raise error
 
 
 class TLMMainApp:
@@ -125,6 +156,7 @@ class TLMMainApp:
             notebook_factory = notebook_factory or ttk.Notebook
             frame_factory = frame_factory or ttk.Frame
         self.root = root
+        self._closed = False
         self.root.title('TLMTool')
         self.root.geometry('250x20')  # E02 transient only
         self.root.withdraw()
@@ -147,8 +179,19 @@ class TLMMainApp:
         self.notebook.select(self._tab_frames[INFO_KEY])
         self.notebook.bind('<<NotebookTabChanged>>', self._on_tab_changed)
         self.lifecycle.select(INFO_KEY)
+        # E08: root <Destroy> follows descendant events. No invented
+        # WM_DELETE_WINDOW handler or helper-process termination.
+        bind = getattr(self.root, 'bind', None)
+        if callable(bind):
+            bind('<Destroy>', self._on_root_destroy, add='+')
+
+    def _on_root_destroy(self, event: Any) -> None:
+        if getattr(event, 'widget', None) is self.root:
+            self.shutdown()
 
     def _on_tab_changed(self, _event: Any = None) -> None:
+        if self._closed:
+            return
         frame = self.notebook.select()
         key = self._tab_keys.get(str(frame), INFO_KEY)
         if key not in self.lifecycle.visible:
@@ -163,6 +206,8 @@ class TLMMainApp:
 
     def apply_verified_permissions(self, authorized_keys: set[str] | frozenset[str], *,
                                    dev_allowed: bool = False, blocked: bool = False) -> None:
+        if self._closed:
+            return
         previous = self.lifecycle.current
         # Generic visible-tab grants do NOT independently certify a limit;
         # only apply_info_snapshot's verified guard source below can do so.
@@ -185,6 +230,8 @@ class TLMMainApp:
             raise TypeError('Info permission snapshot required')
 
         def update_on_tk_thread() -> None:
+            if self._closed:
+                return
             self.apply_verified_permissions(
                 set(snapshot.authorized_keys) if snapshot.has_verified_payload else set(),
                 dev_allowed=snapshot.developer and not snapshot.blocked,
@@ -217,4 +264,7 @@ class TLMMainApp:
         self.root.deiconify()
 
     def shutdown(self) -> None:
+        if self._closed:
+            return
+        self._closed = True
         self.lifecycle.shutdown()

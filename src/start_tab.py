@@ -736,10 +736,12 @@ class TLMStartTab:
         self.maintenance.stop()
         self.poller._stop_refresh()
         self._drop_previews()
+        if self._closed:
+            # E08: child <Destroy> may already have removed its Tk widgets.
+            return
         self._sync_tiles(())
-        if not self._closed:
-            # Do not show stale HWND/PID when Start is hidden/revoked.
-            self._render(StartReadOnlyState("STOPPED", "Chưa quét cửa sổ game"))
+        # Do not show stale HWND/PID when Start is hidden/revoked.
+        self._render(StartReadOnlyState("STOPPED", "Chưa quét cửa sổ game"))
 
     def _on_destroy(self, event) -> None:
         if event.widget is self.container:
@@ -748,8 +750,10 @@ class TLMStartTab:
     def shutdown(self) -> None:
         if self._closed:
             return
-        self._stop_sync_loop()
+        # During Tk <Destroy>, children (including btn_layout) can already
+        # be gone: fence widget updates BEFORE disabling the layout worker.
         self._closed = True
+        self._stop_sync_loop()
         self.maintenance.shutdown()
         self._drop_previews()
         for sequence, binding in self._top_handlers:
