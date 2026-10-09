@@ -145,12 +145,16 @@ class F09ScheduleEvaluationWorker:
             self._thread = worker
             try:
                 worker.start()
-            except RuntimeError:
+            except (RuntimeError, OSError):
+                # S50: native Thread.start may reject OS resources with
+                # OSError (including PermissionError). Treat exactly like
+                # Python's RuntimeError: never leave an enabled clock or
+                # an unstarted Thread presented as live scheduling.
                 self._cancel.set()
                 self._clock.disable()
                 self._clock = None
                 self._thread = None
-                self._status = "BLOCKED_THREAD"
+                self._status = "CLOSED" if self._closed else "BLOCKED_THREAD"
                 return False
             if self._closed or self._stop_requested.is_set():
                 self._cancel.set()
