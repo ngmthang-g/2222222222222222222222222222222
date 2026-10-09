@@ -1,0 +1,51 @@
+{
+  "task": "S17",
+  "status": "NATIVE_TEST_OWNED_187_UNIT_PASS_GAME_NOT_RUN",
+  "evidence": [
+    "C18",
+    "C06",
+    "C08"
+  ],
+  "native": "SetWindowPos move-only; no activate and no resize",
+  "local_policy": {
+    "default_columns": 3,
+    "default_rows": 4,
+    "master_first": true,
+    "pitch": "master rect + 8px",
+    "worker_trigger": "S13 cache maintenance; original C18 cadence unknown",
+    "initial_off": true,
+    "auth": "verified PermissionSnapshot.max_windows only"
+  },
+  "proof": {
+    "s17_success": 37887093950,
+    "source_hwnds": 4,
+    "unrelated_untouched": true,
+    "sizes_preserved": true,
+    "recovery_after_drag": true,
+    "revocation_stops": true,
+    "unit_total": 187,
+    "unit_passed": 187
+  },
+  "same_code_success_runs": {
+    "s10": 37887172714,
+    "s11": 37887172750,
+    "s12": 37887172677,
+    "s13": 37887172668,
+    "s14": 37887172726,
+    "s15": 37887172698,
+    "s16": 37887172703,
+    "s17": 37887172760,
+    "stage_s": 37887172697
+  },
+  "unknown": [
+    "exact grid formula",
+    "worker cadence",
+    "initial original layout state",
+    "max comparator",
+    "C19 synchronization",
+    "real game",
+    "live signed entitlement",
+    "product EXE"
+  ],
+  "next": "S18: C05/C08 grid controls and master selection, preserve 187 tests, no C19/Proxy"
+}
