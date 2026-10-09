@@ -1,6 +1,6 @@
 {
   "task": "S46",
-  "status": "WINDOWS_NATIVE_PENDING",
+  "status": "S46_WINDOWS_NATIVE_738_TESTS_PASS_TK_MUTEX_NONBLOCKING",
   "sources": [
     "docs/tasks/F09.md",
     "docs/tasks/S45.md"
@@ -26,5 +26,14 @@
   "legacy_accounts_writer": false,
   "original_boolean_encoding": "UNKNOWN",
   "product_exe": "NOT_PRODUCT",
-  "next_action": "S47 concurrency audit finish_close(timeout) lifecycle lock budget and reentrant cancel"
+  "next_action": "S47 concurrency audit finish_close(timeout) lifecycle lock budget and reentrant cancel",
+  "total_python_units": 738,
+  "windows_run": 37940872719,
+  "windows_job": 113854623451,
+  "windows_artifact": 11621223118,
+  "native_result": "PASS_NATIVE_S46_TK_DESTROY_LIFECYCLE_LOCK_NO_HANG",
+  "s36_diagnostic_run": 37940754104,
+  "s36_diagnostic_job": 113854212032,
+  "s36_diagnostic_artifact": 11621108248,
+  "s36_diagnostic_status": "EXPLICITLY_BLOCKED_NO_GUI_EXIT_2_NOT_PRODUCT"
 }
