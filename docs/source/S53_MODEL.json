@@ -1,0 +1,25 @@
+{
+  "task": "S53",
+  "status": "IMPLEMENTED_NATIVE_WINDOWS_PENDING",
+  "baseline": "S52 verified 804/804 Windows units",
+  "defect": "stop(timeout) time budget covered lifecycle mutex and worker join but not independent poll_once lock when worker already joined",
+  "source": "src/login_schedule_worker.py",
+  "fix": "acquire _lock with remaining common monotonic deadline, fail STOPPING with intact cancellation fence, release in finally",
+  "red_ci": {
+    "run": 37963631168,
+    "failed_s53": 4
+  },
+  "source_commit": "4b913bb0c847c4ae0757a159a55287123676c803",
+  "tests": "tests/test_s53.py",
+  "native": "tools/S53_WINDOWS_TK_FINAL_LOCK_DEADLINE_SMOKE.py",
+  "workflow": ".github/workflows/s53-native-tk-final-lock-deadline.yml",
+  "first_native_run": 37963793887,
+  "scope": {
+    "proxy": false,
+    "real_game_actions": false,
+    "account_ini_write": false,
+    "guessed_flags": false,
+    "product_exe": false
+  },
+  "next_action": "Verify actual S53 Windows native and S36 diagnostic results before checkpoint S54"
+}
