@@ -23,6 +23,11 @@ class FakeLabel:
         self.last_delay = None
         self.fail_configure = False
         self.fail_after = False
+        self._bindings = {}
+
+    def bind(self, sequence, handler, add=None):
+        self._bindings.setdefault(sequence, []).append(handler)
+        return "S41_FAKE_TK_BINDING"
 
     def configure(self, **kwargs):
         if not self.exists or self.fail_configure:
