@@ -266,7 +266,7 @@ class NativeDwmBackend:
                 ("lpfnWndProc", ctypes.c_void_p),
                 ("cbClsExtra", ctypes.c_int), ("cbWndExtra", ctypes.c_int),
                 ("hInstance", w.HINSTANCE), ("hIcon", w.HICON),
-                ("hCursor", w.HCURSOR), ("hbrBackground", w.HBRUSH),
+                ("hCursor", w.HANDLE), ("hbrBackground", w.HBRUSH),
                 ("lpszMenuName", w.LPCWSTR), ("lpszClassName", w.LPCWSTR),
                 ("hIconSm", w.HICON),
             ]
