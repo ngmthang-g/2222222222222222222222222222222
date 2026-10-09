@@ -1,0 +1,30 @@
+{
+  "task": "S41",
+  "status": "CI_PENDING_NATIVE_TK",
+  "original_proof": [
+    "docs/tasks/F09.md",
+    "docs/login/F09_SCHEDULER_STATIC_EVIDENCE.tsv"
+  ],
+  "source": "src/login_schedule_countdown.py",
+  "data_source": "src/login_schedule_settings.py",
+  "clock": "src/login_schedule_clock.py",
+  "original_label": "lbl_sched_countdown",
+  "tk_callback_cadence_ms": 1000,
+  "main_thread_guard": true,
+  "generation_invalidation": true,
+  "read_only_preview": true,
+  "auto_arm_from_persisted_booleans": false,
+  "event_game_dispatch": "NONE",
+  "real_f09_worker": "NOT_IMPLEMENTED",
+  "product_tab_integration": false,
+  "no_fake_buttons": true,
+  "real_game": "NOT_RUN",
+  "auth_info": "NOT_AVAILABLE",
+  "product_exe": "NOT_BUILT",
+  "proxy_runtime": "EXCLUDED",
+  "tests": "tests/test_s41.py",
+  "new_tests": 26,
+  "windows_native_smoke": "tools/S41_WINDOWS_LOGIN_TK_COUNTDOWN_SMOKE.py",
+  "workflow": ".github/workflows/s41-native-login-tk-countdown.yml",
+  "next_task": "S42 verified F09 coordinator under strict no-real-action guard or different original-backed task"
+}
