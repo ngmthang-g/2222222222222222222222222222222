@@ -1,0 +1,25 @@
+{
+  "task": "S49",
+  "phase": "F09 safety",
+  "status": "IMPLEMENTED_NATIVE_WINDOWS_PENDING",
+  "source_file": "src/login_schedule_worker.py",
+  "precondition": "S48 source/test owned F09 only",
+  "defect": "stop cleanup check-before-clear races with lock-free permanent Tk request_shutdown; stop fence may end cleared",
+  "reproduction": "inject pause immediately before Event.clear, request_shutdown on creator Tk thread, then release clear",
+  "minimal_fix": "check _closed immediately AFTER Event.clear and re-set _stop_requested when true",
+  "scope": {
+    "proxy": false,
+    "real_game_open_close": false,
+    "legacy_ini_writes": false,
+    "persisted_boolean_migration": false,
+    "os_shutdown": false,
+    "product_exe": false
+  },
+  "tests": [
+    "tests/test_s49.py",
+    "tools/S49_WINDOWS_TK_SHUTDOWN_FENCE_SMOKE.py"
+  ],
+  "github_workflow": ".github/workflows/s49-native-tk-shutdown-fence.yml",
+  "run_id_to_verify": 37946781496,
+  "next_action": "Read native S49 Windows and S36 run logs before stamping VERIFIED"
+}
