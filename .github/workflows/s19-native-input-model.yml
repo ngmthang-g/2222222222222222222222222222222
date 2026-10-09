@@ -1,0 +1,38 @@
+name: S19 C19 native client rect ordered test-owned input model
+
+on:
+  push:
+    paths:
+      - "src/input_sync_core.py"
+      - "tests/test_s19.py"
+      - "tools/S19_WINDOWS_CLIENT_FIFO_SMOKE.py"
+      - ".github/workflows/s19-native-input-model.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-client-fifo:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v4
+      - name: Use Python 3.10 Windows
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all source and tests
+        run: python -m compileall -q src tests tools/S19_WINDOWS_CLIENT_FIFO_SMOKE.py
+      - name: Run full S01-S19 unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Native Win32 GetClientRect and test-owned ordered Tk input
+        run: python tools/S19_WINDOWS_CLIENT_FIFO_SMOKE.py
+      - name: Save native client input-model evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s19-native-client-fifo-test-owned
+          path: artifacts/s19/
+          if-no-files-found: warn
