@@ -47,10 +47,17 @@ def run():
             fill="both", expand=True)
         root.update()
         source.update()
-        hwnd = int(source.winfo_id())
-        owner = int(root.winfo_id())
-        pid = os.getpid()
         backend = NativeDwmBackend()
+        # Tk winfo_id is commonly a child HWND. DWM API requires the native
+        # top-level HWND, which we resolve using GetAncestor(GA_ROOT=2).
+        inner_source = int(source.winfo_id())
+        hwnd = int(backend._ancestor(inner_source, 2))
+        owner = int(backend._ancestor(int(root.winfo_id()), 2))
+        pid = os.getpid()
+        result["tk_inner_source_hwnd"] = inner_source
+        result["native_source_hwnd"] = hwnd
+        result["native_owner_hwnd"] = owner
+        assert hwnd > 0 and owner > 0
         result["test_owned_hwnd"] = hwnd
         result["test_owned_pid"] = pid
         result["matches_actual_pid"] = backend.source_matches(hwnd, pid)

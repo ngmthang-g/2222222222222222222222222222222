@@ -217,6 +217,10 @@ class NativeDwmBackend:
         self._get_pid.argtypes = [w.HWND, ctypes.POINTER(w.DWORD)]
         self._get_pid.restype = w.DWORD
 
+        self._ancestor = self.user32.GetAncestor
+        self._ancestor.argtypes = [w.HWND, w.UINT]
+        self._ancestor.restype = w.HWND
+
         self._create = self.user32.CreateWindowExW
         self._create.argtypes = [w.DWORD, w.LPCWSTR, w.LPCWSTR, w.DWORD,
                                  ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int,
@@ -297,12 +301,15 @@ class NativeDwmBackend:
         return int(current.value) == pid and pid > 0
 
     def create_destination(self, owner: int, x: int, y: int, width: int, height: int) -> int:
-        if not self._is_window(owner):
+        # Tk winfo_id can refer to its drawing child, not the native top-level.
+        # DWM requires a real top-level owner. GA_ROOT=2 preserves ownership.
+        owner_root = self._ancestor(owner, 2)
+        if not owner_root or not self._is_window(owner_root):
             raise OSError("Owner HWND missing")
         ext = (self.WS_EX_LAYERED | self.WS_EX_TOOLWINDOW
                | self.WS_EX_NOACTIVATE | self.WS_EX_TRANSPARENT)
         h = self._create(ext, self.CLASS_NAME, "", self.WS_POPUP | self.WS_VISIBLE,
-                         x, y, width, height, owner, None, self._hinstance(None), None)
+                         x, y, width, height, owner_root, None, self._hinstance(None), None)
         if not h:
             raise OSError(self.ctypes.get_last_error(), "CreateWindowExW failed")
         return int(h)
