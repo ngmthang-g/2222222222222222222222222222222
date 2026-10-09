@@ -185,6 +185,47 @@ class TLMAccountRows:
             password=self.password_vars[index].get(),
             captcha_mode=self.captcha_vars[index].get())
 
+    def hydrate_legacy_read_only(self, records) -> None:
+        """S38: show verified fields, never infer original checkbox token.
+
+        S37 account view selection remains its own in-memory state. An '❔'
+        marker means original check semantics are unknown, not unchecked.
+        Legacy 'Có' is displayed literally without adding it as a choice or
+        silently translating it to a current captcha mode.
+        """
+        if self._closed:
+            raise RuntimeError("ACCOUNT_VIEW_CLOSED")
+        from login_account_legacy import (
+            ALLOWED_CAPTCHA_RAW, LegacyAccountRecord, MAX_LEGACY_ROWS,
+        )
+        records = tuple(records)
+        if len(records) > MAX_LEGACY_ROWS or any(
+            not isinstance(row, LegacyAccountRecord)
+            or row.captcha_raw not in ALLOWED_CAPTCHA_RAW
+            for row in records
+        ):
+            raise ValueError("UNSAFE_LEGACY_RECORDS")
+        for index, row in enumerate(records):
+            self.username_vars[index].set(row.username)
+            self.password_vars[index].set(row.password)
+            self.captcha_vars[index].set(row.captcha_raw)
+            self.row_selectors[index].configure(text="❔")
+        # No transfer of raw check/proxy tokens to actionable UI, no writes.
+        self.read_only_legacy_count = len(records)
+
+    def show_legacy_load_status(self, status: str) -> None:
+        """Small, sanitized footer below Canvas; never show credential text."""
+        if self._closed or status == "EMPTY":
+            return
+        import tkinter as tk
+        text = ("Tài khoản cũ: chỉ đọc; dấu chọn chưa xác minh"
+                if status == "READY"
+                else "Dữ liệu tài khoản cũ chưa an toàn để nạp (" + status + ")")
+        self.legacy_status_label = tk.Label(
+            self.group_accounts, text=text, anchor="w",
+            font=("Segoe UI", 8), foreground="#8a3300")
+        self.legacy_status_label.place(x=9, y=690, width=400, height=18)
+
     def shutdown(self) -> None:
         if self._closed:
             return
