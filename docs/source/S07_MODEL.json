@@ -1,0 +1,144 @@
+{
+  "task": "S07",
+  "status": "S07_WINDOWS_NATIVE_PASSIVE_SECTIONS_43_TESTS_PASS_CATALOG_CLIPPED_ON_768P",
+  "original": {
+    "source": "docs/tasks/B12.md",
+    "original_client": [
+      450,
+      1000
+    ],
+    "original_full_raster": [
+      452,
+      1032
+    ],
+    "reference_sha256": "e536e081c653c72991344bfe505dd79cbcbf5fa52c9befa63214eb9d1516e4bc",
+    "reference_raster_loaded": false,
+    "pixel_parity": "NOT_RUN"
+  },
+  "changed_source": [
+    "src/info_tab.py"
+  ],
+  "new_tests": [
+    "tests/test_s07.py",
+    "tools/S07_WINDOWS_INFO_SECTIONS.py",
+    ".github/workflows/s07-info-sections.yml"
+  ],
+  "preserved": [
+    "src/info_binding.py",
+    "src/info_state.py",
+    "src/shell.py",
+    "src/TLMTool.py",
+    "S01–S06 source/tests",
+    "PLAN.md",
+    "original ZIP",
+    "no Proxy development"
+  ],
+  "new_layout": {
+    "price": [
+      6,
+      427,
+      416,
+      88
+    ],
+    "price_separator_y": 526,
+    "contact": [
+      7,
+      539,
+      300,
+      19
+    ],
+    "facebook": [
+      27,
+      566,
+      126,
+      19
+    ],
+    "zalo": [
+      155,
+      566,
+      110,
+      19
+    ],
+    "contact_separator_y": 616,
+    "catalog_header": [
+      7,
+      630,
+      320,
+      19
+    ],
+    "catalog": [
+      30,
+      656,
+      340,
+      58
+    ],
+    "prior_status": [
+      3,
+      51,
+      416,
+      44
+    ],
+    "prior_changelog": [
+      3,
+      295,
+      416,
+      109
+    ],
+    "info_frame_relative": true
+  },
+  "data": {
+    "price_text": "Chưa xác minh",
+    "catalog_text": "Chưa xác minh",
+    "no_hardcoded_server_price": true,
+    "no_hardcoded_product_list": true,
+    "original_static_facebook_zalo_labels": true,
+    "support_click_handlers": false,
+    "action_buttons_added": 0
+  },
+  "github_actions": {
+    "run_id": 37869958702,
+    "job_id": 113625514299,
+    "head_sha": "77af1943f9cea686efebfdb8c56a3324bb87c7b0",
+    "status": "completed",
+    "conclusion": "success",
+    "python": "3.10",
+    "windows": true,
+    "compileall": "PASS",
+    "combined_tests_passed": 43,
+    "combined_tests_total": 43,
+    "s01": 7,
+    "s02": 8,
+    "s03": 6,
+    "s04": 10,
+    "s06": 6,
+    "s07": 6,
+    "s06_native": "PASS_NATIVE_READONLY_LAYOUT_ANCHORS",
+    "s07_native": "PASS_NATIVE_PASSIVE_SECTIONS",
+    "screenshot": "CAPTURED_CLIENT_ONLY",
+    "shutdown": true
+  },
+  "artifact": {
+    "id": 11589688653,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37869958702/artifacts/11589688653"
+  },
+  "runner": {
+    "desktop": [
+      1024,
+      768
+    ],
+    "client": [
+      450,
+      688
+    ],
+    "catalog_fully_visible": false,
+    "reason": "catalog starts at frame-local y656 and is 58 px high beyond native frame on short runner"
+  },
+  "not_run": {
+    "real_token_verifier": true,
+    "server_heartbeat": true,
+    "auth_11_tab_mode": true,
+    "exact_full_pixel_diff": true,
+    "windows_nuitka_product_exe": true
+  },
+  "next_action": "S08 — research real original Start-tab Win32 window discovery and implement smallest non-Proxy operational source slice with Windows regression, no fake game/permission actions"
+}
