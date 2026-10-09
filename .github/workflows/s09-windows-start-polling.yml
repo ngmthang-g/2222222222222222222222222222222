@@ -1,0 +1,38 @@
+name: S09 Windows Start background cache lifecycle
+
+on:
+  push:
+    paths:
+      - "src/start_polling.py"
+      - "tests/test_s09.py"
+      - "tools/S09_WINDOWS_START_POLLING_SMOKE.py"
+      - ".github/workflows/s09-windows-start-polling.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  threaded-start-cache:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S source and tests
+        run: python -m compileall -q src tests tools/S09_WINDOWS_START_POLLING_SMOKE.py
+      - name: Complete S01–S09 source regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Real Windows producer and Tk Start polling
+        run: python tools/S09_WINDOWS_START_POLLING_SMOKE.py
+      - name: Upload native Windows poll evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s09-windows-start-cache
+          path: artifacts/s09/
+          if-no-files-found: warn
