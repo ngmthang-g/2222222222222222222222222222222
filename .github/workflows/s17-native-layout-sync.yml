@@ -1,0 +1,40 @@
+name: S17 native C18 bounded HWND layout sync only
+
+on:
+  push:
+    paths:
+      - "src/layout_windows.py"
+      - "src/start_tab.py"
+      - "src/shell.py"
+      - "tests/test_s17.py"
+      - "tools/S17_WINDOWS_TEST_OWNED_LAYOUT_SMOKE.py"
+      - ".github/workflows/s17-native-layout-sync.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-bounded-layout:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed actual source
+        uses: actions/checkout@v4
+      - name: Windows Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S source and tests
+        run: python -m compileall -q src tests tools/S17_WINDOWS_TEST_OWNED_LAYOUT_SMOKE.py
+      - name: Combined S01-S17 Python unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Real test-owned HWND SetWindowPos and revocation lifecycle
+        run: python tools/S17_WINDOWS_TEST_OWNED_LAYOUT_SMOKE.py
+      - name: Upload evidence from Windows native session
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s17-native-test-owned-layout
+          path: artifacts/s17/
+          if-no-files-found: warn

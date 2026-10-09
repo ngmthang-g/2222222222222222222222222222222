@@ -142,6 +142,7 @@ class TLMMainApp:
             if spec.key != INFO_KEY:
                 self.notebook.tab(frame, state='hidden')
         self.lifecycle = TabLifecycle(builders, self._tab_frames)
+        self._verified_max_windows = 0  # never infer client-side 999
         self.lifecycle.ensure_built(INFO_KEY)  # fail closed if real Info service fails
         self.notebook.select(self._tab_frames[INFO_KEY])
         self.notebook.bind('<<NotebookTabChanged>>', self._on_tab_changed)
@@ -154,10 +155,18 @@ class TLMMainApp:
             self.notebook.select(self._tab_frames[INFO_KEY])
             key = INFO_KEY
         self.lifecycle.select(key)
+        if key == 'start_tab':
+            instance = self.lifecycle._instances.get('start_tab')
+            setter = getattr(instance, 'set_layout_max_windows', None)
+            if callable(setter):
+                setter(self._verified_max_windows)
 
     def apply_verified_permissions(self, authorized_keys: set[str] | frozenset[str], *,
                                    dev_allowed: bool = False, blocked: bool = False) -> None:
         previous = self.lifecycle.current
+        # Generic visible-tab grants do NOT independently certify a limit;
+        # only apply_info_snapshot's verified guard source below can do so.
+        self._verified_max_windows = 0
         visible = self.lifecycle.apply_authorized_keys(authorized_keys,dev_allowed=dev_allowed,blocked=blocked)
         for spec in TAB_SPECS:
             self.notebook.tab(self._tab_frames[spec.key],state='normal' if spec.key in visible else 'hidden')
@@ -181,6 +190,16 @@ class TLMMainApp:
                 dev_allowed=snapshot.developer and not snapshot.blocked,
                 blocked=snapshot.blocked,
             )
+            self._verified_max_windows = (
+                snapshot.max_windows
+                if snapshot.has_verified_payload and not snapshot.blocked
+                and 'start_tab' in snapshot.authorized_keys
+                and type(snapshot.max_windows) is int and snapshot.max_windows > 0
+                else 0)
+            instance = self.lifecycle._instances.get('start_tab')
+            setter = getattr(instance, 'set_layout_max_windows', None)
+            if callable(setter):
+                setter(self._verified_max_windows)
 
         self.root.after(0, update_on_tk_thread)
 

@@ -1,4 +1,4 @@
-"""S10–S16: native Tk Start, DWM previews and guarded C16 WM_CLOSE.
+"""S10–S17: Start DWM previews, guarded WM_CLOSE and native layout worker.
 
 Only S08 Win32-observed HWND/PID/title snapshots delivered by S09's worker
 are displayed. S11 DWM previews use actual Win32 HWND+PID and real compositor
@@ -9,7 +9,11 @@ The shell must grant the Start tab from a separately verified server snapshot.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import threading
 
+from layout_windows import (
+    C18LayoutSync, GRID_COLS_DEFAULT, GRID_ROWS_DEFAULT,
+)
 from close_windows import C16CloseAll
 from preview_maintenance import TkPreviewMaintenance
 from preview_layout import (
@@ -63,7 +67,8 @@ class TLMStartTab:
 
     def __init__(self, parent, *, producer: StartWindowProducer | None = None,
                  interval_ms: int = START_UI_POLL_MS,
-                 preview_backend_factory=None, close_service_factory=None):
+                 preview_backend_factory=None, close_service_factory=None,
+                 layout_service_factory=None):
         from tkinter import ttk
         self.parent = parent
         self.container = ttk.Frame(parent)
@@ -119,6 +124,37 @@ class TLMStartTab:
         self.btn_close_all.pack(side="left", padx=(6, 0))
         self._close_service_factory = close_service_factory or C16CloseAll
         self.last_close_result = None
+        # C18 layout sync is separate from C19 input synchronization.
+        # Original C18 cadence and grid arithmetic UNKNOWN. This bounded
+        # S17 worker consumes the immutable cache and uses local MOVE-ONLY
+        # geometry. No server max_windows => no operational layout action.
+        self.grid_cols = GRID_COLS_DEFAULT
+        self.grid_rows = GRID_ROWS_DEFAULT
+        self.layout_max_windows = 0
+        self.layout_master_hwnd = None
+        self.layout_active = False
+        self.sync_layout_running = False
+        self.sync_loop_id = 0
+        self._grid_slots = {}
+        self._layout_service_factory = layout_service_factory or C18LayoutSync
+        self._layout_allow = threading.Event()
+        self._layout_thread = None
+        self._layout_last_result = None
+        self._layout_reported_result = None
+        self.layout_controls = ttk.LabelFrame(
+            self.container, text="Xếp lưới — đồng bộ vị trí cửa sổ")
+        self.layout_controls.pack(fill="x", padx=9, pady=(0, 6))
+        import tkinter as tk
+        self.btn_layout = tk.Button(
+            self.layout_controls, text="Đồng bộ các cửa sổ",
+            background="#f44336", foreground="#ffffff",
+            command=self._toggle_layout)
+        self.btn_layout.pack(side="left", padx=5, pady=4)
+        ttk.Label(self.layout_controls, text="Cột: 3  Hàng: 4").pack(
+            side="left", padx=6)
+        self.layout_status = ttk.Label(
+            self.layout_controls, text="Chưa có quyền số cửa sổ", anchor="w")
+        self.layout_status.pack(side="left", padx=5)
         self.preview_order = PreviewOrder()
         self._observed_windows = ()
         self.preview_status = ttk.Label(
@@ -192,6 +228,14 @@ class TLMStartTab:
         # No BitBlt, screenshot, frame extraction or game input.
         if self._preview_after is None:
             self._refresh_dwm()
+        # Worker uses S09 cached HWND set. Native validation/movement is
+        # NEVER executed on Tk's UI thread.
+        if self.layout_active:
+            self._layout_worker(snapshot)
+        if self._layout_last_result is not self._layout_reported_result:
+            self._layout_reported_result = self._layout_last_result
+            if self._layout_last_result is not None:
+                self.layout_status.configure(text=self._layout_last_result.code)
 
     def _sync_tiles(self, windows) -> None:
         """Bind only S09-discovered HWND/PID values to C09/C17 tile widgets."""
@@ -364,6 +408,97 @@ class TLMStartTab:
             if result.posted else "Đóng hết: không có cửa sổ hợp lệ để đóng")
         return result
 
+    def set_layout_max_windows(self, max_windows: int) -> None:
+        """Only shell's verified PermissionSnapshot should call this.
+
+        A direct user toggle cannot invent a client-side 999 fallback.
+        """
+        self.layout_max_windows = (max_windows if type(max_windows) is int
+                                   and max_windows > 0 else 0)
+        if not self.layout_max_windows:
+            self._stop_sync_loop()
+            if not self._closed:
+                self.layout_status.configure(text="Chưa có quyền số cửa sổ")
+
+    def _stop_sync_loop(self) -> None:
+        self._layout_allow.clear()
+        self.layout_active = False
+        self.sync_layout_running = False
+        self.sync_loop_id += 1  # invalidate stale worker's status publication
+        if not self._closed:
+            self.btn_layout.configure(background="#f44336")
+
+    def _toggle_layout(self) -> bool:
+        """C18 real toggle: no fake status or client-side permission grants."""
+        if self.layout_active:
+            self._stop_sync_loop()
+            self.layout_status.configure(text="Đồng bộ bố cục: tắt")
+            return False
+        if self._closed or not self.poller.active or not self.layout_max_windows:
+            return False
+        if not self.container.winfo_viewable():
+            return False
+        try:
+            snap = self.poller.producer.read_snapshot()
+        except Exception:
+            return False
+        if not isinstance(snap, WindowSnapshot) or not snap.valid or not snap.windows:
+            self.layout_status.configure(text="Chưa có cache cửa sổ hợp lệ")
+            return False
+        if len(snap.windows) > self.layout_max_windows:
+            self.layout_status.configure(text="Vượt giới hạn cửa sổ đã xác minh")
+            return False
+        if len(snap.windows) > self.grid_cols * self.grid_rows:
+            self.layout_status.configure(text="Vượt số ô lưới")
+            return False
+        self.layout_active = True
+        self.sync_layout_running = True
+        # Fresh cancellation event per session: never revive an old worker.
+        self._layout_allow = threading.Event()
+        self._layout_allow.set()
+        self.btn_layout.configure(background="#388e3c")
+        self.layout_status.configure(text="Đồng bộ vị trí: đang kiểm tra")
+        self._layout_worker(snap)
+        return True
+
+    def _layout_worker(self, snapshot: WindowSnapshot) -> None:
+        """C18: non-Tk worker + S09 cache, no guessed C18 sleep/cadence."""
+        if self._closed or not self.layout_active or not self._layout_allow.is_set():
+            return
+        if not isinstance(snapshot, WindowSnapshot) or not snapshot.valid:
+            self._stop_sync_loop()
+            self.layout_status.configure(text="Cache không hợp lệ: tự tắt")
+            return
+        if len(snapshot.windows) > self.layout_max_windows:
+            self._stop_sync_loop()
+            self.layout_status.configure(text="Vượt giới hạn: tự tắt")
+            return
+        if self._layout_thread is not None and self._layout_thread.is_alive():
+            return
+        generation = self.sync_loop_id
+        allow = self._layout_allow
+        factory = self._layout_service_factory
+        limit = self.layout_max_windows
+        cols, rows = self.grid_cols, self.grid_rows
+        master = self.layout_master_hwnd
+
+        def work() -> None:
+            try:
+                outcome = factory().arrange(
+                    snapshot, max_windows=limit, cols=cols, rows=rows,
+                    master_hwnd=master, allowed=allow.is_set)
+            except Exception:
+                from layout_windows import LayoutResult
+                outcome = LayoutResult("LAYOUT_WORKER_ERROR")
+            if allow.is_set() and self.sync_loop_id == generation:
+                # Pure data publication; widgets only updated by Tk
+                # _on_maintenance_tick callback, NEVER from worker.
+                self._layout_last_result = outcome
+
+        self._layout_thread = threading.Thread(
+            target=work, name="TLM-Start-C18-Layout-Worker", daemon=True)
+        self._layout_thread.start()
+
     def _on_top_configure(self, event) -> None:
         # The root can MOVE without resizing the child preview surfaces.
         if event.widget is self._top:
@@ -456,6 +591,7 @@ class TLMStartTab:
         self.maintenance.start()
 
     def _stop_refresh(self) -> None:
+        self._stop_sync_loop()
         self.maintenance.stop()
         self.poller._stop_refresh()
         self._drop_previews()
@@ -471,6 +607,7 @@ class TLMStartTab:
     def shutdown(self) -> None:
         if self._closed:
             return
+        self._stop_sync_loop()
         self._closed = True
         self.maintenance.shutdown()
         self._drop_previews()
