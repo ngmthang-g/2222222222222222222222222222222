@@ -1,0 +1,39 @@
+name: S16 native authorized WM_CLOSE only on test-owned HWNDs
+
+on:
+  push:
+    paths:
+      - "src/start_tab.py"
+      - "src/close_windows.py"
+      - "tests/test_s16.py"
+      - "tools/S16_WINDOWS_TEST_OWNED_CLOSE_SMOKE.py"
+      - ".github/workflows/s16-native-wmclose.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verified-close-test-only:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source under test
+        uses: actions/checkout@v4
+      - name: Python 3.10 on actual Windows
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile source and tests
+        run: python -m compileall -q src tests tools/S16_WINDOWS_TEST_OWNED_CLOSE_SMOKE.py
+      - name: Combined S01-S16 Python regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Actual PostMessageW WM_CLOSE on three test-owned Tk HWND only
+        run: python tools/S16_WINDOWS_TEST_OWNED_CLOSE_SMOKE.py
+      - name: Upload real native HWND close evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s16-native-test-owned-wmclose
+          path: artifacts/s16/
+          if-no-files-found: warn

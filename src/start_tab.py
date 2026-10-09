@@ -1,4 +1,4 @@
-"""S10–S15: read-only Tk Start, live DWM preview, grid/order/refresh.
+"""S10–S16: native Tk Start, DWM previews and guarded C16 WM_CLOSE.
 
 Only S08 Win32-observed HWND/PID/title snapshots delivered by S09's worker
 are displayed. S11 DWM previews use actual Win32 HWND+PID and real compositor
@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from close_windows import C16CloseAll
 from preview_maintenance import TkPreviewMaintenance
 from preview_layout import (
     DEFAULT_PREVIEW_GRID, PREVIEW_GRID_CHOICES, PreviewOrder,
@@ -62,7 +63,7 @@ class TLMStartTab:
 
     def __init__(self, parent, *, producer: StartWindowProducer | None = None,
                  interval_ms: int = START_UI_POLL_MS,
-                 preview_backend_factory=None):
+                 preview_backend_factory=None, close_service_factory=None):
         from tkinter import ttk
         self.parent = parent
         self.container = ttk.Frame(parent)
@@ -110,6 +111,14 @@ class TLMStartTab:
             self.preview_controls, text="Làm mới",
             command=self.refresh_window_preview_list)
         self.btn_refresh_preview.pack(side="left", padx=(8, 0))
+        # C16: real, normal WM_CLOSE on a fresh-validated game HWND, never
+        # a preview-only widget close or force-kill/Unity handler cleanup.
+        self.btn_close_all = ttk.Button(
+            self.preview_controls, text="Đóng hết",
+            command=self._close_all_preview_windows)
+        self.btn_close_all.pack(side="left", padx=(6, 0))
+        self._close_service_factory = close_service_factory or C16CloseAll
+        self.last_close_result = None
         self.preview_order = PreviewOrder()
         self._observed_windows = ()
         self.preview_status = ttk.Label(
@@ -326,6 +335,34 @@ class TLMStartTab:
         else:
             self._schedule_preview()
         return True
+
+    def _close_all(self):
+        """C16 original wrapper name; never bypass the selected-Start gate."""
+        return self._close_all_preview_windows()
+
+    def _close_all_preview_windows(self):
+        """Post WM_CLOSE only to fresh-validated genuine HWND+PID game sources.
+
+        Do not interpret PostMessage success as proof game has exited. S09/S13
+        will refresh preview from actual subsequently observed windows; the
+        original immediate post-close refresh rule is explicitly UNKNOWN.
+        """
+        if self._closed or not self.poller.active:
+            return None
+        try:
+            if not self.container.winfo_viewable():
+                return None
+            snapshot = self.poller.producer.read_snapshot()  # only current cache
+            result = self._close_service_factory().close_all_game_windows(snapshot)
+        except Exception:
+            self.preview_status.configure(text="Đóng hết: lỗi kiểm tra HWND")
+            return None
+        self.last_close_result = result
+        # WM_CLOSE is asynchronous: messages POSTED is not windows CLOSED.
+        self.preview_status.configure(
+            text=f"Đóng hết: đã gửi WM_CLOSE {len(result.posted)}/{result.requested}"
+            if result.posted else "Đóng hết: không có cửa sổ hợp lệ để đóng")
+        return result
 
     def _on_top_configure(self, event) -> None:
         # The root can MOVE without resizing the child preview surfaces.
