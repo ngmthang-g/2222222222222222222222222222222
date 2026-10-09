@@ -673,3 +673,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - docs/source/S04_INFO_LIFECYCLE.md, S04_MODEL.json, S04_STATIC_EVIDENCE.tsv, docs/tasks/S04.md completed; previous PLAN and S01–S03 code untouched, no Proxy.
 - **Status:** partial application source with real Info-only lifecycle, **NOT** a launched Windows GUI, verified server/heartbeat, runnable game tool or Nuitka EXE. Normal src/TLMTool.py intentionally exits 2, authentication and functional tabs remain missing. GUI raster/real integration NOT_RUN.
 - NEXT_ACTION **S05** — real Windows Tk Info-only preview and B12 screenshot parity/clean close if an actual display runner is available; otherwise document GUI blocker and progress original-backed Info startup contract without inventing auth.
+
+
+## S05 — Windows native Tk Info smoke passed, original B12 raster parity deferred
+- New tools/S05_WINDOWS_TK_SMOKE.py and .github/workflows/s05-native-info-preview.yml run real tkinter/ttk Info-only shell, geometry, safe unknown license fields, screenshot capture and root destroy cleanup; src/TLMTool.py product startup and S01–S04 correct source unchanged.
+- **Real GitHub Actions run 37868251319** (Windows latest Python 3.10), SUCCESS: compileall PASS, 31/31 S01–S04 unittests PASS, native Tk smoke PASS. Runner 1024×768; client 450×688 px follows E02 formula; B12 reference client 450×1000 at different desktop height, hence not exact pixel parity.
+- 15 potential tabs, only Info selected/visible while feature and genuine license controllers are absent; original B12 screenshot had 11 visible tabs. PNG+JSON artifact ID 11589735180 at https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37868251319/artifacts/11589735180. Original B12 image not raster-compared.
+- New docs/source/S05_NATIVE_TK_PREVIEW.md, S05_MODEL.json, docs/tasks/S05.md; no Proxy or game action changes. Still no authentic license/heartbeat or full Windows Nuitka EXE.
+- STATUS S05_NATIVE_WINDOWS_INFO_TK_PASS_B12_PIXEL_PARITY_NOT_YET_VERIFIED. NEXT_ACTION **S06** — improve only B12-proven read-only Info layout and native Tk geometry tests; keep action buttons absent until functional.
