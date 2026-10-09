@@ -1,0 +1,40 @@
+{
+  "task": "S40",
+  "status": "CI_PENDING",
+  "evidence": [
+    "docs/tasks/F01.md",
+    "docs/tasks/F09.md",
+    "docs/login/F09_SCHEDULER_STATIC_EVIDENCE.tsv",
+    "src/settings_store.py"
+  ],
+  "module": "src/login_schedule_settings.py",
+  "stored_section": "Settings",
+  "keys": [
+    "schedule_on",
+    "schedule_close",
+    "schedule_open",
+    "shutdown_after_close"
+  ],
+  "boolean_encoding": "UNKNOWN_PRESERVED_RAW",
+  "defaults": {
+    "close": "04:00",
+    "open": "04:20"
+  },
+  "read_only": true,
+  "account_bytes_preserved": true,
+  "preview_pure_S39": true,
+  "actual_schedule_worker": "NOT_WIRED",
+  "actual_game_launch": "NOT_AVAILABLE",
+  "real_close_all": "NOT_CONNECTED",
+  "os_shutdown": "NOT_CONNECTED",
+  "fake_checkbox_added": false,
+  "proxy_runtime": "EXCLUDED",
+  "real_info": "NOT_AVAILABLE",
+  "product_exe": "NOT_BUILT",
+  "previous_units": 597,
+  "added_unit_cases": 20,
+  "tests": "tests/test_s40.py",
+  "native_smoke": "tools/S40_WINDOWS_LOGIN_SCHEDULE_SETTINGS_SMOKE.py",
+  "ci": ".github/workflows/s40-native-login-schedule-settings.yml",
+  "next_action": "S41: source-backed schedule controller with genuine action guards or verified Tk main-thread countdown; never fake game actions."
+}
