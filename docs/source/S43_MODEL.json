@@ -1,6 +1,6 @@
 {
   "task": "S43",
-  "status": "WINDOWS_VERIFY_PENDING",
+  "status": "S43_NATIVE_WINDOWS_686_UNITS_PASS_LIFECYCLE_RACES_FIXED",
   "kind": "narrow production concurrency correction",
   "target": "src/login_schedule_worker.py",
   "original_evidence": [
@@ -23,5 +23,11 @@
   "info_signature": "NOT_CONNECTED",
   "product_exe": "NOT_PRODUCT",
   "no_proxy_runtime": true,
-  "next_action": "S44: verified F09 cancellation and Tk preview lifecycle integration, without unauthorized game actions"
+  "next_action": "S44: verified F09 cancellation and Tk preview lifecycle integration, without unauthorized game actions",
+  "total_python_unit_tests": 686,
+  "windows_run": 37928620248,
+  "windows_job": 113813537652,
+  "windows_artifact": 11614639975,
+  "windows_native_result": "PASS_NATIVE_S43_WORKER_STOP_RACES_FIXED",
+  "s36_fail_closed_packaging_run": 37928620198
 }
