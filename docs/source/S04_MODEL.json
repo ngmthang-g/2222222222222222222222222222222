@@ -1,0 +1,57 @@
+{
+  "task": "S04",
+  "status": "S04_INFO_TK_BINDING_AND_WINDOWS_31_TESTS_PASS_REAL_APP_RUNTIME_BLOCKED_AUTH_AND_FEATURES",
+  "source_files": [
+    "src/info_binding.py",
+    "tests/test_s04.py",
+    ".github/workflows/s04-source-tests.yml"
+  ],
+  "ui_architecture": {
+    "original_total_slots": 15,
+    "implemented_live_factory": "info_tab",
+    "default_visible": [
+      "info_tab"
+    ],
+    "real_server_verifier": false,
+    "real_heartbeat": false,
+    "action_buttons_added": 0,
+    "production_entrypoint_still_exit": 2,
+    "permission_snapshot_type_checked": true,
+    "tk_after_delay_ms": 0,
+    "stale_callback_seq_guard": true,
+    "stale_snapshot_identity_guard": true,
+    "destroy_root_only": true,
+    "idempotent_close": true
+  },
+  "tests": {
+    "ci_url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37867454367",
+    "ci_run_id": 37867454367,
+    "ci_job_id": 113617493218,
+    "ci_head_sha": "dcb154fc00846c382f7bec571a6da6c61d171a66",
+    "ci_os": "windows-latest",
+    "ci_python": "3.10",
+    "ci_status": "completed",
+    "ci_conclusion": "success",
+    "compileall": "PASS",
+    "S01": 7,
+    "S02": 8,
+    "S03": 6,
+    "S04": 10,
+    "combined_total": 31,
+    "combined_passed": 31,
+    "job_log_excerpt": "Ran 31 tests in 0.035s",
+    "real_tk_window": "NOT_RUN",
+    "screenshot_raster": "NOT_RUN",
+    "network_authorization": "NOT_RUN",
+    "build_exe": "NOT_RUN"
+  },
+  "risks": [
+    "fake Tk widgets only",
+    "actual signed token verifier/service missing",
+    "server heartbeat grace and FREE entitlements unknown",
+    "15 tab slots vs 1 real partial passive content implementation",
+    "original binary Windows parity not yet evaluated",
+    "no Stage-T Nuitka executable build"
+  ],
+  "next_action": "S05 — Windows real Tk Info-only preview and B12 screenshot check, plus source-backed real Info startup next slice; do not unlock production UI without authentic authorization"
+}
