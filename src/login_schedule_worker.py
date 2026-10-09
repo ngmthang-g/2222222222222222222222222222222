@@ -281,13 +281,23 @@ class F09ScheduleEvaluationWorker:
             if thread is not None and thread.is_alive():
                 self._status = "STOPPING"
                 return False
-            with self._lock:
+            # S53: an independent poll_once() can own _lock even after
+            # the background worker has been joined. Include this LAST
+            # cleanup lock in the original stop() deadline; an unbounded
+            # "with self._lock" could hang finish_close on a blocked clock.
+            remaining = max(0.0, deadline - time.monotonic())
+            if not self._lock.acquire(timeout=remaining):
+                self._status = "STOPPING"
+                return False
+            try:
                 if self._clock is not None:
                     self._clock.disable()
                     self._clock = None
                 self._status = "CLOSED" if self._closed else "STOPPED"
                 cleaned = True
                 return True
+            finally:
+                self._lock.release()
         finally:
             # Still inside lifecycle mutex if acquired. Fence belongs to
             # every concurrently registered caller, not the first to join.
