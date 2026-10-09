@@ -1,0 +1,22 @@
+{
+  "task": "S50",
+  "phase": "F09 safety",
+  "status": "IMPLEMENTED_NATIVE_WINDOWS_PENDING",
+  "prior": "S49 verified 772/772 Windows tests",
+  "scope": "threading.Thread.start native OSError/PermissionError fail-closed cleanup",
+  "source": "src/login_schedule_worker.py",
+  "before": "Thread.start OSError leaves _clock live, _cancel cleared, _thread unstarted, exception propagates",
+  "after": "catch (RuntimeError,OSError), cancel, disable clock, clear refs, false+BLOCKED_THREAD; CLOSED takes priority after permanent shutdown",
+  "test_file": "tests/test_s50.py",
+  "native_smoke": "tools/S50_WINDOWS_THREAD_START_OSERROR_SMOKE.py",
+  "workflow": ".github/workflows/s50-native-thread-start-oserror.yml",
+  "constraints": {
+    "real_game": false,
+    "proxy": false,
+    "legacy_accounts_write": false,
+    "persisted_schedule_boolean_decode": false,
+    "os_poweroff": false,
+    "product_exe": false
+  },
+  "next_action": "Verify actual S50 and S36 Windows jobs, fix any narrow defect, checkpoint STATE and PROJECT_STATUS"
+}
