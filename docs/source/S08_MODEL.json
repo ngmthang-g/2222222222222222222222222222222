@@ -1,0 +1,82 @@
+{
+  "task": "S08",
+  "status": "S08_REAL_WIN32_DISCOVERY_55_TESTS_PASS_GAME_RUNTIME_NOT_PRESENT",
+  "approved_by_user": true,
+  "original_contracts": [
+    "docs/tasks/C01.md",
+    "docs/tasks/C02.md",
+    "docs/tasks/E01.md",
+    "docs/tasks/E03.md",
+    "docs/tasks/B02.md",
+    "docs/tasks/D08.md"
+  ],
+  "source_created": [
+    "src/start_windows.py",
+    "tests/test_s08.py",
+    "tools/S08_WINDOWS_DISCOVERY_SMOKE.py",
+    ".github/workflows/s08-windows-start-discovery.yml"
+  ],
+  "source_behavior": {
+    "actual_win32_api": [
+      "EnumWindows",
+      "IsWindow",
+      "IsWindowVisible",
+      "SendMessageTimeoutW",
+      "GetClassNameW",
+      "GetWindowThreadProcessId",
+      "OpenProcess query-only",
+      "QueryFullProcessImageNameW"
+    ],
+    "title_timeout_ms": 150,
+    "max_title_chars": 512,
+    "process_match": "Unicode casefold + whitespace-normalized 'thần long mobile.exe'",
+    "game_class": "UnityWndClass",
+    "conservative_filter": "process match AND (UnityWndClass OR exact normalized Thần Long Mobile title)",
+    "original_boolean_expression_verified": false,
+    "windows_game_titled_positive_test": false,
+    "synthetic_hwnds_in_product": 0,
+    "game_clicks": 0,
+    "process_memory_reads": 0,
+    "HWND_PID_identity_guard": true,
+    "threaded_producer_3s": "NOT_IMPLEMENTED",
+    "tk_consumer_2s": "NOT_IMPLEMENTED",
+    "fake_dev_permissions": false
+  },
+  "native_tests": {
+    "workflow_run_id": 37872770792,
+    "head_sha": "dd63c3b5b14b756e8cb389ae9fac7d08a734ad95",
+    "job_id": 113634367516,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37872770792",
+    "windows_python": "3.10",
+    "compileall": "PASS",
+    "unittests_total": 55,
+    "unittests_passed": 55,
+    "unittests_seconds": 0.044,
+    "s08_tests": 12,
+    "Win32_enum": "PASS_READONLY_NATIVE_WIN32_ENUMERATION",
+    "top_level_hwnds": 63,
+    "visible_hwnds": 11,
+    "own_visible_hwnds": 1,
+    "own_title_verified": true,
+    "own_process_path_verified": true,
+    "game_candidates": 0,
+    "real_game_process_present": false,
+    "fake_game_hwnds": 0
+  },
+  "artifact": {
+    "id": 11591140628,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37872770792/artifacts/11591140628",
+    "files": [
+      "win32_discovery.json"
+    ]
+  },
+  "limitations": [
+    "Original game not installed on CI runner, so positive game detection unverified",
+    "Original Boolean process/class/title predicate ordering unproven",
+    "Start worker/cache/background cadence not yet reconstructed",
+    "Original game window may hang; 150ms timeout based on static evidence and ordinary Tk positive smoke, not actual hung game",
+    "Auth/heartbeat/real game features missing; production entrypoint still exits 2",
+    "No Nuitka product EXE, no Proxy"
+  ],
+  "next_action": "S09 — threaded 3-second read-only Start HWND/PID discovery producer + 2-second Tk cache poll lifecycle with cancellation, real Windows tests; no bypass or fake game actions"
+}
