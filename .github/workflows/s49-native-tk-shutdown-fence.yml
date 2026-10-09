@@ -1,0 +1,128 @@
+name: S49 Windows permanent Tk shutdown fence - NO GAME ACTIONS
+
+on:
+  push:
+    paths:
+      - "src/login_tab.py"
+      - "src/login_account_rows.py"
+      - "src/login_schedule_lifetime.py"
+      - "src/login_schedule_worker.py"
+      - "tests/test_s49.py"
+      - "tests/test_s48.py"
+      - "tests/test_s47.py"
+      - "tools/S49_WINDOWS_TK_SHUTDOWN_FENCE_SMOKE.py"
+      - "tools/S48_WINDOWS_TWO_STOP_CALLERS_SMOKE.py"
+      - "tools/S47_WINDOWS_FINISH_CLOSE_MUTEX_DEADLINE_SMOKE.py"
+      - ".github/workflows/s49-native-tk-shutdown-fence.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s49-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Compile Stage S and S49
+        run: python -m compileall -q src tests tools/S49_WINDOWS_TK_SHUTDOWN_FENCE_SMOKE.py
+      - name: Run complete S01-S49 regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S49 real Tk permanent close during inflight stop fence clear
+        run: python tools/S49_WINDOWS_TK_SHUTDOWN_FENCE_SMOKE.py
+      - name: S48 real Tk two concurrent stop requests retain cancellation fence
+        run: python tools/S48_WINDOWS_TWO_STOP_CALLERS_SMOKE.py
+      - name: S47 real Tk and worker mutex total finish_close timeout
+        run: python tools/S47_WINDOWS_FINISH_CLOSE_MUTEX_DEADLINE_SMOKE.py
+      - name: S46 native Tk lifecycle mutex regression
+        run: python tools/S46_WINDOWS_TK_LIFECYCLE_MUTEX_SMOKE.py
+      - name: S45 real Tk and stalled worker lifecycle regression
+        run: python tools/S45_WINDOWS_TK_WORKER_LIFETIME_SMOKE.py
+      - name: S44 real Tk Label Destroy cancellation regression
+        run: python tools/S44_WINDOWS_TK_DESTROY_COUNTDOWN_SMOKE.py
+      - name: S43 real joined-worker stop-race regression
+        run: python tools/S43_WINDOWS_F09_STOP_RACE_SMOKE.py
+      - name: S42 genuine Event.wait20 worker blocked-only regression
+        run: python tools/S42_WINDOWS_F09_EVENT_WORKER_SMOKE.py
+      - name: S41 real Tk after/cancellation native regression
+        run: python tools/S41_WINDOWS_LOGIN_TK_COUNTDOWN_SMOKE.py
+      - name: S40 real E05 F09 read-only schedule config regression
+        run: python tools/S40_WINDOWS_LOGIN_SCHEDULE_SETTINGS_SMOKE.py
+      - name: S39 pure native clock regression
+        run: python tools/S39_WINDOWS_LOGIN_SCHEDULE_CLOCK_SMOKE.py
+      - name: S38 Tk read-only accounts regression
+        run: python tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
+      - name: S37 native 100-row account UI regression
+        run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+      - name: S35 genuine Windows Start/Login gated bootstrap
+        run: python tools/S35_WINDOWS_E03_REAL_TAB_SMOKE.py
+      - name: S34 native offline ADB intake
+        run: python tools/S34_WINDOWS_OFFLINE_INTAKE_SMOKE.py
+      - name: S33 native serial reconnect guard
+        run: python tools/S33_WINDOWS_ADB_EPOCH_SMOKE.py
+      - name: S32 native field provenance
+        run: python tools/S32_WINDOWS_HINT_PROVENANCE_SMOKE.py
+      - name: S31 native offline ADB clone identity
+        run: python tools/S31_WINDOWS_OFFLINE_ADB_IDENTITY_SMOKE.py
+      - name: S30 native read-only process provenance
+        run: python tools/S30_WINDOWS_COUNT_PROVENANCE_SMOKE.py
+      - name: S29 native Toolhelp process count
+        run: python tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py
+      - name: S28 native x64 PE inputs
+        run: python tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py
+      - name: S27 delayed HWND
+        run: python tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py
+      - name: S26 Win32 preflight
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S25 Login chooser regression
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 Tk destroy
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 session tee
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 diagnostics
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 Win32 mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 multi HWND
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 Start HWND
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s49-test-owned-native-windows-permanent-fence
+          path: |
+            artifacts/s49/
+            artifacts/s48/
+            artifacts/s47/
+            artifacts/s46/
+            artifacts/s45/
+            artifacts/s44/
+            artifacts/s43/
+            artifacts/s42/
+            artifacts/s41/
+            artifacts/s40/
+            artifacts/s39/
+            artifacts/s38/
+            artifacts/s37/
+            artifacts/s35/
+            artifacts/s34/
+            artifacts/s33/
+            artifacts/s32/
+            artifacts/s31/
+            artifacts/s30/
+            artifacts/s29/
+            artifacts/s28/
+            artifacts/s27/
+            artifacts/s26/
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
