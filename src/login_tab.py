@@ -65,6 +65,17 @@ class TLMLoginPathTab:
         # NEVER load/rewrite Settings.accounts with guessed serialization.
         from login_account_rows import TLMAccountRows
         self.account_rows = TLMAccountRows(self.container)
+        # S38 only reads legacy Settings.accounts. Never save/migrate it.
+        from login_account_legacy import read_legacy_accounts
+        legacy = read_legacy_accounts(settings_file)
+        self.legacy_account_load_status = legacy.status
+        if legacy.status == "READY":
+            try:
+                self.account_rows.hydrate_legacy_read_only(legacy.records)
+            except (ValueError, RuntimeError):
+                self.legacy_account_load_status = "BLOCKED_UI"
+        self.account_rows.show_legacy_load_status(
+            self.legacy_account_load_status)
         self.container.bind("<Destroy>", self._on_destroy, add="+")
 
     def _show_game_dir_status(self, text: str) -> None:
