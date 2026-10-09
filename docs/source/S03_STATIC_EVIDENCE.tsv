@@ -1,0 +1,22 @@
+id	offset_or_document	source	evidence
+01	0x2975ca9	original EXE	Info module marker
+02	0x2b84c35	original EXE	Permission module marker
+03	0x2970924	original EXE	Startup API call handler
+04	0x2970b25	original EXE	RPC path reference
+05	0x2970f66	original EXE	Token decode handler
+06	0x2971118	original EXE	Heartbeat RPC identifier
+07	0x2971ba3	original EXE	Token signature verification routine
+08	0x2971c72	original EXE	RSA verification branch marker
+09	0x2971c77	original EXE	Public-key configuration symbol
+10	0x2971e1c	original EXE	HMAC configuration symbol
+11	0x2b828b3	original EXE	Default FREE permission symbol
+12	0x2b831c5	original EXE	Extract FREE entitlements symbol
+13	0x2b82cb1	original EXE	Token expiry timestamp
+14	0x2b82cc4	original EXE	Heartbeat failure count
+15	0x2b82d0d	original EXE	Heartbeat grace period symbol
+16	0x2b83375	original EXE	Server window limit
+17	0x2b83389	original EXE	Server lock state
+18	0x29754e5	original EXE	Server info to InfoTab presentation
+19	docs/tasks/B12.md	GitHub	Visible Info headings and version
+20	src/info_tab.py	new source	Passive Info display only
+21	tests/test_s03.py	new tests	Six headless tests, PASS
