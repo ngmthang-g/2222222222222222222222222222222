@@ -175,7 +175,9 @@ class S47DeadlineTests(unittest.TestCase):
         with patch("tkinter.Label",FakeLabel):
             life=F09ReadOnlyTabLifetime(label,self.config,now=lambda:self.now)
         self.assertTrue(life.start_preview_and_evaluation())
-        self.assertTrue(life.close())
+        life.close()
+        self.assertTrue(life.closed)
+        self.assertTrue(life.worker._cancel.is_set())
         life.worker._lifecycle_lock.acquire()
         try:
             began=time.monotonic()
