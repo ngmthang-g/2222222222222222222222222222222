@@ -156,7 +156,7 @@ class S23LoggerTests(unittest.TestCase):
             p=Path(d)/"log"
             p.write_text("one\n"+"two\n"+"three\n"+"four\n"+"five\n",
                          encoding="utf-8")
-            self.assertTrue(trim_if_needed(p,max_size=15,keep_size=11))
+            self.assertTrue(trim_if_needed(p,max_size=20,keep_size=15))
             result=p.read_text()
             self.assertIn(TRIM_NOTICE,result)
             self.assertIn("four",result)
@@ -244,6 +244,8 @@ class S23LoggerTests(unittest.TestCase):
             def __enter__(self):
                 order.append("log_fail")
                 raise SessionLogError("S23_TEST_NO_LOG")
+            def __exit__(self,*_):
+                raise AssertionError("Failed __enter__ must never reach __exit__")
         with patch.object(TLMTool,"SingleInstanceMutex",return_value=Mutex()), \
              patch.object(TLMTool,"SessionTee",return_value=FailedLogger()), \
              patch.object(TLMTool,"StartupDiagnostics",
