@@ -5998,3 +5998,23 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 
 ## NEXT_ACTION on CONTINUE — S35
 - Reread LIVE PLAN.md and STATE.md; check docs/tasks/S35.md. Inspect actual S01–S34 application source, bootstrap, Stage-T Windows build workflow and original UI/functional evidence to identify next smallest **real functional user-visible slice**, rather than repeating offline ADB identity safety wrappers. Implement only grounded functionality (or document a blocker and build prerequisites) without fake controls. Preserve **523** tests and S34/S33/S32/S31/S30/S29/S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native proof. Update docs/STATE with concrete changed files, blockers and NEXT_ACTION; no Proxy, unverified signed Info, fake game launch, or false product EXE build claim.
+
+
+## S35 VERIFIED — E03 REAL SOURCE-BACKED START/LOGIN WIRED INTO GUARDED BOOTSTRAP / 533 WINDOWS UNIT PASS
+- Continued exact LIVE S34 NEXT_ACTION; reread PLAN.md/STATE.md, docs/tasks/S35.md ABSENT. Audited actual src tree, E03 lazy tabs, F01/F04 Login path, existing S10–S20 Start native Win32 and S25 Login; Stage-T build workflow, Nuitka/PyInstaller spec, requirements/pyproject/build.bat ABSENT in LIVE repo. `src/TLMTool.py main()` still returns 2: real Info signed verifier absent, no licensed product GUI.
+- NEW **src/source_backed_tab_builders.py** registers only three proven real E03 builders: caller's required Info, existing native TLMStartTab S10–S20, existing TLMLoginPathTab S25. Lazy factory creation, default real native Start and Tk folder picker, shared E05 settings path for Start grid and Login game dir. No fake tab factories, no Proxy.
+- Narrow REQUIRED edit **src/TLMTool.py** `run_with_info_factory` passes `source_backed_tab_builders(info_factory)` to existing `TLMMainApp` instead of Info-only dictionary. Does not alter E03/permission guard, main() fail-closed refusal, S21 mutex/S22 diagnostics/S23 tee/S24 cleanup.
+- NEW tests/test_s35.py (**10** units), tools/S35_WINDOWS_E03_REAL_TAB_SMOKE.py Windows REAL ttk Notebook, real Login Tk Button invokes test-local folder picker and persists `Settings.game_dir` with exact two-space Thần Long EXE name, real Start Windows-native background HWND worker; initially only Info built and shown; TEST-ONLY verified claim builds Start/Login lazily; revoke hides both, stops Start, returns Info, closes owners. Actual native Win32 enumeration recognizes unrelated Python Tk HWND without marking it game. No actual game/Info server.
+- New .github/workflows/s35-native-real-tabs.yml, docs/tasks/S35.md, docs/source/S35_E03_START_LOGIN_BOOTSTRAP_FLOW.md, docs/source/S35_MODEL.json. No existing Start/Login/Info/PLAN/ZIP/Dồn functionality modified.
+- Implementation commit **29158c846731c670597ee6f18667924e034ef201**. **ACTUAL [Windows S35 run 37918643711](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37918643711), job 113780909013 COMPLETED SUCCESS**: compileall PASS, **533/533 S01–S35 units PASS**, native `PASS_NATIVE_S35_E03_SOURCE_BACKED_START_LOGIN_LAZY_AUTH`. SAME workflow S34/S33/S32/S31/S30/S29/S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native all PASS. Evidence artifact **11609993006**. Separate Stage S 37918643727 SUCCESS; also S21 37918643739, S22 37918643789, S23 37918643712, S24 37918643782 workflows ALL SUCCESS after changed bootstrap.
+- **STATUS S35_NATIVE_WINDOWS_E03_REAL_START_LOGIN_INTEGRATION_533_UNIT_PASS_REAL_GAME_NOT_RUN**. Missing signed Info/heartbeat and real product launch, majority tabs, full pixel parity, Stage T packaging and EXE still NOT_DONE. Proxy excluded. Original frozen ZIP, PLAN and Dồn preserved.
+
+## S35 CHANGED FILES
+- src/source_backed_tab_builders.py (NEW); src/TLMTool.py (narrow builder registration)
+- tests/test_s35.py; tools/S35_WINDOWS_E03_REAL_TAB_SMOKE.py
+- .github/workflows/s35-native-real-tabs.yml
+- docs/tasks/S35.md; docs/source/S35_E03_START_LOGIN_BOOTSTRAP_FLOW.md; docs/source/S35_MODEL.json
+- STATE.md; PROJECT_STATUS.md (append only)
+
+## NEXT_ACTION on CONTINUE — S36
+- Reread LIVE PLAN.md/STATE.md; check docs/tasks/S36.md. Audit actual Stage-T packaging prerequisites, `src/TLMTool.py`, and original Nuitka packaging evidence. Determine if a **truthfully labeled, fail-closed Windows build smoke** can produce a diagnostic standalone artifact (NOT a working product EXE) without fake signed Info or game success; otherwise record blockers/reproducible prerequisites. No prematurely named 2.1.2 rebuilt product. Preserve **533** units and all S35/S34/S33/S32/S31/S30/S29/S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native Windows tests, with checkpoint and exact next task. No Proxy.
