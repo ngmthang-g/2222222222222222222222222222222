@@ -1,0 +1,58 @@
+name: S26 F05 native Win32 PID HWND and launch preflight
+
+on:
+  push:
+    paths:
+      - "src/login_launch_preflight.py"
+      - "tests/test_s26.py"
+      - "tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py"
+      - ".github/workflows/s26-native-f05-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  s26-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S
+        run: python -m compileall -q src tests tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: All S01-S26 unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S26 native Win32 PID HWND selection and extra-one auth preflight
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S25 native Login directory regression
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 native Destroy DWM regression
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 native tee session regression
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 native diagnostics regression
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 native mutex regression
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 native combined three HWND regression
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 native Start discovery gate regression
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Evidence archive
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s26-native-windows-f05-preflight-evidence
+          path: |
+            artifacts/s26/
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
