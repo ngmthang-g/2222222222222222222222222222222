@@ -91,7 +91,13 @@ class S51PostClockCancelTests(unittest.TestCase):
                    side_effect=callback):
             thread, results, _ = self._begin_due_poll(self.worker)
             self.assertTrue(entered.wait(1))
-            self.assertFalse(self.worker.stop(0))
+            # Force stop(0) to fail before join/_lock (the poll thread
+            # deliberately holds _lock until the test releases it).
+            self.worker._lifecycle_lock.acquire()
+            try:
+                self.assertFalse(self.worker.stop(0))
+            finally:
+                self.worker._lifecycle_lock.release()
             self.assertTrue(self.worker._cancel.is_set())
             release.set()
             thread.join(2)
