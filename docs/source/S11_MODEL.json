@@ -1,0 +1,80 @@
+{
+  "task": "S11",
+  "status": "S11_NATIVE_WINDOWS_DWM_90_TESTS_PASS_ACTUAL_GAME_NOT_RUN",
+  "original_contracts": [
+    "docs/tasks/C03.md",
+    "docs/tasks/C04.md",
+    "docs/tasks/C05.md",
+    "docs/window/C03_PREVIEW_SCREENSHOT_GEOMETRY.tsv"
+  ],
+  "source_created": [
+    "src/dwm_preview.py",
+    "tests/test_s11.py",
+    "tools/S11_WINDOWS_DWM_SMOKE.py",
+    ".github/workflows/s11-native-dwm-preview.yml"
+  ],
+  "existing_source_changed": [
+    "src/start_tab.py"
+  ],
+  "native_api": [
+    "RegisterClassExW",
+    "CreateWindowExW",
+    "GetAncestor(GA_ROOT)",
+    "GetWindowThreadProcessId",
+    "IsHungAppWindow",
+    "DwmRegisterThumbnail",
+    "DwmUpdateThumbnailProperties",
+    "DwmUnregisterThumbnail",
+    "SetWindowPos",
+    "DestroyWindow"
+  ],
+  "measurement": {
+    "item": [
+      205,
+      137
+    ],
+    "surface": [
+      197,
+      110
+    ]
+  },
+  "bounded_choice": {
+    "visible": true,
+    "client_only": true,
+    "debounce_ms": 80
+  },
+  "guard": {
+    "source_pid_rechecked": true,
+    "no_game_actions": true,
+    "no_entitlement_grant": true,
+    "cleanup_on_revocation": true,
+    "off_tk_thread_native_calls": false
+  },
+  "ci": {
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37878364061",
+    "run": 37878364061,
+    "job": 113652046835,
+    "head_sha": "03073edf37569ba366c184b1bda7bd8c5f17853e",
+    "conclusion": "success",
+    "compileall": "PASS",
+    "unit_total": 90,
+    "unit_pass": 90,
+    "native_status": "PASS_NATIVE_DWM_THUMBNAIL_LIFECYCLE",
+    "native_source_type": "TEST_OWNED_TK_HWND_NOT_GAME",
+    "native_source_hwnd": 262520,
+    "native_owner_hwnd": 262542,
+    "source_pid": 4120,
+    "dwm_register_update": true,
+    "reposition": true,
+    "stale_pid_refusal": true,
+    "teardown": true
+  },
+  "blockers": [
+    "Actual game HWND positive parity NOT_RUN",
+    "Original Start pixel parity NOT_RUN",
+    "Multiple concurrent DWM previews not runtime tested",
+    "Signed server token/heartbeat not implemented",
+    "Production EXE NOT_BUILT"
+  ],
+  "next_action": "S12 native multi-HWND DWM/Tk stress and view lifecycle while preserving auth and original scope"
+}
