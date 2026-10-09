@@ -5860,3 +5860,20 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 
 ## NEXT_ACTION on CONTINUE — S27
 - Reread LIVE PLAN.md/STATE.md and check docs/tasks/S27.md, inspect F05 original and existing S26 PID finder/S09 polling. Implement/test a bounded genuine F05 25s max **PID→HWND readiness handoff** starting from external real PID, with caller cancel and native Windows TEST-owned delayed Tk HWND; do NOT guess undocumented post-HWND stabilization seconds or real process spawn/inject. Preserve all 348 unit tests and S26/S25/S24/S23/S22/S21/S20/S10 native green; no fake UI or Proxy, update docs and checkpoint.
+
+
+## S27 VERIFIED — F05 SERIALIZED CANCELLABLE PID→HWND 25S HANDOFF / 368 WINDOWS TESTS PASS
+- Continued from LIVE S26 NEXT_ACTION: reread PLAN.md, STATE.md, original F05 and S26 `find_main_window_by_pid` + S09 Start polling; `docs/tasks/S27.md` ABSENT before edit. S08 native Win32 and S26 PID finder are reused without modification. No changes to original ZIP, PLAN or S01–S26 production.
+- NEW `src/login_window_handoff.py`: bounded `wait_for_pid_window` after externally supplied PID, **F05-evidenced 25s MAX**; cancellation before/after Win32 scans, event-wake while waiting, no HWND fabrication, final IsWindow/visibility/PID recheck, typed FOUND/TIMEOUT/CANCELLED/errors. `SerializedPidWindowHandoff` serializes waiters with a cancellable shared lock; each waiter's 25s includes lock queueing. S27 100ms poll, 50ms lock retry are LOCAL, original unknown. No implementation of original unverified post-HWND stabilization seconds, no game spawn/inject/login or Proxy.
+- NEW `tests/test_s27.py` **20** unit cases + `tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py` real Windows Tk main-thread **delayed** TEST-owned HWND creation, background genuine S08 native Win32 discovery via S26 picker, wrong PID, destroyed/empty timeout, cancel; `.github/workflows/s27-native-pid-handoff.yml`; docs/tasks/S27.md and docs/source/S27_F05_PID_HANDOFF_FLOW.md + S27_MODEL.json.
+- Implementation commit **78fe8fd835013caa5c045efd81c1b7ffee073db2**. **ACTUAL Windows Python3.10 [S27 run 37901945848](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37901945848), job 113726306489 COMPLETED SUCCESS**: compileall PASS, **368/368 S01–S27 units PASS**, **PASS_NATIVE_S27_DELAYED_HWND_25S_BOUNDED_CANCEL_TIMEOUT**; delayed real Windows TEST-only HWND found after multiple polls, foreign PID denied, destroyed window/short timeout denied, native cancellation promptly stopped. S26/S25/S24/S23/S22/S21/S20/S10 native reruns SAME run all PASS. Artifact **11602743621**. Independent Stage S source [37901945877](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37901945877) COMPLETED SUCCESS.
+- **STATUS S27_NATIVE_WINDOWS_DELAYED_HWND_368_UNIT_PASS_GAME_NOT_RUN**. Original future real game PID supplier, signed Info/heartbeat, launcher suspend→inject→resume, known stabilization, full UI and product EXE **NOT_DONE/NOT_RUN/NOT_BUILT**. No Proxy runtime development.
+
+## S27 CHANGED FILES
+- src/login_window_handoff.py; tests/test_s27.py; tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py
+- .github/workflows/s27-native-pid-handoff.yml
+- docs/tasks/S27.md; docs/source/S27_F05_PID_HANDOFF_FLOW.md; docs/source/S27_MODEL.json
+- STATE.md; PROJECT_STATUS.md (append-only checkpoint)
+
+## NEXT_ACTION on CONTINUE — S28
+- Read LIVE PLAN.md/STATE.md and check docs/tasks/S28.md; inspect ALREADY AUDITED F05/D06 original launcher/safe-env/resources.dat contract and existing source for overlap. Implement next smallest evidenced **F05 safe launch environment / executable+x64 payload preflight** with TEST-owned files/environment, no guessed original whitelist, game spawn/injection, fake Mở game, license grant or Proxy runtime. Keep 368 unit and S27/S26/S25/S24/S23/S22/S21/S20/S10 native regressions green. Update docs/status checkpoint.

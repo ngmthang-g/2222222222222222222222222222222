@@ -1,0 +1,43 @@
+{
+  "task": "S27",
+  "status": "S27_NATIVE_WINDOWS_DELAYED_HWND_368_UNIT_PASS_GAME_NOT_RUN",
+  "original_evidence": [
+    "docs/tasks/F05.md",
+    "src/login_launch_preflight.py",
+    "src/start_windows.py"
+  ],
+  "code": [
+    "src/login_window_handoff.py"
+  ],
+  "unit_tests_file": "tests/test_s27.py",
+  "unit_tests_added": 20,
+  "unit_tests_total": 368,
+  "max_timeout_seconds": 25,
+  "default_poll_seconds": 0.1,
+  "poll_period_is_original": false,
+  "post_hwnd_stabilization_original": "UNKNOWN_AND_UNIMPLEMENTED",
+  "serialized_scope": "PID_HWND_HANDOFF_ONLY_NO_LAUNCH",
+  "uses_existing_native_win32": true,
+  "real_game": "NOT_RUN",
+  "real_process_spawn": false,
+  "genuine_signed_Info": false,
+  "payload_injection": false,
+  "Proxy_runtime": "EXCLUDED",
+  "product_exe": "NOT_BUILT",
+  "native_run_id": 37901945848,
+  "native_job_id": 113726306489,
+  "source_ci_run_id": 37901945877,
+  "native_artifact_id": 11602743621,
+  "native_results": [
+    "S27_PASS",
+    "S26_PASS",
+    "S25_PASS",
+    "S24_PASS",
+    "S23_PASS",
+    "S22_PASS",
+    "S21_PASS",
+    "S20_PASS",
+    "S10_PASS"
+  ],
+  "next_action": "S28 inspect already-audited F05/D06 and existing launch modules for duplicate clean environment/resource preflight; add narrow TEST-owned native proof without game spawn/injection or Proxy."
+}
