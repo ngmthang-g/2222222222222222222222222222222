@@ -23,6 +23,8 @@ class InfoDisplay:
     validity: str = UNKNOWN
     status: str = 'Chưa xác minh dữ liệu máy chủ'
     changelog: str = UNKNOWN
+    price_text: str = UNKNOWN
+    catalog_text: str = UNKNOWN
 
 
 def display_from_info_state(info: Any) -> InfoDisplay:
@@ -55,6 +57,9 @@ class TLMInfoTab:
     VALUE_START_Y = 105
     VALUE_STEP_Y = 25
     CHANGELOG_B12 = (3, 295, 416, 109)
+    PRICE_B12 = (6, 427, 416, 88)
+    CONTACT_B12 = (7, 539, 300, 19)
+    CATALOG_B12 = (30, 656, 340, 58)
 
     def __init__(self, parent: Any, info_state: Any = None, *, ttk_module: Any = None):
         self._native = ttk_module is None
@@ -134,6 +139,34 @@ class TLMInfoTab:
             self._place(self._changelog, 0, 0, 400, 109)
 
         self._separator(412)
+
+        # B12's price lines were server-fed (price/price_val). Reserve the
+        # measured region but NEVER hardcode historical photographed prices.
+        self._price = ttk_module.Label(self.container, text='', justify='left')
+        self._place(self._price, *self.PRICE_B12)
+        self._separator(526)
+
+        # Original static headings and network names. Passive labels only:
+        # no hand cursor/click binding and no fabricated support workflow.
+        self._contact_label = ttk_module.Label(
+            self.container, text='Liên hệ hỗ trợ, yêu cầu tính năng:')
+        self._place(self._contact_label, *self.CONTACT_B12)
+        self._facebook_label = ttk_module.Label(
+            self.container, text='● Facebook', foreground='#0000FF')
+        self._place(self._facebook_label, 27, 566, 126, 19)
+        self._zalo_label = ttk_module.Label(
+            self.container, text='● Zalo', foreground='#0000FF')
+        self._place(self._zalo_label, 155, 566, 110, 19)
+        self._separator(616)
+
+        # The original price_tools catalog is dynamic; current screenshot
+        # product names cannot become hardcoded client defaults.
+        self._catalog_heading = ttk_module.Label(
+            self.container, text='Auto trong hệ thống')
+        self._place(self._catalog_heading, 7, 630, 320, 19)
+        self._catalog = ttk_module.Label(
+            self.container, text='', justify='left')
+        self._place(self._catalog, *self.CATALOG_B12)
         self.refresh_readonly()
 
     def _place(self, widget: Any, x: int, y: int, w: int, h: int) -> None:
@@ -162,4 +195,6 @@ class TLMInfoTab:
             self._changelog.configure(state='disabled')
         else:
             self._changelog.configure(text=display.changelog)
+        self._price.configure(text=display.price_text)
+        self._catalog.configure(text=display.catalog_text)
         return display
