@@ -71,9 +71,13 @@ def run():
             for mode_index in range(len(CAPTCHA_MODES)):
                 captcha_box.current(mode_index)
                 observed_modes.append(captcha_box.get())
+            r["captcha_observed_mode_labels"]=observed_modes
+            r["captcha_widget_states"]=sorted(
+                {str(w.cget("state")) for w in model.captcha_boxes})
+            r["captcha_expected_mode_labels"]=list(CAPTCHA_MODES)
             r["readonly_captcha_modes"]=(
                 tuple(observed_modes)==CAPTCHA_MODES
-                and all(w.cget("state")=="readonly" for w in model.captcha_boxes))
+                and all(str(w.cget("state"))=="readonly" for w in model.captcha_boxes))
             r["mask_toggle_preserves_in_memory_password"]=(
                 model.snapshot(99).password=="S37_TEST_PASSWORD")
             model.show_password_toggle.invoke()
