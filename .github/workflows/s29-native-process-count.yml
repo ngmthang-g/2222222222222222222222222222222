@@ -1,0 +1,67 @@
+name: S29 Windows Toolhelp process vs visible HWND incomplete count
+
+on:
+  push:
+    paths:
+      - "src/running_count_evidence.py"
+      - "tests/test_s29.py"
+      - "tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py"
+      - ".github/workflows/s29-native-process-count.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  s29-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Compile Stage S and Windows smoke
+        run: python -m compileall -q src tests tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py
+      - name: S01-S29 full unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S29 live Windows Toolhelp, same PID two HWND and incomplete gate
+        run: python tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py
+      - name: S28 x64 input checks
+        run: python tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py
+      - name: S27 delayed PID HWND
+        run: python tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py
+      - name: S26 launch preflight HWND
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S25 Login path
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 normal Destroy
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 tee session
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 diagnostics
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 DWM three HWND
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 read-only Start
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Upload native evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s29-native-toolhelp-partial-count-evidence
+          path: |
+            artifacts/s29/
+            artifacts/s28/
+            artifacts/s27/
+            artifacts/s26/
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
