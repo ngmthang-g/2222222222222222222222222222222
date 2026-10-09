@@ -1,0 +1,40 @@
+name: S06 native Windows B12 Info layout
+
+on:
+  push:
+    paths:
+      - "src/info_tab.py"
+      - "tests/test_s06.py"
+      - "tools/S06_WINDOWS_INFO_LAYOUT.py"
+      - ".github/workflows/s06-native-info-layout.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-info-b12:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v4
+      - name: Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Pillow for optional UI screenshot
+        run: python -m pip install "Pillow==11.3.0"
+      - name: Compile source and all tests
+        run: python -m compileall -q src tests tools/S06_WINDOWS_INFO_LAYOUT.py
+      - name: Full S01-S06 source regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Real Windows Tk Info layout smoke
+        run: python tools/S06_WINDOWS_INFO_LAYOUT.py
+      - name: Save native geometry and screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s06-native-b12-info-layout
+          path: artifacts/s06/
+          if-no-files-found: warn
