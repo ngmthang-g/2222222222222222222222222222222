@@ -5895,3 +5895,20 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 
 ## NEXT_ACTION on CONTINUE — S29
 - Read LIVE PLAN.md/STATE.md and check docs/tasks/S29.md. Inspect original E04 shared running EXE/emulator count and existing S08/S09 native Windows discovery to avoid duplication. Add genuine read-only TEST-owned native **game process/window count evidence**, explicitly mark that partial window view is NOT total combined game+emulator count and MUST NOT directly grant `check_account_limit` rights. No fake Mở game/injection or Proxy. Preserve 390 unit and S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native success; append checkpoint.
+
+
+## S29 VERIFIED — E04 WIN32 TOOLHELP GAME IMAGE PID vs VISIBLE HWND / 409 WINDOWS TESTS PASS
+- Continued exactly LIVE S28 NEXT_ACTION: reread PLAN.md/STATE.md, verified docs/tasks/S29.md ABSENT, inspected already-audited E04 and S08/S09 native window/poller + S26 guard. **E04 account limits require game EXE processes + emulators**, never simply visible HWND count; emulator identity/count rule still UNKNOWN. No duplicate S08 or changes to S01–S28 source.
+- NEW src/running_count_evidence.py: read-only NativeWin32ProcessBackend calls Toolhelp32 Process32FirstW/NextW + CloseHandle for actual Windows process image/PID snapshot; F04 `Thần Long  Mobile.exe` (two spaces) name matched exactly casefold and PIDs de-duplicated. Existing S08 `discover_game_windows` supplies separate visible HWND list. RunningCountEvidence exposes **game_process_count** and **visible_hwnd_count** independently with typed failed-scan UNKNOWN, but ALWAYS `emulator_process_count=None`, `combined_running_count=None`, `is_authoritative_account_total=False` so cannot grant S26 window limit. `visible_hwnds_for_pid` adds diagnostics-only live HWND/PID recheck, not a game claim.
+- NEW tests/test_s29.py (**19** units), tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py and .github/workflows/s29-native-process-count.yml. Native smoke uses Win32 Toolhelp to count real runner `python.exe` PID and two real test-owned Tk HWNDs under SAME PID; misleading "Thần Long" test title never counted as game. S26 rejects missing total, real emulator count not guessed, destroyed HWND removed. No actual game, Proxy, process spawning or injection.
+- **Implementation commit 2384a800fa3e23cfd40bc6264cff0fcdb19a7db9**. **ACTUAL Windows Python 3.10 [S29 run 37907306562](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37907306562), job 113743764797 COMPLETED SUCCESS**: compileall PASS, **409/409 S01–S29 units PASS**, **PASS_NATIVE_S29_TOOLHELP_PROCESS_VS_VISIBLE_HWND_INCOMPLETE_GATE**. Same run S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native all PASS; evidence artifact **11604554741**. Independent Stage S [37907306661](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37907306661) SUCCESS on same implementation.
+- **STATUS S29_NATIVE_WINDOWS_TOOLHELP_PARTIAL_COUNT_409_UNIT_PASS_GAME_NOT_RUN**. Unknown original emulator process identities, signed Info, full count/real game/injection and production runnable EXE remain NOT_AVAILABLE/NOT_DONE. Source S01–S28, PLAN, original ZIP, Dồn label, user ban on Proxy runtime preserved.
+
+## S29 CHANGED FILES
+- src/running_count_evidence.py; tests/test_s29.py; tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py
+- .github/workflows/s29-native-process-count.yml
+- docs/tasks/S29.md; docs/source/S29_E04_READONLY_RUNNING_COUNTS.md; docs/source/S29_MODEL.json
+- STATE.md; PROJECT_STATUS.md (append-only)
+
+## NEXT_ACTION on CONTINUE — S30
+- Reread LIVE PLAN.md/STATE.md, check docs/tasks/S30.md, inspect already-audited emulator/LD and E04 original process-count names/rules. Only if evidence proves emulator image identities, add narrowly scoped native read-only emulator observation, otherwise record blocker/evidence and improve provenance/staleness without guessing. **NEVER** convert S29 partial window/process count into complete game+emulator total to authorize account opening. Preserve 409 units and S29/S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native proof; update docs and checkpoint, no fake UI, real game inject/Proxy.
