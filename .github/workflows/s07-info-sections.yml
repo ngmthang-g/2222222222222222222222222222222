@@ -1,0 +1,44 @@
+name: S07 Windows Info passive sections
+
+on:
+  push:
+    paths:
+      - "src/info_tab.py"
+      - "tests/test_s07.py"
+      - "tools/S07_WINDOWS_INFO_SECTIONS.py"
+      - ".github/workflows/s07-info-sections.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  info-passive-sections:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact Stage S source
+        uses: actions/checkout@v4
+      - name: Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Pillow for client screenshot
+        run: python -m pip install "Pillow==11.3.0"
+      - name: Compile source and tests
+        run: python -m compileall -q src tests tools/S06_WINDOWS_INFO_LAYOUT.py tools/S07_WINDOWS_INFO_SECTIONS.py
+      - name: Combined S01-S07 regression suite
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S06 exact native status and row geometry regression
+        run: python tools/S06_WINDOWS_INFO_LAYOUT.py
+      - name: S07 native B12 passive lower sections and shutdown
+        run: python tools/S07_WINDOWS_INFO_SECTIONS.py
+      - name: Upload Windows Info previews and metrics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s07-info-passive-sections
+          path: |
+            artifacts/s06/
+            artifacts/s07/
+          if-no-files-found: warn
