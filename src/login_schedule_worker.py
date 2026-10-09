@@ -54,6 +54,11 @@ class F09ScheduleEvaluationWorker:
         self._cancel = threading.Event()
         self._cancel.set()
         self._stop_requested = threading.Event()  # S47: guard pending stop vs idle
+        # S48: each concurrently waiting stop owns a cancellation request.
+        # Successful cleanup may clear the fence only after the LAST
+        # registered stopper completes; never erase another caller's stop.
+        self._stop_request_lock = threading.Lock()
+        self._pending_stop_callers = 0
         self._thread: threading.Thread | None = None
         self._clock: LoginScheduleClock | None = None
         self._audit: list[BlockedScheduleOccurrence] = []
@@ -198,22 +203,43 @@ class F09ScheduleEvaluationWorker:
                 del self._audit[:-AUDIT_CAP]
             return blocked
 
-    def stop(self, timeout: float = 2.0) -> bool:
-        """Bound BOTH lifecycle-mutex acquisition and worker join time.
+    def _register_stop_request(self) -> None:
+        """S48: count an in-flight stopper before waiting for lifecycle mutex."""
+        with self._stop_request_lock:
+            self._pending_stop_callers += 1
+            self._stop_requested.set()
+            self._cancel.set()
 
-        Cancellation is sent before the lock wait. On mutex timeout, the
-        pending-stop fence stays set so an in-progress start cannot rearm.
+    def _end_stop_request(self, cleaned: bool) -> None:
+        """Never let one stopper clear a still-waiting stop request.
+
+        A failed/timed-out stop leaves the cancellation fence set until
+        a later explicit successful cleanup. Permanent shutdown never clears.
+        """
+        with self._stop_request_lock:
+            self._pending_stop_callers -= 1
+            if cleaned and self._pending_stop_callers == 0 and not self._closed:
+                self._stop_requested.clear()
+
+    def stop(self, timeout: float = 2.0) -> bool:
+        """Bound mutex plus join; preserve ALL concurrent cancellation intents.
+
+        S47's single Event fence could be cleared by stopper A after join,
+        while stopper B had signalled stop but was still awaiting the mutex.
+        S48 tracks pending stoppers so no start may slip into that gap.
         """
         if type(timeout) not in (int, float) or not 0 <= timeout <= 30:
             raise ValueError("INVALID_STOP_TIMEOUT")
         deadline = time.monotonic() + timeout
-        self._stop_requested.set()
-        self._cancel.set()
-        remaining = max(0.0, deadline - time.monotonic())
-        if not self._lifecycle_lock.acquire(timeout=remaining):
-            self._status = "STOPPING"
-            return False
+        self._register_stop_request()
+        acquired = False
+        cleaned = False
         try:
+            remaining = max(0.0, deadline - time.monotonic())
+            acquired = self._lifecycle_lock.acquire(timeout=remaining)
+            if not acquired:
+                self._status = "STOPPING"
+                return False
             thread = self._thread
             if thread is not None and thread is threading.current_thread():
                 raise RuntimeError("CANNOT_JOIN_OWN_F09_WORKER")
@@ -227,10 +253,14 @@ class F09ScheduleEvaluationWorker:
                     self._clock.disable()
                     self._clock = None
                 self._status = "CLOSED" if self._closed else "STOPPED"
-                self._stop_requested.clear()
+                cleaned = True
                 return True
         finally:
-            self._lifecycle_lock.release()
+            # Still inside lifecycle mutex if acquired. Fence belongs to
+            # every concurrently registered caller, not the first to join.
+            self._end_stop_request(cleaned)
+            if acquired:
+                self._lifecycle_lock.release()
 
     def request_shutdown(self) -> None:
         """S46: permanently cancel WITHOUT acquiring locks or joining.
