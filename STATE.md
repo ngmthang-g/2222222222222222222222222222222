@@ -5823,3 +5823,23 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 
 ## NEXT_ACTION on CONTINUE — S25
 - Reread LIVE PLAN.md / STATE.md; check docs/tasks/S25.md first; consult ALREADY AUDITED F01/F04 Login tab game-folder path, E05 settings and current shell gate. Build the smallest genuinely operational Login folder-chooser/path persistence slice with native Windows test-owned filesystem path tests, authentic lazy/auth gating, no fake game login/captcha, no Proxy development, no new entitlement. Preserve 315 tests and S24/S23/S22/S21/S20/S10 native proofs; append next checkpoint.
+
+
+## S25 VERIFIED — F01/F04 REAL LOGIN GAME-FOLDER PICKER / 331 WINDOWS UNIT PASS
+- Continued exactly LIVE S24 NEXT_ACTION: reread PLAN.md, STATE.md; checked docs/tasks/S25.md ABSENT. Used already-audited F01 original screenshot and F04 exact EXE resolver, E05 atomic settings path. Did NOT modify frozen ZIP/PLAN or redo S01–S24 modules. Original executable name `Thần Long  Mobile.exe` (TWO spaces) preserved.
+- NEW **src/login_path.py**: bounded direct/Game/one-parent/one-child F04 resolver, typed path+note, EXE presence recheck, saves only `Settings.game_dir` using existing E05 read_settings/write_settings; retains all other config keys and dated backup, invalid paths not written. Deterministic child ordering and immediate write-on-success explicitly LOCAL because original exact order/save microtiming UNKNOWN.
+- NEW **src/login_tab.py**: real `ttk.LabelFrame` "Cấu hình game", blue original `tk.Button` "Chọn thư mục game" invoking real tkinter.filedialog.askdirectory, conditional path status, original invalid-path dialog; functional Cancel/invalid safety, reloads saved path after tab restart. Auth-gated lazy Login factory is **only installed by test fixture**; production still without genuine Info auth and `main()` returns 2. NO fake Mở game/Login/captcha/Proxy button, no spawn/injection.
+- NEW tests/test_s25.py (16 cases), tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py (real Tk and TEST-owned Windows file tree), .github/workflows/s25-native-login-folder.yml, docs/tasks/S25.md, docs/source/S25_LOGIN_PATH_FLOW.md + S25_MODEL.json.
+- Initial Windows CI 37900085233 **FAILED native geometry only**, 331 units passed. tkinter ttk.LabelFrame content padding placed button at [7,28] within group. Corrected actual tab-relative button placement (not only test expectation) in source commit **c1f3ca9f651c50620e9336cc84f34e09b95202a0**, native screenshot-derived button rect is [11,24,135,24], LabelFrame group [6,10,428,65] on Login content frame.
+- **ACTUAL Windows Python3.10 [S25 run 37900241256](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37900241256), job 113720838384 COMPLETED SUCCESS:** compileall PASS, **331/331 S01–S25 unit tests PASS**, **PASS_NATIVE_S25_LOGIN_CHOOSER_STORAGE_AUTH_GUARD**. Native Tk Button.invoke selects TEST-only installer parent, finds Game/EXE, writes/loads real temp INI, invalid path shows error and does not overwrite, Cancel leaves valid config, restarted widget reloads saved path; permission revocation hides Login and root destruction releases owners. No process launches, no Proxy. Artifact **11602351174**.
+- SAME commit workflow S24/S23/S22/S21/S20/S10 native regressions all PASS. Full original Login page, F05 real suspended injection, game/RoleName/HP, signed license/heartbeat and product EXE remain NOT_IMPLEMENTED/NOT_RUN. **STATUS S25_NATIVE_WINDOWS_LOGIN_PATH_331_UNIT_PASS_GAME_NOT_RUN**.
+
+## S25 CHANGED FILES
+- src/login_path.py; src/login_tab.py
+- tests/test_s25.py; tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+- .github/workflows/s25-native-login-folder.yml
+- docs/tasks/S25.md; docs/source/S25_LOGIN_PATH_FLOW.md; docs/source/S25_MODEL.json
+- STATE.md; PROJECT_STATUS.md (append-only)
+
+## NEXT_ACTION on CONTINUE — S26
+- Read LIVE PLAN.md and STATE.md, check docs/tasks/S26.md; inspect completed F05 and existing src/start_windows.py for overlap. Implement next smallest original-evidenced **F05 launch preflight + PID-bound Windows HWND selection** only if not already present, using test-owned native Windows windows, verified login-tab permission/account limit extra=1 and S25 validated `get_exe_path`. Do not add a fake Mở game, unsuspended launch, guessed inject/proxy/forwarder. Retain 331 tests and S25/S24/S23/S22/S21/S20/S10 native success, append checkpoint.

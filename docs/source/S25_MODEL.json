@@ -1,0 +1,40 @@
+{
+  "task": "S25",
+  "stage": "F01_F04_LOGIN_DIRECTORY_AND_E05_SETTINGS",
+  "status": "S25_NATIVE_WINDOWS_LOGIN_PATH_331_UNIT_PASS_GAME_NOT_RUN",
+  "implemented": [
+    "src/login_path.py",
+    "src/login_tab.py"
+  ],
+  "original_evidence": [
+    "docs/tasks/F01.md",
+    "docs/tasks/F04.md",
+    "docs/core/E05_CONFIG_FLOW.md"
+  ],
+  "original_executable": "Thần Long  Mobile.exe",
+  "chooser": "tkinter.filedialog.askdirectory",
+  "settings": "%APPDATA%/TLMTool/settings.ini [Settings] game_dir",
+  "test_owned_genuine_tk": true,
+  "handler_real": true,
+  "original_full_Login_parity": "PARTIAL_ONLY",
+  "unit_tests": 331,
+  "unit_added": 16,
+  "native_win_run": 37900241256,
+  "native_job": 113720838384,
+  "artifact": 11602351174,
+  "original_trailing_strip": "Pathlib normalized / and Windows native slash form",
+  "local_rules": [
+    "deterministic one-level child search prioritizes game names",
+    "write on successful selection"
+  ],
+  "not_implemented": [
+    "game launching",
+    "injection",
+    "account login",
+    "captcha",
+    "Proxy runtime",
+    "signed server",
+    "product exe"
+  ],
+  "next_action": "S26: inspect F05 and existing S08 Win32 backend; implement narrow permission/limit and PID-HWND launch preflight only with TEST owned HWNDs, no fake open-game or Proxy."
+}
