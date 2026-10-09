@@ -1,0 +1,42 @@
+{
+  "task": "S55",
+  "goal": "PLAN-conformant original-backed C10/C11 Win32 move-only engine",
+  "status": "WINDOWS_CI_PENDING",
+  "baseline": {
+    "task": "S54",
+    "windows_tests": 822
+  },
+  "original_evidence": [
+    "docs/tasks/C10.md",
+    "docs/tasks/C11.md",
+    "docs/window/C10_STACK_TIGHT_MODEL.json",
+    "docs/window/C11_STACK_DIAGONAL_MODEL.json"
+  ],
+  "implemented": {
+    "path": "src/window_stacking.py",
+    "modes": {
+      "tight": "all (0,0)",
+      "diagonal": "(50*i,50*i)"
+    },
+    "master_first": true,
+    "preserve_dimensions": true,
+    "live_hwnd_pid_validation": true,
+    "verified_limit_required": true,
+    "permission_callback_required": true,
+    "physical_mouse": false,
+    "game_launch": false
+  },
+  "tests": "tests/test_s55.py",
+  "native": "tools/S55_WINDOWS_C10_C11_MOVE_ONLY_SMOKE.py",
+  "workflow": ".github/workflows/s55-native-c10-c11-stacking.yml",
+  "first_windows_run": 37976990927,
+  "limits": [
+    "Original Auto frame UI not wired",
+    "C12 original hidden state reset not yet wired",
+    "Auto 1s tile coexistence UNKNOWN",
+    "real game/native license not tested",
+    "S36 diagnostic fail closed NOT PRODUCT",
+    "Proxy runtime excluded"
+  ],
+  "next_action": "S56 original Auto UI control wiring once native CI passes"
+}
