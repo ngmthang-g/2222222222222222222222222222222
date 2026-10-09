@@ -1,4 +1,4 @@
-"""S10–S13: read-only Tk Start HWND list, DWM preview and maintenance.
+"""S10–S14: read-only Tk Start, live DWM preview, grid and ordering.
 
 Only S08 Win32-observed HWND/PID/title snapshots delivered by S09's worker
 are displayed. S11 DWM previews use actual Win32 HWND+PID and real compositor
@@ -11,6 +11,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from preview_maintenance import TkPreviewMaintenance
+from preview_layout import (
+    DEFAULT_PREVIEW_GRID, PREVIEW_GRID_CHOICES, PreviewOrder,
+    preview_columns, preview_position,
+)
 
 from dwm_preview import (
     ITEM_WIDTH, ITEM_HEIGHT, THUMB_WIDTH, THUMB_HEIGHT,
@@ -87,6 +91,21 @@ class TLMStartTab:
         self.preview_group = ttk.LabelFrame(
             self.container, text="DWM preview (đọc trực tiếp)")
         self.preview_group.pack(fill="x", padx=9, pady=(0, 9))
+        # C09 native readonly combobox, initial 2x from original baseline.
+        self.preview_controls = ttk.Frame(self.preview_group)
+        self.preview_controls.pack(fill="x", padx=4, pady=(2, 0))
+        ttk.Label(self.preview_controls, text="Cột:").pack(side="left")
+        import tkinter as tk
+        self.preview_grid_var = tk.StringVar(value=DEFAULT_PREVIEW_GRID)
+        self.preview_grid_manual = False
+        self.preview_grid_select = ttk.Combobox(
+            self.preview_controls, textvariable=self.preview_grid_var,
+            values=PREVIEW_GRID_CHOICES, state="readonly", width=4)
+        self.preview_grid_select.pack(side="left", padx=(4, 0))
+        self.preview_grid_select.bind(
+            "<<ComboboxSelected>>", self._set_manual_preview_grid, add="+")
+        self.preview_order = PreviewOrder()
+        self._observed_windows = ()
         self.preview_status = ttk.Label(
             self.preview_group, text="Chưa có cửa sổ game", anchor="w")
         self.preview_status.pack(fill="x", padx=4)
@@ -139,7 +158,7 @@ class TLMStartTab:
         if state != self._state:
             self._render(state)
         windows = snapshot.windows if snapshot.valid else ()
-        if windows != self._active_windows:
+        if windows != self._observed_windows:
             self._sync_tiles(windows)
 
     def _on_cache_event(self, event: StartCacheEvent) -> None:
@@ -160,10 +179,13 @@ class TLMStartTab:
             self._refresh_dwm()
 
     def _sync_tiles(self, windows) -> None:
-        """Only genuine S09 discovery rows get preview surfaces, never fakes."""
+        """Bind only S09-discovered HWND/PID values to C09/C17 tile widgets."""
         import tkinter as tk
         from tkinter import ttk
-        wanted = {(w.hwnd, w.pid) for w in windows}
+        windows = tuple(windows)
+        ordered = self.preview_order.update(windows)
+        self._observed_windows = windows
+        wanted = {(w.hwnd, w.pid) for w in ordered}
         # A vanished/reused HWND invalidates DWM immediately, before Tk redraw.
         old_keys = set(self._tile_items)
         if self._preview_controller is not None and old_keys - wanted:
@@ -172,30 +194,73 @@ class TLMStartTab:
             self._drop_previews()
         for key in tuple(self._tile_items):
             if key not in wanted:
-                tile, _, _ = self._tile_items.pop(key)
-                tile.destroy()
-        self._active_windows = tuple(windows)
-        for w in windows:
+                item = self._tile_items.pop(key)
+                item[0].destroy()
+        self._active_windows = ordered
+        for w in ordered:
             key = (w.hwnd, w.pid)
             if key not in self._tile_items:
                 tile = ttk.Frame(self.preview_tiles, width=ITEM_WIDTH,
                                  height=ITEM_HEIGHT, relief="solid", borderwidth=1)
                 tile.grid_propagate(False)
                 label = ttk.Label(tile, text=w.title or f"HWND {w.hwnd}", anchor="w")
-                label.place(x=4, y=3, width=THUMB_WIDTH, height=19)
+                label.place(x=4, y=3, width=121, height=19)
+                # C17: real functioning logical preview-order arrows, NOT
+                # game controls, Win32 activation or mouse interception.
+                left = ttk.Button(tile, text="◀", width=2,
+                                  command=lambda hwnd=w.hwnd, pid=w.pid:
+                                  self._move_preview_item(hwnd, pid, -1))
+                right = ttk.Button(tile, text="▶", width=2,
+                                   command=lambda hwnd=w.hwnd, pid=w.pid:
+                                   self._move_preview_item(hwnd, pid, 1))
+                left.place(x=128, y=3, width=31, height=19)
+                right.place(x=163, y=3, width=31, height=19)
                 surface = tk.Frame(tile, bg="#000000", width=THUMB_WIDTH,
                                    height=THUMB_HEIGHT)
                 surface.place(x=4, y=23, width=THUMB_WIDTH, height=THUMB_HEIGHT)
                 surface.bind("<Configure>", lambda _event: self._schedule_preview(), add="+")
-                self._tile_items[key] = (tile, label, surface)
+                self._tile_items[key] = (tile, label, surface, left, right)
             else:
                 self._tile_items[key][1].configure(text=w.title or f"HWND {w.hwnd}")
-        for index, w in enumerate(windows):
-            self._tile_items[(w.hwnd, w.pid)][0].grid(
-                row=index // 2, column=index % 2, padx=2, pady=2)
+        self._relayout_tiles()
         self.preview_status.configure(
-            text=f"{len(windows)} cửa sổ có nguồn DWM thực" if windows
+            text=f"{len(ordered)} cửa sổ có nguồn DWM thực" if ordered
             else "Chưa có cửa sổ game")
+
+    def _get_preview_columns(self) -> int:
+        return preview_columns(self.preview_grid_var.get())
+
+    def _relayout_tiles(self) -> None:
+        columns = self._get_preview_columns()
+        for index, w in enumerate(self._active_windows):
+            key = (w.hwnd, w.pid)
+            tile = self._tile_items[key][0]
+            row, col = preview_position(index, columns)
+            tile.grid(row=row, column=col, padx=2, pady=2)
+        self._schedule_preview()
+
+    def _set_manual_preview_grid(self, _event=None) -> bool:
+        """C09: change actual Tk column positions without new game commands."""
+        try:
+            self._get_preview_columns()
+        except ValueError:
+            self.preview_grid_var.set(DEFAULT_PREVIEW_GRID)
+            return False
+        if self._closed or not self.poller.active:
+            return False
+        self.preview_grid_manual = True  # S14 local model; original order UNKNOWN
+        self._relayout_tiles()
+        return True
+
+    def _move_preview_item(self, hwnd: int, pid: int, delta: int) -> bool:
+        """C17 logical one-step order; no source HWND/window activation."""
+        if self._closed or not self.poller.active:
+            return False
+        if not self.preview_order.move(hwnd, pid, delta):
+            return False
+        self._active_windows = self.preview_order.ordered(self._observed_windows)
+        self._relayout_tiles()
+        return True
 
     def _on_top_configure(self, event) -> None:
         # The root can MOVE without resizing the child preview surfaces.
