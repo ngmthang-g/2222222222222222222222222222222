@@ -1,0 +1,29 @@
+{
+  "task": "S52",
+  "status": "IMPLEMENTED_WINDOWS_PENDING",
+  "scope": "F09 test-owned read-only evaluator exception-path state priority",
+  "source_file": "src/login_schedule_worker.py",
+  "reproducer": "failing injected clock/wait callback after lock-free shutdown or timed-out stop",
+  "old": "late exception overwrites STOPPING/CLOSED with BLOCKED_CLOCK/BLOCKED_WORKER",
+  "new": "CLOSED > STOPPING > failure status for three exception branches",
+  "tests": [
+    "tests/test_s52.py",
+    "tools/S52_WINDOWS_TK_CLOCK_CANCEL_PRIORITY_SMOKE.py"
+  ],
+  "workflow": ".github/workflows/s52-native-tk-clock-cancel-priority.yml",
+  "first_run_id": 37960576234,
+  "blocked_dependencies": [
+    "genuine signed E03 Info",
+    "F05/F06 real launcher/login",
+    "verified game open/close",
+    "original runtime parity"
+  ],
+  "scope_locks": {
+    "proxy": false,
+    "account_ini_writes": false,
+    "guessed_schedule_flags": false,
+    "game_or_os_actions": false,
+    "product_exe": false
+  },
+  "next_action": "Check S52 Windows native and S36 packaged diagnostic results; checkpoint status/STATE; then S53"
+}
