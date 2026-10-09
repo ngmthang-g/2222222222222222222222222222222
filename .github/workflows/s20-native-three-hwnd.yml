@@ -1,0 +1,37 @@
+name: S20 C20 combined three native TEST-OWNED HWNDs
+
+on:
+  push:
+    paths:
+      - "tests/test_s20.py"
+      - "tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py"
+      - ".github/workflows/s20-native-three-hwnd.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  combined-real-win32:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed repository
+        uses: actions/checkout@v4
+      - name: Python 3.10 on native Windows
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S modules and native fixture
+        run: python -m compileall -q src tests tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: Full S01-S20 unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Combined three real test-owned HWND DWM/layout/master/input-model smoke
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: Upload native lifecycle evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s20-three-hwnd-test-owned-evidence
+          path: artifacts/s20/
+          if-no-files-found: warn
