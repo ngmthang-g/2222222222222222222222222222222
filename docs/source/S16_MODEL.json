@@ -1,0 +1,78 @@
+{
+  "task": "S16",
+  "status": "S16_NATIVE_WINDOWS_TEST_OWNED_WM_CLOSE_163_UNIT_PASS_REAL_GAME_NOT_RUN",
+  "original_contract": [
+    "docs/tasks/C16.md",
+    "docs/tasks/C02.md",
+    "docs/tasks/C01.md"
+  ],
+  "production_changes": [
+    "src/close_windows.py",
+    "src/start_tab.py"
+  ],
+  "new_tests": [
+    "tests/test_s16.py",
+    "tools/S16_WINDOWS_TEST_OWNED_CLOSE_SMOKE.py",
+    ".github/workflows/s16-native-wmclose.yml"
+  ],
+  "native_api": "PostMessageW",
+  "message": 16,
+  "guards": [
+    "existing S09 valid snapshot",
+    "source S08 candidate exe/class/title",
+    "current EnumWindows top-level list",
+    "IsWindow",
+    "IsWindowVisible",
+    "fresh GetWindowThreadProcessId",
+    "fresh process executable and class/title",
+    "recheck HWND/PID immediately before post",
+    "selected visible authorized Start"
+  ],
+  "no": [
+    "TerminateProcess",
+    "UnityCrashHandler forced kill",
+    "fake game source in production",
+    "Proxy",
+    "immediate scan claim",
+    "game mouse/keyboard"
+  ],
+  "initial_ci": {
+    "id": 37884562214,
+    "conclusion": "failure",
+    "cause": "test Tk root hidden; genuine selected-visible gate blocked operation",
+    "unit_tests_passed": 163
+  },
+  "corrected_ci": {
+    "id": 37884623539,
+    "job": 113671723160,
+    "conclusion": "success",
+    "compileall": "PASS",
+    "unit_pass": 163,
+    "unit_total": 163,
+    "native_status": "PASS_NATIVE_S16_TEST_OWNED_WM_CLOSE_WITH_AUTH_PID_GUARDS",
+    "test_owned_hwnds": 3,
+    "real_win32_posted": 3,
+    "real_tk_windows_destroyed": 3,
+    "unrelated_survives": true,
+    "stale_cache_second_click_zero": true,
+    "permission_revoke_blocks": true
+  },
+  "regressions": {
+    "s10": 37884562274,
+    "s11": 37884562195,
+    "s12": 37884562223,
+    "s13": 37884562299,
+    "s14": 37884562273,
+    "s15": 37884562229,
+    "stage_s": 37884562313,
+    "all": "success"
+  },
+  "unknown": [
+    "Actual Thần Long positive",
+    "Original confirmation and instant refresh",
+    "UnityCrashHandler cleanup unfinished",
+    "Original signed entitlement service",
+    "Full product EXE NOT_BUILT"
+  ],
+  "next_action": "S17 C18 bounded native layout-sync slice from verified C06/C08 only; initial state/worker cadence/arithmetic unknown; no C19 input sync"
+}
