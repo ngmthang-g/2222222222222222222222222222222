@@ -1,6 +1,6 @@
 {
   "task": "S41",
-  "status": "CI_PENDING_NATIVE_TK",
+  "status": "S41_NATIVE_WINDOWS_TK_F09_AFTER_CANCEL_643_UNITS_PASS_PREVIEW_ONLY",
   "original_proof": [
     "docs/tasks/F09.md",
     "docs/login/F09_SCHEDULER_STATIC_EVIDENCE.tsv"
@@ -26,5 +26,11 @@
   "new_tests": 26,
   "windows_native_smoke": "tools/S41_WINDOWS_LOGIN_TK_COUNTDOWN_SMOKE.py",
   "workflow": ".github/workflows/s41-native-login-tk-countdown.yml",
-  "next_task": "S42 verified F09 coordinator under strict no-real-action guard or different original-backed task"
+  "next_task": "S42 verified F09 coordinator under strict no-real-action guard or different original-backed task",
+  "total_python_tests": 643,
+  "windows_native_result": "PASS_NATIVE_S41_REAL_TK_F09_AFTER_PREVIEW_CANCEL",
+  "windows_run": 37926526563,
+  "windows_job": 113806683345,
+  "windows_artifact": 11613529167,
+  "s36_fail_closed_packaging_run": 37926357456
 }
