@@ -35,7 +35,7 @@ class S28Tests(unittest.TestCase):
 
     def test_original_active_payload_exact(self):
         self.assertEqual(PAYLOAD_RELATIVE,Path("data")/"resources.dat")
-        self.assertEqual(str(PAYLOAD_RELATIVE).replace("\\\\","/"),"data/resources.dat")
+        self.assertEqual(PAYLOAD_RELATIVE.parts,("data","resources.dat"))
 
     def test_synthetic_x64_exe_and_dll_structurally_valid_only(self):
         with tempfile.TemporaryDirectory() as td:
