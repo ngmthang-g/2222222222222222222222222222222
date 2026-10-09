@@ -665,3 +665,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Artifacts docs/source/S03_INFO_VIEW_AND_AUTH_BOUNDARY.md, S03_MODEL.json, S03_STATIC_EVIDENCE.tsv (21 entries), docs/tasks/S03.md. No prior modules/PLAN/Proxy changed.
 - Product still partial source with blocked authentic server verification and incomplete feature tabs, no Windows EXE or screenshot parity. Status S03_READONLY_INFO_VIEW_6_TESTS_PASS_AUTH_RPC_RUNTIME_UNVERIFIED.
 - NEXT_ACTION S04: Info state-to-Tk binding, full combined regressions, preserve original license boundaries and no fake grants.
+
+
+## S04 — Info Tk lifecycle binding and 31/31 Windows unit tests
+- Added true source src/info_binding.py: InfoState connects to partial read-only TLMInfoTab/TLMMainApp via root.after, suppresses stale queued grants after revocation, and cleans up on root destroy; default Info-only, no fake dev/feature controls. tests/test_s04.py adds 10 focused tests.
+- Added .github/workflows/s04-source-tests.yml (Windows latest / Python 3.10). Actual run 37867454367 at https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37867454367, job 113617493218, SUCCESS: compileall PASS and **combined S01–S04 31/31 unittest PASS**; verified actual Actions job log "Ran 31 tests in 0.035s".
+- docs/source/S04_INFO_LIFECYCLE.md, S04_MODEL.json, S04_STATIC_EVIDENCE.tsv, docs/tasks/S04.md completed; previous PLAN and S01–S03 code untouched, no Proxy.
+- **Status:** partial application source with real Info-only lifecycle, **NOT** a launched Windows GUI, verified server/heartbeat, runnable game tool or Nuitka EXE. Normal src/TLMTool.py intentionally exits 2, authentication and functional tabs remain missing. GUI raster/real integration NOT_RUN.
+- NEXT_ACTION **S05** — real Windows Tk Info-only preview and B12 screenshot parity/clean close if an actual display runner is available; otherwise document GUI blocker and progress original-backed Info startup contract without inventing auth.
