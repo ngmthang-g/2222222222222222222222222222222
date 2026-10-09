@@ -1,0 +1,47 @@
+{
+  "task": "S10",
+  "status": "S10_NATIVE_WINDOWS_READONLY_START_77_TESTS_PASS_NO_GAME_RUNTIME",
+  "original_refs": [
+    "docs/tasks/C01.md",
+    "docs/tasks/C02.md",
+    "docs/tasks/C03.md",
+    "docs/tasks/C05.md",
+    "docs/tasks/C06.md",
+    "docs/tasks/C08.md",
+    "docs/tasks/E03.md"
+  ],
+  "files_new": [
+    "src/start_tab.py",
+    "tests/test_s10.py",
+    "tools/S10_WINDOWS_START_VIEW_SMOKE.py",
+    ".github/workflows/s10-native-start-readonly.yml",
+    "docs/tasks/S10.md",
+    "docs/source/S10_START_READONLY_VIEW.md",
+    "docs/source/S10_MODEL.json"
+  ],
+  "existing_source_changed": [],
+  "baseline_archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+  "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+  "read_only_view": true,
+  "game_window_source": "S08 Win32 observed HWND+PID through S09 cache",
+  "authorization": "external verified snapshot only; test-only claims in CI",
+  "no_fake_action_buttons": true,
+  "ui_interval_ms": 2000,
+  "worker_interval_seconds": 3,
+  "ci": {
+    "run": 37874342004,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37874342004",
+    "job": 113639345676,
+    "head_sha": "dcf76fb2222a27c715a21f17c65a4d5582a0a751",
+    "result": "success",
+    "compileall": "PASS",
+    "unittest_total": 77,
+    "unittest_passed": 77,
+    "native_status": "PASS_NATIVE_READONLY_START_AUTH_AND_POLLING",
+    "verified_revocation": true,
+    "actual_game_present": false,
+    "real_auth_server": "NOT_RUN",
+    "raster_parity": "NOT_RUN",
+    "exe_build": "NOT_BUILT"
+  }
+}
