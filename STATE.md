@@ -6264,3 +6264,26 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 
 ## NEXT_ACTION on CONTINUE — S48
 - Reread LIVE PLAN.md + STATE.md, check docs/tasks/S48.md. Audit S47 pending stop request against TWO concurrent stop callers and in-flight `start()`, particularly whether a completed stopper may clear a second pending cancellation and whether `finish_close(timeout)` always stays bounded. Implement only independently reproduced defect or original-source-backed narrow feature. Keep F09 game open/close/PC actions BLOCKED until actual signed Info and functional F05/F06 handlers exist, no fake Login scheduler or Proxy, no F02/F09 unknown-flag writes. Preserve **754** full Python units + S47/S46/S45/S44/S43/S42/S41/S40/S39/S38/S37/S35–S10 native Windows green, S36 NOT-PRODUCT fail-closed green. Append exact files/blockers/NEXT_ACTION.
+
+ 
+## S48 IMPLEMENTED — TWO CONCURRENT F09 STOP CALLERS FENCE / WINDOWS VERIFICATION PENDING
+- Continued from LIVE S47 NEXT_ACTION; reread PLAN.md, STATE.md, S47 worker / S45 lifetime and original F09 schedule evidence. docs/tasks/S48.md ABSENT at start.
+- Rechecked user ZIP TLMTool_2.1.2(20261009-142633).zip: inner TLMTool.dist/TLMTool.exe SHA-256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 MATCHES frozen forensic reference. Gate A not repeated.
+- Demonstrated source-level S47 race: stop A clears the shared _stop_requested after successful cleanup while stop B has already requested stop but remains blocked on lifecycle mutex; this briefly permits competing start(). Not claimed as recovered exact original behavior.
+- NARROW change ONLY src/login_schedule_worker.py: per-stop registration with _stop_request_lock / _pending_stop_callers, cancel before mutex wait, completion tracking on every exit. Only last successful stopper may clear pending fence, unless permanently closed. Timed-out/failed stop retains fence for later explicit cleanup. S47 total mutex+join deadline and S46 lock-free request_shutdown preserved. No real scheduled actions.
+- NEW tests/test_s48.py (9 deterministic methods), tools/S48_WINDOWS_TWO_STOP_CALLERS_SMOKE.py real Windows Tk/worker test, .github/workflows/s48-native-two-stoppers-fence.yml full S tests and S47–S10 native chain. NEW docs/tasks/S48.md; docs/login/S48_MULTI_STOP_FENCE_FLOW.md; docs/source/S48_MODEL.json.
+- GitHub commits: source cddfc5d512620d59077b0dc99840e22351cdb918; tests 5e72a43e5239df089eeee5c85a5c65ac1ea4992c; Windows smoke f21e5b9eab25ce74270bced0fb5fb47c1dce0895; workflow b8ddbe3ffada5f9fb1b0c452608c05804e0cc9b9.
+- S48 actual Windows run/log NOT VERIFIED during this checkpoint. The previously successful 754/754 Windows suite was S47, NOT S48. Do NOT claim S48 complete or EXE product ready until actual green job proof.
+- BLOCKERS unchanged: genuine signed Info, F05/F06 game open/login, authorized close-all, actual scheduled game action, original runtime/UI parity. S36 packaged EXE FAIL-CLOSED NOT PRODUCT. No Proxy runtime; unknown F02 accounts/check/Có and F09 stored Boolean encodings untouched; no real account writes, PC shutdown or fake scheduler. PLAN, old source, original ZIP unchanged.
+- STATUS S48_IMPLEMENTED_PENDING_FULL_WINDOWS_VERIFICATION.
+
+## S48 CHANGED FILES
+- src/login_schedule_worker.py (narrow stop concurrency fix)
+- tests/test_s48.py NEW
+- tools/S48_WINDOWS_TWO_STOP_CALLERS_SMOKE.py NEW
+- .github/workflows/s48-native-two-stoppers-fence.yml NEW
+- docs/tasks/S48.md; docs/login/S48_MULTI_STOP_FENCE_FLOW.md; docs/source/S48_MODEL.json NEW
+- STATE.md; PROJECT_STATUS.md append-only
+
+## NEXT_ACTION on CONTINUE — S48 CI VERIFICATION THEN S49
+- Read LIVE PLAN.md and STATE.md. Check actual S48 full Windows unit/native Actions and S36 fail-closed diagnostic, record run IDs and fix any REAL test failure before marking VERIFIED. If CI green, progress to smallest independently justified S49 safety fix or original-backed action. Preserve prior 754 S01–S47 tests, S47–S10 Windows and S36 diagnostics. Do not develop Proxy, guessed F02/F09 persistence, fake auth/game login or OS shutdown.
