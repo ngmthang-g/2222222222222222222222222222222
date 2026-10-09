@@ -104,9 +104,9 @@ def run():
                 view.btn_choose.winfo_x(),view.btn_choose.winfo_y(),
                 view.btn_choose.winfo_width(),view.btn_choose.winfo_height())
             assert report["real_tk_group"] and report["real_tk_chooser"]
-            assert report["chooser_bounding_rect"]==(5,11,135,24)
+            assert report["chooser_bounding_rect"]==(11,24,135,24)
             report["no_fake_game_open_button"]=(
-                len([w for w in view.group_game.winfo_children()
+                len([w for w in view.container.winfo_children()
                      if isinstance(w,tk.Button)])==1)
             assert report["no_fake_game_open_button"]
 

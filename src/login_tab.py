@@ -16,8 +16,10 @@ from login_path import (
 )
 
 GAME_GROUP_SIZE = (428, 65)
-CHOOSER_BOUNDS = (5, 11, 135, 24)
-STATUS_BOUNDS = (12, 43, 406, 18)
+# Relative to Login tab content frame; screenshot tab begins at x~5,y~59.
+# Place as siblings over LabelFrame to avoid ttk.LabelFrame's variable title inset.
+CHOOSER_BOUNDS = (11, 24, 135, 24)
+STATUS_BOUNDS = (18, 54, 406, 18)
 # F01 screenshot outer game group x11,y69..133; frame top y~59, outer
 # Login-tab geometry x6,y10 is a S25 anchor, not a full pixel parity claim.
 GROUP_FRAME_BOUNDS = (6, 10, *GAME_GROUP_SIZE)
@@ -44,7 +46,7 @@ class TLMLoginPathTab:
         self.group_game.place(x=GROUP_FRAME_BOUNDS[0], y=GROUP_FRAME_BOUNDS[1],
                               width=GAME_GROUP_SIZE[0], height=GAME_GROUP_SIZE[1])
         self.btn_choose = tk.Button(
-            self.group_game, text="Chọn thư mục game",
+            self.container, text="Chọn thư mục game",
             background="RoyalBlue", foreground="white",
             font=("Segoe UI", 9, "bold"),
             command=self._select_game_directory,
@@ -53,7 +55,7 @@ class TLMLoginPathTab:
                               width=CHOOSER_BOUNDS[2], height=CHOOSER_BOUNDS[3])
         # F01 shows a second 'Mở game' button at x157..232. F05 game launch
         # is absent, so S25 reserves its area instead of adding a fake action.
-        self.lbl_game_dir = tk.Label(self.group_game, anchor="w", font=("Segoe UI", 8),
+        self.lbl_game_dir = tk.Label(self.container, anchor="w", font=("Segoe UI", 8),
                                       text="Đường dẫn game: (Chưa chọn)")
         # Original F04 initial label was hidden until _show_game_dir_status.
         self.lbl_game_dir.place_forget()
