@@ -1,4 +1,4 @@
-"""S10–S14: read-only Tk Start, live DWM preview, grid and ordering.
+"""S10–S15: read-only Tk Start, live DWM preview, grid/order/refresh.
 
 Only S08 Win32-observed HWND/PID/title snapshots delivered by S09's worker
 are displayed. S11 DWM previews use actual Win32 HWND+PID and real compositor
@@ -104,6 +104,12 @@ class TLMStartTab:
         self.preview_grid_select.pack(side="left", padx=(4, 0))
         self.preview_grid_select.bind(
             "<<ComboboxSelected>>", self._set_manual_preview_grid, add="+")
+        # C15: verified main-preview "Làm mới" is a full DWM rebuild,
+        # NOT just a label update or forced memory/game-process scan.
+        self.btn_refresh_preview = ttk.Button(
+            self.preview_controls, text="Làm mới",
+            command=self.refresh_window_preview_list)
+        self.btn_refresh_preview.pack(side="left", padx=(8, 0))
         self.preview_order = PreviewOrder()
         self._observed_windows = ()
         self.preview_status = ttk.Label(
@@ -260,6 +266,65 @@ class TLMStartTab:
             return False
         self._active_windows = self.preview_order.ordered(self._observed_windows)
         self._relayout_tiles()
+        return True
+
+    def _clear_window_preview_list(self) -> None:
+        """C15: unregister DWM BEFORE destroying preview Tk item frames.
+
+        Keep the C09 choice and C17 source-HWND ordering; they are user state,
+        not disposable DWM frame resources.
+        """
+        self._drop_previews()
+        for item in tuple(self._tile_items.values()):
+            item[0].destroy()
+        self._tile_items.clear()
+        self._active_windows = ()
+        self._observed_windows = ()
+
+    def refresh_window_preview_list(self) -> bool:
+        """C15: explicit real full-refresh from S09's immutable cache only.
+
+        No Win32 EnumWindows, game memory reads or new authorization. Must
+        clear stale DWM resources even when snapshot access fails. E03 owns
+        Start visibility and permits this command only while selected/active.
+        """
+        if self._closed or not self.poller.active:
+            return False
+        try:
+            if not self.container.winfo_viewable():
+                return False
+        except Exception:
+            return False
+
+        # Read only the existing O(1) S09 cache. Do not guess whether the
+        # original "Làm mới" caused fresh game-process discovery.
+        try:
+            snapshot = self.poller.producer.read_snapshot()
+            if not isinstance(snapshot, WindowSnapshot):
+                raise TypeError("INVALID_WINDOW_SNAPSHOT")
+        except Exception:
+            self._clear_window_preview_list()
+            self._render(StartReadOnlyState(
+                "ERROR", "Không thể đọc danh sách cửa sổ game"))
+            self.preview_status.configure(text="Preview lỗi: không đọc được cache")
+            return False
+
+        self._clear_window_preview_list()
+        try:
+            self._present_cached_snapshot(snapshot)
+        except Exception as exc:
+            self._clear_window_preview_list()
+            self._render(StartReadOnlyState(
+                "ERROR", "Không thể đọc danh sách cửa sổ game"))
+            self.preview_status.configure(text=f"Preview lỗi: {type(exc).__name__}")
+            return False
+        if not snapshot.valid:
+            self.preview_status.configure(text="Preview lỗi: cache không hợp lệ")
+        elif not snapshot.windows:
+            self.preview_status.configure(
+                text="Không tìm thấy cửa sổ game, hãy mở game trước.")
+        else:
+            self._schedule_preview()
         return True
 
     def _on_top_configure(self, event) -> None:

@@ -1,0 +1,38 @@
+name: S15 native full DWM thumbnail refresh and cache/permission lifecycle
+
+on:
+  push:
+    paths:
+      - "src/start_tab.py"
+      - "tests/test_s15.py"
+      - "tools/S15_WINDOWS_PREVIEW_REFRESH_SMOKE.py"
+      - ".github/workflows/s15-native-dwm-refresh.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-full-refresh:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v4
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S sources and tests
+        run: python -m compileall -q src tests tools/S15_WINDOWS_PREVIEW_REFRESH_SMOKE.py
+      - name: Run combined S01-S15 Python unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Real Windows native DWM full-refresh and revocation smoke
+        run: python tools/S15_WINDOWS_PREVIEW_REFRESH_SMOKE.py
+      - name: Upload native refresh evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s15-native-full-refresh-evidence
+          path: artifacts/s15/
+          if-no-files-found: warn
