@@ -230,7 +230,9 @@ class TLMMainApp:
             raise TypeError('Info permission snapshot required')
 
         def update_on_tk_thread() -> None:
-            if self._closed:
+            # S02 verifies marshaling on an __new__ shell fixture; a real
+            # constructed shell always has _closed, but that test seam does not.
+            if getattr(self, '_closed', False):
                 return
             self.apply_verified_permissions(
                 set(snapshot.authorized_keys) if snapshot.has_verified_payload else set(),

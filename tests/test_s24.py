@@ -87,8 +87,9 @@ class S24LifecycleTests(unittest.TestCase):
         lifecycle, calls = self.make_lifecycle()
         lifecycle.shutdown()
         self.assertEqual(calls, [
-            "start:start_tab", "stop:start_tab",
-            "close:login_tab", "close:start_tab", "close:info_tab"])
+            "start:info_tab", "stop:info_tab", "start:start_tab",
+            "stop:start_tab", "close:login_tab", "close:start_tab",
+            "close:info_tab"])
         self.assertTrue(lifecycle._closed)
         self.assertIsNone(lifecycle._active_refresh)
 
@@ -155,22 +156,23 @@ class S24LifecycleTests(unittest.TestCase):
         self.assertEqual(root.events[0][0],"<Destroy>")
         root.emit(Frame(None))
         self.assertFalse(app._closed)
-        self.assertEqual(calls,[])
+        self.assertEqual(calls,["start:info"])
         root.emit(root)
         self.assertTrue(app._closed)
-        self.assertEqual(calls,["close:info"])
+        self.assertEqual(calls,["start:info","stop:info","close:info"])
 
     def test_active_tab_stopped_on_root_destroy_and_not_twice(self):
         root, app, calls=self.make_app()
         app.apply_verified_permissions({"start_tab"})  # TEST-ONLY grants
         app.notebook.select(app._tab_frames["start_tab"])
         app._on_tab_changed()
-        self.assertEqual(calls,["start:start"])
+        self.assertEqual(calls,["start:info","stop:info","start:start"])
         root.emit(root)
         root.emit(root)
         app.shutdown()
         self.assertEqual(calls,[
-            "start:start", "stop:start", "close:start", "close:info"])
+            "start:info","stop:info","start:start",
+            "stop:start", "close:start", "close:info"])
         self.assertEqual(app.lifecycle.visible,{INFO_KEY})
         app.apply_verified_permissions({"start_tab"})
         self.assertEqual(app.lifecycle.visible,{INFO_KEY})
@@ -183,7 +185,7 @@ class S24LifecycleTests(unittest.TestCase):
         root.emit(root)
         root.pending.pop(0)()
         self.assertEqual(app.lifecycle.visible,{INFO_KEY})
-        self.assertEqual(calls,["close:info"])
+        self.assertEqual(calls,["start:info","stop:info","close:info"])
 
     def test_start_stop_after_widget_destroy_skips_render_and_tile_calls(self):
         tab=TLMStartTab.__new__(TLMStartTab)
