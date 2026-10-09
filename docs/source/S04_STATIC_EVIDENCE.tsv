@@ -1,0 +1,15 @@
+id	source	evidence_type	fact
+S04-E01	STATE.md previous NEXT_ACTION	continuity	S04 required Info view binding and combined tests
+S04-E02	E04 original app state	original static contract	root.after used for cross-thread Tk UI marshaling
+S04-E03	E07/E08 lifecycle	original static contract	Info heartbeat state and Tk destroy cleanup
+S04-E04	B12 original Info screenshot	visual baseline	Read-only Info labels and original 2.1.2 text
+S04-E05	src/info_binding.py	new source	One real InfoState/InfoTab/Notebook integration seam
+S04-E06	src/info_binding.py	new source	root.after(0) callback dispatch
+S04-E07	src/info_binding.py	new source	Sequence and snapshot identity gates discard stale grants
+S04-E08	src/info_binding.py	new source	Destroy event root-only and idempotent cleanup
+S04-E09	tests/test_s04.py	automated checks	Ten new lifecycle and stale-authorization tests
+S04-E10	.github/workflows/s04-source-tests.yml	CI infrastructure	Windows latest Python 3.10 compileall + full unittest
+S04-E11	GitHub Actions run 37867454367	CI verified	Job source-regression completed success
+S04-E12	GitHub Actions job 113617493218	CI log verified	Ran 31 tests in 0.035s; OK
+S04-E13	src/TLMTool.py	unchanged production entry	Still exits 2 with genuine Info/server missing
+S04-E14	Stage T build source	unverified gate	No rebuilt Windows EXE or visual/raster parity
