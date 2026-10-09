@@ -1,0 +1,70 @@
+{
+  "task": "S09",
+  "status": "S09_NATIVE_WINDOWS_WORKER_TK_67_TESTS_PASS_NO_GAME_RUNTIME",
+  "original_contracts": [
+    "docs/tasks/C01.md",
+    "docs/tasks/C02.md",
+    "docs/tasks/C04.md",
+    "docs/tasks/E03.md"
+  ],
+  "source_created": [
+    "src/start_polling.py",
+    "tests/test_s09.py",
+    "tools/S09_WINDOWS_START_POLLING_SMOKE.py",
+    ".github/workflows/s09-windows-start-polling.yml"
+  ],
+  "changes_to_existing_code": [],
+  "behavior": {
+    "native_win32_producer": true,
+    "worker_default_seconds": 3,
+    "tk_cache_consumer_ms": 2000,
+    "immutable_snapshot": true,
+    "revision_check": true,
+    "HWND_PID_reuse_deltas": true,
+    "stale_cache_revoked_on_stop": true,
+    "late_worker_publish_rejected": true,
+    "duplicate_worker_prevented": true,
+    "tk_timer_cancelled_on_tab_leave": true,
+    "game_memory_read": false,
+    "game_control": false,
+    "license_grant": false,
+    "proxy": false
+  },
+  "github_ci": {
+    "run": 37873565602,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37873565602",
+    "job_id": 113636843382,
+    "head_sha": "10aa388164c71e9c75b607e4e05235107192596f",
+    "conclusion": "success",
+    "python": "3.10",
+    "source_compile": "PASS",
+    "unittests_total": 67,
+    "unittests_passed": 67,
+    "new_s09_tests": 12,
+    "native_status": "PASS_NATIVE_WINDOWS_THREADED_START_CACHE",
+    "duration_seconds": 2.562,
+    "real_enum_runs": 1,
+    "real_top_windows": 68,
+    "worker_is_background": true,
+    "tk_consumer_on_main_thread": true,
+    "valid_cache_received": true,
+    "matched_games": 0,
+    "stop_revoked_cache": true,
+    "poller_closed": true
+  },
+  "artifact": {
+    "id": 11591396593,
+    "url": "https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37873565602/artifacts/11591396593",
+    "files": [
+      "win32_start_cache.json"
+    ]
+  },
+  "blockers": [
+    "No Thần Long game in CI, positive game detection NOT_RUN",
+    "Authentic server/heartbeat missing",
+    "No complete StartTab GUI or original game functionality",
+    "No Windows Nuitka product EXE",
+    "Exact C01 game class/title Boolean grouping UNKNOWN"
+  ],
+  "next_action": "S10 — build read-only Start HWND/PID/title view consuming true S09 cache and lifecycle, with native Windows Tk regressions, preserving Info-only auth and no fake actions"
+}
