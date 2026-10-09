@@ -220,6 +220,12 @@ class F09ScheduleEvaluationWorker:
             self._pending_stop_callers -= 1
             if cleaned and self._pending_stop_callers == 0 and not self._closed:
                 self._stop_requested.clear()
+                # S49: request_shutdown() is deliberately lock-free for Tk.
+                # It can set the permanent closed latch while this clear is
+                # in flight. Reassert the one-way fence if closure won that
+                # race; a shutdown after this check sets it independently.
+                if self._closed:
+                    self._stop_requested.set()
 
     def stop(self, timeout: float = 2.0) -> bool:
         """Bound mutex plus join; preserve ALL concurrent cancellation intents.
