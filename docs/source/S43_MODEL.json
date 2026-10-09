@@ -1,0 +1,27 @@
+{
+  "task": "S43",
+  "status": "WINDOWS_VERIFY_PENDING",
+  "kind": "narrow production concurrency correction",
+  "target": "src/login_schedule_worker.py",
+  "original_evidence": [
+    "docs/tasks/F09.md",
+    "docs/tasks/S42.md"
+  ],
+  "fixes": [
+    "join-cleanup/start resurrection race via lifecycle mutex",
+    "unbounded stop despite timeout under stuck now() callback",
+    "late in-memory events after cancellation",
+    "status getter blocked by clock-owned _lock"
+  ],
+  "test_unit": "tests/test_s43.py",
+  "new_unit_methods": 14,
+  "native_smoke": "tools/S43_WINDOWS_F09_STOP_RACE_SMOKE.py",
+  "workflow": ".github/workflows/s43-native-f09-stop-races.yml",
+  "actual_game_actions": "NOT_CONNECTED",
+  "f09_bool_encoding": "UNKNOWN",
+  "f02_check_captcha_mapping": "UNKNOWN",
+  "info_signature": "NOT_CONNECTED",
+  "product_exe": "NOT_PRODUCT",
+  "no_proxy_runtime": true,
+  "next_action": "S44: verified F09 cancellation and Tk preview lifecycle integration, without unauthorized game actions"
+}
