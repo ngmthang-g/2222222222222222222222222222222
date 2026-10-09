@@ -1,0 +1,48 @@
+{
+  "task": "S20",
+  "status": "S20_NATIVE_COMBINED_THREE_TEST_OWNED_HWND_252_UNIT_PASS_GAME_NOT_RUN",
+  "original_evidence": [
+    "docs/tasks/C20.md",
+    "docs/tasks/C05.md",
+    "docs/tasks/C09.md",
+    "docs/tasks/C17.md",
+    "docs/tasks/C18.md",
+    "docs/tasks/C19.md"
+  ],
+  "new_files": [
+    "tests/test_s20.py",
+    "tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py",
+    ".github/workflows/s20-native-three-hwnd.yml"
+  ],
+  "production_files_changed": [],
+  "test_results": {
+    "run": 37890935461,
+    "job": 113691475538,
+    "conclusion": "success",
+    "unit_total": 252,
+    "unit_pass": 252,
+    "native_status": "PASS_NATIVE_S20_THREE_HWND_DWM_MASTER_LAYOUT_INPUT_MODEL",
+    "native_sources": 3,
+    "physical_grid": "3x4",
+    "preview_grid": "2x",
+    "master": "2nd preview HWND first physical layout slot",
+    "independent_preview_reorder": true,
+    "dwm_native_active": 3,
+    "slave_count": 2,
+    "s19_input": "pure model, 0 native game input",
+    "shrink_three_to_two": true,
+    "revoke_dwm_cleans": true,
+    "unrelated_untouched": true,
+    "stage_s_run": 37890935189,
+    "stage_s_conclusion": "success"
+  },
+  "unknowns": [
+    "original C06 grid geometry math",
+    "original Win32 game DWM pixel parity",
+    "real RoleName and HP",
+    "exact C19 WM_MY_SYNC_KEY payload",
+    "real signed entitlement/heartbeat",
+    "complete executable"
+  ],
+  "next_action": "S21 E01 Windows named mutex lifecycle guard, test two test-owned processes only; original E01/D01 audit already completed, do not redo, preserve fail-closed bootstrap and 252 tests"
+}
