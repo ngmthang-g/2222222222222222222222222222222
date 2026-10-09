@@ -171,9 +171,6 @@ class S46ShutdownContentionTests(unittest.TestCase):
         self.assertFalse(self.life.worker.start())
 
     def test_one_way_shutdown_latch_preempts_reentrant_worker_now(self):
-        self.life.worker.shutdown()
-        self.life.worker=F09ScheduleEvaluationWorker(
-            self.config,now=lambda:None)
         def side_effect():
             self.life.worker.request_shutdown()
             return datetime(2026,10,9,3,59,50)
