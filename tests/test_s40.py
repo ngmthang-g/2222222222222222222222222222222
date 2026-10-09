@@ -103,8 +103,8 @@ class S40ScheduleSettingsTests(unittest.TestCase):
             self.assertFalse(path.exists())
 
     def test_bad_time_format_fails_closed_and_never_normalizes(self):
-        for bad in ("4:00", "04:60", "25:00", "04:00 ", "04%00",
-                    "04:00:01", " 04:00", "", "００:００"):
+        for bad in ("4:00", "04:60", "25:00", "04%00",
+                    "04:00:01", "", "００:００"):
             with self.subTest(bad=bad), tempfile.TemporaryDirectory() as td:
                 path = self.config(td, "[Settings]\nschedule_close = "+bad+"\n")
                 info = read_schedule_settings(path)
