@@ -147,7 +147,8 @@ class S21MutexTests(unittest.TestCase):
 
         mocktk=types.SimpleNamespace(
             Tk=lambda: timeline.append("Tk_CREATED"),TclError=Exception)
-        with patch.object(TLMTool,"StartupDiagnostics",return_value=contextlib.nullcontext()), \
+        with patch.object(TLMTool,"SessionTee",return_value=contextlib.nullcontext()), \
+             patch.object(TLMTool,"StartupDiagnostics",return_value=contextlib.nullcontext()), \
              patch.object(TLMTool,"SingleInstanceMutex",return_value=duplicate()), \
              patch.dict(sys.modules,{"tkinter":mocktk}):
             with self.assertRaises(InstanceAlreadyRunning):
@@ -170,7 +171,8 @@ class S21MutexTests(unittest.TestCase):
             def shutdown(self): timeline.append("app_shutdown")
         mocktk=types.SimpleNamespace(Tk=lambda: (timeline.append("Tk"),Root())[1],
                                      TclError=Exception)
-        with patch.object(TLMTool,"StartupDiagnostics",return_value=contextlib.nullcontext()), \
+        with patch.object(TLMTool,"SessionTee",return_value=contextlib.nullcontext()), \
+             patch.object(TLMTool,"StartupDiagnostics",return_value=contextlib.nullcontext()), \
              patch.object(TLMTool,"SingleInstanceMutex",return_value=Guard()), \
              patch.object(TLMTool,"TLMMainApp",App), \
              patch.dict(sys.modules,{"tkinter":mocktk}):
@@ -192,7 +194,8 @@ class S21MutexTests(unittest.TestCase):
                 timeline.append("app_fail")
                 raise RuntimeError("no actual Info auth")
         mocktk=types.SimpleNamespace(Tk=lambda:Root(),TclError=Exception)
-        with patch.object(TLMTool,"StartupDiagnostics",return_value=contextlib.nullcontext()), \
+        with patch.object(TLMTool,"SessionTee",return_value=contextlib.nullcontext()), \
+             patch.object(TLMTool,"StartupDiagnostics",return_value=contextlib.nullcontext()), \
              patch.object(TLMTool,"SingleInstanceMutex",return_value=Guard()), \
              patch.object(TLMTool,"TLMMainApp",BrokenApp), \
              patch.dict(sys.modules,{"tkinter":mocktk}):

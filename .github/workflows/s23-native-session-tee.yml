@@ -1,0 +1,51 @@
+name: S23 E06 central session stdout stderr tee native Windows
+
+on:
+  push:
+    paths:
+      - "src/session_logger.py"
+      - "src/TLMTool.py"
+      - "tests/test_s21.py"
+      - "tests/test_s22.py"
+      - "tests/test_s23.py"
+      - "tools/S23_WINDOWS_TEE_SMOKE.py"
+      - ".github/workflows/s23-native-session-tee.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-session-tee:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact GitHub commit
+        uses: actions/checkout@v4
+      - name: Set up Windows Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile all Stage S source and Windows native tests
+        run: python -m compileall -q src tests tools/S23_WINDOWS_TEE_SMOKE.py tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py tools/S21_WINDOWS_MUTEX_SMOKE.py tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: Run full S01-S23 unit tests
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Actual Windows isolated two-session tee and startup failures
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: Recheck actual Windows S22 fail-closed diagnostics
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: Recheck actual Windows S21 competing mutex processes
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: Recheck S20 three TEST-OWNED HWND native preview
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: Upload test-owned log and Win32 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s23-native-tee-session-and-regressions
+          path: |
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+          if-no-files-found: warn

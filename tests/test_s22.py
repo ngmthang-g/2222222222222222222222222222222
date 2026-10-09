@@ -201,6 +201,7 @@ class DiagnosticsS22Tests(unittest.TestCase):
         tk=types.SimpleNamespace(Tk=lambda:(observed.append("Tk"),Root())[1],
                                  TclError=Exception)
         with patch.object(TLMTool,"SingleInstanceMutex",return_value=Mutex()), \
+             patch.object(TLMTool,"SessionTee",return_value=contextlib.nullcontext()), \
              patch.object(TLMTool,"StartupDiagnostics",return_value=Diagnostics()), \
              patch.object(TLMTool,"TLMMainApp",App), \
              patch.dict(sys.modules,{"tkinter":tk}):
@@ -220,6 +221,7 @@ class DiagnosticsS22Tests(unittest.TestCase):
                 raise DiagnosticSetupError("NO_LOG")
             def __exit__(self,*_):seen.append("diag_exit")
         with patch.object(TLMTool,"SingleInstanceMutex",return_value=M()), \
+             patch.object(TLMTool,"SessionTee",return_value=contextlib.nullcontext()), \
              patch.object(TLMTool,"StartupDiagnostics",return_value=D()):
             with self.assertRaises(DiagnosticSetupError):
                 TLMTool.run_with_info_factory(lambda _:None)
