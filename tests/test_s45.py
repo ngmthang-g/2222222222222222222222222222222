@@ -188,7 +188,6 @@ class S45TabLifetimeTests(unittest.TestCase):
         self.assertTrue(self.life.closed)
         self.assertEqual(self.life.status,"CLOSING_WORKER")
         self.assertTrue(self.life.worker._cancel.is_set())
-        self.assertEqual(self.life.worker.blocked_occurrences(),() if not release.is_set() else self.life.worker.blocked_occurrences()) if False else None
         release.set()
         self.assertTrue(self.life.finish_close(2))
         self.assertFalse(self.life.worker.thread_alive)
