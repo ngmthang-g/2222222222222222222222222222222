@@ -40,6 +40,7 @@ class F09ReadOnlyTabLifetime:
         self._settings = settings
         self._closed = False
         self._status = "IDLE"
+        self._preview_teardown_failed = False
         self._label = label
         # S44 preview's own <Destroy> callback is registered first. add='+'
         # retains that owner and any other application-bound handlers.
@@ -115,12 +116,28 @@ class F09ReadOnlyTabLifetime:
         """
         self._tk_thread_only()
         if self._closed:
-            return not self._worker.thread_alive
+            return not self._worker.thread_alive and not self._preview_teardown_failed
         self._closed = True  # one-way gate BEFORE any reentrant callbacks
-        self._preview.shutdown()
-        completed = self._worker.shutdown(timeout=0)
-        self._status = "CLOSED" if completed else "CLOSING_WORKER"
-        return completed
+        # Tk teardown callbacks can unexpectedly raise. Failure to clean the
+        # preview must NEVER skip worker cancellation; the worker may be
+        # evaluating due times on its own independent 20s thread.
+        try:
+            self._preview.shutdown()
+        except Exception:
+            # No exception text: the supplied data may contain credentials.
+            self._preview_teardown_failed = True
+        finally:
+            # S46: do not call worker.shutdown(timeout=0) from Tk. Its
+            # lifecycle lock can be held by ANOTHER stop() doing join(), and
+            # even a 0s join still waits for that lock. This method never
+            # acquires either worker lock and does not join any thread.
+            self._worker.request_shutdown()
+        completed = not self._worker.thread_alive
+        if self._preview_teardown_failed:
+            self._status = "BLOCKED_PREVIEW_TEARDOWN"
+        else:
+            self._status = "CLOSED" if completed else "CLOSING_WORKER"
+        return completed and not self._preview_teardown_failed
 
     def finish_close(self, timeout: float = 2.0) -> bool:
         """Join an already-cancelled worker; no Tk calls.
@@ -131,5 +148,8 @@ class F09ReadOnlyTabLifetime:
         if not self._closed:
             raise RuntimeError("S45_CLOSE_MUST_BE_REQUESTED_FIRST")
         finished = self._worker.shutdown(timeout=timeout)
-        self._status = "CLOSED" if finished else "CLOSING_WORKER"
-        return finished
+        if self._preview_teardown_failed:
+            self._status = "BLOCKED_PREVIEW_TEARDOWN"
+        else:
+            self._status = "CLOSED" if finished else "CLOSING_WORKER"
+        return finished and not self._preview_teardown_failed
