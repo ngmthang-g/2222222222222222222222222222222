@@ -1,0 +1,86 @@
+name: S37 Windows Tk Login F01 100 rows in-memory legacy preservation
+
+on:
+  push:
+    paths:
+      - "src/login_tab.py"
+      - "src/login_account_rows.py"
+      - "tests/test_s37.py"
+      - "tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py"
+      - ".github/workflows/s37-native-login-rows.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s37-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Compile Stage S and S37
+        run: python -m compileall -q src tests tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+      - name: Run complete S01-S37 regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S37 genuine Tk F01 100 rows and legacy file untouched
+        run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+      - name: S35 genuine Windows Start/Login gated bootstrap
+        run: python tools/S35_WINDOWS_E03_REAL_TAB_SMOKE.py
+      - name: S34 native offline ADB intake
+        run: python tools/S34_WINDOWS_OFFLINE_INTAKE_SMOKE.py
+      - name: S33 native serial reconnect guard
+        run: python tools/S33_WINDOWS_ADB_EPOCH_SMOKE.py
+      - name: S32 native field provenance
+        run: python tools/S32_WINDOWS_HINT_PROVENANCE_SMOKE.py
+      - name: S31 native offline ADB clone identity
+        run: python tools/S31_WINDOWS_OFFLINE_ADB_IDENTITY_SMOKE.py
+      - name: S30 native read-only process provenance
+        run: python tools/S30_WINDOWS_COUNT_PROVENANCE_SMOKE.py
+      - name: S29 native Toolhelp process count
+        run: python tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py
+      - name: S28 native x64 PE inputs
+        run: python tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py
+      - name: S27 delayed HWND
+        run: python tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py
+      - name: S26 Win32 preflight
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S25 Login chooser regression
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 Tk destroy
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 session tee
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 diagnostics
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 Win32 mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 multi HWND
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 Start HWND
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s37-test-owned-native-windows-login-100-rows
+          path: |
+            artifacts/s37/
+            artifacts/s35/
+            artifacts/s34/
+            artifacts/s33/
+            artifacts/s32/
+            artifacts/s31/
+            artifacts/s30/
+            artifacts/s29/
+            artifacts/s28/
+            artifacts/s27/
+            artifacts/s26/
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn

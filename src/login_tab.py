@@ -60,6 +60,11 @@ class TLMLoginPathTab:
         # Original F04 initial label was hidden until _show_game_dir_status.
         self.lbl_game_dir.place_forget()
         self._load_config()
+        # S37: F01 100 real selection/entry/captcha widgets, memory-only.
+        # F02 persistent check boolean token and legacy 'Có' migration UNKNOWN:
+        # NEVER load/rewrite Settings.accounts with guessed serialization.
+        from login_account_rows import TLMAccountRows
+        self.account_rows = TLMAccountRows(self.container)
         self.container.bind("<Destroy>", self._on_destroy, add="+")
 
     def _show_game_dir_status(self, text: str) -> None:
@@ -130,4 +135,5 @@ class TLMLoginPathTab:
         if self._closed:
             return
         self._closed = True
+        self.account_rows.shutdown()
         self.game_dir = GameDirectoryResult(None, "")
