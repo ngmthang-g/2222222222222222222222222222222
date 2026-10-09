@@ -125,8 +125,13 @@ class F09ScheduleEvaluationWorker:
                     self._status = "CLOSED" if self._closed else "STOPPING"
                     return False
             except Exception:
-                # Do not print exceptions: caller settings may contain secrets.
-                self._status = "BLOCKED_CLOCK"
+                # S52: a clock source can fail AFTER an independent stop
+                # or lock-free Tk shutdown. Cancellation takes precedence
+                # over diagnostic fault status; no callback exception text.
+                self._status = (
+                    "CLOSED" if self._closed else
+                    "STOPPING" if self._stop_requested.is_set() else
+                    "BLOCKED_CLOCK")
                 return False
             self._clock = clock
             self._audit.clear()
@@ -171,7 +176,12 @@ class F09ScheduleEvaluationWorker:
             # NEVER promote errors to game actions or print settings contents.
             self._cancel.set()
             with self._lock:
-                self._status = "BLOCKED_WORKER"
+                # S52: a late native worker failure must not overwrite a
+                # shutdown/stop signal that was already delivered lock-free.
+                self._status = (
+                    "CLOSED" if self._closed else
+                    "STOPPING" if self._stop_requested.is_set() else
+                    "BLOCKED_WORKER")
         # Avoid clearing shared clock here; stop() owns join and cleanup.
 
     def poll_once(self) -> tuple[BlockedScheduleOccurrence, ...]:
@@ -196,7 +206,13 @@ class F09ScheduleEvaluationWorker:
                 self._ticks += 1
             except Exception:
                 self._cancel.set()
-                self._status = "BLOCKED_CLOCK"
+                # S52: if an external cancellation arrived while _now()
+                # or clock.poll() was blocked, do not relabel closure as
+                # BLOCKED_CLOCK. Preserve the true stop/shutdown intent.
+                self._status = (
+                    "CLOSED" if self._closed else
+                    "STOPPING" if self._stop_requested.is_set() else
+                    "BLOCKED_CLOCK")
                 return ()
             blocked = tuple(
                 BlockedScheduleOccurrence(event.kind, event.planned_time)
