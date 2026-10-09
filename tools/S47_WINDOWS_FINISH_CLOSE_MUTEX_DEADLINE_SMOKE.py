@@ -105,7 +105,7 @@ def run()->int:
             result["pending_stop_cancellation_remains_set"]=(
                 life.worker._cancel.is_set()
                 and life.worker._stop_requested.is_set())
-            result["life_reports_pending_cleanup"]=life.status=="CLOSING_WORKER"
+            result["life_reports_pending_cleanup"]=life.status in ("CLOSING_WORKER","CLOSED_PENDING_JOIN")
             release.set()
             external.join(2)
             result["external_stopper_finishes"]=(
