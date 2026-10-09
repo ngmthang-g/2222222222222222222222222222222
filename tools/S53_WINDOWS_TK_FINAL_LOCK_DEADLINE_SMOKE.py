@@ -116,8 +116,8 @@ def run() -> int:
             stopper.start()
             bounded = finished.wait(.28)
             result["finish_close_returns_within_total_deadline"] = (
-                bounded and outcomes == [(False, outcomes[0][1])]
-                and outcomes[0][1] < .25 if outcomes else False)
+                bounded and len(outcomes) == 1 and outcomes[0][0] is False
+                and outcomes[0][1] < .25)
             result["pending_cancel_fence_not_cleared"] = (
                 life.worker._closed and life.worker._cancel.is_set()
                 and life.worker._stop_requested.is_set())
