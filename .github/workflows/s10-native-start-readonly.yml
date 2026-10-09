@@ -1,0 +1,38 @@
+name: S10 Windows Start read-only auth lifecycle
+
+on:
+  push:
+    paths:
+      - "src/start_tab.py"
+      - "tests/test_s10.py"
+      - "tools/S10_WINDOWS_START_VIEW_SMOKE.py"
+      - ".github/workflows/s10-native-start-readonly.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  start-readonly:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout committed source
+        uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile Stage S modules and native smoke
+        run: python -m compileall -q src tests tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: S01–S10 combined source regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Native authorized Start read-only lifecycle
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - name: Upload native evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s10-windows-start-readonly
+          path: artifacts/s10/
+          if-no-files-found: warn
