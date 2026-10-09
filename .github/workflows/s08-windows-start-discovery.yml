@@ -1,0 +1,38 @@
+name: S08 Windows Start HWND discovery
+
+on:
+  push:
+    paths:
+      - "src/start_windows.py"
+      - "tests/test_s08.py"
+      - "tools/S08_WINDOWS_DISCOVERY_SMOKE.py"
+      - ".github/workflows/s08-windows-start-discovery.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  win32-readonly-start:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact GitHub source
+        uses: actions/checkout@v4
+      - name: Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile source/tests/native smoke
+        run: python -m compileall -q src tests tools/S08_WINDOWS_DISCOVERY_SMOKE.py
+      - name: Full S01-S08 source tests
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Native Win32 read-only enumeration and title timeout
+        run: python tools/S08_WINDOWS_DISCOVERY_SMOKE.py
+      - name: Upload native enumeration evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s08-start-window-discovery
+          path: artifacts/s08/
+          if-no-files-found: warn
