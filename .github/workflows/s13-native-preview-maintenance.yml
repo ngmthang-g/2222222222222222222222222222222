@@ -1,0 +1,39 @@
+name: S13 Windows adaptive DWM preview maintenance
+
+on:
+  push:
+    paths:
+      - "src/preview_maintenance.py"
+      - "src/start_tab.py"
+      - "tests/test_s13.py"
+      - "tools/S13_WINDOWS_PREVIEW_MAINTENANCE_SMOKE.py"
+      - ".github/workflows/s13-native-preview-maintenance.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  adaptive-preview:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile source and test scripts
+        run: python -m compileall -q src tests tools/S13_WINDOWS_PREVIEW_MAINTENANCE_SMOKE.py
+      - name: Combined S01-S13 unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Native Windows Tk C04 adaptive preview maintenance and permission revoke
+        run: python tools/S13_WINDOWS_PREVIEW_MAINTENANCE_SMOKE.py
+      - name: Upload native maintenance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s13-native-preview-maintenance
+          path: artifacts/s13/
+          if-no-files-found: warn

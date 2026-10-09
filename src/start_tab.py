@@ -1,4 +1,4 @@
-"""S10/S11: real read-only Tk Start window-list + DWM preview slice.
+"""S10–S13: read-only Tk Start HWND list, DWM preview and maintenance.
 
 Only S08 Win32-observed HWND/PID/title snapshots delivered by S09's worker
 are displayed. S11 DWM previews use actual Win32 HWND+PID and real compositor
@@ -9,6 +9,8 @@ The shell must grant the Start tab from a separately verified server snapshot.
 from __future__ import annotations
 
 from dataclasses import dataclass
+
+from preview_maintenance import TkPreviewMaintenance
 
 from dwm_preview import (
     ITEM_WIDTH, ITEM_HEIGHT, THUMB_WIDTH, THUMB_HEIGHT,
@@ -109,6 +111,10 @@ class TLMStartTab:
             self.container, producer if producer is not None else StartWindowProducer(),
             self._on_cache_event, interval_ms=interval_ms,
         )
+        # C04: independent 800/2000ms housekeeping, *not* DWM image FPS.
+        # It consumes the exact same S09 cache, never invokes EnumWindows.
+        self.maintenance = TkPreviewMaintenance(
+            self.container, self.poller.producer, self._on_maintenance_tick)
         self.container.bind("<Destroy>", self._on_destroy, add="+")
 
     @property
@@ -127,12 +133,31 @@ class TLMStartTab:
                 values=(row.title, str(row.pid), str(row.hwnd)),
             )
 
+    def _present_cached_snapshot(self, snapshot: WindowSnapshot) -> None:
+        """Rebuild only when a real cached state/window list changed (C04)."""
+        state = readonly_state(snapshot)
+        if state != self._state:
+            self._render(state)
+        windows = snapshot.windows if snapshot.valid else ()
+        if windows != self._active_windows:
+            self._sync_tiles(windows)
+
     def _on_cache_event(self, event: StartCacheEvent) -> None:
         if self._closed or not self.poller.active:
             return
-        self._render(readonly_state(event.snapshot))
-        self._sync_tiles(event.snapshot.windows if event.snapshot.valid else ())
+        self._present_cached_snapshot(event.snapshot)
         self._schedule_preview()
+
+    def _on_maintenance_tick(self, snapshot: WindowSnapshot) -> None:
+        """Selected Start housekeeping on Tk: no discovery and no fake HP."""
+        if self._closed or not self.poller.active or not self.maintenance.active:
+            return
+        self._present_cached_snapshot(snapshot)
+        # With same revision, still re-check source HWND+PID using native DWM
+        # backend; this can drop a closed HWND before the next 2s list poll.
+        # No BitBlt, screenshot, frame extraction or game input.
+        if self._preview_after is None:
+            self._refresh_dwm()
 
     def _sync_tiles(self, windows) -> None:
         """Only genuine S09 discovery rows get preview surfaces, never fakes."""
@@ -261,8 +286,10 @@ class TLMStartTab:
             return
         self._render(StartReadOnlyState("PENDING", "Đang kiểm tra cửa sổ game..."))
         self.poller._start_refresh()
+        self.maintenance.start()
 
     def _stop_refresh(self) -> None:
+        self.maintenance.stop()
         self.poller._stop_refresh()
         self._drop_previews()
         self._sync_tiles(())
@@ -278,6 +305,7 @@ class TLMStartTab:
         if self._closed:
             return
         self._closed = True
+        self.maintenance.shutdown()
         self._drop_previews()
         for sequence, binding in self._top_handlers:
             if binding:
