@@ -163,6 +163,10 @@ def run():
             "info_tab": lambda parent: TLMInfoTab(parent),
             "start_tab": build,
         })
+        # S01 shell intentionally starts withdrawn. Match S10/S14/S15
+        # production-like visibility before exercising guarded C16 buttons.
+        app.position_window_top_right()
+        root.geometry("820x800+140+50")
         root.update()
         report["default_info_only"] = app.lifecycle.visible == {"info_tab"} and not built
         assert report["default_info_only"]
