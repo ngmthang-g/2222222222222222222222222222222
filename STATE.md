@@ -5877,3 +5877,21 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 
 ## NEXT_ACTION on CONTINUE — S28
 - Read LIVE PLAN.md/STATE.md and check docs/tasks/S28.md; inspect ALREADY AUDITED F05/D06 original launcher/safe-env/resources.dat contract and existing source for overlap. Implement next smallest evidenced **F05 safe launch environment / executable+x64 payload preflight** with TEST-owned files/environment, no guessed original whitelist, game spawn/injection, fake Mở game, license grant or Proxy runtime. Keep 368 unit and S27/S26/S25/S24/S23/S22/S21/S20/S10 native regressions green. Update docs/status checkpoint.
+
+
+## S28 VERIFIED — F05/D06 X64 PE STRUCTURAL INPUTS + EXPLICIT WINDOWS ENV / 390 WINDOWS TESTS PASS
+- Continued from LIVE S27 NEXT_ACTION, reread PLAN.md/STATE.md, checked docs/tasks/S28.md ABSENT; audited original F05/D06 and the existing S25/S26/S27 source, verified no safe environment/PE inspection module existed. No original ZIP, PLAN or S01–S27 production changes.
+- NEW src/login_launch_inputs.py: `inspect_x64_pe` checks MZ/PE32+ AMD64 headers, executable image/EXE vs DLL bits, section metadata and file bounds READ-ONLY, rejects opaque/truncated x86/PE imposters; `build_audited_windows_env` requires caller-supplied explicit Windows essentials allowlist (original exact list UNKNOWN), adds `TLM_PROFILE` profile 1..5, filters Python/VirtualEnv/Proxy keys, requires local SystemRoot. `prepare_launch_inputs` consumes S26 preflight, validates game `Thần Long  Mobile.exe` non-DLL and ONLY active `package_root/data/resources.dat` x64 DLL; result is STRUCTURAL_INPUTS_ONLY_NOT_LAUNCHED; no guessed original cwd/flags, no spawn/inject/Proxy.
+- NEW tools/S28_TEST_PE_FIXTURE.py produces synthetic TEST-only PE headers **NOT loadable game exe**, tests/test_s28.py (22 cases), tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py real Windows test-owned temp filesystem + native SystemRoot input, .github/workflows/s28-native-launch-inputs.yml. Existing modules unchanged.
+- First source commit f1bc4ec5f2e9766b2e969565636a3b5879269404, Windows CI 37906449674 **FAILED 1 NEW TEST only**, because test compared Windows Path backslash against POSIX slash. Fixed just test assertion via Path.parts in final code commit **a58951c2e4e1b522dc0ceafadd4138c188b0e915**.
+- **ACTUAL Windows Python3.10 [S28 run 37906555448](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37906555448), job 113741305612 COMPLETED SUCCESS**: compileall PASS, **390/390 S01–S28 units PASS**, **PASS_NATIVE_S28_F05_ENV_X64_PE_INPUTS_NO_LAUNCH**. Windows confirms structural synthetic x64 non-DLL/DLL, actual SystemRoot restricted env, exact active resources.dat, rejects x86/truncated file, denied/revoked fake-test-only authority. Same workflow native S27/S26/S25/S24/S23/S22/S21/S20/S10 ALL PASS, artifact **11603899644**. Independent Stage S source [37906555280](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/37906555280) COMPLETED SUCCESS on same implementation.
+- **STATUS S28_NATIVE_WINDOWS_X64_PE_ENV_390_UNIT_PASS_NO_GAME_LAUNCH**. Real signed Info, actual combined running game+emulator count, original env whitelist, cwd, injection, game and production EXE remain MISSING/UNKNOWN/NOT_RUN/NOT_BUILT. Synthetic structural PE is not proof of runnable game or payload. No Proxy runtime.
+
+## S28 CHANGED FILES
+- src/login_launch_inputs.py; tests/test_s28.py; tools/S28_TEST_PE_FIXTURE.py
+- tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py; .github/workflows/s28-native-launch-inputs.yml
+- docs/tasks/S28.md; docs/source/S28_F05_D06_LAUNCH_INPUTS_FLOW.md; docs/source/S28_MODEL.json
+- STATE.md; PROJECT_STATUS.md (append-only checkpoint)
+
+## NEXT_ACTION on CONTINUE — S29
+- Read LIVE PLAN.md/STATE.md and check docs/tasks/S29.md. Inspect original E04 shared running EXE/emulator count and existing S08/S09 native Windows discovery to avoid duplication. Add genuine read-only TEST-owned native **game process/window count evidence**, explicitly mark that partial window view is NOT total combined game+emulator count and MUST NOT directly grant `check_account_limit` rights. No fake Mở game/injection or Proxy. Preserve 390 unit and S28/S27/S26/S25/S24/S23/S22/S21/S20/S10 native success; append checkpoint.

@@ -1,0 +1,46 @@
+{
+  "task": "S28",
+  "status": "S28_NATIVE_WINDOWS_X64_PE_ENV_390_UNIT_PASS_NO_GAME_LAUNCH",
+  "sources": [
+    "docs/tasks/F05.md",
+    "docs/tasks/D06.md",
+    "docs/login/F05_LAUNCHER_MODEL.json"
+  ],
+  "production_files_added": [
+    "src/login_launch_inputs.py"
+  ],
+  "unit_tests_added": 22,
+  "unit_tests_total": 390,
+  "helper": "tools/S28_TEST_PE_FIXTURE.py",
+  "native_smoke": "tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py",
+  "payload_relative_path": "data/resources.dat",
+  "original_env_whitelist": "UNKNOWN_CALLER_MUST_SPECIFY",
+  "required_local_windows_key": "SystemRoot",
+  "PE_checks": "DOS_MZ_PE32+_AMD64_DLL_TYPE_AND_STRUCTURE_ONLY",
+  "payload_binary_loaded": false,
+  "real_game": "NOT_RUN",
+  "genuine_Info": "NOT_AVAILABLE",
+  "injection": "NOT_IMPLEMENTED",
+  "proxy_runtime": "EXCLUDED",
+  "product_exe": "NOT_BUILT",
+  "first_red_windows_run": 37906449674,
+  "first_failure": "one new cross-platform Path separators assertion ONLY",
+  "fix_commit": "a58951c2e4e1b522dc0ceafadd4138c188b0e915",
+  "windows_run": 37906555448,
+  "windows_job": 113741305612,
+  "source_ci": 37906555280,
+  "native_artifact": 11603899644,
+  "native_regressions": [
+    "S28",
+    "S27",
+    "S26",
+    "S25",
+    "S24",
+    "S23",
+    "S22",
+    "S21",
+    "S20",
+    "S10"
+  ],
+  "next_action": "S29 inspect audited E04 aggregate Windows game/emulator counting and S08/S09 before implementing read-only partial process count that cannot grant full entitlement."
+}
