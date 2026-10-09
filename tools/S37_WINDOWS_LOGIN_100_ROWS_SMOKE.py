@@ -64,9 +64,15 @@ def run():
             r["real_select_all_can_clear"]=model.selection.selected_count==0
             model.entry_user[99].insert(0,"S37_TEST_USER")
             model.entry_pass[99].insert(0,"S37_TEST_PASSWORD")
+            # Test actual readonly user-choice behavior rather than interpreting
+            # Tcl's platform-specific textual representation of "values".
+            captcha_box=model.captcha_boxes[0]
+            observed_modes=[]
+            for mode_index in range(len(CAPTCHA_MODES)):
+                captcha_box.current(mode_index)
+                observed_modes.append(captcha_box.get())
             r["readonly_captcha_modes"]=(
-                tuple(model.captcha_boxes[0].tk.splitlist(
-                    model.captcha_boxes[0].cget("values")))==CAPTCHA_MODES
+                tuple(observed_modes)==CAPTCHA_MODES
                 and all(w.cget("state")=="readonly" for w in model.captcha_boxes))
             r["mask_toggle_preserves_in_memory_password"]=(
                 model.snapshot(99).password=="S37_TEST_PASSWORD")
