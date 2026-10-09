@@ -1,0 +1,63 @@
+{
+  "task": "S13",
+  "status": "S13_WINDOWS_ADAPTIVE_PREVIEW_112_TESTS_PASS_ACTUAL_GAME_NOT_RUN",
+  "contract": [
+    "docs/tasks/C04.md",
+    "docs/tasks/C03.md",
+    "docs/tasks/E03.md"
+  ],
+  "source_added": [
+    "src/preview_maintenance.py",
+    "tests/test_s13.py",
+    "tools/S13_WINDOWS_PREVIEW_MAINTENANCE_SMOKE.py",
+    ".github/workflows/s13-native-preview-maintenance.yml"
+  ],
+  "existing_source_changed": [
+    "src/start_tab.py"
+  ],
+  "constants": {
+    "short_delay_ms": 800,
+    "long_delay_ms": 2000,
+    "switch_literal": 6,
+    "chosen_long_at_count_6": true,
+    "original_boundary_operator": "UNKNOWN",
+    "ui_list_poll_ms": 2000,
+    "worker_seconds": 3,
+    "reposition_debounce_ms": 60,
+    "dwm_fps": "OS_COMPOSITOR_UNSET"
+  },
+  "native_ci": {
+    "run": 37880150984,
+    "job": 113657739751,
+    "sha": "0816fcabd9a725ddfcaeb629ca9c3182f0f5515f",
+    "conclusion": "success",
+    "compileall": "PASS",
+    "unit_tests": 112,
+    "unit_pass": 112,
+    "native": "PASS_NATIVE_S13_ADAPTIVE_CACHE_MAINTENANCE_AND_REVOCATION",
+    "test_source_type": "TEST_OWNED_REAL_TK_TOP_LEVEL_HWND_NOT_GAME",
+    "single_count_delay_ms": 800,
+    "six_count_delay_ms": 2000,
+    "invalid_cache_clears": true,
+    "recovery": true,
+    "real_source_closed_stale_rejected": true,
+    "entitlement_revocation_cancels": true
+  },
+  "regressions": {
+    "stage_s": 37880151015,
+    "s10": 37880151057,
+    "s11": 37880151065,
+    "s12": 37880151024,
+    "all": "success"
+  },
+  "blockers": [
+    "Actual game runtime NOT_RUN",
+    "Original exact six-count boundary UNKNOWN",
+    "Original HP/name and cache-age Boolean NOT_IMPLEMENTED",
+    "Original detached preview NOT_IMPLEMENTED",
+    "Original Start pixel parity NOT_RUN",
+    "Actual server license/heartbeat NOT_IMPLEMENTED",
+    "Standalone functional EXE NOT_BUILT"
+  ],
+  "next_action": "S14 C09/C17 Start 1x-5x DWM live preview grid and functional per-HWND reorder; original boundary unknowns explicitly labelled"
+}
