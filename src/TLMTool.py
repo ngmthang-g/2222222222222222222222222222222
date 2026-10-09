@@ -9,6 +9,7 @@ import sys
 
 from shell import MissingFeatureError, TLMMainApp
 from single_instance import SingleInstanceMutex
+from startup_diagnostics import StartupDiagnostics
 
 
 def run_with_info_factory(info_factory) -> None:
@@ -20,19 +21,25 @@ def run_with_info_factory(info_factory) -> None:
     InfoTab/server authorization exists; this helper never grants it.
     """
     with SingleInstanceMutex():
-        import tkinter as tk
-        root = tk.Tk()
-        try:
-            app = TLMMainApp(root, {'info_tab':info_factory})
-            app.position_window_top_right()
-            root.mainloop()
-        finally:
-            if 'app' in locals():
-                app.shutdown()
+        # E01 S22: install testable diagnostics before creating Tk, but
+        # after the mutex. Failure to open a log closes the S21 mutex,
+        # never starts a UI, and cannot bypass the missing Info server.
+        with StartupDiagnostics():
+            import tkinter as tk
+            root = tk.Tk()
             try:
-                root.destroy()
-            except tk.TclError:
-                pass
+                app = TLMMainApp(root, {'info_tab':info_factory})
+                app.position_window_top_right()
+                root.mainloop()
+            finally:
+                try:
+                    if 'app' in locals():
+                        app.shutdown()
+                finally:
+                    try:
+                        root.destroy()
+                    except tk.TclError:
+                        pass
 
 
 def main() -> int:

@@ -1,0 +1,47 @@
+name: S22 E01 startup diagnostics native failure lifecycle
+
+on:
+  push:
+    paths:
+      - "src/startup_diagnostics.py"
+      - "src/TLMTool.py"
+      - "tests/test_s21.py"
+      - "tests/test_s22.py"
+      - "tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py"
+      - ".github/workflows/s22-native-diagnostics.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-diagnostics-failclosed:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout actual committed source
+        uses: actions/checkout@v4
+      - name: Python 3.10 Windows
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile Stage S source and native fixtures
+        run: python -m compileall -q src tests tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py tools/S21_WINDOWS_MUTEX_SMOKE.py tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: Run all S01-S22 unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Native real faulthandler and thread exception plus mutex failure paths
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: Recheck S21 native two-process named mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: Recheck S20 native three-window DWM integration
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: Upload isolated diagnostic logs and native lifecycle evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: s22-test-owned-crash-diagnostics
+          path: |
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+          if-no-files-found: warn
