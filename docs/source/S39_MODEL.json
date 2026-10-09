@@ -1,0 +1,21 @@
+{
+  "task": "S39",
+  "original_zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+  "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+  "f02_check_disk_token": "UNKNOWN",
+  "f02_legacy_co_mapping": "UNKNOWN",
+  "implementation": "src/login_schedule_clock.py",
+  "time_format": "HH:MM",
+  "original_close_default": "04:00",
+  "original_open_default": "04:20",
+  "poll_interval_seconds_evidence": 20,
+  "tk_countdown_interval_seconds_evidence": 1,
+  "scheduled_action_execution": "NOT_WIRED",
+  "real_game": "NOT_RUN",
+  "original_UI": "NOT_ADDED",
+  "diagnostic_build": "NOT_PRODUCT",
+  "tests": "tests/test_s39.py",
+  "native_smoke": "tools/S39_WINDOWS_LOGIN_SCHEDULE_CLOCK_SMOKE.py",
+  "workflow": ".github/workflows/s39-native-login-schedule-clock.yml",
+  "next_action": "S40 F09 functional action-controller integration only when authentic F05/F06 and close-all available, or non-fake original-backed schedule config."
+}
