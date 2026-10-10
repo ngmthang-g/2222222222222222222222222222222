@@ -65,6 +65,11 @@ class TLMLoginPathTab:
         from login_schedule_times import TLMLoginScheduleTimes
         self.schedule_times = TLMLoginScheduleTimes(
             self.container, settings_file=settings_file, show_error=self._show_error)
+        # S112: true F01 five-option post-login config radio UI, not F10 routing.
+        from login_after_login_choice import TLMLoginAfterLoginChoice
+        self.after_login_choice = TLMLoginAfterLoginChoice(
+            self.schedule_times.group, settings_file=settings_file,
+            show_error=self._show_error)
         # S37: F01 100 real selection/entry/captcha widgets, memory-only.
         # F02 persistent check boolean token and legacy 'Có' migration UNKNOWN:
         # NEVER load/rewrite Settings.accounts with guessed serialization.
@@ -151,6 +156,7 @@ class TLMLoginPathTab:
         if self._closed:
             return
         self._closed = True
+        self.after_login_choice.shutdown()
         self.schedule_times.shutdown()
         self.account_rows.shutdown()
         self.game_dir = GameDirectoryResult(None, "")
