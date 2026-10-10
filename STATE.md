@@ -7388,3 +7388,27 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 1. Read LIVE PLAN.md, STATE.md, S105 pinned client crosscheck and original task evidence. Preserve all S01–S105 verified source.
 2. Find one missing ACTUAL Windows-native user function with completely recovered original behavior and safe native real-HWND/PID test; DO NOT repeat mock Party layers, C12 ambiguous show, C14 unknown embedded restoration, unauthorized game reader or Info bypass. If none fully evidenced, document exact blocker instead of a fake functional implementation.
 3. After any actual source change, run 1564 Windows baseline, S86 269 AST+compile, relevant native checks and S36 fail-closed diagnostic; append actual CI, files and NEXT_ACTION S107. Keep frozen PLAN/ZIP/B04/S59 and no-Proxy.
+
+
+## S106 VERIFIED — REAL WINDOWS FUNCTION GAP AUDIT + NATIVE REGRESSION; 1564/1564 PASS (2026-10-10)
+- Resumed LIVE frozen `PLAN.md`, oversized full `STATE.md` S105 NEXT_ACTION S106 via Git blob, S105 client Party source cross-check and original C05/C10/C11/C12/C13/C14/C16/C17/C18/C19/F05/E03 evidence. Inspected already correct `src/start_tab.py`, `src/window_hide.py`, `src/window_stacking.py`, `src/detached_host.py` and existing Windows tests before proposing any source change. Findings documented in NEW `docs/audit/S106_WINDOWS_FUNCTIONAL_PARITY_GAP_MATRIX.md` and NEW `docs/tasks/S106.md`.
+- **AUDIT FINDING:** complete original-backed local Win32 operations (C10/C11 native stack + measured Tk buttons S59, C12 hide S57, hidden reset after real C10/C11 layout S58, C16 WM_CLOSE, DWM C13 close S84, C14 real DWM close/reopen refresh S85 *with external test-only placements*, C17 order, bounded C18 layout) already implemented and tested. DO NOT duplicate as a new task. Remaining **real blockers** C12 Hiện hết original source contradiction (saved rects vs (0,0)), full C14 detach tile/embedded UI sequence unknown, C19 sync unimplemented, original signed Info/heartbeat, actual F05/F06 game operations and extensive tab/client runtime parity. A guessed control would violate PLAN.
+- NEW `.github/workflows/s106-windows-functional-parity-audit.yml`: full Windows source regression + S86 source audit + explicit product-denial exit 2 check + native representative real Win32 S59/S57/S58/S67/S84/S85/S102/S76/S88 user-function tests on TEST-OWNED HWND/DWM, NOT game or end-user product.
+- INITIAL S106 workflow [38064981162](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38064981162) FAILED because a NEW PowerShell step inherited expected TLMTool.py exit code 2 as a CI step exit despite printing success marker. Fixed ONLY workflow after verifying code2 and BLOCKED text, adding explicit `exit 0` to acknowledge intended denial; no application code or Info policy altered.
+- **ACTUAL [FINAL S106 Windows workflow 38065057307](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38065057307), job 114250908646 COMPLETED SUCCESS**: **1564/1564** Python tests in 13.190s; **269 Python files** AST+compiled (66 src, 99 test modules + tools), `S86_STATUS=PASS_SOURCE_AUDIT_PRODUCT_STILL_BLOCKED`; `S106_PRODUCT_GATE=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT`. Native:
+  `PASS_NATIVE_S59_MEASURED_BUTTONS_REAL_MOVEMENT`;
+  `PASS_NATIVE_S57_C12_HIDE_ONLY_TEST_OWNED_WINDOWS`;
+  `PASS_NATIVE_S58_C12_RELAYOUT_RESETS_HIDDEN_TEST_OWNED_WINDOWS`;
+  `PASS_NATIVE_S67_C06_POSTMOVE_REAL_RECT_AND_PID`;
+  `PASS_NATIVE_S84_C13_DONG_XEM_REAL_TK_DWM_CLOSE_TEST_ONLY`;
+  `PASS_NATIVE_S85_C14_REFRESH_CLOSE_REOPEN_VERIFIED_PLACEMENTS_TEST_ONLY`;
+  `PASS_NATIVE_S102_G02_COMBO_SAVED_OFFLINE_TWO_TEST_PIDS_NO_GAME`;
+  `PASS_NATIVE_S76_C15_REAL_DWM_FAULT_CLEANS_ALL_TK_FRAMES`;
+  `PASS_NATIVE_S88_C04_AUTO_SOURCE_LOSS_DWM_FAILURE_LATCH`.
+- **NO NEW S36 PACKAGE** in workflow/documentation-only S106; prior actual S36 [38062487870](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38062487870) completed success but diagnostic `EXPLICITLY_BLOCKED_NO_GUI`, NOT PRODUCT. Genuine original game multi-account/live signed Info test still BLOCKED.
+- **FILES NEW** `docs/audit/S106_WINDOWS_FUNCTIONAL_PARITY_GAP_MATRIX.md`, `.github/workflows/s106-windows-functional-parity-audit.yml` (one workflow-only correction), `docs/tasks/S106.md`, append-only STATE/PROJECT. **NO `src/`, `tests/`, frozen PLAN/ZIP/B04/S59 or Proxy changes**.
+
+## NEXT_ACTION on CONTINUE — S107 (C12 SHOW ORIGINAL SOURCE BRANCH PROOF)
+1. Read LIVE PLAN, STATE, S106, original `docs/tasks/C12.md` and `docs/window/C12_HIDE_SHOW_*`, already verified S57/S58 source/evidence. Do not rewrite already passing modules.
+2. Focus a TARGETED source/authorized original runtime investigation of `_show_all_game_windows`: does released version use saved previous rectangles, force (0,0), or distinct branches? Existing static docs conflict; do not guess or implement fake `Hiện hết`. Determine exact branch semantics and test possibility from original actual behavior. If unresolved, document precise missing proof and pivot to next high-value verified source-backed feature; no extra mock-only Party layers.
+3. Implement only if truly original-evidenced, then run native Win32 Windows tests and existing 1564/269 baseline plus S36 diagnostic as applicable. Append actual CI, changed files, blockers and NEXT_ACTION S108. Original ZIP, PLAN, B04/S59, no-Proxy and genuine Info gate remain locked.
