@@ -184,6 +184,6 @@ def run():
                           encoding="utf-8")
         for k,v in report.items():
             if k!="traceback":print("S71_"+k.upper()+"="+json.dumps(v,ensure_ascii=True))
-    return 0 if report["status"]=="PASS_NATIVE_S71_C14_TOPMOST_OWNER_AND_DWM_CLEANUP_TEST_ONLY" else 1
+    return 0 if report["status"]=="PASS_NATIVE_S71_DWM_FAILURE_ALL_OWNED_HWND_RELEASED" else 1
 
 if __name__=="__main__":raise SystemExit(run())
