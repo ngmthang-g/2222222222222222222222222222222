@@ -1,0 +1,70 @@
+name: S114 A07 original vs S113 Nuitka diagnostic same-scope manifest audit
+on:
+  push:
+    paths:
+      - "tools/S114_AUDIT_DIST.py"
+      - "tests/test_s114.py"
+      - ".github/workflows/s114-original-diagnostic-manifest.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  s114-original-diagnostic-manifest:
+    runs-on: windows-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: "x64"
+      - name: Install existing screenshot regression dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all original Stage S source tests and tools
+        run: python -m compileall -q src tests tools
+      - name: Full existing S01-S114 Windows unit baseline
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source build gaps product gate audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: Fetch exact previously successful S113 Nuitka diagnostic artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: S113_NUITKA_STANDALONE_DIAGNOSTIC_ONLY_NOT_PRODUCT_x64
+          repository: ngmthang-g/2222222222222222222222222222222
+          run-id: 38073480711
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: artifacts/s114/downloaded
+      - name: Strict original A07 TLMTool.dist versus verified S113 TLMTool.dist
+        shell: pwsh
+        run: |
+          $found = @(Get-ChildItem -LiteralPath artifacts/s114/downloaded -Recurse -File -Filter S113_NUITKA_DIAGNOSTIC_NOT_PRODUCT.exe)
+          if ($found.Count -ne 1) { throw "S114_S113_ARTIFACT_EXE_COUNT_NOT_ONE" }
+          $dist = Split-Path -Parent $found[0].FullName
+          if ((Split-Path -Leaf $dist) -ne "TLMTool.dist") { throw "S114_UNEXPECTED_ARTIFACT_LAYOUT" }
+          python tools/S114_AUDIT_DIST.py original_manifest/ORIGINAL_MANIFEST.tsv "$dist" artifacts/s114/report
+          if ($LASTEXITCODE -ne 0) { throw "S114_SAME_SCOPE_AUDIT_FAILED" }
+      - name: Re-run S111 and S112 real Windows Tk read/write regression
+        shell: pwsh
+        run: |
+          python tools/S111_WINDOWS_LOGIN_SCHEDULE_TIME_SMOKE.py
+          if ($LASTEXITCODE -ne 0) { throw "S114_S111_REGRESSION" }
+          python tools/S112_WINDOWS_LOGIN_AFTER_RADIO_SMOKE.py
+          if ($LASTEXITCODE -ne 0) { throw "S114_S112_REGRESSION" }
+      - name: Explicit product entrypoint remains blocked
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s114/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S114_EXPECTED_EXIT_2" }
+          if ((Get-Content -Raw artifacts/s114/product_gate.txt) -notmatch "BLOCKED") { throw "S114_GUARD_MISSING" }
+          Write-Host "S114_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S114_ORIGINAL_VS_S113_DIAGNOSTIC_MANIFEST_NOT_PRODUCT
+          path: |
+            artifacts/s114/report/
+            artifacts/s114/product_gate.txt
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
