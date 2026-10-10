@@ -1,0 +1,68 @@
+name: S115 authentic 65 original-only file dependency role classification
+on:
+  push:
+    paths:
+      - "tools/S115_CLASSIFY_ORIGINAL_ONLY.py"
+      - "tests/test_s115.py"
+      - ".github/workflows/s115-original-only-classification.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  s115-original-only:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: "x64"
+      - name: Dependencies for inherited screenshot tests
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all current source and test files
+        run: python -m compileall -q src tests tools
+      - name: Run full existing and S115 65-file unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Preserve S86 source build audit and blocked Info gate
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: Download exact VERIFIED S114 report artifact (not original binaries)
+        uses: actions/download-artifact@v4
+        with:
+          name: S114_ORIGINAL_VS_S113_DIAGNOSTIC_MANIFEST_NOT_PRODUCT
+          repository: ngmthang-g/2222222222222222222222222222222
+          run-id: 38074529172
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: artifacts/s115/s114
+      - name: Classify all original-only paths against A07 pinned original
+        shell: pwsh
+        run: |
+          $found = @(Get-ChildItem artifacts/s115/s114 -Recurse -File -Filter s114_paths.tsv)
+          if ($found.Count -ne 1) { throw "S115_VERIFIED_S114_REPORT_NOT_UNIQUE" }
+          python tools/S115_CLASSIFY_ORIGINAL_ONLY.py original_manifest/ORIGINAL_MANIFEST.tsv "$($found[0].FullName)" artifacts/s115/report
+          if ($LASTEXITCODE -ne 0) { throw "S115_METADATA_CLASSIFICATION_FAILED" }
+      - name: Native S111 S112 real Windows Login Tk regressions
+        shell: pwsh
+        run: |
+          python tools/S111_WINDOWS_LOGIN_SCHEDULE_TIME_SMOKE.py
+          if ($LASTEXITCODE -ne 0) { throw "S115_S111_REGRESSION" }
+          python tools/S112_WINDOWS_LOGIN_AFTER_RADIO_SMOKE.py
+          if ($LASTEXITCODE -ne 0) { throw "S115_S112_REGRESSION" }
+      - name: Product entrypoint still requires legitimate Info authorization
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s115/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S115_PRODUCT_GATE_NOT_CLOSED" }
+          if ((Get-Content -Raw artifacts/s115/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S115_AUTH_REFUSAL_MISSING" }
+          Write-Host "S115_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S115_CLASSIFIED_65_ORIGINAL_ONLY_NOT_PRODUCT
+          path: |
+            artifacts/s115/report/
+            artifacts/s115/product_gate.txt
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
