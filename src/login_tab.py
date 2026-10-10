@@ -86,6 +86,17 @@ class TLMLoginPathTab:
                 self.legacy_account_load_status = "BLOCKED_UI"
         self.account_rows.show_legacy_load_status(
             self.legacy_account_load_status)
+        # S116/F02: only existing unambiguous records can save user/pass.
+        # The raw checkbox/captcha/proxy tokens are never interpreted/written.
+        self.existing_account_autosave = None
+        if self.legacy_account_load_status == "READY":
+            from login_existing_autosave import TLMExistingAccountAutosave
+            self.existing_account_autosave = TLMExistingAccountAutosave(
+                self.account_rows, legacy.records,
+                settings_file=settings_file, show_error=self._show_error)
+            if hasattr(self.account_rows, "legacy_status_label"):
+                self.account_rows.legacy_status_label.configure(
+                    text="Tài khoản cũ: chỉ lưu tên/mật khẩu; dấu chọn chưa xác minh")
         self.container.bind("<Destroy>", self._on_destroy, add="+")
 
     def _show_game_dir_status(self, text: str) -> None:
@@ -158,5 +169,7 @@ class TLMLoginPathTab:
         self._closed = True
         self.after_login_choice.shutdown()
         self.schedule_times.shutdown()
+        if self.existing_account_autosave is not None:
+            self.existing_account_autosave.shutdown()
         self.account_rows.shutdown()
         self.game_dir = GameDirectoryResult(None, "")
