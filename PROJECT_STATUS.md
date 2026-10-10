@@ -1659,3 +1659,16 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 1. Read LIVE PLAN/STATE/S110, F01/F09, existing S39–S54 source and UI; identify existing working features vs genuine missing Tk user interaction before coding.
 2. Add only exact original-backed safe functional UI/offline slice; no fake login, guessed plan/auth, Proxy or nonfunctional buttons. If insufficient evidence record blocker and move to another testable original-backed gap.
 3. For source changes verify baseline 1592 Windows units/S86 271 compile, actual native and diagnostic S36 fail-closed. Append actual files/outcome NEXT_ACTION S112. Respect PLAN, original frozen ZIP, B04/S59 and no-Proxy.
+
+
+## S111 VERIFIED — ORIGINAL F01 HH/MM CLOCK SELECTORS, WORKING PERSISTENCE (2026-10-11)
+- **ACTUAL [S111 CI 38070965387](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38070965387) COMPLETED SUCCESS**: 1612/1612 Windows units; 274 AST/compiled; real native Tk `PASS_NATIVE_S111_REAL_F01_TIME_SELECTORS_ONLY_NO_GAME`; inherited S109/S37/S38/S40/S41/S59/S57/S84/S85 PASS.
+- Original F01/F09 proven four readonly hour/minute selectors, defaults 04:00/04:20, actual `<<ComboboxSelected>>` persistent HH:MM settings. NEW `src/login_schedule_times.py`, UPDATE `src/login_tab.py`; safe per-key write with byte-preserving other INI/accounts content, backup, atomic replace, Tk rollback. NEW tests S111 (20), real Tk smoke tool, S111 workflow, `docs/tasks/S111.md`. No fake running scheduler, Login, licence, or Proxy.
+- **ACTUAL [S36 diagnostic CI 38070909449](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38070909449) SUCCESS**: packaged EXE still `EXPLICITLY_BLOCKED_NO_GUI`, **NOT PRODUCT**. Source/product runtime parity remains incomplete.
+- DATA-2222 client repository inspected **READ-ONLY ONLY**; no client commit/edit or false client Info issuer. Frozen PLAN/ZIP/B04/S59/no-Proxy maintained.
+- STATUS `S111_WINDOWS_1612_PASS_CLOCK_TIME_SELECTION_CONFIG_WORKS_REAL_TK_NOT_SCHEDULER`.
+
+## NEXT_ACTION on CONTINUE — S112 (AFTER-LOGIN RADIO SETTINGS ONLY)
+1. Read LIVE PLAN/STATE/S111 and original F01/F10, existing F09 Tk schedule group/E05 config.
+2. Audit original five radio values `wait/party/train/train_lsv/don` and safe per-key `after_login` persistence; implement only proven actual Tk selectable/saveable radio behavior, without invoking missing post-login Party/Train/Dồn executor or changing other config.
+3. Recheck 1612 unit baseline/274 compiled, native S112/S111 and S36 diagnostic if modified; checkpoint actual CI, files, blocker, NEXT_ACTION S113. No Proxy; DATA-2222 **read only**.
