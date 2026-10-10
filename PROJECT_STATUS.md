@@ -1219,3 +1219,13 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - [Windows S72 run 38028985234](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38028985234) job 114145756143 COMPLETED SUCCESS: **1014/1014** unit tests, PASS_NATIVE_S72_C14_HWND_CHANGE_RELEASES_DWM_TEST_ONLY with real test-owned Windows Tk HWND/PID and DWM, all S71–S10 native regressions PASS. Artifact 11661435702 TEST ONLY.
 - [S36 packaged diagnostic run 38028936113](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38028936113) job 114145610873 COMPLETED SUCCESS: **1014/1014** Python tests, both CLI EXPLICITLY_BLOCKED_NO_GUI; artifact 11661352311 DIAGNOSTIC NOT PRODUCT. Stage S run 38028936107 SUCCESS.
 - NEXT_ACTION S73 C14 independent producer lifetime evidence without guessed interval; if no proof, pivot to another verifiable PLAN component. Full original TLM EXE/source/UI/game parity remains INCOMPLETE.
+
+
+## S73 VERIFIED — INTERNAL C14 INDEPENDENT ONE-SHOT WIN32 DISCOVERY
+- Original frozen Nuitka C14 doc confirms `_detached_update_loop` independent from Start-tab visibility. Exact detached interval still UNKNOWN, so Start's 3s/2s cadence was NOT reused.
+- NEW src/detached_one_shot_scanner.py composes existing S08/S09 verified discovery and immutable snapshot under a separate explicit one-shot worker, permission/max_windows gate and revocable epochs. No periodic worker, fake UI, detached layout, Proxy, game click or auto-open. S72 observer can consume independently produced snapshots.
+- NEW tests/test_s73.py (12), tools/S73_WINDOWS_C14_ONE_SHOT_SCANNER_SMOKE.py, .github/workflows/s73-native-c14-one-shot.yml, docs/tasks/S73.md.
+- First native S73 38029333016: 1026/1026 units PASS but TEST-ONLY Tk title assumption failed; test fixture corrected ONLY in aa48b480, raw test Win32 titles returned empty strings on hosted CI.
+- [Windows S73 SUCCESS run 38029396580](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38029396580), job 114146969177: **1026/1026** Python units PASS, PASS_NATIVE_S73_ONE_SHOT_WIN32_C14_INDEPENDENT_TEST_ONLY, all S72–S10 native regression PASS, artifact **11661098211** TEST OWNED NO GAME.
+- [S36 diagnostic SUCCESS run 38029283735](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38029283735), job 114146634066: **1026/1026** unit tests and both CLI EXPLICITLY_BLOCKED_NO_GUI, artifact **11662050434** DIAGNOSTIC NOT PRODUCT. Stage S source regression 38029283715 success.
+- **NEXT_ACTION S74:** research safe original C14 topmost detached owner lifecycle integration with S72/S73 only if original evidence supports it, never invent timer/tile geometry/UI. Full TLM runtime/game/EXE parity still MISSING.
