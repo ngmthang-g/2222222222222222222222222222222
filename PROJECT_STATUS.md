@@ -1122,3 +1122,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Independent reset engine grounded in original C07 final (0,0) and 1366x768 plus C06 GetWindowPlacement/SetWindowPos API: src/window_auto_reset.py NEW. Authentic mode switching/tiler geometry remains UNKNOWN, no user-facing button or fake action.
 - NEW tests/test_s61.py (12 cases), tools/S61_WINDOWS_C07_RESET_NATIVE_SMOKE.py real test-owned Win32, workflow s61-native-c07-reset.yml, docs/tasks/S61.md; STATE+PROJECT_STATUS append. No changes to tested S59/S60 native controls, PLAN or original ZIP.
 - NEXT_ACTION native S61 and diagnostic S36 verify then original-backed S62. Production full EXE NOT COMPLETE.
+
+
+## S61 VERIFIED — native C07 original (0,0), 1366x768 reset
+- Exact authentic transition final geometry and original C06 resize/move API, scoped independent native engine src/window_auto_reset.py. It does NOT reconstruct or expose full mode/tiler/input sync UI, which remains unproven. Original signed Info/live game launch and production EXE still missing.
+- Source a884fd7488efa620c2e2b13ae6037562219dc33f; test-only assertion fix b2098b8d0af8f27708dfcb12cd906dc47d11d887. Native CI detected Tk hosted max-track 1044 width (runs 38018249457, 38018342441), correctly failed closed RESIZE_UNVERIFIED_PARTIAL; used test-owned maxsize fixture only cbb8c8c7c89a006c895efbad6abb73726916a581. No source algorithm loosened.
+- **S61 Windows run 38018421702 job 114113816993 COMPLETED SUCCESS:** 894/894 Python units, actual test-owned Win32 SetWindowPos produces exact 1366x768 at (0,0), prior native S60–S10 ALL PASS; artifact 11656679107.
+- **S36 diagnostic packaged run 38018249488 job 114113279327 COMPLETED SUCCESS:** 894/894, packaged EXE FAIL-CLOSED NOT PRODUCT (normal/unverified EXPLICITLY_BLOCKED_NO_GUI); artifact 11656678862.
+- Files: src/window_auto_reset.py, tests/test_s61.py, tools/S61_WINDOWS_C07_RESET_NATIVE_SMOKE.py, .github/workflows/s61-native-c07-reset.yml, docs/tasks/S61.md, STATE.md, PROJECT_STATUS.md. Original PLAN/archive/S59/S60 source unchanged.
+- NEXT_ACTION S62: authentic C07 auto/tiler/sync worker coordination or other original-backed PLAN functional prerequisite, not guessed geometry or fake UI. No Proxy or false production claim.
