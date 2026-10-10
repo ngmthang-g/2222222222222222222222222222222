@@ -125,6 +125,14 @@ class S78C03ActivationTests(unittest.TestCase):
         self.assertIn("SetForegroundWindow",text)
         self.assertIn("SW_RESTORE",text)
 
+    def test_13_actual_native_backend_owns_click_and_activation_methods(self):
+        # A Protocol-only implementation would make all fake-backend unit
+        # tests pass but leave real Win32 DWM click maps empty (first CI bug).
+        from dwm_preview import NativeDwmBackend, DwmBackend
+        self.assertIn("bind_click_target", NativeDwmBackend.__dict__)
+        self.assertIn("activate_source", NativeDwmBackend.__dict__)
+        self.assertIn("bind_click_target", DwmBackend.__dict__)
+
 
 if __name__=="__main__":
     unittest.main()
