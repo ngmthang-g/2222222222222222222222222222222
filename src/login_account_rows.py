@@ -12,6 +12,8 @@ for that key. In-memory test-owned changes are NOT persistent accounts.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import threading
+from typing import Callable
 
 MAX_ACCOUNT_ROWS = 100
 CAPTCHA_MODES = ("Không", "Tool", "Proxy")
@@ -24,6 +26,13 @@ class AccountRowSnapshot:
     username: str
     password: str
     captcha_mode: str
+
+
+@dataclass(frozen=True)
+class AccountRowLimitResult:
+    status: str
+    visible_count: int
+    hidden_count: int
 
 
 class AccountSelectionModel:
@@ -58,6 +67,9 @@ class TLMAccountRows:
         from tkinter import ttk
 
         self._closed = False
+        self._owner_thread = threading.get_ident()
+        self._visible_rows = MAX_ACCOUNT_ROWS
+        self._hidden_rows: list[int] = []
         self.selection = AccountSelectionModel()
         self.group_accounts = ttk.LabelFrame(parent, text="Cấu hình tài khoản")
         # F01 accounts screenshot parent starts ~x11,y297; Login tab origin
@@ -136,6 +148,78 @@ class TLMAccountRows:
             self.captcha_boxes.append(combo)
             for widget in (checkbox,entry_user,entry_pass,combo):
                 widget.bind("<MouseWheel>",self._scroll_wheel,add="+")
+
+    @property
+    def visible_row_count(self) -> int:
+        return self._visible_rows
+
+    @property
+    def hidden_row_indices(self) -> tuple[int, ...]:
+        """Logical FIFO position, no usernames/passwords exposed."""
+        return tuple(self._hidden_rows)
+
+    def apply_account_row_limit(
+        self, limit: int, *,
+        allowed: Callable[[], bool] | None = None,
+    ) -> AccountRowLimitResult:
+        """F01: hide excess real Tk rows and restore in FIFO order.
+
+        The original plan's numeric tiers and real signed Info issuer are
+        UNKNOWN. Only an explicit, externally verified caller may request a
+        1..100 limit. This method does NOT interpret plans, save accounts,
+        enable login, or grant authorization. All 100 Tk rows remain alive so
+        entered values and the original F03 password masking survive.
+        """
+        def report(status: str) -> AccountRowLimitResult:
+            return AccountRowLimitResult(
+                status, self._visible_rows, len(self._hidden_rows))
+
+        if threading.get_ident() != self._owner_thread:
+            return report("WRONG_TK_THREAD")
+        if self._closed:
+            return report("ACCOUNT_VIEW_CLOSED")
+        if type(limit) is not int or not 1 <= limit <= MAX_ACCOUNT_ROWS:
+            return report("INVALID_LIMIT_NOT_ORIGINAL_TIER_PROOF")
+        try:
+            if not callable(allowed) or allowed() is not True:
+                return report("PERMISSION_NOT_VERIFIED")
+        except Exception:
+            return report("PERMISSION_NOT_VERIFIED")
+        if limit == self._visible_rows:
+            return report("ROW_LIMIT_UNCHANGED")
+        try:
+            previous = self._visible_rows
+            if limit < previous:
+                # Descending limit creates a new FIFO prefix. Returning to
+                # the larger cap must restore index 3 before 4 before 5.
+                for index in range(limit, previous):
+                    for widget in self._row_widgets(index):
+                        widget.grid_remove()  # preserve original grid options
+                    self.rows_inner.grid_rowconfigure(index + 1, minsize=0)
+            else:
+                for index in range(previous, limit):
+                    self.rows_inner.grid_rowconfigure(index + 1, minsize=ROW_PITCH)
+                    for widget in self._row_widgets(index):
+                        widget.grid()  # restore exactly the previous grid slot
+            self._visible_rows = limit
+            self._hidden_rows = list(range(limit, MAX_ACCOUNT_ROWS))
+            self.rows_inner.update_idletasks()
+            self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+            return report("ROW_VISIBILITY_CHANGED_TEST_EXTERNAL_PLAN")
+        except Exception:
+            # A destroyed Tk view cannot be an authorized actionable UI.
+            # Actual entitlement and full runtime error policy are unknown.
+            return report("ROW_WIDGET_TRANSITION_FAILED")
+
+    def _row_widgets(self, index: int):
+        return (self.row_selectors[index], self.entry_user[index],
+                self.entry_pass[index], self.captcha_boxes[index])
+
+    def active_visible_indices(self) -> tuple[int, ...]:
+        """Presentation-only index subset, not a game launch selection."""
+        if self._closed:
+            return ()
+        return tuple(range(self._visible_rows))
 
     def _on_rows_configure(self, event=None) -> None:
         if not self._closed:
