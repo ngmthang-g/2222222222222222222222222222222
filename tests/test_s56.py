@@ -1,8 +1,4 @@
-"""S56 source-backed Start dispatch for C10/C11, with NO invented Auto pixels.
-
-S56 deliberately adds no UI button. The original Start Auto mode frame layout
-is not sufficiently measured in the checked GitHub image evidence.
-"""
+"""S56 Start dispatch for C10/C11; S59 now supplies measured B14 buttons."""
 from __future__ import annotations
 import sys
 import threading
@@ -152,8 +148,8 @@ class S56StartDispatch(unittest.TestCase):
         self.assertEqual(self.seen,[])
     def test_no_unverified_ui_control_or_auth_bypass_in_source(self):
         code=(ROOT/"src/start_tab.py").read_text("utf-8")
-        self.assertNotIn("text=\"Xếp gọn\"",code,"do not invent UI geometry")
-        self.assertNotIn("text=\"Xếp chéo\"",code,"do not invent UI geometry")
+        # S59 resolves the old missing-raster prerequisite. Geometry and
+        # actual Tk invocation are checked by S59; auth exclusion stays.
         self.assertNotIn("TEST_ONLY_VERIFIED",code)
         self.assertIn("_stack_tight_cmd",code)
         self.assertIn("_stack_diagonal_cmd",code)

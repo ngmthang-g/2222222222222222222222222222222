@@ -1,0 +1,59 @@
+{
+  "task": "S59",
+  "status": "IMPLEMENTED_WINDOWS_PENDING",
+  "base": "72e2cd0e9a09b52a558068fd4e57b25d69ab3cb8",
+  "screenshot": {
+    "file": "docs/ui/original/START_AUTO.png",
+    "original_library_name": "TLMTool_rARyQTv9Ta(10).png",
+    "sha256": "4f1b126ea4ba0034889545653046f552a226d5f0033d2329a8693342184c28cd",
+    "size": [
+      452,
+      1032
+    ],
+    "tab_content_origin_raw": [
+      7,
+      57
+    ]
+  },
+  "rectangles_raw_xywh": {
+    "auto_frame": [
+      11,
+      113,
+      428,
+      188
+    ],
+    "tight": [
+      176,
+      135,
+      78,
+      21
+    ],
+    "diagonal": [
+      256,
+      135,
+      78,
+      21
+    ]
+  },
+  "buttons": {
+    "font": [
+      "Segoe UI",
+      8,
+      "bold"
+    ],
+    "background": "#4169e1",
+    "foreground": "white",
+    "relief": "raised",
+    "border_width": 1
+  },
+  "binary": {
+    "sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "font_tuple_offset": "0x2bfa093",
+    "note": "Serialized tuple Segoe UI, l 08, bold in shared quick button arguments; labels and C10/C11 callbacks adjacent at 0x2bfa146 onward. Small integers use Nuitka l byte convention already used in repository static evidence."
+  },
+  "full_start_pixel_parity": "NOT_VERIFIED",
+  "actual_game_runtime": "NOT_RUN",
+  "c12_restore": "UNRESOLVED",
+  "c07_auto_mode": "NOT_IMPLEMENTED",
+  "production_exe": "NOT_PRODUCT"
+}

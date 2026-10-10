@@ -79,6 +79,7 @@ class TLMStartTab:
         self.container.pack(fill="both", expand=True)
         self._closed = False
         self._state = StartReadOnlyState("STOPPED", "Chưa quét cửa sổ game")
+        self._build_verified_auto_controls()
         self.status = ttk.Label(self.container, text=self._state.caption, anchor="w")
         self.status.pack(fill="x", padx=10, pady=(10, 5))
         self.group = ttk.LabelFrame(self.container, text="Danh sách cửa sổ game (chỉ xem)")
@@ -149,8 +150,8 @@ class TLMStartTab:
         self._layout_thread = None
         self._layout_last_result = None
         self._layout_reported_result = None
-        # S56 C10/C11 callbacks ONLY: exact original Auto-frame pixels are
-        # not available; do NOT add guessed UI buttons in this milestone.
+        # S59 recovered the exact B14 Auto bitmap. Only C10/C11 controls
+        # are wired; C07 mode automation and C12 restore remain unverified.
         self._stack_service_factory = stack_service_factory or C10C11WindowStacker
         self._stack_thread = None
         self._stack_allow = threading.Event()
@@ -580,12 +581,44 @@ class TLMStartTab:
         self._stack_generation = getattr(self, "_stack_generation", 0) + 1
         self._stack_last_result = None
 
+    def _build_verified_auto_controls(self) -> None:
+        """S59 partial Auto frame, measured from the hash-locked B14 raster.
+
+        Coordinates are relative to the original tab content origin (7,57)
+        in the 452x1032 screenshot. The reserved mode area and unimplemented
+        quick actions remain empty: no decorative nonfunctional buttons.
+        Existing diagnostic controls follow BELOW this measured fragment.
+        This is not full Start UI parity or an implementation of C07 Auto.
+        """
+        import tkinter as tk
+        from tkinter import ttk
+        self.auto_region = tk.Frame(self.container, height=244, bg="#f0f0f0")
+        self.auto_region.pack(fill="x")
+        ttk.Style(self.container).configure(
+            "Bold.TLabelframe.Label", font=("Segoe UI", 9, "bold"))
+        self.auto_frame = ttk.LabelFrame(
+            self.auto_region, text=" Điều khiển nhanh ",
+            style="Bold.TLabelframe")
+        self.auto_frame.place(x=4, y=56, width=428, height=188)
+        self.btn_stack_tight = tk.Button(
+            self.auto_frame, text="Xếp gọn", command=self._stack_tight_cmd,
+            bg="#4169e1", fg="white", font=("Segoe UI", 8, "bold"),
+            relief="raised", bd=1, highlightthickness=0, cursor="hand2")
+        self.btn_stack_tight.place(x=165, y=22, width=78, height=21,
+                                   bordermode="outside")
+        self.btn_stack_diagonal = tk.Button(
+            self.auto_frame, text="Xếp chéo", command=self._stack_diagonal_cmd,
+            bg="#4169e1", fg="white", font=("Segoe UI", 8, "bold"),
+            relief="raised", bd=1, highlightthickness=0, cursor="hand2")
+        self.btn_stack_diagonal.place(x=245, y=22, width=78, height=21,
+                                      bordermode="outside")
+
     def _stack_tight_cmd(self) -> bool:
-        """C10 original callback; UI control awaits measured Auto frame."""
+        """C10 original callback, wired to the measured S59 button."""
         return self._dispatch_auto_stack("tight")
 
     def _stack_diagonal_cmd(self) -> bool:
-        """C11 original callback; UI control awaits measured Auto frame."""
+        """C11 original callback, wired to the measured S59 button."""
         return self._dispatch_auto_stack("diagonal")
 
     def _dispatch_auto_stack(self, mode: str) -> bool:
@@ -593,11 +626,16 @@ class TLMStartTab:
 
         Only source-backed HWND cache, externally granted max_windows and
         selected Start are accepted. Xếp-lưới's separate sync must be off;
-        mode Auto UI itself is NOT invented while screenshot bounds unknown.
+        C07 Auto mode/tiler is still unavailable; S59 adds only stack buttons.
         """
         if (mode not in ("tight", "diagonal") or self._closed
                 or not self.poller.active or not self.layout_max_windows
                 or self.layout_active):
+            return False
+        # A cancelled grid may still be inside SetWindowPos. Tk dispatch
+        # must wait for its native worker to EXIT, not just its active flag.
+        layout_thread = getattr(self, "_layout_thread", None)
+        if layout_thread is not None and layout_thread.is_alive():
             return False
         try:
             if not self.container.winfo_viewable():
@@ -659,6 +697,9 @@ class TLMStartTab:
         if self.layout_active:
             self._stop_sync_loop()
             self.layout_status.configure(text="Đồng bộ bố cục: tắt")
+            return False
+        stack_thread = getattr(self, "_stack_thread", None)
+        if stack_thread is not None and stack_thread.is_alive():
             return False
         if self._closed or not self.poller.active or not self.layout_max_windows:
             return False

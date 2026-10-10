@@ -1061,3 +1061,19 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - **[S36 diagnostic Windows run 38014593484](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38014593484), job 114101954393 COMPLETED SUCCESS**: 870 tests PASS, `PASS_NATIVE_S36_PACKAGED_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT`, normal/unverified CLI `EXPLICITLY_BLOCKED_NO_GUI`, exit2, artifact **11655064286**. No completed original product EXE.
 - Original unresolved: C12 actual `_show_all_game_windows` path (prior saved positions vs (0,0)), original Start Auto screenshot/controls, real authenticated Info and F05/F06 game action, whole TLM runtime/UI. No Proxy runtime, fake license, F02/F09 writes, game injection, fabricated UI; PLAN and original archive unchanged.
 - **NEXT_ACTION S59:** Read LIVE PLAN/STATE and authentic original C12 restore/Auto screenshot evidence; only implement exact show + UI controls with verified original sources, else tackle independent Plan-backed functional module. Preserve 870 units, native S58–S10, S36 diagnostic NOT PRODUCT, append evidence and next action.
+
+## S59 IN PROGRESS — ORIGINAL AUTO BITMAP RECOVERED / REAL C10-C11 BUTTONS
+- Base LIVE main: 72e2cd0e9a09b52a558068fd4e57b25d69ab3cb8. Read PLAN/STATE and reran 870 baseline tests PASS. `docs/tasks/S59.md` did not exist; no S59 implementation to redo.
+- **Missing-original-image blocker RESOLVED**: user original `TLMTool_rARyQTv9Ta(10).png` exactly matches B14 SHA256 4f1b126ea4ba0034889545653046f552a226d5f0033d2329a8693342184c28cd. Committed exact raster `docs/ui/original/START_AUTO.png`; measured two 78x21 C10/C11 controls and #4169e1; EXE confirms Segoe UI 8 bold. ZIP/inner EXE hashes exactly Gate A.
+- Added measured partial ttk Auto quick frame and real Xếp gọn/Xếp chéo Tk buttons to existing S56 async callbacks; no stack engine rewrite, no C07 fake mode radio or C12 guessed restore. Diagnostic controls remain below. Original full UI/runtime parity NOT claimed.
+- Local test-first: three failures for absent builder, then **874/874 complete units PASS**, compileall PASS. Native S59 workflow tests actual Button.invoke through native Win32 on owned Tk windows; results PENDING. Full original-game runtime and product EXE still unavailable.
+- Files: src/start_tab.py; tests/test_s56.py; tests/test_s59.py; tools/S59_WINDOWS_MEASURED_AUTO_BUTTONS_SMOKE.py; .github/workflows/s59-native-measured-auto-buttons.yml; docs/ui/original/START_AUTO.png; docs/tasks/S59.md; docs/source/S59_MODEL.json; STATE.md; PROJECT_STATUS.md.
+- Rulings and limits recorded in docs/tasks/S59.md. PLAN, other functional tabs, Proxy and game auth unchanged.
+
+## NEXT_ACTION — finish S59 verification, then S60
+- Inspect S59 native Windows run and S36 diagnostic packaging on the S59 commit; fix only observed failures. Independently review branch, merge verified checkpoint to main, append actual run IDs/results. Then use repository original START_AUTO.png (now available) and original C12 compiled flow to recover true restore; no invented mode controls. Keep all completed S01–S58 mechanisms. Full original production executable remains NOT COMPLETE.
+
+### S59 review checkpoint
+- Independent reviewer reproduced overlapping S56 stack and S17 grid workers when the two exposed UI commands are invoked in succession. Two targeted tests were RED, then GREEN after adding mutual worker-liveness checks in Start dispatch; native engines unchanged. This is a local coexistence guard, not an invented claim about original C07 behavior.
+- Re-graded the unused temporary-config assertion as evidence-integrity work: inject the actual GridSettingsStore(cfg) in the S59 native harness, so the existing no-settings-write assertion checks the file it really reads.
+- Final local suite **876/876 PASS**; compileall and diff whitespace checks PASS. No deferred reviewer findings. Native Windows run still pending at this checkpoint.
