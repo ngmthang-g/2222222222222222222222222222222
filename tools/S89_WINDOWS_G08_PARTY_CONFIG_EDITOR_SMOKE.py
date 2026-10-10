@@ -109,6 +109,9 @@ def run():
         report["error_type"] = type(exc).__name__
         report["error_text"] = str(exc)[:380]
         report["traceback"] = traceback.format_exc(limit=15)
+        print("S89_DIAGNOSTIC_TRACEBACK_BEGIN")
+        print(report["traceback"])
+        print("S89_DIAGNOSTIC_TRACEBACK_END")
     finally:
         if root is not None:
             try:
