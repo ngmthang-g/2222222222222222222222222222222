@@ -31,6 +31,7 @@ jobs:
           $text = Get-Content -Raw product_gate.txt
           if ($text -notmatch 'BLOCKED') { throw "S106_PRODUCT_GATE_FAILED: not explicitly blocked" }
           Write-Host "S106_PRODUCT_GATE=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0 # Expected nonzero product exit is a PASS for this *negative* test
       - name: S59 measured real Tk original C10/C11 buttons
         run: python tools/S59_WINDOWS_MEASURED_AUTO_BUTTONS_SMOKE.py
       - name: S57 real Win32 source-hide offscreen only
