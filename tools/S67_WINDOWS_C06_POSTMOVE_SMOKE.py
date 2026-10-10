@@ -113,17 +113,17 @@ def run():
             def __init__(self):
                 self.changed=False
             def process_id(self,h):
-                if self.changed and h==ids[0]:return pid+11
+                if self.changed and h==ids[1]:return pid+11
                 return super().process_id(h)
             def move_no_resize(self,h,x,y):
                 value=super().move_no_resize(h,x,y)
-                if h==ids[0]:self.changed=True
+                if h==ids[1]:self.changed=True
                 return value
         stale=C10C11WindowStacker(LieAboutPidAfterMove()).apply(
             snap,mode="horizontal",max_windows=3,master_hwnd=ids[0])
         evidence["post_move_pid_mismatch_detected"]=(
             stale.code=="STALE_AFTER_MOVE_PARTIAL"
-            and stale.moved==(ids[0],))
+            and stale.moved==(ids[1],))
         evidence["real_windows_remain_same_pid"]=all(
             native.is_window(h) and native.process_id(h)==pid for h in ids)
         root.destroy();root=None
