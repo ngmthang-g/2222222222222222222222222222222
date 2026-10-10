@@ -1717,3 +1717,14 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 ## NEXT_ACTION on CONTINUE — S115
 1. Read LIVE PLAN, STATE S114 and `docs/tasks/S114.md`; use verified report artifact **11678242351** to classify **65 original-only** file paths (not infer all are missing rebuilt code). Tie needed components to real F05/F06/Info/original-game runtime evidence, and only develop a complete sourced functional unit.
 2. Preserve PLAN, ZIP, B04/S59, no-Proxy, DATA-2222 strictly read-only; no fake signed Info, licensing or game login. Code changes require full **1648 Windows** tests, **281** compiled, native and fail-closed build verification; checkpoint NEXT_ACTION S116.
+
+
+## S115 VERIFIED — 65 original-only paths classified, no product simulation (2026-10-11)
+- **[S115 actual Windows CI 38075888185](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38075888185) SUCCESS**: **1664/1664** Python tests, **283** AST/compiled files, actual S114 artifact **11678242351** rechecked SHA/size against pinned A07 file; **65** original-only paths (**240835579 bytes**), 11 deterministic groups. Win Tk S111/S112 PASS. Actual S115 report artifact **11678309752**. Product bootstrap remains `EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT`.
+- Groups: **1 original TLM compiled EXE; 4 update/bootstrap/archive; 2 active game/version payload; 5 old payloads; 14 opaque data whose role is UNKNOWN; 1 historic log; 4 Proxy (scope excluded); 3 emulator/Frida; 2 assets; 13 third-party dependencies; 16 Python/Win32 runtime**. Missing diagnostic files are not proof of missing game behavior source. In particular `data/license.dat`, `data/auth_token.dat`, `data/accounts.dat` have UNKNOWN semantics per D06, NOT a live Info issuer or account database. `settings.ini` F02 accounts is a separate record.
+- New `tools/S115_CLASSIFY_ORIGINAL_ONLY.py`, 16 tests `tests/test_s115.py`, Windows workflow `s115-original-only-classification.yml`, `docs/tasks/S115.md`, append-only STATE/PROJECT. Production `src/`, original ZIP/PLAN/A07/B04/S59, Proxy and DATA-2222 client repo unchanged/read-only. The true full tool EXE remains BLOCKED by signed Info + F05/F06/game feature logic/parity.
+- Status `S115_WINDOWS_1664_PASS_65_FILE_CLASSIFICATION_NO_PRODUCT`.
+
+## NEXT_ACTION on CONTINUE — S116
+- Prioritize original F02 real account field editing and **safely preserved** user/password + selection/captcha/proxy raw tokens, 300ms debounce, atomic settings.ini update; first inspect F02/S38/S111/S112 and current source. If checkbox token or legacy `Có` uncertainty makes faithful writes impossible, mark blocker and find another real native Start Win32 action, not fake code. Preserve no-Proxy, genuine signed Info, DATA-2222 read-only.
+- For source change require 1664 Windows test baseline, S86 283 compiled, native and negative packaged gate, update exact changed files/test evidence and NEXT_ACTION S117.
