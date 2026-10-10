@@ -28,7 +28,9 @@ jobs:
         run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
       - name: S101 native RoleName to S90/S91 ready handoff two test PIDs
         run: python tools/S101_WINDOWS_G03_PARTY_READY_HANDOFF_TWO_PID_SMOKE.py
-      - name: S100 native RoleName source\n        run: python tools/S100_WINDOWS_G03_EXTERNAL_ROLENAME_TWO_PID_SMOKE.py\n      - name: S99 native Party snapshot
+      - name: S100 native RoleName source
+        run: python tools/S100_WINDOWS_G03_EXTERNAL_ROLENAME_TWO_PID_SMOKE.py
+      - name: S99 native Party snapshot
         run: python tools/S99_WINDOWS_G10_TWO_PID_SNAPSHOT_PRESENTATION_SMOKE.py
       - name: S98 native TeamID epoch
         run: python tools/S98_WINDOWS_G10_TWO_PID_EPOCH_SMOKE.py
