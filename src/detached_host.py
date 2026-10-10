@@ -77,6 +77,8 @@ class C14DetachedHost:
         self._region = None
         self._session = None
         self._closed = False
+        # C13 original Đóng xem belongs ONLY to this detached host.
+        self._close_view_button = None
 
     @property
     def owner_hwnd(self) -> int:
@@ -191,6 +193,18 @@ class C14DetachedHost:
             if not self._verified_owner() or not allowed():
                 self.close()
                 return HostResult("OWNER_NATIVE_PROOF_FAILED")
+            # C13 recovered original detached control-bar action "Đóng xem".
+            # It closes DWM destinations and THIS detached view, never the
+            # discovered game source HWNDs. This single live button is not
+            # a claim that the unrecovered full C14 bar pixel layout exists.
+            # Unit fake owners deliberately have no real Tk interpreter.
+            if hasattr(widget, "tk"):
+                from tkinter import ttk
+                button = ttk.Button(widget, text="Đóng xem",
+                                    command=self.close)
+                button.place(x=max(0,region.width-96), y=4,
+                             width=88, height=24)
+                self._close_view_button = button
             self._session=self._session_factory()
             return HostResult("HOST_OPEN",hwnd,region)
         except (OSError,RuntimeError,ValueError,TypeError,AttributeError):
@@ -247,6 +261,7 @@ class C14DetachedHost:
             except Exception:
                 cleanup_failed = True
         owner = self._owner
+        self._close_view_button = None
         self._owner = None
         self._owner_hwnd = 0
         self._region = None
