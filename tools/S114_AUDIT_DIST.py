@@ -48,8 +48,19 @@ def safe_relative(raw: str) -> str:
 
 def load_original(manifest: Path, *, expected_sha: str | None = ORIGINAL_MANIFEST_SHA256,
                   expected_rows: int = ORIGINAL_ALL_ROWS) -> dict[str, dict]:
-    if expected_sha is not None and digest(manifest) != expected_sha:
-        raise DistAuditError("ORIGINAL_MANIFEST_SHA_MISMATCH")
+    if expected_sha is not None:
+        source = manifest.read_bytes()
+        observed = hashlib.sha256(source).hexdigest()
+        if observed != expected_sha:
+            # Windows git checkout can expand committed LF to CRLF.
+            # Accept only an all-CRLF checkout if the reconstituted original
+            # LF bytes hash EXACTLY to A07's immutable known SHA256.
+            # Never mutate the manifest or bypass the checksum.
+            pure_crlf = (b"\r\n" in source and
+                         source.count(b"\n") == source.count(b"\r\n"))
+            canonical = source.replace(b"\r\n", b"\n") if pure_crlf else b""
+            if hashlib.sha256(canonical).hexdigest() != expected_sha:
+                raise DistAuditError("ORIGINAL_MANIFEST_SHA_MISMATCH")
     with manifest.open("r", encoding="utf-8", newline="") as stream:
         reader = csv.DictReader(stream, delimiter="\t")
         required = {"SHA256", "SIZE_BYTES", "CATEGORY", "PACKAGE_PATH"}
