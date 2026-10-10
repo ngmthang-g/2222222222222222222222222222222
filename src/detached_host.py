@@ -77,6 +77,9 @@ class C14DetachedHost:
         self._region = None
         self._session = None
         self._closed = False
+        # S85: a failed native DWM cleanup forbids C14 refresh/reopen in
+        # this owner lifetime; old destination handle state is uncertain.
+        self._refresh_cleanup_faulted = False
         # C13 original Đóng xem belongs ONLY to this detached host.
         self._close_view_button = None
 
@@ -147,6 +150,8 @@ class C14DetachedHost:
             return HostResult("WRONG_TK_THREAD")
         if self._closed:
             return HostResult("CLOSED")
+        if self._refresh_cleanup_faulted:
+            return HostResult("NATIVE_CLEANUP_FAILED_LOCKED")
         if not allowed():
             return HostResult("CANCELLED")
         if self._owner is not None:
@@ -247,6 +252,66 @@ class C14DetachedHost:
         except (OSError,RuntimeError,ValueError,TypeError):
             self.close()
             return HostResult("DETACHED_RENDER_FAILED")
+
+    def refresh(
+        self, snapshot: WindowSnapshot, *, max_windows: int,
+        placements_for_owner: Callable[
+            [DetachedRegion, int, WindowSnapshot], Sequence[PreviewPlacement]
+        ] | None = None,
+        allowed: Callable[[], bool] = lambda: False,
+    ) -> HostResult:
+        """C14 `↺`: close the old DWM view, reopen and re-read sources.
+
+        Original doc proves the close-then-reopen sequence, but original
+        detached tile x/y/w/h arithmetic is NOT recovered (S75). Consequently
+        EVERY refresh requires an independently measured placement factory.
+        There is no default geometry and no prematurely wired UI action.
+        All native DWM operations remain on this Tk owner thread.
+        """
+        if not self._on_owner_thread():
+            return HostResult("WRONG_TK_THREAD")
+        if self._closed:
+            return HostResult("CLOSED")
+        if self._refresh_cleanup_faulted:
+            return HostResult("NATIVE_CLEANUP_FAILED_LOCKED")
+        if self._owner is None:
+            return HostResult("NOT_OPEN")
+        if not callable(allowed) or allowed() is not True:
+            self.close()
+            return HostResult("CANCELLED")
+        if type(max_windows) is not int or max_windows <= 0:
+            self.close()
+            return HostResult("NO_VERIFIED_WINDOW_LIMIT")
+        if not callable(placements_for_owner):
+            # Do not replace a real DWM preview with a guessed blank host.
+            return HostResult("DETACHED_PLACEMENT_EVIDENCE_MISSING")
+        gate = self._source_gate(snapshot, max_windows)
+        if gate != "VALID":
+            self.close()
+            return HostResult(gate)
+        ended = self.close()  # C13 first: DWM thumbnails before Tk owner
+        if ended.code != "HOST_CLOSED":
+            self._refresh_cleanup_faulted = True
+            return HostResult("NATIVE_CLEANUP_FAILED_LOCKED")
+        if allowed() is not True:
+            return HostResult("CANCELLED")
+        opened = self.open(snapshot, max_windows=max_windows, allowed=allowed)
+        if opened.code != "HOST_OPEN":
+            return opened
+        try:
+            placements = tuple(
+                placements_for_owner(opened.region, opened.owner_hwnd, snapshot))
+        except Exception:
+            self.close()
+            return HostResult("DETACHED_PLACEMENTS_UNAVAILABLE")
+        rendered = self.render(
+            snapshot, max_windows=max_windows, placements=placements,
+            allowed=allowed)
+        if rendered.code != "DETACHED_DWM_VISIBLE":
+            # render() already closes the host on invalid DWM/layout.
+            return rendered
+        return HostResult("DETACHED_DWM_REFRESHED", rendered.owner_hwnd,
+                          rendered.region, rendered.rendered)
 
     def close(self) -> HostResult:
         if not self._on_owner_thread():
