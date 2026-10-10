@@ -150,6 +150,7 @@ jobs:
         with:
           name: s61-c07-original-reset-test-owned-windows
           path: |
+            artifacts/s61/
             artifacts/s59/
             artifacts/s58/
             artifacts/s57/

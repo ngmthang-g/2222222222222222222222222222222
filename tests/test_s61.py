@@ -94,7 +94,7 @@ class S61AutoResetTests(unittest.TestCase):
     def test_backend_lies_about_resize_fails_closed(self):
         self.b.resize_no_move=lambda h,w,ht:True
         out=self.svc.apply(snap(*self.rows),max_windows=3)
-        self.assertEqual(out.code,"RESIZE_UNVERIFIED")
+        self.assertEqual(out.code,"RESIZE_UNVERIFIED_PARTIAL")
         self.assertEqual(out.resized,(1,))
         self.assertEqual(self.b.moves,[])
 
