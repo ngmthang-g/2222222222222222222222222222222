@@ -1574,3 +1574,15 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 1. Read LIVE PLAN, STATE, S103 and original G02/G03 static evidence. Do not repeat passing modules.
 2. Audit source-backed existing interfaces and missing real Party data-source dependencies; document exactly what can be integrated and what remains unknown, avoiding fabricated reader or repeated mock layers. Leave original runtime and UI unchanged.
 3. Run applicable regression/source audit, record verified evidence/files/errors with NEXT_ACTION S105 in STATE/PROJECT. Preserve original ZIP, PLAN, B04/S59 and no-Proxy.
+
+
+## S104 COMPLETE — PARTY REAL DATA-SOURCE BLOCKER AUDIT (2026-10-10)
+- LIVE PLAN+STATE S103 NEXT_ACTION S104 re-read; repository tree and G02/G03/G10/G12 Party originals plus S87 evidence audited. Two new docs: `docs/party/S104_REAL_PROVIDER_DEPENDENCY_INVENTORY.md`, `docs/tasks/S104.md`; append-only STATE/PROJECT. NO changes to prior source, tests, CI, original binary/screenshots, PLAN, B04/S59, Proxy ban.
+- Concrete deficits: actual game `get_character_info` RoleName feed and `read_own_ids/read_team_id` data readers NOT supplied as real source modules; S100/S94 take test/external callbacks only. S02 Info state/permission cannot supply authentic operational authorization and S92 team coordinator has no actual game executor. `src/TLMTool.py:main()` still exits 2. This source inventory is evidence, not a new working feature.
+- NO new CI required/trigged for documentation-only task. Most recent actual verified **S103 Windows CI 38062644606**: **1564/1564** Python, **269** AST+compiled .py, inherited test-owned native S102–S76 PASS. **S36 diagnostic run 38062487870** success but normal `EXPLICITLY_BLOCKED_NO_GUI`, not functioning 1:1 product.
+- STATUS **S104_DOCUMENTED_REAL_PARTY_PROVIDER_DEPENDENCIES_PRODUCT_STILL_BLOCKED**.
+
+## NEXT_ACTION on CONTINUE — S105 (REAL INPUT EVIDENCE OR PIVOT TO ORIGINAL-BACKED FUNCTIONAL GAP)
+1. Read LIVE PLAN/STATE, S104 and original client evidence.
+2. Check legitimate available authentic Party input providers and requirements; if missing, document exact evidence needed and prioritize a testable real-user functional gap over more simulated identity layers. Do not invent auth or game reader.
+3. Verify actual tests/CI for any code change; append findings, changed files, blockers and NEXT_ACTION S106. Locked PLAN/ZIP/B04/S59 and no-Proxy preserved.
