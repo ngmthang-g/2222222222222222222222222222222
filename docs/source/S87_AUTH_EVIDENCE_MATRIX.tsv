@@ -1,0 +1,18 @@
+subject	source	evidence	status	missing
+ZIP immutable user upload	read-only ZIP	1050 members; CRC pass; sha256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd	VERIFIED	original Python source absent
+Inner original main EXE	read-only EXE	47450112 bytes; sha256 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22	VERIFIED	none for specimen identity
+Info module	original EXE	<module info_tab> at 0x2975ca9	STATIC VERIFIED	active Python instructions unavailable
+Permission module	original EXE	<module permission_guard> at 0x2b84c35	STATIC VERIFIED	active Python instructions unavailable
+Startup RPC	original EXE	call_server_api_at_startup 0x2970925; _post_rpc 0x2970e8e	STATIC VERIFIED	request response policy live operation
+RPC route	original EXE	/rest/v1/rpc/ at 0x2970b26	STATIC VERIFIED	complete documented per-action contract
+HTTPS server reference	original EXE	origin at 0x2970d92; SHA256 74d7a744041b016cc2e5c60572174289b33c8ba2534f6d4bcce4d706ad4b1fc1	STATIC VERIFIED	ownership authenticated access production acceptance
+Heartbeat	original EXE	app_heartbeat_v2 at 0x2971119	STATIC VERIFIED	server lifecycle cadence grace and real response
+Token decode	original EXE	decode_token at 0x2970f67	STATIC VERIFIED	exact signed token envelope
+Signature validator	original EXE	_verify_token_signature at 0x2971ba4	STATIC VERIFIED	active mode key source signature canonicalization
+Crypto config markers	original EXE	TOKEN_VERIFY_MODE 0x2971c5a; TOKEN_PUBLIC_KEY_PEM 0x2971c78; TOKEN_HMAC_SECRET 0x29705ba	STATIC VERIFIED	active auth policy unknown
+Heartbeat limits	original EXE	heartbeat_failures 0x2b82cc5; heartbeat_grace_seconds 0x2b82d0e	STATIC VERIFIED	values and exact time-order
+FREE policy	original EXE	_DEFAULT_FREE_PERMISSIONS 0x2b828b4	STATIC VERIFIED	actual allowed set and override policy
+Real Info adapter	src/info_state.py	requires real_verify_and_decode callback	INTERFACE ONLY	legitimate external signed verifier
+Production bootstrap	src/TLMTool.py	main returns 2 and starts no GUI	FAIL CLOSED AS DESIGNED	full signed Info provider and complete feature tabs
+Windows CI prior	docs/tasks/S86.md	1174/1174 tests and 222 Python compile	PRIOR VERIFIED	no S87 new Windows run
+Product runnable EXE	S86 source audit	S36 EXE is diagnostic only	BLOCKED	full real parity and legitimately authorized runtime
