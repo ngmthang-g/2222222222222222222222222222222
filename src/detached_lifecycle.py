@@ -120,6 +120,10 @@ class C14DetachedLifecycle:
         if state.code != "READY":
             return self._invalidate("SCAN_INVALIDATED_" + state.code, stop_worker=True)
         snap = state.snapshot
+        # Recheck CURRENT verified entitlement cap, even for an identical
+        # already-consumed scan revision. A reduced cap cannot preserve DWM.
+        if not snap.valid or len(snap.windows) > max_windows:
+            return self._invalidate("OVER_VERIFIED_LIMIT_OR_INVALID_CACHE", stop_worker=True)
         if self._processed_revision == snap.revision:
             return C14LifecycleResult("NO_NEW_SCAN", self._observer.identities)
         result = self._observer.observe(
