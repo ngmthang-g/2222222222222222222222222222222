@@ -1,6 +1,6 @@
 {
   "task": "S57",
-  "status": "WINDOWS_NATIVE_CI_PENDING",
+  "status": "VERIFIED_NATIVE_WINDOWS_858_TESTS_C12_HIDE_ONLY_ENGINE",
   "source": "src/window_hide.py",
   "original_specimen_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
   "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
@@ -26,5 +26,23 @@
   "user_ui": "NOT_WIRED_ORIGINAL_BITMAP_UNAVAILABLE",
   "exe": "S36_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT",
   "proxy_runtime": "EXCLUDED",
-  "next_action": "S58 investigate exact show restore branch and original Auto bitmap before UI toggle"
+  "next_action": "S58 investigate exact show restore branch and original Auto bitmap before UI toggle",
+  "native_evidence": {
+    "run_id": 38013306386,
+    "job_id": 114097986667,
+    "conclusion": "success",
+    "windows_unit_tests": "858/858",
+    "native_smoke": "PASS_NATIVE_S57_C12_HIDE_ONLY_TEST_OWNED_WINDOWS",
+    "artifact_id": 11654662005,
+    "previous_regressions": "S56-S10 native Windows PASS",
+    "real_game": "NOT_RUN"
+  },
+  "diagnostic_evidence": {
+    "run_id": 38013244150,
+    "job_id": 114097773624,
+    "windows_unit_tests": "858/858",
+    "status": "PASS_NATIVE_S36_PACKAGED_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT",
+    "normal_cli": "EXPLICITLY_BLOCKED_NO_GUI",
+    "artifact_id": 11654571939
+  }
 }
