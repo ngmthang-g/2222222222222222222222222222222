@@ -1561,3 +1561,16 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 1. Read LIVE PLAN, STATE, S102, G01/G02/G03/G08 and S89–S102. Never repeat verified source.
 2. Test/external read-only Combo saved-name identity vs S94 `read_own_ids` resolution: distinguish offline/unresolved cached name from fresh matching RoleID in verified native HWND/PID Start generation and external Info permission (missing real signed issuer blocks). No action authorization, no fabricated live game memory, packets, GUI or persistent runtime IDs.
 3. Run 1534 Windows baseline, S86 267, native S102-S94 and inherited, S36 fail-closed packaging; append actual CI/files/errors/blockers with NEXT_ACTION S104. PLAN/ZIP/B04/S59/Proxy immutable.
+
+
+## S103 VERIFIED — PARTY SAVED NAME VS EXTERNAL IDENTITY DIAGNOSTIC (2026-10-10)
+- Source: unchanged LIVE original PLAN/STATE S102, original Party G02/G03, implemented S89–S102. New `src/party_saved_role_identity.py` and `tests/test_s103.py` (30 cases), new `.github/workflows/s103-party-own-role-provenance-native.yml`, `docs/tasks/S103.md`. Append-only STATE and PROJECT. Previously passing modules / original ZIP/PLAN/B04/S59 and no-Proxy scope untouched.
+- Read-only proof compares existing S102 saved/current Party selections with distinct S94 test/external live identity observations. Classifies names without external records, displayed but unresolved records, inconsistent PID ownership, and test-only matched records. Reuses native HWND/PID + Start-cache revision and external permission checks. Blocked outcomes publish no partial identity. No game action, no usable runtime send target, and no genuine game identity asserted.
+- **ACTUAL [S103 Windows CI 38062644606](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38062644606), job 114243861428 COMPLETED SUCCESS**: **1564/1564** full unit tests, **30/30** isolated S103 tests, **269** compiled Python files (66 src/99 tests+tools), inherited native TEST-owned S102/S101/S100/S99/S98/S97/S96/S95/S94/S93/S92/S91/S90/S89/S88/S76 **ALL PASS**. No new direct S103 two-PID end-to-end integration test; S103 itself is synthetic-fixture unit verified.
+- **ACTUAL [S36 diagnostic Windows package 38062487870](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38062487870), job 114243404973 COMPLETED SUCCESS**, 1564 tests and `PASS_NATIVE_S36_PACKAGED_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT`, startup `EXPLICITLY_BLOCKED_NO_GUI`. Original in-game reader/integration, signed access provider, complete Party team actions/UI and other product parity remain BLOCKED. EXE is NOT functional product.
+- STATUS **S103_WINDOWS_1564_PASS_TEST_ONLY_ROLE_PROVENANCE_NO_GAME_ACTION**.
+
+## NEXT_ACTION on CONTINUE — S104 (PARTY ORIGINAL DATA-SOURCE INTEGRATION BLOCKER AUDIT)
+1. Read LIVE PLAN, STATE, S103 and original G02/G03 static evidence. Do not repeat passing modules.
+2. Audit source-backed existing interfaces and missing real Party data-source dependencies; document exactly what can be integrated and what remains unknown, avoiding fabricated reader or repeated mock layers. Leave original runtime and UI unchanged.
+3. Run applicable regression/source audit, record verified evidence/files/errors with NEXT_ACTION S105 in STATE/PROJECT. Preserve original ZIP, PLAN, B04/S59 and no-Proxy.
