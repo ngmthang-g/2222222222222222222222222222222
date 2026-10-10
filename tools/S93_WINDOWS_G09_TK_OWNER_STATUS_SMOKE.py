@@ -96,7 +96,8 @@ def main():
         assert until(lambda:len(started)==2)
         assert until(lambda:status.current.code=="RUNNING")
         assert status.current.global_text=="Dừng lại"
-        assert status.summary.cget("foreground")==RUNNING_COLOR
+        assert root.winfo_rgb(status.summary.cget("foreground"))==root.winfo_rgb(RUNNING_COLOR), (
+            status.summary.cget("foreground"), RUNNING_COLOR)
         assert "⏳" in status.group_labels[1].cget("text")
         assert "⏳" in status.group_labels[2].cget("text")
         report["original_running_text_red_foreground_real_tk"]=True
@@ -104,7 +105,8 @@ def main():
         assert status.coordinator.stop_global()=="STOPPING"
         assert until(lambda:status.current.code=="STOPPING")
         assert status.current.global_text=="Đang dừng..."
-        assert status.summary.cget("foreground")==STOPPING_COLOR
+        assert root.winfo_rgb(status.summary.cget("foreground"))==root.winfo_rgb(STOPPING_COLOR), (
+            status.summary.cget("foreground"), STOPPING_COLOR)
         # Snapshot belongs to coordinator, UI callbacks must never make
         # a stale event revert STOPPING to previous RUNNING.
         status._queue.put(status._epoch)
