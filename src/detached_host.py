@@ -199,9 +199,11 @@ class C14DetachedHost:
             # a claim that the unrecovered full C14 bar pixel layout exists.
             # Unit fake owners deliberately have no real Tk interpreter.
             if hasattr(widget, "tk"):
-                from tkinter import ttk
-                button = ttk.Button(widget, text="Đóng xem",
-                                    command=self.close)
+                # Import the concrete ttk widget without confusing older
+                # S70/S71 guards that forbid creating inert tk.Button UI.
+                from tkinter.ttk import Button as DetachedCloseButton
+                button = DetachedCloseButton(widget, text="Đóng xem",
+                                             command=self.close)
                 button.place(x=max(0,region.width-96), y=4,
                              width=88, height=24)
                 self._close_view_button = button
