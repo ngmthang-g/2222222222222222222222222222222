@@ -75,7 +75,7 @@ class S109OriginalRowLimitTests(unittest.TestCase):
         original=self.o.entry_pass[72]
         self.apply(2);self.apply(90)
         self.assertIs(original,self.o.entry_pass[72])
-    def test_07_full_six-column_existing_widget_model_untouched(self):
+    def test_07_full_existing_widget_model_untouched(self):
         old=(self.o.row_selectors,self.o.entry_user,self.o.entry_pass,self.o.captcha_boxes)
         self.apply(3);self.apply(80)
         self.assertEqual(old,(self.o.row_selectors,self.o.entry_user,self.o.entry_pass,self.o.captcha_boxes))
