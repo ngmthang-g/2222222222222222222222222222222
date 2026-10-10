@@ -69,7 +69,7 @@ def run():
         editor.add_btn.invoke()
         root.update()
         assert len(editor.group_inputs) == 2
-        assert editor.group_inputs[1][4].cget("state") == "readonly"
+        assert editor.group_inputs[1][4].instate(("readonly",)), repr(editor.group_inputs[1][4].cget("state"))
         editor.group_inputs[1][4].set("Bạch Vân")
         editor.group_inputs[1][4].event_generate("<<ComboboxSelected>>")
         root.update()
