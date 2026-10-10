@@ -46,7 +46,7 @@ class S116ExistingEditTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             p = self.file(tmp)
             update_existing_accounts([OLD], p)
-            text = p.read_text()
+            text = p.read_text(encoding="utf-8")
             self.assertIn("UNKNOWN|S116_NEW_U0|S116_NEW_P0|Có|opaque-forwarder-value", text)
             self.assertIn("?|S116_FAKE_U1|S116_FAKE_P1|Tool|", text)
             self.assertIn("after_login = wait", text)
@@ -58,16 +58,16 @@ class S116ExistingEditTests(unittest.TestCase):
             change = ExistingAccountEdit(1, "S116_FAKE_U1", "S116_FAKE_P1",
                                          "S116_HIDDEN_U1", "S116_HIDDEN_P1")
             update_existing_accounts((change,), p)
-            self.assertIn("  ?|S116_HIDDEN_U1|S116_HIDDEN_P1|Tool|\n", p.read_text())
-            self.assertIn("accounts = UNKNOWN|S116_FAKE_U0|S116_FAKE_P0|Có|opaque-forwarder-value", p.read_text())
+            self.assertIn("  ?|S116_HIDDEN_U1|S116_HIDDEN_P1|Tool|\n", p.read_text(encoding="utf-8"))
+            self.assertIn("accounts = UNKNOWN|S116_FAKE_U0|S116_FAKE_P0|Có|opaque-forwarder-value", p.read_text(encoding="utf-8"))
 
     def test_04_batch_two_changes_one_atomic_result(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = self.file(tmp)
             second = ExistingAccountEdit(1, "S116_FAKE_U1", "S116_FAKE_P1", "A1", "B1")
             update_existing_accounts([OLD, second], p)
-            self.assertIn("UNKNOWN|S116_NEW_U0|S116_NEW_P0|Có", p.read_text())
-            self.assertIn("  ?|A1|B1|Tool|", p.read_text())
+            self.assertIn("UNKNOWN|S116_NEW_U0|S116_NEW_P0|Có", p.read_text(encoding="utf-8"))
+            self.assertIn("  ?|A1|B1|Tool|", p.read_text(encoding="utf-8"))
 
     def test_05_unchanged_does_not_create_backup(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -92,7 +92,7 @@ class S116ExistingEditTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             p = self.file(tmp)
             update_existing_accounts([OLD], p)
-            self.assertEqual(p.read_text().splitlines()[1].split("|")[0],
+            self.assertEqual(p.read_text(encoding="utf-8").splitlines()[1].split("|")[0],
                              "accounts = UNKNOWN")
 
     def test_08_no_account_key_no_new_check_token_created(self):
@@ -168,7 +168,7 @@ class S116ExistingEditTests(unittest.TestCase):
             new = ExistingAccountEdit(0, "S116_FAKE_U0", "S116_FAKE_P0",
                                       "Tài khoản mẫu", "Mật khẩu giả")
             update_existing_accounts([new], p)
-            self.assertIn("Tài khoản mẫu|Mật khẩu giả|Có|opaque", p.read_text())
+            self.assertIn("Tài khoản mẫu|Mật khẩu giả|Có|opaque", p.read_text(encoding="utf-8"))
 
     def test_17_duplicate_row_changes_and_bool_index_invalid(self):
         with tempfile.TemporaryDirectory() as tmp:
