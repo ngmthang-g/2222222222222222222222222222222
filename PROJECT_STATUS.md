@@ -1156,3 +1156,9 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - **Windows CI 38021841374 job 114124320325 COMPLETED SUCCESS:** 930/930 tests and native three TEST-OWNED HWND/PID identity, RoleName fake fixture explicitly NOT actual game, no guess for 3-window sorting; all S63–S10 native regressions PASS; artifact 11658193510. Source regression 38021841387 successful.
 - **S36 diagnostic 38021841337 job 114124320270 COMPLETED SUCCESS:** 930/930, both CLI EXPLICITLY_BLOCKED_NO_GUI, artifact 11658947347, DIAGNOSTIC NOT PRODUCT.
 - Still missing REAL game RoleName Reader, original C07 _sort_key comparison and placement, signed Info/game operation and complete source/EXE. NEXT_ACTION S65 from STATE; no Proxy.
+
+
+## S65 — RoleName REAL game source feasibility BLOCKED (research, no functional changes)
+- Actual client DATA catalog distinguishes local `Game.RoleData` from team member `RoleName` and nearby `Name`; neither gives TLM external PID Reader pointer chain or exact C07 `_sort_key`. GameAssembly/metadata GitHub contents are LFS pointer text, not live runtime proof.
+- docs/tasks/S65.md added; STATE.md/PROJECT_STATUS.md append-only, no other changes. No code/test added or fake progress claimed. Last VERIFIED S64 remains 930/930 unit Windows, S64 native test-only and S36 DIAGNOSTIC NOT PRODUCT.
+- NEXT_ACTION S66: original-backed C06 horizontal/vertical move-only engine (50px X/Y increment, master first); no guessed user-visible buttons without screenshot and no Proxy.
