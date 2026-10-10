@@ -1162,3 +1162,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Actual client DATA catalog distinguishes local `Game.RoleData` from team member `RoleName` and nearby `Name`; neither gives TLM external PID Reader pointer chain or exact C07 `_sort_key`. GameAssembly/metadata GitHub contents are LFS pointer text, not live runtime proof.
 - docs/tasks/S65.md added; STATE.md/PROJECT_STATUS.md append-only, no other changes. No code/test added or fake progress claimed. Last VERIFIED S64 remains 930/930 unit Windows, S64 native test-only and S36 DIAGNOSTIC NOT PRODUCT.
 - NEXT_ACTION S66: original-backed C06 horizontal/vertical move-only engine (50px X/Y increment, master first); no guessed user-visible buttons without screenshot and no Proxy.
+
+
+## S66 VERIFIED — C06 Xếp ngang/dọc original 50px move-only
+- Existing `src/window_stacking.py` C10/C11 engine extended with horizontal (50*i,0) and vertical (0,50*i), master first/no size change, no extra UI; original S55 buttons and visual fidelity untouched. Source commit c73e2aecab7145615fb25087014d17738de36c46.
+- NEW tests/test_s66.py 12 cases; tools/S66_WINDOWS_C06_HV_STACK_SMOKE.py real 3 test-owned HWND SetWindowPos; .github/workflows/s66-native-c06-hv-stacks.yml; docs/tasks/S66.md; STATE/PROJECT_STATUS checkpoint.
+- [S66 native Windows run 38022225272](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38022225272) job 114125478876 COMPLETED SUCCESS: **942/942 Python tests**, actual horizontal/vertical 50px movement and preserved sizes with master first; all S64–S10 native regression PASS; artifact **11658313767** TEST ONLY.
+- [S36 packaged diagnostic 38022186641](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38022186641) job 114125360482 SUCCESS: **942/942**, normal/unverified both EXPLICITLY_BLOCKED_NO_GUI; artifact **11657879112** DIAGNOSTIC NOT PRODUCT.
+- Still missing full original Auto/RoleName, C12 show, signed Info/game runtime and full EXE. No Proxy. NEXT_ACTION S67: genuine Win32 post-move readback and fail-closed result guard for four C06 modes if real defect reproducible. Preserve working code.
