@@ -68,24 +68,8 @@ class PreviewResult:
 
 class DwmBackend(Protocol):
     def source_matches(self, hwnd: int, pid: int) -> bool: ...
-    def activate_source(self, hwnd: int) -> bool:
-        """C03 real native restore/show and foreground attempt (no game input).
-
-        Win32 foreground restrictions may reject SetForegroundWindow even
-        when the source HWND/PID is current. Never misreport an attempt as
-        proof of focus in another process.
-        """
-        if not self._is_window(hwnd) or self._hung(hwnd):
-            return False
-        self._show(hwnd, 9 if self._is_iconic(hwnd) else 5)  # SW_RESTORE / SW_SHOW
-        return bool(self._foreground(hwnd))
-
-    def bind_click_target(self, destination: int, hwnd: int, pid: int) -> None:
-        if (not self._is_window(destination)
-                or not self.source_matches(hwnd, pid)):
-            raise OSError("C03_CLICK_SOURCE_NOT_CURRENT")
-        _DWM_CLICK_TARGETS[destination] = (self, hwnd, pid)
-
+    def activate_source(self, hwnd: int) -> bool: ...
+    def bind_click_target(self, destination: int, hwnd: int, pid: int) -> None: ...
     def create_destination(self, owner: int, x: int, y: int, width: int, height: int) -> int: ...
     def register(self, destination: int, source: int) -> int: ...
     def reposition(self, destination: int, thumbnail: int, x: int, y: int,
@@ -374,6 +358,24 @@ class NativeDwmBackend:
         current = self.w.DWORD(0)
         self._get_pid(hwnd, self.ctypes.byref(current))
         return int(current.value) == pid and pid > 0
+
+    def activate_source(self, hwnd: int) -> bool:
+        """C03 real native restore/show and foreground attempt (no game input).
+
+        Win32 foreground restrictions may reject SetForegroundWindow even
+        when the source HWND/PID is current. Never misreport an attempt as
+        proof of focus in another process.
+        """
+        if not self._is_window(hwnd) or self._hung(hwnd):
+            return False
+        self._show(hwnd, 9 if self._is_iconic(hwnd) else 5)  # SW_RESTORE / SW_SHOW
+        return bool(self._foreground(hwnd))
+
+    def bind_click_target(self, destination: int, hwnd: int, pid: int) -> None:
+        if (not self._is_window(destination)
+                or not self.source_matches(hwnd, pid)):
+            raise OSError("C03_CLICK_SOURCE_NOT_CURRENT")
+        _DWM_CLICK_TARGETS[destination] = (self, hwnd, pid)
 
     def create_destination(self, owner: int, x: int, y: int, width: int, height: int) -> int:
         # Tk winfo_id can refer to its drawing child, not the native top-level.
