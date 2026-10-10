@@ -125,6 +125,7 @@ class PartyReadyConfigEditor(PartySettingsEditor):
         self._closing_ready = True
         if hasattr(self, "_roster_reader"):
             self._roster_reader.shutdown()
+        self._roster.clear("STOPPED")
         if hasattr(self, "ready_list") and self.ready_list.winfo_exists():
             self.ready_list.show(self._roster)
 
