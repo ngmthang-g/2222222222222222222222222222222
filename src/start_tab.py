@@ -213,6 +213,9 @@ class TLMStartTab:
         self._active_windows = ()
         self._preview_after = None
         self._preview_controller = None
+        # S76: a failed native DWM teardown must never be followed by another
+        # registration in this Start owner lifetime (unknown native handles).
+        self._preview_cleanup_faulted = False
         self._preview_backend_factory = preview_backend_factory or NativeDwmBackend
         # C03/C04: root movement changes screen origin without resizing Tk
         # thumbnail anchors. Register lifecycle-safe root/child observers.
@@ -256,6 +259,10 @@ class TLMStartTab:
         if state != self._state:
             self._render(state)
         windows = snapshot.windows if snapshot.valid else ()
+        # S76 native teardown failure permanently fences further DWM/Tk
+        # preview creation; read-only HWND rows may still update.
+        if getattr(self, "_preview_cleanup_faulted", False):
+            return
         if windows != self._observed_windows:
             self._sync_tiles(windows)
         elif hasattr(self, "master_selection"):
@@ -377,12 +384,25 @@ class TLMStartTab:
         Keep the C09 choice and C17 source-HWND ordering; they are user state,
         not disposable DWM frame resources.
         """
-        self._drop_previews()
+        # S76: DWM first, then attempt EVERY Tk frame destroy even if a
+        # native unregister failed. Do not rebuild after uncertain cleanup.
+        failure = None
+        try:
+            self._drop_previews()
+        except Exception as exc:
+            failure = exc
         for item in tuple(self._tile_items.values()):
-            item[0].destroy()
+            try:
+                item[0].destroy()
+            except Exception as exc:
+                if failure is None:
+                    failure = exc
         self._tile_items.clear()
         self._active_windows = ()
         self._observed_windows = ()
+        if failure is not None:
+            self._preview_cleanup_faulted = True
+            raise failure
 
     def refresh_window_preview_list(self) -> bool:
         """C15: explicit real full-refresh from S09's immutable cache only.
@@ -392,6 +412,9 @@ class TLMStartTab:
         Start visibility and permits this command only while selected/active.
         """
         if self._closed or not self.poller.active:
+            return False
+        if getattr(self, "_preview_cleanup_faulted", False):
+            self.preview_status.configure(text="Preview lỗi: giải phóng DWM chưa xác minh")
             return False
         try:
             if not self.container.winfo_viewable():
@@ -406,20 +429,34 @@ class TLMStartTab:
             if not isinstance(snapshot, WindowSnapshot):
                 raise TypeError("INVALID_WINDOW_SNAPSHOT")
         except Exception:
-            self._clear_window_preview_list()
+            try:
+                self._clear_window_preview_list()
+            except Exception:
+                self._preview_cleanup_faulted = True
             self._render(StartReadOnlyState(
                 "ERROR", "Không thể đọc danh sách cửa sổ game"))
-            self.preview_status.configure(text="Preview lỗi: không đọc được cache")
+            self.preview_status.configure(text=(
+                "Preview lỗi: giải phóng DWM chưa xác minh"
+                if getattr(self, "_preview_cleanup_faulted", False)
+                else "Preview lỗi: không đọc được cache"))
             return False
 
-        self._clear_window_preview_list()
         try:
+            self._clear_window_preview_list()
+            if getattr(self, "_preview_cleanup_faulted", False):
+                raise RuntimeError("NATIVE_PREVIEW_CLEANUP_UNVERIFIED")
             self._present_cached_snapshot(snapshot)
         except Exception as exc:
-            self._clear_window_preview_list()
+            try:
+                self._clear_window_preview_list()
+            except Exception:
+                self._preview_cleanup_faulted = True
             self._render(StartReadOnlyState(
                 "ERROR", "Không thể đọc danh sách cửa sổ game"))
-            self.preview_status.configure(text=f"Preview lỗi: {type(exc).__name__}")
+            self.preview_status.configure(text=(
+                "Preview lỗi: giải phóng DWM chưa xác minh"
+                if getattr(self, "_preview_cleanup_faulted", False)
+                else f"Preview lỗi: {type(exc).__name__}"))
             return False
         if not snapshot.valid:
             self.preview_status.configure(text="Preview lỗi: cache không hợp lệ")
@@ -876,7 +913,8 @@ class TLMStartTab:
             self._schedule_preview()
 
     def _schedule_preview(self) -> None:
-        if self._closed or not self.poller.active or not self._active_windows:
+        if (self._closed or not self.poller.active or not self._active_windows
+                or getattr(self, "_preview_cleanup_faulted", False)):
             return
         if self._preview_after is not None:
             return
@@ -885,11 +923,17 @@ class TLMStartTab:
 
     def _refresh_dwm(self) -> None:
         self._preview_after = None
-        if self._closed or not self.poller.active:
+        if (self._closed or not self.poller.active
+                or getattr(self, "_preview_cleanup_faulted", False)):
             return
         if not self.container.winfo_viewable():
             if self._preview_controller is not None:
-                self._preview_controller.clear()
+                try:
+                    self._preview_controller.clear()
+                except Exception:
+                    self._preview_cleanup_faulted = True
+                    self.preview_status.configure(
+                        text="Preview lỗi: giải phóng DWM chưa xác minh")
             return
         placements = []
         owner = int(self.container.winfo_toplevel().winfo_id())
@@ -923,9 +967,14 @@ class TLMStartTab:
                 self.preview_status.configure(
                     text=f"DWM: {len(result.rendered)} cửa sổ đang hiển thị")
         except Exception as exc:
-            self._drop_previews()
-            self.preview_status.configure(
-                text=f"Preview lỗi: {type(exc).__name__}: {exc}")
+            try:
+                self._drop_previews()
+            except Exception:
+                self._preview_cleanup_faulted = True
+            self.preview_status.configure(text=(
+                "Preview lỗi: giải phóng DWM chưa xác minh"
+                if getattr(self, "_preview_cleanup_faulted", False)
+                else f"Preview lỗi: {type(exc).__name__}: {exc}"))
 
     def _drop_previews(self) -> None:
         if self._preview_after is not None:
@@ -935,8 +984,14 @@ class TLMStartTab:
                 pass
             self._preview_after = None
         if self._preview_controller is not None:
-            self._preview_controller.shutdown()
-            self._preview_controller = None
+            # Unlink before calling third-party/native cleanup: no stale
+            # controller can be accidentally reused after a failed release.
+            controller, self._preview_controller = self._preview_controller, None
+            try:
+                controller.shutdown()
+            except Exception:
+                self._preview_cleanup_faulted = True
+                raise
 
     def _start_refresh(self) -> None:
         if self._closed or self.poller.active:
