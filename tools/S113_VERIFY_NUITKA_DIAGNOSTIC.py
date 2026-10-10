@@ -25,7 +25,7 @@ PASS = "PASS_NATIVE_S113_NUITKA_STANDALONE_FOLDER_FAIL_CLOSED_NOT_PRODUCT"
 
 
 def diagnose_structure(dist: Path) -> tuple[Path | None, str]:
-    if type(dist) is not Path:
+    if not isinstance(dist, Path):
         return None, "INVALID_PATH_TYPE"
     if dist.name != FOLDER:
         return None, "NOT_EXPECTED_NUITKA_DIST_FOLDER"
