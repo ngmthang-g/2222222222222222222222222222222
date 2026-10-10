@@ -20,6 +20,29 @@ from typing import Protocol, Sequence
 _DWM_CLICK_TARGETS: dict[int, tuple[object, int, int]] = {}
 _DWM_LEFT_MESSAGES = (0x0201, 0x0202, 0x0203)  # C03 exact 513/514/515
 
+
+def _dispatch_dwm_click(destination: int, message: int) -> bool:
+    """C03 target mapping: dispatch only original left-button HWND messages.
+
+    Returns True if destination was bound and the message consumed, even if
+    stale or OS foreground policy refuses activation. Revalidates HWND/PID
+    at the LAST Win32 boundary; never reads game memory or generates input.
+    """
+    if message not in _DWM_LEFT_MESSAGES:
+        return False
+    target = _DWM_CLICK_TARGETS.get(destination)
+    if target is None:
+        return False
+    backend, source, pid = target
+    try:
+        if backend.source_matches(source, pid):
+            backend.activate_source(source)
+    except Exception:
+        # Never unwind into native unmanaged Win32 WndProc.
+        pass
+    return True
+
+
 THUMB_WIDTH = 197
 THUMB_HEIGHT = 110
 ITEM_WIDTH = 205
@@ -312,18 +335,8 @@ class NativeDwmBackend:
 
         @proc_type
         def wndproc(hwnd, msg, wp, lp):
-            if msg in _DWM_LEFT_MESSAGES:
-                target = _DWM_CLICK_TARGETS.get(int(hwnd))
-                if target is not None:
-                    backend, source, pid = target
-                    try:
-                        # Source may have closed/reused HWND after last scan.
-                        if backend.source_matches(source, pid):
-                            backend.activate_source(source)
-                    except Exception:
-                        # No exception may cross an unmanaged Win32 WndProc.
-                        pass
-                    return 0
+            if _dispatch_dwm_click(int(hwnd), int(msg)):
+                return 0
             return default_proc(hwnd, msg, wp, lp)
 
         class WindowClass(ctypes.Structure):
