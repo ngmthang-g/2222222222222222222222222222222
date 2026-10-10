@@ -1170,3 +1170,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - [S66 native Windows run 38022225272](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38022225272) job 114125478876 COMPLETED SUCCESS: **942/942 Python tests**, actual horizontal/vertical 50px movement and preserved sizes with master first; all S64–S10 native regression PASS; artifact **11658313767** TEST ONLY.
 - [S36 packaged diagnostic 38022186641](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38022186641) job 114125360482 SUCCESS: **942/942**, normal/unverified both EXPLICITLY_BLOCKED_NO_GUI; artifact **11657879112** DIAGNOSTIC NOT PRODUCT.
 - Still missing full original Auto/RoleName, C12 show, signed Info/game runtime and full EXE. No Proxy. NEXT_ACTION S67: genuine Win32 post-move readback and fail-closed result guard for four C06 modes if real defect reproducible. Preserve working code.
+
+
+## S67 VERIFIED — honest native post-move C06 result for four modes
+- Existing src/window_stacking.py patched in 623b9be13bd1804a89a6b4780286582ee1381138 only: after all moves/no-ops revalidate current HWND/PID and GetWindowRect target and original dimensions. Do not emit STACK_*_APPLIED for false success. Geometry/master/previous UI preserved.
+- NEW tests/test_s67.py 12, tools/S67_WINDOWS_C06_POSTMOVE_SMOKE.py (3 real test-owned Python/Tk HWNDs), .github/workflows/s67-native-c06-postmove.yml, docs/tasks/S67.md.
+- **S67 Windows native run 38023429480 job 114129115991 COMPLETED SUCCESS:** **954/954** Python tests, native four C06 modes real SetWindowPos/GetWindowRect, false successful movement and stale PID caught, all S66–S10 native passes, artifact **11659760503** TEST ONLY.
+- **S36 diagnostic run 38023366020 job 114128933669 COMPLETED SUCCESS:** 954/954, both CLI EXPLICITLY_BLOCKED_NO_GUI, diagnostic artifact **11659965218**, NOT PRODUCT. Source regression 38023365964 success.
+- Missing C14 detached preview/lifetime, full C07 Auto and real RoleName, E03 server-signed Info/F05/F06 and production EXE. NEXT_ACTION S68 inspect C14 detached DWM real test-owned host, without fake buttons or ambiguous C13 mode branches.
