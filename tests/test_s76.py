@@ -90,7 +90,9 @@ class S76C15FailClosedTests(unittest.TestCase):
         obj._refresh_dwm()
         self.assertIsNone(obj._preview_controller)
         self.assertIsNone(obj._preview_after)
-        obj._schedule_preview()
+        # S15 fixture intentionally overrides _schedule_preview with a
+        # recorder: exercise the REAL S76 guard, not that bypassing stub.
+        TLMStartTab._schedule_preview(obj)
         self.assertFalse(any(e[0]=="schedule_60ms" for e in obj.events))
 
     def test_09_one_Tk_frame_destroy_failure_does_not_strand_siblings(self):
