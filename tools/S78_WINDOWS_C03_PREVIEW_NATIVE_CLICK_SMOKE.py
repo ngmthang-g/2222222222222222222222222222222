@@ -75,6 +75,17 @@ def run():
             len(dests)==2 and all(backend._is_window(d) for d in dests)
             and all(backend.source_matches(h,pid) for h in hwnds))
         assert report["real_two_DWM_slots_and_source_PIDs"]
+        report["native_dst_handles"] = [int(d) for d in dests]
+        report["native_source_hwnds"] = [int(h) for h in hwnds]
+        report["native_click_mapping_readback"] = {
+            str(d): {
+                "exists": d in _DWM_CLICK_TARGETS,
+                "source": _DWM_CLICK_TARGETS[d][1]
+                          if d in _DWM_CLICK_TARGETS else None,
+                "pid": _DWM_CLICK_TARGETS[d][2]
+                       if d in _DWM_CLICK_TARGETS else None,
+            } for d in dests
+        }
         report["real_destination_click_mapping_registered"]=all(
             _DWM_CLICK_TARGETS.get(d,())[1:]==(h,pid)
             for d,h in zip(dests,hwnds))
