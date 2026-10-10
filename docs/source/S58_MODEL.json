@@ -1,6 +1,6 @@
 {
   "task": "S58",
-  "status": "NATIVE_WINDOWS_CI_PENDING",
+  "status": "VERIFIED_NATIVE_WINDOWS_870_TESTS_C12_HIDDEN_RESET_ONLY",
   "scope": "Original source-backed C12 hidden state reset after verified C10/C11 real native movement",
   "original_verified_contract": "_reset_hidden_state after re-layout visibly repositions hidden windows",
   "not_invented": "C12 show/restore target still conflicting old rect versus (0,0)",
@@ -31,5 +31,24 @@
   "auto_ui": "NOT_WIRED_BITMAP_MISSING",
   "exe": "S36_DIAGNOSTIC_ONLY_NOT_PRODUCT",
   "proxy_runtime": "EXCLUDED",
-  "next_action": "S59 recover genuine original C12 show semantics and Auto frame; no invented UI"
+  "next_action": "S59 recover genuine original C12 show semantics and Auto frame; no invented UI",
+  "native_verified": {
+    "run_id": 38014711926,
+    "job_id": 114102317945,
+    "conclusion": "success",
+    "windows_unit_tests": "870/870",
+    "native_status": "PASS_NATIVE_S58_C12_RELAYOUT_RESETS_HIDDEN_TEST_OWNED_WINDOWS",
+    "artifact_id": 11655259429,
+    "regressions": "S57–S10 native Windows all PASS",
+    "real_game": "NOT_RUN"
+  },
+  "s36_diagnostic_verified": {
+    "run_id": 38014593484,
+    "job_id": 114101954393,
+    "windows_units": "870/870",
+    "conclusion": "success",
+    "diagnostic_status": "PASS_NATIVE_S36_PACKAGED_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT",
+    "unverified_exit": 2,
+    "artifact_id": 11655064286
+  }
 }
