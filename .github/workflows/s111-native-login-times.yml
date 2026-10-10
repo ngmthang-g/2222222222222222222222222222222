@@ -1,0 +1,69 @@
+name: S111 native F01 schedule HHMM controls and safe config parity
+on:
+  push:
+    paths:
+      - "src/login_schedule_times.py"
+      - "src/login_tab.py"
+      - "tests/test_s111.py"
+      - "tools/S111_WINDOWS_LOGIN_SCHEDULE_TIME_SMOKE.py"
+      - ".github/workflows/s111-native-login-times.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s111-native-login-times:
+    runs-on: windows-latest
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Pillow for earlier screenshot test fixtures
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all current Python source/test/tools
+        run: python -m compileall -q src tests tools
+      - name: Full S01-S111 Python regression tests
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source-build audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: Confirm product still correctly refuses missing Info
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S111_PRODUCT_GATE_EXPECTED_BLOCKED_EXIT_2" }
+          if ((Get-Content -Raw product_gate.txt) -notmatch 'BLOCKED') { throw "S111_EXPECTED_BLOCKED" }
+          Write-Host "S111_PRODUCT_GATE=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - name: S111 real Windows Tk schedule times and untouched account data
+        run: python tools/S111_WINDOWS_LOGIN_SCHEDULE_TIME_SMOKE.py
+      - name: S109 real Tk 100 row plan limit regression
+        run: python tools/S109_WINDOWS_LOGIN_PLAN_ROW_LIMIT_SMOKE.py
+      - name: S37 Login original 100 row Tk baseline
+        run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+      - name: S38 Login legacy read-only baseline
+        run: python tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
+      - name: S40 genuine F09 read-only settings regression
+        run: python tools/S40_WINDOWS_LOGIN_SCHEDULE_SETTINGS_SMOKE.py
+      - name: S41 countdown Tk main-thread regression
+        run: python tools/S41_WINDOWS_LOGIN_TK_COUNTDOWN_SMOKE.py
+      - name: S59 real Tk measured Start buttons
+        run: python tools/S59_WINDOWS_MEASURED_AUTO_BUTTONS_SMOKE.py
+      - name: S57 Windows actual hide unchanged
+        run: python tools/S57_WINDOWS_C12_HIDE_ONLY_SMOKE.py
+      - name: S84 detached real DWM close regression
+        run: python tools/S84_WINDOWS_C13_DONG_XEM_REAL_DWM_SMOKE.py
+      - name: S85 detached real DWM refresh regression
+        run: python tools/S85_WINDOWS_C14_REAL_DWM_REFRESH_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s111-native-time-selector-tests-NOT-PRODUCT
+          path: |
+            product_gate.txt
+            artifacts/s111/
+            artifacts/s109/
+            artifacts/s37/
+            artifacts/s38/
+            artifacts/s86/
+          if-no-files-found: warn
