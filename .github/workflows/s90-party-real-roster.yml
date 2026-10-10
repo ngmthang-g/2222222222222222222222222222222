@@ -1,0 +1,47 @@
+name: S90 Party G02 roster live HWND PID cache - TEST OWNED
+on:
+  push:
+    paths:
+      - "src/party_roster.py"
+      - "tests/test_s90.py"
+      - "tools/S90_WINDOWS_G02_PARTY_ROSTER_NATIVE_SMOKE.py"
+      - ".github/workflows/s90-party-real-roster.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s90-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install pinned previous image regression requirement
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile source tests tools
+        run: python -m compileall -q src tests tools
+      - name: Complete Stage S01 to S90 Python unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 audit original parity blockers and 2-exit bootstrap
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S90 real Windows Tk Party roster cached HWND/PID appearance/disappearance
+        run: python tools/S90_WINDOWS_G02_PARTY_ROSTER_NATIVE_SMOKE.py
+      - name: S89 native Party configuration editor regression
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: S88 native DWM source-loss regression
+        run: python tools/S88_WINDOWS_C04_AUTO_SOURCE_LOSS_DWM_FAULT_SMOKE.py
+      - name: S76 native C15 DWM teardown regression
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s90-party-real-roster-native-test-owned-not-game
+          path: |
+            artifacts/s90/
+            artifacts/s89/
+            artifacts/s88/
+            artifacts/s76/
+            artifacts/s86/
+          if-no-files-found: warn
