@@ -1,0 +1,65 @@
+name: S112 native F01 F10 post-login radio settings and regressions
+on:
+  push:
+    paths:
+      - "src/login_after_login_choice.py"
+      - "src/login_tab.py"
+      - "tests/test_s112.py"
+      - "tools/S112_WINDOWS_LOGIN_AFTER_RADIO_SMOKE.py"
+      - ".github/workflows/s112-native-after-login-radio.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s112-after-login-radio:
+    runs-on: windows-latest
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: python -m pip install Pillow==11.3.0
+      - name: Compile all current source, tests and tools
+        run: python -m compileall -q src tests tools
+      - name: Full Python regression including S111 and S112
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source audit and unbuilt product check
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: Confirm normal TLMTool bootstrap still explicitly BLOCKED
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S112_PRODUCT_GATE_BAD_EXIT" }
+          if ((Get-Content -Raw product_gate.txt) -notmatch 'BLOCKED') { throw "S112_PRODUCT_NOT_BLOCKED" }
+          Write-Host "S112_PRODUCT_GATE=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - name: S112 real Tk original radio selections and byte-preserved accounts
+        run: python tools/S112_WINDOWS_LOGIN_AFTER_RADIO_SMOKE.py
+      - name: S111 inherited real Tk F09 time field edit
+        run: python tools/S111_WINDOWS_LOGIN_SCHEDULE_TIME_SMOKE.py
+      - name: S109 inherited real Tk Login account limits
+        run: python tools/S109_WINDOWS_LOGIN_PLAN_ROW_LIMIT_SMOKE.py
+      - name: S38 read-only legacy account config
+        run: python tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
+      - name: S37 Login 100 row visual model
+        run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+      - name: S40 real read-only F09 config
+        run: python tools/S40_WINDOWS_LOGIN_SCHEDULE_SETTINGS_SMOKE.py
+      - name: S41 real Tk countdown
+        run: python tools/S41_WINDOWS_LOGIN_TK_COUNTDOWN_SMOKE.py
+      - name: S59 Start measured real Tk buttons
+        run: python tools/S59_WINDOWS_MEASURED_AUTO_BUTTONS_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s112-native-after-login-radio-test-only-NOT-PRODUCT
+          path: |
+            product_gate.txt
+            artifacts/s112/
+            artifacts/s111/
+            artifacts/s109/
+            artifacts/s38/
+            artifacts/s37/
+            artifacts/s86/
+          if-no-files-found: warn
