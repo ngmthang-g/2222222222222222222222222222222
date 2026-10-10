@@ -682,9 +682,16 @@ class TLMStartTab:
             return False
         if not self.container.winfo_viewable():
             return False
+        previous = self.master_selection.selected
         if not self.master_selection.choose(hwnd, pid):
             return False
         self.layout_master_hwnd = hwnd
+        if previous == (hwnd, pid):
+            # S83 C05: invoking the already selected radio isn't a master
+            # change. Don't cancel an in-flight native C10/C11/C07 worker
+            # or re-arm C18 layout for a no-op selection.
+            self._master_var.set(f"{hwnd}:{pid}")
+            return True
         self._cancel_stack_worker()  # a pending stack has the old master
         self._cancel_auto_reset_worker()
         self._master_var.set(f"{hwnd}:{pid}")
