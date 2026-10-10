@@ -6650,3 +6650,27 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 1. Read LIVE PLAN.md and STATE.md; check docs/tasks/S63.md before writing; no reimplementation of S59–S62.
 2. Inspect original compiled C07 Auto tiler RoleName character-info ordering, master-first ordering, current S09 HWND/PID cache / true character name availability and S62 worker lifecycle, and original 1-second timer. Decide whether an independently verifiable, genuinely useful prerequisite (e.g. verified HWND/PID + RoleName ordering or timer cancellation) can be safely implemented without guessed name fallback, original x/y/w/h tile arithmetic, fake Input sync or UI-only mode radio. If not, use another authentic PLAN feature with evidence, do not fabricate original behavior.
 3. Keep no overlapping native movers, no license invention, no Proxy, no unproved F02/F09 writes, no original C12 show guess, no false product or live game parity. Preserve **906/906** actual Windows Python tests, S62–S10 native regression and S36 diagnostic FAIL-CLOSED NOT PRODUCT. Checkpoint full CI and NEXT_ACTION on GitHub.
+
+
+## S63 VERIFIED — ORIGINAL C07 1000MS Tk AUTO TILE CLOCK (918 NATIVE WINDOWS TESTS PASS)
+- Continued LIVE PLAN.md and STATE.md S62 NEXT_ACTION. Original C07 compiled static evidence identifies `_auto_tile_loop`, `_auto_tile_id`, `auto_tile_active`, and **one-second repeated loop ONLY while auto_tile_active=True**; separate 1.5s interval is input-sync keepalive. Exact original first tick/tiler x/y/w/h, RoleName collation, mode transition triggers still UNKNOWN and NOT fabricated.
+- NEW `src/auto_tile_clock.py` source commit **15e0d03450d4333f999889a4ec78476ed4021928**: standalone genuine Tk.after(1000) revocable C07 clock requiring supplied callable action AND externally controlled gate, one timer per epoch; stop, revoke and shutdown cancel safely and stale callbacks cannot act; fail-closed on action error is LOCAL policy (not a claim of original exact error code). Not wired into UI/tiler movement until genuine source-backed geometry/input-sync exists.
+- NEW `tests/test_s63.py` (12 tests) commit **0f17d2a68ed458936173a93401b90d2f32874bba**; NEW `tools/S63_WINDOWS_C07_CLOCK_SMOKE.py` real native Tk timer commit **e9cd3e2612c17c3658fc7747a30a88a66045808d**; NEW `.github/workflows/s63-native-c07-clock.yml` commit **fdd84355e0048bb6d966e5a5777da26e5a7e5b6e**; NEW `docs/tasks/S63.md`; STATE.md/PROJECT_STATUS.md append-only. Existing S59 original two-button pixel fidelity, S60 hide, S61 reset, S62 Start native worker left unchanged. PLAN/archive untouched.
+- **ACTUAL [S63 Windows native run 38020833928](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38020833928), job 114121247578 COMPLETED SUCCESS:** Windows compileall + **918/918 S01–S63 Python unit tests PASS**; `PASS_NATIVE_S63_REAL_TK_1000MS_REVOKED_NO_GAME`. Actual Windows Tk callback first due after **1.016s**, next spacing **1.000s**; revocation stops before third tick, shutdown permanently blocks restart. ALL native regression steps S62–S10 PASS (including S62 C07 native Start movement on TEST-owned Windows). Artifact **11657802429**, test-only.
+- **ACTUAL [S36 packaged diagnostic run 38020795102](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38020795102), job 114121134801 COMPLETED SUCCESS:** **918/918 Python unit tests PASS**, `PASS_NATIVE_S36_PACKAGED_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT`; both normal/unverified CLI `EXPLICITLY_BLOCKED_NO_GUI`. Artifact **11658820717**, DIAGNOSTIC EXE ONLY, NOT PRODUCT.
+- Source regression run **38020795101** COMPLETED SUCCESS. No product UI mode radio, no guessed game positioning/credential/login actions/Proxy, no real game session touched. C12 actual show restore remains ambiguous; genuine E03 signed Info, F05/F06 original launch/login and full original runtime/UI equivalence still unavailable.
+- **STATUS S63_NATIVE_WINDOWS_918_UNIT_PASS_C07_ONE_SECOND_CLOCK_NOT_TILER**.
+
+## S63 FINAL CHANGED FILES
+- src/auto_tile_clock.py NEW
+- tests/test_s63.py NEW (12 tests)
+- tools/S63_WINDOWS_C07_CLOCK_SMOKE.py NEW
+- .github/workflows/s63-native-c07-clock.yml NEW
+- docs/tasks/S63.md NEW
+- STATE.md and PROJECT_STATUS.md append-only. No existing functional source changed in S63.
+
+## NEXT_ACTION on CONTINUE — S64 (C07 ROLE NAME AUTHENTIC ORDER / MASTER PROVENANCE)
+1. Read LIVE PLAN.md / STATE.md and check docs/tasks/S64.md. Do not redo verified S59–S63.
+2. Inspect authentic original C02/C05/C07 `RoleName` from HWND→PID→reader character-info cache, C07 `_sort_key` compiled evidence and master-first rule. Audit current S09 snapshots and whether real `RoleName` is actually available. Build a useful SAFE name/identity ordering prerequisite only if source-backed semantics can be verified; don't invent name fallback, case folding, Unicode collation or tile x/y/w/h. If essential evidence absent, explicitly document blocker and pick another proven PLAN subtask.
+3. Preserve **918/918** Windows unit tests, S63–S10 real Windows native regressions, S36 diagnostic fail-closed NOT PRODUCT, original measured Start buttons. No Proxy, guessed F02/F09 settings, forged signed Info, game injection or unsupported Auto mode UI; do not claim complete product.
+4. Append exact files, CI IDs/blockers and concrete NEXT_ACTION for next chat cycle.

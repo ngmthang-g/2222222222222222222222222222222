@@ -1140,3 +1140,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - S36 packaged diagnostic run **38020486859**, job **114120191026**, COMPLETED SUCCESS: 906/906, normal and unverified CLI EXPLICITLY_BLOCKED_NO_GUI. Artifact **11658031809** DIAGNOSTIC ONLY NOT PRODUCT.
 - Files: src/start_tab.py; tests/test_s62.py; tools/S62_WINDOWS_C07_START_NATIVE_SMOKE.py; .github/workflows/s62-native-c07-start-lifecycle.yml; docs/tasks/S62.md; STATE.md; PROJECT_STATUS.md.
 - Remaining: original full C07 Auto/sync/input/real 1s tile geometry, signed Info/game auth & runtime parity, complete EXE, C12 show remain not verified. No Proxy. NEXT_ACTION S63: read live PLAN/STATE, audit source-grounded C07 name ordering/timer prerequisite; only verifiable functional change, no fake UI.
+
+
+## S63 VERIFIED — C07 real Tk.after 1000ms scheduler, 918 Windows tests
+- Source 15e0d03450d4333f999889a4ec78476ed4021928 src/auto_tile_clock.py NEW: original C07 auto_tile_active/_auto_tile_id/1s recurrence, real Tk.after 1000ms with callback/permission gate, cancellation epoch and safe revoke. This is a prerequisite only: no imagined actual auto-tile geometry/movement or UI.
+- tests/test_s63.py (12 cases), real Windows native tools/S63_WINDOWS_C07_CLOCK_SMOKE.py, workflow S63, docs/tasks/S63.md. S59–S62 source untouched.
+- **S63 native Windows run 38020833928 job 114121247578 COMPLETED SUCCESS**: **918/918 Python tests**, first real Tk callback at 1.016s then 1.000s interval; revocation prevents third; S62–S10 native tests green; artifact 11657802429.
+- **S36 diagnostic run 38020795102 job 114121134801 COMPLETED SUCCESS**: 918/918, normal and unverified CLI `EXPLICITLY_BLOCKED_NO_GUI`; artifact 11658820717, NOT PRODUCT. Source regression 38020795101 success.
+- Original C07 exact tile arithmetic and `_sort_key` ordering, C12 show restore, signed Info/F05/F06 and real game runtime parity remain UNKNOWN. No Proxy.
+- NEXT_ACTION S64: read live PLAN/STATE, investigate authenticated RoleName/master identity ordering C07 without guessed collation or game actions.
