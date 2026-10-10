@@ -308,7 +308,22 @@ class TLMStartTab:
         # A vanished/reused HWND invalidates DWM immediately, before Tk redraw.
         old_keys = set(self._tile_items)
         if self._preview_controller is not None and old_keys - wanted:
-            self._preview_controller.clear()
+            try:
+                self._preview_controller.clear()
+            except Exception:
+                # S88 C03/C15: a source can vanish during automatic C04
+                # maintenance, not only during explicit "Làm mới" (S76).
+                # A native unregister error has uncertain ownership: fence
+                # every future registration and release ALL old Tk frames
+                # even when a second native shutdown attempt also fails.
+                self._preview_cleanup_faulted = True
+                try:
+                    self._clear_window_preview_list()
+                except Exception:
+                    pass
+                self.preview_status.configure(
+                    text="Preview lỗi: giải phóng DWM chưa xác minh")
+                return
         if not windows:
             self._drop_previews()
         for key in tuple(self._tile_items):
@@ -525,6 +540,14 @@ class TLMStartTab:
             if getattr(self, "_preview_cleanup_faulted", False):
                 raise RuntimeError("NATIVE_PREVIEW_CLEANUP_UNVERIFIED")
             self._present_cached_snapshot(snapshot)
+            if getattr(self, "_preview_cleanup_faulted", False):
+                # Even a non-throwing automatic-preview failure cannot be
+                # reported to the C15 user action as a successful rebuild.
+                self._render(StartReadOnlyState(
+                    "ERROR", "Không thể đọc danh sách cửa sổ game"))
+                self.preview_status.configure(
+                    text="Preview lỗi: giải phóng DWM chưa xác minh")
+                return False
         except Exception as exc:
             try:
                 self._clear_window_preview_list()
