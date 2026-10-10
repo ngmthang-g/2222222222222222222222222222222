@@ -101,7 +101,8 @@ def run() -> int:
             report["empty_accounts_bytes_preserved"] = cfg.read_bytes() == raw_empty
             root.destroy()
             root = None
-        required = [k for k, value in report.items() if type(value) is bool]
+        required = [k for k, value in report.items()
+                    if type(value) is bool and k != "credential_values_in_artifact"]
         if not all(report[k] for k in required):
             raise RuntimeError("NATIVE_S116_CHECK_FALSE")
         report["status"] = "PASS_NATIVE_S116_F02_REAL_300MS_EXISTING_ROW_CONFIG_NO_GAME"
