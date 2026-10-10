@@ -128,6 +128,9 @@ class S79C03TkActivationTests(unittest.TestCase):
 
     def test_14_original_C17_arrows_remain_reorder_not_native_activation(self):
         obj,backend=ready()
+        # S15 test-only lightweight object has no live Tk grid StringVar;
+        # test C17 source-HWND ordering, not unbuilt Tk widget geometry.
+        obj._relayout_tiles=lambda:None
         self.assertTrue(obj._move_preview_item(3,1003,-1))
         self.assertEqual([x.hwnd for x in obj._active_windows],[1,3,2])
         self.assertEqual(backend.calls,[])
