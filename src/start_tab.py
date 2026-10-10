@@ -200,6 +200,9 @@ class TLMStartTab:
         self._master_var = tk.StringVar(value="")
         self._master_hwnd_cache = ()
         self._master_radio_buttons = []
+        # S82 C05: preserve actual radio widgets on cache permutation;
+        # identity keys remain HWND+PID, never display-title or list index.
+        self._master_radio_identities = ()
         self._hwnd_by_name = {}
         self._on_grid_change()
         self.preview_order = PreviewOrder()
@@ -637,27 +640,41 @@ class TLMStartTab:
         self._master_var.set(
             f"{identity[0]}:{identity[1]}" if identity else "")
         self._hwnd_by_name = {}
-        if changed:
+        # C05 original: only recreate radio controls when live HWND SET
+        # changes; a producer enumeration permutation isn't a new source.
+        # Include PID in the key so numeric HWND reuse is a real change.
+        identities = tuple((w.hwnd, w.pid) for w in windows)
+        radio_ids = getattr(self, "_master_radio_identities", ())
+        rebuild = (set(identities) != set(radio_ids)
+                   or len(self._master_radio_buttons) != len(identities))
+        labels = {}
+        by_identity = {}
+        for window in windows:
+            title = (window.title or "Cửa sổ").strip()
+            label = f"{title} [HWND {window.hwnd}]"
+            # S09 has not recovered RoleName: present actual source title.
+            self._hwnd_by_name[label] = window.hwnd
+            by_identity[(window.hwnd, window.pid)] = label
+        if rebuild:
             for radio in self._master_radio_buttons:
                 radio.destroy()
             self._master_radio_buttons.clear()
-        for index, window in enumerate(windows):
-            # S09 does NOT yet expose actual RoleName/HP; only real titles
-            # can be shown. The suffix guarantees non-colliding labels.
-            title = (window.title or "Cửa sổ").strip()
-            label = f"{title} [HWND {window.hwnd}]"
-            self._hwnd_by_name[label] = window.hwnd
-            key = f"{window.hwnd}:{window.pid}"
-            if changed:
+            for window in windows:
+                key = f"{window.hwnd}:{window.pid}"
                 radio = ttk.Radiobutton(
-                    self._master_radio_frame, text=label,
+                    self._master_radio_frame,
+                    text=by_identity[(window.hwnd, window.pid)],
                     variable=self._master_var, value=key,
                     command=lambda h=window.hwnd,p=window.pid:
                     self._on_master_change(h, p))
                 radio.pack(side="top", anchor="w", padx=(2, 5), pady=1)
                 self._master_radio_buttons.append(radio)
-            else:
-                self._master_radio_buttons[index].configure(text=label)
+            self._master_radio_identities = identities
+        else:
+            # A changed title or permuted worker enumeration cannot attach
+            # the wrong caption to a stable HWND/PID radio.
+            for radio, identity_key in zip(self._master_radio_buttons, radio_ids):
+                radio.configure(text=by_identity[identity_key])
 
     def _on_master_change(self, hwnd: int, pid: int) -> bool:
         """C05 manual master; no C19 input sync to stop/unlock yet."""
