@@ -1648,3 +1648,14 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 1. Read LIVE PLAN/STATE/S109 and F01/F02/F03/S37/S38; check exact original visible/hidden select-all and plan cap branch. Do not rewrite proven modules.
 2. Without original proof for header vs hidden selection or authentic Info plan source, do not invent authorization or checkbox semantics. If a new source-backed feature becomes clear, implement and test real Tk/Win32 only in scoped module.
 3. For changes, run 1592 Windows baseline, S86 271 audit, applicable native/S36 diagnostic; append verified CI/files/blockers NEXT_ACTION S111. Preserve original ZIP, PLAN, B04/S59 and no-Proxy.
+
+
+## S110 AUDITED — ORIGINAL F01 HEADER SELECT-ALL VS PLAN-HIDDEN ROWS (2026-10-11)
+- LIVE PLAN and full STATE S109 NEXT_ACTION S110 read; original verified ZIP 93,715,901-byte/1,050 entries hash `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd` and inner original EXE 47,450,112-byte hash `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22` crosschecked. Exact `_toggle_all_checks` doc supports ordinary all-or-none action but not membership of `_hidden_rows` during plan cap. Existing tested S37/S109 100-row/header behavior unchanged; no guess or unauthorized real Info plan provider.
+- NEW `docs/tasks/S110.md` records PE offsets, exact source-vs-original behavioral unknown, required authentic original controlled trace/compiled-function mapping, non-existent production signed Info verifier and the next candidate F01 schedule UI audit. APPEND STATE/PROJECT ONLY; no src/test/workflow, locked PLAN/ZIP/B04/S59 or Proxy changes. NO S110 new CI; latest actual S109 Windows native 38069271469 1592 tests/271 compiled PASS, S36 diagnostic 38069252028 PASS but normal EXE intentionally `EXPLICITLY_BLOCKED_NO_GUI`, NOT PRODUCT.
+- STATUS **S110_AUDITED_NO_UNVERIFIED_CODE**.
+
+## NEXT_ACTION on CONTINUE — S111 (SOURCE-BACKED LOGIN SCHEDULE USER-INTERACTION GAP)
+1. Read LIVE PLAN/STATE/S110, F01/F09, existing S39–S54 source and UI; identify existing working features vs genuine missing Tk user interaction before coding.
+2. Add only exact original-backed safe functional UI/offline slice; no fake login, guessed plan/auth, Proxy or nonfunctional buttons. If insufficient evidence record blocker and move to another testable original-backed gap.
+3. For source changes verify baseline 1592 Windows units/S86 271 compile, actual native and diagnostic S36 fail-closed. Append actual files/outcome NEXT_ACTION S112. Respect PLAN, original frozen ZIP, B04/S59 and no-Proxy.
