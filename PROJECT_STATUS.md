@@ -1672,3 +1672,9 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 1. Read LIVE PLAN/STATE/S111 and original F01/F10, existing F09 Tk schedule group/E05 config.
 2. Audit original five radio values `wait/party/train/train_lsv/don` and safe per-key `after_login` persistence; implement only proven actual Tk selectable/saveable radio behavior, without invoking missing post-login Party/Train/Dồn executor or changing other config.
 3. Recheck 1612 unit baseline/274 compiled, native S112/S111 and S36 diagnostic if modified; checkpoint actual CI, files, blocker, NEXT_ACTION S113. No Proxy; DATA-2222 **read only**.
+
+
+## S112 IN PROGRESS — ORIGINAL FIVE F01/F10 RADIO CHOICES, CI QUEUED (2026-10-11)
+- Built genuine Tk post-login `Chờ/Party/Train/Train LSV/Dồn vàng` selectors: `wait/party/train/train_lsv/don` with actual byte-preserving `Settings.after_login` persistence and no auto-routing until real game/login/Info provider exists. NEW `src/login_after_login_choice.py`, narrow UPDATE `src/login_tab.py`, NEW 15 tests `tests/test_s112.py`, native tool `tools/S112_WINDOWS_LOGIN_AFTER_RADIO_SMOKE.py`, S112 workflow and `docs/tasks/S112.md`. Original PLAN/ZIP/B04/S59/Proxy and DATA-2222 untouched.
+- **NOT YET VERIFIED:** S112 [Windows CI 38071380238](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38071380238), S36 diagnostic [38071341364](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38071341364), inherited S111 38071296038 all queued at last check. Do not claim new tests pass. Most recent verified S111 1612/1612, S36 diagnostic 38070909449 NOT PRODUCT.
+- STATUS `S112_IMPL_AWAIT_CI`. `NEXT_ACTION`: check exact queued CI and fix only proven S112 failures, then write S112 VERIFIED checkpoint + NEXT_ACTION S113. Preserve authenticated product gate and client DATA-2222 read-only.
