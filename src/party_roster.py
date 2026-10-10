@@ -167,6 +167,9 @@ class TkPartyRosterRefresh:
         self._refresh_job = None
         self._handoff_job = None
         self._working = False
+        # An external RoleName reader may still be blocked when a tab is
+        # stopped; do not run a second reader concurrently after restart.
+        self._thread: threading.Thread | None = None
         self._queue: Queue[tuple[int, PartyRosterResult]] = Queue()
 
     @property
@@ -196,11 +199,17 @@ class TkPartyRosterRefresh:
             self.roster.clear("INVALID_START_CACHE")
             self.on_change(self.roster)
         elif not self._working:
+            if self._thread is not None and self._thread.is_alive():
+                # A stopped generation's reader is still inside an external
+                # API. Never overlap it with a new generation's game read.
+                self._schedule_refresh(generation)
+                return
             self._working = True
             thread = threading.Thread(
                 target=self._read_worker,
                 args=(generation, snapshot),
                 daemon=True, name="TLM-Party-ReadOnly-Roster")
+            self._thread = thread
             try:
                 thread.start()
             except RuntimeError:
