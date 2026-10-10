@@ -1,7 +1,8 @@
-"""S55: source-backed C10 Xếp gọn / C11 Xếp chéo Win32 window movement.
+"""S55/S66: C06 source-backed C10/C11 stack and Xếp ngang/dọc movement.
 
-The ORIGINAL TLMTool 2.1.2 binary documents both move-only commands:
-C10: (0,0) for all windows, C11: (50*index,50*index); master first.
+The original binary documents C06 move-only commands:
+C10: (0,0), C11: (50*index,50*index), Xếp ngang: (50*index,0),
+Xếp dọc: (0,50*index); master first and window dimensions unchanged.
 This module implements their shared positioning *engine* from the existing
 S09 HWND cache and S17 NativeLayoutBackend. It does NOT invent an Auto UI,
 mock signed Info privileges, reset a hidden-state tracker that does not yet
@@ -38,7 +39,7 @@ class C10C11WindowStacker:
     def apply(self, snapshot: WindowSnapshot, *, mode: str,
               max_windows: int, master_hwnd: int | None = None,
               allowed: Callable[[], bool] = lambda: True) -> StackResult:
-        if mode not in ("tight", "diagonal"):
+        if mode not in ("tight", "diagonal", "horizontal", "vertical"):
             return StackResult("UNKNOWN_STACK_MODE")
         if not allowed():
             return StackResult("CANCELLED")
@@ -88,10 +89,16 @@ class C10C11WindowStacker:
             for index, w in enumerate(ordered):
                 if not allowed():
                     return StackResult("CANCELLED", count, tuple(moved), tuple(unchanged))
-                # Original C10/C11: master is first, no resize or unrelated
-                # grid/desktop arithmetic. There is no invented screen-fit
-                # rejection: the original position formula is authoritative.
-                target = (0,0) if mode == "tight" else (50*index,50*index)
+                # Original C06 master-first, move-only; no invented resize,
+                # tile arithmetic or screen-fit comparison.
+                if mode == "tight":
+                    target = (0, 0)
+                elif mode == "diagonal":
+                    target = (50*index, 50*index)
+                elif mode == "horizontal":
+                    target = (50*index, 0)
+                else:
+                    target = (0, 50*index)
                 if (not backend.is_window(w.hwnd)
                         or backend.process_id(w.hwnd) != w.pid):
                     return StackResult("STALE_BEFORE_MOVE", count,
@@ -103,7 +110,12 @@ class C10C11WindowStacker:
                 else:
                     return StackResult("SETWINDOWPOS_FAILED", count,
                                        tuple(moved), tuple(unchanged))
-            code = "STACK_TIGHT_APPLIED" if mode == "tight" else "STACK_DIAGONAL_APPLIED"
+            code = {
+                "tight": "STACK_TIGHT_APPLIED",
+                "diagonal": "STACK_DIAGONAL_APPLIED",
+                "horizontal": "STACK_HORIZONTAL_APPLIED",
+                "vertical": "STACK_VERTICAL_APPLIED",
+            }[mode]
             return StackResult(code, count, tuple(moved), tuple(unchanged))
         except (OSError, RuntimeError, ValueError, TypeError):
             return StackResult("NATIVE_VALIDATION_FAILED", count)
