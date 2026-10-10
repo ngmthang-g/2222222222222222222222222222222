@@ -192,7 +192,12 @@ class TkPartyRunStatus(ttk.Frame):
         self._epoch += 1
         self.coordinator.close()  # signals cancel, does NOT wait/block Tk
         if self._pending_after is not None:
-            self.after_cancel(self._pending_after)
+            try:
+                self.after_cancel(self._pending_after)
+            except Exception:
+                # A <Destroy> event may arrive after the widget Tcl command
+                # has already gone away. Generation fencing still holds.
+                pass
             self._pending_after = None
         # Discard pending old events; future worker events are ignored.
         try:
@@ -200,8 +205,14 @@ class TkPartyRunStatus(ttk.Frame):
                 self._queue.get_nowait()
         except Empty:
             pass
-        self._apply(render_party_state(
-            self.coordinator.snapshot(), (), closed=True))
+        closed_view = render_party_state(
+            self.coordinator.snapshot(), (), closed=True)
+        if self.summary.winfo_exists() and self.group_frame.winfo_exists():
+            self._apply(closed_view)
+        else:
+            # Tk destroys child labels before parent <Destroy>. Do not
+            # configure already-deleted Tcl widgets.
+            self.current = closed_view
 
     def _on_destroy(self, event) -> None:
         if event.widget is self:
