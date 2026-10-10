@@ -196,6 +196,19 @@ class S74DetachmentLifecycle(unittest.TestCase):
                       "host.render("):
             self.assertNotIn(token, source)
 
+    def test_13_lowered_cap_on_same_snapshot_closes_native_host(self):
+        self.scan()
+        self.show_host()
+        # No second scan: entitlement limit has reduced from 2 to 1.
+        response = self.ctrl.consume_scan(max_windows=1,
+                                         allowed=lambda: True)
+        self.assertEqual(response.code, "OVER_VERIFIED_LIMIT_OR_INVALID_CACHE")
+        self.assertEqual(self.host.owner_hwnd, 0)
+        self.assertEqual(self.ctrl.identities, ())
+        self.assertEqual(self.scanner.read().code, "REVOKED")
+        self.assertLess(self.events.index("dwm_unregistered"),
+                        self.events.index("host_destroy"))
+
 
 if __name__ == "__main__":
     unittest.main()
