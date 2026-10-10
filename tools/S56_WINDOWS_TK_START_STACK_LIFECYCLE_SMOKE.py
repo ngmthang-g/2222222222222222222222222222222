@@ -86,6 +86,16 @@ def run():
             backend=S56TestIdentity()
             fixture_rows=tuple(GameWindow(h,pid,GAME_TITLE,UNITY_WINDOW_CLASS,GAME_PROCESS) for h in ids)
             fixture_snapshot=WindowSnapshot(3,fixture_rows,True)
+            def pump_native_worker(thread,limit=3.0):
+                # Native SetWindowPos on Tk-owned HWND can require messages
+                # dispatched by the UI thread. Never join() while Tk is idle.
+                deadline=time.monotonic()+limit
+                while thread.is_alive() and time.monotonic()<deadline:
+                    root.update()
+                    time.sleep(.01)
+                if thread.is_alive(): return False
+                thread.join(timeout=0)
+                return True
             producer=StartWindowProducer(NativeWin32Backend)
             builders={
                 "info_tab":lambda parent:TLMInfoTab(parent),
@@ -115,7 +125,9 @@ def run():
             result["quick_tk_dispatch_returns_without_join"]=start._stack_diagonal_cmd()
             result["dispatch_no_tk_block"]=(time.monotonic()-begun)<.25
             worker=start._stack_thread
-            worker.join(2)
+            first_joined=pump_native_worker(worker)
+            result["first_worker_completed_with_tk_pumping"]=first_joined
+            result["first_stack_outcome"]=getattr(start._stack_last_result,"code","MISSING")
             after={h:native.window_rect(h) for h in ids}
             result["actual_c11_native_diagonal_master_first"]=(
                 not worker.is_alive()
@@ -126,7 +138,9 @@ def run():
             result["actual_c10_dispatch_returns_quickly"]=start._stack_tight_cmd()
             result["second_dispatch_nonblocking"]=(time.monotonic()-self_before)<.25
             worker=start._stack_thread
-            worker.join(2)
+            second_joined=pump_native_worker(worker)
+            result["second_worker_completed_with_tk_pumping"]=second_joined
+            result["second_stack_outcome"]=getattr(start._stack_last_result,"code","MISSING")
             after_tight={h:native.window_rect(h) for h in ids}
             result["actual_c10_native_tight_stack_preserves_dimensions"]=(
                 not worker.is_alive()
@@ -153,9 +167,9 @@ def run():
             result["native_tk_revocation_nonblocking"]=(time.monotonic()-self_before)<.45
             hold.set()
             worker=start._stack_thread
-            worker.join(2)
+            stopped=pump_native_worker(worker)
             result["revoked_before_movement_does_not_move"]=(
-                not worker.is_alive()
+                stopped and not worker.is_alive()
                 and all(native.window_rect(h)[:2]==(0,0) for h in ids)
                 and start._stack_last_result is None and not start._stack_tight_cmd()
                 and not start.poller.active and app.lifecycle.visible=={"info_tab"})
