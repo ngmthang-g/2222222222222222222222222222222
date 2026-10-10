@@ -1131,3 +1131,12 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - **S36 diagnostic packaged run 38018249488 job 114113279327 COMPLETED SUCCESS:** 894/894, packaged EXE FAIL-CLOSED NOT PRODUCT (normal/unverified EXPLICITLY_BLOCKED_NO_GUI); artifact 11656678862.
 - Files: src/window_auto_reset.py, tests/test_s61.py, tools/S61_WINDOWS_C07_RESET_NATIVE_SMOKE.py, .github/workflows/s61-native-c07-reset.yml, docs/tasks/S61.md, STATE.md, PROJECT_STATUS.md. Original PLAN/archive/S59/S60 source unchanged.
 - NEXT_ACTION S62: authentic C07 auto/tiler/sync worker coordination or other original-backed PLAN functional prerequisite, not guessed geometry or fake UI. No Proxy or false production claim.
+
+
+## S62 VERIFIED — 906/906 Windows native C07 reset in Start
+- Source 0065bf6b0904068822de6820e2558cf3b337826e: INTERNAL non-Tk Start _dispatch_auto_reset with current HWND/PID cache, master and signed Info-controlled external limit. Stops conflicting C10/C11/C18 native work, revocation and lifecycle cancel; does not fake original Auto mode UI/tiler.
+- 12 new unit tests tests/test_s62.py, actual test-owned Tk HWND smoke tools/S62_WINDOWS_C07_START_NATIVE_SMOKE.py, S62 workflow and docs. Prior S59 pixel-true buttons untouched.
+- S62 Windows run **38020541964**, job **114120355241**, COMPLETED SUCCESS: 906/906 Python tests, native S62 actual Win32 resized/moved 2 test-owned HWND to (0,0) 1366x768, master first, concurrent worker rejection, revoke gate; all S61–S10 native regressions green. Artifact **11658470397**.
+- S36 packaged diagnostic run **38020486859**, job **114120191026**, COMPLETED SUCCESS: 906/906, normal and unverified CLI EXPLICITLY_BLOCKED_NO_GUI. Artifact **11658031809** DIAGNOSTIC ONLY NOT PRODUCT.
+- Files: src/start_tab.py; tests/test_s62.py; tools/S62_WINDOWS_C07_START_NATIVE_SMOKE.py; .github/workflows/s62-native-c07-start-lifecycle.yml; docs/tasks/S62.md; STATE.md; PROJECT_STATUS.md.
+- Remaining: original full C07 Auto/sync/input/real 1s tile geometry, signed Info/game auth & runtime parity, complete EXE, C12 show remain not verified. No Proxy. NEXT_ACTION S63: read live PLAN/STATE, audit source-grounded C07 name ordering/timer prerequisite; only verifiable functional change, no fake UI.
