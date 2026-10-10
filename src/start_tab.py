@@ -344,13 +344,37 @@ class TLMStartTab:
                 surface.place(x=4, y=23, width=THUMB_WIDTH, height=THUMB_HEIGHT)
                 surface.bind("<Button-1>", on_activate, add="+")
                 surface.bind("<Configure>", lambda _event: self._schedule_preview(), add="+")
-                self._tile_items[key] = (tile, label, surface, left, right)
+                # C03 authentic per-item native hung/closed/error text belongs
+                # inside the black preview area, not in the generic HWND row.
+                # Keep it hidden for all normal live DWM previews.
+                error_label = tk.Label(surface, text="", fg="#ff5555",
+                                       bg="#000000", anchor="center",
+                                       wraplength=THUMB_WIDTH-8)
+                self._tile_items[key] = (
+                    tile, label, surface, left, right, error_label)
             else:
                 self._tile_items[key][1].configure(text=w.title or f"HWND {w.hwnd}")
         self._relayout_tiles()
         self.preview_status.configure(
             text=f"{len(ordered)} cửa sổ có nguồn DWM thực" if ordered
             else "Chưa có cửa sổ game")
+
+    def _set_preview_source_error(self, key: tuple[int, int],
+                                  text: str | None) -> None:
+        """S80: per-tile C03 red error only when native DWM is unavailable.
+
+        Item tuples created by earlier fake regression fixtures contain only
+        3/5 entries; do not rework their already verified layout contracts.
+        """
+        item = self._tile_items.get(key)
+        if item is None or len(item) < 6:
+            return
+        error_label = item[5]
+        if not text:
+            error_label.place_forget()
+            return
+        error_label.configure(text=text)
+        error_label.place(x=4, y=29, width=THUMB_WIDTH-8, height=53)
 
     def _get_preview_columns(self) -> int:
         return preview_columns(self.preview_grid_var.get())
@@ -1011,6 +1035,33 @@ class TLMStartTab:
                 self._preview_controller = ReadOnlyDwmPreviews(
                     self._preview_backend_factory())
             result = self._preview_controller.sync(placements)
+            # Original C03 distinguishes an actually hung HWND from a
+            # destroyed/reused one. Only real Win32 IsHungAppWindow can
+            # produce the hung message. All other DWM failures retain an
+            # honest generic "Preview lỗi:" status.
+            errors = dict(result.errors)
+            rendered = set(result.rendered)
+            for w in self._active_windows:
+                key = (w.hwnd, w.pid)
+                if w.hwnd in errors:
+                    native_state = None
+                    classifier = getattr(
+                        self._preview_controller.backend, "source_status", None)
+                    if callable(classifier):
+                        try:
+                            native_state = classifier(w.hwnd, w.pid)
+                        except Exception:
+                            native_state = None
+                    if native_state == "HUNG":
+                        message = "Cửa sổ không phản hồi"
+                    elif native_state in ("CLOSED", "STALE_PID"):
+                        message = "Đã đóng cửa sổ: " + (
+                            w.title or f"HWND {w.hwnd}")
+                    else:
+                        message = "Preview lỗi: DWM"
+                    self._set_preview_source_error(key, message)
+                elif w.hwnd in rendered:
+                    self._set_preview_source_error(key, None)
             if result.errors:
                 self.preview_status.configure(text=(
                     "Preview lỗi: " + ", ".join(str(hwnd) + " " + reason
