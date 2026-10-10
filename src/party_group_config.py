@@ -22,8 +22,17 @@ MAX_GROUP_MEMBERS = 6
 DORMANT_KEYS = ("party_corps_groups", "party_corps_group1", "party_follow", "party_pick")
 
 
+def _slots(value):
+    """Retain explicit empty positions in the six original Party Combo slots."""
+    if not isinstance(value, (list, tuple)) or len(value) > MAX_GROUP_MEMBERS:
+        raise ValueError("Party group must have at most six name slots")
+    if any(type(item) is not str for item in value):
+        raise ValueError("Party member must be a character name")
+    return tuple(item.strip() for item in value)
+
+
 def _names(value):
-    """Read only selected names. Never reinterpret dicts as runtime identity."""
+    """Selected names for the original legacy Group-1 compatibility mirror."""
     if not isinstance(value, (list, tuple)) or len(value) > MAX_GROUP_MEMBERS:
         raise ValueError("Party group must have at most six name slots")
     seen = set()
@@ -46,7 +55,7 @@ class PartyGroup:
     def __post_init__(self):
         if type(self.num) is not int or self.num < 1:
             raise ValueError("Party group number must be positive")
-        _names(self.members)
+        _slots(self.members)
 
 
 @dataclass(frozen=True)
@@ -84,8 +93,9 @@ class PartySettings:
         current = list(self.groups[group_num - 1].members)
         padded = current + [""] * (MAX_GROUP_MEMBERS - len(current))
         padded[slot] = name.strip()
-        # Each active group stores selected names, blank/duplicate removed.
-        members = _names(padded)
+        # Current G08 multi-cluster schema must preserve Combo slot indices.
+        # Only the legacy Group-1 mirror removes blanks/duplicates.
+        members = _slots(padded)
         groups = list(self.groups)
         groups[group_num - 1] = PartyGroup(group_num, members)
         return PartySettings(self.after, tuple(groups))
@@ -101,7 +111,7 @@ def _parse_groups(raw: str):
             raise ValueError("Bad Party current schema")
         # G08: saved 'num' handling exact micro-order is UNKNOWN. Current
         # list order is authoritative for safe contiguous UI renumbering.
-        groups.append(PartyGroup(len(groups) + 1, _names(item["members"])))
+        groups.append(PartyGroup(len(groups) + 1, _slots(item["members"])))
     return tuple(groups)
 
 
@@ -145,9 +155,9 @@ class PartyConfigStore:
         state.__post_init__()
         payload = []
         for group in state.groups:
-            payload.append({"num": group.num, "members": list(_names(group.members))})
+            payload.append({"num": group.num, "members": list(_slots(group.members))})
         current = json.dumps(payload, ensure_ascii=False)
-        legacy = json.dumps(payload[0]["members"], ensure_ascii=False)
+        legacy = json.dumps(list(_names(state.groups[0].members)), ensure_ascii=False)
         with _settings_lock:
             parser = read_settings(self.settings_file)
             if not parser.has_section(SECTION):
