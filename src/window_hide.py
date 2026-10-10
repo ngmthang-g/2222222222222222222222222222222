@@ -106,17 +106,13 @@ class C12HideAll:
         saved: list[tuple[int, int, tuple[int, int, int, int]]] = []
 
         def finish(code: str) -> HideResult:
-            if moved:
-                # Actual screen state is no longer uniformly at its old
-                # locations: track precise prior HWND/PID rectangles and
-                # block all repeat hides until real original show is proven.
-                self._state = "PARTIAL" if len(moved) + len(unchanged) < count else "HIDDEN"
+            if moved or unchanged:
+                # S60: a successful native call alone is not verified movement.
+                completed = code == "HIDDEN" and len(moved) + len(unchanged) == count
+                self._state = "HIDDEN" if completed else "PARTIAL"
                 self._saved_window_rects = tuple(saved)
-                if self._state == "PARTIAL":
+                if not completed:
                     code += "_PARTIAL"
-            elif len(unchanged) == count and code == "HIDDEN":
-                self._state = "HIDDEN"
-                self._saved_window_rects = tuple(saved)
             return HideResult(code, count, tuple(moved), tuple(unchanged),
                               self._saved_window_rects if self._state != "VISIBLE" else ())
 
@@ -154,6 +150,15 @@ class C12HideAll:
                     saved.append((w.hwnd, w.pid, rect))
                 else:
                     return finish("SETWINDOWPOS_FAILED")
+                # S60 local safety check, not a claim about Nuitka source.
+                if not backend.is_window(w.hwnd) or backend.process_id(w.hwnd) != w.pid:
+                    return finish("STALE_AFTER_MOVE")
+                applied = backend.window_rect(w.hwnd)
+                if (len(applied) != 4
+                        or tuple(applied[:2]) != (HIDE_X, HIDE_Y)
+                        or applied[2] - applied[0] != rect[2] - rect[0]
+                        or applied[3] - applied[1] != rect[3] - rect[1]):
+                    return finish("MOVE_UNVERIFIED")
             return finish("HIDDEN")
         except (OSError, RuntimeError, ValueError, TypeError):
             return finish("NATIVE_VALIDATION_FAILED")

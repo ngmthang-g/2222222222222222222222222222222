@@ -6564,3 +6564,13 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 3. Initial binary lead ONLY (not a recovered behavior): image base 0x140000000; module constant initialization at VA 0x141e69280 loads module name start_tab at file offset 0x2c8dfa2 and constants-array address 0x142da6e00, then calls VA 0x142378140. `_show_all_game_windows` names appear at file offsets 0x2bfb168 and 0x2bffe28. Decode correct original constants mapping and trace actual native method before choosing old-rect vs (0,0). This lead has NOT resolved restore.
 4. Once proven, implement complete hide/show lifecycle owner and measured original control using existing S57/S58 hide/reset plus S56 cancellation. If control-flow evidence still unavailable, move to another independent original-backed PLAN prerequisite; do not add fake UI or spend another task repeating evidence-only UNKNOWN.
 5. Preserve **876/876** tests, S59–S10 native regressions, two-button pixel match and S36 fail-closed diagnostic. No Proxy, guessed F02/F09 writes, forged Info or claim of game-runtime/product parity. Record exact changed files/actual CI/NEXT_ACTION after each milestone.
+
+
+## S60 IMPLEMENTED — REAL C12 POST-MOVE TRUTH CHECK (CI PENDING)
+- Read live PLAN.md, STATE.md S59 NEXT_ACTION, original uploaded ZIP hash c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd and inner EXE hash 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22 (both original Gate A). PE method names confirmed but compiled C12 show branch STILL UNKNOWN; no guessed restore.
+- Reproduced S57 hide source defect: true move return can be a false physical move, yet old code marked HIDDEN. Narrow safety change verifies HWND/PID and post-move GetWindowRect position (-2200,-2200), original dimensions, and marks PARTIAL on mismatch even when last HWND returned success.
+- CHANGED src/window_hide.py; NEW tests/test_s60.py (6 tests), .github/workflows/s60-native-c12-readback.yml, docs/tasks/S60.md; STATE.md + PROJECT_STATUS.md append-only. No S59 redo, original ZIP/PLAN untouched, no Proxy, fake controls, signed Info or purported finished product EXE.
+- Native Windows S60 CI PENDING at initial commit.
+
+## NEXT_ACTION on CONTINUE — VERIFY S60 THEN S61
+- Inspect Windows S60 native full Stage S units, test-owned S59–S10 native checks, S36 diagnostic fail-closed. Repair only genuine failures; append actual commit/run/test results and precise changes. Then S61 follow original-backed C07 mode/tiler/Start parity or another demonstrable PLAN prerequisite, no guessed C12 show or repeat of S59. Preserve original fidelity and no Proxy.

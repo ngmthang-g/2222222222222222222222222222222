@@ -1101,3 +1101,10 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 3. Initial binary lead ONLY (not a recovered behavior): image base 0x140000000; module constant initialization at VA 0x141e69280 loads module name start_tab at file offset 0x2c8dfa2 and constants-array address 0x142da6e00, then calls VA 0x142378140. `_show_all_game_windows` names appear at file offsets 0x2bfb168 and 0x2bffe28. Decode correct original constants mapping and trace actual native method before choosing old-rect vs (0,0). This lead has NOT resolved restore.
 4. Once proven, implement complete hide/show lifecycle owner and measured original control using existing S57/S58 hide/reset plus S56 cancellation. If control-flow evidence still unavailable, move to another independent original-backed PLAN prerequisite; do not add fake UI or spend another task repeating evidence-only UNKNOWN.
 5. Preserve **876/876** tests, S59–S10 native regressions, two-button pixel match and S36 fail-closed diagnostic. No Proxy, guessed F02/F09 writes, forged Info or claim of game-runtime/product parity. Record exact changed files/actual CI/NEXT_ACTION after each milestone.
+
+
+## S60 — verified Win32 C12 hide post-move readback (initial CI pending)
+- Original authenticated binary hash unchanged; C12 show exact branch remains UNKNOWN. See docs/tasks/S60.md.
+- Fixed genuine S57 false HIDDEN when native reports success without moving/resizing as required; verify actual HWND/PID/rectangle, fail PARTIAL. NEW six targeted regression tests and full S60 native Windows workflow.
+- Files: src/window_hide.py, tests/test_s60.py, .github/workflows/s60-native-c12-readback.yml, docs/tasks/S60.md, STATE.md, PROJECT_STATUS.md. S59 pixel parity untouched.
+- NEXT_ACTION native CI + S36 diagnostic verification, then original-backed S61; product EXE not complete. No Proxy.
