@@ -29,7 +29,7 @@ jobs:
           python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 product_gate.txt
           if ($LASTEXITCODE -ne 2) { throw "S109_PRODUCT_GATE_FAILED: expected exit code 2" }
           $text = Get-Content -Raw product_gate.txt
-          if ($text -notmatch 'BLOCKED') { throw "S106_PRODUCT_GATE_FAILED: not explicitly blocked" }
+          if ($text -notmatch 'BLOCKED') { throw "S109_PRODUCT_GATE_FAILED: not explicitly blocked" }
           Write-Host "S109_PRODUCT_GATE=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
           exit 0 # Expected nonzero product exit is a PASS for this *negative* test
       - name: S109 native full F01 Login Tk plan cap, old settings bytes preserved
