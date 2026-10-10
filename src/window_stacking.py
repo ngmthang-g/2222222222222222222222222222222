@@ -1,4 +1,4 @@
-"""S55/S66: C06 source-backed C10/C11 stack and Xếp ngang/dọc movement.
+"""S55/S66/S67: C06 source-backed four-mode window stacking + Win32 readback.
 
 The original binary documents C06 move-only commands:
 C10: (0,0), C11: (50*index,50*index), Xếp ngang: (50*index,0),
@@ -109,6 +109,22 @@ class C10C11WindowStacker:
                     moved.append(w.hwnd)
                 else:
                     return StackResult("SETWINDOWPOS_FAILED", count,
+                                       tuple(moved), tuple(unchanged))
+                # S67 LOCAL SAFETY: SetWindowPos success is not proof that
+                # Win32 actually applied the requested position or kept size.
+                # This post-check applies to BOTH moved and already-at-target
+                # HWNDs, including the last window in the batch.
+                if (not backend.is_window(w.hwnd)
+                        or backend.process_id(w.hwnd) != w.pid):
+                    return StackResult("STALE_AFTER_MOVE_PARTIAL", count,
+                                       tuple(moved), tuple(unchanged))
+                applied = backend.window_rect(w.hwnd)
+                original = original_rects[w.hwnd]
+                if (len(applied) != 4
+                        or tuple(applied[:2]) != target
+                        or applied[2] - applied[0] != original[2] - original[0]
+                        or applied[3] - applied[1] != original[3] - original[1]):
+                    return StackResult("MOVE_UNVERIFIED_PARTIAL", count,
                                        tuple(moved), tuple(unchanged))
             code = {
                 "tight": "STACK_TIGHT_APPLIED",
