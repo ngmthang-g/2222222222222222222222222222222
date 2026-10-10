@@ -1149,3 +1149,10 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - **S36 diagnostic run 38020795102 job 114121134801 COMPLETED SUCCESS**: 918/918, normal and unverified CLI `EXPLICITLY_BLOCKED_NO_GUI`; artifact 11658820717, NOT PRODUCT. Source regression 38020795101 success.
 - Original C07 exact tile arithmetic and `_sort_key` ordering, C12 show restore, signed Info/F05/F06 and real game runtime parity remain UNKNOWN. No Proxy.
 - NEXT_ACTION S64: read live PLAN/STATE, investigate authenticated RoleName/master identity ordering C07 without guessed collation or game actions.
+
+
+## S64 VERIFIED — original C07 RoleName HWND/PID read-only prerequisite
+- Source 8e282ec3ff37386f4bd74164bb7c7d62b950e0e1 adds ONLY new src/auto_role_provenance.py, tests/test_s64.py (12), tools/S64_WINDOWS_ROLE_PROVENANCE_SMOKE.py, S64 native workflow, docs/tasks/S64.md; existing verified source S59–S63 untouched.
+- **Windows CI 38021841374 job 114124320325 COMPLETED SUCCESS:** 930/930 tests and native three TEST-OWNED HWND/PID identity, RoleName fake fixture explicitly NOT actual game, no guess for 3-window sorting; all S63–S10 native regressions PASS; artifact 11658193510. Source regression 38021841387 successful.
+- **S36 diagnostic 38021841337 job 114124320270 COMPLETED SUCCESS:** 930/930, both CLI EXPLICITLY_BLOCKED_NO_GUI, artifact 11658947347, DIAGNOSTIC NOT PRODUCT.
+- Still missing REAL game RoleName Reader, original C07 _sort_key comparison and placement, signed Info/game operation and complete source/EXE. NEXT_ACTION S65 from STATE; no Proxy.
