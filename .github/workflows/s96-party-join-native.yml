@@ -1,0 +1,65 @@
+name: S96 G10 Party B3 two observational rounds TWO REAL TEST PIDs
+on:
+  push:
+    paths:
+      - "src/party_join_report.py"
+      - "tests/test_s96.py"
+      - "tools/S96_WINDOWS_G10_TWO_PID_BURST_REPORT_SMOKE.py"
+      - ".github/workflows/s96-party-join-native.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s96-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install existing image regression dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all source, tests, tools
+        run: python -m compileall -q src tests tools
+      - name: Full Stage S01 through S96 Python regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 original source audit and blocked product bootstrap
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S96 TWO REAL TEST-OWNED Windows processes B3 read-only checks
+        run: python tools/S96_WINDOWS_G10_TWO_PID_BURST_REPORT_SMOKE.py
+      - name: S95 native cancelable TeamID wait regression
+        run: python tools/S95_WINDOWS_G10_TEAM_WAIT_NATIVE_SMOKE.py
+      - name: S94 native Win32 RoleID TeamID identity regression
+        run: python tools/S94_WINDOWS_G10_TEAM_IDENTITY_NATIVE_SMOKE.py
+      - name: S93 native Tk owner-state regression
+        run: python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+      - name: S92 native thread cancel Party regression
+        run: python tools/S92_WINDOWS_G09_PARTY_EVENT_NATIVE_SMOKE.py
+      - name: S91 native Party 3-column ready-label regression
+        run: python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+      - name: S90 native Tk cached HWND PID Party roster regression
+        run: python tools/S90_WINDOWS_G02_PARTY_ROSTER_NATIVE_SMOKE.py
+      - name: S89 native Tk Party INI editor regression
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: S88 native DWM source loss regression
+        run: python tools/S88_WINDOWS_C04_AUTO_SOURCE_LOSS_DWM_FAULT_SMOKE.py
+      - name: S76 native DWM fault cleanup regression
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s96-original-G10-two-rounds-two-real-test-pids-NO-GAME
+          path: |
+            artifacts/s96/
+            artifacts/s95/
+            artifacts/s94/
+            artifacts/s93/
+            artifacts/s92/
+            artifacts/s91/
+            artifacts/s90/
+            artifacts/s89/
+            artifacts/s88/
+            artifacts/s76/
+            artifacts/s86/
+          if-no-files-found: warn
