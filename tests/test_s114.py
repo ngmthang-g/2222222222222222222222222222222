@@ -121,6 +121,27 @@ class S114SameScopeTests(unittest.TestCase):
                   expected_orig_rows=3, expected_dist_count=3, expected_exe_sha=None)
             self.assertEqual(digest(original), before)
 
+    def test_13_windows_crlf_checkout_requires_matching_canonical_lf_sha(self):
+        with tempfile.TemporaryDirectory() as td:
+            original, _ = self.setup(td)
+            lf = original.read_bytes()
+            self.assertNotIn(b"\r\n", lf)
+            canonical_sha = hashlib.sha256(lf).hexdigest()
+            original.write_bytes(lf.replace(b"\n", b"\r\n"))
+            loaded = load_original(original, expected_sha=canonical_sha, expected_rows=3)
+            self.assertIn("old.dll", loaded)
+            # The canonical comparison did NOT modify the Windows checkout.
+            self.assertIn(b"\r\n", original.read_bytes())
+
+    def test_14_crlf_also_rejects_mutated_content_not_matching_pin(self):
+        with tempfile.TemporaryDirectory() as td:
+            original, _ = self.setup(td)
+            lf = original.read_bytes()
+            canonical_sha = hashlib.sha256(lf).hexdigest()
+            original.write_bytes(lf.replace(b"\n", b"\r\n") + b"  ")
+            with self.assertRaisesRegex(DistAuditError, "SHA_MISMATCH"):
+                load_original(original, expected_sha=canonical_sha, expected_rows=3)
+
     def test_12_common_casefold_collision_invalid(self):
         with tempfile.TemporaryDirectory() as td:
             original, _ = self.setup(td)
