@@ -1,0 +1,329 @@
+name: S86 full code source/build audit and unchanged native regression - NO GAME
+
+on:
+  push:
+    paths:
+      - "src/detached_lifecycle.py"
+      - "src/detached_one_shot_scanner.py"
+      - "src/detached_list_observer.py"
+      - "src/detached_host.py"
+      - "src/detached_settings.py"
+      - "src/detached_preview.py"
+      - "src/dwm_preview.py"
+      - "src/window_stacking.py"
+      - "src/auto_role_provenance.py"
+      - "src/auto_tile_clock.py"
+      - "src/window_auto_reset.py"
+      - "src/window_hide.py"
+      - "src/start_tab.py"
+      - "src/window_stacking.py"
+      - "src/layout_windows.py"
+      - "src/login_tab.py"
+      - "src/login_account_rows.py"
+      - "src/login_schedule_lifetime.py"
+      - "src/login_schedule_worker.py"
+      - "tests/test_s86.py"
+      - "tests/test_s85.py"
+      - "tests/test_s84.py"
+      - "tests/test_s83.py"
+      - "tests/test_s82.py"
+      - "tests/test_s81.py"
+      - "tests/test_s80.py"
+      - "tests/test_s79.py"
+      - "tests/test_s78.py"
+      - "tests/test_s77.py"
+      - "tests/test_s76.py"
+      - "tests/test_s74.py"
+      - "tests/test_s73.py"
+      - "tests/test_s72.py"
+      - "tests/test_s71.py"
+      - "tests/test_s70.py"
+      - "tests/test_s69.py"
+      - "tests/test_s68.py"
+      - "tests/test_s67.py"
+      - "tests/test_s66.py"
+      - "tests/test_s64.py"
+      - "tests/test_s63.py"
+      - "tests/test_s62.py"
+      - "tests/test_s61.py"
+      - "tests/test_s60.py"
+      - "tests/test_s59.py"
+      - "docs/ui/original/START_AUTO.png"
+      - "tools/S59_WINDOWS_MEASURED_AUTO_BUTTONS_SMOKE.py"
+      - "tests/test_s58.py"
+      - "tests/test_s57.py"
+      - "tests/test_s56.py"
+      - "tests/test_s55.py"
+      - "tests/test_s54.py"
+      - "tests/test_s53.py"
+      - "tests/test_s52.py"
+      - "tests/test_s51.py"
+      - "tests/test_s50.py"
+      - "tests/test_s49.py"
+      - "tests/test_s48.py"
+      - "tests/test_s47.py"
+      - "tools/S58_WINDOWS_C12_RELAYOUT_RESET_SMOKE.py"
+      - "tools/S57_WINDOWS_C12_HIDE_ONLY_SMOKE.py"
+      - "tools/S56_WINDOWS_TK_START_STACK_LIFECYCLE_SMOKE.py"
+      - "tools/S55_WINDOWS_C10_C11_MOVE_ONLY_SMOKE.py"
+      - "tools/S54_WINDOWS_TK_CLOSED_STOP_TIMEOUT_SMOKE.py"
+      - "tools/S53_WINDOWS_TK_FINAL_LOCK_DEADLINE_SMOKE.py"
+      - "tools/S52_WINDOWS_TK_CLOCK_CANCEL_PRIORITY_SMOKE.py"
+      - "tools/S51_WINDOWS_TK_CANCEL_AUDIT_SMOKE.py"
+      - "tools/S50_WINDOWS_THREAD_START_OSERROR_SMOKE.py"
+      - "tools/S49_WINDOWS_TK_SHUTDOWN_FENCE_SMOKE.py"
+      - "tools/S48_WINDOWS_TWO_STOP_CALLERS_SMOKE.py"
+      - "tools/S47_WINDOWS_FINISH_CLOSE_MUTEX_DEADLINE_SMOKE.py"
+      - "tools/S86_AUDIT_SOURCE_BUILD_GAPS.py"
+      - "tools/S85_WINDOWS_C14_REAL_DWM_REFRESH_SMOKE.py"
+      - "tools/S84_WINDOWS_C13_DONG_XEM_REAL_DWM_SMOKE.py"
+      - "tools/S83_WINDOWS_C05_SELECTED_MASTER_NATIVE_WORKER_SMOKE.py"
+      - "tools/S82_WINDOWS_C05_C09_C15_MASTER_GRID_REFRESH_SMOKE.py"
+      - "tools/S81_WINDOWS_C05_NATIVE_MASTER_LOSS_SMOKE.py"
+      - "tools/S80_WINDOWS_C03_HUNG_CLOSED_PREVIEW_SMOKE.py"
+      - "tools/S79_WINDOWS_C03_TK_PREVIEW_ACTIVATION_SMOKE.py"
+      - "tools/S78_WINDOWS_C03_PREVIEW_NATIVE_CLICK_SMOKE.py"
+      - "tools/S77_WINDOWS_E08_NATIVE_EXIT_CLEANUP_SMOKE.py"
+      - "tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py"
+      - "tools/S74_WINDOWS_C14_HOST_CLOSE_ON_CHANGE_SMOKE.py"
+      - "tools/S73_WINDOWS_C14_ONE_SHOT_SCANNER_SMOKE.py"
+      - "tools/S72_WINDOWS_C14_DETACHED_LIST_OBSERVER_SMOKE.py"
+      - "tools/S71_WINDOWS_DWM_TEARDOWN_ERROR_SMOKE.py"
+      - "tools/S70_WINDOWS_DETACHED_TOPMOST_HOST_SMOKE.py"
+      - "tools/S69_WINDOWS_C14_SETTINGS_SMOKE.py"
+      - "tools/S68_WINDOWS_DETACHED_DWM_SMOKE.py"
+      - "tools/S67_WINDOWS_C06_POSTMOVE_SMOKE.py"
+      - "tools/S66_WINDOWS_C06_HV_STACK_SMOKE.py"
+      - "tools/S64_WINDOWS_ROLE_PROVENANCE_SMOKE.py"
+      - "tools/S63_WINDOWS_C07_CLOCK_SMOKE.py"
+      - "tools/S62_WINDOWS_C07_START_NATIVE_SMOKE.py"
+      - "tools/S61_WINDOWS_C07_RESET_NATIVE_SMOKE.py"
+      - ".github/workflows/s86-source-build-audit.yml"
+      - ".github/workflows/s85-native-c14-refresh.yml"
+      - ".github/workflows/s84-native-c13-dong-xem.yml"
+      - ".github/workflows/s83-native-c05-radio-idempotence.yml"
+      - ".github/workflows/s82-native-c05-grid-refresh.yml"
+      - ".github/workflows/s81-native-c05-master-loss.yml"
+      - ".github/workflows/s80-native-c03-hung-closed.yml"
+      - ".github/workflows/s79-native-c03-tk-activation.yml"
+      - ".github/workflows/s78-native-c03-click-activation.yml"
+      - ".github/workflows/s77-native-e08-exit-cleanup.yml"
+      - ".github/workflows/s74-native-c14-host-lifecycle.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s86-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install screenshot-only test dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile Stage S and S86
+        run: python -m compileall -q src tests tools/S59_WINDOWS_MEASURED_AUTO_BUTTONS_SMOKE.py
+      - name: Run complete S01-S86 regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 audit ALL Python src tests tools and ensure product bootstrap remains honestly blocked
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S85 native C14 original close then reopen DWM with caller-only placements
+        run: python tools/S85_WINDOWS_C14_REAL_DWM_REFRESH_SMOKE.py
+      - name: S84 real C13 detached Đóng xem button releases DWM and not game windows
+        run: python tools/S84_WINDOWS_C13_DONG_XEM_REAL_DWM_SMOKE.py
+      - name: S83 true native same C05 radio preserves running Win32 Stack worker
+        run: python tools/S83_WINDOWS_C05_SELECTED_MASTER_NATIVE_WORKER_SMOKE.py
+      - name: S82 genuine native C05 radio C09 preview grid C15 full DWM rebuild
+        run: python tools/S82_WINDOWS_C05_C09_C15_MASTER_GRID_REFRESH_SMOKE.py
+      - name: S81 real Win32/Tk close master while stack worker pending then stop native move
+        run: python tools/S81_WINDOWS_C05_NATIVE_MASTER_LOSS_SMOKE.py
+      - name: S80 real Win32 DWM per-tile hung closed error texts and recovery
+        run: python tools/S80_WINDOWS_C03_HUNG_CLOSED_PREVIEW_SMOKE.py
+      - name: S79 real native Tk header and surface clicks activate only verified live HWND
+        run: python tools/S79_WINDOWS_C03_TK_PREVIEW_ACTIVATION_SMOKE.py
+      - name: S78 real native overlay WndProc click messages activate verified source HWND
+        run: python tools/S78_WINDOWS_C03_PREVIEW_NATIVE_CLICK_SMOKE.py
+      - name: S77 real E08 Tk and native DWM Stop/Shutdown failure releases other owners
+        run: python tools/S77_WINDOWS_E08_NATIVE_EXIT_CLEANUP_SMOKE.py
+      - name: S76 real native C15 DWM error injection still destroys every preview Tk frame
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - name: S74 real native DWM and topmost host close after detached HWND list changes
+        run: python tools/S74_WINDOWS_C14_HOST_CLOSE_ON_CHANGE_SMOKE.py
+      - name: S73 genuine Win32 one-shot scan detects TEST-OWNED HWND disappearance
+        run: python tools/S73_WINDOWS_C14_ONE_SHOT_SCANNER_SMOKE.py
+      - name: S72 real native test-owned HWND disappear and release DWM
+        run: python tools/S72_WINDOWS_C14_DETACHED_LIST_OBSERVER_SMOKE.py
+      - name: S71 real native DWM unregister injected failure attempts all cleanup
+        run: python tools/S71_WINDOWS_DWM_TEARDOWN_ERROR_SMOKE.py
+      - name: S70 native topmost Tk C14 owner and DWM-before-destroy proof
+        run: python tools/S70_WINDOWS_DETACHED_TOPMOST_HOST_SMOKE.py
+      - name: S69 actual Windows E05 detached settings persistence without autoopen
+        run: python tools/S69_WINDOWS_C14_SETTINGS_SMOKE.py
+      - name: S68 real Windows detached DWM host and independent lifecycle
+        run: python tools/S68_WINDOWS_DETACHED_DWM_SMOKE.py
+      - name: S67 real Win32 C06 post-move rectangle and identity proof
+        run: python tools/S67_WINDOWS_C06_POSTMOVE_SMOKE.py
+      - name: S66 real Windows horizontal vertical move-only 50px HWND
+        run: python tools/S66_WINDOWS_C06_HV_STACK_SMOKE.py
+      - name: S64 actual Windows HWND PID and TEST-ONLY RoleName gate
+        run: python tools/S64_WINDOWS_ROLE_PROVENANCE_SMOKE.py
+      - name: S63 actual Windows Tk after 1000ms cadence and revoke
+        run: python tools/S63_WINDOWS_C07_CLOCK_SMOKE.py
+      - name: S62 real Tk Start C07 worker lifecycle (TEST ONLY)
+        run: python tools/S62_WINDOWS_C07_START_NATIVE_SMOKE.py
+      - name: S61 verified real native C07 reset (TEST ONLY)
+        run: python tools/S61_WINDOWS_C07_RESET_NATIVE_SMOKE.py
+      - name: S60 false-positive window geometry cases
+        run: python -m unittest discover -s tests -p "test_s60.py" -v
+      - name: S59 measured real Tk buttons invoke C10 C11 Win32
+        run: python tools/S59_WINDOWS_MEASURED_AUTO_BUTTONS_SMOKE.py
+      - name: S58 native C12 reset after verified C11 geometry only
+        run: python tools/S58_WINDOWS_C12_RELAYOUT_RESET_SMOKE.py
+      - name: S57 native Win32 C12 test-owned Tk off-screen hide, saved rects
+        run: python tools/S57_WINDOWS_C12_HIDE_ONLY_SMOKE.py
+      - name: S56 native Tk shell C10 C11 async cancellation and revocation
+        run: python tools/S56_WINDOWS_TK_START_STACK_LIFECYCLE_SMOKE.py
+      - name: S55 actual SetWindowPos C10 C11 test-owned Tk windows
+        run: python tools/S55_WINDOWS_C10_C11_MOVE_ONLY_SMOKE.py
+      - name: S54 real Tk permanent close state during unfinished stop timeout
+        run: python tools/S54_WINDOWS_TK_CLOSED_STOP_TIMEOUT_SMOKE.py
+      - name: S53 real Tk final independent poll-lock total stop budget
+        run: python tools/S53_WINDOWS_TK_FINAL_LOCK_DEADLINE_SMOKE.py
+      - name: S52 real Tk Destroy with failing clock provider status priority
+        run: python tools/S52_WINDOWS_TK_CLOCK_CANCEL_PRIORITY_SMOKE.py
+      - name: S51 real Tk cancel during blocked due-event audit materialization
+        run: python tools/S51_WINDOWS_TK_CANCEL_AUDIT_SMOKE.py
+      - name: S50 real Tk and failed native Thread.start OSError rollback
+        run: python tools/S50_WINDOWS_THREAD_START_OSERROR_SMOKE.py
+      - name: S49 real Tk permanent close during inflight stop fence clear
+        run: python tools/S49_WINDOWS_TK_SHUTDOWN_FENCE_SMOKE.py
+      - name: S48 real Tk two concurrent stop requests retain cancellation fence
+        run: python tools/S48_WINDOWS_TWO_STOP_CALLERS_SMOKE.py
+      - name: S47 real Tk and worker mutex total finish_close timeout
+        run: python tools/S47_WINDOWS_FINISH_CLOSE_MUTEX_DEADLINE_SMOKE.py
+      - name: S46 native Tk lifecycle mutex regression
+        run: python tools/S46_WINDOWS_TK_LIFECYCLE_MUTEX_SMOKE.py
+      - name: S45 real Tk and stalled worker lifecycle regression
+        run: python tools/S45_WINDOWS_TK_WORKER_LIFETIME_SMOKE.py
+      - name: S44 real Tk Label Destroy cancellation regression
+        run: python tools/S44_WINDOWS_TK_DESTROY_COUNTDOWN_SMOKE.py
+      - name: S43 real joined-worker stop-race regression
+        run: python tools/S43_WINDOWS_F09_STOP_RACE_SMOKE.py
+      - name: S42 genuine Event.wait20 worker blocked-only regression
+        run: python tools/S42_WINDOWS_F09_EVENT_WORKER_SMOKE.py
+      - name: S41 real Tk after/cancellation native regression
+        run: python tools/S41_WINDOWS_LOGIN_TK_COUNTDOWN_SMOKE.py
+      - name: S40 real E05 F09 read-only schedule config regression
+        run: python tools/S40_WINDOWS_LOGIN_SCHEDULE_SETTINGS_SMOKE.py
+      - name: S39 pure native clock regression
+        run: python tools/S39_WINDOWS_LOGIN_SCHEDULE_CLOCK_SMOKE.py
+      - name: S38 Tk read-only accounts regression
+        run: python tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
+      - name: S37 native 100-row account UI regression
+        run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+      - name: S35 genuine Windows Start/Login gated bootstrap
+        run: python tools/S35_WINDOWS_E03_REAL_TAB_SMOKE.py
+      - name: S34 native offline ADB intake
+        run: python tools/S34_WINDOWS_OFFLINE_INTAKE_SMOKE.py
+      - name: S33 native serial reconnect guard
+        run: python tools/S33_WINDOWS_ADB_EPOCH_SMOKE.py
+      - name: S32 native field provenance
+        run: python tools/S32_WINDOWS_HINT_PROVENANCE_SMOKE.py
+      - name: S31 native offline ADB clone identity
+        run: python tools/S31_WINDOWS_OFFLINE_ADB_IDENTITY_SMOKE.py
+      - name: S30 native read-only process provenance
+        run: python tools/S30_WINDOWS_COUNT_PROVENANCE_SMOKE.py
+      - name: S29 native Toolhelp process count
+        run: python tools/S29_WINDOWS_PARTIAL_COUNT_SMOKE.py
+      - name: S28 native x64 PE inputs
+        run: python tools/S28_WINDOWS_LAUNCH_INPUTS_SMOKE.py
+      - name: S27 delayed HWND
+        run: python tools/S27_WINDOWS_PID_HWND_HANDOFF_SMOKE.py
+      - name: S26 Win32 preflight
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S25 Login chooser regression
+        run: python tools/S25_WINDOWS_LOGIN_FOLDER_SMOKE.py
+      - name: S24 Tk destroy
+        run: python tools/S24_WINDOWS_DESTROY_SMOKE.py
+      - name: S23 session tee
+        run: python tools/S23_WINDOWS_TEE_SMOKE.py
+      - name: S22 diagnostics
+        run: python tools/S22_WINDOWS_DIAGNOSTICS_SMOKE.py
+      - name: S21 Win32 mutex
+        run: python tools/S21_WINDOWS_MUTEX_SMOKE.py
+      - name: S20 multi HWND
+        run: python tools/S20_WINDOWS_THREE_HWND_COMBINED_SMOKE.py
+      - name: S10 Start HWND
+        run: python tools/S10_WINDOWS_START_VIEW_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s86-source-audit-native-no-game
+          path: |
+            artifacts/s86/
+            artifacts/s85/
+            artifacts/s84/
+            artifacts/s83/
+            artifacts/s82/
+            artifacts/s81/
+            artifacts/s80/
+            artifacts/s79/
+            artifacts/s78/
+            artifacts/s77/
+            artifacts/s76/
+            artifacts/s74/
+            artifacts/s73/
+            artifacts/s72/
+            artifacts/s71/
+            artifacts/s70/
+            artifacts/s69/
+            artifacts/s68/
+            artifacts/s67/
+            artifacts/s66/
+            artifacts/s64/
+            artifacts/s63/
+            artifacts/s62/
+            artifacts/s61/
+            artifacts/s59/
+            artifacts/s58/
+            artifacts/s57/
+            artifacts/s56/
+            artifacts/s55/
+            artifacts/s54/
+            artifacts/s53/
+            artifacts/s52/
+            artifacts/s51/
+            artifacts/s50/
+            artifacts/s49/
+            artifacts/s48/
+            artifacts/s47/
+            artifacts/s46/
+            artifacts/s45/
+            artifacts/s44/
+            artifacts/s43/
+            artifacts/s42/
+            artifacts/s41/
+            artifacts/s40/
+            artifacts/s39/
+            artifacts/s38/
+            artifacts/s37/
+            artifacts/s35/
+            artifacts/s34/
+            artifacts/s33/
+            artifacts/s32/
+            artifacts/s31/
+            artifacts/s30/
+            artifacts/s29/
+            artifacts/s28/
+            artifacts/s27/
+            artifacts/s26/
+            artifacts/s25/
+            artifacts/s24/
+            artifacts/s23/
+            artifacts/s22/
+            artifacts/s21/
+            artifacts/s20/
+            artifacts/s10/
+          if-no-files-found: warn
