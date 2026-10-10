@@ -16,6 +16,7 @@ from layout_windows import (
     C18LayoutSync, GRID_COLS_DEFAULT, GRID_ROWS_DEFAULT,
 )
 from window_stacking import C10C11WindowStacker, StackResult
+from window_auto_reset import C07AutoReset, AutoResetResult
 from grid_master import GridSettingsStore, MasterSelection, update_dimension
 from close_windows import C16CloseAll
 from preview_maintenance import TkPreviewMaintenance
@@ -72,7 +73,7 @@ class TLMStartTab:
                  interval_ms: int = START_UI_POLL_MS,
                  preview_backend_factory=None, close_service_factory=None,
                  layout_service_factory=None, grid_settings_store=None,
-                 stack_service_factory=None):
+                 stack_service_factory=None, auto_reset_service_factory=None):
         from tkinter import ttk
         self.parent = parent
         self.container = ttk.Frame(parent)
@@ -157,6 +158,11 @@ class TLMStartTab:
         self._stack_allow = threading.Event()
         self._stack_generation = 0
         self._stack_last_result = None
+        self._auto_reset_service_factory = auto_reset_service_factory or C07AutoReset
+        self._auto_reset_thread = None
+        self._auto_reset_allow = threading.Event()
+        self._auto_reset_generation = 0
+        self._auto_reset_last_result = None
         self.layout_controls = ttk.LabelFrame(
             self.container, text="Xếp lưới — đồng bộ vị trí cửa sổ")
         self.layout_controls.pack(fill="x", padx=9, pady=(0, 6))
@@ -502,6 +508,8 @@ class TLMStartTab:
         except ValueError:
             # Invalid cache cannot result in a new HWND identity choice.
             return
+        if self.master_selection.selected != previous:
+            self._cancel_auto_reset_worker()
         if self.layout_active and self.master_selection.selected != previous:
             # A vanished/reused chosen HWND must cancel pending native work
             # against the old generation before any new layout pass.
@@ -543,6 +551,7 @@ class TLMStartTab:
             return False
         self.layout_master_hwnd = hwnd
         self._cancel_stack_worker()  # a pending stack has the old master
+        self._cancel_auto_reset_worker()
         self._master_var.set(f"{hwnd}:{pid}")
         if self.layout_active:
             self._reschedule_layout_for_user_choice()
@@ -565,8 +574,11 @@ class TLMStartTab:
 
         A direct user toggle cannot invent a client-side 999 fallback.
         """
+        previous_limit = self.layout_max_windows
         self.layout_max_windows = (max_windows if type(max_windows) is int
                                    and max_windows > 0 else 0)
+        if previous_limit != self.layout_max_windows:
+            self._cancel_auto_reset_worker()
         if not self.layout_max_windows:
             self._cancel_stack_worker()
             self._stop_sync_loop()
@@ -580,6 +592,76 @@ class TLMStartTab:
             event.clear()
         self._stack_generation = getattr(self, "_stack_generation", 0) + 1
         self._stack_last_result = None
+
+    def _cancel_auto_reset_worker(self) -> None:
+        """S62: lock-free native cancel; never join a Win32 worker on Tk."""
+        event = getattr(self, "_auto_reset_allow", None)
+        if event is not None:
+            event.clear()
+        self._auto_reset_generation = getattr(self, "_auto_reset_generation", 0) + 1
+        self._auto_reset_last_result = None
+
+    def _dispatch_auto_reset(self) -> bool:
+        """Worker-only C07 original reset; not yet a complete Auto mode.
+
+        Original sync transition also needs verified input-sync, Train/Daily
+        shutdown and real tiler geometry. Therefore no visible mode radio.
+        """
+        if (self._closed or not self.poller.active
+                or type(self.layout_max_windows) is not int
+                or self.layout_max_windows <= 0 or self.layout_active):
+            return False
+        # Even a *cancelled* mover may still be in a native call.
+        for other in (
+                getattr(self, "_auto_reset_thread", None),
+                getattr(self, "_stack_thread", None),
+                getattr(self, "_layout_thread", None)):
+            if other is not None and other.is_alive():
+                return False
+        try:
+            if not self.container.winfo_viewable():
+                return False
+            snapshot = self.poller.producer.read_snapshot()
+        except Exception:
+            return False
+        if (not isinstance(snapshot, WindowSnapshot) or not snapshot.valid
+                or not snapshot.windows
+                or len(snapshot.windows) > self.layout_max_windows):
+            return False
+        self._cancel_auto_reset_worker()
+        event = threading.Event()
+        event.set()
+        self._auto_reset_allow = event
+        generation = self._auto_reset_generation
+        factory = self._auto_reset_service_factory
+        limit = self.layout_max_windows
+        master = self.layout_master_hwnd
+
+        def native_worker() -> None:
+            try:
+                outcome = factory().apply(
+                    snapshot, max_windows=limit, master_hwnd=master,
+                    allowed=event.is_set)
+            except Exception:
+                outcome = AutoResetResult("AUTO_RESET_WORKER_ERROR")
+            # Publish data only; no Tk operations on a Win32 worker thread.
+            if (event.is_set() and self._auto_reset_generation == generation
+                    and not self._closed and self.poller.active
+                    and self.layout_max_windows == limit
+                    and self.layout_master_hwnd == master):
+                self._auto_reset_last_result = outcome
+
+        worker = threading.Thread(
+            target=native_worker, name="TLM-Start-C07-Auto-Reset-Worker",
+            daemon=True)
+        self._auto_reset_thread = worker
+        try:
+            worker.start()
+        except (RuntimeError, OSError):
+            self._cancel_auto_reset_worker()
+            self._auto_reset_thread = None
+            return False
+        return True
 
     def _build_verified_auto_controls(self) -> None:
         """S59 partial Auto frame, measured from the hash-locked B14 raster.
@@ -631,6 +713,9 @@ class TLMStartTab:
         if (mode not in ("tight", "diagonal") or self._closed
                 or not self.poller.active or not self.layout_max_windows
                 or self.layout_active):
+            return False
+        auto_thread = getattr(self, "_auto_reset_thread", None)
+        if auto_thread is not None and auto_thread.is_alive():
             return False
         # A cancelled grid may still be inside SetWindowPos. Tk dispatch
         # must wait for its native worker to EXIT, not just its active flag.
@@ -700,6 +785,9 @@ class TLMStartTab:
             return False
         stack_thread = getattr(self, "_stack_thread", None)
         if stack_thread is not None and stack_thread.is_alive():
+            return False
+        auto_thread = getattr(self, "_auto_reset_thread", None)
+        if auto_thread is not None and auto_thread.is_alive():
             return False
         if self._closed or not self.poller.active or not self.layout_max_windows:
             return False
@@ -858,6 +946,7 @@ class TLMStartTab:
         self.maintenance.start()
 
     def _stop_refresh(self) -> None:
+        self._cancel_auto_reset_worker()
         self._cancel_stack_worker()
         self._stop_sync_loop()
         self.maintenance.stop()
@@ -880,6 +969,7 @@ class TLMStartTab:
         # During Tk <Destroy>, children (including btn_layout) can already
         # be gone: fence widget updates BEFORE disabling the layout worker.
         self._closed = True
+        self._cancel_auto_reset_worker()
         self._cancel_stack_worker()
         self._stop_sync_loop()
         self.maintenance.shutdown()
