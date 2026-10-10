@@ -1,0 +1,68 @@
+name: S97 G10 per-member snapshot two test-owned PIDs
+on:
+  push:
+    paths:
+      - "src/party_member_snapshot.py"
+      - "tests/test_s97.py"
+      - "tools/S97_WINDOWS_G10_TWO_PID_MEMBER_SNAPSHOT_SMOKE.py"
+      - ".github/workflows/s97-party-member-native.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s97-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install baseline image regression dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all Python source tests tools
+        run: python -m compileall -q src tests tools
+      - name: Full Stage S regression baseline plus S97
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source audit and fail-closed product
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S97 two physically distinct TEST HWND PIDs
+        run: python tools/S97_WINDOWS_G10_TWO_PID_MEMBER_SNAPSHOT_SMOKE.py
+      - name: S96 native party two-round preservation
+        run: python tools/S96_WINDOWS_G10_TWO_PID_BURST_REPORT_SMOKE.py
+      - name: S95 native party team state preservation
+        run: python tools/S95_WINDOWS_G10_TEAM_WAIT_NATIVE_SMOKE.py
+      - name: S94 native read-only identity preservation
+        run: python tools/S94_WINDOWS_G10_TEAM_IDENTITY_NATIVE_SMOKE.py
+      - name: S93 native Tk status preservation
+        run: python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+      - name: S92 native event preservation
+        run: python tools/S92_WINDOWS_G09_PARTY_EVENT_NATIVE_SMOKE.py
+      - name: S91 native ready label preservation
+        run: python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+      - name: S90 native roster preservation
+        run: python tools/S90_WINDOWS_G02_PARTY_ROSTER_NATIVE_SMOKE.py
+      - name: S89 native INI preservation
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: S88 native DWM preservation
+        run: python tools/S88_WINDOWS_C04_AUTO_SOURCE_LOSS_DWM_FAULT_SMOKE.py
+      - name: S76 native DWM preservation
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s97-two-physical-test-PIDs-NO-GAME
+          path: |
+            artifacts/s97/
+            artifacts/s96/
+            artifacts/s95/
+            artifacts/s94/
+            artifacts/s93/
+            artifacts/s92/
+            artifacts/s91/
+            artifacts/s90/
+            artifacts/s89/
+            artifacts/s88/
+            artifacts/s76/
+            artifacts/s86/
+          if-no-files-found: warn
