@@ -41,7 +41,6 @@ class S85C14ExplicitRefresh(unittest.TestCase):
         self.assertEqual(ret.rendered,(1,2))
         self.assertEqual(len(self.calls),1)
         self.assertLess(self.events.index("dwm_unregistered"),self.events.index("host_destroy"))
-        self.assertGreater(self.events.count("geometry"),0) if False else None
         self.assertLess(self.events.index("host_destroy"),
                         max(i for i,x in enumerate(self.events) if isinstance(x,tuple) and x[0]=="geometry"))
     def test_02_refuse_refresh_of_nonexistent_host_no_window_creation(self):
@@ -94,7 +93,7 @@ class S85C14ExplicitRefresh(unittest.TestCase):
         self.assertEqual(self.refresh().code,"NATIVE_CLEANUP_FAILED_LOCKED")
         self.assertEqual(self.open().code,"NATIVE_CLEANUP_FAILED_LOCKED")
         self.assertTrue(self.host._refresh_cleanup_faulted)
-    def test_11_wrong_Tk_thread_refuses_no native operations(self):
+    def test_11_wrong_Tk_thread_refuses_no_native_operations(self):
         self.open()
         results=[]
         t=threading.Thread(target=lambda:results.append(self.refresh().code))
