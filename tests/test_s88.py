@@ -100,7 +100,7 @@ class S88AutoSourceLossSafety(unittest.TestCase):
         obj._on_cache_event(StartCacheEvent(
             snapshot=WindowSnapshot(
                 revision=88, windows=(win(2), win(3)), valid=True),
-            delta=WindowDelta()))
+            delta=WindowDelta(added=(), removed=(), reused=())))
         self.assertTrue(obj._preview_cleanup_faulted)
         self.assertIsNone(obj._preview_controller)
         self.assertEqual(obj._tile_items, {})
