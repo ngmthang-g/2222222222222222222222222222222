@@ -105,6 +105,7 @@ class PartySavedComboHandoff:
         provenance=[]
         saved_offline=[]
         try:
+            used_before: set[str] = set()
             for group,combos in zip(saved_state.groups,editor.group_inputs):
                 for slot,combo in enumerate(combos):
                     current=combo.get()
@@ -120,8 +121,12 @@ class PartySavedComboHandoff:
                     saved=(group.members[slot]
                            if slot<len(group.members) else "")
                     for name in values:
+                        if name and name in used_before and name != current:
+                            return reject("EARLIER_CLUSTER_SELECTION_OFFERED")
                         if not name:
                             category="EMPTY_OPTION"
+                        elif name==current and saved==name and name in used_before:
+                            category="SAVED_CURRENT_RESERVED_BY_EARLIER_GROUP"
                         elif name==current and saved==name and name not in live:
                             category="SAVED_SELECTED_OFFLINE_OR_UNVERIFIED"
                             if name not in saved_offline:saved_offline.append(name)
@@ -132,13 +137,14 @@ class PartySavedComboHandoff:
                         elif name in live and name not in selected_saved:
                             category="TEST_EXTERNAL_LIVE_AVAILABLE"
                         elif name in live and name in selected_saved:
-                            category="TEST_EXTERNAL_LIVE_RESERVED_OTHER_GROUP"
+                            category="TEST_EXTERNAL_LIVE_SELECTED_IN_ANOTHER_GROUP"
                         else:
                             # A previously saved/offline name MUST NOT
                             # masquerade as a new verified live choice.
                             return reject("UNEXPLAINED_OFFLINE_NEW_OPTION")
                         provenance.append(PartyComboOptionProvenance(
                             group.num,slot,name,category))
+                used_before.update(n for n in group.members if n)
         except Exception:
             return reject("S91_COMBO_INSPECTION_ERROR")
 
