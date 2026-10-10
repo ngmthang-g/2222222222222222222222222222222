@@ -59,7 +59,7 @@ class S102GroupCombo(unittest.TestCase):
     def collect(self,a):
         return a.handoff.collect(self.fx.snapshot)
 
-    def run(self,a=None,editor=None):
+    def perform(self,a=None,editor=None):
         a=a or self.adapter()
         b=self.collect(a)
         return a.deliver(b,editor=editor or self.editor)
@@ -70,7 +70,7 @@ class S102GroupCombo(unittest.TestCase):
                     and r.slot==slot and r.name==name)
 
     def test_01_existing_S91_combobox_refresh_is_reused(self):
-        r=self.run()
+        r=self.perform()
         self.assertEqual(r.code,"DIAGNOSTIC_S102_S91_SAVED_VS_TEST_READY_NO_GAME_ACTION")
         self.assertEqual(self.values(0,0),("","Đội Trưởng","Hòa✨"))
         self.assertEqual(self.values(0,1),("","Đội Trưởng","Hòa✨","Offline"))
@@ -78,42 +78,42 @@ class S102GroupCombo(unittest.TestCase):
         self.assertEqual(r.ready_names,())
 
     def test_02_saved_offline_preserved_as_current_value(self):
-        r=self.run()
+        r=self.perform()
         self.assertIn("Offline",r.retained_saved_names)
         self.assertEqual(self.option(r,1,1,"Offline").category,
                          "SAVED_SELECTED_OFFLINE_OR_UNVERIFIED")
         self.assertEqual(self.editor.group_inputs[0][1].get(),"Offline")
 
     def test_03_offline_name_not_offered_as_new_option(self):
-        self.run()
+        self.perform()
         self.assertNotIn("Offline",self.values(0,0))
         self.assertNotIn("Offline",self.values(1,0))
 
     def test_04_earlier_cluster_selection_excluded_from_later_cluster(self):
-        r=self.run()
+        r=self.perform()
         self.assertNotIn("Đội Trưởng",self.values(1,0))
         self.assertEqual(self.option(r,1,0,"Đội Trưởng").category,
                          "SAVED_SELECTED_AND_TEST_EXTERNAL_LIVE")
 
     def test_05_later_selected_name_may_remain_prior_dropdown_according_to_S91(self):
-        r=self.run()
+        r=self.perform()
         self.assertIn("Hòa✨",self.values(0,0))
         self.assertEqual(self.option(r,1,0,"Hòa✨").category,
                          "TEST_EXTERNAL_LIVE_SELECTED_IN_ANOTHER_GROUP")
 
     def test_06_no_config_mutation_even_as_ready_options_update(self):
         old=self.editor.state
-        self.run()
+        self.perform()
         self.assertEqual(self.editor.state,old)
 
     def test_07_unicode_tag_stripping_via_S100_and_existing_S90(self):
         self.editor=new_editor((("Offline",),("",)))
-        r=self.run()
+        r=self.perform()
         self.assertEqual(r.ready_names,("Đội Trưởng","Hòa✨"))
         self.assertIn("Hòa✨",self.values(1,0))
 
     def test_08_no_original_reader_keeps_offline_choice_only(self):
-        r=self.run(self.adapter(read=lambda _:{"FakeName":"No real reader"}))
+        r=self.perform(self.adapter(read=lambda _:{"FakeName":"No real reader"}))
         self.assertEqual(r.ready_names,())
         self.assertEqual(self.values(0,1),("","Offline"))
         self.assertEqual(self.values(1,0),("","Hòa✨"))
@@ -122,7 +122,7 @@ class S102GroupCombo(unittest.TestCase):
     def test_09_window_fallback_not_fabricated(self):
         self.data[100]={"RoleName":""}
         self.data[101]={"RoleName":None}
-        r=self.run()
+        r=self.perform()
         self.assertEqual(r.ready_names,())
         self.assertNotIn("Window ",repr(r.options))
 
@@ -187,13 +187,13 @@ class S102GroupCombo(unittest.TestCase):
 
     def test_16_source_role_unavailable_preserves_saved_selected(self):
         self.data[100]={"RoleName":None}
-        r=self.run()
+        r=self.perform()
         self.assertIn("Đội Trưởng",r.retained_saved_names)
         self.assertEqual(self.values(0,0),("","Đội Trưởng"))
 
     def test_17_same_role_on_both_PIDs_is_not_new_ready_name(self):
         self.data[100]={"RoleName":"Hòa✨"}
-        r=self.run()
+        r=self.perform()
         self.assertEqual(r.ready_names,())
         self.assertEqual(self.values(0,1),("","Offline"))
 
@@ -213,7 +213,7 @@ class S102GroupCombo(unittest.TestCase):
     def test_20_existing_ready_list_clears_on_failing_second_batch(self):
         self.editor=new_editor((("Offline",),("",)))
         a=self.adapter()
-        self.assertEqual(self.run(a).ready_names,("Đội Trưởng","Hòa✨"))
+        self.assertEqual(self.perform(a).ready_names,("Đội Trưởng","Hòa✨"))
         b=self.collect(a)
         self.fx.backend.mapped.pop(101)
         r=a.deliver(b,editor=self.editor)
@@ -237,7 +237,7 @@ class S102GroupCombo(unittest.TestCase):
         self.assertEqual(r.code,"BLOCKED_INVALID_S91_GROUP_CONFIG")
 
     def test_24_test_external_name_is_not_authorized_to_act(self):
-        r=self.run()
+        r=self.perform()
         self.assertFalse(r.action_authorized)
         self.assertFalse(r.game_role_verified)
         self.assertEqual(r.source_provenance,"TEST_EXTERNAL_UNVERIFIED_NOT_GAME")
@@ -245,7 +245,7 @@ class S102GroupCombo(unittest.TestCase):
         self.assertFalse(hasattr(r,"team_id"))
 
     def test_25_reports_are_immutable(self):
-        r=self.run()
+        r=self.perform()
         with self.assertRaises(FrozenInstanceError):
             r.action_authorized=True
         with self.assertRaises(FrozenInstanceError):
@@ -253,16 +253,16 @@ class S102GroupCombo(unittest.TestCase):
 
     def test_26_uncommitted_widget_value_not_promoted_to_saved_identity(self):
         self.editor.group_inputs[0][0].name="NotSaved"
-        r=self.run()
+        r=self.perform()
         self.assertEqual(self.option(r,1,0,"NotSaved").category,
                          "UNCOMMITTED_WIDGET_VALUE_NOT_VERIFIED")
         self.assertEqual(self.editor.state.groups[0].members[0],"Đội Trưởng")
 
     def test_27_retained_offline_not_assumed_online_on_new_ready_cycle(self):
-        r=self.run()
+        r=self.perform()
         self.assertIn("Offline",r.retained_saved_names)
         self.data[101]={"RoleName":"Offline"}
-        r2=self.run()
+        r2=self.perform()
         self.assertNotIn("Offline",r2.retained_saved_names)
         self.assertEqual(self.option(r2,1,1,"Offline").category,
                          "SAVED_SELECTED_AND_TEST_EXTERNAL_LIVE")
@@ -270,7 +270,7 @@ class S102GroupCombo(unittest.TestCase):
     def test_28_invalid_role_provider_does_not_turn_stale_saved_name_into_new_option(self):
         self.data[100]={"RoleName":"<b></b>"}
         self.data[101]={"RoleName":False}
-        r=self.run()
+        r=self.perform()
         self.assertEqual(r.ready_names,())
         self.assertEqual(self.values(1,0),("","Hòa✨"))
 
@@ -283,7 +283,7 @@ class S102GroupCombo(unittest.TestCase):
 
     def test_30_all_results_say_no_game_action(self):
         a=self.adapter()
-        r=self.run(a)
+        r=self.perform(a)
         self.assertIn("NO_GAME_ACTION",r.code)
         self.assertFalse(r.configuration_modified)
         self.assertEqual(self.editor.ready_list.names,())
