@@ -622,6 +622,11 @@ class TLMStartTab:
             # Invalid cache cannot result in a new HWND identity choice.
             return
         if self.master_selection.selected != previous:
+            # S81 C05: automatic master disappearance/PID reuse is the
+            # same source-identity boundary as manual radio selection.
+            # Cancel an in-flight C10/C11 stack before it can continue
+            # treating the closed former master as index 0.
+            self._cancel_stack_worker()
             self._cancel_auto_reset_worker()
         if self.layout_active and self.master_selection.selected != previous:
             # A vanished/reused chosen HWND must cancel pending native work
