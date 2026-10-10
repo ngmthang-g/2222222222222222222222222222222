@@ -1,0 +1,56 @@
+name: S93 Party G09 read-only Tk owner status - TEST OWNED
+on:
+  push:
+    paths:
+      - "src/party_tk_run_status.py"
+      - "tests/test_s93.py"
+      - "tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py"
+      - ".github/workflows/s93-party-tk-status-native.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s93-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Existing pinned image regression dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile complete source and regression modules
+        run: python -m compileall -q src tests tools
+      - name: Full S01 to S93 Python unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source coverage and blocked product startup audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S93 real Tk Party read-only status and late destroyed worker
+        run: python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+      - name: S92 real Tk Party worker cancellation regression
+        run: python tools/S92_WINDOWS_G09_PARTY_EVENT_NATIVE_SMOKE.py
+      - name: S91 real Tk Party 3-column ready pool regression
+        run: python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+      - name: S90 real HWND PID party cache regression
+        run: python tools/S90_WINDOWS_G02_PARTY_ROSTER_NATIVE_SMOKE.py
+      - name: S89 Party Tk config and Unicode INI regression
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: S88 automatic lost HWND DWM native regression
+        run: python tools/S88_WINDOWS_C04_AUTO_SOURCE_LOSS_DWM_FAULT_SMOKE.py
+      - name: S76 original C15 DWM teardown regression
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s93-party-real-tk-status-test-owned-not-product
+          path: |
+            artifacts/s93/
+            artifacts/s92/
+            artifacts/s91/
+            artifacts/s90/
+            artifacts/s89/
+            artifacts/s88/
+            artifacts/s76/
+            artifacts/s86/
+          if-no-files-found: warn
