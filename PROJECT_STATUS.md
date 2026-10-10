@@ -1116,3 +1116,9 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Run 38017757852 job 114111741285: COMPLETED SUCCESS, 882/882 and packaged PyInstaller **DIAGNOSTIC ONLY NOT PRODUCT**, normal/unverified invocation EXPLICITLY_BLOCKED_NO_GUI; artifact 11656998159.
 - Source regression 38017757850, S59 38017757851, S58 38017757868, S57 38017757911 ALL COMPLETED SUCCESS.
 - C12 original show branch remains UNKNOWN; Start mode/tiler and original signed Info/game action prerequisites missing. No game-runtime product parity or full EXE. No Proxy. NEXT_ACTION S61 C07 source-backed behavior/worker proof only; never invent mode-only UI.
+
+
+## S61 C07 Auto exact reset component (native CI PENDING)
+- Independent reset engine grounded in original C07 final (0,0) and 1366x768 plus C06 GetWindowPlacement/SetWindowPos API: src/window_auto_reset.py NEW. Authentic mode switching/tiler geometry remains UNKNOWN, no user-facing button or fake action.
+- NEW tests/test_s61.py (12 cases), tools/S61_WINDOWS_C07_RESET_NATIVE_SMOKE.py real test-owned Win32, workflow s61-native-c07-reset.yml, docs/tasks/S61.md; STATE+PROJECT_STATUS append. No changes to tested S59/S60 native controls, PLAN or original ZIP.
+- NEXT_ACTION native S61 and diagnostic S36 verify then original-backed S62. Production full EXE NOT COMPLETE.
