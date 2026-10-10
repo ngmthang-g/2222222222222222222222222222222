@@ -36,6 +36,7 @@ def run():
             raise RuntimeError("WINDOWS_REQUIRED")
         import tkinter as tk
         from test_s15 import prepared
+        from start_tab import TLMStartTab
         from dwm_preview import NativeDwmBackend, ReadOnlyDwmPreviews, PreviewPlacement
         from start_windows import GameWindow
         from start_polling import WindowSnapshot
@@ -101,6 +102,9 @@ def run():
         obj._preview_cleanup_faulted = False
         obj._preview_controller = preview
         obj._update_master_combobox = lambda windows: None
+        # S15 test fixture overrides _sync_tiles; restore the real bound
+        # Start C04 callback for this actual Windows/native DWM test.
+        obj._sync_tiles = lambda windows: TLMStartTab._sync_tiles(obj, windows)
         obj._schedule_preview = lambda: None
 
         class NativeTkFrame(tk.Frame):
