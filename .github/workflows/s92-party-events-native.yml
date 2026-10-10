@@ -1,0 +1,53 @@
+name: S92 G03 RoleName blocker + G09 real Party events - TEST OWNED
+on:
+  push:
+    paths:
+      - "src/party_action_coordinator.py"
+      - "tests/test_s92.py"
+      - "tools/S92_WINDOWS_G09_PARTY_EVENT_NATIVE_SMOKE.py"
+      - ".github/workflows/s92-party-events-native.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s92-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install existing pinned image regression requirement
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all Stage S source and regression files
+        run: python -m compileall -q src tests tools
+      - name: Full Stage S01 through S92 Python unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 audit source parity and fail-closed product bootstrap
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S92 G09 REAL Windows Tk event cancellation with test backend only
+        run: python tools/S92_WINDOWS_G09_PARTY_EVENT_NATIVE_SMOKE.py
+      - name: S91 real Win32 Party ready 3-column Tk regression
+        run: python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+      - name: S90 real HWND PID cache Party roster regression
+        run: python tools/S90_WINDOWS_G02_PARTY_ROSTER_NATIVE_SMOKE.py
+      - name: S89 real Party config INI Tk regression
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: S88 real DWM automatic source-loss regression
+        run: python tools/S88_WINDOWS_C04_AUTO_SOURCE_LOSS_DWM_FAULT_SMOKE.py
+      - name: S76 real DWM native latch regression
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s92-party-cancellable-native-test-only-not-product
+          path: |
+            artifacts/s92/
+            artifacts/s91/
+            artifacts/s90/
+            artifacts/s89/
+            artifacts/s88/
+            artifacts/s76/
+            artifacts/s86/
+          if-no-files-found: warn
