@@ -235,24 +235,33 @@ class C14DetachedHost:
     def close(self) -> HostResult:
         if not self._on_owner_thread():
             return HostResult("WRONG_TK_THREAD")
-        # Native DWM thumbnails MUST be unregistered and destination windows
-        # destroyed BEFORE the Tk owner HWND is destroyed.
-        if self._session is not None:
-            self._session.shutdown()
-            self._session=None
-        if self._owner is not None:
+        # S71: release ALL native DWM slots first, even if a single native
+        # unregister/destroy failed; never strand the owner on an exception.
+        # Failures are EXPLICIT and do not certify a perfect native release.
+        cleanup_failed = False
+        session = self._session
+        self._session = None
+        if session is not None:
             try:
-                self._owner.destroy()
-            except (OSError,RuntimeError):
-                pass
-        self._owner=None
-        self._owner_hwnd=0
-        self._region=None
-        return HostResult("HOST_CLOSED")
+                session.shutdown()
+            except Exception:
+                cleanup_failed = True
+        owner = self._owner
+        self._owner = None
+        self._owner_hwnd = 0
+        self._region = None
+        if owner is not None:
+            try:
+                owner.destroy()
+            except Exception:
+                cleanup_failed = True
+        return HostResult("HOST_CLOSED_NATIVE_CLEANUP_FAILED" if cleanup_failed
+                          else "HOST_CLOSED")
 
     def shutdown(self) -> HostResult:
         if not self._on_owner_thread():
             return HostResult("WRONG_TK_THREAD")
-        self.close()
-        self._closed=True
-        return HostResult("CLOSED")
+        outcome = self.close()
+        self._closed = True
+        return HostResult("CLOSED_NATIVE_CLEANUP_FAILED"
+                          if outcome.code != "HOST_CLOSED" else "CLOSED")
