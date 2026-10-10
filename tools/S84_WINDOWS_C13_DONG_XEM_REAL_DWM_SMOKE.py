@@ -143,10 +143,14 @@ def run():
             close_button is not None and close_button.winfo_exists()
             and close_button.cget("text")=="Đóng xem")
         assert report["real_original_dong_xem_Tk_button"]
-        close_result=close_button.invoke()
+        # Native ttk.Button.invoke crosses Tcl; Python HostResult callback
+        # return is not preserved as a Python object. Prove actual Win32
+        # state after the user button event instead of inventing .code.
+        close_button.invoke()
         root.update_idletasks()
         report["actual_C13_user_click_returns_host_close"]=(
-            close_result.code=="HOST_CLOSED")
+            manager.owner_hwnd==0 and not manager.active_hwnds
+            and not b.is_window(host))
         assert report["actual_C13_user_click_returns_host_close"]
         report["all_source_game_test_HWNDs_remain_alive"]=all(
             b.is_window(h) and b.process_id(h)==pid for h in source_hwnds)
