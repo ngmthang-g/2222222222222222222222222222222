@@ -1,6 +1,6 @@
 {
   "task": "S59",
-  "status": "IMPLEMENTED_WINDOWS_PENDING",
+  "status": "VERIFIED_NATIVE_WINDOWS_876_TESTS_C10_C11_BUTTONS_ONLY",
   "base": "72e2cd0e9a09b52a558068fd4e57b25d69ab3cb8",
   "screenshot": {
     "file": "docs/ui/original/START_AUTO.png",
@@ -55,5 +55,8 @@
   "actual_game_runtime": "NOT_RUN",
   "c12_restore": "UNRESOLVED",
   "c07_auto_mode": "NOT_IMPLEMENTED",
-  "production_exe": "NOT_PRODUCT"
+  "production_exe": "NOT_PRODUCT",
+  "two_button_pixel_comparison": "EXACT_RGB_3276_OF_3276_PIXELS",
+  "native_run_id": 38016032895,
+  "diagnostic_run_id": 38016033232
 }

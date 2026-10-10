@@ -1,0 +1,46 @@
+{
+  "scope": "ONLY the two 78x21 C10/C11 button regions; NOT whole Start UI",
+  "native_run_id": 38016032895,
+  "native_job_id": 114106364563,
+  "source_commit": "1312cf3f466e8661e3df99208caa986a6d4b9564",
+  "reference_sha256": "4f1b126ea4ba0034889545653046f552a226d5f0033d2329a8693342184c28cd",
+  "native_capture_sha256": "4084962b532ee61030aa0bd794262d6576145abafd2bf0dd0796821a621d1045",
+  "controls": [
+    {
+      "label": "Xếp gọn",
+      "reference_xywh": [
+        176,
+        135,
+        78,
+        21
+      ],
+      "capture_xywh": [
+        169,
+        78,
+        78,
+        21
+      ],
+      "pixels": 1638,
+      "different_pixels": 0,
+      "exact_rgb_match_percent": 100
+    },
+    {
+      "label": "Xếp chéo",
+      "reference_xywh": [
+        256,
+        135,
+        78,
+        21
+      ],
+      "capture_xywh": [
+        249,
+        78,
+        78,
+        21
+      ],
+      "pixels": 1638,
+      "different_pixels": 0,
+      "exact_rgb_match_percent": 100
+    }
+  ]
+}

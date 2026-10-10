@@ -1,0 +1,49 @@
+{
+  "task": "S59",
+  "status": "PASS_NATIVE_S59_MEASURED_BUTTONS_REAL_MOVEMENT",
+  "real_game": "NOT_RUN",
+  "real_license": "NOT_AVAILABLE",
+  "original_auto_ui_pixel_parity": "NOT_VERIFIED",
+  "actual_auto_buttons": "C10_C11_ONLY",
+  "real_game_launches": 0,
+  "real_account_logins": 0,
+  "proxy_runtime": "EXCLUDED",
+  "product_exe": "NOT_PRODUCT",
+  "two_real_test_windows_not_game": true,
+  "original_e03_info_only_before_test_grant": true,
+  "real_tk_start_active_with_test_claims": true,
+  "original_b14_sha_verified": true,
+  "actual_button_bounds_relative_to_tab": [
+    [
+      169,
+      78,
+      78,
+      21
+    ],
+    [
+      249,
+      78,
+      78,
+      21
+    ]
+  ],
+  "measured_bounds_match_original": true,
+  "original_button_labels": true,
+  "no_unverified_toggle_or_mode": true,
+  "quick_tk_dispatch_returns_without_join": true,
+  "dispatch_no_tk_block": true,
+  "first_worker_completed_with_tk_pumping": true,
+  "first_stack_outcome": "STACK_DIAGONAL_APPLIED",
+  "actual_c11_native_diagonal_master_first": true,
+  "actual_c10_dispatch_returns_quickly": true,
+  "second_dispatch_nonblocking": true,
+  "second_worker_completed_with_tk_pumping": true,
+  "second_stack_outcome": "STACK_TIGHT_APPLIED",
+  "actual_c10_native_tight_stack_preserves_dimensions": true,
+  "duplicate_live_dispatch_rejected": true,
+  "grid_rejected_during_stack": true,
+  "native_tk_revocation_nonblocking": true,
+  "revoked_before_movement_does_not_move": true,
+  "app_shutdown_and_worker_cleanup": true,
+  "no_extra_settings_game_files": true
+}
