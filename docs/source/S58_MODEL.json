@@ -1,0 +1,35 @@
+{
+  "task": "S58",
+  "status": "NATIVE_WINDOWS_CI_PENDING",
+  "scope": "Original source-backed C12 hidden state reset after verified C10/C11 real native movement",
+  "original_verified_contract": "_reset_hidden_state after re-layout visibly repositions hidden windows",
+  "not_invented": "C12 show/restore target still conflicting old rect versus (0,0)",
+  "source": "src/window_hide.py",
+  "API": "C12HideAll.reset_after_verified_layout",
+  "read_only": true,
+  "real_native_validation": [
+    "saved HWND/PID presence",
+    "live top level visible HWND+same PID",
+    "actual game executable/class/title",
+    "original C10/C11 exact coordinates",
+    "revocable allowed"
+  ],
+  "mode_targets": {
+    "tight": "0,0 for all",
+    "diagonal": "50*i,50*i master first"
+  },
+  "unit_cases": 12,
+  "source_stage_s_run": 38014593549,
+  "units_expected": 870,
+  "native_workflow_run": 38014711926,
+  "native_smoke": "tools/S58_WINDOWS_C12_RELAYOUT_RESET_SMOKE.py",
+  "workflow": ".github/workflows/s58-native-hidden-state-reset.yml",
+  "first_false_negative_native_run": 38014634555,
+  "corrected_smoke_exit_commit": "a2e05733c637fca71f51e8f93c1a5edade6bf56e",
+  "real_game": "NOT_RUN",
+  "authenticated_info": "MISSING",
+  "auto_ui": "NOT_WIRED_BITMAP_MISSING",
+  "exe": "S36_DIAGNOSTIC_ONLY_NOT_PRODUCT",
+  "proxy_runtime": "EXCLUDED",
+  "next_action": "S59 recover genuine original C12 show semantics and Auto frame; no invented UI"
+}
