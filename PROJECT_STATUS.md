@@ -1586,3 +1586,15 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 1. Read LIVE PLAN/STATE, S104 and original client evidence.
 2. Check legitimate available authentic Party input providers and requirements; if missing, document exact evidence needed and prioritize a testable real-user functional gap over more simulated identity layers. Do not invent auth or game reader.
 3. Verify actual tests/CI for any code change; append findings, changed files, blockers and NEXT_ACTION S106. Locked PLAN/ZIP/B04/S59 and no-Proxy preserved.
+
+
+## S105 COMPLETED — CROSS-REPO CLIENT TEAM SOURCE FACTS PINNED, REAL INPUT STILL BLOCKED (2026-10-10)
+- Resumed LIVE PLAN/STATE S104, audited source repo and separate `ngmthang-g/clinent-game-than-long-DATA-2222` main at `9dbcbe2bf6c83b016dde2a1a9084d40882153d46`. NEW `docs/party/S105_PINNED_CLIENT_TEAM_SOURCE_CROSSCHECK.md`, `docs/tasks/S105.md`; STATE/PROJECT APPEND only. Original PLAN/ZIP/B04/S59, frozen Proxy and passing product source unchanged.
+- Lua-derived client documentation proves IN-PROCESS `Game.RoleData.TeamID`, `C_TeamData.TeamMember`, `UpdateTeamData` state semantics, but not a sanctioned/reliable outside-EXE bridge. A team member list is NOT original TLM `read_own_ids` local PID/RoleID roster. Game `RoleData.Name` is not automatically TLM `get_character_info(hwnd)['RoleName']`. No genuine Info token/heartbeat producer or authorized external game runtime proved. No fake provider or unapproved action added.
+- Alternative C12 hide already implemented; C12 restore and C14 detached preview need original branch evidence; F05 real launcher still Info/loader blocked. Candidate functional Windows task deferred to S106 instead of manufacturing UI/buttons.
+- DOC ONLY S105: NO new Windows CI (source/tests unchanged). Previous verified S103 run **38062644606**: 1564/1564 Python, 269 S86 compiled, test-owned S102–S76 native PASS. Previous S36 diagnostic **38062487870** SUCCESS but EXE normal `EXPLICITLY_BLOCKED_NO_GUI`, NOT PRODUCT. STATUS `S105_SOURCE_CROSSCHECK_COMPLETE_EXTERNAL_GAME_PROVIDER_STILL_BLOCKED`.
+
+## NEXT_ACTION on CONTINUE — S106 (EVIDENCE-COMPLETE REAL WINDOWS FEATURE GAP)
+1. Read LIVE PLAN/STATE/S105 and original Windows task evidence; find truly implementable missing user-facing feature not already done.
+2. Only add source if original behavior is complete and can be tested against actual Win32 test-owned HWND/PIDs; no mock-only Party layers or guessed C12/C14/Info/data readers.
+3. Verify Windows baseline and source audit, append real CI/files/blockers NEXT_ACTION S107. Locked original materials and Proxy restriction persist.
