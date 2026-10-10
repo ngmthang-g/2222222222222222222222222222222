@@ -1,0 +1,30 @@
+{
+  "task": "S57",
+  "status": "WINDOWS_NATIVE_CI_PENDING",
+  "source": "src/window_hide.py",
+  "original_specimen_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+  "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+  "hide": {
+    "coords": [
+      -2200,
+      -2200
+    ],
+    "keep_size": true,
+    "keep_visibility": true,
+    "remember_old_hwnd_pid_rect": true,
+    "master_first": true
+  },
+  "restoration": "UNKNOWN_CONFLICT_PREVIOUS_RECT_VS_0_0_DO_NOT_IMPLEMENT",
+  "source_verified": "docs/tasks/C12.md",
+  "unit_cases": 12,
+  "first_green_stage_s_run": 38013244212,
+  "native_workflow_run": 38013306386,
+  "native_workflow": ".github/workflows/s57-native-c12-hide-only.yml",
+  "new_tests": "tests/test_s57.py",
+  "native_smoke": "tools/S57_WINDOWS_C12_HIDE_ONLY_SMOKE.py",
+  "real_game": "NOT_TESTED",
+  "user_ui": "NOT_WIRED_ORIGINAL_BITMAP_UNAVAILABLE",
+  "exe": "S36_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT",
+  "proxy_runtime": "EXCLUDED",
+  "next_action": "S58 investigate exact show restore branch and original Auto bitmap before UI toggle"
+}
