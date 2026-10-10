@@ -1,0 +1,62 @@
+name: S95 G10 cancelable read-only TeamID waits - TEST OWNED
+on:
+  push:
+    paths:
+      - "src/party_team_wait.py"
+      - "tests/test_s95.py"
+      - "tools/S95_WINDOWS_G10_TEAM_WAIT_NATIVE_SMOKE.py"
+      - ".github/workflows/s95-party-team-wait-native.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s95-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Existing image regression dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile complete source and tests
+        run: python -m compileall -q src tests tools
+      - name: Full Stage S01-S95 Python regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source audit and blocked product bootstrap
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S95 real Win32 Tk Party TeamID wait with test sources only
+        run: python tools/S95_WINDOWS_G10_TEAM_WAIT_NATIVE_SMOKE.py
+      - name: S94 real Win32 Party RoleID TeamID sentinel preflight
+        run: python tools/S94_WINDOWS_G10_TEAM_IDENTITY_NATIVE_SMOKE.py
+      - name: S93 real Tk Party owner-thread status
+        run: python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+      - name: S92 G09 cancellable Party workers
+        run: python tools/S92_WINDOWS_G09_PARTY_EVENT_NATIVE_SMOKE.py
+      - name: S91 Party real Tk ready 3-column grid
+        run: python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+      - name: S90 true test HWND PID roster
+        run: python tools/S90_WINDOWS_G02_PARTY_ROSTER_NATIVE_SMOKE.py
+      - name: S89 Tk Unicode Party config
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: S88 native DWM source loss
+        run: python tools/S88_WINDOWS_C04_AUTO_SOURCE_LOSS_DWM_FAULT_SMOKE.py
+      - name: S76 native DWM cleanup
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s95-party-team-wait-real-test-hwnd-no-game
+          path: |
+            artifacts/s95/
+            artifacts/s94/
+            artifacts/s93/
+            artifacts/s92/
+            artifacts/s91/
+            artifacts/s90/
+            artifacts/s89/
+            artifacts/s88/
+            artifacts/s76/
+            artifacts/s86/
+          if-no-files-found: warn
