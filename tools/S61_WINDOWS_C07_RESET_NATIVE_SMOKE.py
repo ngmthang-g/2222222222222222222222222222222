@@ -19,9 +19,13 @@ def run():
         root=tk.Tk()
         root.title("S61 TEST OWNED")
         root.geometry("320x210+180+190")
+        # Test-owned Tk windows need a max-track size above the original
+        # 1366x768 target; hosted CI display defaults clamp width to 1044.
+        root.maxsize(2000,1400)
         second=tk.Toplevel(root)
         second.title("S61 SECOND TEST OWNED")
         second.geometry("340x220+520+270")
+        second.maxsize(2000,1400)
         root.update_idletasks();root.update()
         user32=ctypes.WinDLL("user32",use_last_error=True)
         ancestor=user32.GetAncestor
