@@ -150,7 +150,7 @@ class S70HostTests(unittest.TestCase):
         self.assertEqual(self.open().code,"CLOSED")
         txt=(ROOT/"src/detached_host.py").read_text("utf-8")
         for token in ("tk.Button(", "PostMessage(", "ReadProcessMemory(",
-                      "auto_open=True", "CreateRemoteThread", "proxy_tab"):
+                      "self._auto_open(", "CreateRemoteThread", "proxy_tab"):
             self.assertNotIn(token,txt)
 
 if __name__=="__main__":unittest.main()
