@@ -60,6 +60,11 @@ class TLMLoginPathTab:
         # Original F04 initial label was hidden until _show_game_dir_status.
         self.lbl_game_dir.place_forget()
         self._load_config()
+        # S111: actual original F01 clock selectors; only isolated time edits.
+        # No schedule_on switch, worker, open/close or shutdown without F05/F06.
+        from login_schedule_times import TLMLoginScheduleTimes
+        self.schedule_times = TLMLoginScheduleTimes(
+            self.container, settings_file=settings_file, show_error=self._show_error)
         # S37: F01 100 real selection/entry/captcha widgets, memory-only.
         # F02 persistent check boolean token and legacy 'Có' migration UNKNOWN:
         # NEVER load/rewrite Settings.accounts with guessed serialization.
@@ -146,5 +151,6 @@ class TLMLoginPathTab:
         if self._closed:
             return
         self._closed = True
+        self.schedule_times.shutdown()
         self.account_rows.shutdown()
         self.game_dir = GameDirectoryResult(None, "")
