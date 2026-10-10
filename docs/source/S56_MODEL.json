@@ -1,6 +1,6 @@
 {
   "task": "S56",
-  "status": "WINDOWS_NATIVE_CI_PENDING",
+  "status": "VERIFIED_NATIVE_WINDOWS_846_UNIT_PASS_START_C10_C11_ASYNC_ONLY",
   "scope": "PLAN.md faithful C10/C11 Start callback integration without original unmeasured UI",
   "baseline": {
     "verified_stage": "S55",
@@ -52,5 +52,29 @@
     "fake login and authorization",
     "product EXE claim"
   ],
-  "next_action": "S57 obtain source screenshot bitmap, measure original Start Auto controls before wiring real buttons"
+  "next_action": "S57 obtain source screenshot bitmap, measure original Start Auto controls before wiring real buttons",
+  "verified_native": {
+    "run_id": 38012667924,
+    "job_id": 114095959034,
+    "conclusion": "success",
+    "python_units": "846/846",
+    "status": "PASS_NATIVE_S56_START_C10_C11_ASYNC_LIFETIME",
+    "artifact_id": 11655690342,
+    "regressions": "S55-S10 native Windows all PASS",
+    "real_game": "NOT_RUN",
+    "real_original_auto_frame_ui": "NOT_WIRED"
+  },
+  "diagnostic": {
+    "run_id": 38012474109,
+    "job_id": 114095320538,
+    "conclusion": "success",
+    "python_units": "846/846",
+    "artifact_id": 11655640058,
+    "exe": "DIAGNOSTIC_ONLY_NOT_PRODUCT",
+    "unverified_exit": 2
+  },
+  "first_native_run_failed": {
+    "run_id": 38012574137,
+    "reason": "test Tk-thread join blocked Win32 message dispatch; fixed smoke by pumping Tk messages"
+  }
 }
