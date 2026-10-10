@@ -1,0 +1,56 @@
+{
+  "task": "S56",
+  "status": "WINDOWS_NATIVE_CI_PENDING",
+  "scope": "PLAN.md faithful C10/C11 Start callback integration without original unmeasured UI",
+  "baseline": {
+    "verified_stage": "S55",
+    "unit_count": 836
+  },
+  "source": "src/start_tab.py",
+  "engine": "src/window_stacking.py",
+  "callbacks": [
+    "_stack_tight_cmd",
+    "_stack_diagonal_cmd"
+  ],
+  "thread": "background Win32",
+  "cancel_on": [
+    "permission_revoke",
+    "master_change",
+    "tab_hide",
+    "shutdown"
+  ],
+  "guard": [
+    "selected Start",
+    "visible Start",
+    "server-verified max_windows positive",
+    "S09 valid cached HWND/PID",
+    "not Xếp-lưới active",
+    "no overlapping stack worker"
+  ],
+  "ui_buttons": "NOT_ADDED_ORIGIN_AUTO_FRAME_PIXELS_UNAVAILABLE",
+  "source_raster_metadata": {
+    "file": "TLMTool_rARyQTv9Ta(2).png",
+    "sha256": "4f1b126ea4ba0034889545653046f552a226d5f0033d2329a8693342184c28cd",
+    "bytes_present_in_repo": false
+  },
+  "tests": "tests/test_s56.py",
+  "native": "tools/S56_WINDOWS_TK_START_STACK_LIFECYCLE_SMOKE.py",
+  "workflow": ".github/workflows/s56-native-start-stack-lifecycle.yml",
+  "repaired_test_message_pumping_commit": "a86c93b9f3848e6a78c2d8599ad07ec81f6e783b",
+  "ci_run": 38012667924,
+  "remaining": [
+    "original Auto frame exact pixel geometry",
+    "original C07 tile coexistence unknown",
+    "original C12 hidden state reset",
+    "E03 signed Info and F05 F06 original game actions missing",
+    "real game runtime not tested"
+  ],
+  "excludes": [
+    "Proxy runtime",
+    "F02 account writes",
+    "F09 flag guesses",
+    "fake login and authorization",
+    "product EXE claim"
+  ],
+  "next_action": "S57 obtain source screenshot bitmap, measure original Start Auto controls before wiring real buttons"
+}
