@@ -352,12 +352,29 @@ class NativeDwmBackend:
         cls._wndproc_keepalive = wndproc
         cls._class_atom = atom
 
-    def source_matches(self, hwnd: int, pid: int) -> bool:
-        if not self._is_window(hwnd) or self._hung(hwnd):
-            return False
+    def source_status(self, hwnd: int, pid: int) -> str:
+        """S80 native-only C03 source diagnosis, NOT a game memory probe.
+
+        CLOSED means IsWindow is false; STALE_PID means the numeric HWND
+        belongs to a different process; HUNG is asserted ONLY by real
+        IsHungAppWindow for a still-identical HWND/PID. No timeout heuristics
+        or guesses based on a failed thumbnail registration.
+        """
+        if not isinstance(hwnd, int) or isinstance(hwnd, bool) or hwnd <= 0:
+            return "CLOSED"
+        if not self._is_window(hwnd):
+            return "CLOSED"
         current = self.w.DWORD(0)
         self._get_pid(hwnd, self.ctypes.byref(current))
-        return int(current.value) == pid and pid > 0
+        if (not isinstance(pid, int) or isinstance(pid, bool) or pid <= 0
+                or int(current.value) != pid):
+            return "STALE_PID"
+        if self._hung(hwnd):
+            return "HUNG"
+        return "LIVE"
+
+    def source_matches(self, hwnd: int, pid: int) -> bool:
+        return self.source_status(hwnd, pid) == "LIVE"
 
     def activate_source(self, hwnd: int) -> bool:
         """C03 real native restore/show and foreground attempt (no game input).
