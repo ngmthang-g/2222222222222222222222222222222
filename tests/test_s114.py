@@ -27,7 +27,7 @@ class S114SameScopeTests(unittest.TestCase):
         (dist / S113_DIAGNOSTIC_EXE).write_bytes(b"distinct test diagnostic PE fixture")
         (dist / "new.dll").write_bytes(b"only in diagnostic")
         with original.open("w", encoding="utf-8", newline="") as fh:
-            w = csv.writer(fh, delimiter="\t")
+            w = csv.writer(fh, delimiter="\t", lineterminator="\n")
             w.writerow(("SHA256", "SIZE_BYTES", "CATEGORY", "PACKAGE_PATH"))
             w.writerow((hashlib.sha256(common).hexdigest(), len(common), "DLL",
                         ORIGINAL_PREFIX + "python310.dll"))
