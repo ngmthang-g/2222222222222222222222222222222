@@ -80,6 +80,7 @@ on:
       - "tools/S63_WINDOWS_C07_CLOCK_SMOKE.py"
       - "tools/S62_WINDOWS_C07_START_NATIVE_SMOKE.py"
       - "tools/S61_WINDOWS_C07_RESET_NATIVE_SMOKE.py"
+      - ".github/workflows/s77-native-e08-exit-cleanup.yml"
       - ".github/workflows/s74-native-c14-host-lifecycle.yml"
   workflow_dispatch:
 permissions:
