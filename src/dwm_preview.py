@@ -1,10 +1,11 @@
-"""S11: original-backed, read-only DWM thumbnail service for Start.
+"""S11/S78: original-backed live DWM thumbnails and verified source activation.
 
 C03 proves DWM registration/overlay lifecycle; exact Tk pixel parity and
 fVisible/fSourceClientAreaOnly Boolean expressions were NOT recovered.
 This bounded adaptation uses an opaque top-level tool-window destination,
-never registers with a Tk child, never sends mouse/keyboard/game commands,
-and validates source HWND+PID before each create/update.
+never registers with a Tk child and validates source HWND+PID before
+each create/update. S78 adds C03's authentic overlay left-click -> source
+restore/show/foreground action, only while a verified DWM slot is owned.
 
 All native window operations run on the Tk OWNER thread (not S09 worker).
 """
@@ -13,6 +14,11 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass
 from typing import Protocol, Sequence
+
+# Original C03 _dwm_dst_click_targets: mapping lives only as long as native
+# destination popup HWNDs. Each entry preserves the validated source PID.
+_DWM_CLICK_TARGETS: dict[int, tuple[object, int, int]] = {}
+_DWM_LEFT_MESSAGES = (0x0201, 0x0202, 0x0203)  # C03 exact 513/514/515
 
 THUMB_WIDTH = 197
 THUMB_HEIGHT = 110
@@ -39,6 +45,24 @@ class PreviewResult:
 
 class DwmBackend(Protocol):
     def source_matches(self, hwnd: int, pid: int) -> bool: ...
+    def activate_source(self, hwnd: int) -> bool:
+        """C03 real native restore/show and foreground attempt (no game input).
+
+        Win32 foreground restrictions may reject SetForegroundWindow even
+        when the source HWND/PID is current. Never misreport an attempt as
+        proof of focus in another process.
+        """
+        if not self._is_window(hwnd) or self._hung(hwnd):
+            return False
+        self._show(hwnd, 9 if self._is_iconic(hwnd) else 5)  # SW_RESTORE / SW_SHOW
+        return bool(self._foreground(hwnd))
+
+    def bind_click_target(self, destination: int, hwnd: int, pid: int) -> None:
+        if (not self._is_window(destination)
+                or not self.source_matches(hwnd, pid)):
+            raise OSError("C03_CLICK_SOURCE_NOT_CURRENT")
+        _DWM_CLICK_TARGETS[destination] = (self, hwnd, pid)
+
     def create_destination(self, owner: int, x: int, y: int, width: int, height: int) -> int: ...
     def register(self, destination: int, source: int) -> int: ...
     def reposition(self, destination: int, thumbnail: int, x: int, y: int,
@@ -147,6 +171,11 @@ class ReadOnlyDwmPreviews:
                         thumbnail = self.backend.register(destination, hwnd)
                         if not thumbnail:
                             raise OSError("DWM_REGISTER_RETURNED_NULL")
+                        # C03 destination click handler is bound ONLY after
+                        # a real DWM source+PID registration is verified.
+                        bind = getattr(self.backend, "bind_click_target", None)
+                        if callable(bind):
+                            bind(destination, hwnd, item.pid)
                         slot = _PreviewSlot(item.pid, item.owner_hwnd, destination, thumbnail)
                         self._slots[hwnd] = slot
                     except Exception:
@@ -171,11 +200,14 @@ class ReadOnlyDwmPreviews:
 
 
 class NativeDwmBackend:
-    """Real Windows user32+dwmapi ctypes calls, with NO input handlers.
+    """Real Windows user32+dwmapi and C03 click-to-activate WndProc.
 
-    Destination uses the original 'ThlDwmThumbDst' class name but its WndProc
-    deliberately has *no* original click-to-activate actions in S11.
-    Original opacity=255 is proven; visible/client-only True are S11 choices.
+    C03 recovers WM_LBUTTONDOWN/UP/DBLCLK, mapping destination HWND to a
+    source HWND, IsIconic/ShowWindow SW_RESTORE/SW_SHOW, SetForegroundWindow.
+    The exact original click event return values and restore branch remain
+    unknown. This bounded S78 implementation checks live HWND+PID and hung
+    state again before a native foreground attempt, and does NOT synthesize
+    any game mouse/keyboard events or grant account permissions.
     """
 
     CLASS_NAME = "ThlDwmThumbDst"
@@ -253,6 +285,15 @@ class NativeDwmBackend:
         self._unregister = self.dwm.DwmUnregisterThumbnail
         self._unregister.argtypes = [w.HANDLE]
         self._unregister.restype = ctypes.c_long
+        self._show = self.user32.ShowWindow
+        self._show.argtypes = [w.HWND, ctypes.c_int]
+        self._show.restype = w.BOOL
+        self._is_iconic = self.user32.IsIconic
+        self._is_iconic.argtypes = [w.HWND]
+        self._is_iconic.restype = w.BOOL
+        self._foreground = self.user32.SetForegroundWindow
+        self._foreground.argtypes = [w.HWND]
+        self._foreground.restype = w.BOOL
         self._hinstance = self.kernel32.GetModuleHandleW
         self._hinstance.argtypes = [w.LPCWSTR]
         self._hinstance.restype = w.HMODULE
@@ -271,7 +312,18 @@ class NativeDwmBackend:
 
         @proc_type
         def wndproc(hwnd, msg, wp, lp):
-            # No game activation/mouse interception in S11.
+            if msg in _DWM_LEFT_MESSAGES:
+                target = _DWM_CLICK_TARGETS.get(int(hwnd))
+                if target is not None:
+                    backend, source, pid = target
+                    try:
+                        # Source may have closed/reused HWND after last scan.
+                        if backend.source_matches(source, pid):
+                            backend.activate_source(source)
+                    except Exception:
+                        # No exception may cross an unmanaged Win32 WndProc.
+                        pass
+                    return 0
             return default_proc(hwnd, msg, wp, lp)
 
         class WindowClass(ctypes.Structure):
@@ -316,8 +368,12 @@ class NativeDwmBackend:
         owner_root = self._ancestor(owner, 2)
         if not owner_root or not self._is_window(owner_root):
             raise OSError("Owner HWND missing")
+        # C03's real destination WndProc handles left clicks. S11's
+        # local WS_EX_TRANSPARENT click-through choice would bypass that
+        # destination hit-test path; the original class marker does not
+        # recover WS_EX_TRANSPARENT as a required style.
         ext = (self.WS_EX_LAYERED | self.WS_EX_TOOLWINDOW
-               | self.WS_EX_NOACTIVATE | self.WS_EX_TRANSPARENT)
+               | self.WS_EX_NOACTIVATE)
         h = self._create(ext, self.CLASS_NAME, "", self.WS_POPUP | self.WS_VISIBLE,
                          x, y, width, height, owner_root, None, self._hinstance(None), None)
         if not h:
@@ -353,4 +409,7 @@ class NativeDwmBackend:
 
     def destroy_destination(self, destination: int) -> None:
         if destination:
+            # Original C03 _destroy_dwm_dst_hwnd removes click mapping
+            # before destroying the popup HWND. No stale click targets.
+            _DWM_CLICK_TARGETS.pop(destination, None)
             self._destroy(destination)
