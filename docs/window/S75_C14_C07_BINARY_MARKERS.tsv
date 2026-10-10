@@ -1,0 +1,16 @@
+COMPONENT	OFFSET_HEX	OBSERVED_IN_FROZEN_INNER_EXE	EVIDENCE_LEVEL	CONCLUSION_OR_UNKNOWN
+C14	0x2bff186	serialized short token adjacent to gap	RAW_BYTES_ONLY	Do not assign gap numeric value from mixed encoded bytes
+C14	0x2bff18d	tile_w	VERIFIED_IDENTIFIER	Tile width variable exists; exact width arithmetic UNKNOWN
+C14	0x2bff195	region_y	VERIFIED_IDENTIFIER	Vertical region variable exists; exact derivation beyond y=768 UNKNOWN
+C14	0x2bff19f	tile_h	VERIFIED_IDENTIFIER	Tile height variable exists; exact per-item height arithmetic UNKNOWN
+C14	0x2bff282	_detached_update_loop	VERIFIED_METHOD_MARKER	Loop exists; original interval UNKNOWN
+C14	0x2bff299	open detached overlay DWM region doc	VERIFIED_DOCSTRING	Position x=0 y=768 to screen bottom width screen_width-450
+C14	0x2bff316	silent=True suppresses no-game messagebox	VERIFIED_DOCSTRING	Silent is auto-open-related; exact auto-open scheduling UNKNOWN
+C14	0x2bff380	user_initiated=True when user presses close button	VERIFIED_DOCSTRING	User-initiated close distinction exists; exact transition/embedded restoration UNKNOWN
+C14	0x2bff3f2	HWND_TOPMOST	VERIFIED_IDENTIFIER	Topmost window family exists; S70 real native host tested separately
+C14	0x2bff400	loop rebuilds on game list change independent of Start	VERIFIED_DOCSTRING	S72-S74 explicit scan change teardown is verified local prerequisite; detached cadence UNKNOWN
+C14	0x2bfeeac	Combobox + readonly	VERIFIED_IDENTIFIER	Original detached column selector readonly; exact entire value list UNKNOWN
+C07	0x2bfc1d3	_sort_key	VERIFIED_IDENTIFIER	Original RoleName sort comparator body UNKNOWN
+C07	0x2bfc211	sort	VERIFIED_IDENTIFIER	Sort exists; exact collation/fallback UNKNOWN
+C07	0x2bfc2ba	RoleName	VERIFIED_IDENTIFIER	Must not infer character name from title; original reader still missing
+C07	0x2bfc2f8	1-second auto rearrangement doc	VERIFIED_DOCSTRING	Exact 1000ms loop supported by S63; placement x/y/w/h still UNKNOWN
