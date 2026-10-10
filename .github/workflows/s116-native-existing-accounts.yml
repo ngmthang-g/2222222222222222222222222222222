@@ -1,0 +1,57 @@
+name: S116 Windows F02 original existing account safe 300ms autosave (NO GAME)
+on:
+  push:
+    paths:
+      - "src/login_existing_account_edits.py"
+      - "src/login_existing_autosave.py"
+      - "src/login_tab.py"
+      - "tests/test_s116.py"
+      - "tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py"
+      - ".github/workflows/s116-native-existing-accounts.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s116-existing-accounts:
+    runs-on: windows-latest
+    timeout-minutes: 27
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: "x64"
+      - name: Install inherited screenshot test dependencies
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all Python files
+        run: python -m compileall -q src tests tools
+      - name: Full original unit regression plus S116
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source build audit (product remains blocked)
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: Actual native Windows Tk 300ms F02 account persistence, no game
+        run: python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Original S38 read-only legacy parsing regression
+        run: python tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
+      - name: Original S111 schedule clock Tk persistence regression
+        run: python tools/S111_WINDOWS_LOGIN_SCHEDULE_TIME_SMOKE.py
+      - name: Original S112 F10 radio Tk persistence regression
+        run: python tools/S112_WINDOWS_LOGIN_AFTER_RADIO_SMOKE.py
+      - name: Original S109 hidden plan row preservation regression
+        run: python tools/S109_WINDOWS_LOGIN_PLAN_ROW_LIMIT_SMOKE.py
+      - name: Preserve production signed Info guard
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s116/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S116_PRODUCT_UNEXPECTEDLY_OPENED" }
+          if ((Get-Content -Raw artifacts/s116/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S116_AUTH_REFUSAL_MISSING" }
+          Write-Host "S116_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S116_REAL_TK_EXISTING_ACCOUNT_AUTOSAVE_ONLY_NO_GAME
+          path: |
+            artifacts/s116/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
