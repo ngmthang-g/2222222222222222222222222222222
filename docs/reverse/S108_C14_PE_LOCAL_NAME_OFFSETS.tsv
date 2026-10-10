@@ -1,0 +1,30 @@
+EVIDENCE_KIND	ORIGINAL_PE_FILE_OFFSET	EXACT_UTF8_OR_BYTES	INTERPRETATION	PROOF_LIMIT
+QUALIFIED_METHOD_NAME	0x02c008d0	TLMStartTab._set_window_previews_visible	Compiled method name recorded in Nuitka constant region	No proof this method is called by detach toggle
+QUALIFIED_METHOD_NAME	0x02c00972	TLMStartTab._toggle_detached_preview	Compiled toggle method name recorded	No proof of specific state branch or embedded hide/show sequence
+QUALIFIED_METHOD_NAME	0x02c00aa7	TLMStartTab._open_detached_preview	Compiled detached open method name recorded	No tile formula from method name
+QUALIFIED_METHOD_NAME	0x02c00acb	TLMStartTab._close_detached_preview	Compiled close method name recorded	No user_initiated/embedded restoration data flow
+DATA_NAME	0x02c015c5	SM_CXSCREEN	Screen-width Win32 metric name appears in adjacent serialized locals	Not proof of actual DPI handling
+DATA_NAME	0x02c015d2	SM_CYSCREEN	Screen-height Win32 metric name appears	Not proof of display height arithmetic
+DATA_NAME	0x02c015e7	region_x	Detached region variable recorded	Not enough to recover per-thumbnail placement
+DATA_NAME	0x02c015f1	region_y	Detached region variable recorded	Original y=768 separately documented
+DATA_NAME	0x02c015fb	region_w	Detached region variable recorded	Original width=screen_width-450 separately documented
+DATA_NAME	0x02c01605	region_h	Detached region variable recorded	Original remaining height separately documented
+ENCODED_LOCAL_SEQUENCE	0x02c0160e	wnacols	Nuitka-looking encoded sequence next to columns; literal symbol cols at 0x02c01611	DO NOT CLAIM literal ncols or its numeric value from encoded prefix
+DATA_NAME	0x02c01611	cols	Column-related local name recorded	No supported exact column count/selection formula
+DATA_NAME	0x02c01617	rows	Row-related local name recorded	No supported row-count arithmetic
+DATA_NAME	0x02c0161d	gap	Spacing local recorded	No numeric gap value
+DATA_NAME	0x02c01622	tile_w	Tile width local recorded	No numeric width or rounding formula
+DATA_NAME	0x02c0162a	tile_h	Tile height local recorded	No numeric height or rounding formula
+DATA_NAME	0x02c0163c	index	Iteration-related local recorded	Does not establish source-HWND ordering
+DATA_NAME	0x02c01650	row	Row index local recorded	No proof of floor/ceil arithmetic
+DATA_NAME	0x02c01655	col	Column index local recorded	No proof of modulo or row-major order
+DATA_NAME	0x02c0165a	tx	Tile x-coordinate local recorded	No exact x placement
+DATA_NAME	0x02c0165e	ty	Tile y-coordinate local recorded	No exact y placement
+DATA_NAME	0x02c01662	dst_hwnd	Destination HWND local recorded	No actual owner/child Win32 handle recorded in static PE
+DATA_NAME	0x02c0166c	new_thumb	DWM thumbnail local recorded	No source-to-destination live mapping
+DATA_NAME	0x02c016a8	mname	Metadata text local recorded	Does not prove authentic game RoleName reading
+DATA_NAME	0x02c016af	lbl_text	Label text local recorded	Does not prove embedded label restore branch
+IDENTIFIER	0x02bff18e	tile_w	Second C14 constants segment independently seen in S75	Not a second executed function branch
+IDENTIFIER	0x02bff1a0	tile_h	Second C14 constants segment independently seen in S75	Does not supply original dimensions
+DOCSTRING_MARKER	0x02bff299	open detached overlay DWM region	Region x=0 y=768 width screen_width-450 is documented	No intra-region tiles
+DOCSTRING_MARKER	0x02bff380	close all detached windows user_initiated=True	User-close intent argument exists	Does not prove embedded visibility/persistence transitions
