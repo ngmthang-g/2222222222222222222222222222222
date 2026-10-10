@@ -166,9 +166,8 @@ def run():
             and sum(e[0]=="register" for e in events)==6
             and max(i for i,e in enumerate(events[:first_destroy])
                     if e[0] in ("unregister","destroy_destination")) < first_destroy
-            and min(i for i,e in enumerate(events)
-                    if e[0]=="register" and e[1] not in native_tokens_before)
-                    > first_destroy)
+            and len([e for e in events[first_destroy+1:]
+                     if e[0]=="register"])==3)
         assert report["real_native_refresh_teardown_before_new_DWM"],events
         report["all_three_source_HWNDs_alive_during_refresh"]=all(
             b.is_window(h) and b.process_id(h)==pid for h in source_hwnds)
