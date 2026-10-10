@@ -213,6 +213,38 @@ class S90RosterTests(unittest.TestCase):
         self.assertEqual(ctl.roster.ready_names(), ())
         ctl.shutdown()
 
+    def test_21_restart_does_not_overlap_stalled_previous_role_worker(self):
+        class Busy:
+            def is_alive(self):
+                return True
+        root = ClockRoot()
+        producer = Producer(snap(1, window()))
+        ctl = TkPartyRosterRefresh(root, producer, lambda r: None)
+        blocked = Busy()
+        ctl._thread = blocked
+        ctl.start()
+        root.fire(PARTY_REFRESH_MS)
+        self.assertIs(ctl._thread, blocked)
+        self.assertFalse(ctl._working)
+        self.assertIn(PARTY_REFRESH_MS, [x[0] for x in root.jobs.values()])
+        ctl.stop()
+
+    def test_22_old_epoch_role_read_after_restart_never_publishes(self):
+        root = ClockRoot()
+        producer = Producer(snap(1, window()))
+        seen = []
+        ctl = TkPartyRosterRefresh(root, producer, lambda r: seen.append(r.code))
+        ctl.start()
+        old = ctl._generation
+        ctl.stop()
+        ctl.start()
+        now = ctl._generation
+        ctl._read_worker(old, producer.snapshot)
+        ctl._handoff(now)
+        self.assertEqual(seen, ["STOPPED"])
+        self.assertEqual(ctl.roster.members, ())
+        ctl.shutdown()
+
     def test_20_no_additional_local_enumeration_or_game_packet(self):
         code=(ROOT/"src/party_roster.py").read_text("utf-8")
         for forbidden in ("EnumWindows(", "CreateRemoteThread(", "ReadProcessMemory(",
