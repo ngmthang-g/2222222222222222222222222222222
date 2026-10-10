@@ -91,7 +91,7 @@ def run():
         root.update()
         assert len(editor2.group_inputs) == 1
         assert editor2.group_inputs[0][4].get() == "Bạch Vân"
-        assert editor2.remove_buttons[0].cget("state") == "disabled"
+        assert editor2.remove_buttons[0].instate(("disabled",)), repr(editor2.remove_buttons[0].cget("state"))
 
         parser = read_settings(file)
         assert parser.get("Settings", "game_dir") == r"Z:\OriginalGame"
