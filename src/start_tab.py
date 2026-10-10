@@ -1001,18 +1001,30 @@ class TLMStartTab:
         self.maintenance.start()
 
     def _stop_refresh(self) -> None:
+        # S77: leaving Start must complete the entire owner-release path,
+        # even when one real native DWM unregister has already failed.
         self._cancel_auto_reset_worker()
         self._cancel_stack_worker()
         self._stop_sync_loop()
         self.maintenance.stop()
         self.poller._stop_refresh()
-        self._drop_previews()
+        native_failure = False
+        try:
+            self._drop_previews()
+        except Exception:
+            native_failure = True
+            self._preview_cleanup_faulted = True
         if self._closed:
             # E08: child <Destroy> may already have removed its Tk widgets.
             return
         self._sync_tiles(())
         # Do not show stale HWND/PID when Start is hidden/revoked.
         self._render(StartReadOnlyState("STOPPED", "Chưa quét cửa sổ game"))
+        if native_failure:
+            # A later selected Start may show the error, but no new native
+            # registration is permitted after unverified DWM cleanup.
+            self.preview_status.configure(
+                text="Preview lỗi: giải phóng DWM chưa xác minh")
 
     def _on_destroy(self, event) -> None:
         if event.widget is self.container:
@@ -1021,14 +1033,24 @@ class TLMStartTab:
     def shutdown(self) -> None:
         if self._closed:
             return
-        # During Tk <Destroy>, children (including btn_layout) can already
-        # be gone: fence widget updates BEFORE disabling the layout worker.
+        # During Tk <Destroy>, descendants may be gone already. E08 owner
+        # lifetime must release every independent subsystem even when the
+        # S76 DWM controller reports a native cleanup failure. Preserve the
+        # first failure instead of falsely claiming successful shutdown.
         self._closed = True
-        self._cancel_auto_reset_worker()
-        self._cancel_stack_worker()
-        self._stop_sync_loop()
-        self.maintenance.shutdown()
-        self._drop_previews()
+        first_error = None
+        for close in (
+            self._cancel_auto_reset_worker,
+            self._cancel_stack_worker,
+            self._stop_sync_loop,
+            self.maintenance.shutdown,
+            self._drop_previews,
+        ):
+            try:
+                close()
+            except Exception as exc:
+                if first_error is None:
+                    first_error = exc
         for sequence, binding in self._top_handlers:
             if binding:
                 try:
@@ -1037,4 +1059,10 @@ class TLMStartTab:
                     # Tk may already be destroyed during shutdown.
                     pass
         self._top_handlers.clear()
-        self.poller.shutdown()
+        try:
+            self.poller.shutdown()
+        except Exception as exc:
+            if first_error is None:
+                first_error = exc
+        if first_error is not None:
+            raise first_error
