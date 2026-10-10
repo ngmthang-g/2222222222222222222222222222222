@@ -1108,3 +1108,11 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 - Fixed genuine S57 false HIDDEN when native reports success without moving/resizing as required; verify actual HWND/PID/rectangle, fail PARTIAL. NEW six targeted regression tests and full S60 native Windows workflow.
 - Files: src/window_hide.py, tests/test_s60.py, .github/workflows/s60-native-c12-readback.yml, docs/tasks/S60.md, STATE.md, PROJECT_STATUS.md. S59 pixel parity untouched.
 - NEXT_ACTION native CI + S36 diagnostic verification, then original-backed S61; product EXE not complete. No Proxy.
+
+
+## S60 VERIFIED — 882 Windows units + native regressions + diagnostic build
+- Source d4d0a34b037580687710450bf0ceec938e614f2b: C12 actual HWND/PID/GetWindowRect readback, fail PARTIAL on false success / unexpected size; 6 additional tests. See docs/tasks/S60.md.
+- Run 38017757968 job 114111741498: COMPLETED SUCCESS, 882/882 Windows Python unit tests, dedicated S60 6/6, and real TEST-owned Tk Win32 S59–S10 native chain green. Artifact 11657240229.
+- Run 38017757852 job 114111741285: COMPLETED SUCCESS, 882/882 and packaged PyInstaller **DIAGNOSTIC ONLY NOT PRODUCT**, normal/unverified invocation EXPLICITLY_BLOCKED_NO_GUI; artifact 11656998159.
+- Source regression 38017757850, S59 38017757851, S58 38017757868, S57 38017757911 ALL COMPLETED SUCCESS.
+- C12 original show branch remains UNKNOWN; Start mode/tiler and original signed Info/game action prerequisites missing. No game-runtime product parity or full EXE. No Proxy. NEXT_ACTION S61 C07 source-backed behavior/worker proof only; never invent mode-only UI.

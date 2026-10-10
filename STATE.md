@@ -6574,3 +6574,25 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 
 ## NEXT_ACTION on CONTINUE — VERIFY S60 THEN S61
 - Inspect Windows S60 native full Stage S units, test-owned S59–S10 native checks, S36 diagnostic fail-closed. Repair only genuine failures; append actual commit/run/test results and precise changes. Then S61 follow original-backed C07 mode/tiler/Start parity or another demonstrable PLAN prerequisite, no guessed C12 show or repeat of S59. Preserve original fidelity and no Proxy.
+
+
+## S60 VERIFIED — 882/882 REAL WINDOWS REGRESSION, DIAGNOSTIC BUILD SUCCESS
+- **SOURCE COMMIT d4d0a34b037580687710450bf0ceec938e614f2b**: exactly src/window_hide.py safety fix, 6 new S60 units, new S60 Windows workflow and S60 evidence docs; S59 authentic measured Start C10/C11 buttons/architecture unchanged.
+- **ACTUAL [S60 Windows native run 38017757968](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38017757968), job 114111741498 COMPLETED SUCCESS**. Windows compileall succeeded; **882/882 S01–S60 unittest PASS** (10.504 sec), the six S60 false-success/resize/PID cases separately **6/6 PASS**, native S59 (real Tk buttons + real test-owned Win32 movement), S58 (verified visible reset), S57 (real -2200 off-screen hide), S56–S10 regression checks ALL PASS. Artifact **11657240229** (test-owned Windows evidence, not game).
+- **ACTUAL [S36 Windows diagnostic packaged run 38017757852](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38017757852), job 114111741285 COMPLETED SUCCESS**: **882/882 tests PASS**, native S36 actual packaged executable test **PASS_NATIVE_S36_PACKAGED_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT**, normal and unverified CLI attempts **EXPLICITLY_BLOCKED_NO_GUI**. Artifact **11656998159**, strictly DIAGNOSTIC ONLY and NOT a usable TLM product.
+- Other actual completed-success source commit checks: Stage S source **38017757850**, S59 native **38017757851**, S58 native **38017757868**, S57 native **38017757911**. No observed CI failure or attempted rewrite of prior S01–S59 code.
+- Original C12 show/restore branch STILL UNRESOLVED (0,0 vs saved rects). No false UI toggle; original signed Info, F05/F06 game launch/login, C07 mode/input tiler, whole parity and production EXE remain missing. S60 post-move verification is conservative safety policy, not proof of matching internal Nuitka statements. No real game HWNDs in CI, no Proxy runtime, no account writes/forged entitlement.
+- **STATUS S60_NATIVE_WINDOWS_882_UNIT_PASS_DIAGNOSTIC_ONLY_EXE**.
+
+## S60 FINAL CHANGED FILES
+- src/window_hide.py (single isolated C12 post-move readback check)
+- tests/test_s60.py (6 new targeted tests)
+- .github/workflows/s60-native-c12-readback.yml
+- docs/tasks/S60.md
+- STATE.md; PROJECT_STATUS.md (append-only)
+
+## NEXT_ACTION on CONTINUE — S61 (ORIGINAL PARITY PRIORITY)
+1. Read LIVE PLAN.md / STATE.md and check docs/tasks/S61.md; do not repeat S60/S59.
+2. Study original C07 Auto mode/tiler from docs/tasks/C07.md, docs/tasks/C08.md and original locked PE, with screenshot docs/ui/original/START_AUTO.png. Source-backed C07: values auto/sync, selection transitions must stop active Train/Trừng ác/Tàng bảo đồ before sync, sync enables layout PLUS input, Auto disables both, Auto reset (0,0) 1366x768 and 1-second auto tile loop, sort RoleName + master first. Some code edges, tiling geometry, original input sync and condition ordering remain UNKNOWN: do NOT ship radio-only visual mock, destructive window resize or unsupported input-sync behavior.
+3. Identify independently verifiable C07 subcomponent that can be completed/tested on test-owned native Windows, or another authentic PLAN component. Implement only proven narrow functionality, keep Win32 operations worker-threaded and verified permission/HWND/PID. If no valid source-backed implementation, document blocker rather than invent a 1:1 feature.
+4. Preserve **882/882 Windows units**, native S60/S59–S10 regressions and S36 diagnostic EXE fail-closed. No Proxy, guessed F02/F09 saved values, fake Info/game actions, screenshots as proof of runtime, or false claim of completed product EXE. Append exact files, CI IDs and next action after each milestone.
