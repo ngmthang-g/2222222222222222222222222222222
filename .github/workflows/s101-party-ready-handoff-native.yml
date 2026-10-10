@@ -1,0 +1,77 @@
+name: S101 G03 native external RoleName to Party ready handoff two test PIDs
+on:
+  push:
+    paths:
+      - "src/party_ready_handoff.py"
+      - "tests/test_s101.py"
+      - "tools/S101_WINDOWS_G03_PARTY_READY_HANDOFF_TWO_PID_SMOKE.py"
+      - ".github/workflows/s101-party-ready-handoff-native.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s101-native:
+    runs-on: windows-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install existing image regression dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all source, tests and tools
+        run: python -m compileall -q src tests tools
+      - name: Full source Python regression through S101
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 original-source audit and deliberately blocked product
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S101 native RoleName to S90/S91 ready handoff two test PIDs
+        run: python tools/S101_WINDOWS_G03_PARTY_READY_HANDOFF_TWO_PID_SMOKE.py
+      - name: S100 native RoleName source\n        run: python tools/S100_WINDOWS_G03_EXTERNAL_ROLENAME_TWO_PID_SMOKE.py\n      - name: S99 native Party snapshot
+        run: python tools/S99_WINDOWS_G10_TWO_PID_SNAPSHOT_PRESENTATION_SMOKE.py
+      - name: S98 native TeamID epoch
+        run: python tools/S98_WINDOWS_G10_TWO_PID_EPOCH_SMOKE.py
+      - name: S97 native member detail
+        run: python tools/S97_WINDOWS_G10_TWO_PID_MEMBER_SNAPSHOT_SMOKE.py
+      - name: S96 native team join report
+        run: python tools/S96_WINDOWS_G10_TWO_PID_BURST_REPORT_SMOKE.py
+      - name: S95 native team wait
+        run: python tools/S95_WINDOWS_G10_TEAM_WAIT_NATIVE_SMOKE.py
+      - name: S94 native team identity
+        run: python tools/S94_WINDOWS_G10_TEAM_IDENTITY_NATIVE_SMOKE.py
+      - name: S93 native Tk owner state
+        run: python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+      - name: S92 native cancellation
+        run: python tools/S92_WINDOWS_G09_PARTY_EVENT_NATIVE_SMOKE.py
+      - name: S91 native ready accounts
+        run: python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+      - name: S90 native roster
+        run: python tools/S90_WINDOWS_G02_PARTY_ROSTER_NATIVE_SMOKE.py
+      - name: S89 native config
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: S88 native DWM lost source
+        run: python tools/S88_WINDOWS_C04_AUTO_SOURCE_LOSS_DWM_FAULT_SMOKE.py
+      - name: S76 native DWM cleanup
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s101-party-ready-handoff-TWO-TEST-PIDs-NO-GAME
+          path: |
+            artifacts/s101/\n            artifacts/s100/
+            artifacts/s99/
+            artifacts/s98/
+            artifacts/s97/
+            artifacts/s96/
+            artifacts/s95/
+            artifacts/s94/
+            artifacts/s93/
+            artifacts/s92/
+            artifacts/s91/
+            artifacts/s90/
+            artifacts/s89/
+            artifacts/s88/
+            artifacts/s76/
+            artifacts/s86/
+          if-no-files-found: warn
