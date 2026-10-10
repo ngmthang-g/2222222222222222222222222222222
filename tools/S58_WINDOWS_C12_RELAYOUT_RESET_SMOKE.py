@@ -166,7 +166,7 @@ def run():
         REPORT.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
         for key, value in out.items():
             print("S58_" + key.upper() + "=" + json.dumps(value, ensure_ascii=True))
-    return int(out["status"] != "PASS_NATIVE_S58_C12_HIDE_ONLY_TEST_OWNED_WINDOWS")
+    return int(out["status"] != "PASS_NATIVE_S58_C12_RELAYOUT_RESETS_HIDDEN_TEST_OWNED_WINDOWS")
 
 
 if __name__ == "__main__":
