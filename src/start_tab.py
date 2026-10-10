@@ -321,6 +321,14 @@ class TLMStartTab:
                 tile.grid_propagate(False)
                 label = ttk.Label(tile, text=w.title or f"HWND {w.hwnd}", anchor="w")
                 label.place(x=4, y=3, width=121, height=19)
+                # C03: original Tk header/frame <Button-1> activation is
+                # independent from S78's genuine DWM overlay WndProc. Bind
+                # only to this exact HWND+PID generation; arrow ttk.Button
+                # controls remain exclusively C17 logical reorder controls.
+                on_activate = (lambda _event, hwnd=w.hwnd, pid=w.pid:
+                               self._activate_preview_source(hwnd, pid))
+                tile.bind("<Button-1>", on_activate, add="+")
+                label.bind("<Button-1>", on_activate, add="+")
                 # C17: real functioning logical preview-order arrows, NOT
                 # game controls, Win32 activation or mouse interception.
                 left = ttk.Button(tile, text="◀", width=2,
@@ -334,6 +342,7 @@ class TLMStartTab:
                 surface = tk.Frame(tile, bg="#000000", width=THUMB_WIDTH,
                                    height=THUMB_HEIGHT)
                 surface.place(x=4, y=23, width=THUMB_WIDTH, height=THUMB_HEIGHT)
+                surface.bind("<Button-1>", on_activate, add="+")
                 surface.bind("<Configure>", lambda _event: self._schedule_preview(), add="+")
                 self._tile_items[key] = (tile, label, surface, left, right)
             else:
@@ -367,6 +376,49 @@ class TLMStartTab:
         self.preview_grid_manual = True  # S14 local model; original order UNKNOWN
         self._relayout_tiles()
         return True
+
+    def _activate_preview_source(self, hwnd: int, pid: int) -> bool:
+        """C03 Tk <Button-1>: activate ONLY a still-authorized DWM source.
+
+        Original C03 Tk frame/header binding _make_activate targets the
+        actual source HWND; S78 owns native IsIconic/ShowWindow/foreground.
+        This callback never dispatches input to game client coordinates.
+        The extra S79 read-only cache/registered-slot gates are explicit
+        conservative safety checks, not claimed original source branches.
+        """
+        if (self._closed or not self.poller.active
+                or getattr(self, "_preview_cleanup_faulted", False)
+                or type(hwnd) is not int or hwnd <= 0
+                or type(pid) is not int or pid <= 0
+                or type(getattr(self, "layout_max_windows", 0)) is not int
+                or self.layout_max_windows <= 0):
+            return False
+        try:
+            if not self.container.winfo_viewable():
+                return False
+            snapshot = self.poller.producer.read_snapshot()
+            if (not isinstance(snapshot, WindowSnapshot) or not snapshot.valid
+                    or len(snapshot.windows) > self.layout_max_windows):
+                return False
+            if not any(w.hwnd == hwnd and w.pid == pid for w in snapshot.windows):
+                return False
+            if not any(w.hwnd == hwnd and w.pid == pid for w in self._active_windows):
+                return False
+            if (hwnd, pid) not in self._tile_items:
+                return False
+            controller = self._preview_controller
+            if controller is None or hwnd not in controller.active_hwnds:
+                return False
+            backend = controller.backend
+            if not backend.source_matches(hwnd, pid):
+                return False
+            # Actual Win32 IsIconic/ShowWindow/SetForegroundWindow. Native
+            # OS focus policy can deny this operation; never claim success
+            # without the real return value.
+            return backend.activate_source(hwnd) is True
+        except Exception:
+            # Tk event callbacks must not surface stale Win32 faults.
+            return False
 
     def _move_preview_item(self, hwnd: int, pid: int, delta: int) -> bool:
         """C17 logical one-step order; no source HWND/window activation."""
