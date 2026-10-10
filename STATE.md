@@ -6878,3 +6878,20 @@ On CONTINUE read PLAN.md/STATE.md and verify docs/tasks/S04.md absent. **S04 —
 1. Read LIVE PLAN.md, STATE.md and check docs/tasks/S75.md, do not redo S59–S74 or alter scoped previous source.
 2. Investigate original C14 detached tile x/y geometry or C07 Auto real tiler from original frozen binary and archived static evidence. Avoid guessing timed loop, replica screenshot geometry, sorted RoleName or hidden visibility transitions. If geometry cannot be recovered, prioritize another independently testable, *source-backed* PLAN gap with tangible UI/behavior impact instead of adding speculative detached scaffolding.
 3. Keep **1039/1039** Windows unit baseline, S74–S10 native Windows regressions and S36 packaged diagnostic FAIL-CLOSED NOT PRODUCT. Document actual evidence, CI IDs, changed files, blockers and NEXT_ACTION S76. NO Proxy development, no forged signed Info, no unauthorized game memory/input, no full product EXE claim.
+
+ 
+## S75 AUDITED — ORIGINAL C14 TILE / C07 AUTO SORT STATIC BINARY MARKERS, EXACT GEOMETRY BLOCKED
+- Automatically continued from VERIFIED S74 NEXT_ACTION. Read LIVE PLAN.md/STATE.md and checked S75 document did not exist; reverified uploaded original TLM ZIP SHA256 **c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd**, 93,715,901 bytes / 1,050 archive entries. Read actual original 47,450,112-byte inner Nuitka EXE binary 0x2bfc140–0x2bfc380 (C07) and 0x2bfee10–0x2bff540 (C14). NO original EXE executed.
+- NEW **docs/window/S75_C14_C07_BINARY_MARKERS.tsv**, **docs/tasks/S75.md**. Verified C14 serialized tile_w 0x2bff18d, region_y 0x2bff195, tile_h 0x2bff19f, ambiguous gap-adjacent serialized token 0x2bff186, `user_initiated=True` distinction in close doc at 0x2bff380, independent C14 window-list loop at 0x2bff400. Verified C07 `_sort_key`, `RoleName`, one-second rearrange doc. The markers are ORIGINAL BINARY DATA locations, **not recovered Python statements/compiled instruction addresses**.
+- **BLOCKER**: exact C14 per-tile x/y/w/h equations, numeric gap, C14 scan cadence, auto-open/hide/restore transition, actual C07 RoleName comparator and tiler layout remain UNKNOWN. Additional strings cannot justify guessed runtime geometry. S75 is **STATIC_EVIDENCE_AUDIT_COMPLETE** only, **not** a new built user feature or parity-runtime completion.
+- NO production source, tests, workflow, original ZIP or PLAN modified in S75. **1039/1039** existing Windows units and S74–S10 native regressions remain previously verified at [S74 Windows 38030088120](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38030088120), job 114149005195, artifact 11661537275, and [S36 packaged diagnostic 38030088138](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38030088138), artifact 11661173998 DIAGNOSTIC ONLY. S75 no new CI run.
+- **STATUS S75_STATIC_AUDIT_COMPLETE_C14_C07_GEOMETRY_UNKNOWN**. Full original UI/game runtime, E03 signed Info/F05 F06 launch-login and finished product EXE remain MISSING. No Proxy.
+
+## S75 FINAL CHANGED FILES
+- NEW docs/window/S75_C14_C07_BINARY_MARKERS.tsv, docs/tasks/S75.md.
+- APPEND STATE.md / PROJECT_STATUS.md; no runtime code changed.
+
+## NEXT_ACTION on CONTINUE — S76 (HIGHER-VALUE SOURCE-VERIFIABLE PLAN COMPONENT)
+1. Read LIVE PLAN.md, STATE.md and docs/tasks/S76.md; do not redo S59–S75. Keep original S75 geometry and comparator blockers explicit.
+2. Identify another **genuine original-backed PLAN feature** with recovered input/output and interaction semantics to implement/test without inventing an inert UI control, role reader, hidden game actions or timed loops; prefer visible/behavioral parity gains over additional C14 scaffolding. If source evidence is insufficient, document exact blocker instead of faking behavior.
+3. Preserve **1039/1039** existing Windows unit baseline, S74–S10 real Win32/DWM regression, S36 EXPLICITLY_BLOCKED_NO_GUI diagnostic NOT PRODUCT, no Proxy development, no guessed C12 restore, no entitlement bypass. Record CI and NEXT_ACTION S77 after scoped changes.
