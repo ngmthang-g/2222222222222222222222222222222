@@ -43,6 +43,9 @@ def fixture(*, final_shutdown_fails=False):
     obj._update_master_combobox = lambda windows: None
     obj._preview_cleanup_faulted = False
     obj._schedule_preview = lambda: TLMStartTab._schedule_preview(obj)
+    # S15's fixture replaces _sync_tiles with a recorder: exercise the
+    # ACTUAL production C04 method instead of accidentally testing that stub.
+    obj._sync_tiles = lambda windows: TLMStartTab._sync_tiles(obj, windows)
     return obj
 
 
