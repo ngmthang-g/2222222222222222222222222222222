@@ -82,8 +82,18 @@ class ReadOnlyDwmPreviews:
             self.backend.destroy_destination(slot.destination)
 
     def clear(self) -> None:
+        # S71: one native DWM unregister/destroy failure must NOT prevent
+        # the remaining slots being released. Propagate the FIRST failure
+        # after every slot was attempted; never report full cleanup success.
+        first_failure = None
         for hwnd in tuple(self._slots):
-            self._remove(hwnd)
+            try:
+                self._remove(hwnd)
+            except Exception as exc:
+                if first_failure is None:
+                    first_failure = exc
+        if first_failure is not None:
+            raise first_failure
 
     def shutdown(self) -> None:
         if self._closed:
