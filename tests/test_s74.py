@@ -16,6 +16,26 @@ from detached_one_shot_scanner import C14DetachedOneShotScanner
 from detached_lifecycle import C14DetachedLifecycle
 
 
+class TestOnlySourceScanBackend:
+    """Scanner view of S70 fake game rows; Tk detached owner 900 is NOT a game."""
+    def __init__(self, source_backend):
+        self.backend = source_backend
+    def enumerate_top_level(self):
+        return tuple(self.backend.rows)
+    def is_window(self, hwnd):
+        return self.backend.is_window(hwnd)
+    def is_visible(self, hwnd):
+        return self.backend.is_visible(hwnd)
+    def process_id(self, hwnd):
+        return self.backend.process_id(hwnd)
+    def process_executable(self, pid):
+        return self.backend.process_executable(pid)
+    def window_class(self, hwnd):
+        return self.backend.window_class(hwnd)
+    def title_with_timeout(self, hwnd, timeout):
+        return self.backend.title_with_timeout(hwnd, timeout)
+
+
 class S74DetachmentLifecycle(unittest.TestCase):
     def setUp(self):
         self.rows = (row(1), row(2))
@@ -28,7 +48,7 @@ class S74DetachmentLifecycle(unittest.TestCase):
             resolve_root_hwnd=lambda h: h, is_topmost=lambda h: True,
             session_factory=lambda: Session(self.events))
         self.scanner = C14DetachedOneShotScanner(
-            lambda: self.backend, clock=lambda: 87.0)
+            lambda: TestOnlySourceScanBackend(self.backend), clock=lambda: 87.0)
         self.ctrl = C14DetachedLifecycle(self.scanner, self.host)
 
     def scan(self, limit=2):
