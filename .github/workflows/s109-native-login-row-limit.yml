@@ -1,0 +1,78 @@
+name: S109 F01 genuine Tk Login plan-limited row visibility and Win32 regressions
+on:
+  push:
+    paths:
+      - ".github/workflows/s109-native-login-row-limit.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s109-native-login-row-limit:
+    runs-on: windows-latest
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install existing screenshot regression dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all source and tests, including tools
+        run: python -m compileall -q src tests tools
+      - name: Full existing S01-S109 Python regression (1592 baseline)
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source/feature audit and product gate
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: Prove product entrypoint remains EXPLICITLY_BLOCKED_NO_GUI
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S109_PRODUCT_GATE_FAILED: expected exit code 2" }
+          $text = Get-Content -Raw product_gate.txt
+          if ($text -notmatch 'BLOCKED') { throw "S106_PRODUCT_GATE_FAILED: not explicitly blocked" }
+          Write-Host "S109_PRODUCT_GATE=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0 # Expected nonzero product exit is a PASS for this *negative* test
+      - name: S109 native full F01 Login Tk plan cap, old settings bytes preserved
+        run: python tools/S109_WINDOWS_LOGIN_PLAN_ROW_LIMIT_SMOKE.py
+      - name: S37 native 100 account Login model regression
+        run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+      - name: S38 native legacy settings read-only regression
+        run: python tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
+      - name: S59 measured real Tk original C10/C11 buttons
+        run: python tools/S59_WINDOWS_MEASURED_AUTO_BUTTONS_SMOKE.py
+      - name: S57 real Win32 source-hide offscreen only
+        run: python tools/S57_WINDOWS_C12_HIDE_ONLY_SMOKE.py
+      - name: S58 real Win32 C12 hidden-state verified layout reset
+        run: python tools/S58_WINDOWS_C12_RELAYOUT_RESET_SMOKE.py
+      - name: S67 Win32 readback post-move truth
+        run: python tools/S67_WINDOWS_C06_POSTMOVE_SMOKE.py
+      - name: S84 C13 real DWM detached close-view behavior
+        run: python tools/S84_WINDOWS_C13_DONG_XEM_REAL_DWM_SMOKE.py
+      - name: S85 C14 real DWM detached refresh lifecycle with TEST placements
+        run: python tools/S85_WINDOWS_C14_REAL_DWM_REFRESH_SMOKE.py
+      - name: S102 native Party saved-vs-online TEST two-PID regression
+        run: python tools/S102_WINDOWS_G02_PARTY_COMBO_SAVED_OFFLINE_TWO_PID_SMOKE.py
+      - name: S76 native DWM lifetime/cleanup regression
+        run: python tools/S76_WINDOWS_C15_REFRESH_DWM_FAULT_SMOKE.py
+      - name: S88 native DWM source loss regression
+        run: python tools/S88_WINDOWS_C04_AUTO_SOURCE_LOSS_DWM_FAULT_SMOKE.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s109-TK-native-plan-limit-test-only-NOT-PRODUCT
+          path: |
+            product_gate.txt
+            artifacts/s109/
+            artifacts/s37/
+            artifacts/s38/
+            artifacts/s59/
+            artifacts/s57/
+            artifacts/s58/
+            artifacts/s67/
+            artifacts/s84/
+            artifacts/s85/
+            artifacts/s102/
+            artifacts/s76/
+            artifacts/s88/
+            artifacts/s86/
+          if-no-files-found: warn
