@@ -1611,3 +1611,15 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 1. Reread LIVE PLAN/STATE/S106, original C12 flow + S57/S58.
 2. Investigate original `_show_all_game_windows` source/approved runtime to resolve saved previous rectangles vs (0,0) conflict before any user-facing Hiện hết button. No guessing, no fake grant, no rewriting working functionality. If unresolved, document blockers and choose next original-backed capability.
 3. Only when authenticated original behavior can be proved write a scoped Win32 implementation and run full 1564 Python/269 audit plus relevant native and S36 diagnostic. Update checkpoint NEXT_ACTION S108. Lock original ZIP/PLAN/B04/S59/no-Proxy.
+
+
+## S107 COMPLETED — VERIFIED ORIGINAL RELEASE PE C12 SHOW CONFLICT (2026-10-10)
+- Read LIVE locked PLAN/STATE S106 NEXT_ACTION S107 plus C12/S57/S58 original evidence. Independently opened user-provided original 93,715,901-byte ZIP SHA `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner 47,450,112-byte Nuitka PE SHA `15c8044f215680d6851c8f901a8938f2a628077cf21a2df22`.
+- Original PE literal offsets independently verified: `_show_all_game_windows` `0x02bfb168`/`0x02bffe28`; generic restore-to-old-position doc `0x02bfb198`; `_saved_window_rects` `0x02bfb21e`; show-to-(0,0) specific doc `0x02bfb3d6`; show log prefix `0x02bfb39e`. The conflicting strings are both in original Nuitka constants, **not executable branch proof**. No original game runtime/deserialization of compiled method bodies; exact conditional restore mode remains `ORIGINAL_SHOW_BRANCH_UNRESOLVED`. No guessed Hiện hết or source edit.
+- NEW `docs/reverse/S107_C12_SHOW_ORIGINAL_PE_BRANCH_AUDIT.md` and `docs/tasks/S107.md`; APPEND only STATE/PROJECT. **Documentation/binary forensic task, no new source/tests/workflow or S107 CI**. Prior S106 Windows [38065057307](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38065057307) verified 1564/1564 Python, 269 compiled and native S59/S57/S58/S67/S84/S85/S102/S76/S88; S36 remains `EXPLICITLY_BLOCKED_NO_GUI` diagnostic, not functional 1:1 product. Original PLAN/ZIP/B04/S59 and Proxy ban untouched.
+- STATUS **S107_ORIGINAL_BINARY_RECHECK_DONE_C12_SHOW_BRANCH_UNRESOLVED_NO_CODE_GUESSED**.
+
+## NEXT_ACTION on CONTINUE — S108 (C14 ORIGINAL DETACHED TILE ARITHMETIC/EMBEDDED VIEW STATE)
+1. Read LIVE PLAN/STATE/S107 plus C14/S75/S85. Verify exact original C14 detached tile geometry, order and Start embedded hide/restore transitions via source-backed original binary execution mapping or authorized runtime evidence. Do not infer from `tile_w`/`gap` markers or test-only thumbnail spacings.
+2. If evidence complete, write scoped real Win32 behavior and CI; if incomplete, document exact blocker and pivot to next original-backed capability rather than fake Tách rời UI. Preserve S84/S85 existing DWM code.
+3. Record actual changed files, applicable test/build results and NEXT_ACTION S109; lock original ZIP/PLAN/B04/S59/no-Proxy and genuine Info gate.
