@@ -51,6 +51,14 @@ def run():
         out["no_limit_denied"]=no.code=="NO_VERIFIED_WINDOW_LIMIT" and all(native.window_rect(h)==before[h] for h in handles)
         result=svc.apply(s,max_windows=2,master_hwnd=handles[1])
         after={h:native.window_rect(h) for h in handles}
+        out["native_reset_result_code"]=result.code
+        out["native_reset_requested"]=result.requested
+        out["native_reset_resized"]=[int(h) for h in result.resized]
+        out["native_reset_moved"]=[int(h) for h in result.moved]
+        out["native_reset_unchanged"]=[int(h) for h in result.unchanged]
+        out["native_rectangles_before"]={str(h):list(rect) for h,rect in before.items()}
+        out["native_rectangles_after"]={str(h):list(rect) for h,rect in after.items()}
+        out["native_target_rectangles"]={str(h):[0,0,1366,768] for h in handles}
         out["real_setwindowpos_final_geometry"]=result.code=="AUTO_RESET_APPLIED" and all(after[h]==(0,0,1366,768) for h in handles)
         out["master_first_order"]=result.resized==(handles[1],handles[0])
         out["native_hwnd_pid_unchanged"]=all(native.is_window(h) and native.process_id(h)==pid for h in handles)
