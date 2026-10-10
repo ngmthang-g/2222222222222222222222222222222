@@ -5,6 +5,9 @@ from datetime import datetime
 from pathlib import Path
 import tempfile
 import unittest
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from login_existing_account_edits import (
     ExistingAccountEdit, ExistingAccountEditError, update_existing_accounts,
