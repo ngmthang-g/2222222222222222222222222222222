@@ -189,7 +189,8 @@ class S102GroupCombo(unittest.TestCase):
         self.data[100]={"RoleName":None}
         r=self.perform()
         self.assertIn("Đội Trưởng",r.retained_saved_names)
-        self.assertEqual(self.values(0,0),("","Đội Trưởng"))
+        self.assertIn("Đội Trưởng",self.values(0,0))
+        self.assertIn("Hòa✨",self.values(0,0))  # another externally observed ready member remains available
 
     def test_17_same_role_on_both_PIDs_is_not_new_ready_name(self):
         self.data[100]={"RoleName":"Hòa✨"}
