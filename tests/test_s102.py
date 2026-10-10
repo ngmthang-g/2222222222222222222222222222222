@@ -179,7 +179,7 @@ class S102GroupCombo(unittest.TestCase):
         count=[0]
         def get(com):
             count[0]+=1
-            if count[0]>=2:self.fx.backend.mapped.pop(101,None)
+            if count[0]>=4:self.fx.backend.mapped.pop(101,None)
             return orig(com)
         with patch.object(Combo,"get",get):
             r=a.deliver(b,editor=self.editor)
