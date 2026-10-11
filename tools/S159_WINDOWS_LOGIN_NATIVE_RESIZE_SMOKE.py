@@ -81,7 +81,8 @@ def main() -> int:
             res.code=="PASS" and res.resized==tuple(handles[:2])
             and len(api.resize_calls)==2)
         after={h:api.window_rect(h) for h in handles}
-        result["actual_post_resize_outer_sizes"]=[(after[h][2]-after[h][0],after[h][3]-after[h][1]) for h in handles]\n        checks["both_real_hwnds_reach_original_1366x768"]=all(
+        result["actual_post_resize_outer_sizes"]=[(after[h][2]-after[h][0],after[h][3]-after[h][1]) for h in handles]
+        checks["both_real_hwnds_reach_original_1366x768"]=all(
             (after[h][2]-after[h][0],after[h][3]-after[h][1])==(1366,768)
             for h in handles[:2])
         checks["native_resize_kept_original_xy_positions"]=all(
