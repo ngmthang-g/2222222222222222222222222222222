@@ -112,7 +112,7 @@ def run() -> int:
             except Exception:pass
         (OUT/"f05_pid_hwnd_real_win64.json").write_text(
             json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-        print(json.dumps(result,ensure_ascii=False))
+        print(json.dumps(result,ensure_ascii=True))
     return 0 if result["status"].startswith("PASS_") else 1
 
 if __name__=="__main__":raise SystemExit(run())
