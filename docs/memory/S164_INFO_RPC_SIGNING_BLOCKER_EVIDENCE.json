@@ -88,5 +88,51 @@
   "new_windows_tests": 0,
   "reference_DATA_2222": "READ_ONLY",
   "original_assets": "UNCHANGED",
-  "proxy_scope": "EXCLUDED"
+  "proxy_scope": "EXCLUDED",
+  "full_archive_format_scan": {
+    "date": "2026-10-12 Asia/Bangkok",
+    "readonly": true,
+    "original_zip_entries": 1050,
+    "regular_members_scanned": 1002,
+    "pem_public_key_files": 0,
+    "pem_rsa_public_key_files": 0,
+    "pem_private_key_files": 0,
+    "pem_rsa_private_key_files": 0,
+    "certificate_marker_member_count": 3,
+    "certificate_marker_member_types": [
+      "standard_certifi_ca_bundle",
+      "frida_native_extension",
+      "original_compiled_executable"
+    ],
+    "opaque_data_assets_without_literal_PEM": [
+      {
+        "name": "auth_token.dat",
+        "bytes": 120832
+      },
+      {
+        "name": "config.dat",
+        "bytes": 52224
+      },
+      {
+        "name": "license.dat",
+        "bytes": 128000
+      },
+      {
+        "name": "sec_key.dat",
+        "bytes": 51200
+      }
+    ],
+    "opaque_assets_byte_entropy_range_bits_per_byte": "approximately 7.996–7.999",
+    "opaque_data_format": "UNKNOWN",
+    "trust_anchor_recovered": false,
+    "derived_secrets_exposed": false,
+    "does_not_exclude": [
+      "DER_public_key",
+      "obfuscated_or_compressed_embedded_key",
+      "runtime_external_public_key",
+      "operator_controlled_token_verifier"
+    ],
+    "production_code_changed": false,
+    "new_CI_run": false
+  }
 }
