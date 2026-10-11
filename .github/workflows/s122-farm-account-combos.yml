@@ -1,0 +1,57 @@
+name: S122 real original H11 Tk account Sell Train preset choices - NOT PRODUCT
+on:
+  push:
+    paths:
+      - "src/farm_preset_account_binding.py"
+      - "src/farm_saved_editor.py"
+      - "tests/test_s122.py"
+      - "tests/test_s121.py"
+      - "tools/S122_WINDOWS_FARM_ACCOUNT_COMBO_SMOKE.py"
+      - ".github/workflows/s122-farm-account-combos.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - run: python tools/S122_WINDOWS_FARM_ACCOUNT_COMBO_SMOKE.py
+      - name: Native S121 S120 S119 prior passes
+        run: |
+          python tools/S121_WINDOWS_FARM_SAVED_EDITOR_SMOKE.py
+          python tools/S120_WINDOWS_FARM_ORIGINAL_MAPS_SMOKE.py
+          python tools/S119_WINDOWS_FARM_COORDINATES_SMOKE.py
+      - name: Inherited Party/Login actual Windows native
+        run: |
+          python tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py
+          python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+          python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+          python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+          python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+          python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Signed Info negative product gate
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s122/gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "UNVERIFIED_PRODUCT_ACTIVE" }
+          if ((Get-Content -Raw artifacts/s122/gate.txt) -notmatch "S01 BLOCKED") { throw "MISSING_INFO_GUARD" }
+          Write-Host "S122_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S122_REAL_TK_H11_PRESET_ACCOUNT_SELECTIONS_NOT_PRODUCT
+          path: |
+            artifacts/s122/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn

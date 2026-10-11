@@ -23,8 +23,14 @@ class TestS121(unittest.TestCase):
     def test_03_no_fake_add_or_game_action_control(self):
         s=(ROOT/"src/farm_saved_editor.py").read_text(encoding="utf-8")
         self.assertNotIn('text="+ Thêm tọa độ"',s)
-        for forbidden in ('text="Bán"', 'text="Train"', 'text="Bắt đầu"',
-                          "PostMessage(", "ReadProcessMemory(", "ProxyServer("):
+        # S122 buttons match original H11 PRESET choices, never game action.
+        # They stay disabled until REAL caller-owned account combos exist.
+        for proof in ('text="Bán"', 'text="Train"',
+                      'self.account_bindings.active_count() > 0',
+                      'self.account_bindings.apply_to_all('):
+            self.assertIn(proof,s)
+        for forbidden in ('text="Bắt đầu"', "PostMessage(",
+                          "ReadProcessMemory(", "ProxyServer("):
             self.assertNotIn(forbidden,s)
     def test_04_original_72_map_registry_exact(self):
         self.assertEqual(len(FARM_MAP_LIST),72)
