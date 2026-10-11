@@ -49,10 +49,10 @@ class S160F05ActualProcessCap(unittest.TestCase):
         n=count_current_game_processes(p)
         self.assertEqual((n.code,n.running_exe),("PROCESS_SNAPSHOT_OK",2))
 
-    def test_03_windows_unicode_casefold_exact_filename_only(self):
+    def test_03_windows_unicode_casefold_both_original_space_variants(self):
         p=Proc((11,"THẦN LONG  MOBILE.EXE"),(12,"Thần Long Mobile.exe"),
                (13,EXE_NAME))
-        self.assertEqual(count_current_game_processes(p).running_exe,2)
+        self.assertEqual(count_current_game_processes(p).running_exe,3)
 
     def test_04_combined_running_Exe_plus_emulator_and_extra_one_blocks(self):
         p=Proc((1,EXE_NAME),(2,EXE_NAME))

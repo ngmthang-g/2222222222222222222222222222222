@@ -30,6 +30,15 @@ PROCESS_SNAPSHOT_KIND = "LOCAL_WIN32_TOOLHELP_READONLY_NOT_ORIGINAL_API_PROOF"
 TH32CS_SNAPPROCESS = 0x00000002
 ERROR_NO_MORE_FILES = 18
 
+# Original permission_guard._is_game_process_name docs (frozen inner EXE
+# 0x02b83815..0x02b83ab1) explicitly allow ONE or TWO spaces between
+# Long and Mobile when COUNTING running PC game processes. This is deliberately
+# separate from F04 canonical on-disk launch executable (TWO spaces), which
+# MUST remain unchanged.
+RUNNING_GAME_PROCESS_IMAGE_NAMES = frozenset({
+    "Thần Long Mobile.exe".casefold(), EXE_NAME.casefold(),
+})
+
 
 class ProcessSnapshotBackend(Protocol):
     def process_images(self) -> tuple[tuple[int, str], ...]: ...
@@ -107,7 +116,7 @@ class S160RunningCount:
 def count_current_game_processes(
     backend: ProcessSnapshotBackend | None = None,
 ) -> S160RunningCount:
-    """Count distinct real PIDs by exact original EXE basename, not HWND."""
+    """Count distinct PIDs by either source-proven original game image basename."""
     backend = backend if backend is not None else NativeWindowsProcessImages()
     try:
         rows = backend.process_images()
@@ -118,7 +127,7 @@ def count_current_game_processes(
             if (type(pid) is not int or pid <= 0
                     or type(image) is not str or not image):
                 return S160RunningCount("UNVERIFIED_PROCESS_SNAPSHOT")
-            if image.casefold() == EXE_NAME.casefold():
+            if image.casefold() in RUNNING_GAME_PROCESS_IMAGE_NAMES:
                 seen_pids.add(pid)
         return S160RunningCount("PROCESS_SNAPSHOT_OK",running_exe=len(seen_pids))
     except (OSError, RuntimeError, TypeError, ValueError):
