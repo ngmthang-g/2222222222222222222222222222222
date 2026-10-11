@@ -107,12 +107,18 @@ class S144OriginalBackgroundCharTests(unittest.TestCase):
         poster=Poster()
         self.assertEqual(deliver(backend=b,poster=poster).sent,0)
         self.assertEqual(poster.chars,[])
-    def test_14_external_process_title_and_class_denied(self):
-        for k,value in (("cls","Edit"),("exe","not-game.exe"),("title","unrelated")):
-            with self.subTest(k=k):
-                b=Backend()
-                setattr(b,k,value)
-                self.assertEqual(deliver(backend=b).sent,0)
+    def test_14_original_S08_exe_and_class_OR_title_guard(self):
+        # S08 is deliberately GAME_PROCESS AND (UNITY_CLASS OR EXACT_TITLE);
+        # a single nonmatching class/title does NOT invalidate the other
+        # independently authenticated live game identity signal.
+        b=Backend();b.cls="Edit"
+        self.assertEqual(deliver(backend=b).sent,3)
+        b=Backend();b.title="unrelated"
+        self.assertEqual(deliver(backend=b).sent,3)
+        b=Backend();b.cls="Edit";b.title="unrelated"
+        self.assertEqual(deliver(backend=b).sent,0)
+        b=Backend();b.exe="not-game.exe"
+        self.assertEqual(deliver(backend=b).sent,0)
     def test_15_not_current_top_level_denied(self):
         b=Backend();b.tops=(999,)
         self.assertEqual(deliver(backend=b).sent,0)
