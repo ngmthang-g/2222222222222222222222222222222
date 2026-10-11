@@ -119,7 +119,9 @@ class S159F05SizeMonitor(unittest.TestCase):
             with self.subTest(mutate=mutate):
                 monitor,b=self.make([row])
                 if mutate=="exe":b.override_exe[row.pid]="python.exe"
-                elif mutate=="title":b.override_title[row.hwnd]="OTHER"
+                elif mutate=="title":
+                    b.override_title[row.hwnd]="OTHER"
+                    b.rows[row.hwnd]=GameWindow(row.hwnd,row.pid,"OTHER","OtherClass",GAME_PROCESS)
                 else:b.override_pid[row.hwnd]=900
                 x=monitor.normalize(snap(row),allowed=lambda:True,
                                     login_owned=lambda w:True)
