@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - "src/original_item_catalog.py"
+      - "tools/S137_EXPORT_ORIGINAL_CATALOG.py"
       - "docs/tasks/S137.md"
       - "tests/test_s137.py"
       - "docs/memory/S137_ORIGINAL_CATALOG_EVIDENCE.json"
