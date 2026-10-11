@@ -1,0 +1,45 @@
+{
+  "task": "S153",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_REAL_WIN64_TEST_OWNED_ORIGINAL_C16_TASKKILL",
+  "pr_number": 7,
+  "head_sha": "2322fa4945a781fa7bd6f7c64fed65e4596c612b",
+  "main_merge_sha": "ac68b3a526f8e64366b62c047d0e7bff6b249130",
+  "original_inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+  "original_binary_command_offset": "0x2c51eb7",
+  "taskkill_args": [
+    "taskkill",
+    "/f",
+    "/t",
+    "/im",
+    "UnityCrashHandler64.exe"
+  ],
+  "taskkill_is_global_by_image": true,
+  "production_requires_posted_valid_game_wmclose": true,
+  "windows_native_run": 38170370006,
+  "windows_native_job": 114561541662,
+  "windows_native_artifact": 11713208822,
+  "windows_python_tests": 2363,
+  "compiled_python_files": 385,
+  "production_modules": 97,
+  "s36_run": 38170369963,
+  "s36_job": 114561541054,
+  "s36_artifact": 11714022518,
+  "s36_diagnostic_only": true,
+  "stage_s_run": 38170369995,
+  "stage_s_job": 114561541199,
+  "all_workflows": "COMPLETED_SUCCESS",
+  "changed_existing_source": [
+    "src/close_windows.py"
+  ],
+  "new_files": [
+    "tests/test_s153.py",
+    "tools/S153_WINDOWS_C16_CRASHHANDLER_SMOKE.py",
+    ".github/workflows/s153-c16-crashhandler.yml"
+  ],
+  "real_game_tested": false,
+  "real_signed_info_verified": false,
+  "product_exe_complete": false,
+  "client_data_reference_repo_read_only": true,
+  "next_action": "S154"
+}
