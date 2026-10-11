@@ -200,8 +200,9 @@ class FarmSavedCoordinatesEditor(ttk.Frame):
             return False
         self._body_visible = not self._body_visible
         if self._body_visible:
-            self._header.pack(fill="x", padx=5, before=self._body)
+            # Repack body first: Tk cannot use an unpacked widget as "before".
             self._body.pack(fill="x", padx=5, before=self._toolbar)
+            self._header.pack(fill="x", padx=5, before=self._body)
             self.toggle_button.configure(text="Ẩn danh sách tọa độ")
         else:
             self._header.pack_forget()
