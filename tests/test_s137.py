@@ -123,5 +123,44 @@ class S137OriginalItemCatalog(unittest.TestCase):
         self.assertEqual(cat.WEAPON_WINDOW,(0x2C54798,0x2C54A00))
         self.assertNotIn("GameAssembly", (ROOT/"src/original_item_catalog.py").read_text(encoding="utf8"))
 
+    def test_29_export_is_deterministic_and_has_source_flags(self):
+        import importlib.util, tempfile, gzip, json
+        modpath=ROOT/"tools/S137_EXPORT_ORIGINAL_CATALOG.py"
+        spec=importlib.util.spec_from_file_location("s137_exporter",modpath)
+        module=importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as d:
+            first=Path(d)/"one.json.gz"
+            second=Path(d)/"two.json.gz"
+            module.export_catalog(self.catalog,first)
+            module.export_catalog(self.catalog,second)
+            self.assertEqual(first.read_bytes(),second.read_bytes())
+            with gzip.open(first,"rt",encoding="utf8") as stream:
+                saved=json.load(stream)
+            self.assertFalse(saved["game_runtime_verified"])
+            self.assertEqual(saved["item_schema"],["itemID","name","icon","src","type"])
+            self.assertEqual(len(saved["entries"]),3)
+            self.assertEqual(saved["weapon_ids"],[101])
+    def test_30_export_digest_independent_of_metadata_insertion_order(self):
+        import importlib.util
+        modpath=ROOT/"tools/S137_EXPORT_ORIGINAL_CATALOG.py"
+        spec=importlib.util.spec_from_file_location("s137_exporter2",modpath)
+        module=importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        backwards=cat.OriginalItemCatalog(
+            cat.EXE_SHA256, MappingProxyType(dict(reversed(list(self.rows.items())))),
+            self.catalog.weapon_ids,cat.TYPES_EXPECTED)
+        self.assertEqual(module.canonical_digests(self.catalog),
+                         module.canonical_digests(backwards))
+    def test_31_export_tool_no_live_game_or_network_action(self):
+        code=(ROOT/"tools/S137_EXPORT_ORIGINAL_CATALOG.py").read_text(encoding="utf8")
+        for forbidden in ("ReadProcessMemory(", "WriteProcessMemory(",
+                          "SendInput(", "requests.get(", "CreateRemoteThread(",
+                          "Game.GetItemsAtSite(", "RequestSellItem("):
+            self.assertNotIn(forbidden,code)
+    def test_32_exporter_ast_compiles(self):
+        p=ROOT/"tools/S137_EXPORT_ORIGINAL_CATALOG.py"
+        compile(ast.parse(p.read_text(encoding="utf8")),str(p),"exec")
+
 if __name__=="__main__":
     unittest.main()
