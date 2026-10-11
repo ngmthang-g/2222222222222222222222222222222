@@ -1,0 +1,74 @@
+{
+  "task": "S143",
+  "status": "VERIFIED_NATIVE_WIN64_C19_SCREEN_POINT_GEOMETRY_ONLY_NO_INPUT",
+  "date": "2026-10-11",
+  "original_evidence": [
+    "docs/tasks/C19.md",
+    "docs/tasks/C20.md",
+    "docs/tasks/S19.md",
+    "docs/tasks/S20.md"
+  ],
+  "original_recovered_calls": [
+    "WindowFromPoint",
+    "GetAncestor(GA_ROOT)",
+    "ScreenToClient",
+    "GetClientRect"
+  ],
+  "original_event_producer": "master hwnd client coord scaled to live slave client sizes",
+  "new_production": "src/input_sync_screen_coords.py",
+  "interfaces": [
+    "NativeC19MasterPointReader.capture(master_hwnd,master_pid,screen_x,screen_y)",
+    "queue_verified_screen_mouse(model,screen_x,screen_y,button,pressed,now,allowed,live_identity,point_reader,size_reader)"
+  ],
+  "safety": {
+    "authenticated_info_granted_by_module": false,
+    "no_game_process_read": true,
+    "no_input_messages_dispatched": true,
+    "test_owned_real_window_geometry": true,
+    "master_hit_test_root_proof": true,
+    "native_pre_post_hwnd_pid_check": true,
+    "all_slave_live_checks": true,
+    "missing_size_denies_entire_batch": true,
+    "revoked_permission_denies_entire_batch": true,
+    "unknown_C19_keyboard_payload_remains_unknown": true,
+    "original_rounding_unproven": "S19_LOCAL_INTEGER_FLOOR_NOT_ORIGINAL_VERIFIED"
+  },
+  "native_windows": {
+    "run_id": 38159789364,
+    "job_id": 114530799388,
+    "status": "COMPLETED_SUCCESS",
+    "unit_tests": 2244,
+    "compiled_files": 368,
+    "src_modules": 95,
+    "new_unit_tests": 16,
+    "proof": "PASS_S143_WIN64_REAL_C19_SCREEN_CLIENT_2_SLAVE_NO_SEND",
+    "owned_Tk_source_HWNDs": 3,
+    "native_win32_checks_passed": 11,
+    "inherited_S142_through_S116": "PASS",
+    "product": "S143_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT",
+    "test_only_artifact_id": 11709955661,
+    "independent_S36": 38159772496,
+    "independent_S36_status": "COMPLETED_SUCCESS_DIAGNOSTIC_ONLY",
+    "stage_S": 38159772544,
+    "stage_S_status": "COMPLETED_SUCCESS"
+  },
+  "unchanged": [
+    "PLAN.md",
+    "SCOPE_LOCK.md",
+    "TLM original ZIP/EXE",
+    "source modules already verified through S142",
+    "DATA-2222 reference repo (read-only)",
+    "Proxy"
+  ],
+  "current_unknowns": [
+    "Original native C19 slave DLL block and unlock",
+    "Pynput listener lifetime/master input binding",
+    "Original low level mouse payload and WM_MY_SYNC_KEY keyboard packing",
+    "Original mouse-move throttle and retry timing",
+    "Signed Info issuer/verifier/heartbeat",
+    "Actual game window build/hwnd runtime",
+    "Original graphical mode toggle contract full",
+    "Finished functioning TLMTool product EXE"
+  ],
+  "next_action": "S144"
+}
