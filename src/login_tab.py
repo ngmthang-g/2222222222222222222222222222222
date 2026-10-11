@@ -93,11 +93,26 @@ class TLMLoginPathTab:
             from login_existing_autosave import TLMExistingAccountAutosave
             self.existing_account_autosave = TLMExistingAccountAutosave(
                 self.account_rows, legacy.records,
-                settings_file=settings_file, show_error=self._show_error)
+                settings_file=settings_file, show_error=self._show_error,
+                on_save_result=self._on_existing_account_save_result)
             if hasattr(self.account_rows, "legacy_status_label"):
                 self.account_rows.legacy_status_label.configure(
                     text="Tài khoản cũ: chỉ lưu tên/mật khẩu; dấu chọn chưa xác minh")
         self.container.bind("<Destroy>", self._on_destroy, add="+")
+
+    def _on_existing_account_save_result(self, outcome: str) -> None:
+        """S117/F02 real saved/error footer; never render credential values.
+
+        The original app proves these statuses, not the exact colors/pixels.
+        No success message for pending edits, unchanged values or errors.
+        """
+        if self._closed or not hasattr(self.account_rows, "legacy_status_label"):
+            return
+        if outcome == "SAVE_CONFIRMED":
+            self.account_rows.legacy_status_label.configure(text="✅ Đã lưu tài khoản")
+        elif outcome == "SAVE_FAILED":
+            self.account_rows.legacy_status_label.configure(
+                text="❌ Lỗi lưu: dữ liệu chưa an toàn để ghi")
 
     def _show_game_dir_status(self, text: str) -> None:
         if self._closed:
