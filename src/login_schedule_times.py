@@ -46,6 +46,7 @@ def save_schedule_time(value: str, key: str, path: str | Path | None = None) -> 
         try:
             exists = target.is_file()
             raw = target.read_bytes() if exists else b""
+            original_stat = target.stat() if exists else None
             if len(raw) > MAX_INI_BYTES or b"\x00" in raw:
                 raise ScheduleTimeWriteError("UNSAFE_SCHEDULE_INI")
             content = raw.decode("utf-8")
@@ -102,16 +103,32 @@ def save_schedule_time(value: str, key: str, path: str | Path | None = None) -> 
             return "UNCHANGED"
         try:
             target.parent.mkdir(parents=True, exist_ok=True)
-            if exists:
-                backup = target.with_name("settings." + datetime.now().strftime("%Y%m%d") + ".ini")
-                if not backup.exists():
-                    shutil.copy2(target, backup)
             fd, tmp = tempfile.mkstemp(prefix="settings.", suffix=".tmp", dir=str(target.parent))
             try:
                 with os.fdopen(fd, "wb") as out:
                     out.write(new_bytes)
                     out.flush()
                     os.fsync(out.fileno())
+                # S142: the E05 lock serializes this app, NOT outside tools.
+                # Before replace, compare both file identity and original
+                # BYTES. A third-party settings edit must not be overwritten
+                # even when its contents have the same size. This is a
+                # best-effort pre-replace check, not a cross-process lock.
+                current_stat = target.stat() if target.is_file() else None
+                if (current_stat is None) != (original_stat is None):
+                    raise ScheduleTimeWriteError("STALE_SCHEDULE_SETTINGS")
+                if current_stat is not None:
+                    if (current_stat.st_size, current_stat.st_mtime_ns,
+                            current_stat.st_ino) != (
+                            original_stat.st_size, original_stat.st_mtime_ns,
+                            original_stat.st_ino):
+                        raise ScheduleTimeWriteError("STALE_SCHEDULE_SETTINGS")
+                    if target.read_bytes() != raw:
+                        raise ScheduleTimeWriteError("STALE_SCHEDULE_SETTINGS")
+                if exists:
+                    backup = target.with_name("settings." + datetime.now().strftime("%Y%m%d") + ".ini")
+                    if not backup.exists():
+                        shutil.copy2(target, backup)
                 os.replace(tmp, target)
             finally:
                 if os.path.exists(tmp):
