@@ -1,0 +1,58 @@
+name: S118 B04 five real Party after-action radios, G08 durable INI - NO GAME
+on:
+  push:
+    paths:
+      - "src/party_settings_editor.py"
+      - "tests/test_s118.py"
+      - "tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py"
+      - "tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py"
+      - ".github/workflows/s118-party-after-radios.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s118-native-party:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: "x64"
+      - name: Install inherited screenshot dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile production and full unit corpus
+        run: python -m compileall -q src tests tools
+      - name: Full existing source and S118 unit regression
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 real source and blocked-product audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: New actual Windows Tk five-radio Party after-action test
+        run: python tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py
+      - name: Inherited S89 real Tk G08 configuration/group editing test
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: Inherited S91 G02 Party ready list real Tk test
+        run: python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+      - name: Inherited S93 Party Tk owner run status native test
+        run: python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+      - name: Inherited S117 original F02 saved-error actual Tk test
+        run: python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+      - name: Inherited S116 F02 300ms actual Tk test
+        run: python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Production Info gate stays closed
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s118/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S118_PRODUCT_UNEXPECTEDLY_ACTIVE" }
+          if ((Get-Content -Raw artifacts/s118/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S118_SIGNED_INFO_GUARD_MISSING" }
+          Write-Host "S118_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S118_REAL_PARTY_5_RADIOS_G08_SETTINGS_ONLY_NOT_PRODUCT
+          path: |
+            artifacts/s118/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
