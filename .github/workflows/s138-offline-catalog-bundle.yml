@@ -34,6 +34,7 @@ jobs:
           if ($LASTEXITCODE -ne 2) { throw "S138_MISSING_ORIGINAL_CATALOG_ACCEPTED" }
           if ((Get-Content -Raw artifacts/s138/missing_resource.txt) -notmatch "BLOCKED_CATALOG_NOT_VERIFIED") { throw "S138_RESOURCE_FAIL_OPEN" }
           Write-Host "S138_DEFAULT_MISSING_RESOURCE=BLOCKED_NOT_PRODUCT"
+          exit 0
       - name: Inherited S136 offline marker parser self-test (frozen ZIP not in CI)
         run: python tools/S136_AUDIT_ORIGINAL_BAG_CONSTANTS.py --self-test
       - name: Inherited S135 real Win64 read-only test-owned Site10 dictionary tri-state
