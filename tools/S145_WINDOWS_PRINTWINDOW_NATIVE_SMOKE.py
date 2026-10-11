@@ -59,6 +59,7 @@ def main():
         colorref=original_color[0]|(original_color[1]<<8)|(original_color[2]<<16)
         brush=makebrush(colorref)
         assert brush
+        native_messages={"WM_PRINT":0,"WM_PRINTCLIENT":0,"fill_success":0}
         default=user32.DefWindowProcW
         default.argtypes=[w.HWND,w.UINT,w.WPARAM,w.LPARAM]
         default.restype=ct.c_ssize_t
@@ -67,11 +68,13 @@ def main():
             # PrintWindow sends WM_PRINT / WM_PRINTCLIENT to target.
             # Painting ONLY our own HDC means no desktop/window injection.
             if msg in (0x0317,0x0318):
+                native_messages["WM_PRINT" if msg==0x0317 else "WM_PRINTCLIENT"]+=1
                 rect=w.RECT()
                 if getrect(win,ct.byref(rect)):
                     paintrect=w.RECT(0,0,rect.right-rect.left,
                                    rect.bottom-rect.top)
-                    fill(wparam,ct.byref(paintrect),brush)
+                    if fill(wparam,ct.byref(paintrect),brush):
+                        native_messages["fill_success"]+=1
                     return 1
             return default(win,msg,wparam,lparam)
         callback=wndproc
@@ -122,6 +125,12 @@ def main():
         checks["real_printwindow_full_window_bgra"]=(
             frame.width==340 and frame.height==260
             and len(frame.bgra)==340*260*4)
+        sampled_rgb={
+            "before_10_10":frame.rgb_at(10,10),
+            "before_45_40":frame.rgb_at(45,40),
+            "before_170_150":frame.rgb_at(170,150),
+            "before_250_190":frame.rgb_at(250,190),
+        }
         checks["native_WM_PRINT_background_RGB_exact"]=(
             frame.rgb_at(45,40)==original_color
             and frame.rgb_at(170,150)==original_color)
@@ -134,6 +143,7 @@ def main():
             raise OSError("S145_TEST_OVERLAY_CREATION_FAILED")
         user32.UpdateWindow(blocker)
         covered=capture.capture(hwnd)
+        sampled_rgb["covered_170_150"]=covered.rgb_at(170,150)
         checks["printwindow_source_still_readable_when_covered"]=(
             covered.rgb_at(170,150)==original_color)
         class TestOnlyIdentityBackend:
@@ -196,6 +206,8 @@ def main():
             "status":"PASS_S145_WIN64_REAL_PRINTWINDOW_ONE_FRAME_NO_GAME"
                     if all(checks.values()) else "FAIL_S145_PRINTWINDOW",
             "native_checks":checks,
+            "test_owned_sampled_RGB":sampled_rgb,
+            "test_owned_native_WM_PRINT_counts":native_messages,
             "test_owned_color_only":True,
             "original_game_login_pixels_available":False,
             "actual_game_executed":False,
