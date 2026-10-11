@@ -115,6 +115,36 @@ def main():
             not all(
                 win.process_executable(pid).lower()==GAME_PROCESS.lower()
                 for _ in handles))
+
+        # S147: actual Win32 SetWindowPos moves one HWND, auth provider
+        # raises before the second; no false all-hidden state or unsafe retry.
+        rehidden=handler.hide(snap,max_windows=2)
+        off_again={h:win.window_rect(h) for h in handles}
+        checks["S147_rehide_both_real_HWNDs"]=(
+            rehidden.code=="HIDDEN" and handler.hidden
+            and all(off_again[h][:2]==(-2200,-2200)
+                and size(off_again[h])==size(old[h]) for h in handles))
+        auth_calls={"n":0}
+        def provider_fails_mid_batch():
+            auth_calls["n"]+=1
+            if auth_calls["n"]==3:
+                raise AssertionError("S147_TEST_ONLY_PROVIDER_FAILURE")
+            return True
+        partial_result=handler.show_documented_origin(
+            snap,max_windows=2,allowed=provider_fails_mid_batch)
+        after_partial={h:win.window_rect(h) for h in handles}
+        checks["S147_real_Win64_first_moved_second_untouched"]=(
+            partial_result.code=="CANCELLED_PARTIAL"
+            and partial_result.moved==(handles[0],)
+            and after_partial[handles[0]][:2]==(0,0)
+            and after_partial[handles[1]][:2]==(-2200,-2200)
+            and all(size(after_partial[h])==size(old[h]) for h in handles))
+        checks["S147_partial_state_refuses_blind_repeat"]=(
+            handler.partial and not handler.hidden
+            and handler.show_documented_origin(
+                snap,max_windows=2,allowed=lambda:True).code
+                =="PARTIAL_REQUIRES_RECONCILIATION"
+            and all(win.window_rect(h)==after_partial[h] for h in handles))
         root.destroy()
         root=None
         out={
