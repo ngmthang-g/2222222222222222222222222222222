@@ -1,0 +1,48 @@
+{
+  "task": "S162",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_NATIVE_WIN64_ORIGINAL_ONE_OR_TWO_SPACE_EXE_PROCESS_COUNT",
+  "pr": 16,
+  "head_sha": "b9cbedacc3ce7973d862f4cd8345da28324aca2b",
+  "merge_sha": "af4514c8d395e5d5202093a7a605cec546a38bf2",
+  "original_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+  "original_binary_offsets": "0x02b83815-0x02b83ab1",
+  "source_proven_running_process_names": [
+    "Thần Long Mobile.exe",
+    "Thần Long  Mobile.exe"
+  ],
+  "canonical_f04_launch_executable": "Thần Long  Mobile.exe",
+  "native_run": 38178958805,
+  "native_job": 114587230859,
+  "native_artifact": 11716977829,
+  "win64_unit_tests": 2491,
+  "compiled_files": 410,
+  "production_src_modules": 104,
+  "native_checks": 11,
+  "inherited_s160_run": 38178958738,
+  "inherited_s160_job": 114587230434,
+  "inherited_s160_artifact": 11717077600,
+  "s36_run": 38178958783,
+  "s36_job": 114587230499,
+  "s36_artifact": 11716782180,
+  "s36_exe": "DIAGNOSTIC_ONLY_NOT_PRODUCT",
+  "stage_s_run": 38178958725,
+  "stage_s_job": 114587230412,
+  "all_final_ci": "COMPLETED_SUCCESS",
+  "modified_existing": [
+    "src/login_running_process_capacity.py",
+    "tests/test_s160.py"
+  ],
+  "new_files": [
+    "tests/test_s162.py",
+    "tools/S162_WINDOWS_DUAL_GAME_NAME_COUNT_SMOKE.py",
+    ".github/workflows/s162-f05-dual-game-name-count.yml"
+  ],
+  "game_launched": false,
+  "real_signed_info": false,
+  "real_Android": false,
+  "proxy_changed": false,
+  "full_user_exe": false,
+  "DATA_client_reference": "READ_ONLY",
+  "next_action": "S163"
+}
