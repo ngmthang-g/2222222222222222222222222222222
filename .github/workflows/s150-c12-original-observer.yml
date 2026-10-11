@@ -1,0 +1,52 @@
+name: S150 original C12 read-only Win64 observation proof, TEST OWNED NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "tools/S150_WINDOWS_ORIGINAL_C12_OBSERVER.py"
+      - "tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py"
+      - "tests/test_s150.py"
+      - ".github/workflows/s150-c12-original-observer.yml"
+  push:
+    paths:
+      - "tools/S150_WINDOWS_ORIGINAL_C12_OBSERVER.py"
+      - "tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py"
+      - "tests/test_s150.py"
+      - ".github/workflows/s150-c12-original-observer.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-c12-readonly-observer:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S150 real Windows two test-owned HWND geometry observer, never original behavior claim
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: Inherit genuine S146/S147 two-HWND C12 native regression
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Genuine signed Info still rejects a fake product
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s150/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S150_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s150/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S150_AUTH_GATE_BYPASS" }
+          Write-Host "S150_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S150_ORIGINAL_C12_READONLY_OBSERVER_TEST_OWNED_NOT_PRODUCT
+          path: |
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
