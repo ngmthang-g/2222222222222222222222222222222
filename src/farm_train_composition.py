@@ -84,7 +84,7 @@ class TkTrainComposition(ttk.Frame):
         # The original manual medicine/buff block belongs to Train config,
         # never before H02 town nor after H11 coordinate/account areas.
         self.buffs = TkFarmBuffEditor(
-            self.train.group, store=FarmBuffSettingsStore(self.settings_file),
+            next(w for w in self.train.winfo_children() if isinstance(w, ttk.LabelFrame) and str(w.cget('text')) == 'Cấu hình Train'), store=FarmBuffSettingsStore(self.settings_file),
             **common)
         self.buffs.pack(fill="x")
         self.coords_section = ttk.Frame(self)
