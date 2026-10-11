@@ -211,8 +211,9 @@ class TkTrainAccountRows:
         self._schedule(0, self._epoch)
 
     def _stop_refresh(self) -> None:
-        if not self._active:
-            return
+        # Shutdown also owns teardown of rows applied before refresh start.
+        # A real Tk owner must never leave dangling S122 account bindings.
+        was_active = self._active
         self._active = False
         self._epoch += 1
         handle, self._after_id = self._after_id, None
@@ -225,7 +226,7 @@ class TkTrainAccountRows:
             self._remove(hwnd)
         self.registry.clear()
         self._revision = None
-        if self._own_producer:
+        if self._own_producer and was_active:
             self.producer.stop()
 
     def shutdown(self) -> None:
