@@ -15,12 +15,12 @@ from shell import INFO_KEY, TAB_SPECS
 
 
 class S35Tests(unittest.TestCase):
-    def test_exact_three_previously_implemented_tabs_only(self):
+    def test_four_verified_partial_or_external_tabs_only(self):
         b=available.source_backed_tab_builders(lambda frame:frame)
         self.assertEqual(frozenset(b),available.SOURCE_BACKED_KEYS)
-        self.assertEqual(frozenset(b),frozenset({INFO_KEY,"start_tab","login_tab"}))
+        self.assertEqual(frozenset(b),frozenset({INFO_KEY,"start_tab","login_tab","party_tab"}))
         self.assertNotIn("proxy_tab",b)
-        self.assertNotIn("party_tab",b)
+        self.assertIn("party_tab",b)
         self.assertEqual(len(TAB_SPECS),15)
 
     def test_factories_do_not_instantiate_tabs_eagerly(self):
@@ -73,7 +73,7 @@ class S35Tests(unittest.TestCase):
             with self.subTest(name=arg),self.assertRaises(ValueError):
                 available.source_backed_tab_builders(lambda _:None,**{arg:3})
 
-    def test_bootstrap_registers_start_login_only_under_real_info_factory(self):
+    def test_bootstrap_registers_start_login_party_only_under_real_info_factory(self):
         captured={}
         class TkRoot:
             def mainloop(self):
