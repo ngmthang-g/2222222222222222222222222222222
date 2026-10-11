@@ -11,6 +11,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from farm_original_maps import FARM_MAP_LIST, coord_id_for_name, coord_name_for_id
+from farm_preset_account_binding import FarmAccountPresetBindings
 from train_saved_coordinates import FarmCoordinate, FarmCoordinatesStore
 
 
@@ -21,9 +22,12 @@ class FarmSavedCoordinatesEditor(ttk.Frame):
     disabled; otherwise a replacement would silently lose unknown data.
     """
 
-    def __init__(self, parent, *, store: FarmCoordinatesStore | None = None):
+    def __init__(self, parent, *, store: FarmCoordinatesStore | None = None,
+                 account_bindings: FarmAccountPresetBindings | None = None):
         super().__init__(parent)
         self.store = store if store is not None else FarmCoordinatesStore()
+        self.account_bindings = (account_bindings if account_bindings is not None
+                                 else FarmAccountPresetBindings())
         self.rows: tuple[FarmCoordinate, ...] = ()
         self.last_error: str | None = None
         self._blocked = False
@@ -34,7 +38,8 @@ class FarmSavedCoordinatesEditor(ttk.Frame):
         self.group.pack(fill="x", padx=6, pady=(4, 0))
         self._header = ttk.Frame(self.group)
         for i, (caption, width) in enumerate((
-            ("Tên", 17), ("Map", 25), ("X", 6), ("Y", 6), ("Xóa", 4))):
+            ("Tên", 17), ("Map", 25), ("X", 6), ("Y", 6),
+            ("Áp dụng hết", 12), ("", 6), ("Xóa", 4))):
             ttk.Label(self._header, text=caption, width=width).grid(
                 row=0, column=i, sticky="w")
         self._header.pack(fill="x", padx=5)
@@ -66,6 +71,7 @@ class FarmSavedCoordinatesEditor(ttk.Frame):
             self._blocked = True
             self.last_error = type(exc).__name__
             self._set_status("Dữ liệu tọa độ chưa an toàn để chỉnh sửa")
+        self.account_bindings.refresh(self.rows)
         self._render()
 
     def _set_status(self, message: str):
@@ -100,16 +106,57 @@ class FarmSavedCoordinatesEditor(ttk.Frame):
                 widget.bind("<FocusOut>", lambda ev, i=index: self.commit_row(i), add="+")
             combo.bind("<<ComboboxSelected>>",
                        lambda ev, i=index: self._select_map(i), add="+")
+            apply_sell = ttk.Button(
+                self._body, text="Bán", width=5,
+                command=lambda i=index: self.apply_row_to_all(i, target="sell"))
+            apply_train = ttk.Button(
+                self._body, text="Train", width=5,
+                command=lambda i=index: self.apply_row_to_all(i, target="farm"))
+            apply_sell.grid(row=index, column=4)
+            apply_train.grid(row=index, column=5)
             delete = ttk.Button(
                 self._body, text="✕", width=4,
                 command=lambda i=index: self.delete_row(i))
-            delete.grid(row=index, column=4)
+            delete.grid(row=index, column=6)
             if self._blocked:
                 delete.configure(state="disabled")
             self.row_widgets.append({
                 "name": name, "map": mapname, "x": x, "y": y,
                 "combo": combo, "delete": delete, "entries": entries,
+                "apply_sell": apply_sell, "apply_train": apply_train,
             })
+        self._sync_apply_buttons()
+
+    def register_account_combos(self, sell: ttk.Combobox, farm: ttk.Combobox) -> None:
+        """Connect ONLY real caller-owned account-row selectors."""
+        if self._closed or self._blocked:
+            raise ValueError("UNAVAILABLE_FARM_EDITOR")
+        self.account_bindings.register(sell, farm, rows=self.rows)
+        self._sync_apply_buttons()
+
+    def unregister_account_combos(self, sell: ttk.Combobox, farm: ttk.Combobox):
+        self.account_bindings.unregister(sell, farm)
+        self._sync_apply_buttons()
+
+    def _sync_apply_buttons(self):
+        enabled = not self._blocked and self.account_bindings.active_count() > 0
+        for row in self.row_widgets:
+            row["apply_sell"].configure(state="normal" if enabled else "disabled")
+            row["apply_train"].configure(state="normal" if enabled else "disabled")
+
+    def apply_row_to_all(self, index: int, *, target: str) -> int:
+        """Original name-based apply-all; NEVER trigger game Sell/Train action."""
+        if (self._closed or self._blocked
+                or not 0 <= index < len(self.rows)
+                or not self._fresh()):
+            return 0
+        try:
+            count = self.account_bindings.apply_to_all(
+                self.rows[index].name, target=target)
+        except ValueError:
+            return 0
+        self._set_status("Đã áp dụng tọa độ" if count else "Không có tài khoản khả dụng")
+        return count
 
     def _select_map(self, index: int) -> bool:
         if self._closed or self._blocked or not 0 <= index < len(self.row_widgets):
@@ -169,7 +216,11 @@ class FarmSavedCoordinatesEditor(ttk.Frame):
             self._restore(index)
             self._set_status("Lỗi lưu tọa độ: dữ liệu cũ được giữ lại")
             return False
+        previous = self.rows[index]
         self.rows = tuple(updated)
+        self.account_bindings.refresh(
+            self.rows,
+            {previous.name: candidate.name} if previous.name != candidate.name else None)
         self.last_error = None
         self._set_status("Đã lưu tọa độ")
         return True
@@ -190,6 +241,7 @@ class FarmSavedCoordinatesEditor(ttk.Frame):
             self._set_status("Không xóa được: giữ nguyên tọa độ")
             return False
         self.rows = updated
+        self.account_bindings.refresh(self.rows)
         self.last_error = None
         self._render()
         self._set_status("Đã xóa tọa độ")
