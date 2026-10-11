@@ -36,15 +36,15 @@ class S86SourceBuildAuditTests(unittest.TestCase):
         self.assertIn("phoban_tab", keys)
         self.assertIn("donvang_tab", keys)
 
-    def test_04_registered_tabs_are_exact_partial_Start_Login_external_Info(self):
+    def test_04_registered_tabs_are_exact_partial_Start_Login_Party_external_Info(self):
         self.assertEqual(set(self.registration["registered_partial_or_external_tabs"]),
-                         {"info_tab", "start_tab", "login_tab"})
+                         {"info_tab", "start_tab", "login_tab", "party_tab"})
         self.assertTrue(self.registration["external_real_Info_factory_required"])
 
     def test_05_major_absent_tab_builders_must_be_explicitly_reported(self):
         missing = self.registration["no_registered_builder_for"]
         for tab in ("phoban_tab", "daily_tab", "farm_tab", "trainlsv_tab",
-                    "donvang_tab", "rao_tab", "toiuu_tab", "party_tab"):
+                    "donvang_tab", "rao_tab", "toiuu_tab"):
             self.assertIn(tab, missing)
 
     def test_06_production_main_still_refuses_unverified_Info(self):
