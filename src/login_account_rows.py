@@ -96,16 +96,23 @@ class TLMAccountRows:
         self.rows_inner.bind("<Configure>", self._on_rows_configure, add="+")
         self.canvas.bind("<Configure>", self._on_canvas_configure, add="+")
         self.canvas.bind("<MouseWheel>", self._scroll_wheel, add="+")
+        # F01: blank canvas-hosted grid surface receives wheel like its rows.
+        # Scoped native bindings only: never intercept wheel outside Login.
+        self.rows_inner.bind("<MouseWheel>", self._scroll_wheel, add="+")
 
         self.header_selector = tk.Button(
             self.rows_inner, text="✅", command=self.toggle_all,
             font=("Segoe UI", 9, "bold"), width=2)
         self.header_selector.grid(row=0, column=0, sticky="ew")
+        self.header_selector.bind("<MouseWheel>", self._scroll_wheel, add="+")
         for column, name in enumerate(
                 ("Tài khoản", "Mật khẩu", "Ẩn captcha", "Login", "Proxy"), 1):
-            tk.Label(self.rows_inner, text=name, background="#e8e8e8",
-                     font=("Segoe UI", 9, "bold")).grid(
-                         row=0, column=column, sticky="ew")
+            # The original F01 row area scrolls even over header labels.
+            # Keep the handler local to actual Canvas-descendant widgets.
+            heading = tk.Label(self.rows_inner, text=name, background="#e8e8e8",
+                               font=("Segoe UI", 9, "bold"))
+            heading.grid(row=0, column=column, sticky="ew")
+            heading.bind("<MouseWheel>", self._scroll_wheel, add="+")
         self.rows_inner.grid_rowconfigure(0, minsize=30)
 
         self.row_selectors = []
