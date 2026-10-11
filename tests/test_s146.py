@@ -166,7 +166,25 @@ class S146DocumentedShowToZeroTests(unittest.TestCase):
                        "SendInput(","TLM_PROXY_ENABLE","TOKEN_HMAC_SECRET"):
             self.assertNotIn(banned,src)
 
-    def test_18_real_native_and_source_ast(self):
+    def test_18_invalid_snapshot_rejects_full_show(self):
+        self.hide()
+        result=self.handler.show_documented_origin(
+            snap(*self.rows,valid=False),
+            max_windows=2,allowed=lambda:True)
+        self.assertEqual(result.code,"INVALID_CACHE")
+        self.assertTrue(self.handler.hidden)
+        self.assertEqual(self.backend.moves,[])
+
+    def test_19_authorization_callback_exception_denies_without_movement(self):
+        self.hide()
+        def fails():
+            raise RuntimeError("AUTH_PROVIDER_DOWN")
+        result=self.show(allowed=fails)
+        self.assertEqual(result.code,"CANCELLED")
+        self.assertTrue(self.handler.hidden)
+        self.assertEqual(self.backend.moves,[])
+
+    def test_20_real_native_and_source_ast(self):
         for p in ("src/window_hide.py","tests/test_s146.py",
                   "tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py"):
             ast.parse((ROOT/p).read_text(encoding="utf8"))
