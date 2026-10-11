@@ -1,0 +1,68 @@
+name: S152 C14 native detached Info-exception cleanup, real Win64 NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/detached_host.py"
+      - "tests/test_s152.py"
+      - "tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py"
+      - ".github/workflows/s152-c14-auth-exception.yml"
+  push:
+    paths:
+      - "src/detached_host.py"
+      - "tests/test_s152.py"
+      - "tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py"
+      - ".github/workflows/s152-c14-auth-exception.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s152-real-windows-c14:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S152 real three-HWND Tk-DWM removal after permission callback exception
+        run: python tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py
+      - name: S85 inherited C14 close-reopen DWM refresh
+        run: python tools/S85_WINDOWS_C14_REAL_DWM_REFRESH_SMOKE.py
+      - name: S70 inherited C14 genuine topmost native host
+        run: python tools/S70_WINDOWS_DETACHED_TOPMOST_HOST_SMOKE.py
+      - name: S71 inherited C14 native DWM teardown exception
+        run: python tools/S71_WINDOWS_DWM_TEARDOWN_ERROR_SMOKE.py
+      - name: S151 original Login 100-row native wheel
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: S150 original C12 native observer (test-owned)
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: S146 C12 two-HWND original-documented branch (test-owned)
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Original signed Info must refuse unknown product
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s152 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s152/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S152_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s152/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S152_INFO_GATE_BYPASS" }
+          Write-Host "S152_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S152_C14_PROVIDER_EXCEPTION_WIN64_TEST_OWNED_NOT_PRODUCT
+          path: |
+            artifacts/s152/
+            artifacts/s85/
+            artifacts/s70/
+            artifacts/s71/
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
