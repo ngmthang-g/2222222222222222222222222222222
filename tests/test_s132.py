@@ -47,7 +47,7 @@ class S132CompositionSourceTests(unittest.TestCase):
         self.assertIn("TkFarmTrainSettings(",SRC)
 
     def test_05_compose_buff_under_train_group(self):
-        self.assertIn("self.train.group",SRC)
+        self.assertIn("self.train.winfo_children()",SRC)\n        self.assertIn("isinstance(w, ttk.LabelFrame)",SRC)
         self.assertIn("TkFarmBuffEditor(",SRC)
 
     def test_06_coords_only_created_inside_permitted(self):
