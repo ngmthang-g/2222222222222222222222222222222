@@ -82,8 +82,8 @@ def resolve_game_dir(selected: str | Path | None) -> GameDirectoryResult:
 # original ConfigParser formatting microsequence is UNKNOWN, so preserve
 # all non-target bytes and fail closed rather than rewrite unknown tokens.
 _MAX_SETTINGS_BYTES = 2 * 1024 * 1024
-_SECTION_LINE = re.compile(r"^\\[([^\\]\\r\\n]+)\\][ \\t]*$")
-_GAME_KEY_LINE = re.compile(r"^(game_dir)([ \\t]*[=:][ \\t]*)([^\\r\\n]*)$", re.IGNORECASE)
+_SECTION_LINE = re.compile(r"^\[([^\]\r\n]+)\][ \t]*$")
+_GAME_KEY_LINE = re.compile(r"^(game_dir)([ \t]*[=:][ \t]*)([^\r\n]*)$", re.IGNORECASE)
 
 
 def _updated_game_dir_bytes(raw: bytes, value: str) -> bytes:
@@ -94,21 +94,21 @@ def _updated_game_dir_bytes(raw: bytes, value: str) -> bytes:
     Never deserialize/re-emit check/captcha/Proxy/password account tokens.
     """
     if (type(value) is not str or not value or
-            any(c in value for c in ("\\r", "\\n", "\\x00"))):
+            any(c in value for c in ("\r", "\n", "\x00"))):
         raise ValueError("INVALID_GAME_DIR_VALUE")
-    if len(raw) > _MAX_SETTINGS_BYTES or b"\\x00" in raw:
+    if len(raw) > _MAX_SETTINGS_BYTES or b"\x00" in raw:
         raise ValueError("AMBIGUOUS_GAME_DIR_SETTINGS")
     try:
         body = raw.decode("utf-8")
     except UnicodeDecodeError:
         raise ValueError("UNREADABLE_GAME_DIR_SETTINGS") from None
-    if body.startswith("\\ufeff") or ("\\r" in body.replace("\\r\\n", "")):
+    if body.startswith("\ufeff") or ("\r" in body.replace("\r\n", "")):
         raise ValueError("AMBIGUOUS_GAME_DIR_SETTINGS")
-    newline = "\\r\\n" if "\\r\\n" in body else "\\n"
+    newline = "\r\n" if "\r\n" in body else "\n"
     lines = body.splitlines(keepends=True)
     sections = []
     for index, line in enumerate(lines):
-        clean = line.rstrip("\\r\\n")
+        clean = line.rstrip("\r\n")
         found = _SECTION_LINE.fullmatch(clean)
         if found:
             sections.append((index, found.group(1).strip().casefold()))
@@ -125,11 +125,11 @@ def _updated_game_dir_bytes(raw: bytes, value: str) -> bytes:
     end = next((i for i, _name in sections if i > start), len(lines))
     key_lines = []
     for index in range(start + 1, end):
-        line = lines[index].rstrip("\\r\\n")
+        line = lines[index].rstrip("\r\n")
         # Indented key-looking lines may be legacy Accounts continuations.
-        if re.match(r"^[ \\t]+game_dir\\b", line, re.IGNORECASE):
+        if re.match(r"^[ \t]+game_dir\b", line, re.IGNORECASE):
             raise ValueError("AMBIGUOUS_GAME_DIR_SETTINGS")
-        if re.match(r"^game_dir\\b", line, re.IGNORECASE):
+        if re.match(r"^game_dir\b", line, re.IGNORECASE):
             match = _GAME_KEY_LINE.fullmatch(line)
             if match is None:
                 raise ValueError("AMBIGUOUS_GAME_DIR_SETTINGS")
@@ -139,11 +139,11 @@ def _updated_game_dir_bytes(raw: bytes, value: str) -> bytes:
     if key_lines:
         index, match = key_lines[0]
         old_line = lines[index]
-        terminator = ("\\r\\n" if old_line.endswith("\\r\\n")
-                      else "\\n" if old_line.endswith("\\n") else "")
+        terminator = ("\r\n" if old_line.endswith("\r\n")
+                      else "\n" if old_line.endswith("\n") else "")
         lines[index] = match.group(1) + match.group(2) + value + terminator
     else:
-        if end and not lines[end - 1].endswith(("\\r", "\\n")):
+        if end and not lines[end - 1].endswith(("\r", "\n")):
             lines[end - 1] += newline
         lines.insert(end, "game_dir = " + value + newline)
     return "".join(lines).encode("utf-8")
