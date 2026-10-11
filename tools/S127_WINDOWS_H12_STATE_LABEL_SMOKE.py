@@ -85,10 +85,10 @@ def run():
             q["unknown_original_dynamic_label_is_gray"] = (
                 owner.apply_confirmed_state(hwnd, pid, "Đang đợi", 8)
                 and row["state_label"].cget("foreground") == "#555555")
+            gate.clear()
+            owner.reapply_permissions()
             q["info_revoke_returns_safe_initial_state"] = (
-                (gate.clear() is None or True)
-                and (owner.reapply_permissions() is None)
-                and row["state_label"].cget("text") == "Đã dừng"
+                row["state_label"].cget("text") == "Đã dừng"
                 and row["state_dot"].cget("foreground") == "#555555"
                 and not owner.apply_confirmed_state(hwnd, pid, "Đang train", 9))
             owner.apply_snapshot(WindowSnapshot(revision=2, windows=(), valid=True))
