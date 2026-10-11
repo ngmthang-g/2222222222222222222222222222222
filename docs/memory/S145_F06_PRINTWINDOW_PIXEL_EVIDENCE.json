@@ -1,0 +1,99 @@
+{
+  "task": "S145",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_READONLY_WIN64_PRINTWINDOW_SINGLE_FRAME_ONLY_NOT_GAME_LOGIN",
+  "original_evidence": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "original_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "checked_static_inner_exe_bytes": {
+      "check_multipixel": 45507192,
+      "login1": 45507223,
+      "login2": 45507240
+    },
+    "recovered": "F06 login1/login2 via ONE PrintWindow full-window capture and all requested sample pixels required to match; login.update and common.active are distinct readiness stages; pixel RGB/x/y threshold NOT recovered.",
+    "original_game_pixel_coordinates_or_rgb_verified": false,
+    "bundled_data_config_dat_pe_not_pixel_table": {
+      "size_bytes": 52224,
+      "sha256": "07ecb19cf1143fec694c7e06a9db3a9d5727c64e6ac8b49b9396e42fe558ad8a",
+      "starts_with_MZ": true
+    }
+  },
+  "production_module": "src/login_printwindow_pixels.py",
+  "scope": {
+    "read_only_background_PrintWindow": true,
+    "GetDIBits_BGRA_top_down": true,
+    "single_frame_for_two_references": true,
+    "must_supply_explicit_original_pixel_specs": true,
+    "rejects_missing_spec_without_capture": true,
+    "exact_rgb_matching_is_local_not_original_verified": true,
+    "signed_Info_and_verified_game_HWND_callback_required": true,
+    "no_game_login_integration": true,
+    "no_credentials_or_input_sent": true,
+    "no_DLL_injection": true,
+    "no_Proxy": true,
+    "no_original_binary_modified": true
+  },
+  "windows": {
+    "full_run_id": 38163084839,
+    "job_status": "COMPLETED_SUCCESS",
+    "full_units": 2291,
+    "src_modules": 97,
+    "compiled_python_files": 374,
+    "native": "PASS_S145_WIN64_REAL_PRINTWINDOW_ONE_FRAME_NO_GAME",
+    "real_test_owned_windows_rgb": [
+      28,
+      78,
+      135
+    ],
+    "test_owned_sample_locations": [
+      [
+        45,
+        40
+      ],
+      [
+        170,
+        150
+      ]
+    ],
+    "real_native_tests_passed": 10,
+    "native_WM_PRINT_direct_calls": 0,
+    "native_WM_PAINT_calls": 4,
+    "verified_occluded_surface": true,
+    "native_test_only_artifact_id": 11711086970,
+    "inherited_real_native_S144_to_S116": "PASS",
+    "product_gate": "S145_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT",
+    "independent_s36_run": 38163084900,
+    "independent_s36_status": "COMPLETED_SUCCESS_DIAGNOSTIC_ONLY",
+    "independent_stage_s_run": 38163084869,
+    "independent_stage_s_status": "COMPLETED_SUCCESS"
+  },
+  "initial_fixed_native_failures": [
+    "S145 original native fixture initially requested FillRect from gdi32 instead of user32, causing AttributeError (38162696418)",
+    "Next native fixture read back white surface because DWM runner did not send WM_PRINT to custom window, fixed test-owned WM_PAINT/class background brush (38162789035,38162873915)"
+  ],
+  "new_python_unit_tests": 25,
+  "new_production_files": [
+    "src/login_printwindow_pixels.py"
+  ],
+  "new_test_and_workflow": [
+    "tests/test_s145.py",
+    "tools/S145_WINDOWS_PRINTWINDOW_NATIVE_SMOKE.py",
+    ".github/workflows/s145-f06-printwindow.yml"
+  ],
+  "frozen": [
+    "PLAN.md",
+    "SCOPE_LOCK.md",
+    "original TLM zip and EXE",
+    "S01-S144 prior source",
+    "DATA-2222 reference repository read only",
+    "Proxy excluded"
+  ],
+  "blocked": [
+    "Original F06 login1/login2 coordinates, RGB, tolerances not verified",
+    "Actual F05 launcher and Info signed license/heartbeat absent",
+    "Actual game PrintWindow proof absent",
+    "Automatic F06 credentials/real login still blocked",
+    "Original C19 DLL protocol and remainder 1:1 EXE incomplete"
+  ],
+  "next_action": "S146"
+}
