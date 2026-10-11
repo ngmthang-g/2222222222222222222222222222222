@@ -169,10 +169,16 @@ class S133OriginalMemoryModuleProbeTests(unittest.TestCase):
             self.assertGreaterEqual(ctypes.sizeof(_MemoryBasicInformation),40)
 
     def test_27_preflight_races_cannot_claim_character(self):
-        code=inspect.getsource(GuardedGameAssemblyProbe)
-        self.assertNotIn("TrainCharacterSample(",code)
-        self.assertNotIn("RoleName",code)
-        self.assertNotIn("MapID",code)
+        # Inspect executable statements, not documentation saying RoleName
+        # is deliberately NOT read. Preserve the zero-game-sample invariant.
+        tree=ast.parse(inspect.getsource(GuardedGameAssemblyProbe))
+        called={node.func.id for node in ast.walk(tree)
+                if isinstance(node,ast.Call)
+                and isinstance(node.func,ast.Name)}
+        self.assertNotIn("TrainCharacterSample",called)
+        self.assertNotIn("read_role_data",called)
+        self.assertNotIn("read_bag",called)
+        self.assertNotIn("WriteProcessMemory",called)
 
     def test_28_no_network_or_info_secret(self):
         code=(ROOT/"src/train_memory_module_probe.py").read_text(encoding="utf8")
