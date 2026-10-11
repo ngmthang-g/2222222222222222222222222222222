@@ -93,13 +93,24 @@ def run():
             q["wrong_pid_is_not_applied"] = (
                 not owner.apply_confirmed_state(hwnd, pid + 1, "Mất kết nối", 8)
                 and row["state_label"].cget("text") == "Đang train")
+            blue_a = owner.apply_confirmed_state(hwnd, pid, "Về bán đồ", 7)
+            blue_b = owner.apply_confirmed_state(hwnd, pid, "Bán đồ", 7)
+            q["observed_blue"] = {
+                "a": blue_a, "b": blue_b,
+                "state": str(row["state_label"].cget("text")),
+                "foreground": str(row["state_label"].cget("foreground")),
+                "generation": row["passive_state"].generation}
             q["same_generation_genuine_tk_transition_blue"] = (
-                owner.apply_confirmed_state(hwnd, pid, "Về bán đồ", 7)
-                and owner.apply_confirmed_state(hwnd, pid, "Bán đồ", 7)
+                blue_a and blue_b
                 and row["state_label"].cget("foreground") == "#1565c0")
+            unknown_ok = owner.apply_confirmed_state(hwnd, pid, "Đang đợi", 8)
+            q["observed_unknown"] = {
+                "applied": unknown_ok,
+                "state": str(row["state_label"].cget("text")),
+                "foreground": str(row["state_label"].cget("foreground")),
+                "generation": row["passive_state"].generation}
             q["unknown_original_dynamic_label_is_gray"] = (
-                owner.apply_confirmed_state(hwnd, pid, "Đang đợi", 8)
-                and row["state_label"].cget("foreground") == "#555555")
+                unknown_ok and row["state_label"].cget("foreground") == "#555555")
             gate.clear()
             owner.reapply_permissions()
             q["observed_revoked"] = {
