@@ -1,16 +1,18 @@
-"""S16: C16 verified WM_CLOSE for genuine, live S08/S09 game HWNDs only.
+"""C16: source-backed WM_CLOSE game window requests and Unity crash cleanup.
 
-Original C16 uses PostMessage(WM_CLOSE), not force-kill of the main client.
-Fail closed on invalid cache, wrong executable/class/title, stale/reused PID,
-missing top-level HWND or failing native APIs. No arbitrary HWND close from UI.
+The original frozen EXE proves PostMessage(WM_CLOSE) followed by taskkill
+/f /t /im UnityCrashHandler64.exe in shared utils.close_all_game_windows.
+This taskkill image-match is GLOBAL and destructive (also affects unrelated
+same-name processes); only trigger after at least one real verified game
+WM_CLOSE post from the explicitly invoked authorized Start 'Đóng hết'.
 
-Separate UnityCrashHandler process-tree cleanup is original-backed but not
-implemented in S16: unsafe without its exact targeting and lifecycle proof.
-The original immediate preview refresh and close confirmation are UNKNOWN.
+The original exact error handling/confirmation/cache-refresh is UNKNOWN.
+Never force-terminate Thần Long game processes or use a shell.
 """
 from __future__ import annotations
 
 import os
+import subprocess
 from dataclasses import dataclass
 from typing import Protocol
 
@@ -60,6 +62,38 @@ class NativeWmClosePoster:
         return bool(self._post(hwnd, WM_CLOSE, 0, 0))
 
 
+CRASH_HANDLER_EXE = "UnityCrashHandler64.exe"
+CRASH_HANDLER_TASKKILL_ARGS = ("taskkill", "/f", "/t", "/im", CRASH_HANDLER_EXE)
+CRASH_HANDLER_TIMEOUT_SECONDS = 5
+
+
+class NativeCrashHandlerCleaner:
+    """C16's EXACT original image-based taskkill, never any game PID killer.
+
+    Caller must independently verify a genuine game WM_CLOSE was posted.
+    This action is global for the image name; Windows /im cannot associate
+    it with only one game parent. This side effect is original-backed.
+    """
+
+    def run(self) -> str:
+        if os.name != "nt":
+            return "WINDOWS_ONLY_NOT_RUN"
+        flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+        try:
+            result = subprocess.run(
+                list(CRASH_HANDLER_TASKKILL_ARGS),
+                shell=False, stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                timeout=CRASH_HANDLER_TIMEOUT_SECONDS,
+                creationflags=flags, check=False,
+            )
+        except (OSError, subprocess.TimeoutExpired, ValueError):
+            return "TASKKILL_FAILED"
+        # taskkill returns nonzero when no image matched, or access denied.
+        # Do not treat this as successful termination.
+        return "TASKKILL_SENT" if result.returncode == 0 else "TASKKILL_FAILED_OR_NO_MATCH"
+
+
 class C16CloseAll:
     """C16 shared utility service, guarded by original S08 candidate identity.
 
@@ -69,9 +103,16 @@ class C16CloseAll:
     """
 
     def __init__(self, backend: CloseBackend | None = None,
-                 poster: ClosePoster | None = None):
+                 poster: ClosePoster | None = None, *,
+                 crash_cleanup=None):
+        # Only a genuine native Start service obtains automatic original C16
+        # taskkill; injected test backends never trigger global process kill.
+        native_mode = backend is None and poster is None and os.name == "nt"
         self.backend = backend if backend is not None else NativeWin32Backend()
         self.poster = poster if poster is not None else NativeWmClosePoster()
+        self.crash_cleanup = (crash_cleanup if crash_cleanup is not None
+                              else NativeCrashHandlerCleaner() if native_mode else None)
+        self.last_crash_cleanup = "NOT_RUN"
 
     def _check(self, item: GameWindow, top_level: frozenset[int]) -> str | None:
         hwnd, pid = item.hwnd, item.pid
@@ -133,6 +174,22 @@ class C16CloseAll:
             except Exception:
                 skipped.append((item.hwnd, "POSTMESSAGE_ERROR"))
 
+        # Original C16 shared close utility follows normal WM_CLOSE with
+        # taskkill /f /t /im UnityCrashHandler64.exe. Its process name
+        # matching is GLOBAL; never execute unless at least one legitimate
+        # game HWND passed all live-identity checks and accepted WM_CLOSE.
+        # An external failure must not turn POSTED into CLOSED.
+        self.last_crash_cleanup = "NOT_RUN"
+        if posted and self.crash_cleanup is not None:
+            try:
+                value = self.crash_cleanup.run()
+                self.last_crash_cleanup = (
+                    value if value in ("TASKKILL_SENT", "TASKKILL_FAILED",
+                                       "TASKKILL_FAILED_OR_NO_MATCH",
+                                       "WINDOWS_ONLY_NOT_RUN")
+                    else "TASKKILL_RESULT_UNVERIFIED")
+            except Exception:
+                self.last_crash_cleanup = "TASKKILL_FAILED"
         code = ("WM_CLOSE_POSTED" if posted and not skipped else
                 "PARTIAL_WM_CLOSE_POSTED" if posted else "NO_VALID_TARGETS")
         return CloseResult(code, len(cached), tuple(posted), tuple(skipped))
