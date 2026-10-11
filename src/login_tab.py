@@ -171,6 +171,17 @@ class TLMLoginPathTab:
             "✅ Đã chọn game thành công: " + str(result.directory) + suffix)
         return True
 
+    def get_selected_login_rows(self):
+        """F06 real UI adapter: validated local rows, NEVER game launch.
+
+        This is the genuine already-mounted 100-row Login account grid;
+        signed Info/F05 suspended x64 injection/F06 window input are absent.
+        """
+        if self._closed:
+            from login_account_rows import SelectedLoginRows
+            return SelectedLoginRows("ACCOUNT_VIEW_CLOSED")
+        return self.account_rows.get_selected_login_rows()
+
     def get_exe_path(self) -> Path | None:
         return None if self._closed else self.store.get_exe_path(self.game_dir)
 
