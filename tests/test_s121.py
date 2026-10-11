@@ -26,7 +26,8 @@ class TestS121(unittest.TestCase):
         # S122 buttons match original H11 PRESET choices, never game action.
         # They stay disabled until REAL caller-owned account combos exist.
         for proof in ('text="Bán"', 'text="Train"',
-                      'self.account_bindings.active_count() > 0',
+                      'self.account_bindings.editable_count("sell") > 0',
+                      'self.account_bindings.editable_count("farm") > 0',
                       'self.account_bindings.apply_to_all('):
             self.assertIn(proof,s)
         for forbidden in ('text="Bắt đầu"', "PostMessage(",
