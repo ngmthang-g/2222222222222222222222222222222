@@ -22,6 +22,7 @@ from train_row_permission import TrainRowPermissionGate
 from train_character_samples import (
     TrainCharacterSampler, TrainCharacterSample, validated_sample,
 )
+from train_extra_tracking import TrainSessionTracker
 
 TRAIN_ACCOUNT_REFRESH_MS = 5000
 
@@ -145,6 +146,10 @@ class TkTrainAccountRows:
         label_bag = ttk.Label(row, text="Túi: ?")
         label_map.pack(side="left")
         label_bag.pack(side="left")
+        tracker = TrainSessionTracker()
+        # H12: original third-line status is passive until genuine Farm starts.
+        extra = ttk.Label(row, text=tracker.text())
+        extra.pack(side="bottom", anchor="w")
         try:
             self.editor.register_account_combos(sell, farm)
         except Exception:
@@ -154,6 +159,7 @@ class TkTrainAccountRows:
             "pid": window.pid, "frame": row,
             "label": label, "sell": sell, "farm": farm,
             "label_map": label_map, "label_bag": label_bag,
+            "label_extra": extra, "tracker": tracker,
         }
         self._set_row_permission(window)
 
@@ -171,6 +177,10 @@ class TkTrainAccountRows:
                 text=f"HWND {window.hwnd} / PID {window.pid}")
             row["label_map"].configure(text="MapID: ?")
             row["label_bag"].configure(text="Túi: ?")
+            row["tracker"].stop()
+            row["label_extra"].configure(text=row["tracker"].text())
+            # Revoked authority can never release an in-flight mailbox.
+            self.character_sampler.invalidate()
         self.editor._sync_apply_buttons()
 
     def reapply_permissions(self) -> None:
@@ -179,6 +189,53 @@ class TkTrainAccountRows:
             return
         for window in self.registry.rows:
             self._set_row_permission(window)
+
+    def start_confirmed_tracking(self, hwnd: int, pid: int) -> bool:
+        """Only a FUTURE authenticated Farm engine may announce actual start.
+
+        This does not move/attack/start Farm in game, and does not start merely
+        because a matching window is present. No Game session engine is wired.
+        """
+        if self._closed or type(hwnd) is not int or type(pid) is not int:
+            return False
+        row = self._rows.get(hwnd)
+        window = next((w for w in self.registry.rows
+                       if w.hwnd == hwnd and w.pid == pid), None)
+        if (row is None or row["pid"] != pid or window is None
+                or not self._allowed(window)):
+            return False
+        row["tracker"].start_confirmed_session()
+        row["label_extra"].configure(text=row["tracker"].text())
+        return True
+
+    def stop_tracking(self, hwnd: int, pid: int) -> bool:
+        """Only lifecycle stop, not a command sent to a game."""
+        row = self._rows.get(hwnd)
+        if row is None or row["pid"] != pid:
+            return False
+        row["tracker"].stop()
+        row["label_extra"].configure(text=row["tracker"].text())
+        return True
+
+    def record_confirmed_death(self, hwnd: int, pid: int) -> bool:
+        """H07 HP-zero latched event hook; no reader/click is simulated."""
+        row = self._rows.get(hwnd)
+        window = next((w for w in self.registry.rows
+                       if w.hwnd == hwnd and w.pid == pid), None)
+        if (row is None or row["pid"] != pid or window is None
+                or not self._allowed(window)
+                or not row["tracker"].record_confirmed_death()):
+            return False
+        row["label_extra"].configure(text=row["tracker"].text())
+        return True
+
+    def refresh_session_labels(self) -> None:
+        """Tk-owner time display only; does not read native game memory."""
+        for window in self.registry.rows:
+            row = self._rows.get(window.hwnd)
+            if (row is not None and row["pid"] == window.pid
+                    and self._allowed(window)):
+                row["label_extra"].configure(text=row["tracker"].text())
 
     def apply_character_samples(self, samples) -> int:
         """Apply only samples for currently authorized, same HWND/PID rows.
@@ -209,6 +266,8 @@ class TkTrainAccountRows:
                 row["label_map"].configure(text=f"MapID: {sample.map_id}")
             if sample.bag_slots is not None:
                 row["label_bag"].configure(text=f"Túi: {sample.bag_slots}")
+            row["tracker"].accept(sample)
+            row["label_extra"].configure(text=row["tracker"].text())
             updated += 1
         return updated
 
@@ -262,6 +321,7 @@ class TkTrainAccountRows:
         self.reapply_permissions()
         # Both functions below only touch Tk here, never from the worker.
         self.apply_character_samples(self.character_sampler.drain())
+        self.refresh_session_labels()
         eligible = tuple(w for w in self.registry.rows if self._allowed(w))
         if eligible:
             self.character_sampler.request(eligible)

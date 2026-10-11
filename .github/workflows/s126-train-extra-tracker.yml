@@ -1,0 +1,61 @@
+name: S126 H12 verified passive session earnings + rates real Tk - NOT PRODUCT
+on:
+  push:
+    paths:
+      - "src/train_extra_tracking.py"
+      - "src/train_account_rows.py"
+      - "tests/test_s126.py"
+      - "tools/S126_WINDOWS_TRAIN_EXTRA_TRACKER_SMOKE.py"
+      - ".github/workflows/s126-train-extra-tracker.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s126-native:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S126 original H12 extra status line actual Windows Tk
+        run: python tools/S126_WINDOWS_TRAIN_EXTRA_TRACKER_SMOKE.py
+      - name: S125 S124 S123 S122 S121 S120 S119 inherited native
+        run: |
+          python tools/S125_WINDOWS_TRAIN_CHARACTER_SAMPLES_SMOKE.py
+          python tools/S124_WINDOWS_TRAIN_AUTH_GATE_SMOKE.py
+          python tools/S123_WINDOWS_TRAIN_ACCOUNT_ROWS_SMOKE.py
+          python tools/S122_WINDOWS_FARM_ACCOUNT_COMBO_SMOKE.py
+          python tools/S121_WINDOWS_FARM_SAVED_EDITOR_SMOKE.py
+          python tools/S120_WINDOWS_FARM_ORIGINAL_MAPS_SMOKE.py
+          python tools/S119_WINDOWS_FARM_COORDINATES_SMOKE.py
+      - name: Native inherited Party Login
+        run: |
+          python tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py
+          python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+          python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+          python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+          python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+          python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Original Info signed gate still refuses product
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s126/signed_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S126_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s126/signed_gate.txt) -notmatch "S01 BLOCKED") { throw "S126_GENUINE_INFO_GUARD_BYPASSED" }
+          Write-Host "S126_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S126_H12_NATIVE_TK_EXTRA_TRACKER_NO_GAME_NOT_PRODUCT
+          path: |
+            artifacts/s126/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
