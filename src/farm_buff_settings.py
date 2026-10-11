@@ -127,6 +127,10 @@ class FarmBuffSettingsStore:
             if original != expected_bytes:
                 raise FarmBuffSettingsError("STALE_BUFF_SETTINGS")
             old = self._records(lines, start, end)
+            # No configured buffs means no buff-specific mutation. Do not
+            # invent a brand-new [Farm] section or reformat unrelated data.
+            if not old and not rows:
+                return FarmBuffSnapshot(rows, original)
             old_positions = {index for _, index, _ in old}
             inserts = [
                 f"buff_{index} = {'True' if row.enabled else 'False'}|"
