@@ -19,6 +19,9 @@ from start_polling import StartWindowProducer, WindowSnapshot
 from start_windows import GameWindow
 from farm_saved_editor import FarmSavedCoordinatesEditor
 from train_row_permission import TrainRowPermissionGate
+from train_character_samples import (
+    TrainCharacterSampler, TrainCharacterSample, validated_sample,
+)
 
 TRAIN_ACCOUNT_REFRESH_MS = 5000
 
@@ -88,7 +91,8 @@ class TkTrainAccountRows:
                  allow_account: Callable[[GameWindow], bool] | None = None,
                  interval_ms: int = TRAIN_ACCOUNT_REFRESH_MS,
                  permission_guard=None, running_count=None,
-                 identity_backend_factory=None):
+                 identity_backend_factory=None,
+                 character_reader=None):
         if not isinstance(coordinate_editor, FarmSavedCoordinatesEditor):
             raise ValueError("REAL_H11_COORDINATE_EDITOR_REQUIRED")
         if interval_ms != TRAIN_ACCOUNT_REFRESH_MS:
@@ -101,6 +105,8 @@ class TkTrainAccountRows:
         self._allow_account = allow_account
         self._permission_gate = TrainRowPermissionGate(
             permission_guard, running_count, identity_backend_factory)
+        # NO native reader supplied => no game memory sampling in product.
+        self.character_sampler = TrainCharacterSampler(character_reader)
         self.registry = TrainAccountRegistry()
         self._rows: dict[int, dict] = {}
         self._active = False
@@ -134,6 +140,11 @@ class TkTrainAccountRows:
         farm = ttk.Combobox(row, state="disabled", width=13)
         sell.pack(side="left")
         farm.pack(side="left")
+        # These are UNKNOWN until verified read-only background samples exist.
+        label_map = ttk.Label(row, text="MapID: ?")
+        label_bag = ttk.Label(row, text="Túi: ?")
+        label_map.pack(side="left")
+        label_bag.pack(side="left")
         try:
             self.editor.register_account_combos(sell, farm)
         except Exception:
@@ -142,6 +153,7 @@ class TkTrainAccountRows:
         self._rows[window.hwnd] = {
             "pid": window.pid, "frame": row,
             "label": label, "sell": sell, "farm": farm,
+            "label_map": label_map, "label_bag": label_bag,
         }
         self._set_row_permission(window)
 
@@ -152,6 +164,13 @@ class TkTrainAccountRows:
         state = "readonly" if self._allowed(window) and not self.editor._blocked else "disabled"
         row["sell"].configure(state=state)
         row["farm"].configure(state=state)
+        if state == "disabled":
+            # Do not retain a formerly authorized character's details after
+            # Info revocation. Unknown remains '?', not a fabricated zero.
+            row["label"].configure(
+                text=f"HWND {window.hwnd} / PID {window.pid}")
+            row["label_map"].configure(text="MapID: ?")
+            row["label_bag"].configure(text="Túi: ?")
         self.editor._sync_apply_buttons()
 
     def reapply_permissions(self) -> None:
@@ -160,6 +179,38 @@ class TkTrainAccountRows:
             return
         for window in self.registry.rows:
             self._set_row_permission(window)
+
+    def apply_character_samples(self, samples) -> int:
+        """Apply only samples for currently authorized, same HWND/PID rows.
+
+        Runs on the caller's Tk thread. A failed/partial sample leaves the
+        previous known value untouched; retired HWND/PID never receives data.
+        """
+        if self._closed or not isinstance(samples, (tuple, list)):
+            return 0
+        updated = 0
+        for sample in samples:
+            if type(sample) is not TrainCharacterSample:
+                continue
+            row = self._rows.get(sample.hwnd)
+            if row is None or row["pid"] != sample.pid:
+                continue
+            window = next((w for w in self.registry.rows
+                           if w.hwnd == sample.hwnd and w.pid == sample.pid), None)
+            if window is None or not self._allowed(window):
+                continue
+            try:
+                sample = validated_sample(sample, window)
+            except ValueError:
+                continue
+            if sample.role_name is not None:
+                row["label"].configure(text=sample.role_name)
+            if sample.map_id is not None:
+                row["label_map"].configure(text=f"MapID: {sample.map_id}")
+            if sample.bag_slots is not None:
+                row["label_bag"].configure(text=f"Túi: {sample.bag_slots}")
+            updated += 1
+        return updated
 
     def _remove(self, hwnd: int) -> None:
         row = self._rows.pop(hwnd, None)
@@ -184,6 +235,8 @@ class TkTrainAccountRows:
         if change.unknown:
             self.status.configure(text="Train: lỗi đọc tạm thời, giữ dòng trước")
             return False
+        if change.removed or change.reused:
+            self.character_sampler.invalidate()
         for window in change.removed:
             self._remove(window.hwnd)
         for old, new in change.reused:
@@ -207,6 +260,13 @@ class TkTrainAccountRows:
             self.apply_snapshot(snapshot)
         # Info heartbeat revocations need not change the Start window cache.
         self.reapply_permissions()
+        # Both functions below only touch Tk here, never from the worker.
+        self.apply_character_samples(self.character_sampler.drain())
+        eligible = tuple(w for w in self.registry.rows if self._allowed(w))
+        if eligible:
+            self.character_sampler.request(eligible)
+        else:
+            self.character_sampler.invalidate()
         if self._active and epoch == self._epoch:
             self._schedule(TRAIN_ACCOUNT_REFRESH_MS, epoch)
 
@@ -243,6 +303,7 @@ class TkTrainAccountRows:
         for hwnd in tuple(self._rows):
             self._remove(hwnd)
         self.registry.clear()
+        self.character_sampler.invalidate()
         self._revision = None
         if self._own_producer and was_active:
             self.producer.stop()
@@ -251,6 +312,7 @@ class TkTrainAccountRows:
         if self._closed:
             return
         self._stop_refresh()
+        self.character_sampler.shutdown()
         self._closed = True
 
     def _on_destroy(self, event) -> None:
