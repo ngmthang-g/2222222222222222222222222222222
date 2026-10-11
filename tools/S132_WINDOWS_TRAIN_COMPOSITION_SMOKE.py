@@ -71,7 +71,7 @@ def run():
                 and not comp.town._body_visible
                 and comp.trade.master is comp.town.lower)
             e["original_train_buff_nested_within_train_group"]=(
-                comp.buffs.master is comp.train.group
+                comp.buffs.master in comp.train.winfo_children()\n                and str(comp.buffs.master.cget('text'))=='Cấu hình Train'
                 and len(comp.buffs.row_widgets)==0)
             e["unsigned_config_and_sensitive_sections_fail_closed"]=(
                 not comp._authorized() and comp.coords is None
