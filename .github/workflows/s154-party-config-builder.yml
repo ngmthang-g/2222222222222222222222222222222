@@ -1,0 +1,75 @@
+name: S154 E03 original Party G08 REAL authorized config-only Win64 NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/source_backed_tab_builders.py"
+      - "tests/test_s35.py"
+      - "tests/test_s86.py"
+      - "tests/test_s154.py"
+      - "tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py"
+      - ".github/workflows/s154-party-config-builder.yml"
+  push:
+    paths:
+      - "src/source_backed_tab_builders.py"
+      - "tests/test_s35.py"
+      - "tests/test_s86.py"
+      - "tests/test_s154.py"
+      - "tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py"
+      - ".github/workflows/s154-party-config-builder.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s154-real-windows-party-config:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S154 real Tk original G08 config from E03 authorized-only builder
+        run: python tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py
+      - name: S89 original Party G08 real Tk INI editor existing regression
+        run: python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+      - name: S91 Party three-columns ready display test-owned native regression
+        run: python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+      - name: S153 C16 original taskkill Win64 TEST-OWNED process
+        run: python tools/S153_WINDOWS_C16_CRASHHANDLER_SMOKE.py
+      - name: S152 C14 native DWM provider exception
+        run: python tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py
+      - name: S151 original Login wheel real Tk
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: S150 original C12 native read-only observer
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: S146 C12 two native test-owned HWND regression
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Genuine signed Info still blocks unapproved user GUI
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s154 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s154/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S154_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s154/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S154_INFO_GATE_BYPASS" }
+          Write-Host "S154_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S154_REAL_PARTY_CONFIG_E03_TEST_OWNED_NOT_PRODUCT
+          path: |
+            artifacts/s154/
+            artifacts/s89/
+            artifacts/s91/
+            artifacts/s153/
+            artifacts/s152/
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
