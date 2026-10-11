@@ -1,0 +1,96 @@
+name: S163 F06 genuine checked Login rows native Tk Win64 NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/login_account_rows.py"
+      - "src/login_tab.py"
+      - "tests/test_s163.py"
+      - "tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py"
+      - ".github/workflows/s163-f06-selected-login-rows.yml"
+  push:
+    paths:
+      - "src/login_account_rows.py"
+      - "src/login_tab.py"
+      - "tests/test_s163.py"
+      - "tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py"
+      - ".github/workflows/s163-f06-selected-login-rows.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s163-native-win64-f06-login-selected:
+    runs-on: windows-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S163 native Win64 actual Login Tk checked rows read and validated
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: S162 native Win64 both original game image names on two test-owned PIDs
+        run: python tools/S162_WINDOWS_DUAL_GAME_NAME_COUNT_SMOKE.py
+      - name: S161 original emulator per-serial pidof subprocess protocol
+        run: python tools/S161_WINDOWS_F05_ADB_GAME_COUNT_SMOKE.py
+      - name: S160 native Win64 Toolhelp process count inherited double-space
+        run: python tools/S160_WINDOWS_F05_LIVE_EXE_COUNT_SMOKE.py
+      - name: S26 original existing F05 max-windows extra-one preflight
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S159 original F05 Login native conditional 1366x768 resize
+        run: python tools/S159_WINDOWS_LOGIN_NATIVE_RESIZE_SMOKE.py
+      - name: S158 F05 native two child serialized PID HWNDs
+        run: python tools/S158_WINDOWS_F05_SERIAL_PID_HANDOFF_SMOKE.py
+      - name: S157 F05 real filtered Win64 child environments
+        run: python tools/S157_WINDOWS_F05_CLEAN_ENV_SMOKE.py
+      - name: S156 F05 native PID main HWND finder
+        run: python tools/S156_WINDOWS_F05_PID_HWND_SMOKE.py
+      - name: S155 real Party G02 native ready roster
+        run: python tools/S155_WINDOWS_PARTY_READY_LIFECYCLE_SMOKE.py
+      - name: S154 real Party G08 Tk configuration
+        run: python tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py
+      - name: S153 C16 test-owned native crash handler process
+        run: python tools/S153_WINDOWS_C16_CRASHHANDLER_SMOKE.py
+      - name: S152 real C14 DWM native Info fault cleanup
+        run: python tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py
+      - name: S151 Login Win64 real Tk 100 row wheel
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: S150 C12 Win64 native observer
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: S146 original C12 two native HWND
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Real signed Info absent - product must remain blocked
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s163 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s163/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S163_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s163/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S163_INFO_GATE_BYPASS" }
+          Write-Host "S163_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S163_REAL_F06_TK_SELECTED_ACCOUNTS_TEST_OWNED_NOT_PRODUCT
+          path: |
+            artifacts/s163/
+            artifacts/s162/
+            artifacts/s161/
+            artifacts/s160/
+            artifacts/s159/
+            artifacts/s158/
+            artifacts/s157/
+            artifacts/s156/
+            artifacts/s155/
+            artifacts/s154/
+            artifacts/s153/
+            artifacts/s152/
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
