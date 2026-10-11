@@ -1,0 +1,51 @@
+{
+  "task": "S138",
+  "date": "2026-10-11",
+  "scope": "ORIGINAL_EXACT_CATALOG_OFFLINE_PORTABLE_DIAGNOSTIC_NOT_PRODUCT",
+  "original_authority": {
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "original_exe_executed": false,
+    "valid_signed_info_available": false
+  },
+  "offline_original_resource": {
+    "gzip_sha256": "e9322e4c6e5f0a832ae76316ad9be5fc9dc0fd2ebd0043f02bef0da360fb220a",
+    "gzip_size": 193833,
+    "uncompressed_json_size": 2155301,
+    "json_sha256": "2f93cd68415ce102b79d3a8ba2e827a38e463580050433da71a50f5b1ff859fe",
+    "metadata_rows": 29983,
+    "weapon_ids": 5477,
+    "sorted_metadata_digest": "3a7ca5a89aceff58c3067f0372b939725bc6b88b0e466a5c0abab63e1101d439",
+    "sorted_weapon_ids_digest": "3cc0fc17ea3a1a72f07204ae0a483d0b432db338a848e9a04d97ca0a2dfc1dfd"
+  },
+  "deliverable": {
+    "local_portable_zip": "S138_TLMTool_Original_Item_Catalog_Offline.zip",
+    "sha256": "e6bb745c035d3cbc41f3523ec7375c15d1052ae5605cb4b3daa0efb1c8ae5c00",
+    "bytes": 171308,
+    "contains_catalog": true,
+    "contains_original_game_exe": false,
+    "contains_full_original_distribution": false,
+    "contains_personal_settings": false,
+    "requires_python_on_windows": true,
+    "locally_extracted_lookup_10100000": "Thanh Đồng Đao",
+    "missing_id_negative_123": "UNKNOWN",
+    "tampered_gzip": "BLOCKED",
+    "note": "Local deliverable uses a self-contained offline-only reader; repository tools/S138_PACKAGE_OFFLINE_CATALOG.py is a separately tested packaging recipe for the same trusted exported catalog. Do not claim these ZIP source layouts are identical."
+  },
+  "source_files": [
+    "src/original_item_catalog_resource.py",
+    "tools/S138_CATALOG_LOOKUP.py",
+    "tools/S138_PACKAGE_OFFLINE_CATALOG.py",
+    "tests/test_s138.py",
+    ".github/workflows/s138-offline-catalog-bundle.yml"
+  ],
+  "limits": {
+    "live_game_reader": false,
+    "real_site10_bag_read": false,
+    "original_read_bag_get_bag_parity": false,
+    "signed_info_authenticated": false,
+    "fully_functional_product_exe": false,
+    "original_data_repo_modified": false,
+    "proxy_implemented": false
+  }
+}
