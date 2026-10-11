@@ -12,6 +12,7 @@ identity and existing H11 name-choice widgets are represented.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import threading
 from tkinter import ttk
 from typing import Callable
 
@@ -23,6 +24,7 @@ from train_character_samples import (
     TrainCharacterSampler, TrainCharacterSample, validated_sample,
 )
 from train_extra_tracking import TrainSessionTracker
+from train_state_labels import PassiveTrainState
 
 TRAIN_ACCOUNT_REFRESH_MS = 5000
 
@@ -99,6 +101,7 @@ class TkTrainAccountRows:
         if interval_ms != TRAIN_ACCOUNT_REFRESH_MS:
             raise ValueError("ORIGINAL_TRAIN_REFRESH_5000MS_REQUIRED")
         self.parent = parent
+        self._owner_thread = threading.get_ident()
         self.editor = coordinate_editor
         self.producer = producer if producer is not None else StartWindowProducer()
         self._own_producer = producer is None
@@ -147,6 +150,13 @@ class TkTrainAccountRows:
         label_map.pack(side="left")
         label_bag.pack(side="left")
         tracker = TrainSessionTracker()
+        # S127: original state is a passive projection, never a fake Farm run.
+        passive_state = PassiveTrainState()
+        dot = ttk.Label(row, text="⬤", foreground=passive_state.color)
+        lbl_state = ttk.Label(row, text=passive_state.text,
+                              foreground=passive_state.color)
+        dot.pack(side="left")
+        lbl_state.pack(side="left")
         # H12: original third-line status is passive until genuine Farm starts.
         extra = ttk.Label(row, text=tracker.text())
         extra.pack(side="bottom", anchor="w")
@@ -160,6 +170,8 @@ class TkTrainAccountRows:
             "label": label, "sell": sell, "farm": farm,
             "label_map": label_map, "label_bag": label_bag,
             "label_extra": extra, "tracker": tracker,
+            "state_dot": dot, "state_label": lbl_state,
+            "passive_state": passive_state,
         }
         self._set_row_permission(window)
 
@@ -179,9 +191,39 @@ class TkTrainAccountRows:
             row["label_bag"].configure(text="Túi: ?")
             row["tracker"].stop()
             row["label_extra"].configure(text=row["tracker"].text())
+            row["passive_state"].reset()
+            self._render_passive_state(row)
             # Revoked authority can never release an in-flight mailbox.
             self.character_sampler.invalidate()
         self.editor._sync_apply_buttons()
+
+    @staticmethod
+    def _render_passive_state(row: dict) -> None:
+        """Only project source-backed text/color onto real Tk widgets."""
+        source = row["passive_state"]
+        row["state_dot"].configure(foreground=source.color)
+        row["state_label"].configure(text=source.text,
+                                      foreground=source.color)
+
+    def apply_confirmed_state(self, hwnd: int, pid: int,
+                              state: str, generation: int) -> bool:
+        """Tk-owner-only future Farm engine event; never a game action.
+
+        No default game reader/engine or user button invokes this. Identity,
+        current permission, and explicit external Farm generation are required.
+        """
+        if (self._closed or threading.get_ident() != self._owner_thread
+                or type(hwnd) is not int or type(pid) is not int):
+            return False
+        row = self._rows.get(hwnd)
+        window = next((w for w in self.registry.rows
+                       if w.hwnd == hwnd and w.pid == pid), None)
+        if (row is None or row["pid"] != pid or window is None
+                or not self._allowed(window)
+                or not row["passive_state"].accept_confirmed(state, generation)):
+            return False
+        self._render_passive_state(row)
+        return True
 
     def reapply_permissions(self) -> None:
         """H12 heartbeat: recheck existing HWND/PID/Info even if cache unchanged."""
