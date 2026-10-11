@@ -55,7 +55,7 @@ jobs:
         run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
       - name: S146 C12 original native 2 HWND test owned
         run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
-      - name: Original signed Info missing: product MUST fail closed
+      - name: Original signed Info missing - product MUST fail closed
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force artifacts/s160 | Out-Null
