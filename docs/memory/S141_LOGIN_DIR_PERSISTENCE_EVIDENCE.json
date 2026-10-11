@@ -1,0 +1,81 @@
+{
+  "task": "S141",
+  "date": "2026-10-11",
+  "status": "VERIFIED_REAL_WINDOWS_F04_GAME_DIR_BYTE_PRESERVING_WRITE_NOT_GAME",
+  "original_authority": [
+    "docs/tasks/F04.md",
+    "docs/tasks/F02.md",
+    "docs/tasks/E05.md",
+    "docs/tasks/S25.md",
+    "docs/tasks/S111.md",
+    "docs/tasks/S116.md"
+  ],
+  "original_behavior": {
+    "key": "Settings.game_dir",
+    "canonical_game_filename": "Thần Long  Mobile.exe",
+    "atomic_backup": "tempfile + fsync + os.replace + settings.YYYYMMDD.ini",
+    "exact_legacy_configparser_reemit_bytes": "UNKNOWN",
+    "signed_info_provider_available": false,
+    "real_game_launcher_available": false
+  },
+  "defect_in_reconstruction": "Prior GameDirectoryStore.save called read_settings+write_settings to rewrite entire INI; reserialization may alter unknown original F02 Accounts lines/spacing and risk interleaved writers. S141 uses a narrow game_dir-only transaction under shared E05 lock, preserving other bytes.",
+  "safety_scope": {
+    "replaces_only_unambiguous_game_dir_line": true,
+    "preserves_unrelated_bytes": true,
+    "unknown_credentials_not_read_for_logic": true,
+    "handles_missing_empty_file": true,
+    "rejects_ambiguous_duplicate_key_or_section": true,
+    "rejects_non_utf8_and_mixed_cr": true,
+    "rejects_external_mutation_between_read_and_replace": true,
+    "existing_tk_game_picker_wired_without_extra_button": true,
+    "gameplay_or_login_launch": false,
+    "license_granted": false,
+    "proxy_features": false
+  },
+  "CI": {
+    "s141_native_run": 38156403012,
+    "conclusion": "COMPLETED_SUCCESS",
+    "job": 114520180183,
+    "full_windows_units": 2212,
+    "compiled_files": 363,
+    "source_modules": 94,
+    "native_marker": "PASS_S141_REAL_TK_F04_GAME_DIR_ONLY_INI_PRESERVE_NO_GAME",
+    "inherited_s25_native": "PASS",
+    "inherited_s140_12_native_processes": "PASS_12_OF_12",
+    "inherited_win64_train_party_login": "PASS",
+    "signed_info_gate": "S141_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT",
+    "artifact_id": 11708079559,
+    "independent_s36_run": 38156337212,
+    "s36": "COMPLETED_SUCCESS_DIAGNOSTIC_ONLY_NOT_PRODUCT",
+    "independent_stage_s_run": 38156337193,
+    "stage_s": "COMPLETED_SUCCESS"
+  },
+  "source_modifications": [
+    "src/login_path.py",
+    "tests/test_s141.py",
+    "tools/S141_WINDOWS_LOGIN_GAME_DIR_BYTE_SAFE_SMOKE.py",
+    ".github/workflows/s141-login-game-dir-preserve.yml",
+    "docs/tasks/S141.md",
+    "docs/memory/S141_LOGIN_DIR_PERSISTENCE_EVIDENCE.json",
+    "STATE.md",
+    "PROJECT_STATUS.md"
+  ],
+  "source_immutable": [
+    "src/settings_store.py",
+    "src/login_tab.py",
+    "src/login_account_rows.py",
+    "src/login_existing_account_edits.py",
+    "src/login_schedule_times.py",
+    "PLAN.md",
+    "SCOPE_LOCK.md",
+    "original user ZIP and EXE",
+    "DATA client repository"
+  ],
+  "blockers": [
+    "Authentic original signed Info server/issuer/heartbeat",
+    "Current verified original game build and runtime reader",
+    "Unknown legacy check/captcha serialization, unverified newly created accounts",
+    "Original full Login/Farm functional EXE and UI parity"
+  ],
+  "next_action": "S142"
+}
