@@ -25,7 +25,7 @@ jobs:
       - run: python -m unittest discover -s tests -p "test_s*.py" -v
       - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
       - name: S130 real H02 original hidden town sell HP MP real Tk/INI
-        run: python tools/S130_WINDOWS_H06_H09_TRAIN_CONFIG_SMOKE.py
+        run: python tools/S130_WINDOWS_H02_TOWN_TRADE_SMOKE.py
       - name: Inherited S129 original Train settings native
         run: python tools/S129_WINDOWS_H06_H09_TRAIN_CONFIG_SMOKE.py
       - name: Inherited S128 true H02 town native
