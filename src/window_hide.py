@@ -196,10 +196,15 @@ class C12HideAll:
             return DocumentedOriginShowResult("PARTIAL_REQUIRES_RECONCILIATION")
         if not callable(allowed):
             return DocumentedOriginShowResult("NO_AUTHORIZATION_CALLBACK")
-        try:
-            if allowed() is not True:
-                return DocumentedOriginShowResult("CANCELLED")
-        except Exception:
+        # S147: auth-provider exceptions are denial, including after HWND moves.
+        # Do not escape before stop() can record the PARTIAL native state.
+        def permission_still_valid() -> bool:
+            try:
+                return allowed() is True
+            except Exception:
+                return False
+
+        if not permission_still_valid():
             return DocumentedOriginShowResult("CANCELLED")
         if type(max_windows) is not int or max_windows <= 0:
             return DocumentedOriginShowResult("NO_VERIFIED_WINDOW_LIMIT")
@@ -264,7 +269,7 @@ class C12HideAll:
             return DocumentedOriginShowResult(code,count)
         try:
             for h,pid,old in saved:
-                if allowed() is not True:
+                if not permission_still_valid():
                     return stop("CANCELLED")
                 if (not backend.is_window(h)
                         or not backend.is_visible(h)
@@ -283,7 +288,7 @@ class C12HideAll:
                         or (actual[2]-actual[0],actual[3]-actual[1])
                             != widths[h]):
                     return stop("MOVE_UNVERIFIED")
-            if allowed() is not True:
+            if not permission_still_valid():
                 return stop("REVOKED_AFTER_MOVE")
         except (OSError,RuntimeError,TypeError,ValueError,KeyError):
             return stop("NATIVE_MOVE_FAILED")
