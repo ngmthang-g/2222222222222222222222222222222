@@ -1,0 +1,37 @@
+{
+  "task": "S151",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_REAL_WINDOWS_F01_SCOPED_WHEEL",
+  "head_commit": "d2fb4aabad70d43b587f4f938d560d1fac08d7b8",
+  "merge_commit": "389fd1d9091205e77f14fb73f05ad0e43dc7544e",
+  "pr_number": 5,
+  "windows_native_run": 38168294659,
+  "windows_native_job": 114555354559,
+  "windows_native_artifact": 11712499710,
+  "windows_python_tests": 2338,
+  "source_modules": 97,
+  "compiled_python_files": 381,
+  "real_tk_s151_checks": 12,
+  "inherited_s150_native_checks": 7,
+  "inherited_c12_native_checks": 14,
+  "s36_run": 38168294652,
+  "s36_job": 114555354565,
+  "s36_artifact": 11712274188,
+  "stage_s_run": 38168294650,
+  "stage_s_job": 114555354481,
+  "all_workflows": "COMPLETED_SUCCESS",
+  "modified_existing_source_files": [
+    "src/login_account_rows.py"
+  ],
+  "new_files": [
+    "tests/test_s151.py",
+    "tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py",
+    ".github/workflows/s151-login-account-wheel.yml"
+  ],
+  "original_wheel_enter_leave_microorder": "UNVERIFIED",
+  "original_real_game_used": false,
+  "real_signed_info_verified": false,
+  "product_exe_built": false,
+  "reference_data_repo": "READ_ONLY",
+  "next_action": "S152"
+}
