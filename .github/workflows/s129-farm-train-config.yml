@@ -25,7 +25,7 @@ jobs:
       - run: python -m unittest discover -s tests -p "test_s*.py" -v
       - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
       - name: S129 real H06-H09 original Train configuration Tk/INI
-        run: python tools/S129_WINDOWS_H02_TOWN_SETTINGS_SMOKE.py
+        run: python tools/S129_WINDOWS_H06_H09_TRAIN_CONFIG_SMOKE.py
       - name: Inherited S128 true H02 town native
         run: python tools/S128_WINDOWS_H02_TOWN_SETTINGS_SMOKE.py
       - name: Inherited S127 S126 S125 S124 S123 S122 S121 S120 S119 native
