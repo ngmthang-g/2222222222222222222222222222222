@@ -1,0 +1,59 @@
+name: S120 exact original TLM Farm map registry - NOT PRODUCT
+on:
+  push:
+    paths:
+      - "src/farm_original_maps.py"
+      - "src/train_saved_coordinates.py"
+      - "tests/test_s120.py"
+      - "tools/S120_WINDOWS_FARM_ORIGINAL_MAPS_SMOKE.py"
+      - ".github/workflows/s120-original-farm-maps.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s120-windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: "x64"
+      - name: Install inherited dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile source/tests/tools
+        run: python -m compileall -q src tests tools
+      - name: Full inherited plus S120 unit suite
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source and product negative gate
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S120 original 72 pair native Windows real INI
+        run: python tools/S120_WINDOWS_FARM_ORIGINAL_MAPS_SMOKE.py
+      - name: S119 original coord writer native regression
+        run: python tools/S119_WINDOWS_FARM_COORDINATES_SMOKE.py
+      - name: Party and Login inherited native regressions
+        run: |
+          python tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py
+          python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+          python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+          python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+          python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+          python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Product still requires genuine signed Info
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s120/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S120_PRODUCT_UNEXPECTEDLY_ACTIVE" }
+          if ((Get-Content -Raw artifacts/s120/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S120_AUTH_GATE_MISSING" }
+          Write-Host "S120_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S120_ORIGINAL_FARM_MAPS_67_IDS_REAL_DISK_NOT_PRODUCT
+          path: |
+            artifacts/s120/
+            artifacts/s119/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn

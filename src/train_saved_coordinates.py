@@ -51,7 +51,11 @@ class FarmCoordinatesStore:
     """
 
     def __init__(self, path: str | Path | None = None,
-                 *, known_map_ids: Mapping[int, str]):
+                 *, known_map_ids: Mapping[int, str] | None = None):
+        # S120 default is verified from frozen TLM EXE, never client aliases.
+        if known_map_ids is None:
+            from farm_original_maps import FARM_MAP_ID_TO_NAME
+            known_map_ids = FARM_MAP_ID_TO_NAME
         if not isinstance(known_map_ids, Mapping) or any(
             type(k) is not int or k < 0 or not isinstance(v, str) or not v
             for k, v in known_map_ids.items()
