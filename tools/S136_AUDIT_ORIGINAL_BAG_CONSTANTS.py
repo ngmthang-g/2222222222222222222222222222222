@@ -89,13 +89,17 @@ def audit_exe(data: bytes, *, enforce_hash: bool = True) -> dict:
         checks[key]={"offset":hex(offset),"literal_utf8":literal.decode("utf-8","replace").rstrip("\x00")}
     start,end=0x2B6A6DA,0x2B6A8A2
     for f in READ_ROW_FIELDS:
+        # Original site appears in the read_bag embedded doc, but there is
+        # NO adjacent 'asite' emitted-field symbol in this binary section.
+        if f=="site":
+            continue
         token=("a"+f+"\x00").encode("utf8")
         if not occurrences(data,token,start,end):
             raise ValueError("MISSING_PINNED_ROW_FIELD_"+f)
     for f in GET_BAG_FIELDS:
-        # etype was serialized as a distinct 's' tagged symbol, not a field
-        # offset/return assignment. Type tags are source constants only.
-        tags=("s","a") if f=="etype" else ("a",)
+        # The original adjacent etype text begins 'saetype': the 'aetype'
+        # substring is observable, but bytecode field assignment is unknown.
+        tags=("a",)
         if not any(occurrences(data,(tag+f+"\x00").encode(),start,end) for tag in tags):
             raise ValueError("MISSING_PINNED_GET_BAG_FIELD_"+f)
     # These typed literals are adjacent to read_bag constants, but cannot
@@ -103,17 +107,22 @@ def audit_exe(data: bytes, *, enforce_hash: bool = True) -> dict:
     numeric_lo=data.index(b"uItems null (nhan vat chua load?)\x00",start,end)
     numeric_hi=data.index(b"aout\x00",numeric_lo,end)
     integers={}
-    for val in (24,32,10000,65536,1000000):
+    pinned_num_offsets={24:0x2B6A71D,32:0x2B6A725,
+                        10000:0x2B6A740,65536:0x2B6A758,1000000:0x2B6A76D}
+    for val,observed_offset in pinned_num_offsets.items():
         encoded=[]
         n=val
         while True:
             b=n & 127;n >>= 7
             encoded.append(b | (128 if n else 0))
             if not n:break
-        offsets=occurrences(data,b"l"+bytes(encoded),numeric_lo,numeric_hi)
-        if len(offsets)!=1:
+        # Unanchored substring search would mistake the literal 'null '
+        # for the tagged constant 'l\\x20'. A pinned byte offset proves
+        # the numeric token rather than merely matching arbitrary text.
+        pos=observed_offset
+        if not (numeric_lo <= pos < numeric_hi and
+                pinned_at(data,pos,b"l"+bytes(encoded))):
             raise ValueError("UNEXPECTED_NEARBY_TAGGED_INT_"+str(val))
-        pos=offsets[0]
         decoded,last=decode_uleb(data,pos+1)
         if decoded!=val or last!=pos+1+len(encoded):
             raise ValueError("INCONSISTENT_TAGGED_INT")
