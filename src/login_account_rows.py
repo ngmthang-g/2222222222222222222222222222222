@@ -35,6 +35,33 @@ class AccountRowLimitResult:
     hidden_count: int
 
 
+@dataclass(frozen=True, repr=False)
+class SelectedLoginInput:
+    """Original F06 tuple fields; repr must never display the password.
+
+    The proxy slot remains None for current DIRECT-only account controls.
+    Proxy-related game actions require independent original F08 verification.
+    """
+    row_index: int
+    username: str
+    password: str
+    captcha_mode: str
+    proxy: None = None
+
+    def __repr__(self) -> str:
+        return f"SelectedLoginInput(row_index={self.row_index}, credentials=REDACTED)"
+
+
+@dataclass(frozen=True, repr=False)
+class SelectedLoginRows:
+    status: str
+    rows: tuple[SelectedLoginInput, ...] = ()
+    invalid_row: int | None = None
+
+    def __repr__(self) -> str:
+        return f"SelectedLoginRows(status={self.status!r}, count={len(self.rows)})"
+
+
 class AccountSelectionModel:
     """Only verified F01 selection state, independent of guessed storage."""
     def __init__(self, count: int = MAX_ACCOUNT_ROWS) -> None:
@@ -70,6 +97,7 @@ class TLMAccountRows:
         self._owner_thread = threading.get_ident()
         self._visible_rows = MAX_ACCOUNT_ROWS
         self._hidden_rows: list[int] = []
+        self._legacy_proxy_rows: set[int] = set()
         self.selection = AccountSelectionModel()
         self.group_accounts = ttk.LabelFrame(parent, text="Cấu hình tài khoản")
         # F01 accounts screenshot parent starts ~x11,y297; Login tab origin
@@ -276,6 +304,41 @@ class TLMAccountRows:
             password=self.password_vars[index].get(),
             captcha_mode=self.captcha_vars[index].get())
 
+    def get_selected_login_rows(self) -> SelectedLoginRows:
+        """F06 preworker extraction from ACTUAL F01 100-row Tk widgets.
+
+        Original selected tuple is (row_index, tk, mk, captcha_mode, proxy).
+        Username is stripped; password is kept EXACT, not its Tk '*' mask.
+        Legacy raw checkbox/Proxy/Có semantics are not known: never migrate
+        or activate them. No F05 launch, F06 click, F07/F08 proxy, network,
+        disk save or signed Info grant occurs here. Must run on Tk owner thread.
+        """
+        if threading.get_ident() != self._owner_thread:
+            return SelectedLoginRows("WRONG_TK_THREAD")
+        if self._closed:
+            return SelectedLoginRows("ACCOUNT_VIEW_CLOSED")
+        result: list[SelectedLoginInput] = []
+        for index in range(MAX_ACCOUNT_ROWS):
+            if not self.selection.checked(index):
+                continue
+            # Plan-hidden rows are preserved for later but must never be
+            # launched outside the currently authorized visible plan range.
+            if index >= self._visible_rows:
+                return SelectedLoginRows("HIDDEN_ROW_NOT_ACTIONABLE", invalid_row=index)
+            if index in self._legacy_proxy_rows:
+                return SelectedLoginRows("F08_PROXY_POLICY_UNVERIFIED", invalid_row=index)
+            username = self.username_vars[index].get().strip()
+            password = self.password_vars[index].get()
+            captcha = self.captcha_vars[index].get()
+            if not username or not password:
+                return SelectedLoginRows("MISSING_USERNAME_OR_PASSWORD", invalid_row=index)
+            if captcha not in CAPTCHA_MODES:
+                return SelectedLoginRows("F07_CAPTCHA_MODE_UNVERIFIED", invalid_row=index)
+            result.append(SelectedLoginInput(index, username, password, captcha))
+        if not result:
+            return SelectedLoginRows("NO_CHECKED_ACCOUNTS")
+        return SelectedLoginRows("VALIDATED_INPUT_ONLY_NO_GAME", tuple(result))
+
     def hydrate_legacy_read_only(self, records) -> None:
         """S38: show verified fields, never infer original checkbox token.
 
@@ -296,6 +359,8 @@ class TLMAccountRows:
             for row in records
         ):
             raise ValueError("UNSAFE_LEGACY_RECORDS")
+        self._legacy_proxy_rows = {index for index, row in enumerate(records)
+                                   if row.proxy_raw.strip()}
         for index, row in enumerate(records):
             self.username_vars[index].set(row.username)
             self.password_vars[index].set(row.password)
@@ -323,6 +388,7 @@ class TLMAccountRows:
         self._closed=True
         # Destruction is intentionally not a save event: the legacy
         # 5-field check/captcha serialization rules remain unverified.
+        self._legacy_proxy_rows.clear()
         for value in self.password_vars:
             value.set("")
         self.group_accounts.destroy()
