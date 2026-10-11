@@ -1739,3 +1739,13 @@ M06 static audit closed: original EXE's four independent Rao slot workers, per-a
 
 ## NEXT_ACTION on CONTINUE — S117
 Read LIVE PLAN, STATE S116, `docs/tasks/S116.md`. Investigate original compiled F02 check-token encoding and `Có` migration before allowing brand-new rows/selector persisted; if not proved, do not guess, shift to a complete real native Start/Win32 action. Preserve **1682** tests, **287** compiled, S116 native Win Tk and S36 still fail-closed, no-Proxy, DATA-2222 read-only; update NEXT_ACTION S118 after test-backed S117 work.
+
+
+## S117 VERIFIED — Genuine F02 saved/error UI follows disk outcome (2026-10-11)
+- **[S117 native Windows CI 38104043287](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38104043287), job 114365661543 SUCCESS**: **1692/1692** unit tests; **289** AST/compiled Python; real Tk synthetic account edit waits 300ms, file saved, footer shows exact original `✅ Đã lưu tài khoản`. External concurrent modification triggers stale refusal and original `❌ Lỗi lưu: ...` footer; external data preserved even on destroy, dialogs/artifacts sanitized. S116/S38/S109/S111/S112 native regressions PASS. Artifact **11688319630**.
+- **[S36 packaged diagnostic CI 38104008256](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38104008256) SUCCESS**: 1692 tests, real one-dir EXE `PASS_NATIVE_S36_PACKAGED_DIAGNOSTIC_FAIL_CLOSED_NOT_PRODUCT`, normal/CLI `EXPLICITLY_BLOCKED_NO_GUI`. Artifact **11688728145**. Separate source regression 38104008235 SUCCESS. No real full TLMTool EXE or authenticated Info/game login.
+- S117 updated only `src/login_existing_autosave.py` (optional sanitized backend result status) and `src/login_tab.py` (existing S38 footer); new 10 `tests/test_s117.py`, native Tk smoke, S117 workflow, docs. No F02 checkbox token guessing, new account row writes, `Có` migration, Proxy or game injection. Original PLAN/ZIP/A07/B04/S59 and DATA-2222 READ-ONLY untouched.
+- STATUS `S117_WINDOWS_1692_PASS_ORIGINAL_F02_REAL_SAVE_FEEDBACK_PRODUCT_BLOCKED`.
+
+## NEXT_ACTION S118
+Read LIVE PLAN/STATE S117 and source, target a substantive missing user-facing original-backed Start/Party/Login function with actual Windows native execution; avoid repeated micro-UI, fake data, or rewriting passing components. If source changed, Windows **1692** units/ **289** AST compile baseline plus native S117/S116 and S36 fail-closed; checkpoint NEXT_ACTION S119. Preserve no-Proxy, signed Info gate, immutable original ZIP/PLAN and read-only DATA-2222.
