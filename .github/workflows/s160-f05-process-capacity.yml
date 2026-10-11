@@ -1,0 +1,83 @@
+name: S160 F05 genuine Win64 game-EXE process count with external emulator count NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/login_running_process_capacity.py"
+      - "tests/test_s160.py"
+      - "tools/S160_WINDOWS_F05_LIVE_EXE_COUNT_SMOKE.py"
+      - ".github/workflows/s160-f05-process-capacity.yml"
+  push:
+    paths:
+      - "src/login_running_process_capacity.py"
+      - "tests/test_s160.py"
+      - "tools/S160_WINDOWS_F05_LIVE_EXE_COUNT_SMOKE.py"
+      - ".github/workflows/s160-f05-process-capacity.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s160-real-win64-process-count:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S160 TRUE Win32 Toolhelp Unicode EXE count via two TEST-OWNED processes
+        run: python tools/S160_WINDOWS_F05_LIVE_EXE_COUNT_SMOKE.py
+      - name: S159 real Win64 Login original conditional 1366x768 resize
+        run: python tools/S159_WINDOWS_LOGIN_NATIVE_RESIZE_SMOKE.py
+      - name: S158 two actual child-PID Win32 HWND serialized handoffs
+        run: python tools/S158_WINDOWS_F05_SERIAL_PID_HANDOFF_SMOKE.py
+      - name: S157 two actual Windows child process minimal environments
+        run: python tools/S157_WINDOWS_F05_CLEAN_ENV_SMOKE.py
+      - name: S156 original PID native HWND reader
+        run: python tools/S156_WINDOWS_F05_PID_HWND_SMOKE.py
+      - name: S155 Party read-only three HWND ready list
+        run: python tools/S155_WINDOWS_PARTY_READY_LIFECYCLE_SMOKE.py
+      - name: S154 Party real Win64 G08 config
+        run: python tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py
+      - name: S153 C16 original taskkill TEST OWNED
+        run: python tools/S153_WINDOWS_C16_CRASHHANDLER_SMOKE.py
+      - name: S152 native C14 DWM Info provider error cleanup
+        run: python tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py
+      - name: S151 native Login Tk account mousewheel
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: S150 C12 Win32 read-only observer
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: S146 C12 original native 2 HWND test owned
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Original signed Info missing: product MUST fail closed
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s160 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s160/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S160_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s160/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S160_INFO_GATE_BYPASS" }
+          Write-Host "S160_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S160_REAL_EXE_TOOLHELP_NATIVE_COUNT_TEST_OWNED_NOT_PRODUCT
+          path: |
+            artifacts/s160/
+            artifacts/s159/
+            artifacts/s158/
+            artifacts/s157/
+            artifacts/s156/
+            artifacts/s155/
+            artifacts/s154/
+            artifacts/s153/
+            artifacts/s152/
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
