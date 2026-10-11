@@ -33,11 +33,17 @@ class PartySettingsEditor(ttk.Frame):
         self.after_box = ttk.LabelFrame(self, text="Sau khi party")
         self.after_box.pack(fill="x", padx=4, pady=3)
         ttk.Label(self.after_box, text="Sau khi party:").pack(side="left", padx=4)
-        self.mode_combo = ttk.Combobox(
-            self.after_box, state="readonly", textvariable=self.mode_var,
-            values=AFTER_LABELS, width=15)
-        self.mode_combo.pack(side="left", padx=4)
-        self.mode_combo.bind("<<ComboboxSelected>>", self._change_after, add="+")
+        # S118/B04/G01: original Party uses FIVE radio controls, not S89's
+        # combobox. Keep G08's existing durable party_after writer unchanged.
+        # Original G01 recovers StringVar.trace_add("write") autosave.
+        self._restoring_after = False
+        self.mode_radios = []
+        for label in AFTER_LABELS:
+            radio = ttk.Radiobutton(self.after_box, text=label, value=label,
+                                    variable=self.mode_var)
+            radio.pack(side="left", padx=3)
+            self.mode_radios.append(radio)
+        self._after_trace = self.mode_var.trace_add("write", self._on_after_trace)
         self.group_box = ttk.LabelFrame(self, text="Cấu hình nhóm")
         self.group_box.pack(fill="both", expand=True, padx=4, pady=3)
         self.clusters = ttk.Frame(self.group_box)
@@ -67,7 +73,7 @@ class PartySettingsEditor(ttk.Frame):
         except (OSError, ValueError, RuntimeError) as exc:
             self.last_error = type(exc).__name__
             self.status.configure(text="Không thể lưu cấu hình Party")
-            self.mode_var.set(AFTER_LABELS[AFTER_VALUES.index(self.state.after)])
+            self._restore_after_var()
             return False
         self.state = updated
         self.last_error = ""
@@ -76,13 +82,28 @@ class PartySettingsEditor(ttk.Frame):
             self._render_groups()
         return True
 
+    def _restore_after_var(self) -> None:
+        # Never recursively write to settings when restoring after a failed
+        # save or an invalid user/test-originated StringVar value.
+        self._restoring_after = True
+        try:
+            self.mode_var.set(AFTER_LABELS[AFTER_VALUES.index(self.state.after)])
+        finally:
+            self._restoring_after = False
+
+    def _on_after_trace(self, *_args) -> None:
+        if not self._restoring_after:
+            self._change_after()
+
     def _change_after(self, _event=None):
         value = self.mode_var.get()
         if value not in AFTER_LABELS:
-            self.mode_var.set(AFTER_LABELS[AFTER_VALUES.index(self.state.after)])
+            self._restore_after_var()
             return False
-        return self._persist(self.state.change_after(AFTER_VALUES[AFTER_LABELS.index(value)]),
-                             redraw=False)
+        next_mode = AFTER_VALUES[AFTER_LABELS.index(value)]
+        if next_mode == self.state.after:
+            return True  # Do not rewrite disk on redundant selection.
+        return self._persist(self.state.change_after(next_mode), redraw=False)
 
     def _selection(self, group_num: int, slot: int, variable: tk.StringVar):
         value = variable.get()
