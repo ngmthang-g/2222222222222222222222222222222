@@ -71,7 +71,16 @@ def run():
             e["original_13_hotkey_options_real_readonly_combo"]=(
                 tuple(widget.row_widgets[0]["combo"]["values"])==BUFF_KEYS
                 and str(widget.row_widgets[0]["combo"].cget("state"))=="readonly")
+            e["before_check"]={
+                "flag":widget.row_widgets[0]["flag"].get(),
+                "widget_state":str(widget.row_widgets[0]["check"].cget("state")),
+                "stored_enabled":store.load().rows[0].enabled}
             widget.row_widgets[0]["check"].invoke()
+            e["after_check"]={
+                "flag":widget.row_widgets[0]["flag"].get(),
+                "widget_state":str(widget.row_widgets[0]["check"].cget("state")),
+                "stored_enabled":store.load().rows[0].enabled,
+                "widget_error":widget.error}
             e["true_checkbox_persists_enabled"]=(
                 store.load().rows[0].enabled is True)
             widget.row_widgets[0]["key"].set("F10")
