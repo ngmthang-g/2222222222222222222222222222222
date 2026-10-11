@@ -1,0 +1,50 @@
+{
+  "task": "S140",
+  "result": "VERIFIED_NATIVE_TEST_CORRECTION_ONLY_NOT_ORIGINAL_GAME",
+  "root_cause": "Prior S134 smoke assumed ctypes role_addr+0x88 was outside ALL allocated owned buffers; Windows heap may locate a different ctypes-owned buffer at that address. ReadProcessMemory accurately returns readable when so allocated. Observed inherited CI false failure S139 run 38152898786.",
+  "old_unreliable_test": "reader.read_u64(role_addr+0x88).status == POINTER_OUTSIDE_TEST_OWNED_RANGES",
+  "replacement_verified_condition": "Native delegate read_u64 calls exactly [root_addr,n1_addr+0xB8,n2_addr+0x88,session_addr+0x88] in the positive S134 fixture, and role field n2_addr+0x88 contains real role_addr",
+  "production_reader_modified": false,
+  "fixture_readonly_native_win64": true,
+  "actual_game_memory_read": false,
+  "original_signed_info_issued": false,
+  "tests_added": 10,
+  "windows": {
+    "full_run": 38154957417,
+    "conclusion": "success",
+    "full_python_tests": 2191,
+    "compiled_files": 361,
+    "production_modules": 94,
+    "repeat_subprocesses_requested": 12,
+    "repeat_subprocesses_passed": 12,
+    "native_marker": "PASS_S140_REPEATED_REAL_WIN64_TEST_OWNED_CHAIN_NOT_GAME",
+    "inherited_S139_S116": "PASS",
+    "signed_info_gate": "EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT",
+    "test_only_artifact_id": 11708635281,
+    "independent_s36_run": 38154938956,
+    "independent_s36_conclusion": "success_DIAGNOSTIC_ONLY_NOT_PRODUCT",
+    "stage_s_run": 38154938977,
+    "stage_s_conclusion": "success",
+    "independent_inherited_s134_run": 38154870267
+  },
+  "files_changed": [
+    "tools/S134_WINDOWS_ROLE_CHAIN_FIXTURE_SMOKE.py",
+    "tests/test_s140.py",
+    "tools/S140_REPEAT_S134_NATIVE.py",
+    ".github/workflows/s140-s134-native-address-trace.yml",
+    "docs/tasks/S140.md",
+    "docs/memory/S140_S134_NATIVE_TRACE_EVIDENCE.json",
+    "STATE.md",
+    "PROJECT_STATUS.md"
+  ],
+  "no_original_binary_edit": true,
+  "no_plan_edit": true,
+  "no_game_client_data_repo_edit": true,
+  "no_proxy_feature": true,
+  "persistent_blockers": [
+    "Original signed Info issuer/verifier/heartbeat absent",
+    "No real game client build/RoleData/Items memory proof",
+    "No full functional/UI parity, no product EXE",
+    "C07 RoleName tiling and C12 restore ambiguity"
+  ]
+}
