@@ -59,13 +59,43 @@ def main():
         colorref=original_color[0]|(original_color[1]<<8)|(original_color[2]<<16)
         brush=makebrush(colorref)
         assert brush
-        native_messages={"WM_PRINT":0,"WM_PRINTCLIENT":0,"fill_success":0}
+        native_messages={"WM_PRINT":0,"WM_PRINTCLIENT":0,"WM_PAINT":0,
+                         "WM_ERASEBKGND":0,"fill_success":0}
+        class PAINTSTRUCT(ct.Structure):
+            _fields_=[
+                ("hdc",w.HDC),("fErase",w.BOOL),("rcPaint",w.RECT),
+                ("fRestore",w.BOOL),("fIncUpdate",w.BOOL),
+                ("rgbReserved",ct.c_byte*32)]
+        user32.BeginPaint.argtypes=[w.HWND,ct.POINTER(PAINTSTRUCT)]
+        user32.BeginPaint.restype=w.HDC
+        user32.EndPaint.argtypes=[w.HWND,ct.POINTER(PAINTSTRUCT)]
+        user32.EndPaint.restype=w.BOOL
+        user32.GetClientRect.argtypes=[w.HWND,ct.POINTER(w.RECT)]
+        user32.GetClientRect.restype=w.BOOL
+        user32.InvalidateRect.argtypes=[w.HWND,ct.c_void_p,w.BOOL]
+        user32.InvalidateRect.restype=w.BOOL
         default=user32.DefWindowProcW
         default.argtypes=[w.HWND,w.UINT,w.WPARAM,w.LPARAM]
         default.restype=ct.c_ssize_t
         @wproc
         def wndproc(win,msg,wparam,lparam):
-            # PrintWindow sends WM_PRINT / WM_PRINTCLIENT to target.
+            # On modern DWM/Windows PrintWindow may capture the real surface
+            # WITHOUT sending WM_PRINT. Paint the actual test client first.
+            if msg==0x000F:
+                native_messages["WM_PAINT"]+=1
+                ps=PAINTSTRUCT()
+                hdc=user32.BeginPaint(win,ct.byref(ps))
+                if hdc:
+                    client=w.RECT()
+                    if user32.GetClientRect(win,ct.byref(client)):
+                        if fill(hdc,ct.byref(client),brush):
+                            native_messages["fill_success"]+=1
+                    user32.EndPaint(win,ct.byref(ps))
+                return 0
+            if msg==0x0014:
+                native_messages["WM_ERASEBKGND"]+=1
+                return default(win,msg,wparam,lparam)
+            # PrintWindow sends WM_PRINT / WM_PRINTCLIENT on some hosts.
             # Painting ONLY our own HDC means no desktop/window injection.
             if msg in (0x0317,0x0318):
                 native_messages["WM_PRINT" if msg==0x0317 else "WM_PRINTCLIENT"]+=1
@@ -94,6 +124,7 @@ def main():
         wc=WNDCLASSW()
         wc.lpfnWndProc=ct.cast(callback,ct.c_void_p)
         wc.hInstance=inst
+        wc.hbrBackground=brush
         wc.lpszClassName=classname
         register=user32.RegisterClassW
         register.argtypes=[ct.POINTER(WNDCLASSW)]
@@ -113,6 +144,7 @@ def main():
             0,0,inst,None) or 0)
         if not hwnd:
             raise OSError("S145_TEST_WINDOW_CREATION_FAILED")
+        user32.InvalidateRect(hwnd,None,True)
         user32.UpdateWindow(hwnd)
         native=NativeWin32Backend()
         pid=os.getpid()
