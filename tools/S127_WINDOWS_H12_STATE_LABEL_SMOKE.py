@@ -51,6 +51,12 @@ def run():
                 allow_account=lambda _: True)
             owner.apply_snapshot(WindowSnapshot(revision=1, windows=(win,), valid=True))
             row = owner._rows[hwnd]
+            q["observed_initial"] = {
+                "dot": str(row["state_dot"].cget("text")),
+                "text": str(row["state_label"].cget("text")),
+                "fg": str(row["state_label"].cget("foreground")),
+                "dot_fg": str(row["state_dot"].cget("foreground")),
+                "generation": row["passive_state"].generation}
             q["initial_original_dot_and_state_gray"] = (
                 row["state_dot"].cget("text") == "⬤"
                 and row["state_label"].cget("text") == "Đã dừng"
@@ -67,8 +73,17 @@ def run():
             q["permission_does_not_auto_start_farm"] = (
                 not row["tracker"].active
                 and row["state_label"].cget("text") == "Đã dừng")
+            green_applied = owner.apply_confirmed_state(hwnd, pid, "Đang train", 7)
+            q["observed_green"] = {
+                "applied": green_applied,
+                "allowed": owner._allowed(win),
+                "row_pid": row["pid"],
+                "text": str(row["state_label"].cget("text")),
+                "fg": str(row["state_label"].cget("foreground")),
+                "dot_fg": str(row["state_dot"].cget("foreground")),
+                "generation": row["passive_state"].generation}
             q["future_confirmed_state_renders_actual_tk_green"] = (
-                owner.apply_confirmed_state(hwnd, pid, "Đang train", 7)
+                green_applied
                 and row["state_label"].cget("text") == "Đang train"
                 and row["state_label"].cget("foreground") == "#2e7d32"
                 and row["state_dot"].cget("foreground") == "#2e7d32")
@@ -87,6 +102,10 @@ def run():
                 and row["state_label"].cget("foreground") == "#555555")
             gate.clear()
             owner.reapply_permissions()
+            q["observed_revoked"] = {
+                "text": str(row["state_label"].cget("text")),
+                "fg": str(row["state_label"].cget("foreground")),
+                "dot_fg": str(row["state_dot"].cget("foreground"))}
             q["info_revoke_returns_safe_initial_state"] = (
                 row["state_label"].cget("text") == "Đã dừng"
                 and row["state_dot"].cget("foreground") == "#555555"
