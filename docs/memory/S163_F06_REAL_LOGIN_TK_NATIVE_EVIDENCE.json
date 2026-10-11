@@ -1,0 +1,43 @@
+{
+  "task": "S163",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_TEST_OWNED_REAL_WIN64_LOGIN_TK_F06_INPUT_ONLY_NOT_GAME",
+  "pr_number": 17,
+  "pr_head_sha": "ab8d66597eb2c67946f35094153ac6a426ddbe75",
+  "merge_sha": "ba87ac9a10034eaa14c30b4a137c1a478b1e4e94",
+  "win64_native_run": 38179818077,
+  "win64_native_job": 114589803465,
+  "win64_native_artifact": 11716409379,
+  "new_unit_cases": 16,
+  "native_checks": 18,
+  "full_win64_python_tests": 2507,
+  "compiled_python_files": 412,
+  "production_src_modules": 104,
+  "s151_run": 38179818040,
+  "s151_job": 114589803365,
+  "s151_artifact": 11716949756,
+  "s36_run": 38179818030,
+  "s36_job": 114589803294,
+  "s36_artifact": 11717244191,
+  "s36_exe": "DIAGNOSTIC_ONLY_NOT_PRODUCT",
+  "stage_s_run": 38179818069,
+  "stage_s_job": 114589803534,
+  "all_four_ci": "COMPLETED_SUCCESS",
+  "changed_existing_prod": [
+    "src/login_account_rows.py",
+    "src/login_tab.py"
+  ],
+  "new_files": [
+    "tests/test_s163.py",
+    "tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py",
+    ".github/workflows/s163-f06-selected-login-rows.yml"
+  ],
+  "credentials_in_native_artifact": false,
+  "real_game_started": false,
+  "original_signed_info_verified": false,
+  "actual_f06_game_login": false,
+  "real_proxy_or_captcha_executed": false,
+  "product_exe_built": false,
+  "reference_DATA_2222": "READ_ONLY",
+  "next_action": "S164"
+}
