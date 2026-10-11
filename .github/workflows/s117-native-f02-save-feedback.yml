@@ -1,0 +1,59 @@
+name: S117 Windows original F02 real saved-failed Tk feedback NO GAME
+on:
+  push:
+    paths:
+      - "src/login_existing_autosave.py"
+      - "src/login_tab.py"
+      - "tests/test_s117.py"
+      - "tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py"
+      - ".github/workflows/s117-native-f02-save-feedback.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s117-real-feedback:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - name: Install inherited screenshot unit dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile real production source and all tests
+        run: python -m compileall -q src tests tools
+      - name: Entire pre-S117 plus new unit suite
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 product/compile audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S117 actual native Tk saved-error status based on real disk
+        run: python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+      - name: S116 native F02 300ms existing account write regression
+        run: python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: S38 native legacy load regression
+        run: python tools/S38_WINDOWS_LOGIN_LEGACY_READONLY_SMOKE.py
+      - name: S109 native hidden plan row regression
+        run: python tools/S109_WINDOWS_LOGIN_PLAN_ROW_LIMIT_SMOKE.py
+      - name: S111 native schedule time regression
+        run: python tools/S111_WINDOWS_LOGIN_SCHEDULE_TIME_SMOKE.py
+      - name: S112 native post-login radio persistence regression
+        run: python tools/S112_WINDOWS_LOGIN_AFTER_RADIO_SMOKE.py
+      - name: Authenticated product entrypoint remains fail closed
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s117/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S117_EXPECTED_PRODUCT_EXIT_2" }
+          if ((Get-Content -Raw artifacts/s117/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S117_INFO_GUARD_UNVERIFIED" }
+          Write-Host "S117_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S117_F02_REAL_SAVE_FEEDBACK_NO_GAME_NOT_PRODUCT
+          path: |
+            artifacts/s117/
+            artifacts/s116/windows_f02_existing_account_save.json
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
