@@ -1,32 +1,28 @@
 # STATE — TLMTool 2.1.2 reconstruction
 
-_Last checkpoint: 2026-10-11. Source of record for earlier history: PROJECT_STATUS.md. PLAN.md controls scope._
+_Last checkpoint: 2026-10-11. Authoritative scope: PLAN.md. Full earlier task history: PROJECT_STATUS.md._
 
-## Completed most recently
-- **S135 VERIFIED** — O03 test-owned Site10 bag dictionary tri-state, original-backed error/empty distinctions; 24 new tests.
-- Windows CI [38147175974](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38147175974) SUCCESS: **2075/2075** unit tests, **346** compiled, **91** production source modules, S135 genuine Win64 self-owned `ReadProcessMemory` smoke + inherited S134–S116 natives PASS.
-- Independent S36 Windows diagnostic [38147081154](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38147081154) SUCCESS at finalized S135 source/test; **NOT PRODUCT**. Original archive byte/hash matches frozen A07 baseline.
-- Baseline through **S134 VERIFIED** preserved. No other task repeated or overhauled.
+## Latest verified — S136
+- **S136 VERIFIED (STATIC ORIGINAL-EXE EVIDENCE ONLY)**. Offline original ZIP/EXE hash/CRC + 10 exact binary anchors and nearby tagged values cross-verified, new hash-pinned evidence verifier and machine-readable report. Exact runtime `read_bag/get_bag` code, dictionary offsets/stride and authentic game memory remain UNKNOWN.
+- **[S136 Windows CI 38148405967](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38148405967) COMPLETED SUCCESS**: **2095/2095** full Windows Python tests; **348** compiled files, **91** production modules. S136 synthetic static parser selftest + native Win64 S135/S134/S133 and inherited S132–S116 PASS. Genuine Info still `EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT`; artifact 11706385179 TEST ONLY.
+- **[Independent S36 Windows packaged diagnostic CI 38148385043](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38148385043) COMPLETED SUCCESS** and [Stage S source regression 38148385074](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38148385074) SUCCESS. Diagnostic EXE remains intentionally **NOT PRODUCT**.
+- Retained **S135 VERIFIED** (2075 Windows tests, 346 compiled, 91 modules), previous S134–S116 native behavior, and all frozen original evidence. No existing production source altered.
 
-## Current task
-- **S135 DONE for test-owned read-only fixture scope**. **S136 NEXT**. No true game inventory read or functional TLM EXE claim.
+## Files changed S136
+- NEW `tools/S136_AUDIT_ORIGINAL_BAG_CONSTANTS.py`
+- NEW `tests/test_s136.py` (20 tests)
+- NEW `.github/workflows/s136-bag-evidence.yml`
+- NEW `docs/memory/S136_ORIGINAL_BAG_EVIDENCE.json`
+- NEW `docs/tasks/S136.md`
+- Updated `STATE.md` and appended `PROJECT_STATUS.md`
 
-## Changed files for S135
-- `src/train_bag_tristate_fixture.py` (NEW)
-- `tests/test_s135.py` (NEW)
-- `tools/S135_WINDOWS_SITE10_TRISTATE_SMOKE.py` (NEW)
-- `.github/workflows/s135-bag-tristate-fixture.yml` (NEW, trigger path corrected)
-- `docs/tasks/S135.md` (NEW)
-- `STATE.md` and `PROJECT_STATUS.md` (checkpoint updates)
+## Complete / in progress / blocker
+- **COMPLETE**: source-backed original embedded status/error strings, documented row columns, `get_bag` field-name surface, exact pinned neighboring tagged integer evidence. The `site` column appears in read_bag documentation but lacks its own adjacent emitted-field symbol, so exact runtime data shape stays unproven.
+- **CURRENT:** S136 checkpoint complete; S137 is next.
+- **BLOCKED:** authentic signed Info/token/heartbeat; verified live game build and RoleData/Items dictionary count/entry offsets and stride; stable real Site10 bag snapshots; actual Farm FSM and NPC/UI/game actions; full original UI/runtime parity and functional product EXE. Pinned-binary constants are NOT original AST or memory-layout proof.
+- **PRESERVE:** TLMTool original archive, PLAN.md, B04/S59 and all verified S119–S135 production source unchanged. DATA-2222 strictly READ ONLY, Proxy not developed. No invented live RoleName, Bag, MapID, item packet or auth bypass.
 
-## Blockers
-- Legitimate signed Info + heartbeat/issuer; actual validated game build, live RoleData/Items dictionary offsets/stride and stable native read; true live RoleName/MapID/Site10; actual Farm FSM/item actions and full tab UI parity. Standalone built EXE is only a fail-closed diagnostic, not usable TLMTool.
-- Original dictionary offset assignment and atomic bag snapshot behavior remain **UNKNOWN**; fixture offsets are TEST ONLY.
-
-## Do not touch
-- Frozen original ZIP/manifest; PLAN.md; B04/S59 and verified S119–S134 code; game DATA-2222 READ ONLY; **Proxy implementation excluded**. No invented game field values, packets, actions, registration or authorization.
-
-## NEXT_ACTION S136
-1. Read PLAN.md, this STATE.md, PROJECT_STATUS.md, docs/tasks/S135.md and original O02/O03 evidence. Inspect exact `memory_items.read_bag/get_bag` tuple/error semantics and original dictionary layout evidence, or authentic signed Info + game-build legitimacy where source evidence allows.
-2. Address only an evidence-backed missing feature, no game offsets/stride guesses or cosmetic fake runtime. Preserve existing stable modules.
-3. If editing production code, require >=2075 Windows unit tests, >=346 compiled, S135–S116 native regressions and independent S36 diagnostic. Checkpoint completed/active/errors/files and **NEXT_ACTION S137** in both state documents.
+## NEXT_ACTION S137
+1. Read LIVE PLAN.md, STATE.md, PROJECT_STATUS.md and docs/tasks/S136.md + O02/O03. Seek a genuinely stronger source/runtime verification path for original `read_bag/get_bag` branches and authorized game/Info environment or exact native metadata, not another invented dictionary fixture.
+2. If data/source authority remains insufficient, explicitly retain UNKNOWN and prioritize a different original-backed missing real feature rather than adding fake runtime UI or guessing offsets. Keep completed S119–S136 unchanged.
+3. Any source edit requires at least **2095 Windows full tests**, **348 compiled**, S136–S116 relevant native regression and independent S36 diagnostic fail-closed; checkpoint with files, tests, blockers and **NEXT_ACTION S138** in both status documents.
