@@ -1,0 +1,92 @@
+{
+  "task": "S164",
+  "timestamp": "2026-10-12 Asia/Bangkok",
+  "status": "STATIC_ORIGINAL_V2_RPC_EVIDENCE_VERIFIED_LIVE_AUTH_BLOCKED",
+  "last_verified_source_task": "S163",
+  "next_action": "S164 BLOCKED — LEGITIMATE SIGNED INFO ISSUER OR REAL GAME RUNTIME",
+  "specimen": {
+    "archive_bytes": 93715901,
+    "archive_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "inner_exe_bytes": 47450112,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "read_only": true,
+    "zip_crc": "PASS"
+  },
+  "static_verified_anchors": [
+    {
+      "symbol": ".info_tab",
+      "offset": "0x2970593"
+    },
+    {
+      "symbol": "/rest/v1/rpc/",
+      "offset": "0x2970b26"
+    },
+    {
+      "symbol": "apikey",
+      "offset": "0x2970b45"
+    },
+    {
+      "symbol": "Authorization",
+      "offset": "0x2970b5c"
+    },
+    {
+      "symbol": "app_sync_v2",
+      "offset": "0x2970e99"
+    },
+    {
+      "symbol": "Server did not return a valid token",
+      "offset": "0x2970f42"
+    },
+    {
+      "symbol": "app_heartbeat_v2",
+      "offset": "0x2971119"
+    },
+    {
+      "symbol": "_verify_token_signature",
+      "offset": "0x2971ba4"
+    },
+    {
+      "symbol": "rsa",
+      "offset": "0x2971c73"
+    },
+    {
+      "symbol": "TOKEN_HMAC_SECRET (symbol only, no secret)",
+      "offset": "0x2971e1d"
+    },
+    {
+      "symbol": "LTOOL_TOKEN_VERIFY_MODE",
+      "offset": "0x297527a"
+    },
+    {
+      "symbol": "LTOOL_TOKEN_PUBLIC_KEY_PEM",
+      "offset": "0x297529b"
+    }
+  ],
+  "static_anchor_count": 12,
+  "static_anchor_result": "PASS_ALL_12_OF_12",
+  "literal_pem_begin_public_key_count": 0,
+  "startup_rpc": "app_sync_v2",
+  "heartbeat_rpc": "app_heartbeat_v2",
+  "transport": "POST /rest/v1/rpc/<RPC_NAME> with bearer and apikey headers (static evidence only)",
+  "v1_fallback": "original docs say NO_V1_FALLBACK",
+  "potential_signature_modes": [
+    "RSA_PKCS1v15_SHA256",
+    "HMAC_SHA256"
+  ],
+  "actual_signature_mode": "UNKNOWN",
+  "actual_trusted_issuer": "UNVERIFIED",
+  "real_issued_token_provided": false,
+  "real_public_key_verified": false,
+  "live_service_auth_tested": false,
+  "network_request_made": false,
+  "original_executable_run": false,
+  "game_process_used": false,
+  "verifier_implemented": false,
+  "permission_granted": false,
+  "product_exe_built": false,
+  "existing_production_source_modified": [],
+  "new_windows_tests": 0,
+  "reference_DATA_2222": "READ_ONLY",
+  "original_assets": "UNCHANGED",
+  "proxy_scope": "EXCLUDED"
+}
