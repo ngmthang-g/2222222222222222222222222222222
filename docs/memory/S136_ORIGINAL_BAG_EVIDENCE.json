@@ -1,0 +1,113 @@
+{
+  "task": "S136",
+  "status": "VERIFIED_STATIC_ORIGINAL_BINARY_CONSTANT_PROVENANCE_ONLY",
+  "original_executable_executed": false,
+  "game_process_attached": false,
+  "input": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "zip_member_count": 1050,
+    "zip_crc_clean": true,
+    "inner_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "inner_exe_size": 47450112
+  },
+  "observed": {
+    "module_marker": "0x2b69c5f",
+    "memory_items_serialized_readonly": true,
+    "read_bag_doc_offset": "0x2b6a7af",
+    "read_bag_doc": "(rows, info). rows: [{dbID, itemID, site, pos, qty}]",
+    "read_bag_diagnostics": {
+      "detached": {
+        "offset": "0x2b6a6da",
+        "text": "Reader chua attach"
+      },
+      "items_unloaded": {
+        "offset": "0x2b6a6fb",
+        "text": "Items null (nhan vat chua load?)"
+      },
+      "count_zero": {
+        "offset": "0x2b6a727",
+        "text": "Tui rong (count=0)"
+      }
+    },
+    "fields_explicit_in_embedded_doc": [
+      "dbID",
+      "itemID",
+      "site",
+      "pos",
+      "qty"
+    ],
+    "adjacent_emitted_field_name_symbols": [
+      "dbID",
+      "itemID",
+      "pos",
+      "qty"
+    ],
+    "site_emitted_symbol_in_immediate_reader_region": false,
+    "get_bag_doc_offset": "0x2b6a8a2",
+    "get_bag_doc": "Tong hop tui Site 10 + enrich ten. Tra dict hoac None.",
+    "get_bag_field_name_symbols": [
+      "name",
+      "icon",
+      "src",
+      "type",
+      "etype",
+      "slots",
+      "distinct",
+      "total_qty",
+      "non_bag",
+      "info"
+    ],
+    "neighbor_integer_literals": [
+      {
+        "integer": 24,
+        "offset": "0x2b6a71d",
+        "bound_to_game_field": false
+      },
+      {
+        "integer": 32,
+        "offset": "0x2b6a725",
+        "bound_to_game_field": false
+      },
+      {
+        "integer": 10000,
+        "offset": "0x2b6a740",
+        "bound_to_game_field": false
+      },
+      {
+        "integer": 65536,
+        "offset": "0x2b6a758",
+        "bound_to_game_field": false
+      },
+      {
+        "integer": 1000000,
+        "offset": "0x2b6a76d",
+        "bound_to_game_field": false
+      }
+    ]
+  },
+  "unknowns": [
+    "Exact count/entries offsets, item dictionary layout and stride",
+    "read_bag failure tuple/rows/info complete runtime semantics",
+    "get_bag sorting, summary arithmetic, nesting of returned dict",
+    "KNOWN_SITES complete membership and filtering semantics",
+    "Game build and native runtime memory stability",
+    "Genuine signed Info provider/heartbeat and functional TLM runtime"
+  ],
+  "verified_ci": {
+    "windows_native_run_id": 38148405967,
+    "unit_tests_passed": 2095,
+    "unit_tests_total": 2095,
+    "compiled_files": 348,
+    "source_modules": 91,
+    "offline_cli_ci_selftest": "PASS_SYNTHETIC_ONLY",
+    "native_test_owned_S135": "PASS",
+    "inherited_S135_through_S116": "PASS",
+    "independent_S36_run_id": 38148385043,
+    "s36_status": "SUCCESS_DIAGNOSTIC_ONLY_NOT_PRODUCT"
+  },
+  "original_zip_modified": false,
+  "client_data_repository_written": false,
+  "proxy_developed": false,
+  "real_game_bag_verified": false,
+  "product_exe_ready": false
+}
