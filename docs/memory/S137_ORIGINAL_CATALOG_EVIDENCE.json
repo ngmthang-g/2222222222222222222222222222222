@@ -1,0 +1,67 @@
+{
+  "task": "S137",
+  "status": "OFFLINE_EXACT_ORIGINAL_CATALOG_REBUILT_AND_INDEPENDENTLY_HASH_VERIFIED",
+  "authority": {
+    "zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "input_kind": "immutable user provided original TLMTool 2.1.2 ZIP",
+    "exe_executed": false
+  },
+  "data": {
+    "metadata_count": 29983,
+    "weapon_ids_count": 5477,
+    "unique_item_ids": 29983,
+    "weapon_ids_missing_metadata": 0,
+    "weapon_reverse_set_mismatch": 0,
+    "weapon_types": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      16,
+      17,
+      100
+    ],
+    "source_counts": {
+      "Equips": 22776,
+      "Items": 5289,
+      "Gems": 1154,
+      "Medicines": 694,
+      "PetEquips": 70
+    },
+    "sorted_metadata_text_sha256": "3a7ca5a89aceff58c3067f0372b939725bc6b88b0e466a5c0abab63e1101d439",
+    "sorted_weapon_ids_text_sha256": "3cc0fc17ea3a1a72f07204ae0a483d0b432db338a848e9a04d97ca0a2dfc1dfd"
+  },
+  "export": {
+    "local_gzip_name": "TLMTool_2.1.2_original_item_catalog.json.gz",
+    "gzip_size_bytes": 193833,
+    "gzip_sha256": "e9322e4c6e5f0a832ae76316ad9be5fc9dc0fd2ebd0043f02bef0da360fb220a",
+    "json_schema": [
+      "itemID",
+      "name",
+      "icon",
+      "src",
+      "type"
+    ],
+    "contains_user_accounts": false
+  },
+  "limits": {
+    "original_item_id_key_numeric_normalization_runtime_verified": false,
+    "bag_site10_items_verified_live": false,
+    "original_get_bag_enrichment_order_verified": false,
+    "signed_info_runtime_available": false,
+    "game_actions_sent": false,
+    "no_proxy_developed": true,
+    "no_game_client_repo_write": true
+  },
+  "code": {
+    "source": "src/original_item_catalog.py",
+    "offline_exporter": "tools/S137_EXPORT_ORIGINAL_CATALOG.py",
+    "tests": "tests/test_s137.py"
+  }
+}
