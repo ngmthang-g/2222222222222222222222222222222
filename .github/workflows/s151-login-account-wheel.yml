@@ -1,0 +1,62 @@
+name: S151 F01 Login actual 100-row scoped wheel, real Win64 Tk NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/login_account_rows.py"
+      - "tests/test_s151.py"
+      - "tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py"
+      - ".github/workflows/s151-login-account-wheel.yml"
+  push:
+    paths:
+      - "src/login_account_rows.py"
+      - "tests/test_s151.py"
+      - "tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py"
+      - ".github/workflows/s151-login-account-wheel.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s151-real-windows-login-wheel:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: New S151 actual 100-row Tk hover account wheel
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: Inherited original F01 S37 100 real rows and full scroll
+        run: python tools/S37_WINDOWS_LOGIN_100_ROWS_SMOKE.py
+      - name: Inherited original F01/F02 S116 real 300ms save
+        run: python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: S150 native original C12 manual observer regression, test owned only
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: Inherited S146/S147 true Win64 C12 hide/show negative gate
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Original signed Info product gate must fail closed
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s151 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s151/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S151_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s151/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S151_INFO_GATE_BYPASS" }
+          Write-Host "S151_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S151_F01_ACCOUNT_WHEEL_REAL_TK_NO_GAME_NOT_PRODUCT
+          path: |
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s116/
+            artifacts/s37/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
