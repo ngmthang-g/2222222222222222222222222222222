@@ -1,0 +1,55 @@
+name: S119 H11 original Train coordinate disk IO - not product
+on:
+  push:
+    paths:
+      - "src/train_saved_coordinates.py"
+      - "tests/test_s119.py"
+      - "tools/S119_WINDOWS_FARM_COORDINATES_SMOKE.py"
+      - ".github/workflows/s119-farm-coordinate-ini.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s119-windows:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: "x64"
+      - name: Install inherited screenshot dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile source tests tools
+        run: python -m compileall -q src tests tools
+      - name: Full source unit suite
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 fail-closed source audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: Native real settings.ini Farm coordinate writer and reload
+        run: python tools/S119_WINDOWS_FARM_COORDINATES_SMOKE.py
+      - name: Inherited real Party and Login Tk
+        run: |
+          python tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py
+          python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+          python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+          python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+          python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+          python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Signed Info product gate remains fail closed
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s119/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S119_UNEXPECTED_PRODUCT_GUI" }
+          if ((Get-Content -Raw artifacts/s119/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S119_AUTH_GATE_MISSING" }
+          Write-Host "S119_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S119_FARM_COORDINATES_REAL_DISK_NOT_TRAIN_OR_PRODUCT
+          path: |
+            artifacts/s119/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
