@@ -226,7 +226,7 @@ class S146DocumentedShowToZeroTests(unittest.TestCase):
             if calls["n"]==4: raise AssertionError("PROVIDER_DOWN")
             return True
         result=self.show(allowed=auth)
-        self.assertEqual(result.code,"CANCELLED_PARTIAL")
+        self.assertEqual(result.code,"REVOKED_AFTER_MOVE_PARTIAL")
         self.assertEqual(result.moved,(1,2))
         self.assertEqual(self.backend.moves,[(1,0,0),(2,0,0)])
         self.assertTrue(self.handler.partial)

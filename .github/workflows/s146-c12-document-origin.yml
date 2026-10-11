@@ -10,6 +10,14 @@ on:
       - ".github/workflows/s146-c12-document-origin.yml"
       - "tools/S139_WINDOWS_ORIGINAL_BUILD_FILE_SMOKE.py"
   workflow_dispatch:
+  # S149: CI evidence via a PR event. Production Win32 code and all safety
+  # gates are unchanged. Never interpret a test-only success as TLM product.
+  pull_request:
+    paths:
+      - "src/window_hide.py"
+      - "tests/test_s146.py"
+      - "tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py"
+      - ".github/workflows/s146-c12-document-origin.yml"
 permissions:
   contents: read
 jobs:

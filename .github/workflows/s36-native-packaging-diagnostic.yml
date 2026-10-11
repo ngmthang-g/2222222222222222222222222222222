@@ -9,6 +9,13 @@ on:
       - "requirements-build-s36.txt"
       - ".github/workflows/s36-native-packaging-diagnostic.yml"
   workflow_dispatch:
+  # S149 verification: expose the existing diagnostic package proof to
+  # pull_request Actions inspection; never advertise the EXE as product.
+  pull_request:
+    paths:
+      - "src/**"
+      - "tests/test_s*.py"
+      - ".github/workflows/s36-native-packaging-diagnostic.yml"
 
 permissions:
   contents: read
