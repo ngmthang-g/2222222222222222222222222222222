@@ -1,0 +1,79 @@
+{
+  "task": "S139",
+  "scope": "OFFLINE_EXPLICIT_CANDIDATE_GAME_BUILD_IDENTITY_READ_ONLY",
+  "original_evidence": {
+    "module": "memory_reader.Reader",
+    "documented_module_name": "GameAssembly.dll",
+    "source_refs": [
+      "docs/memory/O02_READER_PROCESS_POINTER_FLOW.md",
+      "docs/tasks/S133.md",
+      "docs/tasks/S87.md"
+    ],
+    "original_zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "original_tool_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "signed_info_issuer_available": false,
+    "current_game_build_sample_supplied": false,
+    "original_offsets_bound_to_game_build": false
+  },
+  "new_interface": {
+    "expected_module_filename": "GameAssembly.dll",
+    "optional_companion_file_name": "global-metadata.dat",
+    "input_mode": "only explicit user paths to existing local files",
+    "pe_validation": "reuse existing S28 inspect_x64_pe DLL-required AMD64 structural test",
+    "checks": [
+      "file basename",
+      "stream SHA256",
+      "PE32+ AMD64 DLL structure",
+      "optional companion SHA256",
+      "stable size/mtime/inode while hashing"
+    ],
+    "output_privacy": "basename,size,SHA256 only; no filesystem absolute paths, accounts, keys or PIDs",
+    "no_implicit_discovery": true,
+    "unknown_game_compatibility": true,
+    "allow_game_process_read": false,
+    "allow_game_execution": false,
+    "allow_remote_network": false,
+    "permission_grants": false,
+    "auto_actions": false,
+    "proxy": false
+  },
+  "verification": {
+    "windows_native_run_id": 38152783741,
+    "windows_unit_tests_passed": 2181,
+    "compiled_files": 359,
+    "production_source_modules": 94,
+    "new_tests": 28,
+    "native_win64_self_owned_system_dll_fingerprint": "PASS_S139_REAL_WINDOWS_READ_ONLY_FILE_FINGERPRINT_NOT_GAME",
+    "real_game_attached": false,
+    "actual_game_binary_sample": false,
+    "auth_signed_info": false,
+    "inherited_s138_s116": "PASS",
+    "signed_info_product_gate": "EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT",
+    "test_only_artifact_id": 11706938159,
+    "independent_s36_run_id": 38152733563,
+    "independent_s36": "COMPLETED_SUCCESS_DIAGNOSTIC_ONLY_NOT_PRODUCT",
+    "stage_s_source_regression_run_id": 38152733579,
+    "stage_s_source_regression": "COMPLETED_SUCCESS"
+  },
+  "blockers": [
+    "Actual authorized provider of signed original Info claims, issuer trust anchor, heartbeat",
+    "Explicit real installed Than Long GameAssembly.dll and correctly paired metadata, with independently accepted build identity",
+    "Source-verified role memory and dictionary offsets for this exact build",
+    "Functional read_bag/get_bag live runtime, Farm/Train commands and UI parity",
+    "Working end-user TLMTool EXE"
+  ],
+  "file_changes": [
+    "src/game_build_identity.py",
+    "tools/S139_GAME_BUILD_FILE_AUDIT.py",
+    "tools/S139_WINDOWS_ORIGINAL_BUILD_FILE_SMOKE.py",
+    "tests/test_s139.py",
+    ".github/workflows/s139-game-build-identity.yml",
+    "docs/tasks/S139.md",
+    "docs/memory/S139_GAME_BUILD_EVIDENCE.json",
+    "STATE.md",
+    "PROJECT_STATUS.md"
+  ],
+  "client_data_repo_written": false,
+  "proxy_developed": false,
+  "original_archive_modified": false
+}
