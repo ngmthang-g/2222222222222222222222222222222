@@ -168,6 +168,43 @@ class S142ScheduledTimeConcurrentWriteTests(unittest.TestCase):
                      "subprocess.Popen(","SendInput(","VerifiedClaims("):
             self.assertNotIn(term,source)
 
+    def test_15_external_same_bytes_atomic_replace_refused(self):
+        # A concurrent writer can replace the INI inode with equal bytes;
+        # do not assume identical content means no external write occurred.
+        actual_fsync=module.os.fsync
+        def external_replace(fd):
+            scratch=self.target.parent/"other_writer.ini"
+            scratch.write_bytes(START)
+            os.replace(scratch,self.target)
+            return actual_fsync(fd)
+        with patch("login_schedule_times.os.fsync",side_effect=external_replace):
+            with self.assertRaisesRegex(ScheduleTimeWriteError,"STALE"):
+                save_schedule_time("08:05","schedule_close",self.target)
+        self.assertEqual(self.target.read_bytes(),START)
+        self.assertFalse(list(self.target.parent.glob("settings.????????.ini")))
+
+    def test_16_original_F04_and_F09_cannot_clobber_either_key(self):
+        # Integration: a separate Settings.game_dir save completes while
+        # a temporary F09 write is pending. The F09 writer must not replace
+        # the newer F04 settings.ini. No real game binary or login required.
+        from login_path import EXE_NAME,GameDirectoryStore,resolve_game_dir
+        game=Path(self.temp.name)/"FakeGame"
+        game.mkdir()
+        (game/EXE_NAME).write_bytes(b"S142_TEST_OWNED_NON_EXECUTABLE")
+        actual_fsync=module.os.fsync
+        once=[False]
+        def change_game_dir(fd):
+            if not once[0]:
+                once[0]=True
+                GameDirectoryStore(self.target).save(resolve_game_dir(game))
+            return actual_fsync(fd)
+        with patch("login_schedule_times.os.fsync",side_effect=change_game_dir):
+            with self.assertRaisesRegex(ScheduleTimeWriteError,"STALE"):
+                save_schedule_time("05:15","schedule_close",self.target)
+        self.assertEqual(GameDirectoryStore(self.target).load().directory,game)
+        self.assertEqual(read_schedule_settings(self.target).close_hhmm,"04:00")
+        self.assertIn(b"accounts = ?|S142_FAKE_USER",self.target.read_bytes())
+
     def test_14_scope_ast_compiles(self):
         for p in ("src/login_schedule_times.py","tests/test_s142.py",
                   "tools/S142_WINDOWS_LOGIN_TIME_CONCURRENT_SMOKE.py"):
