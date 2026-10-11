@@ -43,7 +43,7 @@ def main():
                 ("style",w.UINT),("lpfnWndProc",ct.c_void_p),
                 ("cbClsExtra",ct.c_int),("cbWndExtra",ct.c_int),
                 ("hInstance",w.HINSTANCE),("hIcon",w.HICON),
-                ("hCursor",w.HCURSOR),("hbrBackground",w.HBRUSH),
+                ("hCursor",w.HANDLE),("hbrBackground",w.HBRUSH),
                 ("lpszMenuName",w.LPCWSTR),("lpszClassName",w.LPCWSTR)]
         classname="S145TestOwnedBackgroundPrintWindow"
         wproc=ct.WINFUNCTYPE(ct.c_ssize_t,w.HWND,w.UINT,w.WPARAM,w.LPARAM)
@@ -75,7 +75,19 @@ def main():
                     return 1
             return default(win,msg,wparam,lparam)
         callback=wndproc
+        kernel32.GetModuleHandleW.argtypes=[w.LPCWSTR]
+        kernel32.GetModuleHandleW.restype=w.HMODULE
         inst=kernel32.GetModuleHandleW(None)
+        if not inst:
+            raise OSError("S145_MODULE_HANDLE_FAILED")
+        user32.DestroyWindow.argtypes=[w.HWND]
+        user32.DestroyWindow.restype=w.BOOL
+        user32.UpdateWindow.argtypes=[w.HWND]
+        user32.UpdateWindow.restype=w.BOOL
+        user32.UnregisterClassW.argtypes=[w.LPCWSTR,w.HINSTANCE]
+        user32.UnregisterClassW.restype=w.BOOL
+        gdi32.DeleteObject.argtypes=[w.HGDIOBJ]
+        gdi32.DeleteObject.restype=w.BOOL
         wc=WNDCLASSW()
         wc.lpfnWndProc=ct.cast(callback,ct.c_void_p)
         wc.hInstance=inst
