@@ -1812,3 +1812,15 @@ Read LIVE PLAN and STATE S119, docs/tasks/S119.md and H11/B05; first look for an
 
 ## NEXT_ACTION S123
 Read live PLAN, STATE and H11/H12/B05/S122; investigate real original Train account HWND+PID lifecycle and verified add-coordinate Map/X/Y defaults (currently unknown). No guessing/fake actions. Next source modification requires Windows 1751-unit baseline, 303 compiled and native S122/S121/S120/S119/S118/S89/S91/S93/S117/S116 and independent S36 packaged diagnostic. Update checkpoint NEXT_ACTION S124 after evidence.
+
+
+## S123 VERIFIED — H12 passive real Tk Train account HWND/PID lifecycle (2026-10-11)
+- Verified original H12/H11 Train HWND+PID identity, 5000ms account refresh from S09 Start background Win32 cache, same-window Sell/Farm preset selection persistence, reused HWND+PID detection, main-thread Tk updates.
+- NEW src/train_account_rows.py, tests/test_s123.py 18, tools/S123_WINDOWS_TRAIN_ACCOUNT_ROWS_SMOKE.py, .github/workflows/s123-train-account-rows.yml, docs/tasks/S123.md. Passive real Tk account selectors driven by real S09 GameWindow snapshots; no fake game action, RoleName, local permission grant or Proxy.
+- Initial native S123 38108238626 FAILED genuine Tk shutdown after passive pre-start applied row; narrow FIX deb0b382c25dd6ea1dd3c6f81cd64d0d978fa1eb cleans old account bindings even if no active refresh. No source outside S123 changed and no test weakened.
+- FINAL S123 Windows https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38108251658 COMPLETED SUCCESS: 1769/1769 Python tests, 306 compiled and 75 src modules, native actual Win32 test-owned HWND/PID Tk lifecycle and inherited native S122/S121/S120/S119/S118/S89/S91/S93/S117/S116 all PASS, Info remains EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT; artifact 11690680389.
+- Independent Stage S 38108251715 SUCCESS; S36 diagnostic packaging 38108251695 SUCCESS, artifact 11691040589, EXE intentionally diagnostic NOT PRODUCT. Original ZIP/PLAN/B04/S59 unchanged; DATA-2222 strictly read-only.
+- Missing real game RoleName/MapID/Bag/gold/EXP, signed Info, real Train FSM/game, exact add-row default Map/X/Y and autosave duration; no unverified parity claims.
+
+## NEXT_ACTION S124
+Read PLAN/STATE S123, H12/H11/B05/S123 and S09 Start producer evidence. Continue real account source integration only with genuine signed Info and authoritative memory readers; preserve known-good H12 Tk lifecycle, no fabricated game data/actions/entitlements, no Proxy. Require 1769 Windows baseline/306 compiled plus native S123...S116 and independent S36 for source change. Update checkpoint NEXT_ACTION S125.
