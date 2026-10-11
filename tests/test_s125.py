@@ -83,14 +83,18 @@ class TestS125(unittest.TestCase):
         x.shutdown()
     def test_16_cancel_old_generation_before_publish(self):
         gate=threading.Event()
+        entered=threading.Event()
         done=threading.Event()
         class Reader:
             def read(self, window):
+                # Ensure the callback is truly IN FLIGHT before cancellation.
+                entered.set()
                 gate.wait(2)
                 done.set()
                 return TrainCharacterSample(window.hwnd,window.pid,"STALE",2,1)
         x=TrainCharacterSampler(Reader())
         self.assertTrue(x.request([w()]))
+        self.assertTrue(entered.wait(2))
         x.invalidate()
         gate.set()
         self.assertTrue(done.wait(2))
