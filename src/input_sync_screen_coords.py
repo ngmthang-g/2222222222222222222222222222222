@@ -126,5 +126,5 @@ def queue_verified_screen_mouse(
         return model.queue_mouse(
             point.x,point.y,button=button,pressed=pressed,
             sizes=sizes,now=now)
-    except (OSError,ValueError,TypeError,OverflowError,AttributeError):
+    except (OSError,ValueError,TypeError,OverflowError,AttributeError,KeyError):
         return 0
