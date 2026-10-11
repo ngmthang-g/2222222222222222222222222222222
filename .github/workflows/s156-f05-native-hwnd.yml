@@ -1,0 +1,71 @@
+name: S156 F05 genuine PID-bound Win32 main HWND selector NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/login_pid_window.py"
+      - "tests/test_s156.py"
+      - "tools/S156_WINDOWS_F05_PID_HWND_SMOKE.py"
+      - ".github/workflows/s156-f05-native-hwnd.yml"
+  push:
+    paths:
+      - "src/login_pid_window.py"
+      - "tests/test_s156.py"
+      - "tools/S156_WINDOWS_F05_PID_HWND_SMOKE.py"
+      - ".github/workflows/s156-f05-native-hwnd.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s156-f05-real-win64-hwnd:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S156 original F05 native Win32 class title fallback and PID handoff
+        run: python tools/S156_WINDOWS_F05_PID_HWND_SMOKE.py
+      - name: S155 Party native HWND-PID generation and selection lifecycle
+        run: python tools/S155_WINDOWS_PARTY_READY_LIFECYCLE_SMOKE.py
+      - name: S154 Party actual G08 settings GUI with test-only Info
+        run: python tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py
+      - name: S153 true Windows original helper image taskkill TEST-OWNED ONLY
+        run: python tools/S153_WINDOWS_C16_CRASHHANDLER_SMOKE.py
+      - name: S152 real C14 native DWM Info provider revocation
+        run: python tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py
+      - name: S151 real Windows Login 100-row mousewheel
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: S150 real C12 Win64 read-only observer
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: S146 C12 2 actual HWND hide/show origin regression
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Original signed Info MUST deny product GUI
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s156 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s156/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S156_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s156/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S156_INFO_GATE_BYPASS" }
+          Write-Host "S156_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S156_F05_REAL_WIN64_PID_MAIN_HWND_TEST_OWNED_NOT_PRODUCT
+          path: |
+            artifacts/s156/
+            artifacts/s155/
+            artifacts/s154/
+            artifacts/s153/
+            artifacts/s152/
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
