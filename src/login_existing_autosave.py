@@ -20,11 +20,14 @@ class TLMExistingAccountAutosave:
     def __init__(
         self, account_rows, saved_records, *, settings_file: str | Path | None = None,
         show_error: Callable[[str, str], object] | None = None,
+        on_save_result: Callable[[str], object] | None = None,
     ):
         self.account_rows = account_rows
         self._owner = account_rows.group_accounts
         self._settings_file = settings_file
         self._show_error = show_error
+        # S117: only an actual disk outcome can drive F02 saved/error text.
+        self._on_save_result = on_save_result
         self._closed = False
         self._after_id = None
         self.last_status = "EXISTING_ROWS_READY"
@@ -58,6 +61,14 @@ class TLMExistingAccountAutosave:
         if self._pending():
             self._after_id = self._owner.after(AUTOSAVE_MS, self.flush)
 
+    def _report_save_result(self, code: str) -> None:
+        if callable(self._on_save_result):
+            try:
+                self._on_save_result(code)
+            except Exception:
+                # UI destruction must never change the committed disk result.
+                pass
+
     def flush(self) -> bool:
         if self._closed:
             return False
@@ -71,6 +82,7 @@ class TLMExistingAccountAutosave:
             saved = update_existing_accounts(changes, self._settings_file)
         except (ExistingAccountEditError, OSError, RuntimeError):
             self.last_status = "BLOCKED_ACCOUNT_SAVE"
+            self._report_save_result("SAVE_FAILED")
             if callable(self._show_error):
                 self._show_error("Không thể lưu tài khoản",
                                  "Dữ liệu cũ hoặc thay đổi hiện tại chưa an toàn để ghi.")
@@ -78,6 +90,8 @@ class TLMExistingAccountAutosave:
         for edit in changes:
             self._stored[edit.row_index] = (edit.username, edit.password)
         self.last_status = saved
+        if saved == "UPDATED_EXISTING_ACCOUNT_FIELDS_ONLY":
+            self._report_save_result("SAVE_CONFIRMED")
         return True
 
     def shutdown(self) -> bool:
