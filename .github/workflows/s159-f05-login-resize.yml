@@ -1,0 +1,80 @@
+name: S159 F05 original Login 1366x768 conditional resize real Win64 NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/login_resize_monitor.py"
+      - "tests/test_s159.py"
+      - "tools/S159_WINDOWS_LOGIN_NATIVE_RESIZE_SMOKE.py"
+      - ".github/workflows/s159-f05-login-resize.yml"
+  push:
+    paths:
+      - "src/login_resize_monitor.py"
+      - "tests/test_s159.py"
+      - "tools/S159_WINDOWS_LOGIN_NATIVE_RESIZE_SMOKE.py"
+      - ".github/workflows/s159-f05-login-resize.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s159-real-windows-login-size:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S159 native two true Tk HWND 1366x768 resize only on difference
+        run: python tools/S159_WINDOWS_LOGIN_NATIVE_RESIZE_SMOKE.py
+      - name: S158 Win64 actual child-PID main window serial handoff
+        run: python tools/S158_WINDOWS_F05_SERIAL_PID_HANDOFF_SMOKE.py
+      - name: S157 real Windows filtered child process env
+        run: python tools/S157_WINDOWS_F05_CLEAN_ENV_SMOKE.py
+      - name: S156 Win32 F05 PID-HWND lookup
+        run: python tools/S156_WINDOWS_F05_PID_HWND_SMOKE.py
+      - name: S155 actual Windows Party ready selected lifecycle
+        run: python tools/S155_WINDOWS_PARTY_READY_LIFECYCLE_SMOKE.py
+      - name: S154 original Party G08 Tk configuration
+        run: python tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py
+      - name: S153 original C16 real crash handler TEST OWNED
+        run: python tools/S153_WINDOWS_C16_CRASHHANDLER_SMOKE.py
+      - name: S152 genuine Win64 C14 detached DWM teardown
+        run: python tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py
+      - name: S151 genuine Login 100-row native Tk wheel
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: S150 C12 original native observer
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: S146 C12 two HWND native test-owned hide show
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Genuine original signed Info still blocks product bootstrap
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s159 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s159/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S159_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s159/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S159_INFO_GATE_BYPASS" }
+          Write-Host "S159_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S159_NATIVE_LOGIN_RESIZE_TEST_OWNED_NOT_PRODUCT
+          path: |
+            artifacts/s159/
+            artifacts/s158/
+            artifacts/s157/
+            artifacts/s156/
+            artifacts/s155/
+            artifacts/s154/
+            artifacts/s153/
+            artifacts/s152/
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
