@@ -29,9 +29,10 @@ jobs:
       - name: S138 offline exact-original resource refuses missing live binary
         shell: pwsh
         run: |
-          python tools/S138_CATALOG_LOOKUP.py --item-id 10100000 2>&1 | Out-File -Encoding utf8 artifacts/s135/s138_missing_resource.txt
+          New-Item -ItemType Directory -Path artifacts/s138 -Force | Out-Null
+          python tools/S138_CATALOG_LOOKUP.py --item-id 10100000 > artifacts/s138/missing_resource.txt 2>&1
           if ($LASTEXITCODE -ne 2) { throw "S138_MISSING_ORIGINAL_CATALOG_ACCEPTED" }
-          if ((Get-Content -Raw artifacts/s135/s138_missing_resource.txt) -notmatch "BLOCKED_CATALOG_NOT_VERIFIED") { throw "S138_RESOURCE_FAIL_OPEN" }
+          if ((Get-Content -Raw artifacts/s138/missing_resource.txt) -notmatch "BLOCKED_CATALOG_NOT_VERIFIED") { throw "S138_RESOURCE_FAIL_OPEN" }
           Write-Host "S138_DEFAULT_MISSING_RESOURCE=BLOCKED_NOT_PRODUCT"
       - name: Inherited S136 offline marker parser self-test (frozen ZIP not in CI)
         run: python tools/S136_AUDIT_ORIGINAL_BAG_CONSTANTS.py --self-test
@@ -83,6 +84,7 @@ jobs:
         with:
           name: S138_OFFLINE_ORIGINAL_CATALOG_SOURCE_TESTS_NOT_PRODUCT
           path: |
+            artifacts/s138/
             artifacts/s135/
             artifacts/s134/
             artifacts/s86/source_and_product_gate_audit.json
