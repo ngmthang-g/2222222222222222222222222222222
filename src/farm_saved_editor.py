@@ -139,10 +139,13 @@ class FarmSavedCoordinatesEditor(ttk.Frame):
         self._sync_apply_buttons()
 
     def _sync_apply_buttons(self):
-        enabled = not self._blocked and self.account_bindings.active_count() > 0
+        sell_enabled = (not self._blocked and
+                        self.account_bindings.editable_count("sell") > 0)
+        farm_enabled = (not self._blocked and
+                        self.account_bindings.editable_count("farm") > 0)
         for row in self.row_widgets:
-            row["apply_sell"].configure(state="normal" if enabled else "disabled")
-            row["apply_train"].configure(state="normal" if enabled else "disabled")
+            row["apply_sell"].configure(state="normal" if sell_enabled else "disabled")
+            row["apply_train"].configure(state="normal" if farm_enabled else "disabled")
 
     def apply_row_to_all(self, index: int, *, target: str) -> int:
         """Original name-based apply-all; NEVER trigger game Sell/Train action."""

@@ -18,6 +18,7 @@ from typing import Callable
 from start_polling import StartWindowProducer, WindowSnapshot
 from start_windows import GameWindow
 from farm_saved_editor import FarmSavedCoordinatesEditor
+from train_row_permission import TrainRowPermissionGate
 
 TRAIN_ACCOUNT_REFRESH_MS = 5000
 
@@ -85,7 +86,9 @@ class TkTrainAccountRows:
     def __init__(self, parent, coordinate_editor: FarmSavedCoordinatesEditor,
                  *, producer: StartWindowProducer | None = None,
                  allow_account: Callable[[GameWindow], bool] | None = None,
-                 interval_ms: int = TRAIN_ACCOUNT_REFRESH_MS):
+                 interval_ms: int = TRAIN_ACCOUNT_REFRESH_MS,
+                 permission_guard=None, running_count=None,
+                 identity_backend_factory=None):
         if not isinstance(coordinate_editor, FarmSavedCoordinatesEditor):
             raise ValueError("REAL_H11_COORDINATE_EDITOR_REQUIRED")
         if interval_ms != TRAIN_ACCOUNT_REFRESH_MS:
@@ -94,7 +97,10 @@ class TkTrainAccountRows:
         self.editor = coordinate_editor
         self.producer = producer if producer is not None else StartWindowProducer()
         self._own_producer = producer is None
+        # The callback is an additional restriction only, NEVER a grant.
         self._allow_account = allow_account
+        self._permission_gate = TrainRowPermissionGate(
+            permission_guard, running_count, identity_backend_factory)
         self.registry = TrainAccountRegistry()
         self._rows: dict[int, dict] = {}
         self._active = False
@@ -112,7 +118,9 @@ class TkTrainAccountRows:
 
     def _allowed(self, window: GameWindow) -> bool:
         try:
-            return bool(self._allow_account(window)) if callable(self._allow_account) else False
+            return (self._permission_gate.permitted(window)
+                    and (bool(self._allow_account(window))
+                         if callable(self._allow_account) else False))
         except Exception:
             return False
 
@@ -144,6 +152,14 @@ class TkTrainAccountRows:
         state = "readonly" if self._allowed(window) and not self.editor._blocked else "disabled"
         row["sell"].configure(state=state)
         row["farm"].configure(state=state)
+        self.editor._sync_apply_buttons()
+
+    def reapply_permissions(self) -> None:
+        """H12 heartbeat: recheck existing HWND/PID/Info even if cache unchanged."""
+        if self._closed:
+            return
+        for window in self.registry.rows:
+            self._set_row_permission(window)
 
     def _remove(self, hwnd: int) -> None:
         row = self._rows.pop(hwnd, None)
@@ -189,6 +205,8 @@ class TkTrainAccountRows:
         if snapshot.revision != self._revision:
             self._revision = snapshot.revision
             self.apply_snapshot(snapshot)
+        # Info heartbeat revocations need not change the Start window cache.
+        self.reapply_permissions()
         if self._active and epoch == self._epoch:
             self._schedule(TRAIN_ACCOUNT_REFRESH_MS, epoch)
 

@@ -92,6 +92,14 @@ class FarmAccountPresetBindings:
             count += 1
         return count
 
+    def editable_count(self, target: str) -> int:
+        """Count real, currently permission-enabled H11 selectors."""
+        if target not in ("sell", "farm"):
+            raise ValueError("UNKNOWN_H11_TARGET")
+        index = 0 if target == "sell" else 1
+        return sum(not pair[index].instate(["disabled"])
+                   for pair in self._live())
+
     def restore_if_known(self, combo: ttk.Combobox, name: str) -> bool:
         if (not isinstance(combo, ttk.Combobox) or not self._exists(combo)
                 or not isinstance(name, str) or name not in self._names):
