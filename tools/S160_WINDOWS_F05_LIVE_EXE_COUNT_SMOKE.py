@@ -115,6 +115,12 @@ def main():
                     "real_game_started","authentic_signed_Info",
                     "verified_emulator_provider","real_launcher_or_injection",
                     "product_exe_built"))
+            # Release last TEST-OWNED Windows child before TemporaryDirectory
+            # tries to delete its running EXE (Windows disallows that).
+            for remaining in children:
+                if remaining.poll() is None:
+                    remaining.kill()
+                    remaining.wait(timeout=5)
         report["checks"]=checks
         report["status"]=(
             "PASS_NATIVE_S160_F05_REAL_WINDOWS_EXE_PID_COUNT_TEST_OWNED_NO_GAME"
