@@ -1,0 +1,89 @@
+name: S138 original item catalog portable offline bundle - inherited Win64 native NOT PRODUCT
+on:
+  push:
+    paths:
+      - "src/original_item_catalog_resource.py"
+      - "tools/S138_CATALOG_LOOKUP.py"
+      - "tools/S138_PACKAGE_OFFLINE_CATALOG.py"
+      - "docs/tasks/S138.md"
+      - "tests/test_s138.py"
+      - "docs/memory/S138_BUNDLE_EVIDENCE.json"
+      - ".github/workflows/s138-offline-catalog-bundle.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s138-native:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S138 offline exact-original resource refuses missing live binary
+        shell: pwsh
+        run: |
+          python tools/S138_CATALOG_LOOKUP.py --item-id 10100000 2>&1 | Out-File -Encoding utf8 artifacts/s135/s138_missing_resource.txt
+          if ($LASTEXITCODE -ne 2) { throw "S138_MISSING_ORIGINAL_CATALOG_ACCEPTED" }
+          if ((Get-Content -Raw artifacts/s135/s138_missing_resource.txt) -notmatch "BLOCKED_CATALOG_NOT_VERIFIED") { throw "S138_RESOURCE_FAIL_OPEN" }
+          Write-Host "S138_DEFAULT_MISSING_RESOURCE=BLOCKED_NOT_PRODUCT"
+      - name: Inherited S136 offline marker parser self-test (frozen ZIP not in CI)
+        run: python tools/S136_AUDIT_ORIGINAL_BAG_CONSTANTS.py --self-test
+      - name: Inherited S135 real Win64 read-only test-owned Site10 dictionary tri-state
+        run: python tools/S135_WINDOWS_SITE10_TRISTATE_SMOKE.py
+      - name: Inherited S134 real Win64 owned RoleData chain native
+        run: python tools/S134_WINDOWS_ROLE_CHAIN_FIXTURE_SMOKE.py
+      - name: Inherited S133 Win32 readonly self PE native
+        run: python tools/S133_WINDOWS_READONLY_GA_PROBE_SMOKE.py
+      - name: Inherited S132 composed true Train native
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: Inherited S131 original Farm buff native
+        run: python tools/S131_WINDOWS_TRAIN_BUFF_SMOKE.py
+      - name: Inherited S130 original town trade native
+        run: python tools/S130_WINDOWS_H02_TOWN_TRADE_SMOKE.py
+      - name: Inherited S129 original Train settings native
+        run: python tools/S129_WINDOWS_H06_H09_TRAIN_CONFIG_SMOKE.py
+      - name: Inherited S128 true H02 town native
+        run: python tools/S128_WINDOWS_H02_TOWN_SETTINGS_SMOKE.py
+      - name: Inherited S127 S126 S125 S124 S123 S122 S121 S120 S119 native
+        run: |
+          python tools/S127_WINDOWS_H12_STATE_LABEL_SMOKE.py
+          python tools/S126_WINDOWS_TRAIN_EXTRA_TRACKER_SMOKE.py
+          python tools/S125_WINDOWS_TRAIN_CHARACTER_SAMPLES_SMOKE.py
+          python tools/S124_WINDOWS_TRAIN_AUTH_GATE_SMOKE.py
+          python tools/S123_WINDOWS_TRAIN_ACCOUNT_ROWS_SMOKE.py
+          python tools/S122_WINDOWS_FARM_ACCOUNT_COMBO_SMOKE.py
+          python tools/S121_WINDOWS_FARM_SAVED_EDITOR_SMOKE.py
+          python tools/S120_WINDOWS_FARM_ORIGINAL_MAPS_SMOKE.py
+          python tools/S119_WINDOWS_FARM_COORDINATES_SMOKE.py
+      - name: Inherited Party/Login native tests
+        run: |
+          python tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py
+          python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+          python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+          python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+          python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+          python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Genuine signed Info gate still rejects product
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s135/signed_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S138_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s135/signed_gate.txt) -notmatch "S01 BLOCKED") { throw "S138_INFO_GATE_BYPASS" }
+          Write-Host "S138_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S138_OFFLINE_ORIGINAL_CATALOG_SOURCE_TESTS_NOT_PRODUCT
+          path: |
+            artifacts/s135/
+            artifacts/s134/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
