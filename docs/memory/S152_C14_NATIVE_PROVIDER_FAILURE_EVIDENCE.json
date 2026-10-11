@@ -1,0 +1,34 @@
+{
+  "task": "S152",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_C14_NATIVE_PROVIDER_EXCEPTION_FAIL_CLOSED",
+  "pr": 6,
+  "head_sha": "d044e12e665e01577201145417f5213d0422d2da",
+  "main_merge_sha": "773e90ed470abad1b0088b573fea2f4b146b3ca7",
+  "native_run": 38169442333,
+  "native_job": 114558751215,
+  "native_artifact": 11713266985,
+  "windows_tests": 2350,
+  "compiled_files": 383,
+  "source_modules": 97,
+  "s36_run": 38169442340,
+  "s36_job": 114558751353,
+  "s36_artifact": 11713406214,
+  "stage_s_run": 38169442328,
+  "stage_s_job": 114558751173,
+  "independent_workflows_completed_success": true,
+  "changed_production": [
+    "src/detached_host.py"
+  ],
+  "new": [
+    "tests/test_s152.py",
+    "tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py",
+    ".github/workflows/s152-c14-auth-exception.yml"
+  ],
+  "original_real_game_tested": false,
+  "original_full_C14_UI_proven": false,
+  "real_signed_info_verified": false,
+  "product_exe_built": false,
+  "client_DATA_2222_read_only": true,
+  "next_action": "S153"
+}
