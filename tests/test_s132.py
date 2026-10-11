@@ -159,6 +159,11 @@ class S132CompositionSourceTests(unittest.TestCase):
         self.assertIn("allow_account=self.allow_account",SRC)
         self.assertNotIn("allow_account=lambda _: True",SRC)
 
+    def test_29_original_shares_Start_producer_or_no_refresh(self):
+        source=inspect.getsource(TkTrainComposition.start_readonly_window_refresh)
+        self.assertIn("isinstance(self.window_producer, StartWindowProducer)",source)
+        self.assertIn("return False",source)
+
     def test_28_source_ast_compiles(self):
         ast.parse(SRC)
         compile(SRC,"farm_train_composition.py","exec")
