@@ -1,0 +1,43 @@
+{
+  "task": "S155",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_WIN64_TEST_OWNED_PARTY_G02_E03_LIFECYCLE_NOT_REAL_GAME",
+  "pr_number": 9,
+  "pr_head": "4b0fa6563114e415a409938cc9f8f809bbedab40",
+  "merge_sha": "b60c24cd48dd5032f907262e46ac1566b0772026",
+  "s155_run": 38171945088,
+  "s155_job": 114566193445,
+  "s155_artifact": 11714625544,
+  "python_tests": 2386,
+  "compiled_files": 390,
+  "production_modules": 98,
+  "native_s155_checks": 12,
+  "s154_inherited_run": 38171945078,
+  "s154_initial_job": 114566193449,
+  "s154_initial_status": "FAILED_OLD_S95_TIMING_TEST_ONLY",
+  "s154_rerun_job": 114566499887,
+  "s154_rerun_status": "COMPLETED_SUCCESS",
+  "s154_rerun_artifact": 11713114877,
+  "s36_run": 38171945075,
+  "s36_job": 114566193466,
+  "s36_artifact": 11714860070,
+  "s36_product_exe": "NOT_BUILT_DIAGNOSTIC_ONLY",
+  "stage_s_run": 38171945089,
+  "stage_s_job": 114566193554,
+  "changed_existing_source": [
+    "src/source_backed_tab_builders.py"
+  ],
+  "new_files": [
+    "src/party_ready_authorized_tab.py",
+    "tests/test_s155.py",
+    "tools/S155_WINDOWS_PARTY_READY_LIFECYCLE_SMOKE.py",
+    ".github/workflows/s155-g02-party-ready-lifecycle.yml"
+  ],
+  "real_game_role_reader_verified": false,
+  "game_runtime_tested": false,
+  "original_signed_info_verified": false,
+  "team_actions_sent": 0,
+  "product_exe_built": false,
+  "data_reference_repo": "STRICTLY_READ_ONLY",
+  "next_action": "S156"
+}
