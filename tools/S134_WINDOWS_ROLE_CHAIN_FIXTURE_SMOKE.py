@@ -66,7 +66,22 @@ def run():
         q["real_Windows_RPM_reads_self_owned_64bit_pointer"]=(
             first.status=="READ_QWORD" and first.value==n1_addr
             and READ_ONLY_RIGHTS==0x410)
-        result=validate_test_owned_role_chain(contract,reader)
+        # S140: record the ACTUAL native RPM-address sequence during the
+        # positive validation. An unrelated ctypes buffer may be allocated
+        # at role_addr+0x88 on Windows. That does NOT imply our algorithm
+        # dereferenced the role object twice, and it previously caused a
+        # flaky false failure here. Assert the exact executed read sequence
+        # instead of assuming a global allocator address gap.
+        class TrackingReadOnlyReader:
+            def __init__(self, wrapped):
+                self.wrapped=wrapped
+                self.calls=[]
+            def read_u64(self, address):
+                self.calls.append(address)
+                return self.wrapped.read_u64(address)
+
+        tracked=TrackingReadOnlyReader(reader)
+        result=validate_test_owned_role_chain(contract,tracked)
         q["true_Win32_validates_fixture_chain_and_independent_anchor"]=(
             result.status=="TEST_ONLY_POINTER_CHAIN_AND_SESSION_ANCHOR_VALIDATED"
             and result.traversed_hops==1 and result.fixture_anchor_matches
@@ -76,8 +91,9 @@ def run():
             and not result.bag_site_10_read)
         q["O02_returns_object_before_last_offset"]=(
             reader.read_u64(n2_addr+0x88).value==role_addr
-            and reader.read_u64(role_addr+0x88).status==
-                "POINTER_OUTSIDE_TEST_OWNED_RANGES")
+            and tracked.calls==[
+                root_addr, n1_addr+0xB8, n2_addr+0x88, session_addr+0x88
+            ])
 
         own_write(root_addr,0)
         empty=validate_test_owned_role_chain(contract,reader)
