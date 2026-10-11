@@ -60,6 +60,10 @@ def run():
             q["original_lower_town_body_hidden"]=(
                 not panel._body_visible and not panel.lower.winfo_manager()
                 and panel.toggle.cget("text")=="Hiện cấu hình")
+            q["observed_unsigned_states"]={
+                "permitted":panel._permitted(),
+                "toggle_state":str(panel.toggle.cget("state")),
+                "radio_state":str(panel.radios[0].cget("state"))}
             q["unsigned_cannot_edit_or_show"]=(
                 not panel._permitted()
                 and not panel.toggle_lower_body()
@@ -67,6 +71,10 @@ def run():
             guard.receive_token("CI_ONLY_NO_SERVER_SIGNATURE",lambda _:
                 VerifiedClaims(frozenset({"farm_tab"}),"active",2))
             panel.reapply_permission()
+            q["observed_authorized_states"]={
+                "permitted":panel._permitted(),
+                "toggle_state":str(panel.toggle.cget("state")),
+                "radio_state":str(panel.radios[0].cget("state"))}
             q["test_only_claim_enables_ui_without_running_farm"]=(
                 panel._permitted() and panel.radios[0].cget("state")=="normal"
                 and not hasattr(panel,"_farming_acc"))
@@ -98,16 +106,26 @@ def run():
                 not invalid and panel.minutes_var.get()=="47"
                 and store.load().value.minutes=="47")
             locked=panel.apply_route_lock(True)
+            q["observed_locked"]={
+                "applied":locked,"mode":store.load().value.mode,
+                "radios":[str(b.cget("state")) for b in panel.radios]}
             q["original_any_locked_route_forces_never_and_disables_radios"]=(
                 locked and store.load().value.mode=="never"
                 and all(b.cget("state")=="disabled" for b in panel.radios)
                 and panel.minutes_var.get()=="47")
             unlocked=panel.apply_route_lock(False)
+            q["observed_unlocked"]={
+                "applied":unlocked,"mode":store.load().value.mode,
+                "radios":[str(b.cget("state")) for b in panel.radios]}
             q["unlock_does_not_invent_old_mode_restoration"]=(
                 unlocked and store.load().value.mode=="never"
                 and all(b.cget("state")=="normal" for b in panel.radios))
             guard.clear()
             panel.reapply_permission()
+            q["observed_revoked"]={
+                "permitted":panel._permitted(),
+                "spin":str(panel.spin.cget("state")),
+                "nav":str(panel.nav_combos[0].cget("state"))}
             q["info_revoke_disables_real_config_controls"]=(
                 not panel._permitted()
                 and panel.spin.cget("state")=="disabled"
