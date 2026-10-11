@@ -149,7 +149,10 @@ class TkFarmBuffEditor(ttk.Frame):
             return False
         row = self.row_widgets[index]
         try:
-            updated = self.snapshot.rows[index].change(field,row[field].get())
+            # The checkbox variable is stored under "flag", not "enabled".
+            # Tk otherwise swallows a KeyError inside the button callback.
+            variable = row["flag"] if field == "enabled" else row[field]
+            updated = self.snapshot.rows[index].change(field, variable.get())
         except FarmBuffSettingsError:
             self._render()
             return False
