@@ -1,32 +1,26 @@
 # STATE — TLMTool 2.1.2 reconstruction
 
-_Last checkpoint: 2026-10-12 Asia/Bangkok. Authority: PLAN.md + SCOPE_LOCK.md; append-only history: PROJECT_STATUS.md._
+_Last checkpoint: 2026-10-12 Asia/Bangkok. Authority PLAN.md + SCOPE_LOCK.md; PROJECT_STATUS.md is append-only._
 
-## S147 IMPLEMENTED — C12 authorization-provider exception fail-closed; WIN64 CI NOT YET VERIFIED
+## S148 STATIC AUDIT VERIFIED — POST-S147 PUSH WINDOWS CI NOT ATTESTED
 
-### Resumed baseline
-- Read LIVE PLAN.md / STATE.md S146 NEXT_ACTION S147 / PROJECT_STATUS.md, docs/tasks/S146.md and C12 original evidence, and current Start/C12 sources.
-- Independently SHA256 verified uploaded frozen original ZIP `c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd`; inner original EXE `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`. Both READ ONLY.
-- C12 original-specific show at (0,0) versus generic saved-position restore conflict still unresolved; no Start Hiện hết toggle wired. Original game build, authentic signed Info, F06 RGB/pixel reference and runtime remain unverified.
+### Resumed live project
+- Read LIVE PLAN.md, STATE.md S147 NEXT_ACTION S148, PROJECT_STATUS.md, docs/tasks/S147.md and original C12, current native source/tests and existing S146 Windows workflow. No plan reset, no previous verified source rewritten.
+- Original user TLMTool ZIP reconfirmed byte-for-byte READ ONLY: **93,715,901 bytes, 1,050 entries, SHA256 c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd**. Inner frozen EXE SHA256 **15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22**.
 
-### Actual changes made
-- Narrow `src/window_hide.py` S146 `C12HideAll.show_documented_origin` authorization checks only: an unexpected `allowed()` provider exception is now a denial on entry/before EACH window/after ALL moved. The existing `stop("CANCELLED")` records PARTIAL if any Win32 movement occurred, instead of erroneously allowing HIDDEN state to persist when callback throws. No change to `hide()`, coordinates, SetWindowPos, Win32 backend or UI.
-- Added 3 `tests/test_s146.py` regressions: callback throws before first native move, mid-batch after first, after last; no false success, correct PARTIAL/no silent retry.
-- Extended existing true two-Tk-HWND Windows smoke `tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py` with 3 native readback checks: hide two, move one at (0,0), exception before second, verify mixed real geometry/size and PARTIAL denial of subsequent retry. Test-owned adapter only, NOT actual game.
-- NEW `docs/tasks/S147.md`, `docs/memory/S147_C12_AUTH_EXCEPTION_EVIDENCE.json`. `PLAN.md`, `SCOPE_LOCK.md`, original ZIP, B04/S59 assets, reference DATA-2222 and Proxy untouched. Prior S01–S145 production source preserved.
-- Existing S146 Windows workflow watches all three changed files. **No current S147 native CI result claimed.** Expected full unit suite >=2314 (prior verified 2311 + 3), >=376 compiled and 97 production modules, native C12 >=14 checks (prior 11 + 3). Independent S36 diagnostic and Stage S must also pass before S147 can be marked VERIFIED.
-
-### Last established green baseline (S146, not S147)
-- S146 full Win64 run 38163848439: 2311/2311, 376 compiled, 11/11 C12 native real TEST-OWNED Tk checks, inherited S145–S116 passed; signed Info still BLOCKED.
-- Independent S36 38163848387 and Stage S 38163848465 SUCCESS, but S36 EXE DIAGNOSTIC ONLY.
-- S147 source/tests/docs commits exist. **Windows CI outcome for S147 PENDING/UNVERIFIED.**
+### What was actually checked / done
+- S147's committed `src/window_hide.py`, `tests/test_s146.py`, `tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py` and .github/workflows/s146-c12-document-origin.yml passed **12/12 STATIC checks**: guarded permission before/after native movement, `Exception` becomes denial, no direct unhandled allowed() in target method, correct `stop` PARTIAL state and VISIBLE commit ordering, 3 regression tests, 3 native checks, workflow tracking all touched source and running full suite, original signed Info fail closed.
+- `tests/test_s146.py` now has **23 definitions**, and native smoke has **14 check assignments**. These are source counts, **NOT** completed runner test counts.
+- GitHub `fetch_commit_workflow_runs` is PR-event-only; returned empty even for last proven S146 push commit. Commit combined statuses likewise empty; current direct Actions list could not be read in this environment. This does **not** prove no workflows ran. **New S147 Win64 results, native 14/14, >=2314 unit, >=376 compile, independent S36 and Stage S are still UNVERIFIED.** Never reuse previous green S146 CI as evidence.
+- Last actually documented successful native S146 run 38163848439 (2311/2311, 376 compiled, 97 production modules, 11/11 C12 test-owned actual Windows HWND); previous independent S36 38163848387 and Stage S 38163848465 both completed SUCCESS, diagnostic EXE only. These runs precede S147.
+- S148 documentation files NEW `docs/tasks/S148.md`, `docs/memory/S148_PUSH_CI_STATIC_AUDIT.json`. S148 updated STATE.md and appended PROJECT_STATUS.md. **No S148 production source/test/workflow changes**, no original ZIP/PLAN/SCOPE_LOCK/B04/S59 modifications, no write to DATA-2222, no Proxy changes.
 
 ### Remaining blockers
-- Original released C12 show previous-rectangle vs (0,0) behavior is UNKNOWN; no UI toggle.
-- No authorized signed Info provider/heartbeat; real client GameAssembly/RoleData/Bag not verified; login pixel x/y/RGB/tolerance unknown; C07 auto geometry/C14 detached tiles and other tabs incomplete.
-- No real-game runtime parity or complete TLMTool product EXE. DATA reference repository READ ONLY; no Proxy scope.
+- **S147 status remains IMPLEMENTED / CI UNVERIFIED**, not VERIFIED; current S148 audit establishes static integrity only.
+- Original C12 show branch conflict: generic prior-position vs original specifically documented (0,0); no Start full toggle. Original signed Info/heartbeat authority, real game build, login1/login2 x/y/RGB, RoleData/Bag runtime compatibility, C07/C14/C19, missing real tab functionality and complete EXE all unverified.
+- Actual game runtime, original signed Info and real TLM user product not claimed. All test-owned actions remain TEST ONLY.
 
-## NEXT_ACTION S148
-1. Check actual current S147 GitHub Win64 S146 workflow run for >=2314 full Python tests, >=376 compiled, 14 C12 true native two-HWND assertions and inherited S145–S116 native. Also check independent S36 diagnostic and Stage S at the S147 commit; do not reuse S146's older green claim.
-2. If tests fail, fix the exact failing condition only and re-run. If all pass, mark S147 VERIFIED and append exact native Windows run IDs/results in STATE.md and PROJECT_STATUS.md.
-3. Resume original-backed meaningful visible Start/Login/Windows parity. Do not manufacture original C12 restore route, Info permissions, F06 login pixels, DLL hooks, Proxy or new UI. Keep `NEXT_ACTION S149` after S148 milestone, with precise changes/blockers.
+## NEXT_ACTION S149
+1. Reread LIVE PLAN.md / STATE.md / docs/tasks/S148.md and `PROJECT_STATUS.md` latest entry. Retry **actual GitHub push-based S147 native Windows run** verification using legitimate Actions-read access/run link: require >=2314 full Python unit tests, >=376 compiled, 14/14 original C12 native Win64 tests and inherited S145–S116 tests, signed Info fail closed, separately successful S36 diagnostic+Stage S. Do not invent run IDs or PASS.
+2. If run red, inspect its real job logs and fix **only demonstrated failure**, re-run. If confirmed green, record exact run/job/artifact IDs, mark S147 VERIFIED; if inaccessible, retain UNVERIFIED and note blocker clearly.
+3. Then prioritize an independent original-backed user-visible Start/Login/Windows gap, not ungrounded UI, fake auth, synthetic game memory or repetitive fixture. No edits to previously correct functions or DATA-2222. After meaningful milestone append PROJECT_STATUS and set NEXT_ACTION S150.
