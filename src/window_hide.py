@@ -38,12 +38,21 @@ class HiddenResetResult:
     code: str
     checked_hwnds: tuple[int, ...] = ()
 
-class C12HideAll:
-    """Hide-only component; unsafe/ambiguous show branch deliberately absent.
 
-    A PARTIAL hide must be reconciled separately using original-proof
-    restore semantics. Repeating hide after PARTIAL must not overwrite
-    original positions. No UI toggle is exported in this task.
+@dataclass(frozen=True)
+class DocumentedOriginShowResult:
+    code: str
+    requested: int = 0
+    moved: tuple[int, ...] = ()
+
+
+class C12HideAll:
+    """C12 off-screen hiding plus isolated, original-documented 0,0 branch.
+
+    Original generic old-rectangle restore wording conflicts with the
+    specific original show(0,0) doc/log. S146 adds ONLY the specifically
+    documented 0,0 branch, not an automatic GUI toggle or assertion that
+    every original show branch uses it. Partial transitions remain fenced.
     """
 
     def __init__(self, backend=None):
@@ -162,6 +171,127 @@ class C12HideAll:
             return finish("HIDDEN")
         except (OSError, RuntimeError, ValueError, TypeError):
             return finish("NATIVE_VALIDATION_FAILED")
+
+
+    def show_documented_origin(
+        self, snapshot: WindowSnapshot, *, max_windows: int,
+        allowed: Callable[[], bool],
+    ) -> "DocumentedOriginShowResult":
+        """Move verified C12-hidden HWNDs to (0,0), preserving dimensions.
+
+        The original C12 **specific** log/doc explicitly says show at (0,0)
+        and keep dimensions; generic toggle documentation instead says
+        restore old rects. Therefore this is an ISOLATED documented branch,
+        deliberately NOT named show/restore and NOT wired to the toggle.
+        Its exact original branching behavior remains UNKNOWN.
+
+        Caller must independently verify a real Info entitlement and current
+        S09 game-window snapshot. Never synthesize a permission or unhide
+        arbitrary windows. The C12 service state changes to VISIBLE only
+        after every actual Win32 rectangle readback verifies (0,0).
+        """
+        if self._state == "VISIBLE":
+            return DocumentedOriginShowResult("NOT_HIDDEN")
+        if self._state != "HIDDEN":
+            return DocumentedOriginShowResult("PARTIAL_REQUIRES_RECONCILIATION")
+        if not callable(allowed):
+            return DocumentedOriginShowResult("NO_AUTHORIZATION_CALLBACK")
+        try:
+            if allowed() is not True:
+                return DocumentedOriginShowResult("CANCELLED")
+        except Exception:
+            return DocumentedOriginShowResult("CANCELLED")
+        if type(max_windows) is not int or max_windows <= 0:
+            return DocumentedOriginShowResult("NO_VERIFIED_WINDOW_LIMIT")
+        if not isinstance(snapshot, WindowSnapshot) or not snapshot.valid:
+            return DocumentedOriginShowResult("INVALID_CACHE")
+        saved=self._saved_window_rects
+        count=len(saved)
+        windows=snapshot.windows
+        if (not 0 < count <= max_windows
+                or len(windows) != count
+                or len({h for h,pid,rect in saved}) != count
+                or len({w.hwnd for w in windows}) != count):
+            return DocumentedOriginShowResult("SAVED_WINDOW_SET_MISMATCH",count)
+        by_hwnd={w.hwnd:w for w in windows}
+        if any(
+            not isinstance(w, GameWindow)
+            or w.hwnd <= 0 or w.pid <= 0
+            or not is_game_candidate(w.process_name,w.class_name,w.title)
+            for w in windows
+        ):
+            return DocumentedOriginShowResult("INVALID_OR_AMBIGUOUS_CACHE",count)
+        if any(by_hwnd.get(h) is None or by_hwnd[h].pid != pid
+               for h,pid,_rect in saved):
+            return DocumentedOriginShowResult("SAVED_HWND_MISSING_OR_REUSED",count)
+        backend=self.backend
+        widths={}
+        try:
+            live=frozenset(backend.enumerate_top_level())
+            # FULL batch preflight before moving even the first HWND.
+            for h,pid,old in saved:
+                if (h not in live or not backend.is_window(h)
+                        or not backend.is_visible(h)
+                        or backend.process_id(h)!=pid):
+                    return DocumentedOriginShowResult("STALE_OR_REUSED_PID",count)
+                if not is_game_candidate(
+                    backend.process_executable(pid),
+                    backend.window_class(h),
+                    backend.title_with_timeout(h,150),
+                ):
+                    return DocumentedOriginShowResult("LIVE_NOT_GAME",count)
+                now=backend.window_rect(h)
+                if (len(old)!=4 or len(now)!=4
+                        or old[2] <= old[0] or old[3] <= old[1]
+                        or old[:2] == (HIDE_X,HIDE_Y)
+                        or tuple(now[:2]) != (HIDE_X,HIDE_Y)
+                        or (now[2]-now[0],now[3]-now[1]) !=
+                           (old[2]-old[0],old[3]-old[1])):
+                    return DocumentedOriginShowResult(
+                        "NOT_AT_DOCUMENTED_HIDDEN_GEOMETRY",count)
+                widths[h]=(now[2]-now[0],now[3]-now[1])
+        except (OSError,RuntimeError,TypeError,ValueError,KeyError):
+            return DocumentedOriginShowResult("NATIVE_PREFLIGHT_FAILED",count)
+
+        moved=[]
+        def stop(code):
+            if moved:
+                # Never claim the old all-hidden state after partial show;
+                # no unsafe automatic retry/restore of ambiguous path.
+                self._state="PARTIAL"
+                return DocumentedOriginShowResult(
+                    code+"_PARTIAL",count,tuple(moved))
+            return DocumentedOriginShowResult(code,count)
+        try:
+            for h,pid,old in saved:
+                if allowed() is not True:
+                    return stop("CANCELLED")
+                if (not backend.is_window(h)
+                        or not backend.is_visible(h)
+                        or backend.process_id(h)!=pid):
+                    return stop("STALE_BEFORE_MOVE")
+                if backend.window_rect(h)[:2] != (HIDE_X,HIDE_Y):
+                    return stop("POSITION_CHANGED_BEFORE_MOVE")
+                if not backend.move_no_resize(h,0,0):
+                    return stop("SETWINDOWPOS_FAILED")
+                moved.append(h)
+                if (not backend.is_window(h)
+                        or backend.process_id(h)!=pid):
+                    return stop("STALE_AFTER_MOVE")
+                actual=backend.window_rect(h)
+                if (len(actual)!=4 or tuple(actual[:2])!=(0,0)
+                        or (actual[2]-actual[0],actual[3]-actual[1])
+                            != widths[h]):
+                    return stop("MOVE_UNVERIFIED")
+            if allowed() is not True:
+                return stop("REVOKED_AFTER_MOVE")
+        except (OSError,RuntimeError,TypeError,ValueError,KeyError):
+            return stop("NATIVE_MOVE_FAILED")
+        self._state="VISIBLE"
+        self._saved_window_rects=()
+        return DocumentedOriginShowResult(
+            "DOCUMENTED_ORIGIN_ZERO_ZERO_VERIFIED_NOT_FULL_PARITY",
+            count,tuple(moved))
 
     def reset_after_verified_layout(
         self, snapshot: WindowSnapshot, *, mode: str,
