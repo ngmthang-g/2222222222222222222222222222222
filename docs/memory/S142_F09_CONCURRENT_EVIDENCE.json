@@ -1,0 +1,66 @@
+{
+  "task": "S142",
+  "date": "2026-10-11",
+  "status": "VERIFIED_F09_REAL_WINDOWS_TK_HHMM_EXTERNAL_EDIT_SAFETY_ONLY_NOT_SCHEDULER",
+  "original_sources": [
+    "docs/tasks/F09.md",
+    "docs/tasks/E05.md",
+    "docs/tasks/S111.md",
+    "docs/tasks/S141.md"
+  ],
+  "user_facing_feature": "Existing real F01 readonly close/open HH:MM combobox saves schedule_close/schedule_open only",
+  "issue": "Original rebuilt F09 writer did not detect modifications to settings.ini by external processes between its initial read and os.replace; could overwrite independently edited original Accounts or game_dir.",
+  "fix": "Under E05 in-process lock, capture original target file stat/raw bytes at read, write/fsync temp, then before backup/replace verify target existence/stat AND full bytes still match original; reject stale with ScheduleTimeWriteError. No claims of OS-wide mutex or race-free atomic compare-and-swap.",
+  "tested": {
+    "github_s142_run_id": 38157065927,
+    "github_s142_job_id": 114522122749,
+    "status": "COMPLETED_SUCCESS",
+    "windows_full_tests": 2228,
+    "compiled_python_files": 365,
+    "production_src_modules": 94,
+    "added_tests": 16,
+    "native_result": "PASS_S142_REAL_WIN64_F09_TK_EXTERNAL_CHANGE_FENCED_NOT_PRODUCT",
+    "native_real_tk_steps": 8,
+    "native_s111": "PASS",
+    "native_s141": "PASS",
+    "native_s140_subprocesses": "12/12 PASS",
+    "inherited_s139_through_s116_native": "PASS",
+    "signed_info_product_gate": "S142_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT",
+    "artifact_id": 11709510244,
+    "independent_s36_run_id": 38157065953,
+    "s36": "COMPLETED_SUCCESS_DIAGNOSTIC_NOT_PRODUCT",
+    "independent_stage_s_run_id": 38157065926,
+    "stage_s": "COMPLETED_SUCCESS",
+    "initial_pretestfile_failed_runs": [
+      38156889889,
+      38156889697
+    ],
+    "initial_failure_reason": "Tests/test_s142.py references new native smoke path in AST test before tools/S142_WINDOWS_LOGIN_TIME_CONCURRENT_SMOKE.py was committed; final source contains it and all three CI checks PASS."
+  },
+  "tested_external_mutations": [
+    "game_dir changed outside writer",
+    "same-length, same mtime, different original bytes",
+    "externally deleted settings.ini",
+    "externally created INI after original absent",
+    "same-content file replaced to a different inode",
+    "F04 real game_dir write while F09 save pending, F04 preserved and F09 refuses stale"
+  ],
+  "original_signed_info_present": false,
+  "game_runtime_access": false,
+  "schedule_actions_enabled": false,
+  "pc_shutdown": false,
+  "original_zip_or_data_repo_changed": false,
+  "proxy_developed": false,
+  "remaining_limit": "Best-effort pre-replace stale check only. External process may still write in the narrow interval between final check and os.replace; no cross-process file locking is claimed. Authentic current game Info issuer and live actions remain absent.",
+  "files": [
+    "src/login_schedule_times.py",
+    "tests/test_s142.py",
+    "tools/S142_WINDOWS_LOGIN_TIME_CONCURRENT_SMOKE.py",
+    ".github/workflows/s142-login-f09-concurrent.yml",
+    "docs/tasks/S142.md",
+    "docs/memory/S142_F09_CONCURRENT_EVIDENCE.json",
+    "STATE.md",
+    "PROJECT_STATUS.md"
+  ],
+  "next_action": "S143"
+}
