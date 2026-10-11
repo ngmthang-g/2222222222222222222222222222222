@@ -37,6 +37,10 @@ def main() -> int:
         wins=[]
         for i,(width,height) in enumerate(((530,365),(670,420),(480,300))):
             win=tk.Toplevel(root)
+            # GitHub Windows Tk defaults WM max-track to hosted 1024x768.
+            # Raise only the TEST fixture maxsize so true SetWindowPos can
+            # reach the original 1366x768 even on a smaller CI desktop.
+            win.maxsize(2400,1600)
             win.title(GAME_TITLE if i<2 else "NOT_LOGIN_OWNED")
             win.geometry(f"{width}x{height}+{65+i*230}+{80+i*45}")
             tk.Label(win,text="S159 native test HWND, NOT a game").pack()
@@ -77,7 +81,7 @@ def main() -> int:
             res.code=="PASS" and res.resized==tuple(handles[:2])
             and len(api.resize_calls)==2)
         after={h:api.window_rect(h) for h in handles}
-        checks["both_real_hwnds_reach_original_1366x768"]=all(
+        result["actual_post_resize_outer_sizes"]=[(after[h][2]-after[h][0],after[h][3]-after[h][1]) for h in handles]\n        checks["both_real_hwnds_reach_original_1366x768"]=all(
             (after[h][2]-after[h][0],after[h][3]-after[h][1])==(1366,768)
             for h in handles[:2])
         checks["native_resize_kept_original_xy_positions"]=all(
