@@ -155,7 +155,23 @@ class S145F06PrintWindowReadOnlyTests(unittest.TestCase):
         for word in ("PrintWindow","GetWindowRect","GetDIBits",
                      "GetWindowDC","compare_reference","provider.capture(window.hwnd)"):
             self.assertIn(word,s)
-    def test_23_ast_all_new_S145_files(self):
+    def test_23_hwnd_destroyed_during_native_printwindow_rejects_pixels(self):
+        backend=FakeBackend()
+        provider=FakeProvider(after=lambda:setattr(backend,"alive",False))
+        result=observe(backend=backend,provider=provider)
+        self.assertEqual(result.code,"STALE_OR_UNAUTHORIZED_AFTER_CAPTURE")
+        self.assertEqual(result.matched,())
+        self.assertEqual(provider.calls,[101])
+
+    def test_24_oversize_unknown_reference_refuses_native_capture(self):
+        provider=FakeProvider()
+        large={**REF,"login.login2":tuple(
+            RgbSample(0,0,1,2,3) for _ in range(33))}
+        self.assertEqual(observe(large,provider=provider).code,
+                         "NO_VERIFIED_ORIGINAL_PIXEL_REFERENCE")
+        self.assertEqual(provider.calls,[])
+
+    def test_25_ast_all_new_S145_files(self):
         for p in ("src/login_printwindow_pixels.py","tests/test_s145.py",
                   "tools/S145_WINDOWS_PRINTWINDOW_NATIVE_SMOKE.py"):
             ast.parse((ROOT/p).read_text(encoding="utf8"))
