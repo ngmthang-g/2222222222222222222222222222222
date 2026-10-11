@@ -50,7 +50,7 @@ def main():
         getrect=user32.GetWindowRect
         getrect.argtypes=[w.HWND,ct.POINTER(w.RECT)]
         getrect.restype=w.BOOL
-        fill=gdi32.FillRect
+        fill=user32.FillRect
         fill.argtypes=[w.HDC,ct.POINTER(w.RECT),w.HBRUSH]
         fill.restype=ct.c_int
         makebrush=gdi32.CreateSolidBrush
@@ -205,7 +205,8 @@ def main():
     except Exception as e:
         result={
             "status":"FAIL_S145_PRINTWINDOW",
-            "error_type":type(e).__name__,"native_checks":checks,
+            "error_type":type(e).__name__,
+            "error_detail":str(e)[:180],"native_checks":checks,
             "actual_game_executed":False,
         }
     finally:
