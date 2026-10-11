@@ -53,9 +53,10 @@ def run():
         root.update()
 
         assert not editor.group_inputs[0][0].get()
-        assert editor.mode_combo.get() == "Chờ"
-        editor.mode_combo.set("Train")
-        editor.mode_combo.event_generate("<<ComboboxSelected>>")
+        assert editor.mode_var.get() == "Chờ"
+        assert len(editor.mode_radios) == 5
+        # S118 correction: real B04/G01 radios, not the former S89 combo.
+        editor.mode_radios[1].invoke()  # Train => train
         root.update()
         assert store.load().after == "train"
 
@@ -82,7 +83,8 @@ def run():
         editor2.pack(fill="both", expand=True)
         root.update_idletasks()
         root.update()
-        assert editor2.mode_combo.get() == "Train"
+        assert editor2.mode_var.get() == "Train"
+        assert len(editor2.mode_radios) == 5
         assert editor2.group_inputs[0][0].get() == "Thiên Địa"
         assert editor2.group_inputs[1][4].get() == "Bạch Vân"
 
@@ -100,7 +102,7 @@ def run():
         groups = json.loads(raw)
         assert groups[0]["num"] == 1 and groups[0]["members"][4] == "Bạch Vân"
         assert json.loads(parser.get("Settings", "party_group1")) == ["Bạch Vân"]
-        report["real_tk_button_combobox_events"] = True
+        report["real_tk_button_radio_combobox_events"] = True
         report["durable_ini_reload_unicode"] = True
         report["no_fake_game_actions"] = True
         report["status"] = "PASS_NATIVE_S89_PARTY_CONFIG_ONLY_REAL_TK_INI"
