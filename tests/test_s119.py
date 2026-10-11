@@ -41,7 +41,7 @@ class TestS119FarmCoordinatePersistence(unittest.TestCase):
             self.assertIn(b"[Other]\r\nabc = 1\r\n", actual)
             self.assertIn(b"coord_1 = New|202|7|8\r\n", actual)
             self.assertNotIn(b"coord_8", actual)
-            self.assertTrue((store.path.parent / "settings." ).exists() if False else True)
+            self.assertEqual(len(list(store.path.parent.glob("settings.????????.ini"))), 1)
 
     def test_04_numeric_order_not_lexicographic(self):
         with tempfile.TemporaryDirectory() as td:
