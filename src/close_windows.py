@@ -139,6 +139,8 @@ class C16CloseAll:
             return "LIVE_VALIDATION_ERROR"
 
     def close_all_game_windows(self, snapshot: WindowSnapshot) -> CloseResult:
+        # A new invocation never inherits a previous cleanup status.
+        self.last_crash_cleanup = "NOT_RUN"
         if not isinstance(snapshot, WindowSnapshot) or not snapshot.valid:
             return CloseResult("INVALID_CACHE")
         if any(not isinstance(item, GameWindow) for item in snapshot.windows):
@@ -179,7 +181,6 @@ class C16CloseAll:
         # matching is GLOBAL; never execute unless at least one legitimate
         # game HWND passed all live-identity checks and accepted WM_CLOSE.
         # An external failure must not turn POSTED into CLOSED.
-        self.last_crash_cleanup = "NOT_RUN"
         if posted and self.crash_cleanup is not None:
             try:
                 value = self.crash_cleanup.run()
