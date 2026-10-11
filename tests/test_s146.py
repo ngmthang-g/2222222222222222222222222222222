@@ -189,5 +189,49 @@ class S146DocumentedShowToZeroTests(unittest.TestCase):
                   "tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py"):
             ast.parse((ROOT/p).read_text(encoding="utf8"))
 
+
+    def test_21_auth_exception_before_first_move_cancels(self):
+        self.hide()
+        calls={"n":0}
+        def auth():
+            calls["n"]+=1
+            if calls["n"]==2: raise AssertionError("PROVIDER_DOWN")
+            return True
+        result=self.show(allowed=auth)
+        self.assertEqual(result.code,"CANCELLED")
+        self.assertEqual(result.moved,())
+        self.assertTrue(self.handler.hidden)
+        self.assertEqual(self.backend.moves,[])
+
+    def test_22_auth_exception_after_first_move_records_partial(self):
+        self.hide()
+        calls={"n":0}
+        def auth():
+            calls["n"]+=1
+            if calls["n"]==3: raise AssertionError("PROVIDER_DOWN")
+            return True
+        result=self.show(allowed=auth)
+        self.assertEqual(result.code,"CANCELLED_PARTIAL")
+        self.assertEqual(result.moved,(1,))
+        self.assertEqual(self.backend.moves,[(1,0,0)])
+        self.assertTrue(self.handler.partial)
+        self.assertFalse(self.handler.hidden)
+        self.assertEqual(self.show().code,"PARTIAL_REQUIRES_RECONCILIATION")
+
+    def test_23_auth_exception_after_all_moves_is_not_false_success(self):
+        self.hide()
+        calls={"n":0}
+        def auth():
+            calls["n"]+=1
+            if calls["n"]==4: raise AssertionError("PROVIDER_DOWN")
+            return True
+        result=self.show(allowed=auth)
+        self.assertEqual(result.code,"CANCELLED_PARTIAL")
+        self.assertEqual(result.moved,(1,2))
+        self.assertEqual(self.backend.moves,[(1,0,0),(2,0,0)])
+        self.assertTrue(self.handler.partial)
+        self.assertFalse(self.handler.hidden)
+        self.assertNotEqual(result.code,"DOCUMENTED_ORIGIN_ZERO_ZERO_VERIFIED_NOT_FULL_PARITY")
+
 if __name__=="__main__":
     unittest.main()
