@@ -38,7 +38,7 @@ class TkFarmBuffEditor(ttk.Frame):
         except Exception as exc:
             self._blocked = True
             self.error = type(exc).__name__
-        self.group = ttk.LabelFrame(self, text="Dùng thuốc (buff) thủ công")
+        self.group = ttk.LabelFrame(self, text="Dùng thủ công đan dược (2x, 4x...):")
         self.group.pack(fill="x", padx=5, pady=4)
         self.row_host = ttk.Frame(self.group)
         self.row_host.pack(fill="x", padx=5)
