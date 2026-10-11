@@ -1,0 +1,118 @@
+{
+  "task": "S146",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_REAL_WIN64_C12_DOCUMENTED_ORIGIN_BRANCH_ONLY_NOT_FULL_SHOW_PARITY",
+  "original_authority": [
+    "PLAN.md",
+    "SCOPE_LOCK.md",
+    "docs/tasks/C12.md",
+    "docs/window/C12_HIDE_SHOW_STATIC_EVIDENCE.tsv",
+    "docs/window/C12_HIDE_SHOW_FLOW.md",
+    "docs/tasks/S57.md",
+    "docs/tasks/S60.md",
+    "docs/tasks/S145.md"
+  ],
+  "original_evidence": {
+    "hide_target": [
+      -2200,
+      -2200
+    ],
+    "original_show_specific_doc_target": [
+      0,
+      0
+    ],
+    "preserve_size": true,
+    "avoid_SW_HIDE": true,
+    "save_old_rectangle": true,
+    "generic_toggle_doc": "return to old position",
+    "show_specific_doc": "move to (0,0) and preserve size",
+    "exact_original_runtime_branch": "CONFLICT_UNRESOLVED",
+    "full_ui_toggle_released": false
+  },
+  "original_pixel_review": {
+    "pinned_original_zip_sha256": "c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd",
+    "first_original_exe_sha256": "15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22",
+    "original_login1_login2_rgb_and_coords": "NOT_FOUND_IN_VERIFIED_STATIC_DATA",
+    "data_config_dat": "MZ PE; no original readable login1/login2 color reference",
+    "original_game_launch": false,
+    "game_version_attached": false
+  },
+  "real_behavior": {
+    "module": "src/window_hide.py",
+    "method": "C12HideAll.show_documented_origin",
+    "actual_winapi": "NativeLayoutBackend.move_no_resize uses SetWindowPos(SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE) + GetWindowRect readback",
+    "prerequisites": "C12HideAll must be fully HIDDEN by verified C12 native hide; independent allowed callback; verified window count; snapshot matches every saved HWND+PID; all windows at (-2200,-2200) of unchanged original width/height",
+    "safety": "precheck every window before any move, guard PID before/after each, verify visible and exact (0,0) final coords and dimensions; partial/revoked action marks PARTIAL and disallows silent retry; clear saved only on full verified success",
+    "ui": "NO new/changed Start UI control; no original global show-toggle claim",
+    "game_window_operations": false,
+    "auth_grants": false,
+    "proxy_actions": false
+  },
+  "new_unit_cases": 20,
+  "native": {
+    "run_id": 38163848439,
+    "job_id": 114542178613,
+    "conclusion": "COMPLETED_SUCCESS",
+    "python_tests_passed": 2311,
+    "compiled_files": 376,
+    "production_src_modules": 97,
+    "marker": "PASS_S146_REAL_WIN64_C12_DOCUMENTED_ZERO_ORIGIN_TEST_OWNED_NO_GAME",
+    "native_test_owned_hwnds": 2,
+    "native_assertions_passed": 11,
+    "window_dimensions_preserved": true,
+    "window_is_visible_after_show": true,
+    "native_origin_after_show": [
+      0,
+      0
+    ],
+    "original_full_show_branch_proven": false,
+    "test_only_artifact_id": 11710374577,
+    "inherited_s145_through_s116": "PASS",
+    "signed_info_product_gate": "S146_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT",
+    "independent_s36_run_id": 38163848387,
+    "independent_s36_conclusion": "COMPLETED_SUCCESS_DIAGNOSTIC_ONLY",
+    "independent_stage_s_run_id": 38163848465,
+    "independent_stage_s_conclusion": "COMPLETED_SUCCESS"
+  },
+  "intermediate_failed_runs": [
+    {
+      "run": 38163665031,
+      "type": "S36",
+      "reason": "test_s146.py AST checked new native smoke script before it was committed",
+      "corrected": "native script and final source committed; final run 38163848387 SUCCESS"
+    },
+    {
+      "run": 38163665085,
+      "type": "Stage S",
+      "reason": "same intermediate missing new native smoke script",
+      "corrected": "final run 38163848465 SUCCESS"
+    }
+  ],
+  "files_changed": [
+    "src/window_hide.py",
+    "tests/test_s146.py",
+    "tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py",
+    ".github/workflows/s146-c12-document-origin.yml",
+    "docs/tasks/S146.md",
+    "docs/memory/S146_C12_ORIGIN_BRANCH_EVIDENCE.json",
+    "STATE.md",
+    "PROJECT_STATUS.md"
+  ],
+  "frozen": [
+    "original ZIP/EXE",
+    "PLAN.md",
+    "SCOPE_LOCK.md",
+    "B04/S59 original assets",
+    "S01–S145 production modules besides precise C12 change",
+    "DATA-2222 READ ONLY",
+    "Proxy NOT DEVELOPED"
+  ],
+  "blockers": [
+    "Original C12 generic old-position vs specific (0,0) released UI toggle route unresolved",
+    "Original login1/login2 pixel coordinates, RGB, matching rules unverified",
+    "Original signed Info provider/heartbeat unavailable",
+    "Actual game build, RoleData/Items, F05/F06 real login and all tab parity missing",
+    "Real finished TLMTool user product EXE unavailable"
+  ],
+  "next_action": "S147"
+}
