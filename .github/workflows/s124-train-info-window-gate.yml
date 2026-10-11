@@ -1,0 +1,65 @@
+name: S124 Train real Info account limit and native HWND PID gate - NOT PRODUCT
+on:
+  push:
+    paths:
+      - "src/train_row_permission.py"
+      - "src/train_account_rows.py"
+      - "src/farm_preset_account_binding.py"
+      - "src/farm_saved_editor.py"
+      - "tests/test_s124.py"
+      - "tools/S124_WINDOWS_TRAIN_AUTH_GATE_SMOKE.py"
+      - ".github/workflows/s124-train-info-window-gate.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s124-native:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - name: Install screenshot dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all source tests tools
+        run: python -m compileall -q src tests tools
+      - name: Full Stage S Python regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 all source manifest audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S124 true native HWND PID and real Tk auth gates
+        run: python tools/S124_WINDOWS_TRAIN_AUTH_GATE_SMOKE.py
+      - name: Inherited S123 S122 S121 S120 S119 Windows native
+        run: |
+          python tools/S123_WINDOWS_TRAIN_ACCOUNT_ROWS_SMOKE.py
+          python tools/S122_WINDOWS_FARM_ACCOUNT_COMBO_SMOKE.py
+          python tools/S121_WINDOWS_FARM_SAVED_EDITOR_SMOKE.py
+          python tools/S120_WINDOWS_FARM_ORIGINAL_MAPS_SMOKE.py
+          python tools/S119_WINDOWS_FARM_COORDINATES_SMOKE.py
+      - name: Inherited real Party Login native
+        run: |
+          python tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py
+          python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+          python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+          python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+          python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+          python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Genuine signed Info still blocks product entrypoint
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s124/info_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S124_PRODUCT_INCORRECTLY_STARTED" }
+          if ((Get-Content -Raw artifacts/s124/info_gate.txt) -notmatch "S01 BLOCKED") { throw "S124_INFO_GUARD_MISSING" }
+          Write-Host "S124_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S124_INFO_PERMISSION_LIMIT_REAL_HWND_PID_NATIVE_ONLY_NOT_PRODUCT
+          path: |
+            artifacts/s124/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
