@@ -289,7 +289,14 @@ class TkTrainComposition(ttk.Frame):
         return True
 
     def start_readonly_window_refresh(self) -> bool:
-        """Start real S09 HWND reading only after external verified permission."""
+        """Consume real *shared Start* S09 cache only; never launch a clone.
+
+        H01 original FarmTab consumes Start's existing window universe.
+        Without an explicitly supplied real shared StartWindowProducer,
+        refuse a background scanner rather than start a second worker.
+        """
+        if not isinstance(self.window_producer, StartWindowProducer):
+            return False
         if not self.reapply_permissions() or self.accounts is None:
             return False
         self._readonly_refresh_requested=True
