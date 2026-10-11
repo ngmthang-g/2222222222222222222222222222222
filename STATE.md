@@ -1,28 +1,30 @@
 # STATE — TLMTool 2.1.2 reconstruction
 
-_Last checkpoint: 2026-10-11. Authoritative scope: PLAN.md. Full earlier task history: PROJECT_STATUS.md._
+_Last checkpoint: 2026-10-11. Source of truth for scope: PLAN.md and SCOPE_LOCK.md. Full earlier checkpoints: PROJECT_STATUS.md._
 
-## Latest verified — S136
-- **S136 VERIFIED (STATIC ORIGINAL-EXE EVIDENCE ONLY)**. Offline original ZIP/EXE hash/CRC + 10 exact binary anchors and nearby tagged values cross-verified, new hash-pinned evidence verifier and machine-readable report. Exact runtime `read_bag/get_bag` code, dictionary offsets/stride and authentic game memory remain UNKNOWN.
-- **[S136 Windows CI 38148405967](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38148405967) COMPLETED SUCCESS**: **2095/2095** full Windows Python tests; **348** compiled files, **91** production modules. S136 synthetic static parser selftest + native Win64 S135/S134/S133 and inherited S132–S116 PASS. Genuine Info still `EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT`; artifact 11706385179 TEST ONLY.
-- **[Independent S36 Windows packaged diagnostic CI 38148385043](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38148385043) COMPLETED SUCCESS** and [Stage S source regression 38148385074](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38148385074) SUCCESS. Diagnostic EXE remains intentionally **NOT PRODUCT**.
-- Retained **S135 VERIFIED** (2075 Windows tests, 346 compiled, 91 modules), previous S134–S116 native behavior, and all frozen original evidence. No existing production source altered.
+## Latest milestone — S137 VERIFIED (OFFLINE ORIGINAL ITEM CATALOG)
+- **Real frozen original item metadata, not test-game data.** Exact original 2.1.2 `META`: **29,983 ItemIDs**; original `WEAPON_ITEM_IDS`: **5,477 IDs** and 12 weapon types, exact reverse equivalence with allowed EquipType set. Independently verified original ZIP SHA c1d51ffcc2c9f4c8f11c1ae70a90f63eb7c58e06b972ef08e48c71c0517c02cd and inner EXE SHA 15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22, unchanged.
+- **[S137 native Windows CI 38150945315](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38150945315) COMPLETED SUCCESS**: **2,127/2,127** full Python tests; **351** AST/compiled files, **92** production modules. Exact metadata/weapon identity/immutability and deterministic JSON.gz exporter tests PASS; inherited native Win64 test-owned S135/S134/S133 + Train S132–S119 + Party S118/S89/S91/S93 + Login S117/S116 PASS. Genuine signed Info product gate still **`EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT`**.
+- **[Independent S36 Windows packaged diagnostic CI 38150945277](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38150945277) COMPLETED SUCCESS** (PyInstaller executable still **DIAGNOSTIC ONLY — NOT PRODUCT**); [Stage S source regression 38150945306](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38150945306) SUCCESS.
+- Full original catalog independently exported as local gzipped JSON (29,983 rows, 5,477 weapons, 193,833 bytes). SHA256 e9322e4c6e5f0a832ae76316ad9be5fc9dc0fd2ebd0043f02bef0da360fb220a. Offline developer exporter in repo regenerates it from user-supplied original ZIP.
+- **Prior S136** remains VERIFIED STATIC ONLY (2,095 Windows units, 348 compiled); S119–S136 production source preserved.
 
-## Files changed S136
-- NEW `tools/S136_AUDIT_ORIGINAL_BAG_CONSTANTS.py`
-- NEW `tests/test_s136.py` (20 tests)
-- NEW `.github/workflows/s136-bag-evidence.yml`
-- NEW `docs/memory/S136_ORIGINAL_BAG_EVIDENCE.json`
-- NEW `docs/tasks/S136.md`
-- Updated `STATE.md` and appended `PROJECT_STATUS.md`
+## S137 files created
+- `src/original_item_catalog.py` — actual original offline ItemID lookup and weapon set, exact ZIP/EXE sha, frozen mapping, no missing ID guessing, no game reader
+- `tools/S137_EXPORT_ORIGINAL_CATALOG.py` — separate opt-in complete sorted/deterministic catalog exporter and metadata digests
+- `tests/test_s137.py` — 32 tests
+- `.github/workflows/s137-original-item-catalog.yml`
+- `docs/memory/S137_ORIGINAL_CATALOG_EVIDENCE.json`
+- `docs/tasks/S137.md`
+- `STATE.md` and `PROJECT_STATUS.md` milestone records
+- Original frozen ZIP/PLAN/B04/S59, DATA-2222 repo and all previously verified modules **UNMODIFIED**.
 
-## Complete / in progress / blocker
-- **COMPLETE**: source-backed original embedded status/error strings, documented row columns, `get_bag` field-name surface, exact pinned neighboring tagged integer evidence. The `site` column appears in read_bag documentation but lacks its own adjacent emitted-field symbol, so exact runtime data shape stays unproven.
-- **CURRENT:** S136 checkpoint complete; S137 is next.
-- **BLOCKED:** authentic signed Info/token/heartbeat; verified live game build and RoleData/Items dictionary count/entry offsets and stride; stable real Site10 bag snapshots; actual Farm FSM and NPC/UI/game actions; full original UI/runtime parity and functional product EXE. Pinned-binary constants are NOT original AST or memory-layout proof.
-- **PRESERVE:** TLMTool original archive, PLAN.md, B04/S59 and all verified S119–S135 production source unchanged. DATA-2222 strictly READ ONLY, Proxy not developed. No invented live RoleName, Bag, MapID, item packet or auth bypass.
+## What's complete / actively blocked
+- **COMPLETE S137:** truthful reusable FULL original catalog and weapon classification by template ItemID. Unknown/invalid IDs remain unknown; `get_bag` behavior and live ItemData are not fabricated.
+- **BLOCKED:** legitimate original signed Info/server/heartbeat; current game build attestation; real RoleData / Items and dictionary layout; actual `read_bag/get_bag` exception/tuple and sort semantics; live Farm FSM actions/party/shop, original UI/EXE functional parity. Actual game memory was never read; test-owned Win64 native tests do not attest game compatibility. No independent signed Info issuer was supplied.
+- **Do not modify:** PLAN.md, original ZIP and original binary evidence, B04/S59, previously VERIFIED S119–S136, no Proxy runtime, DATA-2222 is strictly READ ONLY. No fake role names, bag contents, game packets, signed tokens or live game buttons.
 
-## NEXT_ACTION S137
-1. Read LIVE PLAN.md, STATE.md, PROJECT_STATUS.md and docs/tasks/S136.md + O02/O03. Seek a genuinely stronger source/runtime verification path for original `read_bag/get_bag` branches and authorized game/Info environment or exact native metadata, not another invented dictionary fixture.
-2. If data/source authority remains insufficient, explicitly retain UNKNOWN and prioritize a different original-backed missing real feature rather than adding fake runtime UI or guessing offsets. Keep completed S119–S136 unchanged.
-3. Any source edit requires at least **2095 Windows full tests**, **348 compiled**, S136–S116 relevant native regression and independent S36 diagnostic fail-closed; checkpoint with files, tests, blockers and **NEXT_ACTION S138** in both status documents.
+## NEXT_ACTION S138
+1. Read LIVE `PLAN.md`, `STATE.md`, `PROJECT_STATUS.md`, `docs/tasks/S137.md`, O03/O04 and authentic original source/build evidence. Work toward evidence-backed *functional* capability: retain the original verified static metadata catalog and determine if an independent offline deployment resource can be safely used, or pursue legitimate signed Info + current game build validation rather than repeated artificial bag-memory demos.
+2. Keep original TLM as absolute functional/UI reference, all prior S119–S137 code stable, no Proxy, DATA-2222 READ ONLY; **do not wire unverified memory offsets to the real-game adapter**, invent gameplay actions or bypass entitlement.
+3. If code changes, require >= **2,127 Windows full tests**, >= **351 compiled**, inherited S137–S116 relevant real Win64 native regression and independent S36 packaged diagnostic fail-closed. Append exact tests, modified files, blockers and **NEXT_ACTION S139** to STATE and PROJECT_STATUS.
