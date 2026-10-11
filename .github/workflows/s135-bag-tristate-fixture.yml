@@ -6,7 +6,7 @@ on:
       - "docs/tasks/S135.md"
       - "tests/test_s135.py"
       - "tools/S135_WINDOWS_SITE10_TRISTATE_SMOKE.py"
-      - ".github/workflows/s135-role-chain-fixture.yml"
+      - ".github/workflows/s135-bag-tristate-fixture.yml"
   workflow_dispatch:
 permissions:
   contents: read
