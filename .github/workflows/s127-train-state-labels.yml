@@ -1,0 +1,62 @@
+name: S127 original Farm state colors native Tk - NOT PRODUCT
+on:
+  push:
+    paths:
+      - "src/train_state_labels.py"
+      - "src/train_account_rows.py"
+      - "tests/test_s127.py"
+      - "tools/S127_WINDOWS_H12_STATE_LABEL_SMOKE.py"
+      - ".github/workflows/s127-train-state-labels.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s127-native:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S127 original state actual Windows Tk TEST-owned HWND/PID
+        run: python tools/S127_WINDOWS_H12_STATE_LABEL_SMOKE.py
+      - name: S126 S125 S124 S123 S122 S121 S120 S119 native Windows
+        run: |
+          python tools/S126_WINDOWS_TRAIN_EXTRA_TRACKER_SMOKE.py
+          python tools/S125_WINDOWS_TRAIN_CHARACTER_SAMPLES_SMOKE.py
+          python tools/S124_WINDOWS_TRAIN_AUTH_GATE_SMOKE.py
+          python tools/S123_WINDOWS_TRAIN_ACCOUNT_ROWS_SMOKE.py
+          python tools/S122_WINDOWS_FARM_ACCOUNT_COMBO_SMOKE.py
+          python tools/S121_WINDOWS_FARM_SAVED_EDITOR_SMOKE.py
+          python tools/S120_WINDOWS_FARM_ORIGINAL_MAPS_SMOKE.py
+          python tools/S119_WINDOWS_FARM_COORDINATES_SMOKE.py
+      - name: Original Party/Login native regressions
+        run: |
+          python tools/S118_WINDOWS_PARTY_AFTER_RADIO_SMOKE.py
+          python tools/S89_WINDOWS_G08_PARTY_CONFIG_EDITOR_SMOKE.py
+          python tools/S91_WINDOWS_G02_PARTY_READY_NATIVE_SMOKE.py
+          python tools/S93_WINDOWS_G09_TK_OWNER_STATUS_SMOKE.py
+          python tools/S117_WINDOWS_F02_SAVE_FEEDBACK_SMOKE.py
+          python tools/S116_WINDOWS_LOGIN_EXISTING_ACCOUNT_SMOKE.py
+      - name: Original E03 signed Info gate still refuses product
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s127/signed_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S127_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s127/signed_gate.txt) -notmatch "S01 BLOCKED") { throw "S127_SIGNED_INFO_BYPASS" }
+          Write-Host "S127_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S127_ORIGINAL_H12_NATIVE_STATE_NO_GAME_NOT_PRODUCT
+          path: |
+            artifacts/s127/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
