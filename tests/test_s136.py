@@ -19,13 +19,17 @@ class TestS136(unittest.TestCase):
         raw=bytearray(mod.REGION_END+40)
         for offset,marker in mod.PINNED.values():
             raw[offset:offset+len(marker)]=marker
-        for i,field in enumerate(("dbID","itemID","pos","qty")):
+        for field,offset in {"dbID":0x2B6A77C,"itemID":0x2B6A782,
+                             "pos":0x2B6A78A,"qty":0x2B6A78F}.items():
             tok=("a"+field+"\0").encode()
-            offset=0x2B6A780+i*9
             raw[offset:offset+len(tok)]=tok
-        for i,field in enumerate(mod.GET_BAG_FIELDS):
+        for field,offset in {
+            "name":0x2B6A84C,"icon":0x2B6A856,"src":0x2B6A860,
+            "type":0x2B6A869,"etype":0x2B6A870,"slots":0x2B6A877,
+            "distinct":0x2B6A87E,"total_qty":0x2B6A888,
+            "non_bag":0x2B6A893,"info":0x2B6A89C
+        }.items():
             tok=("a"+field+"\0").encode()
-            offset=0x2B6A83A+i*11
             raw[offset:offset+len(tok)]=tok
         for val,offset in ((24,0x2B6A71D),(32,0x2B6A725),
                            (10000,0x2B6A740),(65536,0x2B6A758),
@@ -35,7 +39,7 @@ class TestS136(unittest.TestCase):
                 part=n&127;n>>=7;seq.append(part | (128 if n else 0))
                 if not n:break
             raw[offset:offset+len(seq)+1]=b"l"+bytes(seq)
-        raw[0x2B6A77D:0x2B6A782]=b"aout\0"
+        raw[0x2B6A777:0x2B6A77C]=b"aout\0"
         cls.synthetic=bytes(raw)
     def test_01_tagged_varint_24(self):
         self.assertEqual(mod.decode_uleb(b"\x18",0),(24,1))
