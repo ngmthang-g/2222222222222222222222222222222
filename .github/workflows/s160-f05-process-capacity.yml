@@ -31,6 +31,8 @@ jobs:
       - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
       - name: S160 TRUE Win32 Toolhelp Unicode EXE count via two TEST-OWNED processes
         run: python tools/S160_WINDOWS_F05_LIVE_EXE_COUNT_SMOKE.py
+      - name: S26 original F05 existing extra-one guard native Tk regression
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
       - name: S159 real Win64 Login original conditional 1366x768 resize
         run: python tools/S159_WINDOWS_LOGIN_NATIVE_RESIZE_SMOKE.py
       - name: S158 two actual child-PID Win32 HWND serialized handoffs
