@@ -94,6 +94,21 @@ class C14DetachedHost:
     def _on_owner_thread(self) -> bool:
         return threading.get_ident() == self._thread
 
+    @staticmethod
+    def _authorized(allowed: Callable[[], bool]) -> bool:
+        """S152: an unavailable or throwing Info provider denies native C14.
+
+        An unexpected callback exception must never leave a visible
+        detached Win32/DWM owner after authorization was revoked.
+        This is a reconstruction safety fence, not a claimed TLM branch.
+        """
+        if not callable(allowed):
+            return False
+        try:
+            return allowed() is True
+        except Exception:
+            return False
+
     def _verified_owner(self) -> bool:
         if self._owner is None or self._region is None or not self._owner_hwnd:
             return False
@@ -109,7 +124,7 @@ class C14DetachedHost:
                     and b.window_rect(self._owner_hwnd)
                     == (r.x,r.y,r.x+r.width,r.y+r.height)
                     and self._is_topmost(self._owner_hwnd))
-        except (OSError, RuntimeError, ValueError, TypeError):
+        except Exception:
             return False
 
     def _source_gate(self, snapshot, max_windows: int) -> str:
@@ -152,7 +167,7 @@ class C14DetachedHost:
             return HostResult("CLOSED")
         if self._refresh_cleanup_faulted:
             return HostResult("NATIVE_CLEANUP_FAILED_LOCKED")
-        if not allowed():
+        if not self._authorized(allowed):
             return HostResult("CANCELLED")
         if self._owner is not None:
             if not self._verified_owner():
@@ -171,7 +186,7 @@ class C14DetachedHost:
         region=verified_detached_region(w,h)
         if region is None:
             return HostResult("NO_USABLE_SCREEN_REGION")
-        if not allowed():
+        if not self._authorized(allowed):
             return HostResult("CANCELLED")
 
         widget=None
@@ -195,7 +210,7 @@ class C14DetachedHost:
             self._owner=widget
             self._owner_hwnd=hwnd
             self._region=region
-            if not self._verified_owner() or not allowed():
+            if not self._verified_owner() or not self._authorized(allowed):
                 self.close()
                 return HostResult("OWNER_NATIVE_PROOF_FAILED")
             # C13 recovered original detached control-bar action "Đóng xem".
@@ -214,7 +229,7 @@ class C14DetachedHost:
                 self._close_view_button = button
             self._session=self._session_factory()
             return HostResult("HOST_OPEN",hwnd,region)
-        except (OSError,RuntimeError,ValueError,TypeError,AttributeError):
+        except Exception:
             if self._owner is None and widget is not None:
                 try:widget.destroy()
                 except Exception:pass
@@ -230,7 +245,7 @@ class C14DetachedHost:
             return HostResult("CLOSED")
         if self._owner is None or self._session is None or self._region is None:
             return HostResult("NOT_OPEN")
-        if not allowed():
+        if not self._authorized(allowed):
             self.close()
             return HostResult("CANCELLED")
         if not self._verified_owner():
@@ -249,7 +264,7 @@ class C14DetachedHost:
                 self.close()
             return HostResult(result.code,self._owner_hwnd if self._owner else 0,
                               self._region,result.rendered)
-        except (OSError,RuntimeError,ValueError,TypeError):
+        except Exception:
             self.close()
             return HostResult("DETACHED_RENDER_FAILED")
 
@@ -276,7 +291,7 @@ class C14DetachedHost:
             return HostResult("NATIVE_CLEANUP_FAILED_LOCKED")
         if self._owner is None:
             return HostResult("NOT_OPEN")
-        if not callable(allowed) or allowed() is not True:
+        if not self._authorized(allowed):
             self.close()
             return HostResult("CANCELLED")
         if type(max_windows) is not int or max_windows <= 0:
@@ -293,7 +308,7 @@ class C14DetachedHost:
         if ended.code != "HOST_CLOSED":
             self._refresh_cleanup_faulted = True
             return HostResult("NATIVE_CLEANUP_FAILED_LOCKED")
-        if allowed() is not True:
+        if not self._authorized(allowed):
             return HostResult("CANCELLED")
         opened = self.open(snapshot, max_windows=max_windows, allowed=allowed)
         if opened.code != "HOST_OPEN":
@@ -337,6 +352,8 @@ class C14DetachedHost:
                 owner.destroy()
             except Exception:
                 cleanup_failed = True
+        if cleanup_failed:
+            self._refresh_cleanup_faulted = True
         return HostResult("HOST_CLOSED_NATIVE_CLEANUP_FAILED" if cleanup_failed
                           else "HOST_CLOSED")
 
