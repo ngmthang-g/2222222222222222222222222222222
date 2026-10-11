@@ -1,0 +1,61 @@
+{
+  "task": "S159",
+  "date": "2026-10-12 Asia/Bangkok",
+  "status": "VERIFIED_REAL_WIN64_TEST_OWNED_LOGIN_CONDITIONAL_RESIZE_NOT_REAL_GAME",
+  "pr_number": 13,
+  "pr_head_sha": "6f239f96c53a96178a82499a6bfec7387a5337f4",
+  "merge_sha": "b02bc9d3be20e0b093702288d866a444ada1b4c3",
+  "native_run": 38176218927,
+  "native_job": 114579056239,
+  "native_artifact": 11715733239,
+  "native_pass_conditions": 11,
+  "native_post_rects": [
+    [
+      1366,
+      768
+    ],
+    [
+      1366,
+      768
+    ],
+    [
+      496,
+      339
+    ]
+  ],
+  "full_windows_python_tests": 2448,
+  "compiled_files": 402,
+  "production_src_modules": 102,
+  "s36_run": 38176218938,
+  "s36_job": 114579056338,
+  "s36_artifact": 11715882840,
+  "s36_product_exe": "NOT_BUILT_DIAGNOSTIC_ONLY",
+  "stage_s_run": 38176218854,
+  "stage_s_job": 114579056125,
+  "all_final_workflows": "COMPLETED_SUCCESS",
+  "initial_native_failure_run": 38176050162,
+  "initial_failure": "Tk WM default maxsize 1024x768 prevented actual outer size 1366x768",
+  "intermediate_compile_error_run": 38176155552,
+  "intermediate_error": "literal backslash n in test script report caused SyntaxError",
+  "final_correction": "test-only Tk maxsize 2400x1600 + real newline; production unchanged",
+  "changed_existing_source": [],
+  "new_files": [
+    "src/login_resize_monitor.py",
+    "tests/test_s159.py",
+    "tools/S159_WINDOWS_LOGIN_NATIVE_RESIZE_SMOKE.py",
+    ".github/workflows/s159-f05-login-resize.yml"
+  ],
+  "original_interval_seconds": 1,
+  "original_outer_dimensions": [
+    1366,
+    768
+  ],
+  "original_SWP_flags": "UNKNOWN_LOCAL_CHOICE",
+  "test_only_process_exe_override": true,
+  "actual_game_tested": false,
+  "real_signed_Info": false,
+  "actual_Login_source_wired": false,
+  "user_exe_built": false,
+  "DATA_2222": "STRICTLY_READ_ONLY",
+  "next_action": "S160"
+}
