@@ -117,6 +117,9 @@ def run():
             applied=comp.coords.apply_row_to_all(0,target="farm")
             e["real_S121_S123_coord_apply_to_existing_combobox"]=(
                 applied==1 and row["farm"].get()=="TrainingA")
+            e["authorized_but_no_shared_Start_producer_rejects_duplicate_scan"]=(
+                not comp.start_readonly_window_refresh()
+                and not comp.accounts._active)
             # Four independent original configuration stores share one
             # real settings.ini. Each successful write re-bases the others.
             comp.town.mode_var.set("never")
