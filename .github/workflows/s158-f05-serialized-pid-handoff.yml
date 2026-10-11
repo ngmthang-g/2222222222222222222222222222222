@@ -1,0 +1,77 @@
+name: S158 F05 native serialized PID HWND arrival, TEST OWNED NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/login_pid_handoff.py"
+      - "tests/test_s158.py"
+      - "tools/S158_WINDOWS_F05_SERIAL_PID_HANDOFF_SMOKE.py"
+      - ".github/workflows/s158-f05-serialized-pid-handoff.yml"
+  push:
+    paths:
+      - "src/login_pid_handoff.py"
+      - "tests/test_s158.py"
+      - "tools/S158_WINDOWS_F05_SERIAL_PID_HANDOFF_SMOKE.py"
+      - ".github/workflows/s158-f05-serialized-pid-handoff.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s158-win64-real-pid-window-handoff:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S158 two real child process HWNDs and F05 launch serialization
+        run: python tools/S158_WINDOWS_F05_SERIAL_PID_HANDOFF_SMOKE.py
+      - name: S157 two actual F05 Windows child environments
+        run: python tools/S157_WINDOWS_F05_CLEAN_ENV_SMOKE.py
+      - name: S156 F05 native HWND matching
+        run: python tools/S156_WINDOWS_F05_PID_HWND_SMOKE.py
+      - name: S155 Party G02 native select and deselect
+        run: python tools/S155_WINDOWS_PARTY_READY_LIFECYCLE_SMOKE.py
+      - name: S154 Party G08 actual Windows Tk config
+        run: python tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py
+      - name: S153 C16 original native taskkill TEST OWNED
+        run: python tools/S153_WINDOWS_C16_CRASHHANDLER_SMOKE.py
+      - name: S152 genuine Win64 C14 DWM resource cleanup
+        run: python tools/S152_WINDOWS_C14_AUTH_EXCEPTION_SMOKE.py
+      - name: S151 real Login Tk 100 rows scroll
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: S150 genuine Win64 read-only C12 observer
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: S146 C12 original 2-HWND native hide/show
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Original signed Info must refuse user product
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s158 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s158/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S158_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s158/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S158_INFO_GATE_BYPASS" }
+          Write-Host "S158_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S158_NATIVE_SERIAL_PID_HWND_TWO_CHILD_TEST_OWNED_NOT_PRODUCT
+          path: |
+            artifacts/s158/
+            artifacts/s157/
+            artifacts/s156/
+            artifacts/s155/
+            artifacts/s154/
+            artifacts/s153/
+            artifacts/s152/
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
