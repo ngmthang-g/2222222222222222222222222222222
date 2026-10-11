@@ -7,6 +7,7 @@ on:
       - "src/farm_preset_account_binding.py"
       - "src/farm_saved_editor.py"
       - "tests/test_s124.py"
+      - "tests/test_s121.py"
       - "tools/S124_WINDOWS_TRAIN_AUTH_GATE_SMOKE.py"
       - ".github/workflows/s124-train-info-window-gate.yml"
   workflow_dispatch:
