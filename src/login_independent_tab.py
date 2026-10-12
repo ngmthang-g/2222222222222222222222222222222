@@ -51,6 +51,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
     def __init__(
         self, parent, *, settings_file: str | Path,
         start_producer: StartWindowProducer | None = None,
+        candidate_observer=None,
     ):
         super().__init__(parent, settings_file=settings_file)
         self._launch_closed = False
@@ -69,6 +70,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         self._original_reader_status = (
             "Chưa kiểm tra bộ đọc TLM gốc trên tiến trình game.")
         self._start_producer = start_producer
+        self._candidate_observer = candidate_observer
         self._existing_selected_game_exe = self.get_exe_path()
         self._existing_reader = (
             ExistingGameOriginalReader(
@@ -385,6 +387,10 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         before = self.get_exe_path()
         selected = super()._select_game_directory()
         if selected and before != self.get_exe_path():
+            if self._candidate_observer is not None:
+                # Real shared Party/Train candidate snapshots must never
+                # survive a switch to another F04 client folder.
+                self._candidate_observer.invalidate()
             self._client_fingerprint.invalidate()
             self._original_reader.invalidate()
             if self._existing_probe is not None:
