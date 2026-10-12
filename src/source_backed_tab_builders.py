@@ -15,6 +15,7 @@ from typing import Any, Callable, Sequence
 
 from farm_train_composition import TkTrainComposition
 from permission_guard import PermissionGuard
+from local_feature_policy import LocalFeaturePolicy
 from grid_master import GridSettingsStore
 from login_tab import TLMLoginPathTab
 from party_group_config import PartyConfigStore
@@ -37,7 +38,7 @@ def source_backed_tab_builders(
     show_error: Callable[..., object] | None = None,
     party_names_provider: Callable[[], Sequence[str]] | None = None,
     party_role_reader: Callable[[int, int], RoleReading] | None = None,
-    train_permission_guard: PermissionGuard | None = None,
+    train_permission_guard: PermissionGuard | LocalFeaturePolicy | None = None,
     train_running_count: Callable[[], int] | None = None,
     train_allow_account: Callable[[Any], bool] | None = None,
     train_identity_backend_factory=None,
@@ -71,7 +72,7 @@ def source_backed_tab_builders(
                        or train_allow_account is not None
                        or train_identity_backend_factory is not None)
     if train_requested:
-        if (type(train_permission_guard) is not PermissionGuard
+        if (type(train_permission_guard) not in (PermissionGuard, LocalFeaturePolicy)
                 or not callable(train_running_count)
                 or settings_file is None or not str(settings_file)
                 or (train_allow_account is not None
