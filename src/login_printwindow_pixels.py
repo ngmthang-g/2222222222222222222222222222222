@@ -178,6 +178,12 @@ class NativePrintWindowFrame:
             info.biPlanes=1
             info.biBitCount=32
             info.biCompression=0
+            # Win32 GetDIBits requires hbmp to NOT be selected into any
+            # device context. S145 previously left it selected after
+            # PrintWindow, which may fail on real Windows video drivers.
+            if prior:
+                self._g.SelectObject(memory_dc,prior)
+                prior=0
             pixels=(ct.c_ubyte*(width*height*4))()
             count=self._g.GetDIBits(memory_dc,bitmap,0,height,
                                     ct.cast(pixels,ct.c_void_p),
