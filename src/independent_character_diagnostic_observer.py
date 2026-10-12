@@ -17,6 +17,7 @@ import threading
 import time
 
 from login_path import GameDirectoryStore
+from independent_role_continuity import OriginalRoleContinuityLedger
 from start_polling import StartWindowProducer, WindowSnapshot
 from start_windows import GameWindow
 from tlm_existing_game_reader import (
@@ -48,6 +49,9 @@ class UnverifiedGameCharacter:
     party_ready: bool = False
     train_game_sender_enabled: bool = False
     captured_monotonic: float | None = None
+    # Number of independent *actual native* matching RoleName+RoleID reads.
+    # Never changes role_name_confirmed, party_ready or game_sender flags.
+    independent_identity_reads: int = 0
 
     @property
     def hp_percent_candidate(self) -> int | None:
@@ -127,6 +131,7 @@ class IndependentCharacterDiagnosticObserver:
         self._batch = UnverifiedCharacterBatch("WAITING_FOR_NATIVE_GAME_WINDOWS")
         self._cursor = 0
         self._generation = 0
+        self._continuity = OriginalRoleContinuityLedger()
 
         def selected_exe():
             # Worker-only, bounded original F04 read, never from Tk widgets.
@@ -217,17 +222,21 @@ class IndependentCharacterDiagnosticObserver:
                 # folder/provenance epoch, even if Windows PID is the same.
                 self._previous = {}
                 self._previous_exe = None
+                self._continuity.reset()
                 self._worker_generation = generation
             try:
                 snap = self.producer.read_snapshot()
                 if (not self.producer.active
                         or type(snap) is not WindowSnapshot
                         or not snap.valid):
+                    self._continuity.reset()
                     batch = UnverifiedCharacterBatch("START_CACHE_UNAVAILABLE")
                 elif len(snap.windows) > MAX_WINDOWS_TRACKED:
+                    self._continuity.reset()
                     batch = UnverifiedCharacterBatch(
                         "TOO_MANY_WINDOWS_FOR_BOUNDED_DIAGNOSTIC")
                 elif not snap.windows:
+                    self._continuity.reset()
                     batch = UnverifiedCharacterBatch(
                         "NO_CURRENT_GAME_WINDOWS", snap.revision,
                         self.clock())
@@ -238,15 +247,18 @@ class IndependentCharacterDiagnosticObserver:
                             "NO_EXPLICIT_SELECTED_GAME_EXE")
                         self._previous = {}
                         self._previous_exe = None
+                        self._continuity.reset()
                     else:
                         # Changing the F04 game folder invalidates *every*
                         # previous source attribution, even if PID is same.
                         if getattr(self, "_previous_exe", None) != str(selected_path):
                             self._previous = {}
+                            self._continuity.reset()
                             self._previous_exe = str(selected_path)
                         previous = getattr(self, "_previous", {})
                         keys = {(w.hwnd, w.pid) for w in snap.windows}
                         previous = {k: v for k, v in previous.items() if k in keys}
+                        self._continuity.retain_current(keys)
                         # Round-robin ONE native read per cycle; do not
                         # repeatedly hash dozens of GameAssembly DLLs in
                         # a single burst (background tool remains usable).
@@ -257,9 +269,23 @@ class IndependentCharacterDiagnosticObserver:
                             if self._stop.is_set():
                                 break
                             observation = self._reader.inspect(window)
+                            candidate = _candidate(observation, window)
+                            captured = self.clock()
+                            if (candidate.code == SUCCESS_DIAGNOSTIC
+                                    and candidate.role_id_candidate is not None
+                                    and candidate.role_name_candidate is not None):
+                                continuity = self._continuity.accept(
+                                    window.hwnd, window.pid,
+                                    candidate.role_id_candidate,
+                                    candidate.role_name_candidate, captured)
+                                count = (continuity.independent_read_count
+                                         if continuity is not None else 0)
+                            else:
+                                self._continuity.failed(window.hwnd, window.pid)
+                                count = 0
                             previous[(window.hwnd, window.pid)] = replace(
-                                _candidate(observation, window),
-                                captured_monotonic=self.clock())
+                                candidate, captured_monotonic=captured,
+                                independent_identity_reads=count)
                         latest = self.producer.read_snapshot()
                         if (not self._stop.is_set()
                                 and type(latest) is WindowSnapshot
@@ -277,11 +303,13 @@ class IndependentCharacterDiagnosticObserver:
                                 latest.revision, self.clock(), members)
                         else:
                             self._previous = {}
+                            self._continuity.reset()
                             batch = UnverifiedCharacterBatch(
                                 "WINDOW_SET_CHANGED_DURING_READ")
                 self._publish(batch, generation)
             except (OSError, ValueError, RuntimeError, TypeError,
                     AttributeError):
+                self._continuity.reset()
                 self._publish(UnverifiedCharacterBatch(
                     "ORIGINAL_NATIVE_READ_DIAGNOSTIC_FAILED"), generation)
             self._stop.wait(self.interval)
