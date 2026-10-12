@@ -1,0 +1,101 @@
+name: S173 Independent LSV Manual Buff In-session Edit Win64 Native + Partial EXE
+on:
+  pull_request:
+    paths:
+      - "src/train_lsv_manual_buffs.py"
+      - "src/train_lsv_manual_buff_editor.py"
+      - "tests/test_s173.py"
+      - "tools/S173_WINDOWS_BUFF_EDIT_SMOKE.py"
+      - ".github/workflows/s173-lsv-safe-buff-edit.yml"
+  push:
+    paths:
+      - "src/train_lsv_manual_buffs.py"
+      - "src/train_lsv_manual_buff_editor.py"
+      - "tests/test_s173.py"
+      - "tools/S173_WINDOWS_BUFF_EDIT_SMOKE.py"
+      - ".github/workflows/s173-lsv-safe-buff-edit.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-win64-lsv-safe-buff-edit-source-native-partial-exe:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - name: All Stage S historical and current Windows Python unit tests
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 historical source compilation/gap audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: New S173 real native Tk buff edit with actual isolated INI writes
+        run: python tools/S173_WINDOWS_BUFF_EDIT_SMOKE.py
+      - name: S172 genuine shared HWND roster lifecycle
+        run: python tools/S172_WINDOWS_LSV_ROSTER_SMOKE.py
+      - name: S171 original I05 manual buff source native
+        run: python tools/S171_WINDOWS_LSV_BUFF_SMOKE.py
+      - name: S170 saved LSV coordinates native Tk
+        run: python tools/S170_WINDOWS_LSV_COORDS_SMOKE.py
+      - name: S169 original TrainLSV top options native Tk
+        run: python tools/S169_WINDOWS_LSV_TOP_SMOKE.py
+      - name: S168 independent owner GUI and INI
+        run: python tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py
+      - name: S167 historical Info / Train window lifecycle
+        run: python tools/S167_WINDOWS_INFO_TRAIN_REVOKE_SMOKE.py
+      - name: S166 shared S09 native HWND worker
+        run: python tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py
+      - name: S165 original Train UI builder Tk
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: S132 Train original native config
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: S163 Login selected account Tk
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: Real independent launcher self-check no TLM Info issuer
+        run: python src/TLMToolIndependent.py --self-check
+      - name: Pinned Windows PyInstaller independent partial packaging
+        run: python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Build actual independent PARTIAL Win64 EXE
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S173_TLMTOOL_INDEPENDENT_BUFF_EDIT_PARTIAL
+          --distpath artifacts/s173/dist
+          --workpath artifacts/s173/build
+          --specpath artifacts/s173/spec
+          --paths src
+          src/TLMToolIndependent.py
+      - name: Launch real packaged partial Windows EXE with static self-check
+        shell: pwsh
+        run: |
+          & "artifacts/s173/dist/S173_TLMTOOL_INDEPENDENT_BUFF_EDIT_PARTIAL/S173_TLMTOOL_INDEPENDENT_BUFF_EDIT_PARTIAL.exe" --self-check
+          if ($LASTEXITCODE -ne 0) { throw "S173_PACKAGED_PARTIAL_EXE_CHECK_FAILED" }
+      - name: Preserve legacy TLMTool.py diagnostic exit=2 (not new product)
+        shell: pwsh
+        run: |
+          python src/TLMTool.py *> artifacts/s173/legacy_entry.txt
+          if ($LASTEXITCODE -ne 2) { throw "S173_HISTORICAL_GATE_CHANGED" }
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S173_INDEPENDENT_TRAINLSV_BUFF_EDIT_PARTIAL_WIN64_NOT_GAME
+          path: |
+            artifacts/s173/dist/S173_TLMTOOL_INDEPENDENT_BUFF_EDIT_PARTIAL/
+            artifacts/s173/native_buff_edit.json
+            artifacts/s173/legacy_entry.txt
+            artifacts/s172/
+            artifacts/s171/
+            artifacts/s170/
+            artifacts/s169/
+            artifacts/s168/
+            artifacts/s167/
+            artifacts/s166/
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+          if-no-files-found: warn

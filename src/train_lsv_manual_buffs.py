@@ -143,6 +143,44 @@ class TrainLsvBuffStore:
             new=self.load()
             return number,new
 
+    def update_session_row(self, number: int, *, expected_bytes: bytes,
+                           expected_raw: str, enabled: bool, key: str,
+                           minutes: str, seconds: str):
+        """S173 modify only an exact row the Tk caller just created.
+
+        The caller's in-memory session ownership gate is required; this
+        store additionally enforces the full stale-file snapshot AND the
+        old exact buff value to prevent accidental overwrites. Never infer
+        the legacy fixed Dạ Minh Châu numeric key.
+        """
+        if (type(number) is not int or number < 0
+                or type(expected_bytes) is not bytes
+                or type(expected_raw) is not str):
+            raise TrainLsvBuffError("INVALID_BUFF_EDIT_CAPABILITY")
+        validate_manual_buff(enabled, key, minutes, seconds)
+        with _settings_lock:
+            try:
+                raw, lines, _, begin, end = self._section._read()
+            except TrainLsvSettingsError as exc:
+                raise TrainLsvBuffError("UNSAFE_BUFF_SETTINGS") from exc
+            if raw != expected_bytes:
+                raise TrainLsvBuffError("STALE_BUFF_SETTINGS")
+            matches = [(pos, val) for pos, n, _, val in
+                       self._rows(lines, begin, end) if n == number]
+            if len(matches) != 1 or matches[0][1] != expected_raw:
+                raise TrainLsvBuffError("BUFF_SESSION_ROW_CHANGED")
+            pos, _ = matches[0]
+            match = _BUFF_LINE.fullmatch(lines[pos])
+            if match is None:
+                raise TrainLsvBuffError("MALFORMED_BUFF_ROW")
+            value = f"{enabled}|{key}|{minutes}|{seconds}"
+            # Preserve key spelling, spacing, colon/equal and newline.
+            lines[pos] = (match.group(1) + match.group(2)
+                          + match.group(4) + value + (match.group(6) or ""))
+            new = "".join(lines).encode("utf-8")
+            self._write(raw, new)
+            return self.load()
+
     def delete_session_row(self,number: int,*,expected_bytes: bytes,
                            expected_raw: str):
         """Only a newly appended UI-owned row (session-only capability).
