@@ -72,7 +72,8 @@ def make_independent_builders(settings_file: str | Path,
     # No original TLM DLL/Info license, Proxy or credential auto-login.
     def build_independent_login(parent):
         return TLMIndependentLoginTab(
-            parent, settings_file=settings_file, start_producer=producer)
+            parent, settings_file=settings_file, start_producer=producer,
+            candidate_observer=observer)
     builders["login_tab"] = build_independent_login
 
     # S200 independently read original memory on the shared S09 game
