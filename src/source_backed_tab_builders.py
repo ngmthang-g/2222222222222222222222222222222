@@ -38,6 +38,7 @@ def source_backed_tab_builders(
     show_error: Callable[..., object] | None = None,
     party_names_provider: Callable[[], Sequence[str]] | None = None,
     party_role_reader: Callable[[int, int], RoleReading] | None = None,
+    party_observe_windows: bool = False,
     train_permission_guard: PermissionGuard | LocalFeaturePolicy | None = None,
     train_running_count: Callable[[], int] | None = None,
     train_allow_account: Callable[[Any], bool] | None = None,
@@ -57,6 +58,13 @@ def source_backed_tab_builders(
         raise ValueError("S35 error dialog must be callable")
     if party_names_provider is not None and not callable(party_names_provider):
         raise ValueError("S154 Party names provider must be callable")
+    if type(party_observe_windows) is not bool:
+        raise ValueError("S176_PARTY_OBSERVE_FLAG_MUST_BE_BOOL")
+    if party_observe_windows and party_names_provider is not None:
+        raise ValueError("S176_PARTY_OBSERVE_CANNOT_USE_EXTERNAL_NAME_LIST")
+    if party_observe_windows and (start_producer is None or
+                                  not callable(getattr(start_producer, "read_snapshot", None))):
+        raise ValueError("S176_PARTY_OBSERVE_REQUIRES_SHARED_START_CACHE")
     if party_role_reader is not None:
         if not callable(party_role_reader) or party_names_provider is not None:
             raise ValueError("S155 Party cannot mix a roster reader and name-list provider")
@@ -96,7 +104,7 @@ def source_backed_tab_builders(
         never synthetic HWND/title-derived accounts. Saved group names are
         preserved; external providers must be validated by their caller.
         """
-        if party_role_reader is not None:
+        if party_role_reader is not None or party_observe_windows:
             # Reuse S90/S91's TRUE Start-cache-driven 3-column ready list.
             # Production has NO reader: this path is unreachable until a
             # genuine game identity adapter is externally supplied.

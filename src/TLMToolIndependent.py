@@ -42,6 +42,9 @@ def make_independent_builders(settings_file: str | Path,
         lambda parent: LocalToolStatusTab(parent),
         settings_file=settings_file,
         start_producer=producer,
+        # S176: show real shared S09 window membership on Party, but never
+        # invent RoleName/HP or permit unknown accounts in group dropdowns.
+        party_observe_windows=True,
         train_permission_guard=policy,
         train_running_count=count,
         # Only windows independently verified by the native H12 gate can

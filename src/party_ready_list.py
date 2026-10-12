@@ -110,6 +110,17 @@ class PartyReadyConfigEditor(PartySettingsEditor):
         self._roster = roster
         self._refresh_ready()
         self._refresh_dropdown_values()
+        # The independent S176 consumer has no verified game RoleName reader.
+        # Give the owner truthful native observation in the EXISTING status
+        # area instead of silently showing an empty Party dropdown.
+        # HWND/PID are not character identities and cannot be selectable.
+        if roster.code == "ROLE_READER_UNAVAILABLE":
+            self.status.configure(
+                text=(f"Đã phát hiện {len(roster.members)} cửa sổ game; "
+                      "chưa xác minh tên nhân vật / HP"))
+        elif roster.code in ("INVALID_START_CACHE", "STALE_WORKER_RESULT",
+                             "STOPPED", "WORKER_START_FAILED"):
+            self.status.configure(text="Chưa có dữ liệu nhân vật đã xác minh")
 
     def _persist(self, updated, *, redraw=True) -> bool:
         ok = super()._persist(updated, redraw=redraw)
