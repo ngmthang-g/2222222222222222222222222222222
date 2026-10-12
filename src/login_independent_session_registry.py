@@ -15,6 +15,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 import threading
 
+from start_windows import NativeWin32Backend, is_game_candidate, TITLE_TIMEOUT_MS
+
 from login_independent_resize_monitor import (
     OwnedLoginWindowSizeMonitor, OwnedWindowSizeEvent,
 )
@@ -44,10 +46,41 @@ class OwnedLaunchedGameRegistry:
     mutation remains restricted to each retained process and HWND pair.
     """
 
-    def __init__(self):
+    def __init__(self, *, native_backend_factory=NativeWin32Backend):
+        if not callable(native_backend_factory):
+            raise ValueError("INVALID_NATIVE_GAME_WINDOW_VALIDATOR")
+        self._native_backend_factory = native_backend_factory
         self._lock = threading.Lock()
         self._sessions: dict[int, _Session] = {}
         self._closed = False
+
+    def _native_owned_game(self, process, hwnd: int) -> bool:
+        """S08 live Win32 proof, never any PID-owned dialog/fallback window.
+
+        F05/S156 PID lookup may select a visible fallback if the game
+        Unity HWND is not ready. Only a true game candidate may be registered.
+        This runs in the background *launch* worker, not in Tk's UI thread.
+        """
+        if not self._running(process) or type(hwnd) is not int or hwnd <= 0:
+            return False
+        try:
+            reader = self._native_backend_factory()
+            all_windows = tuple(reader.enumerate_top_level())
+            if (all_windows.count(hwnd) != 1
+                    or not reader.is_window(hwnd)
+                    or not reader.is_visible(hwnd)
+                    or reader.process_id(hwnd) != process.pid):
+                return False
+            exe = reader.process_executable(process.pid)
+            cls = reader.window_class(hwnd)
+            title = reader.title_with_timeout(hwnd, TITLE_TIMEOUT_MS)
+            return (is_game_candidate(exe, cls, title)
+                    and reader.is_window(hwnd)
+                    and reader.is_visible(hwnd)
+                    and reader.process_id(hwnd) == process.pid
+                    and self._running(process))
+        except (OSError, RuntimeError, ValueError, TypeError, AttributeError):
+            return False
 
     @staticmethod
     def _running(process) -> bool:
@@ -62,7 +95,7 @@ class OwnedLaunchedGameRegistry:
 
     def register(self, process, hwnd: int) -> bool:
         """Add genuine launched Popen and PID-owned hwnd; never PID alone."""
-        if not self._running(process) or type(hwnd) is not int or hwnd <= 0:
+        if not self._native_owned_game(process, hwnd):
             return False
         with self._lock:
             if self._closed or not self._running(process):
@@ -141,19 +174,40 @@ class OwnedLaunchedGameRegistry:
             return True
 
     def drain_size_events(self) -> tuple[OwnedWindowSizeEvent, ...]:
+        """Drain terminal native failures and revoke only their own HWND.
+
+        A game process may remain alive after its Unity window closes.
+        Keeping that missing HWND advertised indefinitely is misleading.
+        S190's independent monitor already observes the live native window
+        once/second. Reuse that proof rather than doing blocking Win32
+        scans from Tk on every status-poll tick.
+        """
         self.prune_exited()
         with self._lock:
             if self._closed:
                 return ()
             sessions = tuple(self._sessions.values())
-        # All events identify their original process PID/HWND, not a reused
-        # shared "last opened window" or account title.
-        return tuple(
-            event
-            for row in sessions
-            for event in row.monitor.drain()
-            if self._running(row.process)
-        )
+        terminal_codes = {
+            "RESIZE_GAME_WINDOW_LOST",
+            "RESIZE_TARGET_NOT_GAME",
+            "RESIZE_NATIVE_READ_FAILED",
+            "RESIZE_NATIVE_BACKEND_UNAVAILABLE",
+            "RESIZE_INVALID_GAME_WINDOW",
+            "RESIZE_NATIVE_ENUM_FAILED",
+            "RESIZE_READBACK_MISMATCH",
+        }
+        published = []
+        for row in sessions:
+            for event in row.monitor.drain():
+                if not self._running(row.process):
+                    continue
+                published.append(event)
+                if event.code in terminal_codes:
+                    # Must be identity-checked because another user-click
+                    # may have replaced the same numeric PID concurrently.
+                    self.remove_if_same(
+                        row.process.pid, row.process, row.hwnd)
+        return tuple(published)
 
     @property
     def has_active_size_monitor(self) -> bool:
