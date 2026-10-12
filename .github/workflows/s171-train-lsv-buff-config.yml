@@ -1,0 +1,97 @@
+name: S171 Independent Train LSV Manual Buff Config Real Win64 and EXE
+on:
+  pull_request:
+    paths:
+      - "src/train_lsv_manual_buffs.py"
+      - "src/train_lsv_manual_buff_editor.py"
+      - "src/train_lsv_top_tab.py"
+      - "tests/test_s171.py"
+      - "tools/S171_WINDOWS_LSV_BUFF_SMOKE.py"
+      - ".github/workflows/s171-train-lsv-buff-config.yml"
+  push:
+    paths:
+      - "src/train_lsv_manual_buffs.py"
+      - "src/train_lsv_manual_buff_editor.py"
+      - "src/train_lsv_top_tab.py"
+      - "tests/test_s171.py"
+      - "tools/S171_WINDOWS_LSV_BUFF_SMOKE.py"
+      - ".github/workflows/s171-train-lsv-buff-config.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  win64-lsv-manual-buff-real-tk-and-partial-exe:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - name: All historical and new Python Windows unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Source/build gate original audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S171 real Tk manual LSV buff with untouched fixed unknown row
+        run: python tools/S171_WINDOWS_LSV_BUFF_SMOKE.py
+      - name: Inherited S170 real Tk saved coordinates
+        run: python tools/S170_WINDOWS_LSV_COORDS_SMOKE.py
+      - name: Inherited S169 original LSV top config native
+        run: python tools/S169_WINDOWS_LSV_TOP_SMOKE.py
+      - name: Inherited S168 independent partial Windows GUI native
+        run: python tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py
+      - name: Inherited S167 historical Info-Train native
+        run: python tools/S167_WINDOWS_INFO_TRAIN_REVOKE_SMOKE.py
+      - name: Inherited S166 shared HWND Win64 lifecycle
+        run: python tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py
+      - name: Inherited S165 source-backed Train Tk
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: Inherited S132 Train Tk/INI
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: Inherited S163 Login Tk account rows
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: Independent no original issuer self-check
+        run: python src/TLMToolIndependent.py --self-check
+      - name: Pinned existing PyInstaller build dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Build genuine partial owner-independent Windows EXE
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S171_TLMTOOL_INDEPENDENT_BUFF_PARTIAL
+          --distpath artifacts/s171/dist
+          --workpath artifacts/s171/build
+          --specpath artifacts/s171/spec
+          --paths src
+          src/TLMToolIndependent.py
+      - name: Packaged independent EXE real self-check
+        shell: pwsh
+        run: |
+          & "artifacts/s171/dist/S171_TLMTOOL_INDEPENDENT_BUFF_PARTIAL/S171_TLMTOOL_INDEPENDENT_BUFF_PARTIAL.exe" --self-check
+          if ($LASTEXITCODE -ne 0) { throw "S171_PACKAGED_INDEPENDENT_BOOT_FAIL" }
+      - name: Legacy diagnostic entrypoint remains archival
+        shell: pwsh
+        run: |
+          python src/TLMTool.py *> artifacts/s171/legacy_entry.txt
+          if ($LASTEXITCODE -ne 2) { throw "S171_LEGACY_TEST_CHANGED" }
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S171_INDEPENDENT_TRAIN_LSV_MANUAL_BUFF_PARTIAL_WIN64_NO_GAME
+          path: |
+            artifacts/s171/dist/S171_TLMTOOL_INDEPENDENT_BUFF_PARTIAL/
+            artifacts/s171/native_manual_buff.json
+            artifacts/s171/legacy_entry.txt
+            artifacts/s170/
+            artifacts/s169/
+            artifacts/s168/
+            artifacts/s167/
+            artifacts/s166/
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+          if-no-files-found: warn
