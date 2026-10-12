@@ -1,11 +1,12 @@
-"""S154 E03/G08: include real Party config-only editor under Info gate.
+"""S154/S165 E03/G08/H01: lazy real Party and opt-in Train config under Info gate.
 
 Original E03 registers TLMStartTab and LoginTab lazily; their constructors
 already exist in S10-S25 but were not wired by the Stage-S bootstrap. This
-module *only* connects existing working widgets to E03 builder keys. No
-permission, license verification, Info service, Proxy, new controls, actual
-game launching, or fake UI behavior. Tabs remain hidden until verified
-external Info snapshot. The public entrypoint still exits with status 2.
+module *only* connects existing working widgets to E03 builder keys.
+S165 can optionally register the existing S132 Train composition only when
+caller explicitly supplies a real PermissionGuard, account count and settings
+path. No permission, license verification, Info service, Proxy, game launch
+or fake UI behavior is added. Tabs remain hidden until verified Info. The public entrypoint still exits with status 2.
 """
 from __future__ import annotations
 
