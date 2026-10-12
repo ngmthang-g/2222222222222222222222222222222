@@ -135,11 +135,16 @@ class ExistingGameOriginalReader:
                 window, selected, backend=native)
 
             after = self._snapshot(window)
-            if (after is None or after.revision != first.revision
+            # C01 refresh creates a new revision every ~3s even when
+            # the exact same immutable HWND/PID window set is unchanged.
+            # Reject removal/replacement, NOT a no-op cache refresh.
+            # Live HWND/PID and source EXE are also re-verified below.
+            if (after is None or after.revision < first.revision
                     or after.windows != first.windows):
-                return report("START_GENERATION_CHANGED_DURING_READ")
-            if self.selected_game_exe() is None or Path(
-                    self.selected_game_exe()) != selected:
+                return report("START_GAME_WINDOW_SET_CHANGED_DURING_READ")
+            selected_after = self.selected_game_exe()
+            if (not isinstance(selected_after, (str, Path))
+                    or Path(selected_after) != selected):
                 return report("GAME_DIRECTORY_CHANGED_DURING_READ")
             if not self._native_matches(window, native):
                 return report("NATIVE_HWND_PID_CHANGED_AFTER_READ")
