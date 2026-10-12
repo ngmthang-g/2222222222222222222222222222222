@@ -126,21 +126,20 @@ def source_backed_tab_builders(
         panel.pack(fill="both", expand=True)
         return panel
 
-    # Preserve the original default E03 dictionary AST for S86's
-    # independent source-build audit and all existing S35/S154 tests.
-    if not train_requested:
+    # Extra Train slot is deliberately nested: S86 audits the direct
+    # default return dictionary; historic default builders remain unchanged.
+    if train_requested:
+        # Explicit guard/count opt-in never constitutes signed authorization.
         return {
             INFO_KEY: info_factory,
             "start_tab": build_start,
             "login_tab": build_login,
             "party_tab": build_party,
+            "farm_tab": build_train,
         }
-    # Only the explicitly provided real Info guard/count allows registering
-    # the already-built S132 configuration UI as another original tab slot.
     return {
         INFO_KEY: info_factory,
         "start_tab": build_start,
         "login_tab": build_login,
         "party_tab": build_party,
-        "farm_tab": build_train,
     }
