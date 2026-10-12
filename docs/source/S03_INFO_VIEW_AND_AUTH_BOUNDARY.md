@@ -1,5 +1,8 @@
 # S03 — TLMInfoTab original token/RPC/heartbeat audit and real read-only view
 
+> **CẬP NHẬT CHÍNH SÁCH — 2026-10-12 / OWNER OVERRIDE S168:** Văn bản này lưu hành vi **TLM gốc hoặc mode đối chiếu lịch sử**. Không dùng token/license/Info/PermissionGuard/revoke ở đây làm điều kiện chạy **tool MỚI**. Chủ dự án đã chuyển sang `src/TLMToolIndependent.py` + `LocalFeaturePolicy` (tab theo module đã làm thật, cấu hình Train offline); Win64 S168 PASS, [PR #21](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/21) merge `cf864f2b20f62f623eb2e88625615a6e15fe6128`. Bài test quyền gốc PASS vẫn là kiểm thử lịch sử, không chứng minh quyền nhà phát hành/game runtime. Xem [PLAN](../../PLAN.md), [S168](../tasks/S168.md), `STATE.md`. Giữ HWND/PID, DATA read-only, Proxy excluded.
+
+
 ## Verified prior state, guardrails and source inputs
 - Resumed **S03** from latest `STATE.md`/`PROJECT_STATUS.md`; `docs/tasks/S03.md` was not present before work. Read `PLAN.md`, original S01–S02 source/tests, `B12` screenshot-locked Info tab, `E04` permission ownership, `E07` thread lifecycle and `E08` shutdown.
 - Direct read-only static scan of user-supplied original `TLMTool_2.1.2(10).zip`; inner frozen `TLMTool.dist/TLMTool.exe` SHA256 `15c8044f215680d6851c8f901a5dc7d181068d91a8938f2a628077cf21a2df22`; ZIP CRC PASS.
