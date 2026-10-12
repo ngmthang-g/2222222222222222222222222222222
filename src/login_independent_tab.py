@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import tkinter as tk
+from tkinter import ttk
 
 from login_independent_game_launcher import (
     IndependentGameLaunchController, IndependentLaunchResult,
@@ -43,6 +44,8 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         self._launch_closed = False
         self._launch_poll_token = None
         self._launch_status_full = ""
+        self._owned_selection_map = {}
+        self._selected_game_pid = None
         self.launch_controller = IndependentGameLaunchController()
         self.btn_open = tk.Button(
             self.container, text="Mở game",
@@ -67,6 +70,18 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         self.lbl_launch_status.place(x=238, y=24, width=96, height=24)
         self.lbl_launch_status.bind(
             "<Button-1>", self._show_full_launch_status, add="+")
+        # S191: every row is a real Popen-created process+verified HWND.
+        # This is NOT a RoleName, online account or a client-data row.
+        tk.Label(
+            self.container, text="Cửa sổ game:", anchor="w",
+            font=("Segoe UI", 9)).place(x=6, y=56, width=110, height=23)
+        self._owned_game_var = tk.StringVar(master=self.container, value="")
+        self._owned_game_combo = ttk.Combobox(
+            self.container, textvariable=self._owned_game_var,
+            state="disabled", values=(), width=26)
+        self._owned_game_combo.place(x=119, y=56, width=213, height=23)
+        self._owned_game_combo.bind(
+            "<<ComboboxSelected>>", self._select_owned_game, add="+")
         self._refresh_launch_button()
         self._show_launch_status("Chưa mở game; thao tác cần bấm tay")
 
@@ -83,9 +98,45 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         exe = self.get_exe_path()
         ready = exe is not None and not self.launch_controller.busy
         self.btn_open.configure(state="normal" if ready else "disabled")
+        self._refresh_owned_games()
         self.btn_activate.configure(
-            state=("normal" if self.launch_controller.can_activate_last_window
+            state=("normal" if self._selected_game_pid is not None
                    and not self.launch_controller.busy else "disabled"))
+
+    def _refresh_owned_games(self):
+        """Render *only* live own-created Win32 PID/HWND pairs, no fake acc."""
+        rows = self.launch_controller.list_owned_windows()
+        names = {
+            f"PID {r.pid} | HWND {r.hwnd}": r.pid for r in rows
+        }
+        chosen = self._selected_game_pid
+        if chosen not in names.values():
+            chosen = rows[-1].pid if rows else None
+        self._selected_game_pid = chosen
+        self._owned_selection_map = names
+        labels = tuple(names)
+        if tuple(self._owned_game_combo.cget("values")) != labels:
+            self._owned_game_combo.configure(values=labels)
+        if chosen is None:
+            selected_label = ""
+        else:
+            selected_label = next(
+                (title for title, pid in names.items() if pid == chosen), "")
+        if self._owned_game_var.get() != selected_label:
+            self._owned_game_var.set(selected_label)
+        self._owned_game_combo.configure(
+            state="readonly" if labels else "disabled")
+
+    def _select_owned_game(self, _event=None):
+        if self._launch_closed or self._closed:
+            return
+        pid = self._owned_selection_map.get(self._owned_game_var.get())
+        if pid is None:
+            # Unexpected manual Tk variable changes are NOT a new game.
+            self._refresh_owned_games()
+            return
+        self._selected_game_pid = pid
+        self._refresh_launch_button()
 
     def _show_full_launch_status(self, _event=None):
         """User can inspect the full diagnostic without exposing credentials."""
@@ -100,10 +151,11 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
     def _activate_game(self) -> bool:
         """S189 click: C03 foreground only for same live PID-owned HWND."""
         if (self._launch_closed or self._closed
-                or not self.launch_controller.can_activate_last_window
+                or self._selected_game_pid is None
                 or self.launch_controller.busy):
             return False
-        result = self.launch_controller.activate_last_window()
+        result = self.launch_controller.activate_window(
+            self._selected_game_pid)
         if result.code == "OS_FOREGROUND_ACCEPTED_NOT_LOGIN":
             self._show_launch_status(
                 f"Đã yêu cầu hiện PID {result.pid}/HWND {result.hwnd}; "
@@ -163,7 +215,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         # A Login-owned F05 size worker continues each second after the
         # launch worker's PID/HWND handoff has completed.
         if (self.launch_controller.busy
-                or self.launch_controller.size_monitor_active):
+                or self.launch_controller.list_owned_windows()):
             self._schedule_launch_poll()
 
     def _show_size_event(self, code: str, pid: int, hwnd: int) -> None:
@@ -181,6 +233,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
 
     def _show_result(self, result: IndependentLaunchResult):
         if result.code == "WINDOW_VERIFIED":
+            self._selected_game_pid = result.pid
             self._show_launch_status(
                 f"Đã mở PID {result.pid}, HWND {result.hwnd}; chưa login.")
             return
