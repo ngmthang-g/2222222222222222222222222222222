@@ -1,5 +1,8 @@
 # S02 — Info authorization-state reconstruction / no live license API
 
+> **CẬP NHẬT CHÍNH SÁCH — 2026-10-12 / OWNER OVERRIDE S168:** Văn bản này lưu hành vi **TLM gốc hoặc mode đối chiếu lịch sử**. Không dùng token/license/Info/PermissionGuard/revoke ở đây làm điều kiện chạy **tool MỚI**. Chủ dự án đã chuyển sang `src/TLMToolIndependent.py` + `LocalFeaturePolicy` (tab theo module đã làm thật, cấu hình Train offline); Win64 S168 PASS, [PR #21](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/21) merge `cf864f2b20f62f623eb2e88625615a6e15fe6128`. Bài test quyền gốc PASS vẫn là kiểm thử lịch sử, không chứng minh quyền nhà phát hành/game runtime. Xem [PLAN](../../PLAN.md), [S168](../tasks/S168.md), `STATE.md`. Giữ HWND/PID, DATA read-only, Proxy excluded.
+
+
 ## Authority and scope
 
 User requested CONTINUE and explicitly allowed supplemental research in GitHub client-DATA-222222 if original TLM documentation lacked required *game-client* facts. Started from current `PLAN.md`/`STATE.md` (`NEXT_ACTION = S02`), verified `docs/tasks/S02.md` absent, checked existing S01 source/tests first and preserved completed parts.
