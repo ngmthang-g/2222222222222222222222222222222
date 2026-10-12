@@ -19,6 +19,9 @@ from login_independent_game_launcher import (
 )
 from login_tab import TLMLoginPathTab
 from login_original_reader_probe_worker import OriginalReaderWorker
+from start_polling import StartWindowProducer, WindowSnapshot
+from tlm_existing_game_reader import ExistingGameOriginalReader
+from tlm_existing_game_reader_worker import ExistingOriginalReaderWorker
 from login_frozen_client_fingerprint import (
     FrozenClientFingerprintWorker,
     FrozenClientMatch,
@@ -45,7 +48,10 @@ RESULT_TEXT = {
 class TLMIndependentLoginTab(TLMLoginPathTab):
     """Independent runnable F04/F05 normal launch, not credential automation."""
 
-    def __init__(self, parent, *, settings_file: str | Path):
+    def __init__(
+        self, parent, *, settings_file: str | Path,
+        start_producer: StartWindowProducer | None = None,
+    ):
         super().__init__(parent, settings_file=settings_file)
         self._launch_closed = False
         self._launch_poll_token = None
@@ -62,6 +68,21 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         self._original_reader_pid = None
         self._original_reader_status = (
             "Chưa kiểm tra bộ đọc TLM gốc trên tiến trình game.")
+        self._start_producer = start_producer
+        self._existing_selected_game_exe = self.get_exe_path()
+        self._existing_reader = (
+            ExistingGameOriginalReader(
+                start_producer,
+                # Worker only reads immutable Python Path set on Tk thread.
+                # Never access a Tk widget or disk settings in this callback.
+                selected_game_exe=lambda: self._existing_selected_game_exe)
+            if isinstance(start_producer, StartWindowProducer) else None)
+        self._existing_probe = (
+            ExistingOriginalReaderWorker(self._existing_reader.inspect)
+            if self._existing_reader is not None else None)
+        self._existing_probe_status = (
+            "Chưa kiểm tra game đang mở sẵn bằng memory_reader TLM.")
+        self._existing_probe_target = None
         self.btn_open = tk.Button(
             self.container, text="Mở game",
             background="#388e3c", foreground="white",
@@ -151,6 +172,33 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                    and not self.launch_controller.busy
                    else "disabled"),
             command=self._request_original_reader)
+        if self._existing_probe is not None:
+            sub = tk.Menu(menu, tearoff=0)
+            observed = self._start_producer.read_snapshot()
+            existing = (
+                observed.windows if type(observed) is WindowSnapshot
+                and observed.valid and self._start_producer.active else ())
+            if not existing or self.get_exe_path() is None:
+                sub.add_command(
+                    label="Chưa có cửa sổ game/đường dẫn hợp lệ",
+                    state="disabled")
+            elif self._existing_probe.busy:
+                sub.add_command(
+                    label="Đang kiểm tra một cửa sổ...", state="disabled")
+            else:
+                # Popup presentation bound, NOT a limit on game accounts.
+                for current in existing[:30]:
+                    sub.add_command(
+                        label=f"PID {current.pid} | HWND {current.hwnd}",
+                        command=lambda w=current: (
+                            self._request_existing_game_probe(w)))
+                if len(existing) > 30:
+                    sub.add_command(
+                        label=f"Còn {len(existing)-30} cửa sổ; xem tab Start",
+                        state="disabled")
+            menu.add_cascade(
+                label="Kiểm tra game đang chạy sẵn (chỉ đọc)",
+                menu=sub)
         if self._owned_selection_map:
             menu.add_separator()
             for label, pid in self._owned_selection_map.items():
@@ -179,9 +227,45 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             self._launch_status_full + "\n\nKiểm tra client: "
             + self._fingerprint_status
             + "\n\nĐọc bộ nhớ TLM gốc: "
-            + self._original_reader_status,
+            + self._original_reader_status
+            + "\n\nGame mở sẵn: " + self._existing_probe_status,
             parent=self.container.winfo_toplevel())
         return True
+
+    def _request_existing_game_probe(self, window) -> bool:
+        if (self._launch_closed or self._closed
+                or self._existing_probe is None):
+            return False
+        exe = self.get_exe_path()
+        if exe is None:
+            self._existing_probe_status = "Chưa chọn file game thực."
+            return False
+        self._existing_selected_game_exe = exe
+        if not self._existing_probe.request(window):
+            return False
+        self._existing_probe_target = (window.hwnd, window.pid, str(exe))
+        self._existing_probe_status = (
+            f"Đang kiểm tra PID {window.pid}, HWND {window.hwnd} "
+            "qua cache Start + native TLM Reader...")
+        self._schedule_launch_poll()
+        return True
+
+    def _accept_existing_game_probe(self, result):
+        if self._launch_closed or self._closed:
+            return
+        exe = self.get_exe_path()
+        actual = (
+            result.hwnd, result.pid, str(exe) if exe is not None else None)
+        if self._existing_probe_target != actual:
+            self._existing_probe_status = (
+                "Không nhận kết quả cũ: PID/HWND/đường dẫn game đã đổi.")
+            return
+        self._existing_probe_status = (
+            f"PID {result.pid} / HWND {result.hwnd}: {result.code}. "
+            "Chưa chứng minh đang đăng nhập; không gửi game action.")
+        self._show_launch_status(
+            "Game đang chạy sẵn: " + result.code
+            + ". Xem trạng thái đầy đủ.")
 
     def _request_original_reader(self) -> bool:
         """Explicit original TLM Reader pointer-only probe; NO game actions."""
@@ -303,6 +387,11 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         if selected and before != self.get_exe_path():
             self._client_fingerprint.invalidate()
             self._original_reader.invalidate()
+            if self._existing_probe is not None:
+                self._existing_probe.invalidate()
+                self._existing_selected_game_exe = self.get_exe_path()
+                self._existing_probe_status = (
+                    "Đã thay đổi thư mục game; cần kiểm tra lại.")
             self._original_reader_status = (
                 "Client mới chưa kiểm tra memory_reader TLM gốc.")
             self._fingerprint_status = "Client mới chưa đối chiếu SHA-256."
@@ -346,6 +435,9 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             self._accept_fingerprint(fingerprint)
         for checked in self._original_reader.drain():
             self._accept_original_reader(checked)
+        if self._existing_probe is not None:
+            for result in self._existing_probe.drain():
+                self._accept_existing_game_probe(result)
         for resize_event in self.launch_controller.drain_size_events():
             self._show_size_event(resize_event.code, resize_event.pid,
                                   resize_event.hwnd)
@@ -355,6 +447,8 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         if (self.launch_controller.busy
                 or self._client_fingerprint.busy
                 or self._original_reader.busy
+                or (self._existing_probe is not None
+                    and self._existing_probe.busy)
                 or self.launch_controller.list_owned_windows()):
             self._schedule_launch_poll()
 
@@ -408,6 +502,8 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                 self.container.after_cancel(token)
             except tk.TclError:
                 pass
+        if self._existing_probe is not None:
+            self._existing_probe.shutdown()
         self._original_reader.shutdown()
         self._client_fingerprint.shutdown()
         self.launch_controller.shutdown()
