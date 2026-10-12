@@ -207,6 +207,41 @@ class TkRaoConfigTab(ttk.Frame):
         self._render_rows()
         return True
 
+    def _start_refresh(self) -> bool:
+        """E08 notebook re-entry: safely refresh shared INI after other tabs."""
+        if not self._enabled():
+            return False
+        try:
+            in_view = self._models()
+        except RaoConfigError:
+            self._set_status("Dòng Rao còn chỉnh sửa chưa hợp lệ; không nạp đè")
+            return False
+        # The captured first Rao 1 row is an uncommitted visible seed.
+        only_seed = (not self.snapshot.rows and
+                     in_view == (RaoDefinition("Rao 1"),))
+        normalized = tuple(sorted(in_view, key=lambda row: row.name.casefold()))
+        if not only_seed and normalized != self.snapshot.rows:
+            self._set_status("Có chỉnh sửa Rao chưa lưu; giữ nguyên nội dung")
+            return False
+        try:
+            latest = self.store.load()
+        except (RaoConfigError, OSError, ValueError) as exc:
+            self.last_error = type(exc).__name__
+            self._blocked = True
+            self._render_rows()
+            self._set_status("Không thể đồng bộ Rao; cấu hình ngoài không an toàn")
+            return False
+        if latest.file_bytes != self.snapshot.file_bytes:
+            self.snapshot = latest
+            self._display = list(latest.rows) or [RaoDefinition("Rao 1")]
+            self._render_rows()
+            self._set_status("Đã nạp cấu hình Rao được cập nhật từ tab khác")
+        return True
+
+    def _stop_refresh(self):
+        # Config-only panel has no poller and never flushes on tab switch.
+        return None
+
     def shutdown(self):
         self._closed = True
 
