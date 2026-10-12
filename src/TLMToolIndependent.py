@@ -62,6 +62,15 @@ def make_independent_builders(settings_file: str | Path,
         panel.pack(fill="both", expand=True)
         return panel
     builders["trainlsv_tab"] = build_train_lsv
+    # PLAN stage M: actual local [Rao] configuration editor only.
+    # No invented game chat sender, no account mapping without RoleName.
+    if "rao_tab" not in LOCAL_TAB_KEYS:
+        raise ValueError("MISSING_IMPLEMENTED_RAO_LOCAL_CAPABILITY")
+    def build_rao(parent):
+        panel = TkRaoConfigTab(parent, settings_file=settings_file)
+        panel.pack(fill="both", expand=True)
+        return panel
+    builders["rao_tab"] = build_rao
     return builders
 
 
