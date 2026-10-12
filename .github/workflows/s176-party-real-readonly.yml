@@ -1,0 +1,127 @@
+name: S176 Independent Party Passive S09 Roster + Real Packaged GUI Win64
+on:
+  pull_request:
+    paths:
+      - "src/source_backed_tab_builders.py"
+      - "src/party_ready_list.py"
+      - "src/TLMToolIndependent.py"
+      - "tests/test_s176.py"
+      - ".github/workflows/s176-party-real-readonly.yml"
+  push:
+    paths:
+      - "src/source_backed_tab_builders.py"
+      - "src/party_ready_list.py"
+      - "src/TLMToolIndependent.py"
+      - "tests/test_s176.py"
+      - ".github/workflows/s176-party-real-readonly.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  real-win64-native-readonly-probe-and-packaged-gui:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - name: Pillow for genuine Windows Tk and screenshot evidence
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile entire current source tests tools
+        run: python -m compileall -q src tests tools
+      - name: Full historical and NEW Python Windows tests
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source-build gap audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S175 actual OS Win32 read-only probe and real owned Tk validation
+        run: python tools/S175_WINDOWS_READINESS_NATIVE_SMOKE.py
+      - name: Inherited S173 Tk manual buff edit
+        run: python tools/S173_WINDOWS_BUFF_EDIT_SMOKE.py
+      - name: Inherited S172 S09 shared HWND passive roster
+        run: python tools/S172_WINDOWS_LSV_ROSTER_SMOKE.py
+      - name: Inherited S171 native timed buff INI
+        run: python tools/S171_WINDOWS_LSV_BUFF_SMOKE.py
+      - name: Inherited S170 native LSV coordinate editor
+        run: python tools/S170_WINDOWS_LSV_COORDS_SMOKE.py
+      - name: Inherited S169 native top INI settings
+        run: python tools/S169_WINDOWS_LSV_TOP_SMOKE.py
+      - name: Inherited S168 actual Tk independent shell
+        run: python tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py
+      - name: Inherited S167 old Info comparison native
+        run: python tools/S167_WINDOWS_INFO_TRAIN_REVOKE_SMOKE.py
+      - name: Inherited S166 S09 Win32 lifecycle
+        run: python tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py
+      - name: Inherited S165 genuine Train Tk
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: Inherited S132 Train Tk settings
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: Inherited S163 Login account native
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: Actual source independent launcher static linkage only
+        run: python src/TLMToolIndependent.py --self-check
+      - name: Pinned production PyInstaller build tools
+        run: python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Build original unchanged independent GUI PARTIAL EXE
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S176_TLMTOOL_PARTY_PASSIVE_PARTIAL
+          --distpath artifacts/s176/dist
+          --workpath artifacts/s176/build
+          --specpath artifacts/s176/spec
+          --paths src
+          src/TLMToolIndependent.py
+      - name: Build SEPARATE real read-only game readiness CLI EXE
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S175_GAME_READINESS_PROBE_READONLY
+          --distpath artifacts/s176/dist
+          --workpath artifacts/s176/build
+          --specpath artifacts/s176/spec
+          --paths src
+          tools/S175_GAME_READINESS_PROBE.py
+      - name: Real packaged CLI scans Windows and serializes honest readiness
+        shell: pwsh
+        run: |
+          & "artifacts/s176/dist/S175_GAME_READINESS_PROBE_READONLY/S175_GAME_READINESS_PROBE_READONLY.exe" --output "artifacts/s176/real_ci_no_game_probe.json" > "artifacts/s176/real_ci_no_game_probe_stdout.txt"
+          if ($LASTEXITCODE -ne 0) { throw "S175_REAL_READONLY_PROBE_EXE_FAILED" }
+          $r = Get-Content "artifacts/s176/real_ci_no_game_probe.json" -Raw | ConvertFrom-Json
+          if ($r.game_action_ready -ne $false -or $r.safety.game_input_sent -ne $false -or $r.scan_status -ne "WINDOW_SCAN_COMPLETED") { throw "S175_FALSE_GAME_READINESS" }
+      - name: S174 MANDATORY actual packaged independent EXE normal GUI HWND and mutex
+        run: >
+          python tools/S174_WINDOWS_PACKAGED_GUI_SMOKE.py
+          artifacts/s176/dist/S176_TLMTOOL_PARTY_PASSIVE_PARTIAL/S176_TLMTOOL_PARTY_PASSIVE_PARTIAL.exe
+      - name: Preserve historical diagnostic fail-closed separate from owner app
+        shell: pwsh
+        run: |
+          python src/TLMTool.py *> artifacts/s176/legacy_entry.txt
+          if ($LASTEXITCODE -ne 2) { throw "S176_LEGACY_GUARD_CHANGED" }
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S176_PASSIVE_PARTY_OBSERVER_AND_PACKAGED_PARTIAL_GUI_WIN64
+          path: |
+            artifacts/s176/dist/S176_TLMTOOL_PARTY_PASSIVE_PARTIAL/
+            artifacts/s176/dist/S175_GAME_READINESS_PROBE_READONLY/
+            artifacts/s176/native_real_win32_probe.json
+            artifacts/s176/real_ci_no_game_probe.json
+            artifacts/s176/real_ci_no_game_probe_stdout.txt
+            artifacts/s176/legacy_entry.txt
+            artifacts/s174/real_packaged_gui_acceptance.json
+            artifacts/s174/real_packaged_gui_window.png
+            artifacts/s173/
+            artifacts/s172/
+            artifacts/s171/
+            artifacts/s170/
+            artifacts/s169/
+            artifacts/s168/
+            artifacts/s167/
+            artifacts/s166/
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+          if-no-files-found: warn
