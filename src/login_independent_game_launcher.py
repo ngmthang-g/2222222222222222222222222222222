@@ -184,36 +184,47 @@ class IndependentGameLaunchController:
                 "INVALID_CREATED_PID", running_game_count_before=count))
             return
         deadline = self._clock() + LOCAL_HWND_TIMEOUT_SECONDS
+        saw_unattested_pid_window = False
         while not self._stop.is_set():
             if process.poll() is not None:
                 self._post(IndependentLaunchResult(
                     "PROCESS_EXITED_BEFORE_WINDOW", pid,
                     running_game_count_before=count))
                 return
+            # Reject a result found AFTER the F05 25s handoff ceiling.
+            if self._clock() > deadline:
+                break
             try:
                 hwnd = self._find_hwnd(pid)
             except (OSError, RuntimeError, ValueError, TypeError):
                 hwnd = None
-            if type(hwnd) is int and hwnd > 0:
-                # Genuine Popen+HWND is appended to the F05 registry only
-                # when still owned by this controller and native game PID.
-                with self._lock:
-                    registered = (
-                        not self._closed and not self._stop.is_set()
-                        and process.poll() is None
-                        and self._sessions.register(process, hwnd))
-                self._post(IndependentLaunchResult(
-                    "WINDOW_VERIFIED" if registered else "WINDOW_UNOWNED_OR_STALE",
-                    pid, hwnd if registered else None,
-                    running_game_count_before=count))
-                return
+            if type(hwnd) is int and hwnd > 0 and not self._stop.is_set():
+                # S156 can legitimately return a PID-owned fallback dialog
+                # before the true Unity window is ready. S192 must attest
+                # native game exe/class/title, never claim a dialog is a game.
+                # This may block on Win32; do NOT hold the controller's Tk-
+                # observed state lock while enumerating native windows.
+                registered = (
+                    process.poll() is None
+                    and self._sessions.register(process, hwnd))
+                if registered and not self._stop.is_set():
+                    self._post(IndependentLaunchResult(
+                        "WINDOW_VERIFIED", pid, hwnd,
+                        running_game_count_before=count))
+                    return
+                saw_unattested_pid_window = True
             remaining = deadline - self._clock()
             if remaining <= 0:
-                self._post(IndependentLaunchResult(
-                    "STARTED_NO_WINDOW_YET", pid,
-                    running_game_count_before=count))
-                return
+                break
             self._stop.wait(min(LOCAL_POLL_QUANTUM_SECONDS, remaining))
+        if self._stop.is_set():
+            self._post(IndependentLaunchResult(
+                "CANCELLED_AFTER_START", pid, running_game_count_before=count))
+            return
+        self._post(IndependentLaunchResult(
+            "PID_WINDOW_NOT_VERIFIED_AS_GAME" if saw_unattested_pid_window
+            else "STARTED_NO_WINDOW_YET", pid,
+            running_game_count_before=count))
         self._post(IndependentLaunchResult(
             "CANCELLED_AFTER_START", pid, running_game_count_before=count))
 
