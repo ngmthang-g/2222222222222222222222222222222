@@ -2,7 +2,14 @@
 
 _Last reviewed: 2026-10-12 Asia/Bangkok. PLAN.md + SCOPE_LOCK.md authoritative; PROJECT_STATUS.md append-only history._
 
-## LATEST VERIFIED SOURCE MILESTONE — S165 TRAIN REAL TK CONFIG BUILDER (PARTIAL, 2026-10-12)
+## LATEST VERIFIED SOURCE MILESTONE — S166 TRAIN SHARED S09 PRODUCER LIFECYCLE (2026-10-12)
+- [PR #19](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/19) **squash merged to main** `c578cee7f6849211d363e6d71427e830737cfd49`.
+- [S166 actual Win64 native CI 38188435058](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38188435058) **SUCCESS**: **2,531/2,531 Windows unit tests**, **416 compiled Python files /104 source modules**; S166 genuine test-owned Tk HWND plus actual Win32 S09 worker select/stop/reenter/revoke and external ownership isolation PASS.
+- Inherited S165/S132 Train, S163 Login, S162/S160 Win32 counts, S161 emulator protocol, S155/S154 Party, S151/S146/S26 native regression PASS. Independent [Stage S 38188435060](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38188435060) and [S36 real packaged Win64 diagnostic 38188435080](https://github.com/ngmthang-g/2222222222222222222222222222222222222/actions/runs/38188435080) both SUCCESS on the exact PR head.
+- Only modified production source: `src/farm_train_composition.py`; new selected-tab `_start_refresh/_stop_refresh` uses **only existing shared StartWindowProducer**, stops only worker started by selected Train, preserves original Tk 5s cadence, has permission-revocation and shutdown cleanup. No second scanner or game control. [S166 task details](docs/tasks/S166.md).
+- **PRODUCT NOT COMPLETE:** real Thần Long game actions, original Info signed verification, launcher/Login and final product EXE still unverified. `src/TLMTool.py::main()` remains safe exit=2; S36 EXE is diagnostic only. S164 remains `USER_ACCEPTED_DEFERRED_EXTERNAL_VERIFICATION`, not VERIFIED; DATA-2222 READ ONLY, Proxy excluded, original ZIP/PLAN/SCOPE_LOCK unmodified.
+
+## PRIOR VERIFIED SOURCE MILESTONE — S165 TRAIN REAL TK CONFIG BUILDER (PARTIAL, 2026-10-12)
 - [PR #18](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/18) squash-merged to `main` **`a8663cec68c86d939eeca4faf8a9f5c5f5683054`** after all independent CI green.
 - Genuine [S165 Windows native run 38187896904](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38187896904): **2517/2517 Win64 tests PASS**, **414 compiled files / 104 source modules**; genuine test-owned Win64 Tk Train E03 opt-in composition and actual INI/revocation PASS; inherited S132/S163/S162... native PASS.
 - Independent [Stage S 38187896892](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38187896892), [S36 Windows packaged diagnostic 38187897016](https://github.com/ngmthang-g/2222222222222222222222222222222222222/actions/runs/38187897016), [S154 38187896985](https://github.com/ngmthang-g/2222222222222222222222222222222222222/actions/runs/38187896985), [S155 38187896839](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38187896839) **SUCCESS** on same source head.
@@ -52,8 +59,14 @@ _Last reviewed: 2026-10-12 Asia/Bangkok. PLAN.md + SCOPE_LOCK.md authoritative; 
 - NEXT after the Train builder: choose a meaningful remaining original-backed tab/behavior slice independent of the deferred Info/game blockers; do not create endless synthetic tests.
 - **Deferred external S164 return triggers:** authorized signed issuer verification or authorized matching live game runtime. Do not bypass, fabricate or waive real end-to-end parity.
 
-## CURRENT NEXT_ACTION — S166 TRAIN SHARED START-PRODUCER LIFECYCLE
+## HISTORICAL NEXT_ACTION — S166 TRAIN SHARED START-PRODUCER LIFECYCLE (COMPLETED)
 - Re-read PLAN/STATE/S165, inspect `TkTrainComposition` `start_readonly_window_refresh()/stop_readonly_window_refresh()`, `TabLifecycle` `_start_refresh/_stop_refresh` and shared `StartWindowProducer` source.
 - Identify the smallest **source-backed** adapter so an authorized selected Train config tab starts and stops its **passive** account refresh from the existing Start cache. Require explicit verified Info and valid count, preserve revocation/teardown and no duplicate scanner. If exact behavior evidence insufficient, record UNKNOWN and pick other original-backed work, not a fake UI.
 - Preserve S165 Win64 baseline **2517 units / 414 compiled**, original native regression and independent S36 diagnostic/Stage S; no actual game, no licensing bypass, no new Proxy.
 - Return to S164 signed Info/real-game blocker only after fresh legitimate test evidence, not repeated CONTINUE requests.
+
+## CURRENT NEXT_ACTION — S167 ORIGINAL-BACKED USER-FACING TRAIN INTEGRATION
+- Read LIVE `PLAN.md`, `STATE.md`, `docs/tasks/S166.md`, original B05/H01/H02 Train evidence, and current E03/TLMMainApp tab wiring. Confirm which meaningful Train controls/behaviors are already implemented and identify **one unimplemented, source-grounded user-facing slice** without modifying verified parts.
+- Prefer actual Tk/INI or real Win32 behavior with original evidence over repeating small mock/regression helpers. Source-backed components may be integrated within authenticated tab lifecycle; **no guessed game input/RoleName**, no unsigned Info grant, no fake Bắt đầu/Bán đồ/Đánh, no Proxy.
+- When a safe implementation exists, validate PR real Win64 **>=2531** unit, **>=416** compiled, native S166/S165/S132/S163 and inherited regressions, independent S36 diagnostic and Stage S; then merge and record exact evidence. If game/issuer is essential, record blocker precisely and switch to another original-backed module.
+- S164 signature issuer/game runtime remains deferred, not passed; never call diagnostic EXE the finished product. DATA reference READ ONLY, frozen original/PLAN/SCOPE_LOCK preserved.
