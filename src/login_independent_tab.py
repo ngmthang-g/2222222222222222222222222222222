@@ -18,6 +18,10 @@ from login_independent_game_launcher import (
     IndependentGameLaunchController, IndependentLaunchResult,
 )
 from login_tab import TLMLoginPathTab
+from login_frozen_client_fingerprint import (
+    FrozenClientFingerprintWorker,
+    FrozenClientMatch,
+)
 
 
 RESULT_TEXT = {
@@ -47,6 +51,9 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         self._launch_status_full = ""
         self._owned_selection_map = {}
         self._selected_game_pid = None
+        self._fingerprint_status = "Chưa đối chiếu client DATA-2222."
+        self._fingerprint_started_exe = None
+        self._client_fingerprint = FrozenClientFingerprintWorker()
         self.launch_controller = IndependentGameLaunchController()
         self.btn_open = tk.Button(
             self.container, text="Mở game",
@@ -124,6 +131,11 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         menu.add_command(
             label="Xem trạng thái đầy đủ...",
             command=self._show_full_launch_status)
+        menu.add_command(
+            label="Đối chiếu bản client DATA-2222 (SHA-256)",
+            state=("disabled" if self.get_exe_path() is None
+                   or self._client_fingerprint.busy else "normal"),
+            command=self._request_client_fingerprint)
         if self._owned_selection_map:
             menu.add_separator()
             for label, pid in self._owned_selection_map.items():
@@ -148,9 +160,52 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             return False
         from tkinter import messagebox
         messagebox.showinfo(
-            "Trạng thái Mở game", self._launch_status_full,
+            "Trạng thái Mở game",
+            self._launch_status_full + "\n\nKiểm tra client: "
+            + self._fingerprint_status,
             parent=self.container.winfo_toplevel())
         return True
+
+    def _request_client_fingerprint(self) -> bool:
+        """Read-only frozen build check; NEVER authorizes memory/game input."""
+        if self._launch_closed or self._closed:
+            return False
+        selected = self.get_exe_path()
+        if selected is None:
+            self._fingerprint_status = "Chưa có file game để đối chiếu."
+            return False
+        if not self._client_fingerprint.request(selected):
+            return False
+        self._fingerprint_started_exe = str(selected)
+        self._fingerprint_status = "Đang tính SHA-256 DLL + metadata..."
+        self._schedule_launch_poll()
+        return True
+
+    def _accept_fingerprint(self, outcome: FrozenClientMatch):
+        if self._launch_closed or self._closed:
+            return
+        # A user may change Settings.game_dir while a large DLL is hashed;
+        # its result MUST NOT authorize or label the newly selected folder.
+        selected = self.get_exe_path()
+        if selected is None or str(selected) != self._fingerprint_started_exe:
+            self._fingerprint_status = (
+                "Thư mục game đã thay đổi; kết quả kiểm tra cũ bị loại bỏ.")
+            return
+        if outcome.known_static_files:
+            self._fingerprint_status = (
+                "Khớp 2 file SHA-256 bản DATA-2222. "
+                "CHƯA chứng minh game đang chạy tương thích/đọc RoleName/HP.")
+        elif outcome.code == "INSTALLED_CLIENT_DIFFERS_FROM_FROZEN_SNAPSHOT":
+            self._fingerprint_status = (
+                "Client không khớp bản DATA-2222: GameAssembly="
+                + ("khớp" if outcome.gameassembly_match else "khác")
+                + ", metadata="
+                + ("khớp" if outcome.metadata_match else "khác")
+                + ". Không sử dụng địa chỉ/ABI đoán từ snapshot cũ.")
+        else:
+            self._fingerprint_status = (
+                f"Không đối chiếu được client: {outcome.code}. "
+                "Chưa có quyền đọc dữ liệu nhân vật thật.")
 
     def _activate_game(self) -> bool:
         """S189 click: C03 foreground only for same live PID-owned HWND."""
@@ -179,7 +234,11 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         return result.code == "OS_FOREGROUND_ACCEPTED_NOT_LOGIN"
 
     def _select_game_directory(self) -> bool:
+        before = self.get_exe_path()
         selected = super()._select_game_directory()
+        if selected and before != self.get_exe_path():
+            self._client_fingerprint.invalidate()
+            self._fingerprint_status = "Client mới chưa đối chiếu SHA-256."
         if hasattr(self, "launch_controller"):
             self._refresh_launch_button()
         return selected
@@ -216,6 +275,8 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             return
         for outcome in self.launch_controller.drain():
             self._show_result(outcome)
+        for fingerprint in self._client_fingerprint.drain():
+            self._accept_fingerprint(fingerprint)
         for resize_event in self.launch_controller.drain_size_events():
             self._show_size_event(resize_event.code, resize_event.pid,
                                   resize_event.hwnd)
@@ -223,6 +284,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         # A Login-owned F05 size worker continues each second after the
         # launch worker's PID/HWND handoff has completed.
         if (self.launch_controller.busy
+                or self._client_fingerprint.busy
                 or self.launch_controller.list_owned_windows()):
             self._schedule_launch_poll()
 
@@ -276,5 +338,6 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                 self.container.after_cancel(token)
             except tk.TclError:
                 pass
+        self._client_fingerprint.shutdown()
         self.launch_controller.shutdown()
         super().shutdown()
