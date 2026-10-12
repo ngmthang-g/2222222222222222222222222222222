@@ -12,7 +12,7 @@ original license/token/heartbeat/Proxy, game writes or injections.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import threading
 import time
 
@@ -24,9 +24,10 @@ from tlm_existing_game_reader import (
     ExistingTlmGameReaderReport,
 )
 
-OBSERVE_INTERVAL_SECONDS = 6.0    # local safety cadence, not original timer
-MAX_WINDOWS_PER_PASS = 12          # bounded scan, NOT account limit
-OBSERVATION_TTL_SECONDS = 14.0     # fail-closed background cache freshness
+OBSERVE_INTERVAL_SECONDS = 3.0    # local safety cadence, not original timer
+MAX_WINDOWS_TRACKED = 48          # bounded observations, NOT game account cap
+MAX_NATIVE_READS_PER_PASS = 1      # avoid hashing many DLLs in one burst
+OBSERVATION_TTL_SECONDS = 16.0     # stale HP is NOT a verified live value
 SUCCESS_DIAGNOSTIC = "ORIGINAL_READONLY_CHARACTER_CANDIDATE_UNVERIFIED"
 
 
@@ -46,6 +47,7 @@ class UnverifiedGameCharacter:
     hp_verified: bool = False
     party_ready: bool = False
     train_game_sender_enabled: bool = False
+    captured_monotonic: float | None = None
 
     @property
     def hp_percent_candidate(self) -> int | None:
@@ -123,6 +125,7 @@ class IndependentCharacterDiagnosticObserver:
         self._thread = None
         self._closed = False
         self._batch = UnverifiedCharacterBatch("WAITING_FOR_NATIVE_GAME_WINDOWS")
+        self._cursor = 0
 
         def selected_exe():
             # Worker-only, bounded original F04 read, never from Tk widgets.
@@ -176,7 +179,16 @@ class IndependentCharacterDiagnosticObserver:
         if {(w.hwnd, w.pid) for w in snap.windows} != {
                 (w.hwnd, w.pid) for w in batch.members}:
             return UnverifiedCharacterBatch("SOURCE_PID_REUSED")
-        return batch
+        # A candidate that is still shown after its own 16s expiry would
+        # falsely suggest its HP and MapID are continuously current.
+        result = tuple(
+            item if (item.captured_monotonic is not None
+                     and 0 <= self.clock()-item.captured_monotonic
+                     <= OBSERVATION_TTL_SECONDS)
+            else UnverifiedGameCharacter(
+                item.hwnd, item.pid, "CANDIDATE_EXPIRED_OR_NOT_SCANNED")
+            for item in batch.members)
+        return replace(batch, members=result)
 
     def _publish(self, batch):
         with self._lock:
@@ -191,7 +203,7 @@ class IndependentCharacterDiagnosticObserver:
                         or type(snap) is not WindowSnapshot
                         or not snap.valid):
                     batch = UnverifiedCharacterBatch("START_CACHE_UNAVAILABLE")
-                elif len(snap.windows) > MAX_WINDOWS_PER_PASS:
+                elif len(snap.windows) > MAX_WINDOWS_TRACKED:
                     batch = UnverifiedCharacterBatch(
                         "TOO_MANY_WINDOWS_FOR_BOUNDED_DIAGNOSTIC")
                 elif not snap.windows:
@@ -199,24 +211,53 @@ class IndependentCharacterDiagnosticObserver:
                         "NO_CURRENT_GAME_WINDOWS", snap.revision,
                         self.clock())
                 else:
-                    members = []
-                    for window in snap.windows:
-                        if self._stop.is_set():
-                            break
-                        observation = self._reader.inspect(window)
-                        members.append(_candidate(observation, window))
-                    latest = self.producer.read_snapshot()
-                    if (not self._stop.is_set()
-                            and type(latest) is WindowSnapshot
-                            and latest.valid
-                            and {(w.hwnd, w.pid) for w in latest.windows} ==
-                            {(w.hwnd, w.pid) for w in snap.windows}):
+                    selected_path = self._reader.selected_game_exe()
+                    if selected_path is None:
                         batch = UnverifiedCharacterBatch(
-                            "CANDIDATE_ONLY_NOT_GAME_ATTESTED",
-                            latest.revision, self.clock(), tuple(members))
+                            "NO_EXPLICIT_SELECTED_GAME_EXE")
+                        self._previous = {}
+                        self._previous_exe = None
                     else:
-                        batch = UnverifiedCharacterBatch(
-                            "WINDOW_SET_CHANGED_DURING_READ")
+                        # Changing the F04 game folder invalidates *every*
+                        # previous source attribution, even if PID is same.
+                        if getattr(self, "_previous_exe", None) != str(selected_path):
+                            self._previous = {}
+                            self._previous_exe = str(selected_path)
+                        previous = getattr(self, "_previous", {})
+                        keys = {(w.hwnd, w.pid) for w in snap.windows}
+                        previous = {k: v for k, v in previous.items() if k in keys}
+                        # Round-robin ONE native read per cycle; do not
+                        # repeatedly hash dozens of GameAssembly DLLs in
+                        # a single burst (background tool remains usable).
+                        windows = snap.windows
+                        for _ in range(min(MAX_NATIVE_READS_PER_PASS, len(windows))):
+                            window = windows[self._cursor % len(windows)]
+                            self._cursor += 1
+                            if self._stop.is_set():
+                                break
+                            observation = self._reader.inspect(window)
+                            previous[(window.hwnd, window.pid)] = replace(
+                                _candidate(observation, window),
+                                captured_monotonic=self.clock())
+                        latest = self.producer.read_snapshot()
+                        if (not self._stop.is_set()
+                                and type(latest) is WindowSnapshot
+                                and latest.valid
+                                and {(w.hwnd, w.pid) for w in latest.windows}
+                                == keys):
+                            self._previous = previous
+                            members = tuple(previous.get(
+                                (w.hwnd, w.pid),
+                                UnverifiedGameCharacter(
+                                    w.hwnd, w.pid, "NOT_SCANNED_YET"))
+                                for w in latest.windows)
+                            batch = UnverifiedCharacterBatch(
+                                "CANDIDATE_ONLY_NOT_GAME_ATTESTED",
+                                latest.revision, self.clock(), members)
+                        else:
+                            self._previous = {}
+                            batch = UnverifiedCharacterBatch(
+                                "WINDOW_SET_CHANGED_DURING_READ")
                 self._publish(batch)
             except (OSError, ValueError, RuntimeError, TypeError,
                     AttributeError):
