@@ -10,6 +10,7 @@ from tkinter import ttk
 from pathlib import Path
 
 from train_lsv_coordinate_editor import TkTrainLsvCoordinates
+from train_lsv_manual_buff_editor import TkTrainLsvManualBuffs
 
 from train_lsv_top_settings import (
     TrainLsvTopStore, TrainLsvTopSnapshot, TrainLsvTopConfig,
@@ -84,11 +85,16 @@ class TkTrainLsvTopTab(ttk.Frame):
             self, settings_file=settings_file,
             on_saved=self._on_coord_file_saved)
         self.coords.pack(fill="x", padx=6, pady=4)
-        # Do not create fake LSV travel/fight/start/buff/edit commands.
+        # S171: real manual TrainLSV buff_* INI editing. Original fixed
+        # Dạ Minh Châu persistence index is unknown; never overwrite it.
+        self.manual_buffs = TkTrainLsvManualBuffs(
+            self, settings_file=settings_file, on_saved=self._on_buff_file_saved)
+        self.manual_buffs.pack(fill="x", padx=6, pady=4)
+        # Do not create fake LSV travel/fight/start actions.
         ttk.Label(
             self,
             text=("Đã lưu được cấu hình và tọa độ Train LSV. "
-                  "Áp dụng vào tài khoản, Dạ Minh Châu, danh sách tài khoản "
+                  "Áp dụng vào tài khoản, sử dụng buff/châu trong game "
                   "và điều khiển game chưa được kết nối."),
             wraplength=408, justify="left",
         ).pack(fill="x", padx=6, pady=5)
@@ -135,6 +141,7 @@ class TkTrainLsvTopTab(ttk.Frame):
         self.status.configure(text="Đã lưu cấu hình Train LSV")
         self._restore()
         self.coords.sync_after_top_save()
+        self.manual_buffs.sync_after_other_save()
         return True
 
     def _on_coord_file_saved(self):
@@ -146,6 +153,21 @@ class TkTrainLsvTopTab(ttk.Frame):
         try:
             self.snapshot = self.store.load()
             self._restore()
+            self.manual_buffs.sync_after_other_save()
+        except Exception as exc:
+            self.error = type(exc).__name__
+            self._blocked = True
+            self._refresh_controls()
+
+    def _on_buff_file_saved(self):
+        # Refresh only committed disk snapshots across sibling editors.
+        # Do not discard unsaved coordinate drafts or reset Tk controls.
+        if self._closed:
+            return
+        try:
+            self.snapshot = self.store.load()
+            self._restore()
+            self.coords.sync_after_top_save()
         except Exception as exc:
             self.error = type(exc).__name__
             self._blocked = True
