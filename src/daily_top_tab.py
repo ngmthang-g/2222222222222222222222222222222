@@ -40,6 +40,7 @@ class TkDailyTopTab(ttk.Frame):
             kind = tk.BooleanVar if type(initial) is bool else tk.StringVar
             self.vars[field] = kind(master=self, value=initial)
 
+        self.inputs = []
         punish = ttk.LabelFrame(self, text="Trừng ác")
         punish.pack(fill="x", padx=6, pady=(7, 5))
         self._duration_field(
@@ -51,7 +52,6 @@ class TkDailyTopTab(ttk.Frame):
             anchor="w")
         choices = ttk.Frame(punish)
         choices.pack(fill="x", padx=6, pady=(1, 5))
-        self.inputs = []
         self._radio(choices, "Ngựa", "daily_move_mode", "horse")
         self._radio(choices, "Định vị phù", "daily_move_mode", "teleport")
         ttk.Label(choices, text="Phím tắt phù:").pack(
