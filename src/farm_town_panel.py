@@ -16,6 +16,7 @@ from farm_town_config import (
     NAV_METHODS, TOWN_RADIOS,
 )
 from permission_guard import PermissionGuard
+from local_feature_policy import LocalFeaturePolicy
 
 
 class TkFarmTownConfig(ttk.Frame):
@@ -97,6 +98,10 @@ class TkFarmTownConfig(ttk.Frame):
         self.bind("<Destroy>", self._on_destroy, add="+")
 
     def _permitted(self) -> bool:
+        # Independent tool's implemented local config is NOT TLM entitlement.
+        if isinstance(self.guard, LocalFeaturePolicy):
+            return (not self._closed and not self._blocked
+                    and self.guard.config_available("farm_tab"))
         if (self._closed or self._blocked
                 or type(self.guard) is not PermissionGuard
                 or not callable(self.running_count)):

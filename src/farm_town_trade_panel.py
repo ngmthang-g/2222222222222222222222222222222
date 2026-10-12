@@ -15,6 +15,7 @@ from farm_town_trade_settings import (
     TownTradeSnapshot, FarmTownTradeError, town_destination_choices,
 )
 from permission_guard import PermissionGuard
+from local_feature_policy import LocalFeaturePolicy
 
 
 class TkFarmTownTradeSettings(ttk.Frame):
@@ -104,6 +105,10 @@ class TkFarmTownTradeSettings(ttk.Frame):
         self.widgets[key] = entry
 
     def _permitted(self):
+        # Independent tool's implemented local config is NOT TLM entitlement.
+        if isinstance(self.guard, LocalFeaturePolicy):
+            return (not self._closed and not self._blocked
+                    and self.guard.config_available("farm_tab"))
         if (self._closed or self._blocked or type(self.guard) is not PermissionGuard
                 or not callable(self.running_count)):
             return False

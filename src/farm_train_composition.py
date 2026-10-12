@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Callable
 
 from permission_guard import PermissionGuard
+from local_feature_policy import LocalFeaturePolicy
 from farm_town_panel import TkFarmTownConfig
 from farm_town_config import FarmTownSettingsStore
 from farm_town_trade_panel import TkFarmTownTradeSettings
@@ -109,6 +110,10 @@ class TkTrainComposition(ttk.Frame):
         self.bind("<Destroy>", self._on_destroy, add="+")
 
     def _authorized(self) -> bool:
+        # Independent rebuilt tool: local implemented CONFIG is usable even
+        # with zero game windows; do not depend on original issuer/heartbeat.
+        if isinstance(self.guard, LocalFeaturePolicy):
+            return not self._closed and self.guard.config_available("farm_tab")
         if (self._closed or type(self.guard) is not PermissionGuard
                 or not callable(self.running_count)):
             return False

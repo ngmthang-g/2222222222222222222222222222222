@@ -88,6 +88,24 @@ class TabLifecycle:
         self.visible = new_visible
         return frozenset(new_visible)
 
+    def apply_local_capabilities(self, available: frozenset[str]) -> frozenset[str]:
+        """Independent tool only: tab visibility reflects implemented code.
+
+        No original token, plan, dev flags or original Info heartbeat can
+        modify this set; only registered, source-backed local modules show.
+        """
+        from local_feature_policy import LOCAL_TAB_KEYS
+        if self._closed:
+            return frozenset({INFO_KEY})
+        if (type(available) is not frozenset
+                or not available <= LOCAL_TAB_KEYS):
+            raise ValueError("INVALID_LOCAL_MODULE_CAPABILITIES")
+        new_visible = ({INFO_KEY} | (available & self._builders.keys()))
+        if self.current not in new_visible:
+            self.select(INFO_KEY)
+        self.visible = new_visible
+        return frozenset(new_visible)
+
     def select(self, key: str) -> Any:
         if self._closed:
             raise MissingFeatureError('Closed tab lifecycle cannot select widgets')
@@ -148,7 +166,9 @@ class TLMMainApp:
 
     def __init__(self, root: Any, builders: Mapping[str, Callable[[Any], Any]], *,
                  notebook_factory: Callable[..., Any] | None = None,
-                 frame_factory: Callable[..., Any] | None = None):
+                 frame_factory: Callable[..., Any] | None = None,
+                 independent_mode: bool = False,
+                 local_window_count: Callable[[], int] | None = None):
         if INFO_KEY not in builders:
             raise MissingFeatureError('S01: real InfoTab/authentication has not been reconstructed')
         if notebook_factory is None or frame_factory is None:
@@ -157,7 +177,9 @@ class TLMMainApp:
             frame_factory = frame_factory or ttk.Frame
         self.root = root
         self._closed = False
-        self.root.title('TLMTool')
+        self._independent_mode = independent_mode
+        self._local_window_count = local_window_count
+        self.root.title('TLMTool' + (' — Độc lập' if independent_mode else ''))
         self.root.geometry('250x20')  # E02 transient only
         self.root.withdraw()
         self.root.option_add('*Font', ('Segoe UI', 9))
@@ -179,6 +201,8 @@ class TLMMainApp:
         self.notebook.select(self._tab_frames[INFO_KEY])
         self.notebook.bind('<<NotebookTabChanged>>', self._on_tab_changed)
         self.lifecycle.select(INFO_KEY)
+        if independent_mode:
+            self.apply_local_capabilities()
         # E08: root <Destroy> follows descendant events. No invented
         # WM_DELETE_WINDOW handler or helper-process termination.
         bind = getattr(self.root, 'bind', None)
@@ -202,11 +226,35 @@ class TLMMainApp:
             instance = self.lifecycle._instances.get('start_tab')
             setter = getattr(instance, 'set_layout_max_windows', None)
             if callable(setter):
+                if getattr(self, '_independent_mode', False):
+                    count = (self._local_window_count()
+                             if callable(self._local_window_count) else 0)
+                    # Actual observed game window count, never an invented
+                    # issuer max_windows or a hardcoded 999 fallback.
+                    self._verified_max_windows = (
+                        count if type(count) is int and count > 0 else 0)
                 setter(self._verified_max_windows)
+
+    def apply_local_capabilities(self) -> frozenset[str]:
+        """Rebuilt tool policy: show code-backed tabs, never license-backed.
+
+        Calling Info/heartbeat authorization on this app cannot retract
+        local tabs. Missing/unbuilt sections still stay hidden.
+        """
+        if not self._independent_mode:
+            raise RuntimeError("LOCAL_POLICY_NOT_SELECTED")
+        from local_feature_policy import LOCAL_TAB_KEYS
+        visible = self.lifecycle.apply_local_capabilities(
+            frozenset(self.lifecycle._builders) & LOCAL_TAB_KEYS)
+        for spec in TAB_SPECS:
+            self.notebook.tab(
+                self._tab_frames[spec.key],
+                state='normal' if spec.key in visible else 'hidden')
+        return visible
 
     def apply_verified_permissions(self, authorized_keys: set[str] | frozenset[str], *,
                                    dev_allowed: bool = False, blocked: bool = False) -> None:
-        if self._closed:
+        if self._closed or getattr(self, '_independent_mode', False):
             return
         previous = self.lifecycle.current
         # Generic visible-tab grants do NOT independently certify a limit;
@@ -226,6 +274,10 @@ class TLMMainApp:
         No client-side permission validation or fake license policy is added.
         """
         from permission_guard import PermissionSnapshot
+        if getattr(self, '_independent_mode', False):
+            # Original Info issuer is intentionally NOT a runtime dependency
+            # of the new independent tool; do not forward licence revocation.
+            return
         if type(snapshot) is not PermissionSnapshot:
             raise TypeError('Info permission snapshot required')
 
