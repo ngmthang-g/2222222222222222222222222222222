@@ -16,9 +16,9 @@ python src/TLMToolIndependent.py
 python src/TLMToolIndependent.py --self-check
 ```
 
-Bản Windows **mới nhất S172** được đóng gói tại [GitHub Actions S172](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38194859677), artifact [`S172_INDEPENDENT_LSV_SHARED_S09_ROSTER_PARTIAL_WIN64_NOT_GAME`](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38194859677/artifacts/11723036569), có `S172_TLMTOOL_INDEPENDENT_LSV_ROSTER_PARTIAL.exe` và các thư viện trong cùng thư mục. **Giữ nguyên toàn bộ thư mục**; đừng chép riêng EXE.
+Bản Windows **mới nhất S173** được đóng gói tại [GitHub Actions S173](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38195551539), artifact [`S173_INDEPENDENT_TRAINLSV_BUFF_EDIT_PARTIAL_WIN64_NOT_GAME`](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38195551539/artifacts/11723481290), có `S173_TLMTOOL_INDEPENDENT_BUFF_EDIT_PARTIAL.exe` và các thư viện trong cùng thư mục. **Giữ nguyên toàn bộ thư mục**; đừng chép riêng EXE.
 
-Các tab source-backed đang có: **▶ Start, Login, Party, Train (cấu hình/quan sát read-only một phần), Train LSV (checkbox, radio, thêm/sửa/xóa tọa độ, **lịch buff thủ công** và **danh sách cửa sổ HWND/PID chỉ đọc từ S09**; bảo vệ dữ liệu cũ), Thông tin độc lập**. Tab chưa có điều khiển game thật được giữ ẩn. Tab hiển thị theo module đã được triển khai, **không theo giấy phép TLM gốc**.
+Các tab source-backed đang có: **▶ Start, Login, Party, Train (cấu hình/quan sát read-only một phần), Train LSV (checkbox, radio, thêm/sửa/xóa tọa độ, **lịch buff thủ công có Sửa/Lưu/Xóa trong phiên** và **danh sách cửa sổ HWND/PID chỉ đọc từ S09**; bảo vệ dữ liệu cũ), Thông tin độc lập**. Tab chưa có điều khiển game thật được giữ ẩn. Tab hiển thị theo module đã được triển khai, **không theo giấy phép TLM gốc**.
 
 Chế độ độc lập dùng `src/local_feature_policy.py`, `src/local_tool_status_tab.py`, `src/TLMToolIndependent.py`; các mục Train offline sử dụng source đã xây dựng tại S132/S165/S166/S167 và không chờ Info issuer. Vẫn kiểm tra HWND/PID, thao tác file an toàn, thread teardown và giới hạn của giao diện đang có.
 
@@ -30,10 +30,12 @@ Chế độ độc lập dùng `src/local_feature_policy.py`, `src/local_tool_st
 
 ## Giới hạn hiện tại
 
+**Trị liệu `heal_map`:** theo I07, đây là khóa cấu hình tương thích cũ nhưng đường xử lý trị liệu gốc **bỏ qua khóa này**, dùng MapID `10000` (163,237) cố định. Không thêm bộ chọn đích trị liệu giả và không đổi giá trị `heal_map` lịch sử.
+
 **S172 danh sách nhân vật:** hiện chỉ có cửa sổ game xác minh bằng HWND/PID. Chưa có nguồn đọc tên nhân vật (`RoleName`) từ game, do đó **chưa gắn tọa độ theo nhân vật hoặc ghi `acc_<character>_train`**. Bài native test dùng một cửa sổ Tk thật và metadata nhận diện game chỉ giả lập bên trong test; chưa xác nhận bằng Thần Long thực tế.
 
-**Dạ Minh Châu:** chưa xác minh số thứ tự `buff_*` của dòng cố định. S171 chỉ cho lưu các dòng buff mới và không sửa/xóa dòng cũ; sau khi mở lại tool, các dòng đã lưu được bảo vệ. Chưa có chức năng tự gửi phím vào game.
+**Dạ Minh Châu:** chưa xác minh số thứ tự `buff_*` của dòng cố định. S173 cho Thêm/Sửa/Xóa **chỉ các dòng buff đã tạo trong phiên hiện tại**, không sửa/xóa dòng cũ; sau khi nạp lại hoặc mở lại tool, các dòng đã lưu được bảo vệ. Chưa có chức năng tự gửi phím vào game.
 
-**S172 là source + GUI/EXE Windows chạy độc lập ở mức MỘT PHẦN, không phải bản TLM 2.1.2 hoàn chỉnh.** Hoạt động gameplay (Train tự động, bán đồ, Phó Bản, Daily, Train LSV điều khiển game...) và parity với game thực còn thiếu/chưa kiểm chứng. Không có nút điều khiển game giả; không patch/inject/sửa TLM gốc hay gọi máy chủ bản quyền của bên thứ ba. DATA-2222 là nguồn CHỈ ĐỌC; Proxy không phát triển.
+**S173 là source + GUI/EXE Windows chạy độc lập ở mức MỘT PHẦN, không phải bản TLM 2.1.2 hoàn chỉnh.** Hoạt động gameplay (Train tự động, bán đồ, Phó Bản, Daily, Train LSV điều khiển game...) và parity với game thực còn thiếu/chưa kiểm chứng. Không có nút điều khiển game giả; không patch/inject/sửa TLM gốc hay gọi máy chủ bản quyền của bên thứ ba. DATA-2222 là nguồn CHỈ ĐỌC; Proxy không phát triển.
 
 **Kết quả S171:** [Windows CI 2614/2614 + native Train LSV buff/INI/HWND + independent partial EXE artifact](https://github.com/ngmthang-g/2222222222222222222222222222222222222/actions/runs/38194041101); Stage S và S36 diagnostic độc lập đều PASS. Trước mỗi CONTINUE, đọc PLAN và STATE, không dựng lại license/Info gốc trong tool mới.
