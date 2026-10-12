@@ -133,7 +133,7 @@ class S167InfoToTrain(unittest.TestCase):
                     "ReadProcessMemory(", "PostMessage(",
                     "CreateProcess(", "ProxyTab(", "bypass_info("):
             self.assertNotIn(bad,code)
-        self.assertIn("train.reapply_permissions",code.replace("refresh_train = getattr(train, 'reapply_permissions', None)","train.reapply_permissions = refresh_train") )
+        self.assertIn("refresh_train = getattr(train, 'reapply_permissions', None)",code)
         self.assertIn("self.root.after(0, update_on_tk_thread)",code)
 
 if __name__=="__main__":
