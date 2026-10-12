@@ -72,6 +72,15 @@ def make_independent_builders(settings_file: str | Path,
         panel.pack(fill="both", expand=True)
         return panel
     builders["rao_tab"] = build_rao
+    # PLAN stage N02/N03/N04: host CPU/GPU, real Canvas + detached view.
+    # Not the missing TLMP per-account graphics-mode implementation.
+    if "toiuu_tab" not in LOCAL_TAB_KEYS:
+        raise ValueError("MISSING_IMPLEMENTED_TOIUU_HOST_MONITOR")
+    def build_toituu_monitor(parent):
+        panel = TkToiuuHostTab(parent)
+        panel.pack(fill="both", expand=True)
+        return panel
+    builders["toiuu_tab"] = build_toituu_monitor
     return builders
 
 
