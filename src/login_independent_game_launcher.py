@@ -133,6 +133,9 @@ class IndependentGameLaunchController:
             # F05 ownership is the current independently launched game;
             # stop normalizing a previous game's HWND when replacing it.
             self._size_monitor.stop()
+            # Do not display a previous session's resize status after the
+            # user explicitly starts a different game process.
+            self._size_monitor.drain()
             self._owned_process = None
             self._owned_verified_hwnd = None
             self._worker = threading.Thread(
