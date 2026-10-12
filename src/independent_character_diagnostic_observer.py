@@ -52,6 +52,7 @@ class UnverifiedGameCharacter:
     # Number of independent *actual native* matching RoleName+RoleID reads.
     # Never changes role_name_confirmed, party_ready or game_sender flags.
     independent_identity_reads: int = 0
+    process_creation_filetime: int | None = None
 
     @property
     def hp_percent_candidate(self) -> int | None:
@@ -92,8 +93,10 @@ def _candidate(report: ExistingTlmGameReaderReport,
             "ORIGINAL_ROLE_UTF16_CANDIDATE_NOT_RUNTIME_VERIFIED"
             or not native.original_session_anchor_observed
             or native.numeric_candidate is None
-            or native.role_name_candidate is None):
-        return empty("NATIVE_READER_CANDIDATE_INCOMPLETE")
+            or native.role_name_candidate is None
+            or type(native.process_creation_filetime) is not int
+            or native.process_creation_filetime <= 0):
+        return empty("NATIVE_READER_PROCESS_GENERATION_UNVERIFIED")
     role = native.numeric_candidate
     name = native.role_name_candidate
     if (role.status != "ORIGINAL_42_FIELD_NUMERIC_CANDIDATE_NO_ROLENAME_PROOF"
@@ -109,7 +112,8 @@ def _candidate(report: ExistingTlmGameReaderReport,
     return UnverifiedGameCharacter(
         window.hwnd, window.pid, SUCCESS_DIAGNOSTIC,
         name.role_name, role.role_id, role.current_hp,
-        role.max_hp, role.map_id, role.team_id)
+        role.max_hp, role.map_id, role.team_id,
+        process_creation_filetime=native.process_creation_filetime)
 
 
 class IndependentCharacterDiagnosticObserver:
@@ -277,7 +281,8 @@ class IndependentCharacterDiagnosticObserver:
                                 continuity = self._continuity.accept(
                                     window.hwnd, window.pid,
                                     candidate.role_id_candidate,
-                                    candidate.role_name_candidate, captured)
+                                    candidate.role_name_candidate, captured,
+                                    candidate.process_creation_filetime)
                                 count = (continuity.independent_read_count
                                          if continuity is not None else 0)
                             else:
