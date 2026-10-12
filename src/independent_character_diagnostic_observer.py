@@ -212,6 +212,12 @@ class IndependentCharacterDiagnosticObserver:
         while not self._stop.is_set():
             with self._lock:
                 generation = self._generation
+            if getattr(self, "_worker_generation", None) != generation:
+                # All historical candidates belong to the previous F04
+                # folder/provenance epoch, even if Windows PID is the same.
+                self._previous = {}
+                self._previous_exe = None
+                self._worker_generation = generation
             try:
                 snap = self.producer.read_snapshot()
                 if (not self.producer.active
