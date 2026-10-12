@@ -13,6 +13,7 @@ from tkinter import ttk
 from don_train_panel import TkDonTrainSettingsPanel
 from don_preset_editor import TkDonPresetEditor
 from don_receiver_panel import TkDonReceiverReadOnlyPanel
+from farm_original_maps import coord_name_for_id
 from don_return_settings import (
     DON_RETURN_OPTIONS, NAV_DEFAULTS, NAV_OPTIONS,
     DonReturnConfig, DonReturnSettingsError, DonReturnSettingsStore,
@@ -268,6 +269,69 @@ class TkDonReturnTab(ttk.Frame):
             return False
         self._restore()
         return True
+
+    def _start_refresh(self) -> bool:
+        """E08 notebook return: refresh all Dồn editors from one INI revision.
+
+        Avoid discarding pending numeric/coordinate edits and incomplete
+        + Thêm tọa độ forms. Nothing is written on tab selection.
+        """
+        if not self._allowed():
+            return False
+        if (self.mode_var.get() != self.snapshot.value.mode
+                or self.minutes_var.get() != self.snapshot.value.minutes
+                or tuple(v.get() for v in self.nav_vars)
+                != self.snapshot.value.navigation):
+            self._set_status("Có chỉnh sửa Về thành chưa lưu; không nạp đè")
+            return False
+        trainer = self.train_panel
+        if (trainer.snapshot is None or trainer._blocked
+                or any(var.get() != getattr(trainer.snapshot.value, key)
+                       for key, var in trainer.vars.items())):
+            self._set_status("Có chỉnh sửa Train chưa lưu; giữ nguyên nội dung")
+            return False
+        preset = self.preset_panel
+        if preset.snapshot is None or preset._blocked or preset._add_open:
+            self._set_status(
+                "Đang thêm tọa độ hoặc cấu hình Map chưa an toàn; không nạp đè")
+            return False
+        if len(preset.widgets) != len(preset.snapshot.rows):
+            self._set_status("Danh sách tọa độ đang chỉnh sửa; không nạp đè")
+            return False
+        for cell, row in zip(preset.widgets, preset.snapshot.rows):
+            if (cell["name"].get() != row.name
+                    or cell["map"].get() != (coord_name_for_id(row.map_id) or "")
+                    or cell["x"].get() != row.x
+                    or cell["y"].get() != row.y):
+                self._set_status(
+                    "Tọa độ đang chỉnh sửa chưa lưu; giữ nguyên nội dung")
+                return False
+        try:
+            latest = self.store.load()
+        except (DonReturnSettingsError, OSError, ValueError) as exc:
+            self.last_error = type(exc).__name__
+            self._blocked = True
+            self._refresh_controls()
+            self._set_status("Dồn không thể nạp lại dữ liệu an toàn; mở lại tab")
+            return False
+        if latest.file_bytes != self.snapshot.file_bytes:
+            self.snapshot = latest
+            self._restore()
+            if not trainer.sync_after_other_save():
+                self._blocked = True
+            if not preset.reload_after_other_save():
+                self._blocked = True
+            self.receiver_panel.reload()
+            self._refresh_controls()
+            if self._blocked:
+                self._set_status("Cấu hình Dồn có phần dữ liệu không an toàn")
+                return False
+            self._set_status("Đã đồng bộ cấu hình Dồn từ các tab khác")
+        return True
+
+    def _stop_refresh(self):
+        # User controls save explicitly. Tab exit never sends/writes.
+        return None
 
     def shutdown(self):
         if self._closed:
