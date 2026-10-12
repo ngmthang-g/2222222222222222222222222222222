@@ -9,6 +9,8 @@ import tkinter as tk
 from tkinter import ttk
 from pathlib import Path
 
+from train_lsv_coordinate_editor import TkTrainLsvCoordinates
+
 from train_lsv_top_settings import (
     TrainLsvTopStore, TrainLsvTopSnapshot, TrainLsvTopConfig,
     LSV_KEEP_RADIOS,
@@ -76,12 +78,18 @@ class TkTrainLsvTopTab(ttk.Frame):
             self.pickup_radios[code] = radio
         self.status = ttk.Label(self, text="")
         self.status.pack(fill="x", padx=6)
+        # S170: genuine B06/I10 saved-coordinate editor. This NEVER
+        # invokes the original Train apply-to-all game/account command.
+        self.coords = TkTrainLsvCoordinates(
+            self, settings_file=settings_file,
+            on_saved=self._on_coord_file_saved)
+        self.coords.pack(fill="x", padx=6, pady=4)
         # Do not create fake LSV travel/fight/start/buff/edit commands.
         ttk.Label(
             self,
-            text=("Đã hỗ trợ lưu cấu hình Train LSV. "
-                  "Tọa độ, Dạ Minh Châu, danh sách tài khoản và "
-                  "điều khiển game chưa được kết nối."),
+            text=("Đã lưu được cấu hình và tọa độ Train LSV. "
+                  "Áp dụng vào tài khoản, Dạ Minh Châu, danh sách tài khoản "
+                  "và điều khiển game chưa được kết nối."),
             wraplength=408, justify="left",
         ).pack(fill="x", padx=6, pady=5)
         self._refresh_controls()
@@ -126,7 +134,22 @@ class TkTrainLsvTopTab(ttk.Frame):
         self.error = None
         self.status.configure(text="Đã lưu cấu hình Train LSV")
         self._restore()
+        self.coords.sync_after_top_save()
         return True
+
+    def _on_coord_file_saved(self):
+        # Coordinate editor and the S169 top controls share the *same*
+        # settings.ini optimistic snapshot; refresh only after a committed
+        # coordinate change to avoid rejecting the next checkbox click.
+        if self._closed:
+            return
+        try:
+            self.snapshot = self.store.load()
+            self._restore()
+        except Exception as exc:
+            self.error = type(exc).__name__
+            self._blocked = True
+            self._refresh_controls()
 
     def _on_flag(self, key: str) -> bool:
         if key not in self.flags:
