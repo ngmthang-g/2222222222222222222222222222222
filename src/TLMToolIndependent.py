@@ -82,6 +82,14 @@ def make_independent_builders(settings_file: str | Path,
         panel.pack(fill="both", expand=True)
         return panel
     builders["toiuu_tab"] = build_toituu_monitor
+    # Stage K / S180: actual Daily top-setting editor, no game control sender.
+    if "daily_tab" not in LOCAL_TAB_KEYS:
+        raise ValueError("MISSING_IMPLEMENTED_DAILY_LOCAL_SETTINGS")
+    def build_daily(parent):
+        panel = TkDailyTopTab(parent, settings_file=settings_file)
+        panel.pack(fill="both", expand=True)
+        return panel
+    builders["daily_tab"] = build_daily
     return builders
 
 
