@@ -24,11 +24,10 @@ from login_path import EXE_NAME
 from login_pid_window import find_main_window_by_pid
 from login_running_process_capacity import count_current_game_processes
 from login_safe_env import WINDOWS_ESSENTIAL_CANDIDATES
-from login_independent_resize_monitor import (
-    OwnedLoginWindowSizeMonitor, OwnedWindowSizeEvent,
-)
-from login_independent_window_activation import (
-    IndependentActivationResult, activate_verified_launched_game,
+from login_independent_resize_monitor import OwnedWindowSizeEvent
+from login_independent_window_activation import IndependentActivationResult
+from login_independent_session_registry import (
+    OwnedLaunchedGameRegistry, OwnedGameWindow,
 )
 
 LOCAL_HWND_TIMEOUT_SECONDS = 25.0
@@ -110,11 +109,9 @@ class IndependentGameLaunchController:
         self._lock = threading.Lock()
         self._worker: threading.Thread | None = None
         self._results: Queue[IndependentLaunchResult] = Queue(maxsize=8)
-        # Retain actual Popen handle; a naked PID/HWND is insufficient proof
-        # after a process exits and Windows recycles numeric identifiers.
-        self._owned_process = None
-        self._owned_verified_hwnd = None
-        self._size_monitor = OwnedLoginWindowSizeMonitor()
+        # F05 owns ALL games explicitly opened by THIS independent launcher.
+        # Retain each actual Popen handle, never trust a recycled bare PID.
+        self._sessions = OwnedLaunchedGameRegistry()
 
     def start(self, executable: str | Path) -> bool:
         if os.name != "nt":
@@ -130,14 +127,10 @@ class IndependentGameLaunchController:
                 self._post(IndependentLaunchResult("INVALID_GAME_OR_ENV"))
                 return False
             self._stop.clear()
-            # F05 ownership is the current independently launched game;
-            # stop normalizing a previous game's HWND when replacing it.
-            self._size_monitor.stop()
-            # Do not display a previous session's resize status after the
-            # user explicitly starts a different game process.
-            self._size_monitor.drain()
-            self._owned_process = None
-            self._owned_verified_hwnd = None
+            # Original F05 serializes process launch until the newly
+            # created PID has its own HWND (or has failed/timed out). Prior
+            # successful sessions stay owned/visible; never orphan them.
+            self._sessions.prune_exited()
             self._worker = threading.Thread(
                 target=self._launch_once, args=(game, env),
                 name="TLM-Independent-Explicit-Game-Start", daemon=True,
@@ -190,9 +183,6 @@ class IndependentGameLaunchController:
             self._post(IndependentLaunchResult(
                 "INVALID_CREATED_PID", running_game_count_before=count))
             return
-        with self._lock:
-            if not self._closed:
-                self._owned_process = process
         deadline = self._clock() + LOCAL_HWND_TIMEOUT_SECONDS
         while not self._stop.is_set():
             if process.poll() is not None:
@@ -205,22 +195,17 @@ class IndependentGameLaunchController:
             except (OSError, RuntimeError, ValueError, TypeError):
                 hwnd = None
             if type(hwnd) is int and hwnd > 0:
-                # Keep the genuine live process handle with its observed
-                # hwnd. This does NOT establish game login or RoleName.
-                verified = False
+                # Genuine Popen+HWND is appended to the F05 registry only
+                # when still owned by this controller and native game PID.
                 with self._lock:
-                    if (not self._closed and not self._stop.is_set()
-                            and self._owned_process is process
-                            and process.poll() is None):
-                        self._owned_verified_hwnd = hwnd
-                        verified = True
-                if verified:
-                    # One real F05 one-second normalizer for this session;
-                    # native HWND/PID and source-exe checks inside every tick.
-                    self._size_monitor.start(process, hwnd)
-                    self._post(IndependentLaunchResult(
-                        "WINDOW_VERIFIED", pid, hwnd,
-                        running_game_count_before=count))
+                    registered = (
+                        not self._closed and not self._stop.is_set()
+                        and process.poll() is None
+                        and self._sessions.register(process, hwnd))
+                self._post(IndependentLaunchResult(
+                    "WINDOW_VERIFIED" if registered else "WINDOW_UNOWNED_OR_STALE",
+                    pid, hwnd if registered else None,
+                    running_game_count_before=count))
                 return
             remaining = deadline - self._clock()
             if remaining <= 0:
@@ -234,39 +219,31 @@ class IndependentGameLaunchController:
 
     @property
     def size_monitor_active(self) -> bool:
-        return self._size_monitor.active
+        return self._sessions.has_active_size_monitor
 
     def drain_size_events(self) -> tuple[OwnedWindowSizeEvent, ...]:
-        return self._size_monitor.drain()
+        return self._sessions.drain_size_events()
+
+    def list_owned_windows(self) -> tuple[OwnedGameWindow, ...]:
+        """Real created PID+HWND pairs; never gameplay/account status."""
+        return self._sessions.list_windows()
 
     @property
     def can_activate_last_window(self) -> bool:
-        with self._lock:
-            proc = self._owned_process
-            hwnd = self._owned_verified_hwnd
-            if self._closed or proc is None or hwnd is None:
-                return False
-        try:
-            return proc.poll() is None
-        except (OSError, RuntimeError, ValueError):
-            return False
+        return self._sessions.latest_live() is not None
+
+    def activate_window(self, pid: int) -> IndependentActivationResult:
+        """An explicit user-selected own-launched PID, never arbitrary HWND."""
+        if self.busy:
+            return IndependentActivationResult("LAUNCH_HANDOFF_STILL_BUSY")
+        return self._sessions.activate(pid)
 
     def activate_last_window(self) -> IndependentActivationResult:
-        """A user-click-only real native C03 action; never auto-focus."""
-        with self._lock:
-            proc = self._owned_process
-            hwnd = self._owned_verified_hwnd
-            if self._closed or proc is None or hwnd is None:
-                return IndependentActivationResult(
-                    "NO_VERIFIED_LAUNCHED_WINDOW")
-        result = activate_verified_launched_game(proc, hwnd)
-        if result.code in (
-                "LAUNCHED_PROCESS_EXITED", "WINDOW_NOT_CURRENT_GAME",
-                "WINDOW_CHANGED_AFTER_ACTIVATE", "LAUNCHED_PROCESS_UNVERIFIED"):
-            with self._lock:
-                if self._owned_process is proc and self._owned_verified_hwnd == hwnd:
-                    self._owned_verified_hwnd = None
-        return result
+        """S189 compatibility: activate newest still-owned live game window."""
+        latest = self._sessions.latest_live()
+        if latest is None:
+            return IndependentActivationResult("NO_VERIFIED_LAUNCHED_WINDOW")
+        return self.activate_window(latest.pid)
 
     @property
     def busy(self):
@@ -286,8 +263,6 @@ class IndependentGameLaunchController:
         with self._lock:
             self._closed = True
             self._stop.set()
-            self._size_monitor.shutdown()
-            # Closing references is NOT terminating/killing the game.
-            self._owned_process = None
-            self._owned_verified_hwnd = None
+            # Cancels every individual size monitor; never closes game PID.
+            self._sessions.shutdown()
         # No join/block of Tk and importantly NO process.kill/terminate.
