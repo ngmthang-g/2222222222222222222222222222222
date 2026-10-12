@@ -24,6 +24,9 @@ from login_path import EXE_NAME
 from login_pid_window import find_main_window_by_pid
 from login_running_process_capacity import count_current_game_processes
 from login_safe_env import WINDOWS_ESSENTIAL_CANDIDATES
+from login_independent_resize_monitor import (
+    OwnedLoginWindowSizeMonitor, OwnedWindowSizeEvent,
+)
 from login_independent_window_activation import (
     IndependentActivationResult, activate_verified_launched_game,
 )
@@ -111,6 +114,7 @@ class IndependentGameLaunchController:
         # after a process exits and Windows recycles numeric identifiers.
         self._owned_process = None
         self._owned_verified_hwnd = None
+        self._size_monitor = OwnedLoginWindowSizeMonitor()
 
     def start(self, executable: str | Path) -> bool:
         if os.name != "nt":
@@ -126,6 +130,9 @@ class IndependentGameLaunchController:
                 self._post(IndependentLaunchResult("INVALID_GAME_OR_ENV"))
                 return False
             self._stop.clear()
+            # F05 ownership is the current independently launched game;
+            # stop normalizing a previous game's HWND when replacing it.
+            self._size_monitor.stop()
             self._owned_process = None
             self._owned_verified_hwnd = None
             self._worker = threading.Thread(
@@ -197,14 +204,20 @@ class IndependentGameLaunchController:
             if type(hwnd) is int and hwnd > 0:
                 # Keep the genuine live process handle with its observed
                 # hwnd. This does NOT establish game login or RoleName.
+                verified = False
                 with self._lock:
                     if (not self._closed and not self._stop.is_set()
                             and self._owned_process is process
                             and process.poll() is None):
                         self._owned_verified_hwnd = hwnd
-                self._post(IndependentLaunchResult(
-                    "WINDOW_VERIFIED", pid, hwnd,
-                    running_game_count_before=count))
+                        verified = True
+                if verified:
+                    # One real F05 one-second normalizer for this session;
+                    # native HWND/PID and source-exe checks inside every tick.
+                    self._size_monitor.start(process, hwnd)
+                    self._post(IndependentLaunchResult(
+                        "WINDOW_VERIFIED", pid, hwnd,
+                        running_game_count_before=count))
                 return
             remaining = deadline - self._clock()
             if remaining <= 0:
@@ -215,6 +228,13 @@ class IndependentGameLaunchController:
             self._stop.wait(min(LOCAL_POLL_QUANTUM_SECONDS, remaining))
         self._post(IndependentLaunchResult(
             "CANCELLED_AFTER_START", pid, running_game_count_before=count))
+
+    @property
+    def size_monitor_active(self) -> bool:
+        return self._size_monitor.active
+
+    def drain_size_events(self) -> tuple[OwnedWindowSizeEvent, ...]:
+        return self._size_monitor.drain()
 
     @property
     def can_activate_last_window(self) -> bool:
@@ -263,6 +283,7 @@ class IndependentGameLaunchController:
         with self._lock:
             self._closed = True
             self._stop.set()
+            self._size_monitor.shutdown()
             # Closing references is NOT terminating/killing the game.
             self._owned_process = None
             self._owned_verified_hwnd = None
