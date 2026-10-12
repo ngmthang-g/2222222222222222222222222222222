@@ -241,9 +241,10 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             self._show_launch_status(
                 f"Đã mở PID {result.pid}, HWND {result.hwnd}; chưa login.")
             return
-        if result.pid is not None and result.code == "STARTED_NO_WINDOW_YET":
+        if result.pid is not None and result.code in (
+                "STARTED_NO_WINDOW_YET", "PID_WINDOW_NOT_VERIFIED_AS_GAME"):
             self._show_launch_status(
-                f"PID {result.pid} đã mở; chưa xác minh HWND.")
+                f"PID {result.pid} đã mở; chưa xác minh được cửa sổ game.")
             return
         reason = RESULT_TEXT.get(result.code, "Chưa xác minh trạng thái mở game.")
         self._show_launch_status(
