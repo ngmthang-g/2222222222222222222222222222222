@@ -23,6 +23,10 @@ from login_independent_resize_monitor import (
 from login_independent_window_activation import (
     IndependentActivationResult, activate_verified_launched_game,
 )
+from tlm_original_memory_reader_native import (
+    TlmOriginalReadProbe, inspect_original_tlm_role_pointer,
+)
+from start_windows import GameWindow
 
 
 @dataclass(frozen=True)
@@ -163,6 +167,43 @@ class OwnedLaunchedGameRegistry:
                 "WINDOW_CHANGED_AFTER_ACTIVATE", "LAUNCHED_PROCESS_UNVERIFIED"):
             self.remove_if_same(pid, process, hwnd)
         return result
+
+    def inspect_original_reader(self, pid: int, selected_exe) -> TlmOriginalReadProbe:
+        """Real READ-ONLY O02 native diagnostic, never a role/game action.
+
+        Call ONLY from a background worker: SHA256 DLL hashing, Win32
+        module enumeration and ReadProcessMemory must not freeze Tk.
+        """
+        with self._lock:
+            session = None if self._closed else self._sessions.get(pid)
+            if type(pid) is not int or session is None:
+                return TlmOriginalReadProbe("PID_NOT_OWN_LAUNCHED", pid)
+            process, hwnd = session.process, session.hwnd
+        if not self._running(process):
+            self.prune_exited()
+            return TlmOriginalReadProbe("OWN_PROCESS_EXITED", pid, hwnd)
+        from start_windows import NativeWin32Backend, TITLE_TIMEOUT_MS
+        try:
+            native = NativeWin32Backend()
+            if (not native.is_window(hwnd)
+                    or native.process_id(hwnd) != pid):
+                return TlmOriginalReadProbe("OWN_HWND_NO_LONGER_MATCHES", pid, hwnd)
+            observed = GameWindow(
+                hwnd, pid,
+                native.title_with_timeout(hwnd, TITLE_TIMEOUT_MS),
+                native.window_class(hwnd),
+                native.process_executable(pid))
+            outcome = inspect_original_tlm_role_pointer(
+                observed, selected_exe, backend=native)
+        except (OSError, ValueError, RuntimeError, TypeError, AttributeError):
+            return TlmOriginalReadProbe("OWN_NATIVE_READER_UNAVAILABLE", pid, hwnd)
+        with self._lock:
+            current = self._sessions.get(pid)
+            if (self._closed or current is not session
+                    or not self._running(process)
+                    or current.hwnd != hwnd):
+                return TlmOriginalReadProbe("OWN_SESSION_CHANGED_DURING_READ", pid, hwnd)
+        return outcome
 
     def remove_if_same(self, pid: int, process, hwnd: int) -> bool:
         with self._lock:
