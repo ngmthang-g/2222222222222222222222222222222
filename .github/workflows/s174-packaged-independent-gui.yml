@@ -1,0 +1,111 @@
+name: S174 ACTUAL Packaged Independent Windows GUI Startup and Close
+on:
+  pull_request:
+    paths:
+      - "tools/S174_WINDOWS_PACKAGED_GUI_SMOKE.py"
+      - "tests/test_s174.py"
+      - ".github/workflows/s174-packaged-independent-gui.yml"
+  push:
+    paths:
+      - "tools/S174_WINDOWS_PACKAGED_GUI_SMOKE.py"
+      - "tests/test_s174.py"
+      - ".github/workflows/s174-packaged-independent-gui.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  win64-actual-packaged-gui-open-duplicate-close-reopen:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - name: Install verified screenshot/GUI dependency
+        run: python -m pip install Pillow==11.3.0
+      - name: Compile all current source/tests/tools
+        run: python -m compileall -q src tests tools
+      - name: Full source Python Windows regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 source-build gap audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S173 real Windows native Tk manual buff editing
+        run: python tools/S173_WINDOWS_BUFF_EDIT_SMOKE.py
+      - name: S172 real S09 shared HWND roster
+        run: python tools/S172_WINDOWS_LSV_ROSTER_SMOKE.py
+      - name: S171 native TrainLSV saved manual buff
+        run: python tools/S171_WINDOWS_LSV_BUFF_SMOKE.py
+      - name: S170 real LSV coordinates
+        run: python tools/S170_WINDOWS_LSV_COORDS_SMOKE.py
+      - name: S169 genuine TrainLSV original top settings
+        run: python tools/S169_WINDOWS_LSV_TOP_SMOKE.py
+      - name: S168 independent real Tk Notebook
+        run: python tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py
+      - name: S167 historical original Info revoke regression
+        run: python tools/S167_WINDOWS_INFO_TRAIN_REVOKE_SMOKE.py
+      - name: S166 existing S09 Win32 scanner owner lifecycle
+        run: python tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py
+      - name: S165 inherited Tk Train factory
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: S132 Train config native
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: S163 Login selected-account native
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: Independent source self-check (NOT package GUI proof)
+        run: python src/TLMToolIndependent.py --self-check
+      - name: Pinned real Windows PyInstaller packaging
+        run: python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Build unmodified independent entrypoint PARTIAL EXE
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S174_TLMTOOL_INDEPENDENT_GUI_PARTIAL
+          --distpath artifacts/s174/dist
+          --workpath artifacts/s174/build
+          --specpath artifacts/s174/spec
+          --paths src
+          src/TLMToolIndependent.py
+      - name: Verify exact same packaged EXE static import self-check
+        shell: pwsh
+        run: |
+          & "artifacts/s174/dist/S174_TLMTOOL_INDEPENDENT_GUI_PARTIAL/S174_TLMTOOL_INDEPENDENT_GUI_PARTIAL.exe" --self-check
+          if ($LASTEXITCODE -ne 0) { throw "S174_PACKAGED_SELF_CHECK_FAIL" }
+      - name: S174 real packaged EXE normal GUI launch and lifecycle WIN32
+        run: >
+          python tools/S174_WINDOWS_PACKAGED_GUI_SMOKE.py
+          artifacts/s174/dist/S174_TLMTOOL_INDEPENDENT_GUI_PARTIAL/S174_TLMTOOL_INDEPENDENT_GUI_PARTIAL.exe
+      - name: Historical old entrypoint is STILL archival diagnostic
+        shell: pwsh
+        run: |
+          python src/TLMTool.py *> artifacts/s174/legacy_entry.txt
+          if ($LASTEXITCODE -ne 2) { throw "S174_HISTORICAL_INFO_GATE_CHANGED" }
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S174_REAL_PACKAGED_INDEPENDENT_GUI_WIN64_PARTIAL_NOT_GAME
+          path: |
+            artifacts/s174/dist/S174_TLMTOOL_INDEPENDENT_GUI_PARTIAL/
+            artifacts/s174/real_packaged_gui_window.png
+            artifacts/s174/real_packaged_gui_acceptance.json
+            artifacts/s174/first_gui.stdout.txt
+            artifacts/s174/first_gui.stderr.txt
+            artifacts/s174/duplicate_gui.stdout.txt
+            artifacts/s174/duplicate_gui.stderr.txt
+            artifacts/s174/reopened_gui.stdout.txt
+            artifacts/s174/reopened_gui.stderr.txt
+            artifacts/s174/legacy_entry.txt
+            artifacts/s173/
+            artifacts/s172/
+            artifacts/s171/
+            artifacts/s170/
+            artifacts/s169/
+            artifacts/s168/
+            artifacts/s167/
+            artifacts/s166/
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+          if-no-files-found: warn
