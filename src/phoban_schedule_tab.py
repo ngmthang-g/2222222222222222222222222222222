@@ -27,6 +27,7 @@ class TkPhoBanScheduleTab(ttk.Frame):
         self._closed = False
         self._blocked = False
         self._refreshing = False
+        self._row_inputs = {}
         self.last_error = None
         try:
             self.snapshot = self.store.load()
@@ -124,6 +125,7 @@ class TkPhoBanScheduleTab(ttk.Frame):
         try:
             for child in self.clusters.winfo_children():
                 child.destroy()
+            self._row_inputs.clear()
             self.add_group_button.configure(
                 state="normal" if self._enabled() else "disabled")
             cfg = self.snapshot.config if self.snapshot else PhoBanConfig()
@@ -181,6 +183,7 @@ class TkPhoBanScheduleTab(ttk.Frame):
         activity = tk.StringVar(master=self, value=row.activity or "")
         name = tk.StringVar(master=self, value=row.name or "")
         times = tk.StringVar(master=self, value=str(row.times))
+        self._row_inputs[(gi, ri)] = (enabled, activity, name, times)
         state = "normal" if self._enabled() else "disabled"
         check = ttk.Checkbutton(
             parent, variable=enabled,
@@ -277,6 +280,47 @@ class TkPhoBanScheduleTab(ttk.Frame):
         self.snapshot = snapshot
         self._blocked = snapshot.legacy_only
         return True
+
+    def _start_refresh(self) -> bool:
+        """E08 notebook return: re-read other-tab writes if no pending row edit."""
+        if self._closed or self.snapshot is None:
+            return False
+        # Recheck unfinished text in Lần before mutating the visible schedule.
+        # A notebook switch may happen before the entry emits FocusOut.
+        for (gi, ri), values in self._row_inputs.items():
+            try:
+                stored = self.snapshot.config.groups[gi].schedule[ri]
+            except (IndexError, AttributeError):
+                self._message("Dòng lịch trình đã đổi; mở lại tab trước khi sửa")
+                return False
+            checked, activity, name, times = values
+            if (checked.get() != stored.enabled
+                    or activity.get() != (stored.activity or "")
+                    or name.get() != (stored.name or "")
+                    or times.get() != str(stored.times)):
+                self._message(
+                    "Có dòng lịch trình Phó Bản chưa lưu; giữ nguyên nội dung")
+                return False
+        try:
+            latest = self.store.load()
+        except (PhoBanConfigError, OSError, ValueError) as exc:
+            self.last_error = str(exc)
+            self._blocked = True
+            self._render()
+            self._message("Cấu hình Phó Bản không an toàn sau thay đổi tab khác")
+            return False
+        if latest.file_bytes != self.snapshot.file_bytes:
+            self.snapshot = latest
+            self._blocked = latest.legacy_only
+            self._render()
+            self._message(
+                "Đã đồng bộ lịch trình Phó Bản sau thay đổi của tab khác")
+        self.modes_panel.sync_after_other_save()
+        return True
+
+    def _stop_refresh(self):
+        # Mode/schedule save happens per explicit user edit, not on hide.
+        return None
 
     def shutdown(self):
         if self._closed:
