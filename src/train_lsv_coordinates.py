@@ -196,16 +196,9 @@ class TrainLsvCoordinatesStore:
             finally:
                 if os.path.exists(temp):
                     os.unlink(temp)
-            # No nested lock assumptions: format rows from the local bytes
-            # already validated by _read_rows.
-            check=self._read_rows(modified,
-                start if start is not None else len(lines)+
-                    (1 if lines and not lines[-1].endswith(("\n","\r")) else 0),
-                len(modified)) if start is not None else self._read_rows(
-                    modified, len(lines), len(modified))
-            valid=tuple(v for _,v in check if v.map_id in LSV_MAP_IDS)
-            retired=tuple(v.map_id for _,v in check if v.map_id not in LSV_MAP_IDS)
-            return LsvCoordinatesSnapshot(valid,retired,encoded)
+            # S170: global settings lock is the existing RLock; reread the
+            # new parsed state to keep UI and on-disk bytes identical.
+            return self.load()
 
     def save_row(self, *, expected_bytes: bytes, name: str, map_id: int,
                  x: str, y: str, key_number: int | None = None):
