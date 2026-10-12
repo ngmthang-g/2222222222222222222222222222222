@@ -18,6 +18,7 @@ from login_independent_game_launcher import (
     IndependentGameLaunchController, IndependentLaunchResult,
 )
 from login_tab import TLMLoginPathTab
+from login_original_reader_probe_worker import OriginalReaderWorker
 from login_frozen_client_fingerprint import (
     FrozenClientFingerprintWorker,
     FrozenClientMatch,
@@ -55,6 +56,12 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         self._fingerprint_started_exe = None
         self._client_fingerprint = FrozenClientFingerprintWorker()
         self.launch_controller = IndependentGameLaunchController()
+        self._original_reader = OriginalReaderWorker(
+            self.launch_controller.inspect_original_reader)
+        self._original_reader_exe = None
+        self._original_reader_pid = None
+        self._original_reader_status = (
+            "Chưa kiểm tra bộ đọc TLM gốc trên tiến trình game.")
         self.btn_open = tk.Button(
             self.container, text="Mở game",
             background="#388e3c", foreground="white",
@@ -136,6 +143,14 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             state=("disabled" if self.get_exe_path() is None
                    or self._client_fingerprint.busy else "normal"),
             command=self._request_client_fingerprint)
+        menu.add_command(
+            label="Kiểm tra memory_reader TLM gốc (chỉ đọc)",
+            state=("normal" if self._selected_game_pid is not None
+                   and self.get_exe_path() is not None
+                   and not self._original_reader.busy
+                   and not self.launch_controller.busy
+                   else "disabled"),
+            command=self._request_original_reader)
         if self._owned_selection_map:
             menu.add_separator()
             for label, pid in self._owned_selection_map.items():
@@ -162,9 +177,58 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         messagebox.showinfo(
             "Trạng thái Mở game",
             self._launch_status_full + "\n\nKiểm tra client: "
-            + self._fingerprint_status,
+            + self._fingerprint_status
+            + "\n\nĐọc bộ nhớ TLM gốc: "
+            + self._original_reader_status,
             parent=self.container.winfo_toplevel())
         return True
+
+    def _request_original_reader(self) -> bool:
+        """Explicit original TLM Reader pointer-only probe; NO game actions."""
+        if (self._launch_closed or self._closed
+                or self._selected_game_pid is None
+                or self.launch_controller.busy):
+            return False
+        exe = self.get_exe_path()
+        if exe is None:
+            self._original_reader_status = "Chưa có file game được chọn."
+            return False
+        pid = self._selected_game_pid
+        if pid not in {w.pid for w in self.launch_controller.list_owned_windows()}:
+            self._original_reader_status = "PID không còn thuộc game do tool mở."
+            return False
+        if not self._original_reader.request(pid, exe):
+            return False
+        self._original_reader_pid = pid
+        self._original_reader_exe = str(exe)
+        self._original_reader_status = (
+            f"Đang đọc CHỈ ĐỌC PID {pid}: mô-đun, con trỏ RoleData, "
+            "điểm neo SessionData. Chưa đọc RoleName/HP.")
+        self._schedule_launch_poll()
+        return True
+
+    def _accept_original_reader(self, result):
+        if self._launch_closed or self._closed:
+            return
+        exe = self.get_exe_path()
+        if (exe is None or str(exe) != self._original_reader_exe
+                or result.pid != self._original_reader_pid):
+            self._original_reader_status = (
+                "Đã thay đổi file/PID game; loại bỏ chẩn đoán cũ.")
+            return
+        if result.pid not in {
+                row.pid for row in self.launch_controller.list_owned_windows()}:
+            self._original_reader_status = (
+                "Tiến trình đã thoát hoặc phiên HWND không hợp lệ; "
+                "không chấp nhận dữ liệu cũ.")
+            return
+        self._original_reader_status = (
+            f"PID {result.pid}: {result.status}. "
+            "Đây CHỈ là trạng thái bộ đọc gốc; "
+            "không xác minh được tên nhân vật, HP hoặc đăng nhập.")
+        self._show_launch_status(
+            f"memory_reader PID {result.pid}: {result.status}. "
+            "Xem trạng thái đầy đủ trong menu.")
 
     def _request_client_fingerprint(self) -> bool:
         """Read-only frozen build check; NEVER authorizes memory/game input."""
@@ -238,6 +302,9 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         selected = super()._select_game_directory()
         if selected and before != self.get_exe_path():
             self._client_fingerprint.invalidate()
+            self._original_reader.invalidate()
+            self._original_reader_status = (
+                "Client mới chưa kiểm tra memory_reader TLM gốc.")
             self._fingerprint_status = "Client mới chưa đối chiếu SHA-256."
         if hasattr(self, "launch_controller"):
             self._refresh_launch_button()
@@ -277,6 +344,8 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             self._show_result(outcome)
         for fingerprint in self._client_fingerprint.drain():
             self._accept_fingerprint(fingerprint)
+        for checked in self._original_reader.drain():
+            self._accept_original_reader(checked)
         for resize_event in self.launch_controller.drain_size_events():
             self._show_size_event(resize_event.code, resize_event.pid,
                                   resize_event.hwnd)
@@ -285,6 +354,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         # launch worker's PID/HWND handoff has completed.
         if (self.launch_controller.busy
                 or self._client_fingerprint.busy
+                or self._original_reader.busy
                 or self.launch_controller.list_owned_windows()):
             self._schedule_launch_poll()
 
@@ -338,6 +408,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                 self.container.after_cancel(token)
             except tk.TclError:
                 pass
+        self._original_reader.shutdown()
         self._client_fingerprint.shutdown()
         self.launch_controller.shutdown()
         super().shutdown()
