@@ -15,7 +15,9 @@ Screen observation != logged-in account, credentials, mouse or game action.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from types import MappingProxyType
 from pathlib import Path
+from tlm_original_pixel_catalog import original_pixel_spec
 import ctypes
 from ctypes import wintypes
 import math
@@ -27,14 +29,33 @@ from login_printwindow_pixels import CapturedBgra, NativePrintWindowFrame
 from start_polling import WindowSnapshot
 from start_windows import GameWindow, NativeWin32Backend, is_game_candidate, TITLE_TIMEOUT_MS
 
-# client x,y; expected r,g,b; percent tolerance; original timeout seconds.
-ORIGINAL_F06_PIXELS = {
-    "login.login1": (614, 173, 81, 28, 12, 10, 100),
-    "login.login2": (741, 186, 109, 32, 7, 10, 100),
-    "login.update": (646, 457, 123, 142, 63, 10, 100),
-    "login.vaoTroChoi": (1285, 609, 226, 52, 56, 20, 60),
-    "common.active": (1330, 33, 34, 8, 11, 5, 100),
+# One source of truth: all original TLM Nuitka PIXEL_DATA was decoded
+# into S204's immutable seven-section catalog. F06 uses these FIVE
+# source-verified point entries and no separately typed/guesstimated RGB.
+_F06_KEYS = {
+    "login.login1": ("login", "login1"),
+    "login.login2": ("login", "login2"),
+    "login.update": ("login", "update"),
+    "login.vaoTroChoi": ("login", "vaoTroChoi"),
+    "common.active": ("common", "active"),
 }
+
+
+def _real_original_f06_points():
+    result = {}
+    for label, (section, key) in _F06_KEYS.items():
+        source = original_pixel_spec(section, key)
+        if (source is None or
+                source.reader_kind != "SINGLE_CLIENT_PIXEL_READONLY"):
+            raise RuntimeError("FROZEN_ORIGINAL_F06_POINT_NOT_VALID")
+        x, y = source.region
+        r, g, b = source.color
+        result[label] = (
+            x, y, r, g, b, source.tolerance, source.timeout)
+    return MappingProxyType(result)
+
+
+ORIGINAL_F06_PIXELS = _real_original_f06_points()
 F06_STAGE_KEYS = {
     "form": ("login.login1", "login.login2"),
     "update": ("login.update",),
