@@ -25,6 +25,13 @@ from shell import TLMMainApp
 from source_backed_tab_builders import source_backed_tab_builders
 from start_polling import StartWindowProducer, WindowSnapshot
 from independent_shared_window_source import IndependentSharedWindowProducer
+from independent_character_diagnostic_observer import (
+    IndependentCharacterDiagnosticObserver,
+)
+from independent_character_diagnostic_tabs import (
+    TkIndependentPartyCandidateTab, TkIndependentTrainCandidateTab,
+)
+from party_group_config import PartyConfigStore
 from single_instance import SingleInstanceMutex
 from startup_diagnostics import StartupDiagnostics
 from session_logger import SessionTee
@@ -39,7 +46,8 @@ def count_observed_game_windows(producer: StartWindowProducer) -> int:
 
 
 def make_independent_builders(settings_file: str | Path,
-                              producer: StartWindowProducer):
+                              producer: StartWindowProducer,
+                              *, observer: IndependentCharacterDiagnosticObserver | None = None):
     """Register implemented UI only; no original license API is called."""
     if not isinstance(producer, StartWindowProducer):
         raise ValueError("REAL_SHARED_WIN32_PRODUCER_REQUIRED")
@@ -66,6 +74,34 @@ def make_independent_builders(settings_file: str | Path,
         return TLMIndependentLoginTab(
             parent, settings_file=settings_file, start_producer=producer)
     builders["login_tab"] = build_independent_login
+
+    # S200 independently read original memory on the shared S09 game
+    # source. Keep *verified* Party ready names and Train account actions
+    # isolated: candidate names/HP/MapID are drawn ONLY in clearly marked
+    # diagnostics, never promoted to RoleReading/TrainCharacterSample.
+    if observer is not None:
+        if not isinstance(observer, IndependentCharacterDiagnosticObserver):
+            raise ValueError("REAL_INDEPENDENT_CHARACTER_OBSERVER_REQUIRED")
+
+        def build_independent_party(parent):
+            panel = TkIndependentPartyCandidateTab(
+                parent, observer=observer,
+                store=PartyConfigStore(settings_file),
+                start_producer=producer, read_role=None)
+            panel.pack(fill="both", expand=True)
+            return panel
+
+        def build_independent_train(parent):
+            panel = TkIndependentTrainCandidateTab(
+                parent, observer=observer, settings_file=settings_file,
+                permission_guard=policy, running_count=count,
+                window_producer=producer,
+                allow_account=lambda window: True)
+            panel.pack(fill="both", expand=True)
+            return panel
+
+        builders["party_tab"] = build_independent_party
+        builders["farm_tab"] = build_independent_train
 
     # S169: real TrainLSV [TrainLSV] config is a dedicated, non-game tab;
     # do not add it to historical Info-gated builders or pretend FSM exists.
@@ -134,11 +170,16 @@ def run_independent_tool() -> int:
                 import tkinter as tk
                 root = tk.Tk()
                 producer = IndependentSharedWindowProducer()
+                observer = IndependentCharacterDiagnosticObserver(
+                    producer, settings_path())
                 try:
                     if not producer.start():
                         raise RuntimeError("INDEPENDENT_NATIVE_GAME_DISCOVERY_UNAVAILABLE")
+                    if not observer.start():
+                        raise RuntimeError("INDEPENDENT_ORIGINAL_READER_WORKER_UNAVAILABLE")
                     app = TLMMainApp(
-                        root, make_independent_builders(settings_path(), producer),
+                        root, make_independent_builders(
+                            settings_path(), producer, observer=observer),
                         independent_mode=True,
                         local_window_count=lambda:count_observed_game_windows(producer))
                     app.position_window_top_right()
@@ -149,6 +190,7 @@ def run_independent_tool() -> int:
                         if 'app' in locals():
                             app.shutdown()
                     finally:
+                        observer.shutdown()
                         producer.shutdown()
                         try:root.destroy()
                         except tk.TclError:pass
