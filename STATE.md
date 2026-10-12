@@ -2,6 +2,12 @@
 
 _Last reviewed: 2026-10-12 Asia/Bangkok. PLAN.md + SCOPE_LOCK.md authoritative; PROJECT_STATUS.md append-only history._
 
+## CURRENT USER DECISION — S164 ACCEPTED AS DEFERRED, NOT VERIFIED (2026-10-12)
+- User explicitly approved treating S164 as a **remembered checkpoint for continuation** rather than stopping all tool development. Evidence: [decision](docs/decisions/S164_USER_ACCEPTED_DEFERRED_20261012.md).
+- **S164 status: USER_ACCEPTED_DEFERRED_EXTERNAL_VERIFICATION.** This is NOT VERIFIED/DONE, a license grant, a product build, or permission to bypass original Info.
+- **Last verified production source remains S163** until a new, genuinely tested task passes. Production Info/heartbeat and real Thần Long F05/F06 remain blocked and are to be revisited at final integration or on new evidence.
+- User-approved priority now: complete **other original-evidenced, independently testable TLM modules**; do not loop S164 investigations on every CONTINUE. Preserve original locked assets, DATA-2222 READ ONLY, Proxy excluded, and `src/TLMTool.py::main()` fail-closed.
+
 ## LAST VERIFIED CODE MILESTONE: S163 — genuine F06 selected Tk Login account inputs (PARTIAL)
 - [PR #17](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/17) merged `ba87ac9a10034eaa14c30b4a137c1a478b1e4e94`; actual Win64 **2507/2507** tests, **412 compiled files / 104 source modules**, S163 **18/18 real test-owned Tk** checks, independent inherited S151, S36 DIAGNOSTIC and Stage S green.
 - Login rows produce selected checked credentials from real Tk Widgets, **NOT an authorized or completed Thần Long game Login**. Signed Info issuer, F05 real x64 injected launcher and F06 runtime input remain unresolved. Preserve S163/S162/S161/S160 and all other passing sources.
@@ -27,7 +33,14 @@ _Last reviewed: 2026-10-12 Asia/Bangkok. PLAN.md + SCOPE_LOCK.md authoritative; 
 - Packaged `data/auth_token.dat`, `data/config.dat`, `data/license.dat`, `data/sec_key.dat` are opaque/high-entropy bytes without literal PEM key markers; actual contents/trust/format UNKNOWN. No contents/secrets/tokens exposed, unpacked or used. Search cannot exclude DER, key obfuscation or runtime-provided issuer trust. New findings appended to `docs/tasks/S164.md` and sanitized `docs/memory/S164_INFO_RPC_SIGNING_BLOCKER_EVIDENCE.json`.
 - **Code change: NONE. CI run: NONE. Last VERIFIED production source remains S163, 2507 Win64 tests. Info/game dependency remains BLOCKED; do NOT advance S165, fabricate issuer/keys, or bypass signed Info.**
 
-## NEXT_ACTION S164 — BLOCKED_AUTH_TRUST_AND_REAL_GAME (DO NOT AUTO-ADVANCE TO S165)
+## ARCHIVED NEXT_ACTION S164 — ORIGINAL EXTERNAL BLOCKER (PRE-USER DEFERRAL)
 - S163 remains last verified production-code milestone; S164's **static investigation is complete** but **external issuer/game evidence is missing**.
 - On `CONTINUE` re-read this exact blocker first. **Do not reimplement S02/S03/S163, manufacture issuer keys, invent a free entitlement, call activation RPC with fake data, or create endless unrelated S-test tasks.**
 - If genuine authorized Info test access (non-secret verifiable trust root and redacted live signed-response evidence) or authorized matching original game runtime is provided, resume S164 to design the **smallest source-backed real connector**. Any executable source changes need PR actual Windows **>=2507** tests, **>=412** compiled, S163 and inherited native, independent S36 packaged DIAGNOSTIC and Stage S, signed Info fail-closed until legitimate verification. Preserve DATA and all locked assets. Advance NEXT_ACTION S165 **only on new meaningful, verified implementation**, not on this blocked research report.
+
+## CURRENT NEXT_ACTION — S165 TRAIN SOURCE-BACKED BUILDER INTEGRATION
+- Inspect existing `src/farm_train_composition.py` + E03 `src/source_backed_tab_builders.py`, preserving all already green code/old tests.
+- Add only a **strict opt-in** Train config builder guarded by explicit trusted `PermissionGuard`, verified account-count callback, explicit settings file and original shared Start HWND producer. Do not insert a test-license grant into production. Never auto-enable the Train tab from an unsigned payload.
+- Run as many existing and new tests as feasible; **do not** claim S165 VERIFIED before real Win64 full regressions >=2507 plus inherited native, separate S36 diagnostic, Stage S succeed. If verification not available, mark IMPLEMENTED/CI_PENDING honestly.
+- NEXT after the Train builder: choose a meaningful remaining original-backed tab/behavior slice independent of the deferred Info/game blockers; do not create endless synthetic tests.
+- **Deferred external S164 return triggers:** authorized signed issuer verification or authorized matching live game runtime. Do not bypass, fabricate or waive real end-to-end parity.
