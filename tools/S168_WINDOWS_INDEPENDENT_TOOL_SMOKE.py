@@ -54,9 +54,9 @@ def main():
                 and backend.process_id(hwnd)==os.getpid())
             visible=app.lifecycle.visible
             proof["no_license_info_shows_all_implemented_tabs"]=(
-                {"info_tab","start_tab","login_tab","party_tab","farm_tab"}<=visible
+                {"info_tab","start_tab","login_tab","party_tab","farm_tab","trainlsv_tab"}<=visible
                 and "proxy_tab" not in visible
-                and "trainlsv_tab" not in visible)
+                and "trainlsv_tab" not in app.lifecycle._instances)
             proof["no_eager_train_before_selected"]=(
                 "farm_tab" not in app.lifecycle._instances)
             app.notebook.select(app._tab_frames["farm_tab"])
