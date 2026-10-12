@@ -1,5 +1,8 @@
 # S35 — Only actual constructed feature tabs, gated by E03 Info authorization
 
+> **CẬP NHẬT CHÍNH SÁCH — 2026-10-12 / OWNER OVERRIDE S168:** Văn bản này lưu hành vi **TLM gốc hoặc mode đối chiếu lịch sử**. Không dùng token/license/Info/PermissionGuard/revoke ở đây làm điều kiện chạy **tool MỚI**. Chủ dự án đã chuyển sang `src/TLMToolIndependent.py` + `LocalFeaturePolicy` (tab theo module đã làm thật, cấu hình Train offline); Win64 S168 PASS, [PR #21](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/21) merge `cf864f2b20f62f623eb2e88625615a6e15fe6128`. Bài test quyền gốc PASS vẫn là kiểm thử lịch sử, không chứng minh quyền nhà phát hành/game runtime. Xem [PLAN](../../PLAN.md), [S168](../tasks/S168.md), `STATE.md`. Giữ HWND/PID, DATA read-only, Proxy excluded.
+
+
 ```text
 S21/S22/S23/S24 Tk bootstrap
    -> run_with_info_factory(real, caller-supplied Info constructor)
