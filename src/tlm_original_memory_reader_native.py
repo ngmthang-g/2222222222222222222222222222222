@@ -164,8 +164,10 @@ class _Win64ReadProcess:
         return matches[0] if len(matches) == 1 else None
 
     def bytes(self, address, size):
-        if (not _pointer(address) or type(size) is not int
-                or not 1 <= size <= 64
+        # PE headers/instructions can be unaligned even when actual 64-bit
+        # object pointers must be 8-aligned. Only qword() demands alignment.
+        if (type(address) is not int or address < 0x10000
+                or type(size) is not int or not 1 <= size <= 64
                 or address > USER_PTR_MAX-size or not self.live()):
             return None
         reg = _MemoryBasicInformation()
@@ -187,6 +189,8 @@ class _Win64ReadProcess:
         return bytes(buff)
 
     def qword(self, address):
+        if not _pointer(address):
+            return None
         data = self.bytes(address, 8)
         return int.from_bytes(data, "little") if data is not None else None
 
