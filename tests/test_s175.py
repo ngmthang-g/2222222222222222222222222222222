@@ -6,6 +6,9 @@ are reused, never promoted into original game-control authorization.
 from __future__ import annotations
 
 import json
+import io
+from contextlib import redirect_stdout
+from unittest.mock import patch
 from pathlib import Path
 import sys
 import tempfile
@@ -145,6 +148,23 @@ class S175ReadinessProbeTests(unittest.TestCase):
                           "PermissionGuard(", "read_role_name(", "RequestSellItem("):
             self.assertNotIn(forbidden,src)
         self.assertIn("discover_game_windows(backend)",src)
+
+    def test_17_console_json_is_ascii_safe_on_windows_cp1252(self):
+        example = {
+            "schema":probe.FORMAT_VERSION,
+            "scan_status":"WINDOW_SCAN_COMPLETED",
+            "windows":[],
+            "message":"Thần Long Mobile — Độc lập",
+            "game_action_ready":False,
+        }
+        sink=io.StringIO()
+        with patch.object(probe,"run_native",return_value=example):
+            with redirect_stdout(sink):
+                self.assertEqual(probe.main([]),0)
+        raw=sink.getvalue()
+        self.assertEqual(json.loads(raw)["message"],example["message"])
+        self.assertTrue(raw.isascii())
+        self.assertEqual(raw.encode("cp1252").decode("cp1252"),raw)
 
     def test_16_no_windows_supported_only_with_real_native_adapter(self):
         if sys.platform!="win32":
