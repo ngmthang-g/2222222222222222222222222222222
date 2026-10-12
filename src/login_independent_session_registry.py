@@ -187,14 +187,14 @@ class OwnedLaunchedGameRegistry:
             if self._closed:
                 return ()
             sessions = tuple(self._sessions.values())
+        # Revoke only when the game HWND/PID identity has been disproved.
+        # Failure to resize, transient native enumeration errors or DPI
+        # readback mismatch do NOT prove the window stopped existing.
         terminal_codes = {
             "RESIZE_GAME_WINDOW_LOST",
             "RESIZE_TARGET_NOT_GAME",
-            "RESIZE_NATIVE_READ_FAILED",
-            "RESIZE_NATIVE_BACKEND_UNAVAILABLE",
             "RESIZE_INVALID_GAME_WINDOW",
-            "RESIZE_NATIVE_ENUM_FAILED",
-            "RESIZE_READBACK_MISMATCH",
+            "RESIZE_STALE_OR_REUSED_PID",
         }
         published = []
         for row in sessions:
