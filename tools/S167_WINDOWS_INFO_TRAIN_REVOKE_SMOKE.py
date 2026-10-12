@@ -61,6 +61,8 @@ def main():
                 start_producer=producer,train_permission_guard=guard,
                 train_running_count=lambda:1)
             app=TLMMainApp(root,builders)
+            app.position_window_top_right()
+            root.update()
             proof["unsigned_info_hidden_and_not_built"]=(
                 "farm_tab" not in app.lifecycle.visible
                 and "farm_tab" not in app.lifecycle._instances
