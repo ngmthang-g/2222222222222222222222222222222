@@ -12,6 +12,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from toiuu_host_sampler import HostPerformanceSampler
+from toiuu_mode_panel import TkToiuuModeSelectionPanel
 
 
 CPU_COLOR = "#1565c0"
@@ -60,20 +61,12 @@ class TkToiuuHostTab(ttk.Frame):
 
         accounts = ttk.LabelFrame(self, text="Danh sách tài khoản")
         accounts.pack(fill="both", expand=True, padx=6, pady=(1, 4))
-        body = ttk.Frame(accounts)
-        body.pack(fill="both", expand=True)
-        self.account_table = ttk.Treeview(
-            body, columns=("character", "mode"), show="headings",
-            selectmode="none", height=8)
-        self.account_table.heading("character", text="Nhân vật")
-        self.account_table.heading("mode", text="Giảm cấu hình")
-        self.account_table.column("character", width=160, stretch=True)
-        self.account_table.column("mode", width=176, stretch=True)
-        scroll = ttk.Scrollbar(
-            body, orient="vertical", command=self.account_table.yview)
-        self.account_table.configure(yscrollcommand=scroll.set)
-        scroll.pack(side="right", fill="y")
-        self.account_table.pack(side="left", fill="both", expand=True)
+        # N05: original three gray modes are selection-only. Until a
+        # verified read-only game RoleName+PID+HWND adapter exists, the
+        # account list is empty and mode buttons remain disabled.
+        self.mode_panel = TkToiuuModeSelectionPanel(accounts)
+        self.mode_panel.pack(fill="both", expand=True)
+        self.account_table = self.mode_panel.account_table
         ttk.Label(
             self, text=("Biểu đồ CPU/GPU đang đọc hiệu năng máy thật. "
                         "Đọc tên nhân vật, thay đổi đồ họa game và "
@@ -253,6 +246,7 @@ class TkToiuuHostTab(ttk.Frame):
         self._cancel_poll()
         self._close_detached()
         self.monitor.shutdown()
+        self.mode_panel.shutdown()
 
     def _on_destroy(self, event):
         if event.widget is self:
