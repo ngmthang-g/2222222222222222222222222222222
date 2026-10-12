@@ -19,6 +19,7 @@ from toiuu_monitor_tab import TkToiuuHostTab
 from daily_top_tab import TkDailyTopTab
 from don_return_tab import TkDonReturnTab
 from phoban_schedule_tab import TkPhoBanScheduleTab
+from login_independent_tab import TLMIndependentLoginTab
 from settings_store import settings_path
 from shell import TLMMainApp
 from source_backed_tab_builders import source_backed_tab_builders
@@ -56,6 +57,14 @@ def make_independent_builders(settings_file: str | Path,
         # appear in read-only Train rows; no guessed RoleName or game sender.
         train_allow_account=lambda window: True,
     )
+    # S188: replace ONLY the independent Login factory with a genuine
+    # explicit normal Windows process launcher. The historical Info-gated
+    # TLMLoginPathTab remains unchanged for comparison and old tests.
+    # No original TLM DLL/Info license, Proxy or credential auto-login.
+    def build_independent_login(parent):
+        return TLMIndependentLoginTab(parent, settings_file=settings_file)
+    builders["login_tab"] = build_independent_login
+
     # S169: real TrainLSV [TrainLSV] config is a dedicated, non-game tab;
     # do not add it to historical Info-gated builders or pretend FSM exists.
     if "trainlsv_tab" not in LOCAL_TAB_KEYS:
