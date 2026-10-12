@@ -1,0 +1,94 @@
+name: S170 Independent Train LSV Saved Coordinates Native Windows and EXE
+on:
+  pull_request:
+    paths:
+      - "src/train_lsv_coordinates.py"
+      - "src/train_lsv_coordinate_editor.py"
+      - "src/train_lsv_top_tab.py"
+      - "tests/test_s170.py"
+      - "tools/S170_WINDOWS_LSV_COORDS_SMOKE.py"
+      - ".github/workflows/s170-train-lsv-coordinate-editor.yml"
+  push:
+    paths:
+      - "src/train_lsv_coordinates.py"
+      - "src/train_lsv_coordinate_editor.py"
+      - "src/train_lsv_top_tab.py"
+      - "tests/test_s170.py"
+      - "tools/S170_WINDOWS_LSV_COORDS_SMOKE.py"
+      - ".github/workflows/s170-train-lsv-coordinate-editor.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  win64-lsv-coordinates-real-tk-and-independent-exe:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - name: All Stage S and old/new native source unit regressions
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Preserve source/build gate audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S170 real Win64 Tk saved coordinates and disk isolation
+        run: python tools/S170_WINDOWS_LSV_COORDS_SMOKE.py
+      - name: Inherited genuine S169 LSV top settings Win64 native
+        run: python tools/S169_WINDOWS_LSV_TOP_SMOKE.py
+      - name: Inherited S168 independent local app Win64 native
+        run: python tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py
+      - name: S167 legacy native Info / Train rights regression
+        run: python tools/S167_WINDOWS_INFO_TRAIN_REVOKE_SMOKE.py
+      - name: S166 legacy shared Start HWND worker Win64 native
+        run: python tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py
+      - name: S165 real Train Tk native builder
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: S132 native Train config
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: S163 Win64 selected account Login
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: Independent entrypoint no issuer self-check
+        run: python src/TLMToolIndependent.py --self-check
+      - name: Pinned independent EXE packager
+        run: python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Build actual partial Win64 independent GUI EXE
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S170_TLMTOOL_INDEPENDENT_COORDS_PARTIAL
+          --distpath artifacts/s170/dist
+          --workpath artifacts/s170/build
+          --specpath artifacts/s170/spec
+          --paths src
+          src/TLMToolIndependent.py
+      - name: Run real packaged EXE static self-check
+        shell: pwsh
+        run: |
+          & "artifacts/s170/dist/S170_TLMTOOL_INDEPENDENT_COORDS_PARTIAL/S170_TLMTOOL_INDEPENDENT_COORDS_PARTIAL.exe" --self-check
+          if ($LASTEXITCODE -ne 0) { throw "S170_INDEPENDENT_EXE_BOOT_FAIL" }
+      - name: Legacy original licensing diagnostic remains historical
+        shell: pwsh
+        run: |
+          python src/TLMTool.py *> artifacts/s170/legacy_entry.txt
+          if ($LASTEXITCODE -ne 2) { throw "S170_LEGACY_GATE_CHANGED" }
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S170_INDEPENDENT_TRAIN_LSV_COORDS_PARTIAL_WINDOWS_X64_NOT_GAME
+          path: |
+            artifacts/s170/dist/S170_TLMTOOL_INDEPENDENT_COORDS_PARTIAL/
+            artifacts/s170/native_lsv_coordinates.json
+            artifacts/s170/legacy_entry.txt
+            artifacts/s169/
+            artifacts/s168/
+            artifacts/s167/
+            artifacts/s166/
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+          if-no-files-found: warn
