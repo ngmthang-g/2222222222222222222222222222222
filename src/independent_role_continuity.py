@@ -30,6 +30,7 @@ class IndependentRoleContinuity:
     pid: int
     role_id: int
     role_name: str
+    process_creation_filetime: int
     first_monotonic: float
     last_monotonic: float
     independent_read_count: int = 1
@@ -73,11 +74,11 @@ class OriginalRoleContinuityLedger:
 
     def accept(
         self, hwnd: int, pid: int, role_id: int, role_name: str,
-        observed_monotonic: float,
+        observed_monotonic: float, process_creation_filetime: int,
     ) -> IndependentRoleContinuity | None:
         """One independently completed source-memory read, not a UI tick."""
         if (any(type(n) is not int or n <= 0 for n in
-                (hwnd, pid, role_id))
+                (hwnd, pid, role_id, process_creation_filetime))
                 or not _valid_name(role_name)
                 or not _valid_stamp(observed_monotonic)):
             self.failed(hwnd, pid)
@@ -87,16 +88,17 @@ class OriginalRoleContinuityLedger:
         if (previous is not None
                 and previous.role_id == role_id
                 and previous.role_name == role_name
+                and previous.process_creation_filetime == process_creation_filetime
                 and 0 < observed_monotonic - previous.last_monotonic
                 <= MAX_GAP_BETWEEN_ACTUAL_READS_SECONDS):
             result = IndependentRoleContinuity(
-                hwnd, pid, role_id, role_name,
+                hwnd, pid, role_id, role_name, process_creation_filetime,
                 previous.first_monotonic, observed_monotonic,
                 min(MAX_INDEPENDENT_OBSERVATIONS,
                     previous.independent_read_count + 1))
         else:
             result = IndependentRoleContinuity(
-                hwnd, pid, role_id, role_name,
+                hwnd, pid, role_id, role_name, process_creation_filetime,
                 observed_monotonic, observed_monotonic)
         self._by_native_identity[key] = result
         if len(self._by_native_identity) > MAX_TRACKED_IDENTITIES:
