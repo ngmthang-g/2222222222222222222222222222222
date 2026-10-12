@@ -123,7 +123,7 @@ class S165TrainBuilder(unittest.TestCase):
                            "CreateProcess(", "click_at(", "send_packet(",
                            "ProxyTab(", "command=self._toggle_farm"):
             self.assertNotIn(disallowed,src)
-        self.assertIn('builders["farm_tab"] = build_train',src)
+        self.assertIn('"farm_tab": build_train',src)
 
 
 if __name__=="__main__":
