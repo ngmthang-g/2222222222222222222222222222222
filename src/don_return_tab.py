@@ -11,6 +11,8 @@ import tkinter as tk
 from tkinter import ttk
 
 from don_train_panel import TkDonTrainSettingsPanel
+from don_preset_editor import TkDonPresetEditor
+from don_receiver_panel import TkDonReceiverReadOnlyPanel
 from don_return_settings import (
     DON_RETURN_OPTIONS, NAV_DEFAULTS, NAV_OPTIONS,
     DonReturnConfig, DonReturnSettingsError, DonReturnSettingsStore,
@@ -90,6 +92,16 @@ class TkDonReturnTab(ttk.Frame):
             self, settings_file=settings_file,
             on_saved=self._sync_after_train_save)
         self.train_panel.pack(fill="x", padx=6, pady=(1, 5))
+
+        # L05/L06 saved coordinates live in the SAME [DonVang] section.
+        # Never infer selected receiver accounts from a window title.
+        self.preset_panel = TkDonPresetEditor(
+            self, settings_file=settings_file,
+            on_saved=self._sync_after_preset_save)
+        self.preset_panel.pack(fill="x", padx=6, pady=(1, 4))
+        self.receiver_panel = TkDonReceiverReadOnlyPanel(
+            self, settings_file=settings_file)
+        self.receiver_panel.pack(fill="x", padx=6, pady=(0, 3))
 
         self.status = ttk.Label(self, text="", wraplength=420, anchor="w")
         self.status.pack(fill="x", padx=6, pady=(0, 4))
@@ -191,6 +203,8 @@ class TkDonReturnTab(ttk.Frame):
         self.last_error = None
         self._restore()
         self.train_panel.sync_after_other_save()
+        self.preset_panel.reload_after_other_save()
+        self.receiver_panel.reload()
         self._set_status("Đã lưu cấu hình Dồn vào settings.ini")
         return True
 
@@ -232,12 +246,35 @@ class TkDonReturnTab(ttk.Frame):
                 "Cấu hình Dồn đã thay đổi; đóng/mở lại tab trước khi chỉnh")
             return False
         self._restore()
+        self.preset_panel.reload_after_other_save()
+        self.receiver_panel.reload()
+        return True
+
+    def _sync_after_preset_save(self):
+        """Coordinate save updates snapshots for both S181/S182 editors."""
+        if self._closed:
+            return False
+        self.train_panel.sync_after_other_save()
+        self.receiver_panel.reload()
+        if self._blocked:
+            return False
+        try:
+            self.snapshot = self.store.load()
+        except (DonReturnSettingsError, OSError, ValueError) as exc:
+            self.last_error = type(exc).__name__
+            self._blocked = True
+            self._refresh_controls()
+            self._set_status("Không thể đồng bộ cấu hình Dồn; hãy mở lại tab")
+            return False
+        self._restore()
         return True
 
     def shutdown(self):
         if self._closed:
             return
         self.train_panel.shutdown()
+        self.preset_panel.shutdown()
+        self.receiver_panel.shutdown()
         self._closed = True
 
     def _on_destroy(self, event):
