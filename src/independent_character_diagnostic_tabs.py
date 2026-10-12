@@ -52,10 +52,17 @@ class TkOriginalCandidatePanel(ttk.LabelFrame):
                     and row.role_name_candidate is not None):
                 hp = (str(row.hp_percent_candidate) + "%"
                       if row.hp_percent_candidate is not None else "?")
+                # Continuity counts distinct completed native memory
+                # reads, never repeated Tk paint/refresh operations.
+                repeat = (
+                    f"{row.independent_identity_reads} lượt đọc độc lập"
+                    if row.independent_identity_reads > 0
+                    else "chưa có lượt kiểm tra độc lập")
                 lines.append(
                     f"PID {row.pid}: {row.role_name_candidate} "
                     f"| HP ứng viên {hp} "
-                    f"| MapID ứng viên {row.map_id_candidate}")
+                    f"| MapID ứng viên {row.map_id_candidate} "
+                    f"| {repeat}; CHƯA XÁC MINH game")
             else:
                 lines.append(f"PID {row.pid}: {row.code}")
         if len(batch.members) > MAX_VISIBLE_DIAGNOSTIC_ROWS:
