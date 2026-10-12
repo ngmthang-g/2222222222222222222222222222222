@@ -22,7 +22,11 @@ import sys
 
 from login_frozen_client_fingerprint import inspect_installed_frozen_client
 from tlm_original_role_fields import (
-    OriginalNumericRoleCandidate, read_original_role_numeric_candidate,
+    OriginalNumericRoleCandidate, ORIGINAL_TLM_ROLE_FIELDS,
+    read_original_role_numeric_candidate,
+)
+from tlm_original_il2cpp_string import (
+    OriginalRoleStringCandidate, read_original_role_name_candidate,
 )
 from login_path import EXE_NAME
 from start_windows import (
@@ -57,6 +61,7 @@ class TlmOriginalReadProbe:
     # Exactly typed original RoleData table, still missing verified
     # RoleName string reconstruction and actual Win64 runtime proof.
     numeric_candidate: OriginalNumericRoleCandidate | None = None
+    role_name_candidate: OriginalRoleStringCandidate | None = None
 
 
 def _pointer(v):
@@ -312,6 +317,13 @@ def inspect_original_tlm_role_pointer(window, selected_exe, *, backend=None):
                     "ORIGINAL_42_FIELD_NUMERIC_CANDIDATE_NO_ROLENAME_PROOF"):
                 return report("ORIGINAL_ROLE_FIELDS_" + numeric.status,
                               True, True, True)
+            name_ptr = reader.qword(
+                role + ORIGINAL_TLM_ROLE_FIELDS["RoleName"][0])
+            role_name = read_original_role_name_candidate(
+                reader, name_ptr)
+            if role_name.role_name is None:
+                return report("ORIGINAL_ROLE_NAME_" + role_name.status,
+                              True, True, True)
             # Recheck same pointer + anchored SessionData on a *second*
             # observation after decoding the numeric fields. Map changes,
             # relogin and memory reuse must never carry a stale reading.
@@ -323,8 +335,8 @@ def inspect_original_tlm_role_pointer(window, selected_exe, *, backend=None):
         if not _real_game_window(window, native):
             return report("HWND_PID_CHANGED_DURING_READ", True, True, True)
         return TlmOriginalReadProbe(
-            "ORIGINAL_ROLE_NUMERIC_CANDIDATE_NOT_VERIFIED_CHARACTER",
+            "ORIGINAL_ROLE_UTF16_CANDIDATE_NOT_RUNTIME_VERIFIED",
             pid, hwnd, True, True, True,
-            False, False, False, False, numeric)
+            False, False, False, False, numeric, role_name)
     except (OSError, RuntimeError, ValueError, OverflowError, AttributeError):
         return report("NATIVE_MEMORY_READ_FAILED")
