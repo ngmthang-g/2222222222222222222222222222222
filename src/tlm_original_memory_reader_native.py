@@ -21,6 +21,9 @@ from pathlib import Path
 import sys
 
 from login_frozen_client_fingerprint import inspect_installed_frozen_client
+from tlm_original_role_fields import (
+    OriginalNumericRoleCandidate, read_original_role_numeric_candidate,
+)
 from login_path import EXE_NAME
 from start_windows import (
     GameWindow, NativeWin32Backend, TITLE_TIMEOUT_MS, is_game_candidate,
@@ -51,6 +54,9 @@ class TlmOriginalReadProbe:
     hp_read: bool = False
     map_id_read: bool = False
     gameplay_authorized: bool = False
+    # Exactly typed original RoleData table, still missing verified
+    # RoleName string reconstruction and actual Win64 runtime proof.
+    numeric_candidate: OriginalNumericRoleCandidate | None = None
 
 
 def _pointer(v):
@@ -301,11 +307,24 @@ def inspect_original_tlm_role_pointer(window, selected_exe, *, backend=None):
             anchor = _anchored_session(reader, base, role)
             if anchor is None:
                 return report("SESSION_ROLE_ANCHOR_UNVERIFIED", True, True)
-            if not reader.selected_image():
-                return report("GAME_PROCESS_CHANGED_DURING_READ", True, True, True)
+            numeric = read_original_role_numeric_candidate(reader, role)
+            if numeric.status != (
+                    "ORIGINAL_42_FIELD_NUMERIC_CANDIDATE_NO_ROLENAME_PROOF"):
+                return report("ORIGINAL_ROLE_FIELDS_" + numeric.status,
+                              True, True, True)
+            # Recheck same pointer + anchored SessionData on a *second*
+            # observation after decoding the numeric fields. Map changes,
+            # relogin and memory reuse must never carry a stale reading.
+            if (_role_pointer(reader, base) != role
+                    or _anchored_session(reader, base, role) != anchor
+                    or not reader.selected_image()):
+                return report("GAME_ROLE_GENERATION_CHANGED_DURING_READ",
+                              True, True, True)
         if not _real_game_window(window, native):
             return report("HWND_PID_CHANGED_DURING_READ", True, True, True)
-        return report("ROLE_POINTER_SESSION_ANCHORED_NO_CHARACTER_FIELDS",
-                      True, True, True)
+        return TlmOriginalReadProbe(
+            "ORIGINAL_ROLE_NUMERIC_CANDIDATE_NOT_VERIFIED_CHARACTER",
+            pid, hwnd, True, True, True,
+            False, False, False, False, numeric)
     except (OSError, RuntimeError, ValueError, OverflowError, AttributeError):
         return report("NATIVE_MEMORY_READ_FAILED")
