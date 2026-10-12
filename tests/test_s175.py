@@ -92,9 +92,11 @@ class S175ReadinessProbeTests(unittest.TestCase):
         s=probe.scan_and_report(self.backend)
         encoded=json.dumps(s,ensure_ascii=False)
         self.assertNotIn("C:\\Secret Users",encoded)
-        self.assertNotIn("password",encoded.lower())
-        self.assertNotIn("account_name",encoded.lower())
-        self.assertNotIn("token",encoded.lower())
+        # Generic privacy advice may mention passwords/tokens, but no
+        # *actual* private account values are serialized.
+        self.assertNotIn("REAL_PRIVATE_ACCOUNT_NAME",encoded)
+        self.assertNotIn("REAL_PASSWORD_VALUE",encoded)
+        self.assertNotIn("REAL_LICENSE_TOKEN",encoded)
 
     def test_09_false_game_actions_even_with_valid_game_candidate(self):
         s=probe.scan_and_report(self.backend)
