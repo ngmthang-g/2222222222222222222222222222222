@@ -65,12 +65,12 @@ def main():
             root.update()
             lsv=app.lifecycle._instances.get("trainlsv_tab")
             editor=lsv.coords
-            proof["real_saved_coord_controls_and_retired_skip"]=(
-                isinstance(lsv,TkTrainLsvTopTab)
-                and 6 in editor.rows and 9 not in editor.rows
-                and editor.snapshot.skipped_retired==(19999,)
-                and editor.add_btn.cget("state")=="normal"
-                and editor.toggle_btn.winfo_exists())
+            proof["lsv_real_top_tab"]=isinstance(lsv,TkTrainLsvTopTab)
+            proof["original_valid_numeric_record_visible"]=(6 in editor.rows)
+            proof["retired_map_row_not_present"]=(9 not in editor.rows)
+            proof["retired_map_is_reported"]=(editor.snapshot.skipped_retired==(19999,))
+            proof["real_add_button_enabled"]=bool(editor.add_btn.instate(("!disabled",)))
+            proof["real_list_toggle_widget_alive"]=bool(editor.toggle_btn.winfo_exists())
             # Genuine Tk StringVars, Entry and ttk Buttons. Save only the
             # proven original [TrainLSV] record; no game movement invoked.
             draft=editor._make_row(None)
