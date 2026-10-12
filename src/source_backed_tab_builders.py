@@ -126,12 +126,21 @@ def source_backed_tab_builders(
         panel.pack(fill="both", expand=True)
         return panel
 
-    builders = {
+    # Preserve the original default E03 dictionary AST for S86's
+    # independent source-build audit and all existing S35/S154 tests.
+    if not train_requested:
+        return {
+            INFO_KEY: info_factory,
+            "start_tab": build_start,
+            "login_tab": build_login,
+            "party_tab": build_party,
+        }
+    # Only the explicitly provided real Info guard/count allows registering
+    # the already-built S132 configuration UI as another original tab slot.
+    return {
         INFO_KEY: info_factory,
         "start_tab": build_start,
         "login_tab": build_login,
         "party_tab": build_party,
+        "farm_tab": build_train,
     }
-    if train_requested:
-        builders["farm_tab"] = build_train
-    return builders
