@@ -11,6 +11,8 @@ from pathlib import Path
 
 from train_lsv_coordinate_editor import TkTrainLsvCoordinates
 from train_lsv_manual_buff_editor import TkTrainLsvManualBuffs
+from train_lsv_passive_accounts import TkTrainLsvPassiveAccounts
+from start_polling import StartWindowProducer
 
 from train_lsv_top_settings import (
     TrainLsvTopStore, TrainLsvTopSnapshot, TrainLsvTopConfig,
@@ -27,7 +29,9 @@ _CHECKS = (
 class TkTrainLsvTopTab(ttk.Frame):
     """Real, useful settings tab; not the unimplemented TrainLsvTab engine."""
 
-    def __init__(self, parent, *, settings_file: str | Path):
+    def __init__(self, parent, *, settings_file: str | Path,
+                 start_producer: StartWindowProducer | None = None,
+                 identity_backend_factory=None):
         if not isinstance(settings_file, (str, Path)) or not str(settings_file):
             raise ValueError("LSV_SHARED_SETTINGS_FILE_REQUIRED")
         super().__init__(parent)
@@ -90,6 +94,15 @@ class TkTrainLsvTopTab(ttk.Frame):
         self.manual_buffs = TkTrainLsvManualBuffs(
             self, settings_file=settings_file, on_saved=self._on_buff_file_saved)
         self.manual_buffs.pack(fill="x", padx=6, pady=4)
+        # S172: source-backed passive HWND/PID list. The source-only LSV
+        # config constructor without producer remains fully offline.
+        self.account_roster = None
+        if isinstance(start_producer, StartWindowProducer):
+            kwargs = ({} if identity_backend_factory is None else
+                      {"backend_factory": identity_backend_factory})
+            self.account_roster = TkTrainLsvPassiveAccounts(
+                self, producer=start_producer, **kwargs)
+            self.account_roster.pack(fill="x", padx=6, pady=4)
         # Do not create fake LSV travel/fight/start actions.
         ttk.Label(
             self,
@@ -181,6 +194,23 @@ class TkTrainLsvTopTab(ttk.Frame):
     def _on_pickup(self) -> bool:
         return self._commit("pickup_mode", self.pickup_var.get())
 
+    def _start_refresh(self):
+        return (self.account_roster._start_refresh()
+                if not self._closed and self.account_roster is not None
+                else False)
+
+    def _stop_refresh(self):
+        if self.account_roster is not None:
+            self.account_roster._stop_refresh()
+
+    def shutdown(self):
+        if self._closed:
+            return
+        self._stop_refresh()
+        if self.account_roster is not None:
+            self.account_roster.shutdown()
+        self._closed = True
+
     def _on_destroy(self, event):
         if event.widget is self:
-            self._closed = True
+            self.shutdown()

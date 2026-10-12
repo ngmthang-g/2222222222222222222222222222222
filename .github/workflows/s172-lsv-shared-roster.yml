@@ -1,0 +1,100 @@
+name: S172 Independent LSV Read-only Shared S09 Roster Win64 and EXE
+on:
+  pull_request:
+    paths:
+      - "src/train_lsv_passive_accounts.py"
+      - "src/train_lsv_top_tab.py"
+      - "src/TLMToolIndependent.py"
+      - "tests/test_s172.py"
+      - "tools/S172_WINDOWS_LSV_ROSTER_SMOKE.py"
+      - ".github/workflows/s172-lsv-shared-roster.yml"
+  push:
+    paths:
+      - "src/train_lsv_passive_accounts.py"
+      - "src/train_lsv_top_tab.py"
+      - "src/TLMToolIndependent.py"
+      - "tests/test_s172.py"
+      - "tools/S172_WINDOWS_LSV_ROSTER_SMOKE.py"
+      - ".github/workflows/s172-lsv-shared-roster.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  win64-lsv-shared-roster-native-and-partial-exe:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - name: Full inherited S01-S172 Windows unit tests
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: Historical source gap audit S86
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S172 physical Win64 Tk HWND/PID shared producer passive account roster
+        run: python tools/S172_WINDOWS_LSV_ROSTER_SMOKE.py
+      - name: S171 original I05 buff config native
+        run: python tools/S171_WINDOWS_LSV_BUFF_SMOKE.py
+      - name: S170 saved coordinate Tk native
+        run: python tools/S170_WINDOWS_LSV_COORDS_SMOKE.py
+      - name: S169 original TrainLSV top config Tk
+        run: python tools/S169_WINDOWS_LSV_TOP_SMOKE.py
+      - name: S168 independent owner Win64 GUI
+        run: python tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py
+      - name: S167 historical original Info/Train Tk
+        run: python tools/S167_WINDOWS_INFO_TRAIN_REVOKE_SMOKE.py
+      - name: S166 real Start shared S09 lifecycle
+        run: python tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py
+      - name: S165 Train Tk builder native
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: S132 Train Win64 config native
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: S163 Login selected account native
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: Independent new app without old issuer self-check
+        run: python src/TLMToolIndependent.py --self-check
+      - name: Pinned Windows partial EXE packager
+        run: python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Build actual independent partial source Windows EXE
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S172_TLMTOOL_INDEPENDENT_LSV_ROSTER_PARTIAL
+          --distpath artifacts/s172/dist
+          --workpath artifacts/s172/build
+          --specpath artifacts/s172/spec
+          --paths src
+          src/TLMToolIndependent.py
+      - name: Verify packaged independent EXE no-issuer self-check
+        shell: pwsh
+        run: |
+          & "artifacts/s172/dist/S172_TLMTOOL_INDEPENDENT_LSV_ROSTER_PARTIAL/S172_TLMTOOL_INDEPENDENT_LSV_ROSTER_PARTIAL.exe" --self-check
+          if ($LASTEXITCODE -ne 0) { throw "S172_INDEPENDENT_PACKAGED_BOOT_FAIL" }
+      - name: Legacy archived Info path still diagnostic
+        shell: pwsh
+        run: |
+          python src/TLMTool.py *> artifacts/s172/legacy_entry.txt
+          if ($LASTEXITCODE -ne 2) { throw "S172_LEGACY_DIAGNOSTIC_CHANGED" }
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S172_INDEPENDENT_LSV_SHARED_S09_ROSTER_PARTIAL_WIN64_NOT_GAME
+          path: |
+            artifacts/s172/dist/S172_TLMTOOL_INDEPENDENT_LSV_ROSTER_PARTIAL/
+            artifacts/s172/native_lsv_roster.json
+            artifacts/s172/legacy_entry.txt
+            artifacts/s171/
+            artifacts/s170/
+            artifacts/s169/
+            artifacts/s168/
+            artifacts/s167/
+            artifacts/s166/
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+          if-no-files-found: warn

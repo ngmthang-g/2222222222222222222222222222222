@@ -53,7 +53,8 @@ def make_independent_builders(settings_file: str | Path,
     if "trainlsv_tab" not in LOCAL_TAB_KEYS:
         raise ValueError("MISSING_IMPLEMENTED_LSV_LOCAL_CAPABILITY")
     def build_train_lsv(parent):
-        panel = TkTrainLsvTopTab(parent, settings_file=settings_file)
+        panel = TkTrainLsvTopTab(parent, settings_file=settings_file,
+                                   start_producer=producer)
         panel.pack(fill="both", expand=True)
         return panel
     builders["trainlsv_tab"] = build_train_lsv
