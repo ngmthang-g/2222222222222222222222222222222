@@ -1,0 +1,88 @@
+name: S168 Independent Owner Tool Windows — LICENSE-FREE PARTIAL GUI
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "tests/test_s168.py"
+      - "tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py"
+      - ".github/workflows/s168-independent-tool.yml"
+      - "docs/tasks/S168.md"
+  push:
+    paths:
+      - "src/**"
+      - "tests/test_s168.py"
+      - "tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py"
+      - ".github/workflows/s168-independent-tool.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-win64-independent-source-and-exe:
+    runs-on: windows-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - name: Full inherited source tests (old auth branch is archival)
+        run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - name: S86 original source/diagnostic audit
+        run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: New independent entrypoint self-check never contacts TLM license
+        run: python src/TLMToolIndependent.py --self-check
+      - name: REAL Win64 native Tk independent tabs + offline Train config
+        run: python tools/S168_WINDOWS_INDEPENDENT_TOOL_SMOKE.py
+      - name: Historical S167 native Info branch regression
+        run: python tools/S167_WINDOWS_INFO_TRAIN_REVOKE_SMOKE.py
+      - name: Historical S166 real shared HWND ownership
+        run: python tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py
+      - name: Historical S165 real Train config builder
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: Historical S132 genuine Train configuration
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: Historical S163 real Tk Login account rows
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: Historical S35 real Start/Login native builder
+        run: python tools/S35_WINDOWS_E03_REAL_TAB_SMOKE.py
+      - name: Keep old historical TLMTool.py/S36 diagnostic explicitly unchanged
+        shell: pwsh
+        run: |
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s168/legacy_entry.txt
+          if ($LASTEXITCODE -ne 2) { throw "LEGACY_HISTORICAL_GATE_CHANGED" }
+          exit 0
+      - name: Install pinned existing independent packager
+        run: python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Build actual Windows x64 partial INDEPENDENT GUI EXE, no original license
+        run: >
+          python -m PyInstaller
+          --noconfirm --clean --onedir --console --noupx
+          --name S168_TLMTOOL_INDEPENDENT_PARTIAL
+          --distpath artifacts/s168/dist
+          --workpath artifacts/s168/build
+          --specpath artifacts/s168/spec
+          --paths src
+          src/TLMToolIndependent.py
+      - name: Launch packaged independent EXE in static self-check mode
+        shell: pwsh
+        run: |
+          & "artifacts/s168/dist/S168_TLMTOOL_INDEPENDENT_PARTIAL/S168_TLMTOOL_INDEPENDENT_PARTIAL.exe" --self-check
+          if ($LASTEXITCODE -ne 0) { throw "INDEPENDENT_PACKAGED_EXE_BOOTSTRAP_FAILED" }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S168_INDEPENDENT_PARTIAL_WINDOWS_X64_NOT_GAME_PARITY
+          path: |
+            artifacts/s168/dist/S168_TLMTOOL_INDEPENDENT_PARTIAL/
+            artifacts/s168/independent_runtime.json
+            artifacts/s168/legacy_entry.txt
+            artifacts/s167/
+            artifacts/s166/
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+            artifacts/s35/
+          if-no-files-found: warn
