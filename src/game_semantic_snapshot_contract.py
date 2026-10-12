@@ -13,7 +13,7 @@ a version-attested, verified read-only producer actually exists.
 """
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from dataclasses import dataclass
 import math
 import re
@@ -172,10 +172,9 @@ def normalize_semantic_observation(
                 _positive_integer(member.get("MapID"), "MEMBER_MAP_ID",
                                   allow_zero=True),
             ))
-        if leader_id is not None and members and leader_id not in seen_roles:
-            # Team might be partially paginated/AOI-limited: do not invent
-            # a missing leader or guess another member.
-            raise SemanticSnapshotError("LEADER_NOT_IN_COMPLETE_TEAM_MEMBERS")
+        # Team member enumeration may be partial; the frozen client proof
+        # does NOT guarantee the leader is present in this publication.
+        # Keep LeaderID as an observation, never synthesize a leader row.
         team = TeamValues(team_id, leader_id, tuple(members))
     return SemanticGameObservation(
         window.hwnd, window.pid, revision, float(captured_monotonic),
