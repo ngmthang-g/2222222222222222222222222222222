@@ -42,6 +42,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         super().__init__(parent, settings_file=settings_file)
         self._launch_closed = False
         self._launch_poll_token = None
+        self._launch_status_full = ""
         self.launch_controller = IndependentGameLaunchController()
         self.btn_open = tk.Button(
             self.container, text="Mở game",
@@ -50,18 +51,31 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             command=self._request_open_game)
         # F01 original second button x≈157..232, y24..48 relative tab.
         self.btn_open.place(x=157, y=24, width=75, height=24)
+        # Original F01 leaves no dedicated "switch to opened game" button.
+        # Keep native F01 "Mở game" geometry; this additional independent
+        # action is explicitly C03 native HWND foreground, NOT game login.
+        self.btn_activate = tk.Button(
+            self.container, text="Đến game",
+            background="#616161", foreground="white",
+            font=("Segoe UI", 8),
+            state="disabled", command=self._activate_game)
+        self.btn_activate.place(x=340, y=24, width=88, height=24)
         self.lbl_launch_status = tk.Label(
             self.container, text="",
             anchor="w", font=("Segoe UI", 8),
-            foreground="#444444")
-        self.lbl_launch_status.place(x=238, y=24, width=190, height=24)
+            cursor="hand2", foreground="#444444")
+        self.lbl_launch_status.place(x=238, y=24, width=96, height=24)
+        self.lbl_launch_status.bind(
+            "<Button-1>", self._show_full_launch_status, add="+")
         self._refresh_launch_button()
         self._show_launch_status("Chưa mở game; thao tác cần bấm tay")
 
     def _show_launch_status(self, message: str):
         if self._launch_closed or self._closed:
             return
-        self.lbl_launch_status.configure(text=message)
+        self._launch_status_full = message
+        short = message if len(message) <= 19 else message[:17] + "…"
+        self.lbl_launch_status.configure(text=short)
 
     def _refresh_launch_button(self):
         if self._launch_closed or self._closed:
@@ -69,6 +83,44 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         exe = self.get_exe_path()
         ready = exe is not None and not self.launch_controller.busy
         self.btn_open.configure(state="normal" if ready else "disabled")
+        self.btn_activate.configure(
+            state=("normal" if self.launch_controller.can_activate_last_window
+                   and not self.launch_controller.busy else "disabled"))
+
+    def _show_full_launch_status(self, _event=None):
+        """User can inspect the full diagnostic without exposing credentials."""
+        if self._launch_closed or self._closed:
+            return False
+        from tkinter import messagebox
+        messagebox.showinfo(
+            "Trạng thái Mở game", self._launch_status_full,
+            parent=self.container.winfo_toplevel())
+        return True
+
+    def _activate_game(self) -> bool:
+        """S189 click: C03 foreground only for same live PID-owned HWND."""
+        if (self._launch_closed or self._closed
+                or not self.launch_controller.can_activate_last_window
+                or self.launch_controller.busy):
+            return False
+        result = self.launch_controller.activate_last_window()
+        if result.code == "OS_FOREGROUND_ACCEPTED_NOT_LOGIN":
+            self._show_launch_status(
+                f"Đã yêu cầu hiện PID {result.pid}/HWND {result.hwnd}; "
+                "chưa xác minh đã đăng nhập game.")
+        elif result.code == "OS_FOREGROUND_REFUSED":
+            self._show_launch_status(
+                "Windows không cho phép chuyển cửa sổ; không gửi phím chuột.")
+        elif result.code in ("LAUNCHED_PROCESS_EXITED",
+                             "WINDOW_NOT_CURRENT_GAME",
+                             "WINDOW_CHANGED_AFTER_ACTIVATE"):
+            self._show_launch_status(
+                "Cửa sổ game không còn đúng PID/HWND; đã hủy yêu cầu.")
+        else:
+            self._show_launch_status(
+                "Không thể xác minh cửa sổ game để kích hoạt.")
+        self._refresh_launch_button()
+        return result.code == "OS_FOREGROUND_ACCEPTED_NOT_LOGIN"
 
     def _select_game_directory(self) -> bool:
         selected = super()._select_game_directory()
