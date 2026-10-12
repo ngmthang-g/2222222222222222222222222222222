@@ -1,0 +1,86 @@
+name: S165 Train guarded original Tk composition native Win64 NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/source_backed_tab_builders.py"
+      - "tests/test_s165.py"
+      - "tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py"
+      - ".github/workflows/s165-guarded-train-builder.yml"
+  push:
+    paths:
+      - "src/source_backed_tab_builders.py"
+      - "tests/test_s165.py"
+      - "tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py"
+      - ".github/workflows/s165-guarded-train-builder.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s165-true-native-win64-train-builder:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S165 actual Tk lazy Train composition and config writes under TEST-only verification
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: S132 inherited true Train composition HWND/INI runtime
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: S163 inherited Login genuine Tk checked rows
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: S162 inherited native Windows game name count (test owned)
+        run: python tools/S162_WINDOWS_DUAL_GAME_NAME_COUNT_SMOKE.py
+      - name: S161 inherited native emulator protocol fixture (test owned)
+        run: python tools/S161_WINDOWS_F05_ADB_GAME_COUNT_SMOKE.py
+      - name: S160 inherited real native Windows process count
+        run: python tools/S160_WINDOWS_F05_LIVE_EXE_COUNT_SMOKE.py
+      - name: S155 inherited native Party roster
+        run: python tools/S155_WINDOWS_PARTY_READY_LIFECYCLE_SMOKE.py
+      - name: S154 inherited native Party config
+        run: python tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py
+      - name: S151 inherited 100-row native Login wheel
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: S150 inherited native HWND observer
+        run: python tools/S150_WINDOWS_C12_OBSERVER_OWNED_SMOKE.py
+      - name: S146 inherited original hide/show native
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: S26 inherited original max-window preflight
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: S35 inherited E03 native Start/Login registration
+        run: python tools/S35_WINDOWS_E03_REAL_TAB_SMOKE.py
+      - name: Independent original Info signed gate still refuses product
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s165 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s165/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S165_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s165/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S165_INFO_GATE_BYPASS" }
+          Write-Host "S165_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S165_TRAIN_NATIVE_TEST_ONLY_NOT_PRODUCT
+          path: |
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+            artifacts/s162/
+            artifacts/s161/
+            artifacts/s160/
+            artifacts/s155/
+            artifacts/s154/
+            artifacts/s151/
+            artifacts/s150/
+            artifacts/s146/
+            artifacts/s26/
+            artifacts/s35/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
