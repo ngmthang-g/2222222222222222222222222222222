@@ -14,6 +14,7 @@ from pathlib import Path
 from local_feature_policy import LocalFeaturePolicy, LOCAL_TAB_KEYS
 from local_tool_status_tab import LocalToolStatusTab
 from train_lsv_top_tab import TkTrainLsvTopTab
+from rao_definition_tab import TkRaoConfigTab
 from settings_store import settings_path
 from shell import TLMMainApp
 from source_backed_tab_builders import source_backed_tab_builders
