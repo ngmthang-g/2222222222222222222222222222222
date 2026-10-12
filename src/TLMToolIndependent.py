@@ -31,6 +31,10 @@ from independent_character_diagnostic_observer import (
 from independent_character_diagnostic_tabs import (
     TkIndependentPartyCandidateTab, TkIndependentTrainCandidateTab,
 )
+from independent_original_roi_worker import IndependentOriginalRoiWorker
+from independent_original_roi_tabs import (
+    TkIndependentPhoBanRoiTab, TkIndependentDonVangRoiTab,
+)
 from party_group_config import PartyConfigStore
 from single_instance import SingleInstanceMutex
 from startup_diagnostics import StartupDiagnostics
@@ -47,7 +51,8 @@ def count_observed_game_windows(producer: StartWindowProducer) -> int:
 
 def make_independent_builders(settings_file: str | Path,
                               producer: StartWindowProducer,
-                              *, observer: IndependentCharacterDiagnosticObserver | None = None):
+                              *, observer: IndependentCharacterDiagnosticObserver | None = None,
+                              roi_worker: IndependentOriginalRoiWorker | None = None):
     """Register implemented UI only; no original license API is called."""
     if not isinstance(producer, StartWindowProducer):
         raise ValueError("REAL_SHARED_WIN32_PRODUCER_REQUIRED")
@@ -145,7 +150,12 @@ def make_independent_builders(settings_file: str | Path,
     if "donvang_tab" not in LOCAL_TAB_KEYS:
         raise ValueError("MISSING_DON_RETURN_LOCAL_SETTINGS")
     def build_donvang(parent):
-        panel = TkDonReturnTab(parent, settings_file=settings_file)
+        panel = (
+            TkIndependentDonVangRoiTab(
+                parent, settings_file=settings_file,
+                roi_worker=roi_worker, start_producer=producer)
+            if roi_worker is not None else
+            TkDonReturnTab(parent, settings_file=settings_file))
         panel.pack(fill="both", expand=True)
         return panel
     builders["donvang_tab"] = build_donvang
@@ -154,7 +164,12 @@ def make_independent_builders(settings_file: str | Path,
     if "phoban_tab" not in LOCAL_TAB_KEYS:
         raise ValueError("MISSING_PHOBAN_SCHEDULE_LOCAL_CAPABILITY")
     def build_phoban(parent):
-        panel = TkPhoBanScheduleTab(parent, settings_file=settings_file)
+        panel = (
+            TkIndependentPhoBanRoiTab(
+                parent, settings_file=settings_file,
+                roi_worker=roi_worker, start_producer=producer)
+            if roi_worker is not None else
+            TkPhoBanScheduleTab(parent, settings_file=settings_file))
         panel.pack(fill="both", expand=True)
         return panel
     builders["phoban_tab"] = build_phoban
@@ -173,6 +188,8 @@ def run_independent_tool() -> int:
                 producer = IndependentSharedWindowProducer()
                 observer = IndependentCharacterDiagnosticObserver(
                     producer, settings_path())
+                roi_worker = IndependentOriginalRoiWorker(
+                    producer, settings_path())
                 try:
                     if not producer.start():
                         raise RuntimeError("INDEPENDENT_NATIVE_GAME_DISCOVERY_UNAVAILABLE")
@@ -180,7 +197,8 @@ def run_independent_tool() -> int:
                         raise RuntimeError("INDEPENDENT_ORIGINAL_READER_WORKER_UNAVAILABLE")
                     app = TLMMainApp(
                         root, make_independent_builders(
-                            settings_path(), producer, observer=observer),
+                            settings_path(), producer,
+                            observer=observer, roi_worker=roi_worker),
                         independent_mode=True,
                         local_window_count=lambda:count_observed_game_windows(producer))
                     app.position_window_top_right()
@@ -191,6 +209,7 @@ def run_independent_tool() -> int:
                         if 'app' in locals():
                             app.shutdown()
                     finally:
+                        roi_worker.shutdown()
                         observer.shutdown()
                         producer.shutdown()
                         try:root.destroy()
