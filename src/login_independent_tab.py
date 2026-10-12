@@ -19,6 +19,7 @@ from login_independent_game_launcher import (
 )
 from login_tab import TLMLoginPathTab
 from login_original_reader_probe_worker import OriginalReaderWorker
+from login_independent_f06_pixel_worker import IndependentOriginalF06PixelWorker
 from start_polling import StartWindowProducer, WindowSnapshot
 from tlm_existing_game_reader import ExistingGameOriginalReader
 from tlm_existing_game_reader_worker import ExistingOriginalReaderWorker
@@ -71,6 +72,11 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             "Chưa kiểm tra bộ đọc TLM gốc trên tiến trình game.")
         self._start_producer = start_producer
         self._candidate_observer = candidate_observer
+        self._f06_pixels = (
+            IndependentOriginalF06PixelWorker(start_producer)
+            if isinstance(start_producer, StartWindowProducer) else None)
+        self._f06_pixel_status = (
+            "Chưa quan sát màn hình bằng RGB gốc của TLM 2.1.2.")
         self._existing_selected_game_exe = self.get_exe_path()
         self._existing_reader = (
             ExistingGameOriginalReader(
@@ -174,6 +180,41 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                    and not self.launch_controller.busy
                    else "disabled"),
             command=self._request_original_reader)
+        if self._f06_pixels is not None:
+            source = self._start_producer.read_snapshot()
+            candidates = (
+                source.windows if type(source) is WindowSnapshot
+                and source.valid and self._start_producer.active else ())
+            pixels = tk.Menu(menu, tearoff=0)
+            if not candidates or self.get_exe_path() is None:
+                pixels.add_command(
+                    label="Chưa có game thật và F04 hợp lệ",
+                    state="disabled")
+            elif self._f06_pixels.busy:
+                pixels.add_command(
+                    label="Đang chụp màn hình game...", state="disabled")
+            else:
+                for win in candidates[:10]:
+                    stages = tk.Menu(pixels, tearoff=0)
+                    for stage, label in (
+                        ("form", "Màn hình tài khoản / mật khẩu"),
+                        ("update", "Popup cập nhật"),
+                        ("enter_game", "Nút Vào trò chơi"),
+                        ("active", "Đã vào giao diện game (ảnh)"),
+                    ):
+                        stages.add_command(
+                            label=label,
+                            command=lambda w=win, t=stage:
+                                self._request_compiled_f06_pixel(w, t))
+                    pixels.add_cascade(
+                        label=f"PID {win.pid} / HWND {win.hwnd}", menu=stages)
+                if len(candidates) > 10:
+                    pixels.add_command(
+                        label="Các cửa sổ khác: xem tab Start",
+                        state="disabled")
+            menu.add_cascade(
+                label="Kiểm tra RGB Login TLM gốc (chỉ đọc)",
+                menu=pixels)
         if self._existing_probe is not None:
             sub = tk.Menu(menu, tearoff=0)
             observed = self._start_producer.read_snapshot()
@@ -230,9 +271,47 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             + self._fingerprint_status
             + "\n\nĐọc bộ nhớ TLM gốc: "
             + self._original_reader_status
-            + "\n\nGame mở sẵn: " + self._existing_probe_status,
+            + "\n\nGame mở sẵn: " + self._existing_probe_status
+            + "\n\nẢnh F06 TLM gốc: " + self._f06_pixel_status,
             parent=self.container.winfo_toplevel())
         return True
+
+    def _request_compiled_f06_pixel(self, window, stage) -> bool:
+        """Explicit read-only S203 native PrintWindow, no credentials."""
+        if (self._launch_closed or self._closed
+                or self._f06_pixels is None):
+            return False
+        selected = self.get_exe_path()
+        if selected is None:
+            self._f06_pixel_status = "Chưa chọn thư mục client game."
+            return False
+        if not self._f06_pixels.request(window, selected, stage):
+            return False
+        self._f06_pixel_status = (
+            f"Đang so RGB TLM gốc cho PID {window.pid}, "
+            f"HWND {window.hwnd}, màn hình {stage}...")
+        self._schedule_launch_poll()
+        return True
+
+    def _accept_compiled_f06_pixel(self, exe, result):
+        if self._launch_closed or self._closed:
+            return
+        current = self.get_exe_path()
+        snap = self._start_producer.read_snapshot()
+        if (current is None or str(current) != exe
+                or type(snap) is not WindowSnapshot or not snap.valid
+                or not any(w.hwnd == result.hwnd and w.pid == result.pid
+                           for w in snap.windows)):
+            self._f06_pixel_status = (
+                "Đã đổi game hoặc HWND/PID; không nhận kết quả ảnh cũ.")
+            return
+        detail = ", ".join(result.matched_keys) or "không khớp"
+        self._f06_pixel_status = (
+            f"PID {result.pid}: {result.code}; điểm RGB: {detail}. "
+            "Chỉ là nhận diện hình ảnh, KHÔNG chứng minh đăng nhập.")
+        self._show_launch_status(
+            f"Kiểm tra ảnh F06 {result.stage}: {result.code}."
+            " Xem trạng thái đầy đủ.")
 
     def _request_existing_game_probe(self, window) -> bool:
         if (self._launch_closed or self._closed
@@ -393,6 +472,10 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                 self._candidate_observer.invalidate()
             self._client_fingerprint.invalidate()
             self._original_reader.invalidate()
+            if self._f06_pixels is not None:
+                self._f06_pixels.invalidate()
+                self._f06_pixel_status = (
+                    "Game mới: ảnh F06 TLM gốc chưa kiểm tra.")
             if self._existing_probe is not None:
                 self._existing_probe.invalidate()
                 self._existing_selected_game_exe = self.get_exe_path()
@@ -441,6 +524,9 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             self._accept_fingerprint(fingerprint)
         for checked in self._original_reader.drain():
             self._accept_original_reader(checked)
+        if self._f06_pixels is not None:
+            for exe, outcome in self._f06_pixels.drain():
+                self._accept_compiled_f06_pixel(exe, outcome)
         if self._existing_probe is not None:
             for result in self._existing_probe.drain():
                 self._accept_existing_game_probe(result)
@@ -453,6 +539,8 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         if (self.launch_controller.busy
                 or self._client_fingerprint.busy
                 or self._original_reader.busy
+                or (self._f06_pixels is not None
+                    and self._f06_pixels.busy)
                 or (self._existing_probe is not None
                     and self._existing_probe.busy)
                 or self.launch_controller.list_owned_windows()):
@@ -508,6 +596,8 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                 self.container.after_cancel(token)
             except tk.TclError:
                 pass
+        if self._f06_pixels is not None:
+            self._f06_pixels.shutdown()
         if self._existing_probe is not None:
             self._existing_probe.shutdown()
         self._original_reader.shutdown()
