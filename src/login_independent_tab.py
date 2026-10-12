@@ -13,7 +13,6 @@ from __future__ import annotations
 
 from pathlib import Path
 import tkinter as tk
-from tkinter import ttk
 
 from login_independent_game_launcher import (
     IndependentGameLaunchController, IndependentLaunchResult,
@@ -68,20 +67,11 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             anchor="w", font=("Segoe UI", 8),
             cursor="hand2", foreground="#444444")
         self.lbl_launch_status.place(x=238, y=24, width=96, height=24)
+        # S191: click status to choose from real own-launched PID/HWNDs.
+        # Keep original F04 path label at y54..72 completely unobstructed.
+        # Popup menu rows are NOT RoleName or authenticated game accounts.
         self.lbl_launch_status.bind(
-            "<Button-1>", self._show_full_launch_status, add="+")
-        # S191: every row is a real Popen-created process+verified HWND.
-        # This is NOT a RoleName, online account or a client-data row.
-        tk.Label(
-            self.container, text="Cửa sổ game:", anchor="w",
-            font=("Segoe UI", 9)).place(x=6, y=56, width=110, height=23)
-        self._owned_game_var = tk.StringVar(master=self.container, value="")
-        self._owned_game_combo = ttk.Combobox(
-            self.container, textvariable=self._owned_game_var,
-            state="disabled", values=(), width=26)
-        self._owned_game_combo.place(x=119, y=56, width=213, height=23)
-        self._owned_game_combo.bind(
-            "<<ComboboxSelected>>", self._select_owned_game, add="+")
+            "<Button-1>", self._show_owned_games_menu, add="+")
         self._refresh_launch_button()
         self._show_launch_status("Chưa mở game; thao tác cần bấm tay")
 
@@ -104,39 +94,51 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                    and not self.launch_controller.busy else "disabled"))
 
     def _refresh_owned_games(self):
-        """Render *only* live own-created Win32 PID/HWND pairs, no fake acc."""
+        """Track real own-created process HWNDs without rewriting login UI."""
         rows = self.launch_controller.list_owned_windows()
-        names = {
-            f"PID {r.pid} | HWND {r.hwnd}": r.pid for r in rows
+        options = {
+            f"PID {row.pid} | HWND {row.hwnd}": row.pid for row in rows
         }
         chosen = self._selected_game_pid
-        if chosen not in names.values():
+        if chosen not in options.values():
             chosen = rows[-1].pid if rows else None
         self._selected_game_pid = chosen
-        self._owned_selection_map = names
-        labels = tuple(names)
-        if tuple(self._owned_game_combo.cget("values")) != labels:
-            self._owned_game_combo.configure(values=labels)
-        if chosen is None:
-            selected_label = ""
-        else:
-            selected_label = next(
-                (title for title, pid in names.items() if pid == chosen), "")
-        if self._owned_game_var.get() != selected_label:
-            self._owned_game_var.set(selected_label)
-        self._owned_game_combo.configure(
-            state="readonly" if labels else "disabled")
+        self._owned_selection_map = options
 
-    def _select_owned_game(self, _event=None):
-        if self._launch_closed or self._closed:
-            return
-        pid = self._owned_selection_map.get(self._owned_game_var.get())
-        if pid is None:
-            # Unexpected manual Tk variable changes are NOT a new game.
-            self._refresh_owned_games()
+    def _choose_owned_pid(self, pid: int):
+        if self._launch_closed or self._closed or pid not in self._owned_selection_map.values():
             return
         self._selected_game_pid = pid
+        self._show_launch_status(
+            f"Đã chọn PID {pid} (cửa sổ đã được nhận diện lúc mở); "
+            "bấm Đến game để kiểm tra HWND thật trước khi chuyển cửa sổ.")
         self._refresh_launch_button()
+
+    def _show_owned_games_menu(self, event=None):
+        if self._launch_closed or self._closed:
+            return
+        self._refresh_owned_games()
+        menu = tk.Menu(self.container, tearoff=0)
+        menu.add_command(
+            label="Xem trạng thái đầy đủ...",
+            command=self._show_full_launch_status)
+        if self._owned_selection_map:
+            menu.add_separator()
+            for label, pid in self._owned_selection_map.items():
+                selected = "✓ " if pid == self._selected_game_pid else "  "
+                menu.add_command(
+                    label=selected + label,
+                    command=lambda n=pid: self._choose_owned_pid(n))
+        else:
+            menu.add_separator()
+            menu.add_command(
+                label="Chưa có PID/HWND do tool mở", state="disabled")
+        try:
+            x = event.x_root if event is not None else self.lbl_launch_status.winfo_rootx()
+            y = event.y_root if event is not None else self.lbl_launch_status.winfo_rooty()
+            menu.tk_popup(x, y)
+        finally:
+            menu.grab_release()
 
     def _show_full_launch_status(self, _event=None):
         """User can inspect the full diagnostic without exposing credentials."""
