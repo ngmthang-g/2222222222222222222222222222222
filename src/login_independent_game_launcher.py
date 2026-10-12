@@ -24,6 +24,9 @@ from login_path import EXE_NAME
 from login_pid_window import find_main_window_by_pid
 from login_running_process_capacity import count_current_game_processes
 from login_safe_env import WINDOWS_ESSENTIAL_CANDIDATES
+from login_independent_window_activation import (
+    IndependentActivationResult, activate_verified_launched_game,
+)
 
 LOCAL_HWND_TIMEOUT_SECONDS = 25.0
 LOCAL_POLL_QUANTUM_SECONDS = 0.25
@@ -104,6 +107,10 @@ class IndependentGameLaunchController:
         self._lock = threading.Lock()
         self._worker: threading.Thread | None = None
         self._results: Queue[IndependentLaunchResult] = Queue(maxsize=8)
+        # Retain actual Popen handle; a naked PID/HWND is insufficient proof
+        # after a process exits and Windows recycles numeric identifiers.
+        self._owned_process = None
+        self._owned_verified_hwnd = None
 
     def start(self, executable: str | Path) -> bool:
         if os.name != "nt":
@@ -119,6 +126,8 @@ class IndependentGameLaunchController:
                 self._post(IndependentLaunchResult("INVALID_GAME_OR_ENV"))
                 return False
             self._stop.clear()
+            self._owned_process = None
+            self._owned_verified_hwnd = None
             self._worker = threading.Thread(
                 target=self._launch_once, args=(game, env),
                 name="TLM-Independent-Explicit-Game-Start", daemon=True,
@@ -171,6 +180,9 @@ class IndependentGameLaunchController:
             self._post(IndependentLaunchResult(
                 "INVALID_CREATED_PID", running_game_count_before=count))
             return
+        with self._lock:
+            if not self._closed:
+                self._owned_process = process
         deadline = self._clock() + LOCAL_HWND_TIMEOUT_SECONDS
         while not self._stop.is_set():
             if process.poll() is not None:
@@ -183,6 +195,13 @@ class IndependentGameLaunchController:
             except (OSError, RuntimeError, ValueError, TypeError):
                 hwnd = None
             if type(hwnd) is int and hwnd > 0:
+                # Keep the genuine live process handle with its observed
+                # hwnd. This does NOT establish game login or RoleName.
+                with self._lock:
+                    if (not self._closed and not self._stop.is_set()
+                            and self._owned_process is process
+                            and process.poll() is None):
+                        self._owned_verified_hwnd = hwnd
                 self._post(IndependentLaunchResult(
                     "WINDOW_VERIFIED", pid, hwnd,
                     running_game_count_before=count))
@@ -196,6 +215,35 @@ class IndependentGameLaunchController:
             self._stop.wait(min(LOCAL_POLL_QUANTUM_SECONDS, remaining))
         self._post(IndependentLaunchResult(
             "CANCELLED_AFTER_START", pid, running_game_count_before=count))
+
+    @property
+    def can_activate_last_window(self) -> bool:
+        with self._lock:
+            proc = self._owned_process
+            hwnd = self._owned_verified_hwnd
+            if self._closed or proc is None or hwnd is None:
+                return False
+        try:
+            return proc.poll() is None
+        except (OSError, RuntimeError, ValueError):
+            return False
+
+    def activate_last_window(self) -> IndependentActivationResult:
+        """A user-click-only real native C03 action; never auto-focus."""
+        with self._lock:
+            proc = self._owned_process
+            hwnd = self._owned_verified_hwnd
+            if self._closed or proc is None or hwnd is None:
+                return IndependentActivationResult(
+                    "NO_VERIFIED_LAUNCHED_WINDOW")
+        result = activate_verified_launched_game(proc, hwnd)
+        if result.code in (
+                "LAUNCHED_PROCESS_EXITED", "WINDOW_NOT_CURRENT_GAME",
+                "WINDOW_CHANGED_AFTER_ACTIVATE", "LAUNCHED_PROCESS_UNVERIFIED"):
+            with self._lock:
+                if self._owned_process is proc and self._owned_verified_hwnd == hwnd:
+                    self._owned_verified_hwnd = None
+        return result
 
     @property
     def busy(self):
@@ -215,4 +263,7 @@ class IndependentGameLaunchController:
         with self._lock:
             self._closed = True
             self._stop.set()
+            # Closing references is NOT terminating/killing the game.
+            self._owned_process = None
+            self._owned_verified_hwnd = None
         # No join/block of Tk and importantly NO process.kill/terminate.
