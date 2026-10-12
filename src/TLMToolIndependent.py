@@ -101,6 +101,15 @@ def make_independent_builders(settings_file: str | Path,
         panel.pack(fill="both", expand=True)
         return panel
     builders["donvang_tab"] = build_donvang
+    # Stage J / S184: genuine local Phó Bản group/schedule editor only.
+    # The original dungeon/game worker and verified RoleName are not present.
+    if "phoban_tab" not in LOCAL_TAB_KEYS:
+        raise ValueError("MISSING_PHOBAN_SCHEDULE_LOCAL_CAPABILITY")
+    def build_phoban(parent):
+        panel = TkPhoBanScheduleTab(parent, settings_file=settings_file)
+        panel.pack(fill="both", expand=True)
+        return panel
+    builders["phoban_tab"] = build_phoban
     return builders
 
 
