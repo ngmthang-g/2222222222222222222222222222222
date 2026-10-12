@@ -109,11 +109,11 @@ def load_f06_pixel_references(
     if not isinstance(file, (str, Path)) or not isinstance(
             selected_executable, (str, Path)):
         return error("F06_EXPLICIT_FILE_AND_CLIENT_REQUIRED")
-    path, exe = Path(file), Path(selected_executable)
-    if (not path.is_file() or path.is_symlink()
-            or path.stat().st_size > MAX_REFERENCE_JSON_BYTES):
-        return error("F06_REFERENCE_FILE_UNAVAILABLE_OR_UNSAFE")
     try:
+        path, exe = Path(file), Path(selected_executable)
+        if (not path.is_file() or path.is_symlink()
+                or path.stat().st_size > MAX_REFERENCE_JSON_BYTES):
+            return error("F06_REFERENCE_FILE_UNAVAILABLE_OR_UNSAFE")
         with path.open("rb") as stream:
             data = stream.read(MAX_REFERENCE_JSON_BYTES + 1)
         if not data or len(data) > MAX_REFERENCE_JSON_BYTES:
