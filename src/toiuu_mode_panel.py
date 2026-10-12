@@ -22,7 +22,6 @@ class TkToiuuModeSelectionPanel(ttk.Frame):
         self.state = ToiuuSelectionState()
         self._closed = False
         self._drawing = False
-        self._main_thread = self.tk.call("thread", "id") if False else None
         self._buttons = []
         actions = ttk.Frame(self)
         actions.pack(fill="x", padx=4, pady=(3, 5))
