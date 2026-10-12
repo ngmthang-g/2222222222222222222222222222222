@@ -11,6 +11,7 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
 
+from phoban_modes_panel import TkPhoBanModesPanel
 from phoban_schedule_settings import (
     ACTIVITIES, PHOBAN_NAMES, TRAIN_NAMES,
     PhoBanConfig, PhoBanConfigError, PhoBanConfigStore,
@@ -40,6 +41,12 @@ class TkPhoBanScheduleTab(ttk.Frame):
             team, text=("Danh sách acc sẵn sàng: "
                         "Chưa có RoleName thật đã xác minh"),
             wraplength=410).pack(anchor="w", padx=6, pady=5)
+        # S185: exact original persisted checkbox modes. No game workers.
+        self.modes_panel = TkPhoBanModesPanel(
+            self, settings_file=settings_file,
+            on_saved=self._sync_after_mode_save)
+        self.modes_panel.pack(fill="x")
+
         ttk.Label(
             self, text=("Lịch trình và cấu hình nhóm được lưu thực tế. "
                         "Không tạo/điều khiển đội, đánh quái hoặc chạy Phó Bản "
@@ -107,6 +114,7 @@ class TkPhoBanScheduleTab(ttk.Frame):
             self._render()
             return False
         self.last_error = None
+        self.modes_panel.sync_after_other_save()
         self._render()
         self._message("Đã lưu nhóm/lịch trình Phó Bản vào settings.ini")
         return True
@@ -254,7 +262,26 @@ class TkPhoBanScheduleTab(ttk.Frame):
             return False
         return self._save(cfg)
 
+    def _sync_after_mode_save(self) -> bool:
+        """A checkbox's single-key write refreshes schedule's file snapshot."""
+        if self._closed:
+            return False
+        try:
+            snapshot = self.store.load()
+        except (PhoBanConfigError, OSError, ValueError) as exc:
+            self.last_error = str(exc)
+            self._blocked = True
+            self._render()
+            self._message("Cấu hình Phó Bản không an toàn, mở lại tab")
+            return False
+        self.snapshot = snapshot
+        self._blocked = snapshot.legacy_only
+        return True
+
     def shutdown(self):
+        if self._closed:
+            return
+        self.modes_panel.shutdown()
         self._closed=True
 
     def _on_destroy(self, event):
