@@ -161,9 +161,8 @@ class S173BuffUpdate(unittest.TestCase):
             minutes="8",seconds="9")
         backups=list(self.path.parent.glob("settings.*.ini"))
         self.assertEqual(len(backups),1)
-        # Daily backup originates at first append, as in S171.
-        self.assertEqual(backups[0].read_bytes(),b"" if not backups[0].read_bytes()
-                         else backups[0].read_bytes())
+        # Update creates the first backup because append created a new file.
+        self.assertEqual(backups[0].read_bytes(),before.file_bytes)
 
     def test_13_stale_duplicate_index_fails_closed(self):
         self.put(b"[TrainLSV]\nbuff_1 = False|1|0|5\nBUFF_01 = True|F1|1|0\n")
