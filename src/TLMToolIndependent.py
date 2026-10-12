@@ -91,6 +91,15 @@ def make_independent_builders(settings_file: str | Path,
         panel.pack(fill="both", expand=True)
         return panel
     builders["daily_tab"] = build_daily
+    # L02/L03 / S181: genuine local DonVang return/priority configuration.
+    # No donor/receiver/game actions or fabricated character identity.
+    if "donvang_tab" not in LOCAL_TAB_KEYS:
+        raise ValueError("MISSING_DON_RETURN_LOCAL_SETTINGS")
+    def build_donvang(parent):
+        panel = TkDonReturnTab(parent, settings_file=settings_file)
+        panel.pack(fill="both", expand=True)
+        return panel
+    builders["donvang_tab"] = build_donvang
     return builders
 
 
