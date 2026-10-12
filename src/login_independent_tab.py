@@ -30,6 +30,8 @@ RESULT_TEXT = {
     "PROCESS_EXITED_BEFORE_WINDOW": "Game đã thoát trước khi có cửa sổ.",
     "CANCELLED_AFTER_START": "Tool dừng theo dõi; tiến trình game không bị đóng.",
     "STARTED_NO_WINDOW_YET": "Đã tạo PID nhưng chưa xác minh được cửa sổ game.",
+    "PID_WINDOW_NOT_VERIFIED_AS_GAME": (
+        "Có cửa sổ thuộc PID nhưng không xác minh được đó là game thật."),
     "WORKER_START_FAILED": "Không khởi động được tác vụ mở game.",
     "HWND_CHECK_FAILED": "Không xác minh được cửa sổ game.",
 }
