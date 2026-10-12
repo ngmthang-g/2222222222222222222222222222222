@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-LOCAL_TAB_KEYS = frozenset({"info_tab", "start_tab", "login_tab", "party_tab", "farm_tab", "trainlsv_tab", "rao_tab"})
+LOCAL_TAB_KEYS = frozenset({"info_tab", "start_tab", "login_tab", "party_tab", "farm_tab", "trainlsv_tab", "rao_tab", "toiuu_tab"})
 
 
 @dataclass(frozen=True)
