@@ -6,6 +6,7 @@ The real signed Info verifier is STILL absent; production fails closed.
 from __future__ import annotations
 
 from permission_guard import PermissionGuard
+from local_feature_policy import LocalFeaturePolicy
 from start_windows import GameWindow, NativeWin32Backend
 
 
@@ -22,18 +23,21 @@ class TrainRowPermissionGate:
         if (type(window) is not GameWindow
                 or type(window.hwnd) is not int or window.hwnd <= 0
                 or type(window.pid) is not int or window.pid <= 0
-                or not isinstance(self.guard, PermissionGuard)
+                or not isinstance(self.guard, (PermissionGuard, LocalFeaturePolicy))
                 or not callable(self.running_count)):
-            return False
-        snap = self.guard.snapshot
-        if not snap.has_verified_payload or snap.blocked:
             return False
         try:
             running = self.running_count()
             if type(running) is not int or running <= 0:
                 return False
-            if not self.guard.has_permission_with_limit("farm_tab", running):
-                return False
+            if isinstance(self.guard, LocalFeaturePolicy):
+                if not self.guard.window_observation_allowed("farm_tab",running):
+                    return False
+            else:
+                snap = self.guard.snapshot
+                if (not snap.has_verified_payload or snap.blocked
+                        or not self.guard.has_permission_with_limit("farm_tab",running)):
+                    return False
             backend = self.backend_factory()
             if not backend.is_window(window.hwnd):
                 return False
