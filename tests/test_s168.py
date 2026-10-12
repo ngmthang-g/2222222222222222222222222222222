@@ -96,7 +96,7 @@ class S168Independent(unittest.TestCase):
         producer=StartWindowProducer()
         with tempfile.TemporaryDirectory() as directory:
             b=independent.make_independent_builders(Path(directory)/"settings.ini",producer)
-        self.assertEqual(frozenset(b),SOURCE_BACKED_KEYS|frozenset({"farm_tab"}))
+        self.assertEqual(frozenset(b),SOURCE_BACKED_KEYS|frozenset({"farm_tab", "trainlsv_tab"}))
         self.assertNotIn("proxy_tab",b)
         self.assertEqual(independent.count_observed_game_windows(producer),0)
 

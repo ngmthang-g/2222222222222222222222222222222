@@ -13,6 +13,7 @@ from pathlib import Path
 
 from local_feature_policy import LocalFeaturePolicy, LOCAL_TAB_KEYS
 from local_tool_status_tab import LocalToolStatusTab
+from train_lsv_top_tab import TkTrainLsvTopTab
 from settings_store import settings_path
 from shell import TLMMainApp
 from source_backed_tab_builders import source_backed_tab_builders
@@ -37,7 +38,7 @@ def make_independent_builders(settings_file: str | Path,
         raise ValueError("REAL_SHARED_WIN32_PRODUCER_REQUIRED")
     policy = LocalFeaturePolicy(frozenset({"farm_tab"}))
     count = lambda: count_observed_game_windows(producer)
-    return source_backed_tab_builders(
+    builders = source_backed_tab_builders(
         lambda parent: LocalToolStatusTab(parent),
         settings_file=settings_file,
         start_producer=producer,
@@ -47,6 +48,16 @@ def make_independent_builders(settings_file: str | Path,
         # appear in read-only Train rows; no guessed RoleName or game sender.
         train_allow_account=lambda window: True,
     )
+    # S169: real TrainLSV [TrainLSV] config is a dedicated, non-game tab;
+    # do not add it to historical Info-gated builders or pretend FSM exists.
+    if "trainlsv_tab" not in LOCAL_TAB_KEYS:
+        raise ValueError("MISSING_IMPLEMENTED_LSV_LOCAL_CAPABILITY")
+    def build_train_lsv(parent):
+        panel = TkTrainLsvTopTab(parent, settings_file=settings_file)
+        panel.pack(fill="both", expand=True)
+        return panel
+    builders["trainlsv_tab"] = build_train_lsv
+    return builders
 
 
 def run_independent_tool() -> int:

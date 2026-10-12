@@ -17,7 +17,7 @@ class LocalToolStatusTab(ttk.Frame):
                   text="Không sử dụng cơ chế cấp/thu hồi bản quyền của TLM gốc.",
                   wraplength=410).pack(anchor="w", padx=10, pady=4)
         ttk.Label(self,
-                  text="Các tab có module thật: ▶, Login, Party, Train (cấu hình).",
+                  text="Các tab có module thật: ▶, Login, Party, Train và Train LSV (cấu hình).",
                   wraplength=410).pack(anchor="w", padx=10, pady=4)
         ttk.Label(self,
                   text="Chưa hoàn thiện điều khiển game, xác thực phiên game và nhiều tab khác.",
