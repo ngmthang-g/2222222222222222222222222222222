@@ -253,6 +253,28 @@ class TLMMainApp:
             setter = getattr(instance, 'set_layout_max_windows', None)
             if callable(setter):
                 setter(self._verified_max_windows)
+            # S167: Info heartbeat changes must reach an ALREADY-BUILT
+            # Train owner immediately, even if the visible tab key stays
+            # the same. Revoked/suspended rights teardown real account rows
+            # and disable existing config widgets on the Tk thread.
+            # Never construct a Train tab, create a token or grant access.
+            train = (lifecycle._instances.get('farm_tab')
+                     if lifecycle is not None else None)
+            refresh_train = getattr(train, 'reapply_permissions', None)
+            if callable(refresh_train):
+                allowed_train = refresh_train()
+                # E03 tracks the selected key, but S166's native worker can
+                # stop on revocation while the page remains selected. Resume
+                # only after BOTH the new Info snapshot and existing Train
+                # PermissionGuard independently allow the selected view.
+                if (allowed_train
+                        and snapshot.has_verified_payload and not snapshot.blocked
+                        and 'farm_tab' in snapshot.authorized_keys
+                        and lifecycle.current == 'farm_tab'
+                        and not getattr(train, '_readonly_refresh_requested', False)):
+                    resume = getattr(train, '_start_refresh', None)
+                    if callable(resume):
+                        resume()
 
         self.root.after(0, update_on_tk_thread)
 
