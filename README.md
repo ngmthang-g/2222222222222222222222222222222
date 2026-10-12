@@ -16,9 +16,9 @@ python src/TLMToolIndependent.py
 python src/TLMToolIndependent.py --self-check
 ```
 
-Bản Windows **mới nhất S170** được đóng gói tại [GitHub Actions S170](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38193310989), artifact [`S170_INDEPENDENT_TRAIN_LSV_COORDS_PARTIAL_WINDOWS_X64_NOT_GAME`](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38193310989/artifacts/11721844463), có `S170_TLMTOOL_INDEPENDENT_COORDS_PARTIAL.exe` và các thư viện trong cùng thư mục. **Giữ nguyên toàn bộ thư mục**; đừng chép riêng EXE.
+Bản Windows **mới nhất S171** được đóng gói tại [GitHub Actions S171](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38194041101), artifact [`S171_INDEPENDENT_TRAIN_LSV_MANUAL_BUFF_PARTIAL_WIN64_NO_GAME`](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38194041101/artifacts/11722951560), có `S171_TLMTOOL_INDEPENDENT_BUFF_PARTIAL.exe` và các thư viện trong cùng thư mục. **Giữ nguyên toàn bộ thư mục**; đừng chép riêng EXE.
 
-Các tab source-backed đang có: **▶ Start, Login, Party, Train (cấu hình/quan sát read-only một phần), Train LSV (checkbox, radio, thêm/sửa/xóa tọa độ + lưu INI thật), Thông tin độc lập**. Tab chưa có điều khiển game thật được giữ ẩn. Tab hiển thị theo module đã được triển khai, **không theo giấy phép TLM gốc**.
+Các tab source-backed đang có: **▶ Start, Login, Party, Train (cấu hình/quan sát read-only một phần), Train LSV (checkbox, radio, thêm/sửa/xóa tọa độ và **lưu lịch buff thủ công** + lưu INI thật; các dòng buff cũ được bảo vệ), Thông tin độc lập**. Tab chưa có điều khiển game thật được giữ ẩn. Tab hiển thị theo module đã được triển khai, **không theo giấy phép TLM gốc**.
 
 Chế độ độc lập dùng `src/local_feature_policy.py`, `src/local_tool_status_tab.py`, `src/TLMToolIndependent.py`; các mục Train offline sử dụng source đã xây dựng tại S132/S165/S166/S167 và không chờ Info issuer. Vẫn kiểm tra HWND/PID, thao tác file an toàn, thread teardown và giới hạn của giao diện đang có.
 
@@ -30,6 +30,8 @@ Chế độ độc lập dùng `src/local_feature_policy.py`, `src/local_tool_st
 
 ## Giới hạn hiện tại
 
-**S170 là source + GUI/EXE Windows chạy độc lập ở mức MỘT PHẦN, không phải bản TLM 2.1.2 hoàn chỉnh.** Hoạt động gameplay (Train tự động, bán đồ, Phó Bản, Daily, Train LSV điều khiển game...) và parity với game thực còn thiếu/chưa kiểm chứng. Không có nút điều khiển game giả; không patch/inject/sửa TLM gốc hay gọi máy chủ bản quyền của bên thứ ba. DATA-2222 là nguồn CHỈ ĐỌC; Proxy không phát triển.
+**Dạ Minh Châu:** chưa xác minh số thứ tự `buff_*` của dòng cố định. S171 chỉ cho lưu các dòng buff mới và không sửa/xóa dòng cũ; sau khi mở lại tool, các dòng đã lưu được bảo vệ. Chưa có chức năng tự gửi phím vào game.
 
-**Kết quả S170:** [Windows CI 2595/2595 + native Train LSV Tk/INI tọa độ/HWND + independent partial EXE artifact](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38193310989); Stage S và S36 diagnostic độc lập đều PASS. Trước mỗi CONTINUE, đọc PLAN và STATE, không dựng lại license/Info gốc trong tool mới.
+**S171 là source + GUI/EXE Windows chạy độc lập ở mức MỘT PHẦN, không phải bản TLM 2.1.2 hoàn chỉnh.** Hoạt động gameplay (Train tự động, bán đồ, Phó Bản, Daily, Train LSV điều khiển game...) và parity với game thực còn thiếu/chưa kiểm chứng. Không có nút điều khiển game giả; không patch/inject/sửa TLM gốc hay gọi máy chủ bản quyền của bên thứ ba. DATA-2222 là nguồn CHỈ ĐỌC; Proxy không phát triển.
+
+**Kết quả S171:** [Windows CI 2614/2614 + native Train LSV buff/INI/HWND + independent partial EXE artifact](https://github.com/ngmthang-g/2222222222222222222222222222222222222/actions/runs/38194041101); Stage S và S36 diagnostic độc lập đều PASS. Trước mỗi CONTINUE, đọc PLAN và STATE, không dựng lại license/Info gốc trong tool mới.
