@@ -16,9 +16,9 @@ python src/TLMToolIndependent.py
 python src/TLMToolIndependent.py --self-check
 ```
 
-Bản Windows **mới nhất S169** được đóng gói tại [GitHub Actions S169](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38192063711), artifact [`S169_INDEPENDENT_TRAIN_LSV_CONFIG_PARTIAL_WINDOWS_X64_NOT_GAME`](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38192063711/artifacts/11722010891), có `S169_TLMTOOL_INDEPENDENT_LSV_PARTIAL.exe` và các thư viện trong cùng thư mục. **Giữ nguyên toàn bộ thư mục**; đừng chép riêng EXE.
+Bản Windows **mới nhất S170** được đóng gói tại [GitHub Actions S170](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38193310989), artifact [`S170_INDEPENDENT_TRAIN_LSV_COORDS_PARTIAL_WINDOWS_X64_NOT_GAME`](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38193310989/artifacts/11721844463), có `S170_TLMTOOL_INDEPENDENT_COORDS_PARTIAL.exe` và các thư viện trong cùng thư mục. **Giữ nguyên toàn bộ thư mục**; đừng chép riêng EXE.
 
-Các tab source-backed đang có: **▶ Start, Login, Party, Train (cấu hình/quan sát read-only một phần), Train LSV (cấu hình checkbox + radio + lưu INI thật), Thông tin độc lập**. Tab chưa có điều khiển game thật được giữ ẩn. Tab hiển thị theo module đã được triển khai, **không theo giấy phép TLM gốc**.
+Các tab source-backed đang có: **▶ Start, Login, Party, Train (cấu hình/quan sát read-only một phần), Train LSV (checkbox, radio, thêm/sửa/xóa tọa độ + lưu INI thật), Thông tin độc lập**. Tab chưa có điều khiển game thật được giữ ẩn. Tab hiển thị theo module đã được triển khai, **không theo giấy phép TLM gốc**.
 
 Chế độ độc lập dùng `src/local_feature_policy.py`, `src/local_tool_status_tab.py`, `src/TLMToolIndependent.py`; các mục Train offline sử dụng source đã xây dựng tại S132/S165/S166/S167 và không chờ Info issuer. Vẫn kiểm tra HWND/PID, thao tác file an toàn, thread teardown và giới hạn của giao diện đang có.
 
@@ -30,6 +30,6 @@ Chế độ độc lập dùng `src/local_feature_policy.py`, `src/local_tool_st
 
 ## Giới hạn hiện tại
 
-**S169 là source + GUI/EXE Windows chạy độc lập ở mức MỘT PHẦN, không phải bản TLM 2.1.2 hoàn chỉnh.** Hoạt động gameplay (Train tự động, bán đồ, Phó Bản, Daily, Train LSV điều khiển game...) và parity với game thực còn thiếu/chưa kiểm chứng. Không có nút điều khiển game giả; không patch/inject/sửa TLM gốc hay gọi máy chủ bản quyền của bên thứ ba. DATA-2222 là nguồn CHỈ ĐỌC; Proxy không phát triển.
+**S170 là source + GUI/EXE Windows chạy độc lập ở mức MỘT PHẦN, không phải bản TLM 2.1.2 hoàn chỉnh.** Hoạt động gameplay (Train tự động, bán đồ, Phó Bản, Daily, Train LSV điều khiển game...) và parity với game thực còn thiếu/chưa kiểm chứng. Không có nút điều khiển game giả; không patch/inject/sửa TLM gốc hay gọi máy chủ bản quyền của bên thứ ba. DATA-2222 là nguồn CHỈ ĐỌC; Proxy không phát triển.
 
-**Kết quả S169:** [Windows CI 2575/2575 + native Train LSV Tk/INI/HWND + independent partial EXE artifact](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38192063711); Stage S và S36 diagnostic độc lập đều PASS. Trước mỗi CONTINUE, đọc PLAN và STATE, không dựng lại license/Info gốc trong tool mới.
+**Kết quả S170:** [Windows CI 2595/2595 + native Train LSV Tk/INI tọa độ/HWND + independent partial EXE artifact](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38193310989); Stage S và S36 diagnostic độc lập đều PASS. Trước mỗi CONTINUE, đọc PLAN và STATE, không dựng lại license/Info gốc trong tool mới.
