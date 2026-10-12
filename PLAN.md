@@ -2,6 +2,24 @@
 
 # PLAN TÁI TẠO TLMTool 2.1.2 — SOURCE + EXE + GIAO DIỆN + HÀNH VI
 
+> **QUYẾT ĐỊNH MỚI CỦA CHỦ DỰ ÁN — 2026-10-12 — ĐỌC TRƯỚC MỌI TASK / CONTINUE**
+>
+> **ĐỐI TƯỢNG: TOOL MỚI ĐANG XÂY DỰNG TRONG REPO NÀY, KHÔNG PHẢI CHỈNH SỬA HAY MỞ KHÓA TLM GỐC.**
+>
+> Chủ dự án quyết định: **tool mới phải hoạt động ĐỘC LẬP, BỎ HOÀN TOÀN cơ chế TLM gốc cấp quyền/thu hồi quyền, gói bản quyền, heartbeat xác thực và việc ẩn/hiện tab theo giấy phép.** Các chức năng do chính source mới triển khai không được phụ thuộc vào token, máy chủ cấp phép hay trạng thái bản quyền của TLM gốc. Đây là **điều chỉnh chủ đích về kiến trúc của sản phẩm mới**, ngoại lệ duy nhất đối với mục tiêu tái tạo hành vi gốc 1:1; không được âm thầm coi cơ chế bản quyền gốc là yêu cầu sản phẩm.
+>
+> **Hệ quả chức năng:** các tab/màn hình có **module thực sự được triển khai** sẽ được hiển thị theo cấu trúc UI đã kiểm chứng, **không ẩn hoặc vô hiệu hóa chỉ vì thiếu quyền/bị thu hồi quyền bản quyền TLM**. Tab chưa có module làm việc thật vẫn được đánh dấu `TODO / UNIMPLEMENTED` và **không hiển thị như thể đã hoàn thành**. Phần Info có thể giữ giao diện/thông tin không nhạy cảm nếu có bằng chứng, nhưng không được trở thành điều kiện mở ứng dụng. Giới hạn tài khoản, an toàn HWND/PID, quyền hệ điều hành, dừng worker, xử lý dữ liệu và tính hợp lệ của kết nối game **phải được thiết kế độc lập theo chức năng thực tế**, không mặc nhiên vô hiệu hóa các biện pháp an toàn.
+>
+> **Các task cũ liên quan cần rà soát khi triển khai chuyển đổi** (KHÔNG XÓA lịch sử): `S01` bootstrap đang `exit=2` chờ Info; `S02` `permission_guard.py` / `InfoState`; `E03/E04` ẩn/hiện tab theo snapshot quyền; `S164` phân tích xác thực; `S165` builder Train đòi `PermissionGuard`; `S166` vòng đời quét Train có điều kiện quyền; `S167` Info → Train thu hồi/quay lại quyền; và mọi màn hình/handler khác đang gọi `has_permission*`, `check_account_limit`, `apply_verified_permissions` hoặc `apply_info_snapshot`. **Lưu ý:** những task này đã được code/kiểm thử theo thiết kế cũ; **CHƯA chuyển đổi** sang kiến trúc mới. Không ghi `DONE` cho việc bỏ cấp quyền khi chưa sửa source, test Windows và build ứng dụng thực.
+>
+> **Chỉ dẫn cho AI triển khai:** giữ lại UI, thuật toán/quy tắc game có bằng chứng, module đã kiểm thử và tài liệu lịch sử. Khi tới công việc chuyển đổi, tạo task/PR **riêng** để thay bootstrap và cơ chế hiển thị tab thành **khả năng sẵn có của module + trạng thái vận hành cục bộ**, gỡ các phụ thuộc vào license TLM một cách có kiểm soát. Đảm bảo test hồi quy, so sánh UI/behavior, build EXE thực; không xóa/đổi phần đã đúng nếu không cần. Các unit test cũ về bản quyền là **hành vi lịch sử**, phải điều chỉnh hoặc phân loại trong PR chuyển đổi chứ không dùng chúng làm lý do bắt buộc giữ license gốc.
+>
+> **Giới hạn không thay đổi:** **KHÔNG** sửa/tiêm DLL/patch tiến trình hoặc EXE **TLM gốc**, không giả mạo token/response/chữ ký, không truy cập trái phép dịch vụ nhà phát hành và không thay đổi repo dữ liệu `ngmthang-g/clinent-game-than-long-DATA-2222` (chỉ đọc). `Proxy` vẫn ngoài phạm vi; giữ `SCOPE_LOCK.md`, original ZIP/EXE, baseline đã khóa. Các mục thiếu bằng chứng runtime thực vẫn `UNKNOWN / UNVERIFIED`.
+>
+> **Ưu tiên giải thích mâu thuẫn:** chỉ trong vấn đề bản quyền/ẩn tab của **tool mới**, quyết định ngày 2026-10-12 ở đây **ghi đè hướng dẫn cũ** đòi phải có Info/issuer TLM để khởi động sản phẩm mới. Những yêu cầu parity khác vẫn giữ. Không được hiểu `S164 USER_ACCEPTED_DEFERRED` là `S164 VERIFIED` hoặc là công việc chuyển đổi đã hoàn thành. `STATE.md` vẫn ghi tình trạng source thực và `NEXT_ACTION` hiện tại.
+
+
+
 ## 1. Mục tiêu cuối cùng
 
 Nguồn chuẩn là:
