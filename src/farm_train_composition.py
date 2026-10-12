@@ -66,6 +66,10 @@ class TkTrainComposition(ttk.Frame):
         self._closed = False
         self._syncing = False
         self._readonly_refresh_requested = False
+        # S166: only a selected Train owner may *temporarily* start the
+        # existing shared S09 producer. Never stop a producer owned by Start
+        # or another active observer.
+        self._lifecycle_owns_producer = False
         self._sensitive_host = None
         self.coords: FarmSavedCoordinatesEditor | None = None
         self.accounts: TkTrainAccountRows | None = None
@@ -282,11 +286,54 @@ class TkTrainComposition(ttk.Frame):
             return False
         self._reapply_all_controls()
         if not self._authorized():
+            # Revocation must release the selected Train's shared-producer
+            # lease before destroying account rows (even if tab stays open).
+            self._stop_refresh()
             self._teardown_sensitive()
             return False
         if self.coords is None:
             return self._make_sensitive()
         return True
+
+    def _start_refresh(self) -> bool:
+        """E03 selected-tab adapter: use ONLY existing S09 shared producer.
+
+        Train cannot create a second HWND scanner. If Start already owns
+        the producer, Train only reads its immutable cache and never stops it.
+        No independent license grant, game packet, or background input.
+        """
+        producer = self.window_producer
+        if self._closed or not isinstance(producer, StartWindowProducer):
+            return False
+        if not self._authorized():
+            self._stop_refresh()
+            return False
+        if not producer.active:
+            try:
+                if producer.start() is not True:
+                    return False  # old S09 native worker still stopping
+                self._lifecycle_owns_producer = True
+            except (OSError, RuntimeError, ValueError, TypeError):
+                return False
+        try:
+            if self.start_readonly_window_refresh():
+                return True
+        except (OSError, RuntimeError, ValueError, TypeError):
+            pass
+        self._stop_refresh()
+        return False
+
+    def _stop_refresh(self) -> None:
+        """E03 tab deselect / permission revoke: cancel Tk and owned worker.
+
+        A producer supplied by an external owner is NEVER stopped here.
+        """
+        self.stop_readonly_window_refresh()
+        if self._lifecycle_owns_producer:
+            self._lifecycle_owns_producer = False
+            producer = self.window_producer
+            if isinstance(producer, StartWindowProducer):
+                producer.stop()
 
     def start_readonly_window_refresh(self) -> bool:
         """Consume real *shared Start* S09 cache only; never launch a clone.
@@ -316,6 +363,7 @@ class TkTrainComposition(ttk.Frame):
     def shutdown(self) -> None:
         if self._closed:
             return
+        self._stop_refresh()
         self._teardown_sensitive()
         self._closed=True
 

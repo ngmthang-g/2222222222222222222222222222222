@@ -1,0 +1,83 @@
+name: S166 Train shared S09 Win32 producer native tab lifecycle Win64 NOT PRODUCT
+on:
+  pull_request:
+    paths:
+      - "src/farm_train_composition.py"
+      - "tests/test_s166.py"
+      - "tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py"
+      - ".github/workflows/s166-train-shared-producer-lifecycle.yml"
+  push:
+    paths:
+      - "src/farm_train_composition.py"
+      - "tests/test_s166.py"
+      - "tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py"
+      - ".github/workflows/s166-train-shared-producer-lifecycle.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  s166-real-native-win64-train-lifecycle:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - run: python -m pip install Pillow==11.3.0
+      - run: python -m compileall -q src tests tools
+      - run: python -m unittest discover -s tests -p "test_s*.py" -v
+      - run: python tools/S86_AUDIT_SOURCE_BUILD_GAPS.py
+      - name: S166 real Tk Train selected lifecycle / shared Win32 S09 worker ownership
+        run: python tools/S166_WINDOWS_TRAIN_LIFECYCLE_SMOKE.py
+      - name: Inherited S165 real original Train E03 builder native
+        run: python tools/S165_WINDOWS_E03_TRAIN_BUILDER_SMOKE.py
+      - name: Inherited S132 Train Tk original configuration/native HWND
+        run: python tools/S132_WINDOWS_TRAIN_COMPOSITION_SMOKE.py
+      - name: Inherited S163 Login real Tk account selection
+        run: python tools/S163_WINDOWS_F06_SELECTED_ACCOUNT_TK_SMOKE.py
+      - name: Inherited S162 Win32 game process spacing test owned
+        run: python tools/S162_WINDOWS_DUAL_GAME_NAME_COUNT_SMOKE.py
+      - name: Inherited S161 emulator protocol (test-owned only)
+        run: python tools/S161_WINDOWS_F05_ADB_GAME_COUNT_SMOKE.py
+      - name: Inherited S160 native process count (test-owned only)
+        run: python tools/S160_WINDOWS_F05_LIVE_EXE_COUNT_SMOKE.py
+      - name: Inherited S155 real Party G02 native lifecycle
+        run: python tools/S155_WINDOWS_PARTY_READY_LIFECYCLE_SMOKE.py
+      - name: Inherited S154 real Party G08 editor
+        run: python tools/S154_WINDOWS_PARTY_BUILDER_SMOKE.py
+      - name: Inherited S151 actual Tk Login 100 account rows
+        run: python tools/S151_WINDOWS_LOGIN_ACCOUNT_WHEEL_SMOKE.py
+      - name: Inherited S146 Win32 C12 native hide/show observer
+        run: python tools/S146_WINDOWS_C12_SHOW_ORIGIN_SMOKE.py
+      - name: Inherited S26 max_windows preflight
+        run: python tools/S26_WINDOWS_F05_PREFLIGHT_HWND_SMOKE.py
+      - name: Strict product Info gate remains fail-closed
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/s166 | Out-Null
+          python src/TLMTool.py 2>&1 | Out-File -Encoding utf8 artifacts/s166/product_gate.txt
+          if ($LASTEXITCODE -ne 2) { throw "S166_UNVERIFIED_PRODUCT_GUI_STARTED" }
+          if ((Get-Content -Raw artifacts/s166/product_gate.txt) -notmatch "S01 BLOCKED") { throw "S166_FAKE_INFO_GRANT" }
+          Write-Host "S166_PRODUCT=EXPLICITLY_BLOCKED_NO_GUI_NOT_PRODUCT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: S166_TRAIN_SHARED_START_WIN32_LIFECYCLE_TEST_ONLY_NOT_PRODUCT
+          path: |
+            artifacts/s166/
+            artifacts/s165/
+            artifacts/s132/
+            artifacts/s163/
+            artifacts/s162/
+            artifacts/s161/
+            artifacts/s160/
+            artifacts/s155/
+            artifacts/s154/
+            artifacts/s151/
+            artifacts/s146/
+            artifacts/s26/
+            artifacts/s86/source_and_product_gate_audit.json
+          if-no-files-found: warn
