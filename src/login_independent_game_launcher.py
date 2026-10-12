@@ -243,6 +243,14 @@ class IndependentGameLaunchController:
     def can_activate_last_window(self) -> bool:
         return self._sessions.latest_live() is not None
 
+    def inspect_original_reader(self, pid: int, selected_exe):
+        """Background-only original TLM memory_reader diagnostic (S196).
+
+        This is NOT read_role(), login authentication or game capability.
+        Registry restricts to actual own-launched retained Popen sessions.
+        """
+        return self._sessions.inspect_original_reader(pid, selected_exe)
+
     def activate_window(self, pid: int) -> IndependentActivationResult:
         """An explicit user-selected own-launched PID, never arbitrary HWND."""
         if self.busy:
