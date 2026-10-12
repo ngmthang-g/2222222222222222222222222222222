@@ -2,6 +2,15 @@
 
 _Last reviewed: 2026-10-12 Asia/Bangkok. PLAN.md + SCOPE_LOCK.md authoritative; PROJECT_STATUS.md append-only history._
 
+## CHỦ DỰ ÁN ĐỔI ĐỊNH HƯỚNG LICENSE/QUYỀN CHO TOOL MỚI — DOCUMENTED ONLY (2026-10-12)
+- **PHẢI ĐỌC QUYẾT ĐỊNH Ở ĐẦU `PLAN.md` trước mọi CONTINUE:** chủ dự án yêu cầu source/tool **mới** hoạt động độc lập, **không dựa vào cấp quyền/thu hồi quyền, bản quyền, Info issuer, heartbeat, plan hoặc ẩn/hiện tab theo license TLM gốc**. Đây là ngoại lệ **có chủ đích** với parity cơ chế cấp quyền TLM gốc, không phải sửa/mở khóa TLM gốc.
+- UI tab đã có chức năng triển khai thật sẽ hiển thị mà không dựa vào license TLM; tab chưa hoàn thiện không được dựng giả. **Không tắt kiểm tra an toàn** HWND/PID, quyền truy cập OS hay xử lý đóng worker. Không giả token, giả issuer, sửa TLM gốc hoặc repo DATA; Proxy không thay đổi.
+- **TRẠNG THÁI TRIỂN KHAI: `PLAN_DECISION_RECORDED / IMPLEMENTATION_NOT_STARTED`.** Source `src/TLMTool.py` hiện **vẫn exit=2**; `PermissionGuard`, `InfoState`, `TabLifecycle`, Train S165–S167 vẫn theo policy cũ. Các PASS của S167/S166/S165 chỉ chứng minh **thiết kế cũ**, không chứng minh đã tháo điều kiện quyền. Không gắn nhãn tool/EXE hoạt động khi chưa có kiểm chứng.
+- **BACKLOG CHUYỂN ĐỔI:** cần task/PR riêng cho bootstrap không ràng Info gốc, khả năng hiển thị của tab theo **module thực có**, những phần `PermissionGuard`/tab hide/Train guard cần thay, test Windows + build sản phẩm. Giữ logic gốc khác đã đạt chuẩn, không lặp lại task có code đúng. Quyết định này vượt hướng dẫn cũ **chỉ về license/permission gating của tool mới**; `SCOPE_LOCK.md` và baseline lịch sử không sửa.
+- **NEXT_ACTION hiện tại S168 vẫn giữ nguyên** cho đến khi chủ dự án hoặc bước triển khai chọn chính thức một task chuyển đổi; mọi AI phải áp dụng chính sách PLAN mới cho công việc từ đây, không đưa điều kiện Info gốc trở lại sản phẩm mới. S164 ngoại vi vẫn UNVERIFIED đối với **so sánh TLM gốc**, không phải lý do chặn bootstrap tool mới.
+
+
+
 ## LATEST VERIFIED SOURCE MILESTONE — S167 REAL E03 INFO-TO-TRAIN PERMISSION LIFECYCLE (2026-10-12)
 - [PR #20](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/20) merged to `main` **`0a8d58a7be00a26fce3e3d533a5be6935a81fe03`** after all required CI passed.
 - [S167 actual Win64 CI **38188981789**](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38188981789) **COMPLETED SUCCESS**: **2,543/2,543 Python unit tests**, **418 compiled Python files / 104 source modules**, `PASS_NATIVE_S167_REAL_TK_INFO_TO_TRAIN_REVOKE_RESUME_NOT_GAME`; true test-owned Tk Notebook + native Win32 S09 shared worker, Info→Train permission revoke disable/cleanup and safely restart on renewed independently permitted selected Train. Inherited S166/S165/S132/S163/S162/S160/S155/S154/S151/S146/S35 native PASS.
