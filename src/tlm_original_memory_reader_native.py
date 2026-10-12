@@ -62,6 +62,19 @@ class TlmOriginalReadProbe:
     # RoleName string reconstruction and actual Win64 runtime proof.
     numeric_candidate: OriginalNumericRoleCandidate | None = None
     role_name_candidate: OriginalRoleStringCandidate | None = None
+    # Windows kernel process creation FILETIME: exact PID generation proof.
+    # Not an authenticated character or TLM account identity.
+    process_creation_filetime: int | None = None
+
+
+class _WinFiletime(ctypes.Structure):
+    _fields_ = [
+        ("low", wintypes.DWORD),
+        ("high", wintypes.DWORD),
+    ]
+
+    def integer(self) -> int:
+        return (int(self.high) << 32) | int(self.low)
 
 
 def _pointer(v):
@@ -95,6 +108,14 @@ class _Win64ReadProcess:
         self.close = sig(self.kernel, "CloseHandle", [pointer], wintypes.BOOL)
         self.exit_code = sig(self.kernel, "GetExitCodeProcess",
                              [pointer, ctypes.POINTER(dword)], wintypes.BOOL)
+        self.process_times = sig(
+            self.kernel, "GetProcessTimes",
+            [pointer,
+             ctypes.POINTER(_WinFiletime),
+             ctypes.POINTER(_WinFiletime),
+             ctypes.POINTER(_WinFiletime),
+             ctypes.POINTER(_WinFiletime)],
+            wintypes.BOOL)
         self.exe_path = sig(self.kernel, "QueryFullProcessImageNameW",
                             [pointer, dword, wintypes.LPWSTR,
                              ctypes.POINTER(dword)], wintypes.BOOL)
@@ -129,6 +150,19 @@ class _Win64ReadProcess:
         return (bool(self.handle)
                 and bool(self.exit_code(self.handle, ctypes.byref(value)))
                 and value.value == 259)
+
+    def process_creation_filetime(self):
+        """Use OS process generation, not just reusable numeric PID/HWND."""
+        if not self.live():
+            return None
+        created, exited = _WinFiletime(), _WinFiletime()
+        kernel, user = _WinFiletime(), _WinFiletime()
+        if not self.process_times(
+                self.handle, ctypes.byref(created), ctypes.byref(exited),
+                ctypes.byref(kernel), ctypes.byref(user)):
+            return None
+        timestamp = created.integer()
+        return timestamp if timestamp > 0 else None
 
     def selected_image(self):
         if not self.live():
@@ -296,6 +330,9 @@ def inspect_original_tlm_role_pointer(window, selected_exe, *, backend=None):
         with _Win64ReadProcess(pid, exe) as reader:
             if not reader.selected_image():
                 return report("ATTACHED_PROCESS_NOT_SELECTED_GAME")
+            creation_time = reader.process_creation_filetime()
+            if creation_time is None:
+                return report("WINDOWS_PID_CREATION_PROOF_MISSING")
             ga = reader.module("GameAssembly.dll")
             unity = reader.module("UnityPlayer.dll")
             if not ga or not unity:
@@ -329,14 +366,15 @@ def inspect_original_tlm_role_pointer(window, selected_exe, *, backend=None):
             # relogin and memory reuse must never carry a stale reading.
             if (_role_pointer(reader, base) != role
                     or _anchored_session(reader, base, role) != anchor
-                    or not reader.selected_image()):
-                return report("GAME_ROLE_GENERATION_CHANGED_DURING_READ",
+                    or not reader.selected_image()
+                    or reader.process_creation_filetime() != creation_time):
+                return report("GAME_ROLE_OR_PROCESS_GENERATION_CHANGED",
                               True, True, True)
         if not _real_game_window(window, native):
             return report("HWND_PID_CHANGED_DURING_READ", True, True, True)
         return TlmOriginalReadProbe(
             "ORIGINAL_ROLE_UTF16_CANDIDATE_NOT_RUNTIME_VERIFIED",
             pid, hwnd, True, True, True,
-            False, False, False, False, numeric, role_name)
+            False, False, False, False, numeric, role_name, creation_time)
     except (OSError, RuntimeError, ValueError, OverflowError, AttributeError):
         return report("NATIVE_MEMORY_READ_FAILED")
