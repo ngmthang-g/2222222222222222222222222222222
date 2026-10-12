@@ -10,6 +10,7 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import ttk
 
+from don_train_panel import TkDonTrainSettingsPanel
 from don_return_settings import (
     DON_RETURN_OPTIONS, NAV_DEFAULTS, NAV_OPTIONS,
     DonReturnConfig, DonReturnSettingsError, DonReturnSettingsStore,
@@ -82,6 +83,13 @@ class TkDonReturnTab(ttk.Frame):
             priorities.columnconfigure(i, weight=1)
             self.nav_combos.append(combo)
             self.inputs.append(combo)
+
+        # S182 joins real original [DonVang] Train/recovery option writes.
+        # Both independent panels must keep the same full-file snapshot fresh.
+        self.train_panel = TkDonTrainSettingsPanel(
+            self, settings_file=settings_file,
+            on_saved=self._sync_after_train_save)
+        self.train_panel.pack(fill="x", padx=6, pady=(1, 5))
 
         self.status = ttk.Label(self, text="", wraplength=420, anchor="w")
         self.status.pack(fill="x", padx=6, pady=(0, 4))
@@ -182,6 +190,7 @@ class TkDonReturnTab(ttk.Frame):
             return False
         self.last_error = None
         self._restore()
+        self.train_panel.sync_after_other_save()
         self._set_status("Đã lưu cấu hình Dồn vào settings.ini")
         return True
 
@@ -209,7 +218,26 @@ class TkDonReturnTab(ttk.Frame):
             return False
         return self._commit(f"nav_priority_{index + 1}", value)
 
+    def _sync_after_train_save(self):
+        """Reload return snapshot after a sibling atomic write to settings.ini."""
+        if self._closed or self._blocked:
+            return False
+        try:
+            self.snapshot = self.store.load()
+        except (OSError, ValueError, DonReturnSettingsError) as exc:
+            self.last_error = type(exc).__name__
+            self._blocked = True
+            self._refresh_controls()
+            self._set_status(
+                "Cấu hình Dồn đã thay đổi; đóng/mở lại tab trước khi chỉnh")
+            return False
+        self._restore()
+        return True
+
     def shutdown(self):
+        if self._closed:
+            return
+        self.train_panel.shutdown()
         self._closed = True
 
     def _on_destroy(self, event):
