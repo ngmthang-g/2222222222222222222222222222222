@@ -2,7 +2,14 @@
 
 _Last reviewed: 2026-10-12 Asia/Bangkok. PLAN.md + SCOPE_LOCK.md authoritative; PROJECT_STATUS.md append-only history._
 
-## LATEST VERIFIED SOURCE MILESTONE — S166 TRAIN SHARED S09 PRODUCER LIFECYCLE (2026-10-12)
+## LATEST VERIFIED SOURCE MILESTONE — S167 REAL E03 INFO-TO-TRAIN PERMISSION LIFECYCLE (2026-10-12)
+- [PR #20](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/20) merged to `main` **`0a8d58a7be00a26fce3e3d533a5be6935a81fe03`** after all required CI passed.
+- [S167 actual Win64 CI **38188981789**](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38188981789) **COMPLETED SUCCESS**: **2,543/2,543 Python unit tests**, **418 compiled Python files / 104 source modules**, `PASS_NATIVE_S167_REAL_TK_INFO_TO_TRAIN_REVOKE_RESUME_NOT_GAME`; true test-owned Tk Notebook + native Win32 S09 shared worker, Info→Train permission revoke disable/cleanup and safely restart on renewed independently permitted selected Train. Inherited S166/S165/S132/S163/S162/S160/S155/S154/S151/S146/S35 native PASS.
+- Independent [Stage S **38188981826**](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38188981826) and [S36 Windows packaged diagnostic **38188981882**](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38188981882) **COMPLETED SUCCESS** on same PR head. S36 EXE intentionally **DIAGNOSTIC ONLY**, product EXE NOT BUILT.
+- Exactly one scoped production edit: `src/shell.py` `apply_info_snapshot` now re-applies existing Train permission check on Tk main thread after a real Info update; conditionally resumes existing S166 Train passive observer only if fresh Info snapshot AND independent Train guard allow. No added token issuer, credential, Start/Train backend changes, game input/Proxy, fake action buttons. [Details](docs/tasks/S167.md).
+- **Real signed Info issuer, heartbeat and authenticated Thần Long runtime still UNVERIFIED**; S164 accepted DEFERRED for continued independent work, NOT license verified. Product bootstrap `main()` still safe exit=2. Frozen original/DATA-2222 READ ONLY, Proxy excluded.
+
+## PRIOR VERIFIED SOURCE MILESTONE — S166 TRAIN SHARED S09 PRODUCER LIFECYCLE (2026-10-12)
 - [PR #19](https://github.com/ngmthang-g/2222222222222222222222222222222/pull/19) **squash merged to main** `c578cee7f6849211d363e6d71427e830737cfd49`.
 - [S166 actual Win64 native CI 38188435058](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38188435058) **SUCCESS**: **2,531/2,531 Windows unit tests**, **416 compiled Python files /104 source modules**; S166 genuine test-owned Tk HWND plus actual Win32 S09 worker select/stop/reenter/revoke and external ownership isolation PASS.
 - Inherited S165/S132 Train, S163 Login, S162/S160 Win32 counts, S161 emulator protocol, S155/S154 Party, S151/S146/S26 native regression PASS. Independent [Stage S 38188435060](https://github.com/ngmthang-g/2222222222222222222222222222222/actions/runs/38188435060) and [S36 real packaged Win64 diagnostic 38188435080](https://github.com/ngmthang-g/2222222222222222222222222222222222222/actions/runs/38188435080) both SUCCESS on the exact PR head.
@@ -65,8 +72,14 @@ _Last reviewed: 2026-10-12 Asia/Bangkok. PLAN.md + SCOPE_LOCK.md authoritative; 
 - Preserve S165 Win64 baseline **2517 units / 414 compiled**, original native regression and independent S36 diagnostic/Stage S; no actual game, no licensing bypass, no new Proxy.
 - Return to S164 signed Info/real-game blocker only after fresh legitimate test evidence, not repeated CONTINUE requests.
 
-## CURRENT NEXT_ACTION — S167 ORIGINAL-BACKED USER-FACING TRAIN INTEGRATION
+## COMPLETED NEXT_ACTION — S167 ORIGINAL-BACKED USER-FACING TRAIN INTEGRATION
 - Read LIVE `PLAN.md`, `STATE.md`, `docs/tasks/S166.md`, original B05/H01/H02 Train evidence, and current E03/TLMMainApp tab wiring. Confirm which meaningful Train controls/behaviors are already implemented and identify **one unimplemented, source-grounded user-facing slice** without modifying verified parts.
 - Prefer actual Tk/INI or real Win32 behavior with original evidence over repeating small mock/regression helpers. Source-backed components may be integrated within authenticated tab lifecycle; **no guessed game input/RoleName**, no unsigned Info grant, no fake Bắt đầu/Bán đồ/Đánh, no Proxy.
 - When a safe implementation exists, validate PR real Win64 **>=2531** unit, **>=416** compiled, native S166/S165/S132/S163 and inherited regressions, independent S36 diagnostic and Stage S; then merge and record exact evidence. If game/issuer is essential, record blocker precisely and switch to another original-backed module.
 - S164 signature issuer/game runtime remains deferred, not passed; never call diagnostic EXE the finished product. DATA reference READ ONLY, frozen original/PLAN/SCOPE_LOCK preserved.
+
+## CURRENT NEXT_ACTION — S168 ORIGINAL TRAIN LSV CONFIGURATION INTEGRATION
+- Re-read LIVE PLAN/STATE/S167/SCOPE_LOCK, inspect original **B06/I01–I12 Train LSV** evidence, original account/settings UI contracts and existing `src/` modules. Identify a **substantial independently testable original user control** from Train LSV absent from source, preferably real Tk + durable original settings.ini schema where defaults/keys are proven.
+- Avoid redoing correct S132/S165/S166/S167 Train or adding meaningless tests. If any option relies on unknown original key/default, do not invent it; pick a proven safe subset with explicit UNKNOWN for remainder. Do not ship guessed LSV movement/fight/return buttons without real game runtime.
+- PR changes require true Windows **>=2543** Python tests, **>=418** compiled, native S167/S166/S165/S132/S163 inherited, independent S36 packaged diagnostic and Stage S green; document actual tested functionality versus unresolved Info/game, then merge and record milestone.
+- Continue to defer S164 authentic Info signature/launcher/login until legitimate proof is available; not a license bypass. `TLMTool.main()` must remain fail-closed; DATA-2222 strictly READ ONLY, Proxy EXCLUDED, frozen original assets and PLAN/SCOPE_LOCK untouched.
