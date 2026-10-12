@@ -248,6 +248,10 @@ class RaoDefinitionStore:
             return RaoConfigSnapshot(validated, encoded)
 
     def _atomic_write(self, expected: bytes, replacement: bytes):
+        if len(replacement) > MAX_SETTINGS_BYTES:
+            raise RaoConfigError("RAO_SETTINGS_TOO_LARGE")
+        if replacement == expected:
+            return
         self.path.parent.mkdir(parents=True, exist_ok=True)
         fd, temp = tempfile.mkstemp(
             prefix="settings.", suffix=".tmp", dir=str(self.path.parent))
