@@ -203,8 +203,12 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
         if (self._launch_closed or self._closed
                 or self._launch_poll_token is not None):
             return
+        # F05 native resize ticks once per second. Poll Tk status at
+        # 1s once all launch workers finish; 350ms only while waiting
+        # for a new PID/HWND handoff. Avoid permanent 350ms GUI churn.
+        delay_ms = 350 if self.launch_controller.busy else 1000
         self._launch_poll_token = self.container.after(
-            350, self._drain_launch_results)
+            delay_ms, self._drain_launch_results)
 
     def _drain_launch_results(self):
         self._launch_poll_token = None
