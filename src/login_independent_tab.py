@@ -148,7 +148,7 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
                 or self._launch_poll_token is not None):
             return
         self._launch_poll_token = self.container.after(
-            200, self._drain_launch_results)
+            350, self._drain_launch_results)
 
     def _drain_launch_results(self):
         self._launch_poll_token = None
@@ -156,9 +156,28 @@ class TLMIndependentLoginTab(TLMLoginPathTab):
             return
         for outcome in self.launch_controller.drain():
             self._show_result(outcome)
+        for resize_event in self.launch_controller.drain_size_events():
+            self._show_size_event(resize_event.code, resize_event.pid,
+                                  resize_event.hwnd)
         self._refresh_launch_button()
-        if self.launch_controller.busy:
+        # A Login-owned F05 size worker continues each second after the
+        # launch worker's PID/HWND handoff has completed.
+        if (self.launch_controller.busy
+                or self.launch_controller.size_monitor_active):
             self._schedule_launch_poll()
+
+    def _show_size_event(self, code: str, pid: int, hwnd: int) -> None:
+        if code == "RESIZED_TO_1366X768":
+            self._show_launch_status(
+                f"Đã chuẩn hóa PID {pid} / HWND {hwnd} về 1366×768; chưa login.")
+        elif code == "ALREADY_1366X768":
+            self._show_launch_status(
+                f"Cửa sổ PID {pid} đúng 1366×768; chưa login.")
+        elif code.startswith("RESIZE_"):
+            # Never misreport a native SetWindowPos attempt as success.
+            self._show_launch_status(
+                f"Không chuẩn hóa được HWND {hwnd}: {code}. "
+                "Không thay đổi nhân vật/game login.")
 
     def _show_result(self, result: IndependentLaunchResult):
         if result.code == "WINDOW_VERIFIED":
