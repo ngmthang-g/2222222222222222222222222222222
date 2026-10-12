@@ -17,6 +17,7 @@ from train_lsv_top_tab import TkTrainLsvTopTab
 from rao_definition_tab import TkRaoConfigTab
 from toiuu_monitor_tab import TkToiuuHostTab
 from daily_top_tab import TkDailyTopTab
+from don_return_tab import TkDonReturnTab
 from settings_store import settings_path
 from shell import TLMMainApp
 from source_backed_tab_builders import source_backed_tab_builders
