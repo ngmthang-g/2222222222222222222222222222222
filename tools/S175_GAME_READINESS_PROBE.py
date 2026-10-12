@@ -135,7 +135,10 @@ def main(argv=None) -> int:
         except OSError as exc:
             print("REPORT_WRITE_REFUSED:"+type(exc).__name__,file=sys.stderr)
             return 3
-    print(report,end="")
+    # Windows packaged console may have cp1252 (as in real GitHub CI).
+    # Emit ASCII-escaped but valid JSON to stdout; keep full UTF-8 in
+    # the explicitly selected report file. Never crash after a good scan.
+    print(json.dumps(result,ensure_ascii=True,sort_keys=True,indent=2))
     return 0 if result["scan_status"]=="WINDOW_SCAN_COMPLETED" else 2
 
 
