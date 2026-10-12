@@ -167,7 +167,8 @@ class TLMMainApp:
     def __init__(self, root: Any, builders: Mapping[str, Callable[[Any], Any]], *,
                  notebook_factory: Callable[..., Any] | None = None,
                  frame_factory: Callable[..., Any] | None = None,
-                 independent_mode: bool = False):
+                 independent_mode: bool = False,
+                 local_window_count: Callable[[], int] | None = None):
         if INFO_KEY not in builders:
             raise MissingFeatureError('S01: real InfoTab/authentication has not been reconstructed')
         if notebook_factory is None or frame_factory is None:
@@ -177,6 +178,7 @@ class TLMMainApp:
         self.root = root
         self._closed = False
         self._independent_mode = independent_mode
+        self._local_window_count = local_window_count
         self.root.title('TLMTool' + (' — Độc lập' if independent_mode else ''))
         self.root.geometry('250x20')  # E02 transient only
         self.root.withdraw()
@@ -224,6 +226,13 @@ class TLMMainApp:
             instance = self.lifecycle._instances.get('start_tab')
             setter = getattr(instance, 'set_layout_max_windows', None)
             if callable(setter):
+                if getattr(self, '_independent_mode', False):
+                    count = (self._local_window_count()
+                             if callable(self._local_window_count) else 0)
+                    # Actual observed game window count, never an invented
+                    # issuer max_windows or a hardcoded 999 fallback.
+                    self._verified_max_windows = (
+                        count if type(count) is int and count > 0 else 0)
                 setter(self._verified_max_windows)
 
     def apply_local_capabilities(self) -> frozenset[str]:
