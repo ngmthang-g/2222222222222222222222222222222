@@ -24,6 +24,7 @@ from settings_store import settings_path
 from shell import TLMMainApp
 from source_backed_tab_builders import source_backed_tab_builders
 from start_polling import StartWindowProducer, WindowSnapshot
+from independent_shared_window_source import IndependentSharedWindowProducer
 from single_instance import SingleInstanceMutex
 from startup_diagnostics import StartupDiagnostics
 from session_logger import SessionTee
@@ -62,7 +63,8 @@ def make_independent_builders(settings_file: str | Path,
     # TLMLoginPathTab remains unchanged for comparison and old tests.
     # No original TLM DLL/Info license, Proxy or credential auto-login.
     def build_independent_login(parent):
-        return TLMIndependentLoginTab(parent, settings_file=settings_file)
+        return TLMIndependentLoginTab(
+            parent, settings_file=settings_file, start_producer=producer)
     builders["login_tab"] = build_independent_login
 
     # S169: real TrainLSV [TrainLSV] config is a dedicated, non-game tab;
@@ -131,8 +133,10 @@ def run_independent_tool() -> int:
             with StartupDiagnostics():
                 import tkinter as tk
                 root = tk.Tk()
-                producer = StartWindowProducer()
+                producer = IndependentSharedWindowProducer()
                 try:
+                    if not producer.start():
+                        raise RuntimeError("INDEPENDENT_NATIVE_GAME_DISCOVERY_UNAVAILABLE")
                     app = TLMMainApp(
                         root, make_independent_builders(settings_path(), producer),
                         independent_mode=True,
@@ -145,7 +149,7 @@ def run_independent_tool() -> int:
                         if 'app' in locals():
                             app.shutdown()
                     finally:
-                        producer.stop()
+                        producer.shutdown()
                         try:root.destroy()
                         except tk.TclError:pass
 
