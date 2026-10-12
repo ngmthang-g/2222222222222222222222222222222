@@ -95,9 +95,14 @@ class NativePrintWindowFrame:
     this primitive must not run on Tk main thread in real product.
     """
 
-    def __init__(self):
+    def __init__(self, *, printwindow_flags: int = 0):
         if os.name!="nt":
             raise OSError("S145_WINDOWS_REQUIRED")
+        # S203: original compiled pixel.py's batch captures request
+        # PrintWindow flag=2. Preserve S145's original default flag=0.
+        if type(printwindow_flags) is not int or printwindow_flags not in (0, 2):
+            raise ValueError("PRINTWINDOW_UNSUPPORTED_FLAGS")
+        self._printwindow_flags = printwindow_flags
         import ctypes
         from ctypes import wintypes as w
         self._ctypes=ctypes
@@ -154,7 +159,7 @@ class NativePrintWindowFrame:
             prior=self._g.SelectObject(memory_dc,bitmap)
             if not prior:
                 raise OSError("PRINTWINDOW_SELECT_FAILED")
-            if not self._u.PrintWindow(hwnd,memory_dc,0):
+            if not self._u.PrintWindow(hwnd,memory_dc,self._printwindow_flags):
                 raise OSError("PRINTWINDOW_FAILED")
             # BITMAPINFOHEADER + RGBQUAD zero; negative height = top-down.
             # Explicit layout uses DWORD (4), LONG (4), WORD (2), WORD (2).
