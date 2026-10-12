@@ -126,6 +126,7 @@ class IndependentCharacterDiagnosticObserver:
         self._closed = False
         self._batch = UnverifiedCharacterBatch("WAITING_FOR_NATIVE_GAME_WINDOWS")
         self._cursor = 0
+        self._generation = 0
 
         def selected_exe():
             # Worker-only, bounded original F04 read, never from Tk widgets.
@@ -190,13 +191,27 @@ class IndependentCharacterDiagnosticObserver:
             for item in batch.members)
         return replace(batch, members=result)
 
-    def _publish(self, batch):
+    def invalidate(self):
+        """F04 folder change must immediately hide ALL old role/HP data.
+
+        A slow in-flight hash/native read may finish later; generation check
+        prevents it from publishing into the new selected game folder.
+        """
         with self._lock:
-            if not self._closed and not self._stop.is_set():
+            self._generation += 1
+            self._batch = UnverifiedCharacterBatch(
+                "GAME_FOLDER_CHANGED_CANDIDATES_INVALIDATED")
+
+    def _publish(self, batch, generation):
+        with self._lock:
+            if (not self._closed and not self._stop.is_set()
+                    and generation == self._generation):
                 self._batch = batch
 
     def _run(self):
         while not self._stop.is_set():
+            with self._lock:
+                generation = self._generation
             try:
                 snap = self.producer.read_snapshot()
                 if (not self.producer.active
@@ -258,16 +273,17 @@ class IndependentCharacterDiagnosticObserver:
                             self._previous = {}
                             batch = UnverifiedCharacterBatch(
                                 "WINDOW_SET_CHANGED_DURING_READ")
-                self._publish(batch)
+                self._publish(batch, generation)
             except (OSError, ValueError, RuntimeError, TypeError,
                     AttributeError):
                 self._publish(UnverifiedCharacterBatch(
-                    "ORIGINAL_NATIVE_READ_DIAGNOSTIC_FAILED"))
+                    "ORIGINAL_NATIVE_READ_DIAGNOSTIC_FAILED"), generation)
             self._stop.wait(self.interval)
 
     def shutdown(self):
         with self._lock:
             self._closed = True
+            self._generation += 1
             self._batch = UnverifiedCharacterBatch("STOPPED")
             self._stop.set()
         # Bounded join: no indefinite wait on Win32/FS I/O on the Tk thread.
