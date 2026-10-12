@@ -225,6 +225,36 @@ class TkDailyTopTab(ttk.Frame):
             self._set_status("Đã lưu cấu hình Daily vào settings.ini")
         return True
 
+    def _start_refresh(self) -> bool:
+        """E08 notebook re-entry: refresh cross-tab INI edits if UI is pristine."""
+        if not self._allowed():
+            return False
+        # Do not silently drop a numeric field left in an unfinished edit.
+        if any(var.get() != getattr(self.snapshot.value, key)
+               for key, var in self.vars.items()):
+            self._set_status(
+                "Có chỉnh sửa Daily chưa lưu; giữ nguyên màn hình, "
+                "không tự nạp đè dữ liệu")
+            return False
+        try:
+            latest = self.store.load()
+        except (DailyConfigError, OSError, ValueError) as exc:
+            self.last_error = type(exc).__name__
+            self._blocked = True
+            self._refresh_controls()
+            self._set_status("Cấu hình Daily không an toàn; mở lại tab sau khi sửa file")
+            return False
+        if latest.file_bytes != self.snapshot.file_bytes:
+            self.snapshot = latest
+            self._restore()
+            self._set_status(
+                "Đã đồng bộ cấu hình Daily sau thay đổi từ tab khác")
+        return True
+
+    def _stop_refresh(self):
+        # No poller to stop; never mutate other-tab data on a tab switch.
+        return None
+
     def shutdown(self):
         self._closed = True
 
