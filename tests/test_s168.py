@@ -96,7 +96,13 @@ class S168Independent(unittest.TestCase):
         producer=StartWindowProducer()
         with tempfile.TemporaryDirectory() as directory:
             b=independent.make_independent_builders(Path(directory)/"settings.ini",producer)
-        self.assertEqual(frozenset(b),SOURCE_BACKED_KEYS|frozenset({"farm_tab", "trainlsv_tab"}))
+        # Historical S168 base catalog is a REQUIRED SUBSET, not the
+        # entire S209 product: later verified local UI modules were added
+        # in S169–S206. Keep the no-unregistered-tab safety invariant.
+        self.assertTrue(
+            SOURCE_BACKED_KEYS | frozenset({"farm_tab", "trainlsv_tab"})
+            <= frozenset(b))
+        self.assertLessEqual(frozenset(b), LOCAL_TAB_KEYS)
         self.assertNotIn("proxy_tab",b)
         self.assertEqual(independent.count_observed_game_windows(producer),0)
 
