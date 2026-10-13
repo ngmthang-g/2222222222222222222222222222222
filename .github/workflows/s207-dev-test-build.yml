@@ -31,6 +31,8 @@ jobs:
         run: python -m compileall -q src
       - name: Independently import application and print truthful feature status
         run: python src/TLMToolIndependent.py --self-check
+      - name: Native Windows Tk navigate ALL eleven real independent tabs
+        run: python tools/S208_WINDOWS_ALL_INDEPENDENT_TABS_SMOKE.py
       - name: Package current independent GUI into portable Windows folder
         shell: pwsh
         run: |
@@ -80,6 +82,7 @@ jobs:
           Neu loi: gui log va anh chup man hinh ve cuoc tro chuyen.
           '@ | Set-Content -Path "$dest/README_DEV_TEST.txt" -Encoding utf8
           Copy-Item "artifacts/s207/self_check.txt" "$dest/SELF_CHECK_RESULT.txt"
+          Copy-Item "artifacts/s208/windows_all_tabs.json" "$dest/WINDOWS_ALL_TABS_RESULT.json"
           git rev-parse HEAD | Set-Content "$dest/SOURCE_COMMIT.txt" -Encoding ascii
       - name: Upload portable complete EXE folder
         uses: actions/upload-artifact@v4
