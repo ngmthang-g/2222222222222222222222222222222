@@ -81,3 +81,82 @@ def find_main_window_by_pid(
             except (OSError, RuntimeError, ValueError, TypeError):
                 continue
     return None
+
+def find_verified_game_window_by_pid(
+    pid: int, expected_executable: str,
+    backend: WindowBackend | None = None,
+) -> int | None:
+    """S209 production F05: find actual game window, NEVER PID-owned popup.
+
+    S156's original-compatible finder has a first-visible fallback. That
+    works for original inspection, but waiting for a launched Unity game
+    must NOT repeatedly try the same unrelated popup until 25s timeout.
+
+    Enumerate ALL actual top-level windows in ONE pass, require exact PID
+    and selected game executable, then original S08 game class/title
+    predicate. Prefer a unique UnityWndClass, otherwise a unique exact
+    original game-title window. Multiple equally credible HWNDs remain
+    ambiguous (no invented master window). No mouse, DLL or game commands.
+    """
+    from pathlib import Path
+    import os
+    from start_windows import is_game_candidate, GAME_TITLE, _compact
+
+    if (type(pid) is not int or not 0 < pid <= 0xFFFFFFFF
+            or not isinstance(expected_executable, (str, Path))
+            or not str(expected_executable)):
+        return None
+    reader = backend if backend is not None else NativeWin32Backend()
+    expected = os.path.normcase(os.path.normpath(str(expected_executable)))
+    try:
+        candidates = tuple(reader.enumerate_top_level())
+    except (OSError, RuntimeError, TypeError, ValueError, AttributeError):
+        return None
+    unity = []
+    title_matches = []
+    seen = set()
+    for hwnd in candidates:
+        if type(hwnd) is not int or hwnd <= 0 or hwnd in seen:
+            continue
+        seen.add(hwnd)
+        try:
+            if (not reader.is_window(hwnd)
+                    or not reader.is_visible(hwnd)
+                    or reader.process_id(hwnd) != pid):
+                continue
+            exe = reader.process_executable(pid)
+            if (not isinstance(exe, str) or
+                    os.path.normcase(os.path.normpath(exe)) != expected):
+                continue
+            cls = reader.window_class(hwnd)
+            title = reader.title_with_timeout(hwnd, TITLE_TIMEOUT_MS)
+            if not is_game_candidate(exe, cls, title):
+                continue
+            if (not reader.is_window(hwnd)
+                    or not reader.is_visible(hwnd)
+                    or reader.process_id(hwnd) != pid
+                    or os.path.normcase(os.path.normpath(
+                        reader.process_executable(pid))) != expected):
+                continue
+            if cls == UNITY_WINDOW_CLASS:
+                unity.append(hwnd)
+            elif _compact(title) == _compact(GAME_TITLE):
+                title_matches.append(hwnd)
+        except (OSError, RuntimeError, TypeError, ValueError, AttributeError):
+            continue
+    for group in (unity, title_matches):
+        if len(group) > 1:
+            return None
+        if len(group) == 1:
+            hwnd = group[0]
+            try:
+                if (reader.is_window(hwnd)
+                        and reader.is_visible(hwnd)
+                        and reader.process_id(hwnd) == pid
+                        and os.path.normcase(os.path.normpath(
+                            reader.process_executable(pid))) == expected):
+                    return hwnd
+            except (OSError, RuntimeError, TypeError, ValueError, AttributeError):
+                return None
+            return None
+    return None
