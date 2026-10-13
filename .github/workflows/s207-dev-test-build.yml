@@ -1,0 +1,86 @@
+name: S207 — Windows DEV TEST bundle (independent TLM, NOT gameplay-complete)
+on:
+  push:
+    branches:
+      - plan-source-first-defer-final-test
+    paths:
+      - ".github/workflows/s207-dev-test-build.yml"
+      - "src/**"
+      - "requirements-build-s36.txt"
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  win64-dev-test:
+    runs-on: windows-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout exact current source branch
+        uses: actions/checkout@v4
+      - name: Python Windows x64
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10.11"
+          architecture: x64
+      - name: Install GUI dependencies and build tools
+        run: |
+          python -m pip install --disable-pip-version-check Pillow==11.3.0
+          python -m pip install --disable-pip-version-check -r requirements-build-s36.txt
+      - name: Validate ALL new and historic source parses
+        run: python -m compileall -q src
+      - name: Independently import application and print truthful feature status
+        run: python src/TLMToolIndependent.py --self-check
+      - name: Package current independent GUI into portable Windows folder
+        shell: pwsh
+        run: |
+          python -m PyInstaller --noconfirm --clean --onedir --console --noupx --name TLMTool_DEV_TEST --distpath artifacts/s207/dist --workpath artifacts/s207/work --specpath artifacts/s207/spec --paths src src/TLMToolIndependent.py
+          if ($LASTEXITCODE -ne 0) { throw "DEV_TEST_PYINSTALLER_BUILD_FAILED" }
+      - name: Check packaged EXE starts in static mode (NOT game parity)
+        shell: pwsh
+        run: |
+          & "artifacts/s207/dist/TLMTool_DEV_TEST/TLMTool_DEV_TEST.exe" --self-check | Tee-Object -FilePath "artifacts/s207/self_check.txt"
+          if ($LASTEXITCODE -ne 0) { throw "DEV_TEST_PACKAGED_SELF_CHECK_FAILED" }
+      - name: Add double-click launcher and Vietnamese testing instructions
+        shell: pwsh
+        run: |
+          $dest = "artifacts/s207/dist/TLMTool_DEV_TEST"
+          @'
+          @echo off
+          cd /d "%~dp0"
+          "TLMTool_DEV_TEST.exe"
+          pause
+          '@ | Set-Content -Path "$dest/START_DEV_TEST.cmd" -Encoding ascii
+          @'
+          TLMTool DEV TEST — SOURCE STAGE S206+ (NOT 100% GAMEPLAY)
+          ==========================================================
+          THIS IS THE NEW INDEPENDENT TOOL. DO NOT COPY/MERGE FILES
+          INTO THE ORIGINAL TLMTool INSTALLATION OR GAME FOLDER.
+
+          1. Extract the entire ZIP to a new local folder on Windows.
+          2. Double-click START_DEV_TEST.cmd. Keep _internal next to EXE.
+          3. Check tab UI, game discovery in Start, Login folder selector,
+             read-only original-memory diagnostics, Party/Train candidate
+             readings, and original pixel ROI diagnostics in Pho Ban/Don Vang.
+          4. If a feature doesn't recognize the running game, capture
+             the exact status code and console error (or screenshot).
+          5. Close normally when finished. Do not grant administrator
+             permission unless your environment genuinely needs it.
+          6. Do NOT rely on this tool for actual auto-login, Train, Party,
+             Phó Ban, Don Vang, item trading or inventory operations.
+             These game action senders are NOT IMPLEMENTED/VERIFIED.
+          7. This ZIP is a source/current-branch DEV test artifact,
+             NOT a complete clone and NOT a verified game runtime build.
+
+          CHU Y: Ban DEV dang kiem tra, chua co auto game hoan chinh.
+          Neu loi: gui log va anh chup man hinh ve cuoc tro chuyen.
+          '@ | Set-Content -Path "$dest/README_DEV_TEST.txt" -Encoding utf8
+          Copy-Item "artifacts/s207/self_check.txt" "$dest/SELF_CHECK_RESULT.txt"
+          git rev-parse HEAD | Set-Content "$dest/SOURCE_COMMIT.txt" -Encoding ascii
+      - name: Upload portable complete EXE folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: TLMTool_DEV_TEST_WIN64_PARTIAL_S207
+          path: artifacts/s207/dist/TLMTool_DEV_TEST/
+          if-no-files-found: error
+          retention-days: 14
