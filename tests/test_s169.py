@@ -143,7 +143,11 @@ class S169LsvTopStore(unittest.TestCase):
         b=make_independent_builders(self.path,StartWindowProducer())
         self.assertIn("trainlsv_tab",b)
         self.assertNotIn("proxy_tab",b)
-        self.assertNotIn("phoban_tab",b)
+        # S169 had no Phó Bản yet; later S184 added its independent local
+        # settings builder. Require it be a SEPARATE actual factory, not a
+        # disguised Train LSV tab or an original licence/proxy feature.
+        self.assertIn("phoban_tab",b)
+        self.assertIsNot(b["phoban_tab"],b["trainlsv_tab"])
         self.assertTrue(LocalFeaturePolicy(frozenset({"trainlsv_tab"}))
                         .config_available("trainlsv_tab"))
 
