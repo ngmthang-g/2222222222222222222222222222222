@@ -21,7 +21,9 @@ import time
 from typing import Callable
 
 from login_path import EXE_NAME
-from login_pid_window import find_main_window_by_pid
+from login_pid_window import (
+    find_main_window_by_pid, find_verified_game_window_by_pid,
+)
 from login_running_process_capacity import count_current_game_processes
 from login_safe_env import WINDOWS_ESSENTIAL_CANDIDATES
 from login_independent_resize_monitor import OwnedWindowSizeEvent
@@ -46,7 +48,7 @@ class IndependentLaunchResult:
         return self.pid is not None and self.code in (
             "WINDOW_VERIFIED", "STARTED_NO_WINDOW_YET",
             "PROCESS_EXITED_BEFORE_WINDOW", "CANCELLED_AFTER_START",
-            "HWND_CHECK_FAILED")
+            "HWND_CHECK_FAILED", "PID_WINDOW_NOT_VERIFIED_AS_GAME")
 
 
 def _game_exe(path: str | Path) -> Path:
@@ -195,8 +197,18 @@ class IndependentGameLaunchController:
             if self._clock() > deadline:
                 break
             try:
-                hwnd = self._find_hwnd(pid)
-            except (OSError, RuntimeError, ValueError, TypeError):
+                # S209: the S156 original-compatible PID finder deliberately
+                # falls back to the FIRST visible popup/dialog. Repeatedly
+                # selecting that same HWND makes F05 time out even after
+                # the genuine UnityWndClass appears. Only the production
+                # (default) F05 path uses the STRICT exact-exe Unity picker.
+                # Explicitly injected old test finders keep their interface.
+                hwnd = (
+                    find_verified_game_window_by_pid(pid, str(exe))
+                    if self._find_hwnd is find_main_window_by_pid
+                    else self._find_hwnd(pid))
+            except (OSError, RuntimeError, ValueError, TypeError,
+                    AttributeError):
                 hwnd = None
             if type(hwnd) is int and hwnd > 0 and not self._stop.is_set():
                 # S156 can legitimately return a PID-owned fallback dialog
@@ -221,12 +233,12 @@ class IndependentGameLaunchController:
             self._post(IndependentLaunchResult(
                 "CANCELLED_AFTER_START", pid, running_game_count_before=count))
             return
+        # Timeout is NOT user cancellation. Publish exactly one result:
+        # the process may still exist; never claim it was killed/stopped.
         self._post(IndependentLaunchResult(
             "PID_WINDOW_NOT_VERIFIED_AS_GAME" if saw_unattested_pid_window
             else "STARTED_NO_WINDOW_YET", pid,
             running_game_count_before=count))
-        self._post(IndependentLaunchResult(
-            "CANCELLED_AFTER_START", pid, running_game_count_before=count))
 
     @property
     def size_monitor_active(self) -> bool:
